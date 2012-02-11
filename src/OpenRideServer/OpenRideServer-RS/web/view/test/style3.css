@@ -1,0 +1,462 @@
+@charset "utf-8";
+/* CSS Document */
+/** {
+	margin:0;
+	padding:0;
+	border:none;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+}*/
+html{
+    width: 320px;
+    height:460px;
+    margin:0;
+    padding:0;
+}
+body{
+    width: 320px;
+    height:460px;
+    margin:0;
+    padding:0;
+    background-color:#96bd0d;
+    background-repeat: no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+}
+
+#tabmenu
+{
+    width: 320px;
+    height: 88px;
+}
+
+#content{
+    width:308px;
+    height:318px;
+    padding:0;
+    margin-left:6px;
+    background-color:#FFF;
+	overflow: auto;
+}
+img{
+    margin:0;
+    padding:0;
+}
+
+a img{	
+    display:block;
+    float:left;
+    text-decoration:none;
+    border:none;
+    padding:0;
+    margin:0;
+}
+
+#tablevel0{
+    width:320px;
+    height:44px;
+    padding-left:3px;
+    background-color:#666;
+}
+
+#tablevel0 img{
+   padding-top:3px;
+}
+
+#tablevel1{
+    width:320px;
+    height:44px;
+    padding-left:4px;
+    background-color:#96bd0d;
+}
+
+#tablevel1 img{
+    padding-top:3px;
+}
+
+.pickloc{
+    width:306px;
+    float:left;
+    height:45px;
+}
+
+.category-txt{
+    float:left;
+    margin-top:6px;
+    margin-left:10px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+option {
+    border:1px solid #96bd0d;
+}
+
+
+select{
+    background: url('../../img/downArr2.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    margin-left:10px;
+    padding-left:7px;
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size:16px;
+    font-weight:bold;
+    border:1px solid #96bd0d;
+    color:#aaa;
+}
+
+.separator-line{
+    float:left;
+    width:306px;
+    height:2px;
+}
+
+.formstyle{
+    padding:0;
+    margin:0;
+    width:256px;
+    float:left;
+}
+
+.picker{
+    width:50px;
+    height:45px;
+    float:right;
+}
+
+.date{
+    float:left;
+}
+
+.dateContainer{
+    float:left;
+    width:306px;
+    height:45px;
+}
+
+.labelStyle
+{
+    font-size:18px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+.labelStyleOnFocus
+{
+    background-color: #96bd0d;
+    font-size:18px;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+#showdate{
+    float:left;
+    width:136px;
+    height:45px;
+    margin-left:10px;
+    padding-top:10px;
+    font-size:18px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+#showtime{	
+    width:136px;
+    height:45px;
+    float:left;
+    margin-left:10px;
+    padding-top:10px;
+    font-size:18px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+#dayLabel
+{
+
+}
+#monthLabel
+{
+
+}
+#yearLabel
+{
+
+}
+#hourLabel
+{
+
+}
+#minuteLabel
+{
+    padding-left:0;
+}
+
+
+#dateUpDownArrows{
+    margin:0;
+    padding:0;
+    width:78px;
+    float:left;
+    height:45px;
+}
+
+#timeUpDownArrows{
+    margin:0;
+    padding:0;
+    width:78px;
+    float:left;
+    height:45px;
+}
+.arrows{
+    width:39px;
+    height:39px;
+    text-decoration:none;
+    padding:0;
+    margin:0;
+}
+
+#offerstartpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:318px;
+}
+
+#offerdestpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:318px;
+}
+
+#searchstartpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:318px;
+}
+
+#searchdestpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:318px;
+}
+
+.mapTestDiv
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:288px;
+}
+
+#offerstartmap
+{
+    padding: 0;
+    margin: 0;
+    width:307px;
+    height:288px;
+}
+
+#offerdestmap
+{
+    padding: 0;
+    margin: 0;
+    width:307px;
+    height:288px;
+}
+
+#searchstartmap
+{
+    padding: 0;
+    margin: 0;
+    width:307px;
+    height:288px;
+}
+
+#searchdestmap
+{
+    padding: 0;
+    margin: 0;
+    width:307px;
+    height:288px;
+}
+
+#offerstartAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:30px;
+}
+
+#offerdestAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:30px;
+}
+
+#searchstartAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:30px;
+}
+
+#searchdestAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:30px;
+}
+
+.offerlocationconfirm
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:131px;
+    height:30px;
+}
+
+#offerstartaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:171px;
+    height:30px;
+}
+
+#offerdestaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:171px;
+    height:30px;
+}
+
+#searchstartaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:171px;
+    height:30px;
+}
+
+#searchdestaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:171px;
+    height:30px;
+}
+
+#newofferUI{
+    display:none;
+}
+
+#newsearchUI{
+    display:none;
+}
+
+#newUI{
+    display:none;
+}
+
+#ratingsUI{
+    display:none;
+}
+
+#profileUI{
+    display:none;
+}
+
+#accountUI{
+    display:none;
+}
+
+
+ 
+/* Begin Overlay Dialog Styles */
+
+div#overlay {
+	position: absolute;
+	top: 0;
+	margin-top: 0; 
+	left: 0;
+	z-index: 1000;
+	width: 320px;
+	background: #000;
+	text-align: left;
+	height: 460px; /* 2*46+347=439 */
+	opacity: 0.66;
+	filter: alpha(opacity=66);
+	display: none;
+	font-family: Arial;
+	font-size: 11px;
+}
+div#overlay_dialog {
+	position: absolute;
+	top: 175px;
+	margin-top: 125px; /*account for tab bars*/
+	left: 16px;
+	width: 286px;
+	margin: 0;
+	background: #fff url() center bottom repeat-x;
+	z-index: 1001;
+	border: solid #90b70d;
+	border-width: 3px 1px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	text-align: left;
+	display: none;
+}
+
+div#dialog_text {
+	padding: 11px 11px 8px 11px;
+	color: #000;
+	text-align: left
+}
+div#dialog_text p {
+	margin: 0;
+}
+div#dialog_text pre {
+	font-family: "Verdana", "Arial", "MS Sans Serif", "DejaVu Sans", sans-serif;
+	white-space: normal;
+}
+div#overlay_dialog #buttons {
+	padding-top: 8px;
+	text-align: right;
+}
+
+
+/* End Overlay Dialog Styles */
+ 
