@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/openride_styles_e.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta content="width=device-width; initial-scale=1.0; user-scalable=false;" name="viewport"/>
+        <title>OpenRide Tab-based Layout - Login</title>
+        <script type="text/javascript">
+            <!--
+
+                function submitlogin(){
+                    //var googleurl = "http://www.google.de";
+                    //var resource = "file:///D:/dbckp/work/fokus/nbprojects/Fokus/LandDerIdeen/OpenRideServer-war/web/tabviewtest/view/index.html";
+                    var relres = "index.html";
+                    window.location.assign(relres);
+                }
+                
+            //-->
+        </script>
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="logoheader"><a id="logolink" href="#"></a><p class="infotxt2" id="categorytxt">Login</p></div>
+            <div class="upper_content">
+                <div id="infoarea">
+                    <p class="infotxt">Logge Dich ein, um die OpenRide-Services nutzen zu k&ouml;nnen.</p><br />
+                    <p class="infotxt">Neu bei OpenRide?<br /><a href="?pageid=1&actionname=register" class="linkstyle">Registriere Dich hier!</a></p><br />
+                    <p class="infotxt">Passwort vergessen?<br /><a href="?pageid=1&actionname=passwordreset" class="linkstyle">Klicke hier!</a></p>
+                </div>
+            </div>
+            <div class="lower_content">
+
+                <!-- Begin Login Code -->
+
+                <form class="orform" method="post" onsubmit="" action="javascript:submitlogin();">
+
+                    <div class="separatorhorizthick">
+                        <p style="float:left" class="pageinfo">
+                            <!-- TODO: insert login failure text after server denies login data -->
+                        </p>
+                    </div>
+                    <fieldset>
+
+                        <input type="hidden" name="pageid" value="1"/>
+                        <input type="hidden" name="actionname" value="login"/>
+
+                        <div class="formfield">
+                            <label for="lognick"><span class="optiontxt">Nickname:</span></label>
+                            <input class="formelem optiontxt" name="nickname" type="text" value="GTIMatze" id="lognick" />
+                        </div>
+
+                        <div class="formfield">
+                            <label for="logpasswd"><span class="optiontxt">Passwort:</span></label>
+                            <input class="formelem optiontxt" name="password" type="password" id="logpasswd" />
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- End Login Code -->
+
+                    <!-- Begin Menu Code -->
+
+                    <div>
+                        <input type="submit" id="logsubmit0" class="formelem optiontxt" value="einloggen" style="margin-bottom: 30px; margin-top: 10px; margin-left: 20px; " />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

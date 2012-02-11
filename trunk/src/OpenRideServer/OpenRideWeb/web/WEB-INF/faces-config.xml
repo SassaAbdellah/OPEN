@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+
+<!-- Managed Beans -->
+
+
+    <managed-bean>
+        <managed-bean-name>UserBean</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.UserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+
+
+    <managed-bean>
+        <managed-bean-name>Welcome_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Salute</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>Register_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Register</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>Profile_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Profile</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>FavoritePoints_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.FavoritePoints</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>Ratings_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Ratings</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
+<!-- Navigation Rules -->
+
+    <navigation-rule>
+        <from-view-id>/welcome.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/register.jsp</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loggedIn</from-outcome>
+            <to-view-id>/profile.jsp</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/register.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>registered</from-outcome>
+            <to-view-id>/profile.jsp</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>loggedOut</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+
+<!-- Custom Components -->
+
+
+
+
+<!-- Application Settings -->
+
+    <application>
+        <locale-config>
+            <default-locale>de</default-locale>
+            <!--supported-locale>de</supported-locale-->
+            <!--supported-locale>en</supported-locale-->
+        </locale-config>
+        <message-bundle>de.fhg.fokus.openride.webclient.messages</message-bundle>
+    </application>
+
+
+</faces-config>
+
+
+

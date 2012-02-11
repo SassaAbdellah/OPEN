@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+    <managed-bean>
+        <managed-bean-name>Welcome_Backing</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Welcome</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>Monitoring</managed-bean-name>
+        <managed-bean-class>de.fhg.fokus.openride.webclient.backing.Monitoring</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>RegistrationPasses_Backing</managed-bean-name>
+        <managed-bean-class>
+            de.fhg.fokus.openride.webclient.backing.RegistrationPasses
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>passCount</property-name>
+            <value>10</value>
+        </managed-property>
+        <managed-property>
+            <property-name>passLength</property-name>
+            <value>6</value>
+        </managed-property>
+        <managed-property>
+            <property-name>passPrefix</property-name>
+            <value>OR-</value>
+        </managed-property>
+    </managed-bean>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>registration_passes</from-outcome>
+            <to-view-id>/registration_passes.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>loggedOut</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+    <application>
+        <locale-config>
+            <default-locale>de</default-locale>
+            <supported-locale>de</supported-locale>
+            <!--supported-locale>en</supported-locale-->
+        </locale-config>
+        <message-bundle>de.fhg.fokus.openride.webclient.messages</message-bundle>
+    </application>
+
+</faces-config>

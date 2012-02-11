@@ -1,0 +1,2274 @@
+@charset "utf-8";
+/*
+    OpenRide -- Car Sharing 2.0
+    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+
+    Fraunhofer FOKUS
+    Kaiserin-Augusta-Allee 31
+    10589 Berlin
+    Tel: +49 30 3463-7000
+    info@fokus.fraunhofer.de
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License Version 3 as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* CSS Document */
+/** {
+	margin:0;
+	padding:0;
+	border:none;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+}*/
+html{    
+    margin:0;
+    padding:0;
+}
+body{    
+    margin:0;
+    padding:0;
+    background-color:#000;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+#tabmenu
+{
+    width: 320px;
+    height: 88px;
+    position: absolute; /*fixed; poorly supported on mobile webkit*/
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#rideOptions
+{
+    margin-bottom:5px;
+    margin-top:0;
+    padding:0;
+    text-align:left;
+}
+
+#content{
+    width:310px;
+    min-height:387px;
+    padding:0;
+    margin:88px 0 0 0;
+    border: 5px solid #96bd0d;
+    border-top: none;
+    background-color:#FFF;
+    overflow: hidden;
+}
+img{
+    margin:0;
+    padding:0;
+}
+
+a img{	
+    display:block;
+    float:left;
+    text-decoration:none;
+    border:none;
+    padding:0;
+    margin:0;
+}
+
+#tablevel0{
+    width:320px;
+    height:44px;
+    padding-left:3px;
+    background-color:#666;
+}
+
+#tablevel0 img{
+    padding-top:3px;
+}
+
+.inactiveTab {
+    display: none;
+}
+
+#tablevel1{
+    width:320px;
+    height:44px;
+    padding-left:4px;
+    background-color:#96bd0d;
+}
+
+#tablevel1 img{
+    padding-top:3px;
+}
+
+.pickloc{
+    width:306px;
+    float:left;
+    height:45px;
+}
+
+#seatsnprice
+{
+    /*margin-top: 10px;*/
+    height: 80px;
+}
+
+.detaillinkdiv
+{
+    float: left;
+    width:306px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+#placesnwait
+{
+    /*margin-top: 10px;*/
+    height: 80px;
+}
+
+.category-txt{
+    float:left;
+    margin-top:6px;
+    margin-left:10px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+#offernrseatstxt
+{
+}
+
+#searchplacestxt
+{
+
+}
+
+#offerpricetxt
+{
+    padding-left: 85px;
+}
+
+#searchmaxwaittxt
+{
+    padding-left: 70px;
+}
+
+option {
+    border:1px solid #96bd0d;
+}
+
+
+select{
+    background: url('../../img/downArr2.png');
+    height: 44px;
+    background-position: right;
+    background-repeat: no-repeat;
+    margin-left:10px;
+    padding-left:7px;
+    padding-top:10px;
+    padding-bottom:10px;
+    font-size:16px;
+    font-weight:bold;
+    border:1px solid #96bd0d;
+    color:#aaa;
+}
+.desktop select {
+    background: #fff;
+}
+
+#nrseatsselect
+{
+    margin-top: 6px;
+    width: 75px;
+}
+
+#nrplacesselect
+{
+    margin-top: 6px;
+    width: 75px;
+}
+
+#priceselect
+{
+    float: right;
+    margin-top: 6px;
+    margin-right: 8px;
+    width: 95px;
+}
+
+#maxwait
+{
+    float: right;
+    margin-top: 6px;
+    margin-right: 8px;
+    width: 110px;
+}
+
+.separator-line{
+    float:left;
+    width:306px;
+    height:2px;
+}
+
+.formstyle{
+    padding:0;
+    margin:0;
+    width:247px;
+    float:left;
+}
+
+#seatsnpriceform
+{
+    width:247px;
+}
+
+#placesnwaitform
+{
+    width:247px;
+}
+
+.picker{
+    width:50px;
+    height:45px;
+    float:right;
+}
+
+#showroutediv
+{
+    margin-right: 8px;
+}
+
+#showriderroutediv
+{
+    margin-right: 8px;
+}
+
+.date{
+    float:left;
+    margin-left: 6px;
+}
+
+.dateContainer{
+    float:left;
+    width:310px;
+    height:45px;
+}
+
+.labelStyle
+{
+    margin-right: 3px;
+    margin-left: 0px;
+    padding: 6px;
+    font-size:21px;
+    font-weight:bold;
+    color:#96bd0d;
+    border: 1px solid #96bd0d; /* #96bd0d;*/
+}
+
+.labelStyleOnFocus
+{
+    margin-right: 3px;
+    margin-left: 0px;
+    padding: 6px;
+    background-color: #96bd0d;
+    font-size:21px;
+    font-weight:bold;
+    color:#ffffff;
+    border: 1px solid #969696; /* #96bd0d;*/
+}
+
+#showdate{
+    float:left;
+    width:195px;
+    height:40px;
+    margin-left:4px;
+    padding-top:10px;
+    font-size:21px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+.datetxt
+{
+    float: right;
+    padding-right: 45px;
+    max-width: 30px;
+    font-size:21px;
+    font-weight:bold;
+    color:#96bd0d;
+    font-size:21px;
+}
+
+#searchshowdate
+{
+    float:left;
+    width:195px;
+    height:45px;
+    margin-left:4px;
+    padding-top:10px;
+    font-size:18px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+#showtime{	
+    width:195px;
+    height:40px;
+    float:left;
+    margin-left:4px;
+    padding-top:10px;
+    font-size:21px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+#searchshowtime{
+    width:195px;
+    height:45px;
+    float:left;
+    margin-left:4px;
+    padding-top:10px;
+    font-size:18px;
+    font-weight:bold;
+    color:#96bd0d;
+}
+
+#detOpts
+{
+}
+
+#dayLabel
+{
+
+}
+#monthLabel
+{
+
+}
+#yearLabel
+{
+}
+#hourLabel
+{
+
+}
+#minuteLabel
+{
+    width: 100px;
+}
+
+#searchdayLabel
+{
+
+}
+#searchmonthLabel
+{
+
+}
+#searchyearLabel
+{
+
+}
+#searchhourLabel
+{
+
+}
+#searchminuteLabel
+{
+    width: 100px;
+}
+
+
+#dateUpDownArrows
+{
+    float: left;
+    margin:0;
+    padding:0;
+    width:106px;
+    padding-top: 4px;
+    height:45px;
+}
+
+#searchdateUpDownArrows
+{
+    float: left;
+    margin:0;
+    padding:0;
+    padding-top: 4px;
+    width:106px;
+    height:45px;
+}
+
+#timeUpDownArrows
+{
+    float: left;
+    margin:0;
+    padding:0;
+    width:106px;
+    padding-top: 4px;
+    height:45px;
+}
+
+#searchtimeUpDownArrows
+{
+    float: left;
+    margin:0;
+    padding:0;
+    padding-top: 4px;
+    width:106px;
+    height:45px;
+}
+
+#dateuparrow
+{
+    padding-left: 10px;
+}
+
+#datedownarrow
+{
+    float: right;
+    padding-right: 10px;
+}
+
+#timeuparrow
+{
+    padding-left: 10px;
+}
+
+#timedownarrow
+{
+    float: right;
+    padding-right: 10px;
+}
+
+#searchdateuparrow
+{
+    padding-left: 10px;
+}
+
+#searchdatedownarrow
+{
+    float: right;
+    padding-right: 10px;
+}
+
+#searchtimeuparrow
+{
+    padding-left: 10px;
+}
+
+#searchtimedownarrow
+{
+    float: right;
+    padding-right: 10px;
+}
+
+.arrows
+{
+    width:39px;
+    height:39px;
+    text-decoration:none;
+    padding:0;
+    margin:0;
+}
+
+.arrowlinks
+{
+    width:39px;
+    height:39px;
+    text-decoration:none;
+    margin:0;
+}
+
+#testdiv
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#offerstartpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#offerdestpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#searchstartpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#searchdestpickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#newfavoritepickerUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#showofferrouteUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#showsearchrouteUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#showactiveofferrouteUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#showactivesearchrouteUI
+{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:387px;
+}
+
+#offersimpleroutemap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+
+#searchsimpleroutemap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+
+#offeractiveroutemap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#searchactiveroutemap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+.mapRouteDiv
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:362px;
+}
+
+.mapTestDiv
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:357px;
+}
+
+#offerstartmap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#offerdestmap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#searchstartmap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#searchdestmap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#newfavoritepickermap
+{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+}
+
+#offerstartAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:30px;
+}
+
+#offerdestAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:30px;
+}
+
+#searchstartAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:30px;
+}
+
+#searchdestAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    height:30px;
+}
+
+#newfavoriteAddrInputUI
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:310px;
+    max-height:30px;
+}
+
+.offerlocationconfirm
+{
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+    width:131px;
+    height:30px;
+}
+
+#offerstartaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:172px;
+    height:30px;
+}
+
+#offerdestaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:174px;
+    height:30px;
+}
+
+#searchstartaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:174px;
+    height:30px;
+}
+
+#searchdestaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:174px;
+    height:30px;
+}
+
+#newfavoriteaddrinput
+{
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:174px;
+    height:30px;
+}
+
+#newofferdetaillink
+{
+    margin-left: 15px;
+}
+
+#newsearchdetaillink
+{
+    margin-left: 15px;
+}
+
+#newofferdetailbtn
+{
+    padding-left:50px;
+    padding-top:10px;
+}
+
+#newsearchdetailbtn
+{
+    padding-left:50px;
+    padding-top:10px;
+}
+
+#newoffersubmitbtn
+{
+    padding-left:10px;
+    padding-top:10px;
+}
+
+.logolink
+{
+}
+
+.logoimg
+{
+    padding-left:18px;
+    padding-top:15px;
+}
+
+.submitBtn
+{
+    margin-bottom: 10px;
+}
+
+#newsearchsubmitbtn
+{
+    padding-left:10px;
+    padding-top:10px;
+}
+
+#newoffersubmit
+{
+}
+
+#newsearchsubmit
+{
+
+}
+
+#newofferUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#activeofferUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+}
+
+#activesearchUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+}
+
+#completedtripsUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+}
+
+#newsearchUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#newUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#newsearchdetailsUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#ratingsUI
+{
+    display:none;   
+    height: 100%;
+}
+
+.ratingInformation
+{
+    color: #999;
+    margin: 0 10px 1em 10px;
+    font-size: 14px;
+}
+
+#openratingsUI
+{
+    display:none;
+    height: 100%;
+}
+
+#receivedratingsUI
+{
+    display:none;   
+    height: 100%;
+}
+
+#profileUI
+{
+    display:none;
+    height: 100%;
+}
+
+#favlistUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#tablistUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;    
+}
+
+#accountUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#dummyUI
+{
+    display:none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#newofferdetailsUI
+{
+    display: none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+#homeUI
+{
+    display: none;
+    width: 100%;
+    height: 387px;
+}
+
+#dummyUI2{
+    display:none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:100%;
+}
+
+.listtitem
+{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width:307px;
+    height:40px;
+}
+
+#drop1
+{
+    padding:0;
+    margin:0;
+    margin-top: 7px;
+    width:310px;
+    height:45px;
+    float:left;
+}
+
+#offerstartselect
+{
+    margin-left: 8px;
+    padding-top: 7px;
+    padding-left: 7px;
+    width: 180px;
+    height: 39px;
+    float:left;
+    background-image: url(../../img/labelbg.png);
+    background-repeat: no-repeat;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.selectdropdimg
+{
+    text-align: center;
+}
+
+#offerstartdropd
+{
+    width: 230px;
+    margin-top: 2px;
+}
+
+#offerdestdropd
+{
+    width: 230px;
+    margin-top: 2px;
+}
+
+#searchstartdropd
+{
+    width: 230px;
+    margin-top: 2px;
+}
+
+#searchdestdropd
+{
+    width: 230px;
+    margin-top: 2px;
+}
+
+.fastoption
+{    
+    position: relative;
+}
+
+.fastoptionimg
+{
+    float: right;
+}
+.fastoption p {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 4px 0 0 0;
+}
+.fastoptionimg img {
+    float: none;
+    display: inline;
+}
+.fastoptionimg a {
+    text-decoration: none;
+}
+
+#usermodelink, #logoutlink {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+}
+#usermodelink {
+    width: 190px;
+    left: 0;
+    padding-top: 52px;
+    margin-left: 8px; 
+}
+#logoutlink {
+    width: 52px;
+    right: 0;
+    margin-right: 10px;
+}
+
+.linkContainer{
+    width: 100%;
+    height:auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.rideroutelink{
+    padding-left: 55px;
+    font-weight: bold;
+    color: #96bd0d;
+}
+
+#ridermodeimg, #drivermodeimg {
+    position: absolute; 
+    top: 0;     
+}
+#ridermodeimg {    
+    left: 2px;
+}
+#drivermodeimg {
+    right: 2px;
+}
+
+#usermodeslider_bg {   
+    width: 74px;
+    height: 32px;
+    background: url(../../img/switch_bg.png) no-repeat;
+    position: absolute;
+    top: 10px;
+    left: 58px;
+    text-align: left;
+    padding: 1px;
+}
+#usermodeslider {
+    margin-left: 41px;
+}
+
+#offerroutebackbtnlink
+{
+    text-decoration: none;
+    width: 310px;
+    height: 30px;
+    padding: none;
+    margin: none;
+    background-color: #96bd0d;
+}
+
+#searchroutebackbtnlink
+{
+    text-decoration: none;
+    width: 310px;
+    height: 30px;
+    padding: none;
+    margin: none;
+    background-color: #96bd0d;
+}
+
+#offerroutebackbtnimg
+{
+    width: 310px;
+    height: 30px;
+    padding: none;
+    margin: none;
+}
+
+#searchroutebackbtnimg
+{
+    width: 310px;
+    height: 30px;
+    padding: none;
+    margin: none;
+}
+
+.home-txt
+{
+    width: 205px;
+    font-size:14px;
+    color:#96bd0d;
+}
+
+#homeinfo {
+    margin: 0 0 1em 0;
+    /*height: 280px;*/
+    border-bottom: 1px solid #96bd0d;
+}
+#homeinfo p {
+    line-height: 160%;
+}
+#homeinfo .statshl {
+    display: inline-block;
+    width: 15px;
+    text-align: center;
+    padding-right: 3px;
+    padding-top: 6px;
+}
+
+#profilepicimg
+{
+    margin-top: -0.5em;
+    margin-right: 10px;
+    float: right;
+}
+
+.optionlistitems
+{
+    width: 100%;
+    height: 62px;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #96bd0d;
+}
+
+.optionlist{
+    float: left;
+}
+
+.listitems
+{
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 62px;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #96bd0d;
+}
+
+.listitem
+{
+    background-color: #FFFFFF;
+    width: 296px;
+    height: 70px;
+    padding: 6px;
+    margin: 0;
+    border-bottom: 1px solid #96bd0d;
+}
+
+.listitemheadertxt
+{
+    color: #96bd0d;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.listitemsubtxt
+{
+    font-weight: bold;
+}
+
+.cboptionitem
+{
+    padding: 0;
+    margin: 0;
+}
+
+.btnoptionitem
+{
+    padding: 0;
+    margin: 0;
+}
+
+.ddoptionitem
+{
+    padding: 0;
+    margin: 0;
+}
+
+.taoptionitem
+{
+    height:62px;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+select.listselect
+{
+    float:right;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+#offerdetourselect
+{
+    width: 110px;
+}
+
+#offerseatsselect
+{
+    width: 75px;
+}
+
+#searchseatsselect
+{
+    width: 75px;
+}
+
+#searchwaittimeselect
+{
+    width: 110px;
+}
+
+#offerpriceselect
+{
+    width: 100px;
+}
+
+.optiontxt
+{
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    padding-top: 20px;
+    float: left;
+    height: 40px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.offercommentta
+{
+    font-size:15px;
+    border-color: #96bd0d;
+    height:50px;
+    margin-left:12px;
+    margin-top:4px;
+    width:280px;
+
+}
+
+.optionimg
+{
+    padding:0;
+    margin:0;
+    margin-right:3px;
+    float: right;
+}
+
+.overview
+{
+    padding: 10px;
+}
+
+.simplehighlight
+{
+    font-weight: bold;
+    font-size: 21px;
+    color: #96bd0d;
+}
+
+.statshl
+{
+    width: 30px;
+    font-weight: bold;
+    color: #96bd0d;
+}
+
+.rightinfo
+{
+    float: right;
+    padding-right: 10px;
+}
+
+.ratingstatsrow
+{
+    width: 270px;
+    height: 30px;
+}
+
+.txttabsmall
+{
+    float: left;
+    padding-left: 10px;
+    width: 65px;
+}
+
+.flleftimg
+{
+    float: left;
+}
+
+.flleftdv
+{
+    float: left;
+}
+
+/* Begin Overlay Dialog Styles */
+
+div#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 320px;
+    background: #000;
+    text-align: center;
+    height: 100%; /* 2*46+347=439 */
+    opacity: 0.66;
+    filter: alpha(opacity=66);
+    display: none;
+    font-family: Arial;
+    font-size: 11px;
+}
+div#overlay_dialog {
+    position: absolute;
+    top: 0px;
+    margin-top: 125px; /*account for tab bars*/
+    left: 15px;
+    width: 288px;
+    background: #fff url() center bottom repeat-x;
+    z-index: 1001;
+    border: solid #90b70d;
+    border-width: 3px 1px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    text-align: left;
+    display: none;
+}
+
+div#dialog_text {
+    padding: 11px 11px 8px 11px;
+    color: #000;
+    text-align: left
+}
+div#dialog_text p {
+    margin: 0;
+}
+div#dialog_text pre {
+    font-family: "Verdana", "Arial", "MS Sans Serif", "DejaVu Sans", sans-serif;
+    white-space: normal;
+}
+div#overlay_dialog #buttons {
+    padding-top: 8px;
+    text-align: right;
+}
+
+div#inprogress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 320px;
+    background: #000;
+    text-align: center;
+    height: 100%; /* 2*46+347=439 */
+    opacity: 0.66;
+    filter: alpha(opacity=66);
+    display: none;
+    font-family: Arial;
+    font-size: 11px;
+}
+div#inprogress_dialog {
+    position: absolute;
+    top: 0px;
+    margin-top: 125px; /*account for tab bars*/
+    left: 99px;
+    width: 120px;
+    background: #fff url() center bottom repeat-x;
+    z-index: 1001;
+    border: solid #90b70d;
+    border-width: 3px 1px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    text-align: center;
+    display: none;
+}
+
+div#inprogress_dialog_text {
+    padding: 11px 11px 8px 11px;
+    color: #000;
+    text-align: center;
+}
+div#inprogress_dialog_text p {
+    margin: 0;
+}
+div#inprogress_dialog_text pre {
+    font-family: "Verdana", "Arial", "MS Sans Serif", "DejaVu Sans", sans-serif;
+    white-space: normal;
+}
+
+#inprogress_gif {
+    
+}
+
+/* End Overlay Dialog Styles */
+
+/** --- gmap screens style start --- */
+
+#offerstartgmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#offerstartgmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#offerstartgmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#offerstartgmapzoomoutbtn
+{
+	
+}
+
+#offerstartgmapcontainer
+{
+	width: 310px;
+	height: 290px;
+}
+
+#offerstartgmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#offerstartgmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 135px;
+    border-top: 5px solid #96bd0d;
+}
+
+#offerstartgmapaddressinput
+{
+	width: 190px;
+	height: 25px;
+	float:left;
+	margin-right: 10px;
+}
+
+#offerstartlocateadressbtn
+{
+	float:right;
+}
+
+#offerstartgmapbackbtn
+{
+	float:left;
+}
+
+#offerstartconfirmadressandbackbtn
+{
+	float:right;
+	margin-right: 10px;
+}
+
+/** offer destination chooser screen */
+#offerdestgmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#offerdestgmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#offerdestgmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#offerdestgmapzoomoutbtn
+{
+	
+}
+
+#offerdestgmapcontainer
+{
+	width: 310px;
+	height: 290px;
+}
+
+#offerdestgmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#offerdestgmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 135px;
+    border-top: 5px solid #96bd0d;
+}
+
+#offerdestgmapaddressinput
+{
+	width: 190px;
+	height: 25px;
+	float:left;
+	margin-right: 10px;
+}
+
+#offerdestgmaplocateadressbtn
+{
+	float:right;
+}
+
+#offerdestgmapbackbtn
+{
+	float:left;
+}
+
+#offerdestgmapconfirmadressandbackbtn
+{
+	float:right;
+	margin-right: 10px;
+}
+
+
+/** search start chooser screen */
+#searchstartgmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#searchstartgmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#searchstartgmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#searchstartgmapzoomoutbtn
+{
+	
+}
+
+
+#searchstartgmapcontainer
+{
+	width: 310px;
+	height: 290px;
+}
+
+#searchstartgmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#searchstartgmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 135px;
+    border-top: 5px solid #96bd0d;
+}
+
+#searchstartgmapaddressinput
+{
+	width: 190px;
+	height: 25px;
+	float:left;
+	margin-right: 10px;
+}
+
+#searchstartgmaplocateadressbtn
+{
+	float:right;
+}
+
+#searchstartgmapbackbtn
+{
+	float:left;
+}
+
+#searchstartgmapconfirmadressandbackbtn
+{
+	float:right;
+	margin-right: 10px;
+}
+
+/** search destination chooser screen */
+#searchdestgmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#searchdestgmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#searchdestgmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#searchdestgmapzoomoutbtn
+{
+	
+}
+
+#searchdestgmapcontainer
+{
+	width: 310px;
+	height: 290px;
+}
+
+#searchdestgmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#searchdestgmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 135px;
+    border-top: 5px solid #96bd0d;
+}
+
+#searchdestgmapaddressinput
+{
+	width: 190px;
+	height: 25px;
+	float:left;
+	margin-right: 10px;
+}
+
+#searchdestgmaplocateadressbtn
+{
+	float:right;
+}
+
+#searchdestgmapbackbtn
+{
+	float:left;
+}
+
+#searchdestgmapconfirmadressandbackbtn
+{
+	float:right;
+	margin-right: 10px;
+}
+
+/** offerroute viewer screen */
+#offerroutegmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 435px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#offerroutegmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#offerroutegmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#offerroutegmapzoomoutbtn
+{
+	
+}
+
+#offerroutegmapcontainer
+{
+	width: 310px;
+	height: 295px;
+}
+
+#offerroutegmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#offerroutegmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 95px;
+    border-top: 5px solid #96bd0d;
+}
+
+#offerroutegmapaddptbtn
+{ 
+	display:none;/*hide button till implementation is complete*/
+	margin-left:25px;
+}
+
+#offerroutegmapbackbtn
+{
+	margin-left:25px;
+}
+
+/** searchroute viewer screen */
+#searchroutegmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#searchroutegmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#searchroutegmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#searchroutegmapzoomoutbtn
+{
+	
+}
+
+#searchroutegmapcontainer
+{
+	width: 310px;
+	height: 330px;
+}
+
+#searchroutegmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#searchroutegmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 95px;
+    border-top: 5px solid #96bd0d;
+}
+
+#searchroutegmapbackbtn
+{
+	margin-left:25px;
+}
+
+
+/** viapointroute viewer screen */
+#viaptroutegmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#viaptroutegmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#viaptroutegmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#viaptroutegmapzoomoutbtn
+{
+	
+}
+
+#viaptroutegmapcontainer
+{
+	width: 310px;
+	height: 330px;
+}
+
+#viaptroutegmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#viaptroutegmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 95px;
+    border-top: 5px solid #96bd0d;
+}
+
+#viaptroutegmapbackbtn
+{
+	margin-left:25px;
+}
+
+
+/** favorites chooser screen */
+#favoritesgmapscreencontainer
+{
+	display:none;
+	width: 310px;
+	height: 470px;/*full screen style*/
+    border: 5px solid #96bd0d;
+}
+
+#favoritesgmapzoomcontainer
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 35px;
+    border-bottom: 5px solid #96bd0d;
+}
+
+#favoritesgmapzoominbtn
+{
+	margin-left: 40px;
+	margin-right: 30px;
+}
+
+#favoritesgmapzoomoutbtn
+{
+	
+}
+
+#favoritesgmapcontainer
+{
+	width: 310px;
+	height: 290px;
+}
+
+#favoritesgmap
+{
+	width: 100%;
+	height: 100%;
+}
+
+#favoritesgmapinfo
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 135px;
+    border-top: 5px solid #96bd0d;
+}
+
+#favoritesgmapaddressinput
+{
+	width: 190px;
+	height: 25px;
+	float:left;
+	margin-right: 10px;
+}
+
+#favoritesgmaplocateadressbtn
+{
+	float:right;
+}
+
+#favoritesgmapbackbtn
+{
+	float:left;
+}
+
+#favoritesgmapconfirmadressandbackbtn
+{
+	float:right;
+	margin-right: 10px;
+}
+
+.mapinfotxt
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.addressarea
+{
+	width: 300px;
+	height: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.leftrightmapcolum
+{
+	width: 300px;
+	height: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+input[type="button"].rounded2 {
+    border: 1px solid #96bd0d;
+    font-weight: bold;
+    background: #96bd0d url(../../img/button_bg.png) ;
+    color: #fff;
+    font-weight: bold;
+    margin: 3px 7px 4px 0;
+    padding: 4px 15px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+input[type="button"].rounded.compact2 {
+    padding: 3px 5px;
+    margin: 0;
+}
+
+/** --- gmap screens style end --- */
+
+
+
+h3 {
+    padding: 1em 10px;
+    margin: 0 0;
+    font-size: 16px;
+}
+h3.separated {
+    margin: 1em 0 0 0;
+    border-top: 1px solid #ccc;
+}
+h3.linkslide_0 {
+    clear: both;
+}
+p {    
+    margin: 0.0em 10px 1em 10px;
+}
+
+a.phone {
+    color: #000;
+    font-style: italic;
+}
+
+
+form {
+    margin: 0;
+    padding: 0;
+}
+form.profile label {
+    display: block;
+    float: left;
+    width: 138px;
+    padding: 0;
+    margin: 6px 0 10px 10px;
+    font-weight: bold;
+}
+form.profile label.wide {
+    width: auto;
+}
+form.profile label.option {
+    display: inline;   
+    font-weight: normal;
+    /*width: 100px;*/
+    float: none;
+    margin: 0;
+}
+form.profile .optionlist {
+    text-align: center;
+    margin: 0 0 10px 0;
+    line-height: 180%;
+    width: 100%;
+}
+form.profile input, form.ride input {
+    margin: 0;
+    width: 143px;
+    border: 1px solid #96bd0d;
+    color: #aaa;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 3px 3px 2px 3px;
+}
+form.profile input[type="button"], form.profile input[type="submit"] {
+    background: #96bd0d url(../../img/button_bg.png) ;
+    color: #fff;
+    font-weight: bold;
+    margin: 10px 9px;
+    width: 290px;
+    padding: 4px 3px;
+    -moz-border-radius: 4px;
+    /*-webkit-border-radius: 4px;*/
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+form.profile input[type="radio"] {
+    width: auto;
+    border: auto;
+    margin: 0 0 0 10px;
+    display: inline-block;
+}
+form.profile input[type="radio"]:first-child {
+    margin: 0;
+}
+form.profile input[type="file"] {
+    width: auto;
+    border: 0;
+    margin: 0 0 0 10px;
+}
+form.profile span.value {
+    margin: 0;
+    padding: 5px 3px;
+    display: inline-block;
+
+}
+form.profile br {
+    clear:left; /* setting clear on inputs didn't work consistently, so brs added for degrade */
+}
+
+
+span.requiredField {
+    color: #90b70d;
+    border: none;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+
+
+
+form.ride input[type="button"] {
+    background: #96bd0d url(../../img/button_bg.png) ;
+    color: #fff;
+    font-weight: bold;
+    margin: 8px 0 8px 0;
+    width: 85px;
+    padding: 4px 1px;
+    -moz-border-radius: 4px;
+    /*-webkit-border-radius: 4px;*/
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+input[type="button"].rounded {
+    border: 1px solid #96bd0d;
+    font-weight: bold;
+    background: #96bd0d url(../../img/button_bg.png) ;
+    color: #fff;
+    font-weight: bold;
+    margin: 3px 7px 4px 0;
+    padding: 4px 15px;
+    -moz-border-radius: 4px;
+    /*-webkit-border-radius: 4px;*/
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+input[type="button"].rounded.compact {
+    padding: 3px 5px;
+    margin: 0;
+}
+
+/*class to test incorrect iphone left-adjustment behaviour*/
+form.ride input[type="button"].adjustleft {
+    padding: 3px 5px;
+    margin: 0;
+}
+
+.homeui_links {
+    margin-bottom: 5px;
+}
+
+.homeui_links:link {
+    font-weight: normal;
+    color: black;
+    font-style: italic;
+}
+
+.homeui_links:visited {
+    font-weight: normal;
+    color: black;
+    font-style: italic;
+}
+
+/* JQuery UI Tabs
+=====================================================================*/
+.ui-tabs-hide {
+    display: none;
+}
+#listtab li.ui-tabs-selected a, #listtab li.ui-tabs-selected a:link, #listtab li.ui-tabs-selected a:visited {
+    text-decoration:none;
+    color: #453a2f;
+}
+
+
+ul.ridelist {
+    width: 310px;
+    margin: 0;
+    padding: 0;
+}
+ul.ridelist li {
+    width:310px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+}
+ul.ridelist li h3 {
+    color: #96bd0d;
+    padding: 5px 0 5px 22px;
+    background: url('../../img/back_nav.png') no-repeat;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0;
+}
+ul.ridelist li h3:hover {
+    background-position: 0 -200px;
+}
+ul.ridelist li h3.active {
+    background-position: 0 -400px;
+    color: #000;
+}
+ul.ridelist li div.slide_0 {
+    display:none;
+}
+ul.ridelist li div.active {
+    display:block;
+}
+ul.ridelist li small {
+    font-size: 12px;
+    line-height: 160%;
+    color: #000;
+    font-weight: normal;
+}
+ul.ridelist li small span {
+    color: #666;
+    display: inline-block;
+    width: 28px;
+    text-align: right;
+    padding-right: 3px;
+}
+ul.ridelist li p {
+    margin: 10px 10px 10px 22px;
+}
+
+.tablistprofilepic
+{
+    padding:0;
+    margin:0;
+    float:left;
+}
+
+/*
+=====================================================================*/

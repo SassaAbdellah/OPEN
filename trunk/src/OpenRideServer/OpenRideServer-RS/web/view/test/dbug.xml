@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="http://feeds.feedburner.com/~d/styles/rss2full.xsl" type="text/xsl" media="screen"?><?xml-stylesheet href="http://feeds.feedburner.com/~d/styles/itemcontent.css" type="text/css" media="screen"?><!-- generator="wordpress/2.0.2" --><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+
+<channel id="channel_1">
+	<title>d'bug</title>
+	<link>http://blog.reindel.com</link>
+	<description>d'bug shares tips, tricks, and advice with Web development professionals</description>
+	<pubDate>Thu, 20 Sep 2007 11:58:06 +0000</pubDate>
+	<generator>http://wordpress.org/?v=2.0.2</generator>
+	<language>en</language>
+			<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" href="http://feeds.feedburner.com/dbug" type="application/rss+xml" /><item>
+		<title>The evolution of the API, or, the publisher’s dilemma</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/158985694/</link>
+		<comments>http://blog.reindel.com/2007/09/20/the-evolution-of-the-api-or-the-publishers-dilemma/#comments</comments>
+		<pubDate>Thu, 20 Sep 2007 11:58:06 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Technology</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/20/the-evolution-of-the-api-or-the-publishers-dilemma/</guid>
+		<description><![CDATA[I love watching the movie The Thing. The film I speak of would be John Carpenter&#8217;s 1982 remake, and not the 1951 classic, The Thing from Another World. Eleven men are holed up in an Antarctic science research facility, and come face-to-face with an alien organism buried beneath the ice. The special effects are reminiscent [...]]]></description>
+			<content:encoded><![CDATA[<p>I love watching the movie <em>The Thing</em>. The film I speak of would be John Carpenter&#8217;s 1982 remake, and not the 1951 classic, <em>The Thing from Another World</em>. Eleven men are holed up in an Antarctic science research facility, and come face-to-face with an alien organism buried beneath the ice. The special effects are reminiscent of the best the industry had to offer before the onslaught of digital pictures, but they now border on camp.<a id="more-109"></a><br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-5000435816695196";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text";
+//2007-09-03: Single Post
+google_ad_channel = "0351795381";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "ff6600";
+google_color_text = "333333";
+google_color_url = "00885a";
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></p>
+<p>If you have yet to watch this movie, it is well worth a rental. Several scenes depict the transformation of the alien life-form into ghastly imitations of creatures across the galaxy. Earth bound animals and humans are thrown into the DNA pool, and grotesque shape-shifting monstrosities are the end result. Amazing how a single (although fictional) cell could mutate into such a complex, and unmanageable beast. Much like the content strewn across the Web today.</p>
+<h3>Stage One: The Brand</h3>
+<p>In the beginning was the brand. More than a decade has passed since traditional brands controlled the content prevalent on the Web. Companies could rely on the public trust earned through brick-and-mortar outlets and from paper distribution. This base of consumers was leveraged to strengthen a presence online. Although the brand did not always translate quite so elegantly on the Web, it was still a novel concept to read and shop online with familiar retailers and publishers.</p>
+<p>This relationship was short-sited for sure, and when the famed bubble burst, the trust was forever broken. Users turned away from established brands, and the first generation of Web enabled youth came to embrace an undercurrent of new startups. Interesting content, services and products were more acceptable if the brand was fresh, and the ideas untainted by corporate elitists. Eventually this gave rise to a new platform in which these ideas could flourish &#8212; the blog.</p>
+<h3>Stage Two: The Content</h3>
+<p>It would take some time, but publishers finally realized that users would no longer be bankable on the brand alone. A satisfying experience on a domain was tied inextricably to the uniqueness of content published. Bloggers were providing free thoughts, no subscriptions, and a distraction from casual shopping. Not wanting to be overrun by a renaissance of digital mom-and-pop shops, publishers began to push content, in hopes of drawing in both advertising revenue and new customers.</p>
+<p>The result has been an information superhighway packed with hungry, rabid dogs (myself included). In a sense, the sheer force and magnitude of content established publishers produced clogged the system. Videos, reviews, news, commentary and community eventually merged to form social networks to alleviate the stress involved with searching out and enjoying this content. Link farms grew bumper crops, and the RSS reader is now a mainstay. However, the content is once again reaching critical mass.</p>
+<h3>Stage Three: The API</h3>
+<p>Even though content is now neatly organized into digestible chunks, it remains difficult to sift through the fluff. Once adding a significant entertainment or educational value, it now has a greater purpose &#8212; it can can actually aid in everyday life decisions. These decisions are best made by gathering information from multiple sources, and relationships between content are evolving and coalescing.</p>
+<p>Developers are being given permission, where it was once taboo, to use this content in mashups through the assistance of an API. Since brand integrity has almost entirely dissolved, publishers are hoping to stay connected with users by providing a completely open context to absorb information. If they can be known as a primary source provider, trust can be built, and being identified with a &#8220;free&#8221; movement can hopefully bring the masses back to the domain.</p>
+<p>Unfortunately, this intermingling of content is only a stay of execution. The API has generated enough interest to keep publishers busy spinning content onto platform after platform. Yet, there will remain a fog among users, and again we may no longer desire to search endlessly for what we need now. Instead, personal software user agents will become a searching ombudsman for us. Based upon criteria we specify, our agents will learn to siphon the content &#8212; we will no longer come to it, but it will come to us.</p>
+<h3>Stage Four: The Agent</h3>
+<p>This, of course, is a prediction. The agent is certainly not a radical concept, but it does spark some interesting conversation. If we developed and trusted agents instead of publishers, would they serve us, or is there a possibility we would serve them? The time spent customizing and enhancing our agent might very well be a substitute for the time spent previously searching for content. At what instant this drastic change might take place is unknown, but some say it is upon the advent of the Semantic Web. As some of you know, <a href="http://blog.reindel.com/2007/09/13/i-will-never-support-the-semantic-web/" class="inline">I disagree</a>.</p>
+<p>To truly understand the arrival of intelligent user agents, there has to be a willingness to accept the diminished significance of the word &#8220;intelligence&#8221;. You also have to move beyond the search engine analogy. Your user agent is not Google on your desktop, or in the palm of your hand. It is software that builds an index of your personality traits based upon your preferences, and updates a ridiculously complicated irreplaceable algorithm.</p>
+<p>The affect on publishers could be devastating. Content would be analyzed, dissected, and reformatted. Ads could be stripped, needless information removed, and both the brand and the domain would disintegrate. These user agents would understand our habits, even adjusting to our fickle tastes, and possibly suggest we journey into subject matter that will compliment our interests. We can only wait and see.</p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=cEag1emq"><img src="http://feeds.feedburner.com/~f/dbug?i=cEag1emq" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=RJLR6e6I"><img src="http://feeds.feedburner.com/~f/dbug?i=RJLR6e6I" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=exqzSTTY"><img src="http://feeds.feedburner.com/~f/dbug?i=exqzSTTY" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=ggrkMZo6"><img src="http://feeds.feedburner.com/~f/dbug?i=ggrkMZo6" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=nazO9Dk9"><img src="http://feeds.feedburner.com/~f/dbug?i=nazO9Dk9" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=B8LuXNH1"><img src="http://feeds.feedburner.com/~f/dbug?i=B8LuXNH1" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/20/the-evolution-of-the-api-or-the-publishers-dilemma/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/20/the-evolution-of-the-api-or-the-publishers-dilemma/</feedburner:origLink></item>
+		<item>
+		<title>Syntax Highlighter, jQuery plugins, future posts, and goodie giveaways</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/158520832/</link>
+		<comments>http://blog.reindel.com/2007/09/19/syntax-highlighter-jquery-plugins-future-posts-and-goodie-giveaways/#comments</comments>
+		<pubDate>Wed, 19 Sep 2007 12:14:14 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Announcements</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/19/syntax-highlighter-jquery-plugins-future-posts-and-goodie-giveaways/</guid>
+		<description><![CDATA[This is just a quick note to let you know I have &#8220;officially&#8221; chosen Syntax Highlighter by Alex Gorbatchev as the code highlighter for d&#8217;bug. Over the next month I will be making tweaks, and experimenting with it, so there is always the potential for a mishap.
+Several of you have emailed me about a bug [...]]]></description>
+			<content:encoded><![CDATA[<p>This is just a quick note to let you know I have &#8220;officially&#8221; chosen Syntax Highlighter by Alex Gorbatchev as the code highlighter for d&#8217;bug. Over the next month I will be making tweaks, and experimenting with it, so there is always the potential for a mishap.</p>
+<p>Several of you have emailed me about a bug in the Truncate plugin for jQuery. Thank you for taking the time to send a fix along. I am not ignoring your emails, and I will try to wrap that change up into a release very shortly. I plan to do another jQuery tutorial in the future, but I am skeptical about building another plugin. I want to be able to provide support, and if I feel I will be unable to do this, then I do not want to short-change developers.</p>
+<p>I have numerous ideas for posts (too many to count), and I hope to continue forward with useful tutorials as well as my occasionally ridiculous rantings. In the next month or so I will run our first giveaway &#8212; <a href="http://www.smashingmagazine.com/2007/09/06/smashing-1st-anniversary-giveaway/" class="inline">nowhere near the scale of some others</a>, but a thanks to the design and development community nonetheless.</p>
+<p>Stick around!</p>
+<p>Brian Reindel</p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=j0NXpvtl"><img src="http://feeds.feedburner.com/~f/dbug?i=j0NXpvtl" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=8GHJlKk9"><img src="http://feeds.feedburner.com/~f/dbug?i=8GHJlKk9" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=NkgHDDge"><img src="http://feeds.feedburner.com/~f/dbug?i=NkgHDDge" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=yWYMoaZp"><img src="http://feeds.feedburner.com/~f/dbug?i=yWYMoaZp" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=g3x0VSPe"><img src="http://feeds.feedburner.com/~f/dbug?i=g3x0VSPe" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=DWoPThaH"><img src="http://feeds.feedburner.com/~f/dbug?i=DWoPThaH" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/19/syntax-highlighter-jquery-plugins-future-posts-and-goodie-giveaways/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/19/syntax-highlighter-jquery-plugins-future-posts-and-goodie-giveaways/</feedburner:origLink></item>
+		<item>
+		<title>Export data to a CSV file using only the MySQL command prompt</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/158503300/</link>
+		<comments>http://blog.reindel.com/2007/09/19/export-data-to-a-csv-file-using-only-the-mysql-command-prompt/#comments</comments>
+		<pubDate>Wed, 19 Sep 2007 11:23:24 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>MySQL</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/19/export-data-to-a-csv-file-using-only-the-mysql-command-prompt/</guid>
+		<description><![CDATA[Recently our marketing department has been running a series of promotions as contests. The system is setup to receive entries, but for the present time we will not be building an administration interface. The entries will instead be extracted into a CSV file manually when the contest deadline has passed. Up until this point I [...]]]></description>
+			<content:encoded><![CDATA[<p>Recently our marketing department has been running a series of promotions as contests. The system is setup to receive entries, but for the present time we will not be building an administration interface. The entries will instead be extracted into a CSV file manually when the contest deadline has passed. Up until this point I was unaware that MySQL could perform the task sans server-side language at the command prompt.<a id="more-107"></a><br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-5000435816695196";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text";
+//2007-09-03: Single Post
+google_ad_channel = "0351795381";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "ff6600";
+google_color_text = "333333";
+google_color_url = "00885a";
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></p>
+<p>For those of you who rely on a tool such as phpMyAdmin, you might find this to be just as quick. If you have root access, or the proper system administration privileges, then it will be rather painless. This method also tends to be less brutish and less tedious than a complete <em>mysqldump</em>.</p>
+<pre name="code" class="javascript:sql">
+SELECT tableColumnName1, tableColumnName2 
+INTO OUTFILE '/path/to/file/data.csv' 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+FROM tableName;
+</pre>
+<h3>Access Denied</h3>
+<p>Even if you have been granted the SELECT privilege, you will still need to be granted the FILE privilege, or else access will be denied. Some architects will only grant this privilege to the root user. Another reason that you might receive an access denied message, is because the directory where you are trying to save the CSV file is not writable.</p>
+<p>In order to prevent a user from accidentally overwriting an important system file (like <em>etc/passwd</em>), you will be unable to save over a file that already exists on the server.</p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=q9yiChXd"><img src="http://feeds.feedburner.com/~f/dbug?i=q9yiChXd" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=0S7cz2C8"><img src="http://feeds.feedburner.com/~f/dbug?i=0S7cz2C8" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=Ln1r0pwy"><img src="http://feeds.feedburner.com/~f/dbug?i=Ln1r0pwy" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=4ylF9nIU"><img src="http://feeds.feedburner.com/~f/dbug?i=4ylF9nIU" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=jItUTC5I"><img src="http://feeds.feedburner.com/~f/dbug?i=jItUTC5I" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=cAAoPVix"><img src="http://feeds.feedburner.com/~f/dbug?i=cAAoPVix" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/19/export-data-to-a-csv-file-using-only-the-mysql-command-prompt/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/19/export-data-to-a-csv-file-using-only-the-mysql-command-prompt/</feedburner:origLink></item>
+		<item>
+		<title>Were you born to be a programmer?</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/157867602/</link>
+		<comments>http://blog.reindel.com/2007/09/17/were-you-born-to-be-a-programmer/#comments</comments>
+		<pubDate>Tue, 18 Sep 2007 02:05:04 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Web Development</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/17/were-you-born-to-be-a-programmer/</guid>
+		<description><![CDATA[Reading blog posts that highlight the career paths of programmers is of great interest to me. Although, I do find that most of these diatribes evolve (or decay &#8212; whichever you prefer) into rather grandiose descriptions of past computing exploits. You could easily be led to believe that most programmers leave the womb clamoring for [...]]]></description>
+			<content:encoded><![CDATA[<p>Reading blog posts that highlight the career paths of programmers is of great interest to me. Although, I do find that most of these diatribes evolve (or decay &#8212; whichever you prefer) into rather grandiose descriptions of past computing exploits. You could easily be led to believe that most programmers leave the womb clamoring for a keyboard instead of mom and pop. The characteristics possessed by these individuals appear to be mystic and rather unattainable by others. <a href="http://en.wikipedia.org/wiki/Midi-chlorians" class="inline">If ever there were evidence for Midi-chlorians</a>, I gather they would be it.<a id="more-105"></a><br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-5000435816695196";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text";
+//2007-09-03: Single Post
+google_ad_channel = "0351795381";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "ff6600";
+google_color_text = "333333";
+google_color_url = "00885a";
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></p>
+<p>Understandably, this early weaning onto computers and programming can influence the behaviors and attitudes of children. Yet, this experience is quite foreign to me. It is rather miraculous that I have landed on my feet in this field considering the haphazard fashion with which I became a software engineer. It had crossed my mind to drag you through the ordeal, but for now I will just leave you with something more instantly fulfilling. Was I simply born to be a programmer? How about you? Are there personality traits that we are born with that predisposes us to programming?</p>
+<p>Why not have some fun with it, and <a href="http://www.reindel.com/born_to_be_a_programmer" class="inline">take a test to find out</a>.</p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=8mFHIx4q"><img src="http://feeds.feedburner.com/~f/dbug?i=8mFHIx4q" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=UobH7lP7"><img src="http://feeds.feedburner.com/~f/dbug?i=UobH7lP7" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=doxQrLAH"><img src="http://feeds.feedburner.com/~f/dbug?i=doxQrLAH" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=j7l69ejm"><img src="http://feeds.feedburner.com/~f/dbug?i=j7l69ejm" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=911VeYd8"><img src="http://feeds.feedburner.com/~f/dbug?i=911VeYd8" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=sJch7FW8"><img src="http://feeds.feedburner.com/~f/dbug?i=sJch7FW8" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/17/were-you-born-to-be-a-programmer/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/17/were-you-born-to-be-a-programmer/</feedburner:origLink></item>
+		<item>
+		<title>Monday (9-17-07) edition of the d’bug link farm</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/157563452/</link>
+		<comments>http://blog.reindel.com/2007/09/17/monday-9-17-07-edition-of-the-dbug-link-farm/#comments</comments>
+		<pubDate>Mon, 17 Sep 2007 11:36:56 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Link Farm</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/17/monday-9-17-07-edition-of-the-dbug-link-farm/</guid>
+		<description><![CDATA[Enjoy today&#8217;s link farm!
+
+Seven Questions with the 4-Hour Workweek Evangelist
+Tech visions of future from NextFest
+Yahoo finally gets a good social network: Mash
+Thinking Out Loud: Facebook
+Five Tools to Capture Your Thoughts
+Fear of Web 2.0
+Choose your screen saver wisely
+Iran blocks access to Google
+Man in China dies after three-day Internet session
+Google sites captures 27% of online video market [...]]]></description>
+			<content:encoded><![CDATA[<p>Enjoy today&#8217;s link farm!</p>
+<ul class="link_farm">
+<li><a href="http://www.fastcompany.com/articles/2007/09/4-hour-work-week.html" class="inline">Seven Questions with the 4-Hour Workweek Evangelist</a></li>
+<li><a href="http://www.news.com/2300-11398_3-6208211-1.html" class="inline">Tech visions of future from NextFest</a></li>
+<li><a href="http://www.news.com/8301-10784_3-9779025-7.html" class="inline">Yahoo finally gets a good social network: Mash</a></li>
+<li><a href="http://battellemedia.com/archives/003957.php" class="inline">Thinking Out Loud: Facebook</a></li>
+<li><a href="http://lifehacker.com/software/productivity/five-tools-to-capture-your-thoughts-300321.php" class="inline">Five Tools to Capture Your Thoughts</a></li>
+<li><a href="http://www.readwriteweb.com/archives/fear_of_web_20.php" class="inline">Fear of Web 2.0</a></li>
+<li><a href="http://www.robertnyman.com/2007/09/14/choose-your-screen-saver-wisely/" class="inline">Choose your screen saver wisely</a></li>
+<li><a href="http://news.yahoo.com/s/afp/20070917/tc_afp/iraninternettechnologycompanygoogle" class="inline">Iran blocks access to Google</a></li>
+<li><a href="http://news.yahoo.com/s/nm/20070917/wr_nm/china_internet_death_dc" class="inline">Man in China dies after three-day Internet session</a></li>
+<li><a href="http://www.internetretailer.com/dailyNews.asp?id=23754" class="inline">Google sites captures 27% of online video market share in July</a></li>
+</ul><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=tRDBEKyC"><img src="http://feeds.feedburner.com/~f/dbug?i=tRDBEKyC" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=AJKpTaNL"><img src="http://feeds.feedburner.com/~f/dbug?i=AJKpTaNL" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=RXeU0Iua"><img src="http://feeds.feedburner.com/~f/dbug?i=RXeU0Iua" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=LzgY9z7e"><img src="http://feeds.feedburner.com/~f/dbug?i=LzgY9z7e" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=djiN5GD5"><img src="http://feeds.feedburner.com/~f/dbug?i=djiN5GD5" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=rq2m9dld"><img src="http://feeds.feedburner.com/~f/dbug?i=rq2m9dld" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/17/monday-9-17-07-edition-of-the-dbug-link-farm/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/17/monday-9-17-07-edition-of-the-dbug-link-farm/</feedburner:origLink></item>
+		<item>
+		<title>Friday (9-14-07) edition of the d’bug link farm</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/156400070/</link>
+		<comments>http://blog.reindel.com/2007/09/14/friday-9-14-07-edition-of-the-dbug-link-farm/#comments</comments>
+		<pubDate>Fri, 14 Sep 2007 12:22:27 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Link Farm</category>
+		<guid isPermaLink="false">http://blog.reindel.com/2007/09/14/friday-9-14-07-edition-of-the-dbug-link-farm/</guid>
+		<description><![CDATA[Enjoy today&#8217;s link farm!
+
+Microsoft Takes on Adobe&#8217;s Flash
+Ditch the Lunatic Web Content Crazes
+Updating the Lemonade Stand Strategy
+Web ad blocking may not be (entirely) legal
+Strategies for Improving Enterprise Search
+Classic Computer Science Puzzles
+International Ecommerce Usability Tips
+Yahoo Hacks Become Yahoo Products
+Social Network Types, Motivations, and the Future
+Technorati assaults design (again)
+]]></description>
+			<content:encoded><![CDATA[<p>Enjoy today&#8217;s link farm!</p>
+<ul class="link_farm">
+<li><a href="http://adage.com:80/article?article_id=120297" class="inline">Microsoft Takes on Adobe&#8217;s Flash</a></li>
+<li><a href="http://adage.com:80/cmostrategy/article?article_id=120273" class="inline">Ditch the Lunatic Web Content Crazes</a></li>
+<li><a href="http://www.nytimes.com/2007/09/10/technology/10ecom.html?_r=2&#038;oref=slogin&#038;oref=slogin" class="inline">Updating the Lemonade Stand Strategy</a></li>
+<li><a href="http://www.news.com/Web+ad+blocking+may+not+be+entirely+legal/2100-1030_3-6207936.html?part=rss&#038;tag=2547-1_3-0-20&#038;subj=news" class="inline">Web ad blocking may not be (entirely) legal</a></li>
+<li><a href="http://www.boxesandarrows.com/view/strategies-for" class="inline">Strategies for Improving Enterprise Search</a></li>
+<li><a href="http://www.codinghorror.com/blog/archives/000951.html" class="inline">Classic Computer Science Puzzles</a></li>
+<li><a href="http://www.getelastic.com/international-ecommerce-usability-tips/" class="inline">International Ecommerce Usability Tips</a></li>
+<li><a href="http://blog.programmableweb.com/2007/09/13/yahoo-hacks-become-yahoo-products/" class="inline">Yahoo Hacks Become Yahoo Products</a></li>
+<li><a href="http://www.readwriteweb.com/archives/social_network_types_motivations.php" class="inline">Social Network Types, Motivations, and the Future</a></li>
+<li><a href="http://warpspire.com/features/technorati-redesign/" class="inline">Technorati assaults design (again)</a></li>
+</ul><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=IVt68Xs9"><img src="http://feeds.feedburner.com/~f/dbug?i=IVt68Xs9" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=WG4guPpU"><img src="http://feeds.feedburner.com/~f/dbug?i=WG4guPpU" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=sG7Pkn7I"><img src="http://feeds.feedburner.com/~f/dbug?i=sG7Pkn7I" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=gyFaktvM"><img src="http://feeds.feedburner.com/~f/dbug?i=gyFaktvM" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=q4LQwOYO"><img src="http://feeds.feedburner.com/~f/dbug?i=q4LQwOYO" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=U9x4hRBb"><img src="http://feeds.feedburner.com/~f/dbug?i=U9x4hRBb" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/14/friday-9-14-07-edition-of-the-dbug-link-farm/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/14/friday-9-14-07-edition-of-the-dbug-link-farm/</feedburner:origLink></item>
+		<item>
+		<title>I will never support the Semantic Web</title>
+		<link>http://feeds.feedburner.com/~r/dbug/~3/155952328/</link>
+		<comments>http://blog.reindel.com/2007/09/13/i-will-never-support-the-semantic-web/#comments</comments>
+		<pubDate>Thu, 13 Sep 2007 13:24:54 +0000</pubDate>
+		<dc:creator>Brian</dc:creator>
+		
+	<category>Technology</category>
+		<guid isPermaLink="true">http://blog.reindel.com/2007/09/13/i-will-never-support-the-semantic-web/</guid>
+		<description><![CDATA[The Semantic Web, or (sigh) Web 3.0 as some might say, is certainly a hotly debated subject. To laymen, the Semantic Web often appears as a science fiction derivative masquerading as a technological imperative. Our lives will be changed forever, and the Web will morph into a complex, but organized intelligence capable of telling you [...]]]></description>
+			<content:encoded><![CDATA[<p>The Semantic Web, or (sigh) Web 3.0 as some might say, is certainly a hotly debated subject. To laymen, the Semantic Web often appears as a science fiction derivative masquerading as a technological imperative. Our lives will be changed forever, and the Web will morph into a complex, but organized intelligence capable of telling you what you need to know with pinpoint accuracy.<a id="more-102"></a><br /><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-5000435816695196";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text";
+//2007-09-03: Single Post
+google_ad_channel = "0351795381";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "ff6600";
+google_color_text = "333333";
+google_color_url = "00885a";
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></p>
+<p><a href="http://www.sciam.com/article.cfm?articleID=00048144-10D2-1C70-84A9809EC588EF21" class="inline">The seminal work</a> that envisioned such a Utopia, was published by <em>Scientific American</em>, and written by Tim Berners-Lee, James Hendler and Ora Lassila.</p>
+<p>Supposedly, the assemblage and delivery of this information can be accomplished when responsible bodies not unlike the W3C, can decide on a semantic language. The Semantic Web will be built to compliment, and eventually replace some current languages and technologies. Developers creating Web sites will be responsible for implementing the proper semantic tags, user agents will interpret these tags, infer that certain relationships exist, and provide a set of results.</p>
+<p>It sounds rather nice. Search engines will no longer be necessary, and brilliant personal user agents could even replace browsers altogether. Before jumping on the bandwagon though, it might be worth your while to consider this initiative, and why it will never come to full fruition. I am not a pessimist, but a realist, and I have done the research. The conclusion? I will never support the Semantic Web.</p>
+<h3>The Semantic Web will be unable to identify relationships from natural language</h3>
+<p>In other words, there is more than one way to describe something. Aside from strict rules that govern some data formats, like a phone number or mailing address, a description can vary significantly. I am five feet and eleven inches tall, and I weigh two hundred and twenty pounds. In the Philippines, I might be labeled a <em>large</em> individual. How about in Houston, Texas, the fattest city in America according to a 2006 study by <em>Men&#8217;s Fitness</em> magazine? A person residing in this city might consider me to be of rather average size.</p>
+<p>This is an unsophisticated example, but it provides an ample illustration regarding interpretation based upon experience and environment. Most people using the Internet want to be able to identify and locate information using natural language that is personal and basic. This is why Flickr&#8217;s introduction of tagging was so popular and garnered such widespread adoption. The process of identification was facilitated by humans, and therefore, allowed a more diverse interpretation of a visual medium.</p>
+<p>The Semantic Web will not bring us any closer to this reality because machines are unable to interpret data that is subjective unless complex algorithms are built around it. These are algorithms that already exist today, and are built by humans to search the Web as it exists.</p>
+<h3>The Semantic Web will be just as susceptible to information manipulation</h3>
+<p>Even if the Semantic Web could manage the inferred relationships between two sources of information, who is to say that the content presented is accurate? It may be formatted properly, and communicate details and specifications based upon recognized standards, but what &#8220;weight&#8221; will it be given? Google has a PageRank, and Alexa an Alexa Rating, just to name two. What will the Semantic Web use to disseminate and aggregate data when almost identical relationships are available for consideration?</p>
+<p>In this case, users will still be required to interpret the information presented, and if there is customizable software that analyzes and builds result sets based upon criteria you specify, what is to say I cannot &#8220;game the system&#8221;.</p>
+<p>Consider a scenario in which a shopper would like to purchase a pair of jeans, between $25-50 USD, from a retailer no more than 15 miles away from her house. She will purchase the merchandise online, but the retailer must support in-store pickup, since she does not want to pay shipping. Theoretically, a Semantic Web accompanied by a user agent will be able to assist her with this seemingly precise purchase. That is, until she discovers not all merchants are actually selling the item she wants. They are advertising products that competitors have in stock, but do not inform her that she must special order the item.</p>
+<p>The Semantic Web is no more able to weed out these untrusted sources than Google, or any other search engine. You will still have to perform the leg work.</p>
+<h3>The Semantic Web will fail miserably at identifying trusted sources</h3>
+<p>There are some Semantic Web enthusiasts who would tell me that I am mistaken, and that systems built around semantics can interpret the knowledge available and identify a trusted source. For instance, consider our shopper looking for jeans online. Presumably, in the Semantic Web, she will be able to use semantics to tag Web sites as untrusted. When her friend (with whom she has a semantic relationship), decides to purchase an identical pair of jeans, he will be assisted with this additional information. Unfortunately, in her frustration, she has mistakenly tagged several of her friend&#8217;s favorite retailers as untrusted. Instead of sifting through a result set with too many results, he is now stuck refining his search so that it includes his favorite retailers, which is a tedious task.</p>
+<p>If you apply the same trusted source scenario to users, it becomes even more complicated. What if you have been branded an untrusted source by an individual who has a broad spectrum of relationships. All of those other related entities, whether they be organizations or individuals, now consider you to be untrustworthy. If you have a poor experience with a bank or financial institution, the manager may choose to label you as untrusted. You could be denied goods or services as a direct result of bias, or a simple miscommunication. eBay power users know how important their feedback rating is to running a successful business. A spike in poor feedback can result in a drop in sales.</p>
+<h3>Conclusion</h3>
+<p>These are three very simple illustrations that demonstrate why machines and the Semantic Web are not capable of understanding the complexities of human thought. The Web is essentially a conglomeration of thought processes conveyed in the form of interactive mediums. The Semantic Web only serves to diminish the factors that make us human, and it will characterize our uniqueness through a series of predefined tags. The current Web offers us the ability to express ourselves in an unbound context, and the interpretations of those expressions can never be duplicated by a computer.</p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~f/dbug?a=2AhzwqWT"><img src="http://feeds.feedburner.com/~f/dbug?i=2AhzwqWT" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=lTTRlwmQ"><img src="http://feeds.feedburner.com/~f/dbug?i=lTTRlwmQ" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=ktIhiwD0"><img src="http://feeds.feedburner.com/~f/dbug?i=ktIhiwD0" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=41rTLnWb"><img src="http://feeds.feedburner.com/~f/dbug?i=41rTLnWb" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=y7eNVEOl"><img src="http://feeds.feedburner.com/~f/dbug?i=y7eNVEOl" border="0"></img></a> <a href="http://feeds.feedburner.com/~f/dbug?a=35HOpNuy"><img src="http://feeds.feedburner.com/~f/dbug?i=35HOpNuy" border="0"></img></a>
+</div>]]></content:encoded>
+			<wfw:commentRSS>http://blog.reindel.com/2007/09/13/i-will-never-support-the-semantic-web/feed/</wfw:commentRSS>
+		<feedburner:origLink>http://blog.reindel.com/2007/09/13/i-will-never-support-the-semantic-web/</feedburner:origLink></item>
+	</channel>
+</rss>

@@ -1,0 +1,190 @@
+/*
+    OpenRide -- Car Sharing 2.0
+    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+
+    Fraunhofer FOKUS
+    Kaiserin-Augusta-Allee 31
+    10589 Berlin
+    Tel: +49 30 3463-7000
+    info@fokus.fraunhofer.de
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License Version 3 as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* 
+    Document   : footer
+    Created on : 21.02.2010, 18:45:13
+    Author     : rob
+    Description:
+        Footer for OpenRide mobile Client.
+*/
+
+/* Begin Menu 1 Style */
+
+.menu {
+    padding: 0;
+    margin: 0;
+    float:left;
+    width:320px;
+    height:54px;
+}
+.menuitem {
+    float:left;
+    width:80px;
+    height:54px;
+}
+
+#footer0
+{
+    background-image:url(../../img/drivermode.png);
+}
+
+a#footer0:hover
+{
+    background-image:url(../../img/drivermodehover.png);
+}
+
+#footer1
+{
+    background-image:url(../../img/home.png);
+}
+
+a#footer1:hover
+{
+    background-image:url(../../img/homehover.png);
+}
+
+#footer2
+{
+    background-image:url(../../img/orsign80_grey.png);
+}
+
+a#footer2:hover
+{
+    
+}
+
+#footer3
+{
+    background-image:url(../../img/quit.png);
+}
+
+a#footer3:hover
+{
+    background-image:url(../../img/quithover.png);
+}
+
+.menuitem0 {
+    width:80px;
+    background-image:url(../../img/leftarr80px.png);
+}
+a.menuitem0:hover {
+    width:80px;
+    background-image:url(../../img/leftarr_hover80px.png);
+}
+.menuitem1 {
+    width:80px;
+    background-image:url(../../img/logout80px.png);
+}
+a.menuitem1:hover {
+    width:80px;
+    background-image:url(../../img/logout_hover80px.png);
+}
+.menuitem2 {
+    width:80px;
+    background-image:url(../../img/home80px.png);
+}
+a.menuitem2:hover {
+    width:80px;
+    background-image:url(../../img/home_hover80px.png);
+}
+.menuitem3 {
+    width:80px;
+    background-image:url(../../img/rightarr80px.png);
+}
+a.menuitem3:hover {
+    width:80px;
+    background-image:url(../../img/rightarr_hover80px.png);
+}
+/* End Menu 1 Style */
+
+/* Begin Menu 2 Style (extends Menu 1)*/
+
+.menuitem4 {
+    width:60px;
+    background-image: url(../../img/leftarr60px.png);
+}
+a.menuitem4:hover {
+    background-image: url(../../img/leftarr_hover60px.png);
+}
+.menuitem5 {
+    width:201px;
+    background-image: url(../../img/menu_orsign.png);
+}
+a.menuitem5:hover {
+    background-image: url(../../img/menu_orsig_hover.png);
+}
+.menuitem6 {
+    width:59px;
+    background-image: url(../../img/rightarr60px.png);
+}
+a.menuitem6:hover {
+    background-image: url(../../img/rightarr_hover60px.png);
+}
+
+/* End Menu 2 Style */
+
+/* Begin Unused Menu 1 Style (extends Menu 1) */
+
+.menuitem7 {
+    width:80px;
+    background-image:url(../../img/leftarr_unused80px.png);
+}
+.menuitem8 {
+    width:80px;
+    background-image:url(../../img/rightarr_unused80px.png);
+}
+.menuitem11 {
+    width:80px;
+    background-image:url(../../img/rightokwhite.png);
+}
+a.menuitem11:hover {
+    background-image:url(../../img/rightokinv.png);
+}
+.menuitem12 {
+    width:80px;
+    background-image:url(../../img/matchfound.gif);
+}
+a.menuitem12:hover {
+    background-image:url(../../img/matchfoundinv.gif);
+}
+.menuitem13 {
+    width:80px;
+    background-image:url(../../img/orsign80_grey.png);
+}
+
+/* End Unused Menu 1 Style */
+
+/* Begin Unused Menu 2 Style (extends Menu 1)*/
+
+.menuitem9 {
+    width:60px;
+    background-image:url(../../img/leftarr_unused60px.png);
+}
+.menuitem10 {
+    width:59px;
+    background-image:url(../../img/rightarr_unused60px.png);
+}
+
+/* End Unused Menu 2 Style */
+

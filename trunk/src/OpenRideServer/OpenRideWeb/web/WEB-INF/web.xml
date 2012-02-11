@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"-->
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>com.sun.faces.verifyObjects</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.validateXml</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+        <cookie-config>
+            <!--path>/</path-->
+            <!--max-age>-1</max-age-->
+        </cookie-config>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <!--filter>
+        <description>Require that the user login before accessing any page other than the entry page </description>
+        <filter-name>ForcedLoginFilter</filter-name>
+        <filter-class>de.fhg.fokus.openride.webclient.util.ForcedLoginFilter</filter-class>
+        <init-param>
+            <param-name>de.fhg.fokus.openride.webclient.LoginURI</param-name>
+            <param-value>welcome.jsf</param-value>
+        </init-param>
+        <init-param>
+            <description>ViewIds for which this filter must not forward back to the login page.</description>
+            <param-name>de.fhg.fokus.openride.webclient.NoForwardViewIds</param-name>
+            <param-value>/ index.jsp welcome.jsp register.jsp about.jsp contact.jsp faq.jsp imprint.jsp partners.jsp terms.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>de.fhg.fokus.openride.webclient.ProfileURI</param-name>
+            <param-value>profile.jsf</param-value>
+        </init-param>
+        <init-param>
+            <description>ViewIds for which this filter must forward authenticated users to the profile page.</description>
+            <param-name>de.fhg.fokus.openride.webclient.AuthUsersProfileForwardViewIds</param-name>
+            <param-value>welcome.jsp register.jsp</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ForcedLoginFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+    </error-page>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>OpenRideWeb-private</web-resource-name>
+            <description/>
+            <url-pattern>/profile.jsf</url-pattern>
+            <url-pattern>/mobile-demo.jsf</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>POST</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>customer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbc_realm</realm-name>
+        <form-login-config>
+            <form-login-page>/welcome.jsf</form-login-page>
+            <form-error-page>/login_error.jsf</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>customer</role-name>
+    </security-role>
+    <filter>
+        <filter-name>MyFacesExtensionsFilter</filter-name>
+        <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+        <init-param>
+            <param-name>uploadMaxFileSize</param-name>
+            <param-value>10m</param-value>
+            <!--description>Set the size limit for uploaded files. Format: 10 - 10 bytes / 10k - 10 KB / 10m - 10 MB / 1g - 1 GB</description-->
+        </init-param>
+        <init-param>
+            <description>Set the path where the intermediary files will be stored.</description>
+            <param-name>uploadRepositoryPath</param-name>
+            <param-value>C:\temp</param-value>
+            <!--param-value>/tmp</param-value-->
+        </init-param>
+    </filter>
+    <!-- extension mapping for adding <script/>, <link/>, and other resource tags to JSF-pages  -->
+    <filter-mapping>
+        <filter-name>MyFacesExtensionsFilter</filter-name>
+        <!-- servlet-name must match the name of your javax.faces.webapp.FacesServlet entry -->
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    <!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  -->
+    <filter-mapping>
+        <filter-name>MyFacesExtensionsFilter</filter-name>
+        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>imageServlet</servlet-name>
+        <servlet-class>de.fhg.fokus.openride.webclient.ImageServlet</servlet-class>
+        <init-param>
+            <param-name>imagePath</param-name>
+            <!--param-value>C:\\OpenRide\\pictures</param-value-->
+            <param-value>/usr/lib/openride/pictures/profile</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>imageServlet</servlet-name>
+        <url-pattern>/pictures/*</url-pattern>
+    </servlet-mapping>
+    <!--security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secured pages</web-resource-name>
+            <url-pattern>*.jsf</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint-->
+    <security-role>
+        <description/>
+        <role-name>administrator</role-name>
+    </security-role>
+</web-app>

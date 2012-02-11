@@ -1,0 +1,291 @@
+/*
+    OpenRide -- Car Sharing 2.0
+    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+
+    Fraunhofer FOKUS
+    Kaiserin-Augusta-Allee 31
+    10589 Berlin
+    Tel: +49 30 3463-7000
+    info@fokus.fraunhofer.de
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License Version 3 as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+html{
+    margin:0;
+    padding:0;
+}
+body{
+    margin:0;
+    padding:0;
+    background-color:#000;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-top: 0px solid #666;
+}
+
+#content{
+    position: relative;
+    width:310px;
+    min-height:470px;
+    padding: 0 0 38px 0;
+    margin: 0;
+    border: 5px solid #96bd0d;
+    border-bottom: none;
+    background-color:#FFF;
+    overflow: hidden;
+}
+
+h3 {
+    padding: 0.75em 10px 0.0em 10px;
+    margin: 0 0 0.75em 0;
+    font-size: 16px;
+    border-top: 1px solid #96bd0d;
+}
+.separated {
+    border-top: 1px solid #ccc;
+}
+h3.separated {
+    margin: 0.6em 0 2px 0;
+    border-top: 1px solid #ccc;
+}
+p {
+    margin: 0.0em 10px 0.5em 10px;
+}
+
+h1 {
+    font-size: 20px;
+    color: #96bd0d;
+    margin: 8px 10px;
+    padding: 0;
+    text-align: left;
+    line-height: 150%;
+}
+
+.error {
+    color: red;
+    display: block;
+}
+table td, table th {
+    padding: 0;
+    vertical-align: top;
+}
+table .column33 {
+    width: 33%;
+}
+table .column66 {
+    width: 66%;
+}
+table .column45 {
+    width: 45%;
+}
+table .column55 {
+    width: 55%;
+}
+table .column25 {
+    width: 25%;
+}
+table .column50 {
+    width: 50%;
+}
+
+input.wide {
+    width: 100%;
+}
+
+span.requiredField {
+    color: #90b70d;
+    border: none;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+
+
+form {
+    margin: 0;
+    padding: 0;
+}
+form.login {
+    display: none;
+}
+form.login label {
+    display: block;
+    float: left;
+    width: 121px;
+    padding: 0;
+    margin: 6px 0 10px 10px;
+    font-weight: normal;
+}
+
+form.login input {
+    margin: 0;
+    width: 160px;
+    border: 1px solid #96bd0d;
+    color: #aaa;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 3px 3px 2px 3px;
+}
+form.login input[type="button"], form.login input[type="submit"] {
+    background: #96bd0d url(/OpenRideServer-RS/img/button_bg.png);
+    color: #fff;
+    font-weight: bold;
+    margin: 10px 9px;
+    width: 290px;
+    padding: 4px 3px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+form.login br {
+    clear:left; /* setting clear on inputs didn't work consistently, so brs added for degrade */
+}
+
+form table, table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+form table {
+    width: 99%;
+}
+form table td, form table th, table td, table th {
+    padding: 2px 8px 3px 0;
+    font-weight: normal;
+    font-size: 100%;
+    text-align: left;
+    vertical-align: top;
+    line-height: 16px;
+}
+form table th, table th {
+    width: 133px;
+    padding: 6px 0;
+    line-height: 12px;
+}
+form table td.text, table td {
+    padding: 6px 0;
+}
+input[type=text], input.wide {
+    /*width: 266px;*/
+    border: 1px solid #ddd;
+    padding: 3px 4px;
+    /*font-family: "Verdana", "Arial", "MS Sans Serif", "DejaVu Sans", sans-serif;*/
+    font-size: 100%;
+    /*background: #fff url(../img/vertical_gradient_bg_strip_grey.png) left top repeat-x;*/
+}
+input.button, button {
+    width: auto;
+    padding: 2px 9px 2px 9px;
+    margin: 0 1px;
+    background: #ff9900;
+    border: 1px solid;
+    border-color: #323941;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    color: #222;
+    overflow: visible; /* clever IE... */
+}
+
+
+#usermodelink {
+    position: relative;
+    padding: 0;
+    margin: 9px 0 5px 0;
+    cursor: pointer;
+    text-align: center;
+}
+#usermodelink {
+    width: 310px;
+    left: 0;
+    padding-top: 52px;
+}
+#usermodelink strong {
+    display: block;
+}
+
+#ridermodeimg, #drivermodeimg {
+    position: absolute;
+    top: 0;
+}
+#ridermodeimg {
+    left: 67px;
+}
+#drivermodeimg {
+    right: 57px;
+}
+
+#usermodeslider_bg {
+    width: 74px;
+    height: 32px;
+    background: url(/OpenRideServer-RS/img/switch_bg.png) no-repeat;
+    position: absolute;
+    top: 10px;
+    left: 123px;
+    text-align: left;
+    padding: 1px;
+}
+#usermodeslider {
+    margin-left: 41px;
+}
+
+
+#footer {
+    /*border-top: 1px solid #c7db86;*/
+    
+    position: absolute;
+    bottom: 0;
+    
+}
+#footer div {
+    width: 305px;
+    text-align: center;
+    line-height: 125%;
+    font-size: 8.5px;
+    margin: 0;
+    background: #96bd0d;
+    padding: 4px 3px 3px 3px;
+    color: #fff;
+}
+#footer div .right {
+    float: right;
+}
+#footer div .right a {
+    color: #fff;
+    /*text-transform: uppercase;*/
+}
+#footer div .left {
+    float: left;
+    color: #fff;
+}
+#footer div a {
+    color: #fff;   
+}
+#footer div * a:hover {
+    color: #fff;
+}
+.clear {
+    clear: both;
+    display: block;
+}
+
+.hint a {
+    color: #999;
+}
+a {
+    color: #96bd0d;
+    font-weight: bold;
+    text-decoration: none;
+}

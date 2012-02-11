@@ -1,0 +1,100 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jQuery and XML revisited</title>
+<script language="javascript" type="text/javascript" src="jquery-1.2.1.pack.js"></script>
+<script language="javascript" type="text/javascript">
+
+$(function() {
+    $.ajax({
+        type: "GET",
+        url: "dbug.xml",
+        dataType: "xml",
+        success: function(xml) {
+
+            /* Count elements */
+
+            var count = jXML.getCount(xml,{"Channel":"channel","Item":"item:has(title)","GUID":"guid[isPermaLink]:lt(3)"});
+            alert( count["Channel"] + ", " + count["Item"] + ", " + count["GUID"] );
+
+            /* Return objects with a specific attribute */
+
+            var attribute = jXML.getAttribute(xml,{"GUID":["guid","isPermaLink",null],"Channel":["channel","id",null]});
+            alert( attribute["GUID"] + ", " + attribute["Channel"] );
+
+            /* Return objects with a specific attribute value */
+
+            var attribute = jXML.getAttribute(xml,{"GUID":["guid","isPermaLink","false"],"Channel":["channel","id","channel_1"]});
+            alert( attribute["GUID"] + ", " + attribute["Channel"] );
+
+            /* Return a number of objects randomized */
+
+            var random = jXML.getRandomObj(xml,{"Title":["item > title",null],"URL":["item > link",3]});
+            for (i = 0; i < random["Title"].length; i++) {
+                alert( $(random["Title"][i]).text() );
+            }
+            for (i = 0; i < random["URL"].length; i++) {
+                alert( $(random["URL"][i]).text() );
+            }
+
+        }
+    });
+});
+
+var jXML = {
+    getCount: function(xml,nodes) {
+        var response = {};
+        for (var node in nodes) {
+            response[node] = $(nodes[node],xml).length;
+        }
+        return response;
+    },
+    getAttribute: function(xml,nodes) {
+        var response = {};
+        for (var node in nodes) {
+            if (nodes[node][2] == null) {
+                response[node] = $(nodes[node][0] + "[" + nodes[node][1] + "]",xml);
+            } else {
+                if ($(nodes[node][0],xml).attr(nodes[node][1]) == nodes[node][2]) {
+                    response[node] = $(nodes[node][0],xml);
+                }
+            }
+        }
+        return response;
+    },
+    getRandomObj: function(xml,nodes) {
+        var response = {};
+        for (var node in nodes) {
+            var a = [];
+            var b = [];
+            $(nodes[node][0],xml).each(function(i) {
+                b[i] = this;
+            });
+            var c = b.length;
+            if (nodes[node][1] != null && nodes[node][1] < c) {
+                c = nodes[node][1];
+            }
+            for (i = 0; i < c; i++) {
+                var e = Math.floor(Math.random() * b.length);
+                a[i] = b[e];
+                b.splice(e,1);
+            }
+            response[node] = a;
+        }
+        return response;
+    }
+};
+
+</script>
+</head>
+<body>
+
+<!-- jQuery and XML revisited -->
+
+</body>
+</html>
