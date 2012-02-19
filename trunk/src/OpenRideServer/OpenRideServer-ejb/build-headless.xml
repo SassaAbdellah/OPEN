@@ -12,6 +12,13 @@
   <!-- this is where the compiled classes go  --> 
   <property name="build.dir" value="build" /> 
 
+  <!-- this is where required libraries (except JEE libs) are -->
+  <property name="lib.dir" value="libs" /> 
+
+  <!-- This is where JEE libs are. Currently these are taken fro glassfish.3.0.2  -->
+  <property name="jee.lib.dir" value="libs.glassfish.3.0.2" /> 
+
+
 <!-- ******************************************** -->
 <!-- ** check local conditions before build    ** -->
 <!-- ******************************************** -->
@@ -38,16 +45,28 @@
  <!-- ******************* -->
 
  <target name="compile" depends="check" description="Compile classes">
+   
+   <mkdir dir="${dest.dir}" />
+
+   <javac srcdir="${src.dir}" destdir="${build.dir}" >
+	<classpath>
+           <fileset dir="${lib.dir}">  
+                     <include name="**/*.jar" />  
+           </fileset>  
 
 
-        <property name="compile.classpath" value="libs/postgis_1.3.6.jar"/>
+           <fileset dir="${jee.lib.dir}"> 
+                     <include name="**/*.jar" />  
+           </fileset> 
 
-        <mkdir dir="${build.dir}" /> 
-
- 	<javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${compile.classpath}" />
+        </classpath>
 
 
- </target> <!-- end of compile target  -->
+   </javac>
+
+
+
+  </target> <!-- end of compile target  -->
 
  
  <!-- *******************i***** -->
