@@ -1,8 +1,13 @@
-<project default="dist">
+<project name="OpenRideServer-ejb" default="dist">
 
   <!-- ********************************** -->
   <!-- ***** projectwide properties ***** -->
   <!-- ********************************** -->
+
+
+
+  <!-- this is where the jee configuration files are (currently only persistence.xml) -->
+  <property name="conf.dir" value="config"    />
 
 
   <!-- this is where the sources live --> 
@@ -17,6 +22,10 @@
 
   <!-- This is where JEE libs are. Currently these are taken fro glassfish.3.0.2  -->
   <property name="jee.lib.dir" value="libs.glassfish.3.0.2" /> 
+
+  <!-- this is where finally the ejb.jar gets created  --> 
+  <property name="dist.dir" value="dist" /> 
+
 
 
 <!-- ******************************************** -->
@@ -46,7 +55,7 @@
 
  <target name="compile" depends="check" description="Compile classes">
    
-   <mkdir dir="${dest.dir}" />
+   <mkdir dir="${build.dir}" />
 
    <javac srcdir="${src.dir}" destdir="${build.dir}" >
 	<classpath>
@@ -75,10 +84,31 @@
 
  <target name="dist" depends="compile" description="package the dist/OpenRideServer-ejb.jar">
 
+
+
    <echo>  Start packaging the  dist/OpenRideServer-ejb.jar... </echo>
 
 
-   <echo>  done with packaging the dist/OpenRideServer-ejb.jar. </echo>
+   
+   <!-- add EJB configuration (currently only the persistance configuration) -->
+
+   <property name="meta-inf.dir" value="META-INF"   />
+   <mkdir dir="${build.dir}/${meta-inf.dir}"        />
+   <copy file="${conf.dir}/persistence.xml"  todir="${build.dir}/${meta-inf.dir}"        />
+
+
+   <!-- create the jar  -->
+
+   <mkdir dir="${dist.dir}" />
+
+
+
+  <jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${build.dir}">
+
+  </jar>
+
+
+   <echo>  ...done with packaging the dist/OpenRideServer-ejb.jar. </echo>
    
  </target> <!-- end of dist target -->
 
