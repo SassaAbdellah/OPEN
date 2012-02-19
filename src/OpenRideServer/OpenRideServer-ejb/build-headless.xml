@@ -1,0 +1,81 @@
+<project default="dist">
+
+  <!-- ********************************** -->
+  <!-- ***** projectwide properties ***** -->
+  <!-- ********************************** -->
+
+
+  <!-- this is where the sources live --> 
+  <property name="src.dir" value="src/java" /> 
+
+
+  <!-- this is where the compiled classes go  --> 
+  <property name="build.dir" value="build" /> 
+
+<!-- ******************************************** -->
+<!-- ** check local conditions before build    ** -->
+<!-- ******************************************** -->
+
+<target name="check">
+ 
+    <!-- Check that we have at least ant 1.7.1 or higher in place  --> 
+    <fail message="Please build using Ant 1.7.1 or higher.">
+        <condition>
+            <not>
+                <antversion atleast="1.7.1"/>
+            </not>
+        </condition>
+    </fail>
+ 
+</target> <!-- end of the check target -->
+
+
+
+  
+
+ <!-- ******************* -->
+ <!-- ***** compile ***** -->
+ <!-- ******************* -->
+
+ <target name="compile" depends="check" description="Compile classes">
+
+
+        <property name="compile.classpath" value="libs/postgis_1.3.6.jar"/>
+
+        <mkdir dir="${build.dir}" /> 
+
+ 	<javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${compile.classpath}" />
+
+
+ </target> <!-- end of compile target  -->
+
+ 
+ <!-- *******************i***** -->
+ <!-- ***** dist/packaging **** -->
+ <!-- ************************* -->
+
+ <target name="dist" depends="compile" description="package the dist/OpenRideServer-ejb.jar">
+
+   <echo>  Start packaging the  dist/OpenRideServer-ejb.jar... </echo>
+
+
+   <echo>  done with packaging the dist/OpenRideServer-ejb.jar. </echo>
+   
+ </target> <!-- end of dist target -->
+
+
+ <!-- ***************** -->
+ <!-- ****  clean  **** -->
+ <!-- ***************** -->
+   
+  <target name="clean" description="clean up" >
+    <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+   </target> <!-- end of clean target -->
+
+
+
+
+
+</project>
