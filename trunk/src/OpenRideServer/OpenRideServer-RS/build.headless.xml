@@ -4,17 +4,14 @@
 
 
 
-    <!-- TODO: Strangely, build.dir for the minify target is the current directory  -->
-    <!-- TODO: we might want to change interpretation of the build.dir              -->
-    <!-- TODO: until then, we set build.dir to current dir                          -->
+    <!-- TODO: Strangely, minify originally concatenated right into the build.dir  -->
     <property name="build.dir" value="build" />
-
 
     <!-- dist.dir is the directory where the war gets created -->
     <property name="dist.dir" value="dist" />
 
-
-
+    <!-- classes.dir is the directory where the classes are compiled to -->
+    <property name="classes.dir" value="${build.dir}/classes" />
 
 
     <!--  ***  minify will concatenate all of our non-TinyMCE javascripts and stylesheets *** -->
@@ -39,12 +36,16 @@
         <taskdef
             name="yui-compressor"
             classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
-
             <classpath refid="task.classpath" />
         </taskdef>
 
+
+        <!-- create build.dir and build.web.dir  -->
+
+        <mkdir dir="${build.dir}/web" />
+
         <!-- concatenation of javascript -->
-        <echo message="Building global.js , build.dir=${build.dir} " />
+        <echo message="Building global.js" />
         <concat destfile="${build.dir}/web/view/js/global.js" force="no">
             <!-- explicitly order js concat because ordering matters here -->
             <fileset dir="${build.dir}" includes="web/controller/libs/jquery-1.4.2.min.js" />
@@ -121,7 +122,41 @@
 
    <target name="build">
 
+   <!-- *** ensure that build.dir is there   *** -->
    <mkdir dir="${build.dir}" />
+
+   <!-- *** external libs and jee libs are               *** -->
+   <!-- *** imported from the OpenRideServer-RS project  *** -->
+
+   <property name="lib.dir"                 value="../OpenRideServer-ejb/libs/"                       />
+   <property name="jee.lib.dir"             value="../OpenRideServer-ejb/libs.glassfish.3.0.2"        />
+   <property name="OpenRideServer-ejb.jar"  value="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" />
+
+
+
+
+   <!-- ******************************************* -->
+   <!-- *** compile java classes to classes.dir *** -->
+   <!-- ******************************************* -->
+   <mkdir dir="${classes.dir}" />
+
+   <javac srcdir="src/java" destdir="${classes.dir}" > 
+      <classpath>
+ 	<fileset dir="${lib.dir}">
+		<include name="**/*.jar" />
+	</fileset>
+
+	<fileset dir="${jee.lib.dir}">
+            <include name="**/*.jar" />
+	</fileset>
+
+	<fileset file="${OpenRideServer-ejb.jar}" />
+
+      </classpath>  
+
+     </javac>
+
+
 
    <!-- ************************************* -->
    <!-- *** copy web subdir to build.dir  *** -->  
@@ -157,6 +192,11 @@
 
 
       <war destfile="${dist.dir}/${ant.project.name}.war" needxmlfile="false" >
+
+        <!-- Include classes ***************************** -->
+        <classes dir="${classes.dir}" />
+
+
 
 
       </war>
