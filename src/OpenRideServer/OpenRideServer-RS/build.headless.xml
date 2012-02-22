@@ -191,9 +191,6 @@
     
   <target name="dist" depends="build" >
 
- 
-    <mkdir dir="${dist.dir}" />
-
 
 
     <!-- create destination directory -->  
