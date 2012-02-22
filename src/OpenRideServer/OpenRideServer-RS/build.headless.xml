@@ -14,7 +14,7 @@
     <property name="classes.dir" value="${build.dir}/classes" />
 
      <!-- *** external libs and jee libs are                                   *** -->
-     <!-- *** imported from the OpenRideServer-RS project                      *** -->
+     <!-- *** imported from the OpenRideServer-ejb project                      *** -->
     <property name="lib.dir"                 value="../OpenRideServer-ejb/libs/"                       />
     <!-- ***  libs imported from the Appserver, currently fixed to gf.3.0.2,   *** -->
     <!-- ***  TODO: make jee.lib.dir configurable                              *** -->
