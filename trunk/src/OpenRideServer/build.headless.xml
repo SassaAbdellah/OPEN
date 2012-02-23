@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="OpenRideServer" default="all" basedir=".">
+    <description>Builds the project OpenRideServer</description>
+
+
+
+    <!-- directory where we assemble the stuff before it goes to the ear -->
+    <property name="build.dir" value="build" />
+
+    
+    <!-- dist.dir is the directory where the ear gets created -->
+    <property name="dist.dir" value="dist" />
+
+
+
+ 
+    <!-- ***************************** -->
+    <!-- ***  create the ear file  *** -->	
+    <!-- ***************************** -->
+    
+  <target name="dist" >
+
+    <!-- assemble stuff in build.dir -->
+    <mkdir dir="${build.dir}" /> 
+
+
+    <!--build OpenRideServer      subproject  ************************************************ -->
+    <ant  dir="OpenRideServer-ejb"  antfile="build.headless.xml"                                />
+    <copy file="OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" todir="${build.dir}"            /> 
+
+
+    <!--build OpenRideWeb         subproject  ************************************************ -->
+    <ant  dir="OpenRideWeb"          antfile="build.headless.xml"                               />
+    <copy file="OpenRideWeb/dist/OpenRideWeb.war" todir="${build.dir}"                          /> 
+
+    <!--build OpenRideServer-RS  subproject  ************************************************* -->
+    <ant  dir="OpenRideServer-RS"   antfile="build.headless.xml"                                />
+    <copy file="OpenRideServer-RS/dist/OpenRideServer-RS.war" todir="${build.dir}"              /> 
+
+
+    <!--build OpenRideAdmin subproject       ************************************************* -->
+    <ant  dir="OpenRideAdmin"       antfile="build.headless.xml"                                />
+    <copy file="OpenRideAdmin/dist/OpenRideAdmin.war"         todir="${build.dir}"              /> 
+
+
+
+    <!-- Add libraries *********************************************************************** -->
+    <copy  todir="${build.dir}/lib"  >       
+      <fileset dir="OpenRideServer-ejb/libs">
+        <include name="**/*.jar"  />
+        <include name="**/*.docx" />
+      </fileset>
+    </copy>
+
+ 
+
+
+    <!-- create destination directory -->  
+    <mkdir dir="${dist.dir}" />
+
+
+      <jar destfile="${dist.dir}/${ant.project.name}.ear" >
+       <fileset  dir="${build.dir}" />
+
+      </jar>
+
+    </target> <!-- "dist" target -->
+
+   
+ 
+    <!-- ****************************************** -->
+    <!-- ***  clean dist and build directories  *** -->	
+    <!-- ****************************************** -->
+   
+   <target name="clean">
+	<delete dir="${dist.dir}"  />
+	<delete dir="${build.dir}" />
+
+
+       <!--clean  subprojects  ***************************************************** -->
+       <ant  dir="OpenRideServer-ejb"   antfile="build.headless.xml"   target="clean" />
+       <ant  dir="OpenRideWeb"          antfile="build.headless.xml"   target="clean" />
+       <ant  dir="OpenRideServer-RS"    antfile="build.headless.xml"   target="clean" />
+       <ant  dir="OpenRideAdmin"        antfile="build.headless.xml"   target="clean" />
+
+   </target>
+
+   <!-- do clean, then dist                 -->
+   <target name="all"  depends="clean,dist"  />
+    
+</project>

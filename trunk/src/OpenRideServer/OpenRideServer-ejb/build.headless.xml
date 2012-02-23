@@ -1,4 +1,4 @@
-<project name="OpenRideServer-ejb" default="dist">
+<project name="OpenRideServer-ejb" default="all">
 
   <!-- ********************************** -->
   <!-- ***** projectwide properties ***** -->
@@ -123,8 +123,8 @@
     <delete dir="${dist.dir}"/>
    </target> <!-- end of clean target -->
 
-
-
+   <!-- do clean, then dist                 -->
+   <target name="all"  depends="clean,dist"  />
 
 
 </project>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="OpenRideWeb" default="all" basedir=".">
+<project name="OpenRideAdmin" default="all" basedir=".">
     <description>Builds the project OpenRideServerWeb.</description>
 
 
