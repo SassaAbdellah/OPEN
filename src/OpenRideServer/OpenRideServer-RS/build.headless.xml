@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="OpenRideServer-RS" default="dist" basedir=".">
+<project name="OpenRideServer-RS" default="all" basedir=".">
     <description>Builds the project OpenRideServer-RS.</description>
 
 
@@ -239,5 +239,8 @@
    </target>
 
 
+
+   <!-- do clean, then dist                 -->
+   <target name="all"  depends="clean,dist"  />
     
 </project>
