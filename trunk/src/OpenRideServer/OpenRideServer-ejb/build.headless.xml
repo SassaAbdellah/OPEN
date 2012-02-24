@@ -21,6 +21,7 @@
   <property name="lib.dir" value="libs" /> 
 
   <!-- This is where JEE libs are. Currently these are taken fro glassfish.3.0.2  -->
+  <!-- TODO: these should go  into the master project OpenRideServer              -->
   <property name="jee.lib.dir" value="libs.glassfish.3.0.2" /> 
 
   <!-- this is where finally the ejb.jar gets created  --> 
