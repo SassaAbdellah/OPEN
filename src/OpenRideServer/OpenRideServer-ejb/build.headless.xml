@@ -29,9 +29,9 @@
 
 
 
-<!-- ******************************************** -->
-<!-- ** check local conditions before build    ** -->
-<!-- ******************************************** -->
+<!-- ************************************************************ -->
+<!-- ** target "check" :check local conditions before build    ** -->
+<!-- ************************************************************ -->
 
 <target name="check">
  
@@ -44,17 +44,17 @@
         </condition>
     </fail>
  
-</target> <!-- end of the check target -->
+</target> <!-- end of the target "check" -->
 
 
 
   
 
- <!-- ******************* -->
- <!-- ***** compile ***** -->
- <!-- ******************* -->
+ <!-- ************************************************** -->
+ <!-- ***** target "compile": compile java classes ***** -->
+ <!-- ************************************************** -->
 
- <target name="compile" depends="check" description="Compile classes">
+ <target name="compile" depends="check" description="Compile java classes">
    
    <mkdir dir="${build.dir}" />
 
@@ -76,12 +76,12 @@
 
 
 
-  </target> <!-- end of compile target  -->
+  </target> <!-- end of target "compile"  -->
 
  
- <!-- *******************i***** -->
- <!-- ***** dist/packaging **** -->
- <!-- ************************* -->
+ <!-- *******************i***************************** -->
+ <!-- ***** targed "dist": package ejb-jar archive **** -->
+ <!-- ************************************************* -->
 
  <target name="dist" depends="compile" description="package the dist/OpenRideServer-ejb.jar">
 
@@ -111,20 +111,22 @@
 
    <echo>  ...done with packaging the dist/OpenRideServer-ejb.jar. </echo>
    
- </target> <!-- end of dist target -->
+ </target> <!-- end of target "dist" -->
 
 
- <!-- ***************** -->
- <!-- ****  clean  **** -->
- <!-- ***************** -->
+   <!-- ****************************************************************** -->
+   <!-- ****  target "clean": cleanup "dist" and "build" directories  **** -->
+   <!-- ****************************************************************** -->
    
   <target name="clean" description="clean up" >
     <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
-   </target> <!-- end of clean target -->
+   </target> <!-- end of target  "clean" -->
 
-   <!-- do clean, then dist                 -->
+   <!-- ******************************************* -->
+   <!-- *** target "all" :  do clean, then dist *** -->
+   <!-- ******************************************* -->
    <target name="all"  depends="clean,dist"  />
 
 
