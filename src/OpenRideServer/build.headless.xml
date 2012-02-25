@@ -4,6 +4,7 @@
 
 
 
+
     <!-- directory where we assemble the stuff before it goes to the ear -->
     <property name="build.dir" value="build" />
 
@@ -14,9 +15,9 @@
 
 
  
-    <!-- ***************************** -->
-    <!-- ***  create the ear file  *** -->	
-    <!-- ***************************** -->
+    <!-- ******************************************** -->
+    <!-- ***  target "dist": create the ear file  *** -->	
+    <!-- ******************************************** -->
     
   <target name="dist" >
 
@@ -64,13 +65,13 @@
 
       </jar>
 
-    </target> <!-- "dist" target -->
+    </target> <!-- ent of target "dist" -->
 
    
  
-    <!-- ****************************************** -->
-    <!-- ***  clean dist and build directories  *** -->	
-    <!-- ****************************************** -->
+    <!-- ********************************************************* -->
+    <!-- *** target clean: cleanup dist and build directories  *** -->	
+    <!-- ********************************************************* -->
    
    <target name="clean">
 	<delete dir="${dist.dir}"  />
@@ -83,9 +84,13 @@
        <ant  dir="OpenRideServer-RS"    antfile="build.headless.xml"   target="clean" />
        <ant  dir="OpenRideAdmin"        antfile="build.headless.xml"   target="clean" />
 
-   </target>
+   </target> <!-- end of target clean -->
+  
 
-   <!-- do clean, then dist                 -->
+   <!-- ******************************************* -->
+   <!-- ***  target "all":  do clean, then dist *** -->
+   <!-- ******************************************* -->
+
    <target name="all"  depends="clean,dist"  />
     
 </project>
