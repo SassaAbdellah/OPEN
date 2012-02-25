@@ -32,9 +32,9 @@
 
 
  
-   <!-- ************************************* -->
-   <!-- *** compile classes               *** -->
-   <!-- ************************************* -->
+   <!-- ************************************************************ -->
+   <!-- *** target build: compile classes, add properties files  *** -->
+   <!-- ************************************************************ -->
 
 
    <target name="build">
@@ -70,13 +70,13 @@
       </fileset>
      </copy> 
 
-   </target>  <!-- end of "build" target -->
+   </target>  <!-- end of target "build" -->
 
 
  
-    <!-- ***************************** -->
-    <!-- ***  create the war file  *** -->	
-    <!-- ***************************** -->
+    <!-- ******************************************** -->
+    <!-- ***  target "dist": create the war file  *** -->	
+    <!-- ******************************************** -->
     
   <target name="dist" depends="build" >
 
@@ -118,7 +118,7 @@
 
       </war>
 
-    </target>
+    </target> <!-- end of target "dist" -->
 
     
     <!-- ****************************************** -->
@@ -127,9 +127,12 @@
    <target name="clean">
 	<delete dir="${dist.dir}"  />
 	<delete dir="${build.dir}" />
-   </target>
+   </target> <!-- end of target "clean" -->
 
-   <!-- do clean, then dist                 -->
+  
+   <!-- ******************************************* -->
+   <!-- *** target "all" :  do clean, then dist *** -->
+   <!-- ******************************************* -->
    <target name="all"  depends="clean,dist"  />
     
 </project>

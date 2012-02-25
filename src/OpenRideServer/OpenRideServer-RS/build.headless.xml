@@ -28,13 +28,19 @@
 
 
 
+    <!-- **************************************************************** -->
+    <!-- *** target "minify":  minify and concatenate javascript libs *** -->
+    <!-- **************************************************************** -->
 
 
 
-    <!--  ***  minify will concatenate all of our non-TinyMCE javascripts and stylesheets *** -->
-    <!--  *** then use the YUI compressor library to compress them                        *** -->
+    
+    <target name="minify" description="minify and concatenate javascript libs">  
+
+        <!--  ***  minify will concatenate all of our non-TinyMCE javascripts and stylesheets *** -->
+        <!--  *** then use the YUI compressor library to compress them                        *** -->
   
-    <target name="minify"> 
+
         <!--${libs} is path to the downloaded jars -->
 
         <property
@@ -132,9 +138,9 @@
 
 
  
-   <!-- ************************************* -->
-   <!-- *** compile classes, minify, etc  *** -->
-   <!-- ************************************* -->
+   <!-- ************************************************************** -->
+   <!-- *** target "build" :compile classes, run minify on js libs *** -->
+   <!-- ************************************************************** -->
 
 
    <target name="build">
@@ -181,13 +187,13 @@
 
 
 
-   </target>  <!-- end of "build" target -->
+   </target>  <!-- end of target "build" -->
 
 
  
-    <!-- ***************************** -->
-    <!-- ***  create the war file  *** -->	
-    <!-- ***************************** -->
+    <!-- ********************************************* -->
+    <!-- ***  target "dist" : create the war file  *** -->	
+    <!-- ********************************************* -->
     
   <target name="dist" depends="build" >
 
@@ -227,20 +233,23 @@
 
       </war>
 
-    </target>
+    </target> <!-- end of target "dist" -->
 
     
-    <!-- ****************************************** -->
-    <!-- ***  clean dist and build directories  *** -->	
-    <!-- ****************************************** -->
+    <!-- ******************************************************** -->
+    <!-- *** target clean:  clean dist and build directories  *** -->	
+    <!-- ******************************************************** -->
    <target name="clean">
 	<delete dir="${dist.dir}"  />
 	<delete dir="${build.dir}" />
-   </target>
+   </target> <!-- end of target "clean" -->
 
 
+   
+   <!-- ******************************************* -->
+   <!-- *** target "all" :  do clean, then dist *** -->
+   <!-- ******************************************* -->
 
-   <!-- do clean, then dist                 -->
    <target name="all"  depends="clean,dist"  />
     
 </project>
