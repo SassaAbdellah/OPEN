@@ -154,6 +154,9 @@
    <!-- ******************************************* -->
    <mkdir dir="${classes.dir}" />
 
+
+   <!-- *** Compile Standard Classes  *** -->
+
    <javac srcdir="src/java" destdir="${classes.dir}" > 
       <classpath>
  	<fileset dir="${ejb.lib.dir}">
@@ -167,8 +170,27 @@
 	<fileset file="${OpenRideServer-ejb.jar}" />
 
       </classpath>  
-
      </javac>
+
+
+   <!-- *** Compile additional Jersey Artefacts for headless build  *** -->
+
+
+   <javac srcdir="src.headless" destdir="${classes.dir}" >
+
+
+
+      <classpath>
+	<fileset dir="${jee.lib.dir}">
+            <include name="**/*.jar" />
+	</fileset>
+      </classpath>
+
+
+ 
+   </javac>
+
+
 
 
 
@@ -229,7 +251,7 @@
  
        </lib>
 
-        <zipfileset dir="web" />
+        <zipfileset dir="${build.dir}/web" />
 
       </war>
 
