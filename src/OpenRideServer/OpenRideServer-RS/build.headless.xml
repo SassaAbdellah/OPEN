@@ -64,11 +64,10 @@
         <!-- ** This is used as a replace pattern                                     ** -->
 
  	<property name="google.maps.api.key.old"      value="ABQIAAAAoSWXXJZugJPtUdFu909RAxTD2GVBSqiZP_F5qZEDROiHhhxT8xSZpnmbzCsuDrWT8KbVZVMddEMz8A" />   
-        <!-- property name="google.maps.api.key.new"      value="DUMMY_MAPS_API_KEY" / -->   
         
        <echo> 
            replacing  default GoogleMapsApi Key     : ${google.maps.api.key.old} 
-           with       individual GoogleMapsApi Key  : ${google.maps.api.key.new}
+           with       individual GoogleMapsApi Key  : ${google.maps.api.key}
        </echo>
 
 
