@@ -61,7 +61,7 @@
         <!-- ** The old google maps api key, as used by openride before February 2012 ** -->
         <!-- ** This is used as a replace pattern                                     ** -->
 
-        <property name="google.maps.api.key.old"      value="ABQIAAAAoSWXXJZugJPtUdFu909RAxTD2GVBSqiZP_F5qZEDROiHhhxT8xSZpnmbzCsuDrWT8KbVZVMddEMz8A" />
+        <property name="google.maps.api.key.old"  value="ABQIAAAAdbsOt58RO04BJLOwuybQyhTCT0k0d1rf0afV5cFJy3ix6t_ZGRQzwAPC1ri6AFQ7AO5hVtlRs8llOQ" />
 
        <echo>
            replacing  default GoogleMapsApi Key     : ${google.maps.api.key.old}
@@ -69,7 +69,10 @@
        </echo>
 
 
-     <replace file="${build.dir}/profile.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <!-- *** As the OpenrideWeb worked well with the old key, we skip the replace target             *** --> 
+     <!-- *** until we have a better reason to do so.                                                 ***-->
+     <!-- *** This seems to be used only when fixing favourites, and uses deprecated JavaScriptAPI v2 *** -->
+     <!-- replace file="${build.dir}/profile.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key}" / -->
 
     </target>  <!-- end of target "replaceMapsKey" -->
 
@@ -123,11 +126,15 @@
      <!-- *** copy web classes to build dir and rewrite GoogleMapsApi Key *** -->
      <!-- ******************************************************************* -->
 
-      <!-- copy propertiy files to build.dir -->
+      <!-- copy web files to build.dir -->
      <copy  todir="${build.dir}" >
       <fileset dir="web" >
       </fileset>
      </copy>
+
+     <antcall target="replaceMapsKey" />
+
+
    </target>  <!-- end of  target "build" -->
 
 
@@ -172,7 +179,7 @@
  
        </lib> 
 
-        <zipfileset dir="web" />
+        <zipfileset dir="${build.dir}" />
 
       </war>
 
