@@ -27,12 +27,45 @@
 
 
 
+    <!-- ************************************************************************* -->
+    <!-- *** replace old fhg google maps api key with new google maps api key  *** -->
+    <!-- ************************************************************************* -->
+  
+    <target name="replaceMapsKey" description="replace old fhg google maps api key with new google maps api key" >
+
+
+        <!-- ** The old google maps api key, as used by openride before February 2012 ** -->
+        <!-- ** This is used as a replace patter                                      ** -->
+
+ 	<property name="google.maps.api.key.old"      value="ABQIAAAAoSWXXJZugJPtUdFu909RAxTD2GVBSqiZP_F5qZEDROiHhhxT8xSZpnmbzCsuDrWT8KbVZVMddEMz8A" />   
+        <property name="google.maps.api.key.new"      value="DUMMY_MAPS_API_KEY" />   
+
+
+       <echo> 
+           replacing  default GoogleMapsApi Key     : ${google.maps.api.key.old} 
+           with       individual GoogleMapsApi Key  : ${google.maps.api.key.new}
+       </echo>
+
+
+     <replace file="${build.dir}/web/view/test/index3.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/index.html"               token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/test.html"                token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/index_independent.html"   token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/index2.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/index4.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_prod.jsp"  token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_dev.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+
+    </target>  <!-- end of target "replaceMapsKey" -->
+
+
+
+
+
 
     <!-- **************************************************************** -->
     <!-- *** target "minify":  minify and concatenate javascript libs *** -->
     <!-- **************************************************************** -->
-
-
 
     
     <target name="minify" description="minify and concatenate javascript libs">  
@@ -201,6 +234,10 @@
      <fileset dir="web" />
    </copy>
 
+   <!-- ************************************* -->
+   <!-- apply actual google maps key          -->
+   <!-- ************************************* --> 
+   <antcall target="replaceMapsKey"  inheritall="true" inheritrefs="true" />
 
    <!-- ************************************* -->
    <!-- ***   run minify on build.dir     *** -->
