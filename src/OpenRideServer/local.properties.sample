@@ -1,0 +1,14 @@
+##########################################################################
+#
+#  This is the local.properties.sample file.
+#  use this as a template to configure Your local installation
+#  of OpenRide 
+#
+##########################################################################  
+#
+#
+# the google maps api key to be used 
+#
+google.maps.api.key=AIzaSyAbWF7Q8EsGvY0smdb44GrVlK2NXrsM11Y
+
+

@@ -27,34 +27,59 @@
 
 
 
+    <!-- ************************************************************************ -->	
+    <!-- *** Load local properties file from OpenRideServer project           *** -->
+    <!-- ************************************************************************ -->	
+    <target name="loadLocalProperties">
+	
+         <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+            <condition>
+                <not>
+                	<resourcecount count="1">
+                        	<fileset id="fs" dir=".." includes="local.properties"/>
+                	</resourcecount>
+                </not>
+           </condition>
+        </fail>
+
+     <!-- *** So, as localconf is in place, we can happily load the local.properties  *** -->
+     	 <loadproperties>
+      		<file file="../local.properties"/>
+     	</loadproperties>
+ 
+
+
+
+    </target>
+
+
     <!-- ************************************************************************* -->
     <!-- *** replace old fhg google maps api key with new google maps api key  *** -->
     <!-- ************************************************************************* -->
   
-    <target name="replaceMapsKey" description="replace old fhg google maps api key with new google maps api key" >
+    <target name="replaceMapsKey" depends="loadLocalProperties" description="replace old fhg google maps api key with new google maps api key" >
 
 
         <!-- ** The old google maps api key, as used by openride before February 2012 ** -->
-        <!-- ** This is used as a replace patter                                      ** -->
+        <!-- ** This is used as a replace pattern                                     ** -->
 
  	<property name="google.maps.api.key.old"      value="ABQIAAAAoSWXXJZugJPtUdFu909RAxTD2GVBSqiZP_F5qZEDROiHhhxT8xSZpnmbzCsuDrWT8KbVZVMddEMz8A" />   
-        <property name="google.maps.api.key.new"      value="DUMMY_MAPS_API_KEY" />   
-
-
+        <!-- property name="google.maps.api.key.new"      value="DUMMY_MAPS_API_KEY" / -->   
+        
        <echo> 
            replacing  default GoogleMapsApi Key     : ${google.maps.api.key.old} 
            with       individual GoogleMapsApi Key  : ${google.maps.api.key.new}
        </echo>
 
 
-     <replace file="${build.dir}/web/view/test/index3.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/view/test/index.html"               token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/view/test/test.html"                token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/view/test/index_independent.html"   token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/view/test/index2.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/view/test/index4.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_prod.jsp"  token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
-     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_dev.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key.new}" />
+     <replace file="${build.dir}/web/view/test/index3.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/view/test/index.html"               token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/view/test/test.html"                token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/view/test/index_independent.html"   token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/view/test/index2.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/view/test/index4.html"              token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_prod.jsp"  token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
+     <replace file="${build.dir}/web/WEB-INF/jspf/view_header_dev.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key}" />
 
     </target>  <!-- end of target "replaceMapsKey" -->
 
