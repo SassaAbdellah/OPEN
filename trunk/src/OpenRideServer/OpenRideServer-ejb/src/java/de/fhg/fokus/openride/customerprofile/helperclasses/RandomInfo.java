@@ -55,13 +55,13 @@ public class RandomInfo {
     private final Point[] coordinates;
 
     private final String[] custFirstName = {"Horst", "Peter", "Ursula", "Anna", "Robert", "Annika", "Berbel"};
-    private final String[] custLastname = {"Schäfer", "Abromeit", "Scholz", "Meier", "Rieux", "Brand", "Kamm"};
+    private final String[] custLastname = {"Sch\00E4fer", "Abromeit", "Scholz", "Meier", "Rieux", "Brand", "Kamm"};
     private final String[] custNickname = {"Pipo1", "HyperMax", "SeifenUrsel", "AnnaMontana", "Funnika", "Hiro"};
     private final String[] custPasswd = {"123456789"};
     private final Character[] custGender = {'m','f'};
     private final String[] custMobilPhoneNumber = {"01789795028","01765584656","0165214563","0163254565","015054865","015489554","0123456789"};
-    private final String[] custEmail = {"P.Abromeit@gmx.de","Schäfer@gmx.de","Scholz@gmx.de","Meier@gmx.de","Rieux@gmx.de","SeifenUrsel@gmail.de","Funnika@gmx.de","Spass@gmx.de","BillClinton@web.de"};
-    private final String[] custStreet = {"Holzhauserallee", "Schnepfenreuther weg", "Kaiserin-Augusta-Allee","Kurfüstenstrasse", "Warschauerstrasse"};
+    private final String[] custEmail = {"P.Abromeit@gmx.de","Sch\00E4fer@gmx.de","Scholz@gmx.de","Meier@gmx.de","Rieux@gmx.de","SeifenUrsel@gmail.de","Funnika@gmx.de","Spass@gmx.de","BillClinton@web.de"};
+    private final String[] custStreet = {"Holzhauserallee", "Schnepfenreuther weg", "Kaiserin-Augusta-Allee","Kurf\00FCstenstrasse", "Warschauerstrasse"};
     private final Integer[] custZipCode = {12345,4321,56654,98733, 901232};
     private final Character[] custRiderPrefGender = {
             CustomerEntity.PREF_GENDER_DONT_CARE,
@@ -95,16 +95,16 @@ public class RandomInfo {
     };
     private final Integer[] custBankAccount = {1646475837, 1463728173, 1102983746};
     private final Integer[] custBankCode = {10050090, 10050023};
-    private final String[] custCity = {"Berlin", "München", "Hong Kong","New York", "Kuala Lumpur", "Beijing"};
+    private final String[] custCity = {"Berlin", "M\00FCnchen", "Hong Kong","New York", "Kuala Lumpur", "Beijing"};
 
     private final Double[] amounts = {12d,12345d,543d,234d,20d,40d};
     private final String[] carbrands = {"Ford", "Nissan", "Ferrari", "Fiat", "Mercedes Benz", "Chevrolet", "VW"};
     private final String[] driveName = {"PartyRide", "Schneller gehts nich!", "Ruhige Fahrt.", "Steig ein.", "Riding with the king"};
     private final Integer[] frequencies = {1,2,3,4,5,20,30,13};
-    private final String[] favpoints = {"Kölner Dom", "Q-Damm", "Frauenkirche", "Brandenburger Tor", "L\'arc de Triumph"};
+    private final String[] favpoints = {"K\00F6lner Dom", "Q-Damm", "Frauenkirche", "Brandenburger Tor", "L\'arc de Triumph"};
     private final Integer[] rideNoPassengers = {1,1,1,1,1,1,1,1,2,2,3};
     private final String[] carColors = {"red", "blue", "silver", "gold", "green", "black", "yellow", "white"};
-    private final String[] driveComment = {"bitte pünklich!", "bringt musik mit!", "heizen", "-", "tägliche fahrt", "kommerzielle fahrt"};
+    private final String[] driveComment = {"bitte p\00FCnklich!", "bringt musik mit!", "heizen", "-", "t\00E4gliche fahrt", "kommerzielle fahrt"};
     private final Integer[] driveOfferedSeats = {3,3,3,3,3,3,3,3,4,4,4,2,2,2,1,1};
 
     private final Random rnd;
