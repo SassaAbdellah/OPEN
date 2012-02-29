@@ -126,7 +126,7 @@ public class Profile {
         lastName = managedUserBean.getLastName();
 
         if (managedUserBean.getGender() == 'm') {
-            gender = "männlich";
+            gender = "m\u00E4nnlich";
         } else {
             gender = "weiblich";
         }
@@ -414,7 +414,7 @@ public class Profile {
             throw new ValidatorException(message);
         }
 
-        // Pilotierung: nur ZU-Adressen zulässig
+        // Pilotierung: nur ZU-Adressen zul\u00E4ssig
         /*if (!eMail.endsWith("zeppelin-university.de") && !eMail.endsWith("zeppelin-university.net") && !eMail.endsWith("fokus.fraunhofer.de")) {
             FacesMessage message = new FacesMessage("E-Mail-Adresse muss auf \"zeppelin-university.[net|de]\" enden.");
             throw new ValidatorException(message);
@@ -444,7 +444,7 @@ public class Profile {
 
         Calendar cal = Calendar.getInstance();
         if (yearValue == null || yearValue < 1900 || yearValue > cal.get(Calendar.YEAR)) {
-            FacesMessage message = new FacesMessage("Bitte ein gültiges Jahr im Format \"JJJJ\" angeben.");
+            FacesMessage message = new FacesMessage("Bitte ein g\u00FCltiges Jahr im Format \"JJJJ\" angeben.");
             throw new ValidatorException(message);
         }
 
@@ -465,7 +465,7 @@ public class Profile {
         UserBean managedUserBean = (UserBean) JSFUtil.getManagedObject("UserBean");
 
         if (!customerControllerBean.isRegistered(managedUserBean.getUsername(), pw)) {
-            FacesMessage message = new FacesMessage("Ungültiges Passwort.");
+            FacesMessage message = new FacesMessage("Ung\u00FCltiges Passwort.");
             throw new ValidatorException(message);
         }
     }

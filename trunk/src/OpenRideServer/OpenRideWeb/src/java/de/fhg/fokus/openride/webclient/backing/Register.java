@@ -222,7 +222,7 @@ public class Register {
             throw new ValidatorException(message);
         }
 
-        // Pilotierung: nur ZU-Adressen zulässig
+        // Pilotierung: nur ZU-Adressen zul\u00E4ssig
         /*if (!eMail.endsWith("zeppelin-university.de") && !eMail.endsWith("zeppelin-university.net") && !eMail.endsWith("fokus.fraunhofer.de")) {
             FacesMessage message = new FacesMessage("E-Mail-Adresse muss auf \"zeppelin-university.[net|de]\" enden.");
             throw new ValidatorException(message);
@@ -244,7 +244,7 @@ public class Register {
         String password2 = (String) value;
 
         if (!password1.equals(password2)) {
-            FacesMessage message = new FacesMessage("Die Passwörter stimmen nicht überein.");
+            FacesMessage message = new FacesMessage("Die Passw\u00F6rter stimmen nicht \u00FCberein.");
             throw new ValidatorException(message);
         }
 
@@ -254,7 +254,7 @@ public class Register {
             Object value) throws ValidatorException {
 
         if (value.equals(Boolean.FALSE)) {
-            FacesMessage message = new FacesMessage("Bestätigung erforderlich.");
+            FacesMessage message = new FacesMessage("Best\u00E4tigung erforderlich.");
             throw new ValidatorException(message);
         }
 
