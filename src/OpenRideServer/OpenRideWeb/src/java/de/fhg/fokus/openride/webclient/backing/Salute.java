@@ -98,7 +98,7 @@ public class Salute {
     if (c == null) {
     // login failed
     FacesContext.getCurrentInstance().addMessage(null,
-    new FacesMessage("Ungültige Zugangsdaten!"));
+    new FacesMessage("Ung\u00FCltige Zugangsdaten!"));
     return "notLoggedIn";
     } else {
     // login success
@@ -168,7 +168,7 @@ public class Salute {
         logger.info("registrationPass: " + registrationPass);
         if (registrationPass == null || !registrationPassControllerBean.isValid(registrationPass.getId())) {
             logger.info("hallo?!");
-            FacesMessage message = new FacesMessage("Ungültiger Registrierungscode.");
+            FacesMessage message = new FacesMessage("Ung\u00FCltiger Registrierungscode.");
             throw new ValidatorException(message);
         }
 
