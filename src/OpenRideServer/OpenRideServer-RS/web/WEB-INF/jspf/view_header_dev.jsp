@@ -30,7 +30,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta content="width=device-width; initial-scale=1.0; user-scalable=false;" name="viewport"/>
         <title>OpenRide</title>
-        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=true&amp;key=ABQIAAAAoSWXXJZugJPtUdFu909RAxTD2GVBSqiZP_F5qZEDROiHhhxT8xSZpnmbzCsuDrWT8KbVZVMddEMz8A" type="text/javascript">
+        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=true" type="text/javascript">
         </script>
         <script src="../controller/libs/jquery-1.4.2.min.js" type="text/javascript">
         </script>
