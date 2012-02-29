@@ -16,3 +16,18 @@ google.maps.api.key=AIzaSyAbWF7Q8EsGvY0smdb44GrVlK2NXrsM11Y
 # do not change unless You really know what You are doing
 #
 jee.lib.basedir=build.headless.support/jee/libs.glassfish.3.0.2/
+#
+#
+#
+# the base path for the imprint jsp -- change this for your own imprint 
+# to create a branded version of OpenRide
+#
+imprint.jsp.base=build.headless.support/branding/imprint/imprint.jsp
+#
+#
+#
+# the base path for the terms jsp -- change this for your own terms 
+# to create a branded version of OpenRide
+#
+#
+build.headless.support/branding/terms/terms.jsp
