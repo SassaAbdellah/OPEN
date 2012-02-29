@@ -10,5 +10,9 @@
 # the google maps api key to be used 
 #
 google.maps.api.key=AIzaSyAbWF7Q8EsGvY0smdb44GrVlK2NXrsM11Y
-
-
+#
+#
+# directory with jee libs to be used during the build
+# do not change unless You really know what You are doing
+#
+jee.lib.basedir=build.headless.support/jee/libs.glassfish.3.0.2/

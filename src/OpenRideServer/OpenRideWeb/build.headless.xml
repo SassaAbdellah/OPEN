@@ -16,9 +16,6 @@
      <!-- *** external libs and jee libs are                                   *** -->
      <!-- *** imported from the OpenRideServer-ejb project                      *** -->
     <property name="lib.dir"                 value="../OpenRideServer-ejb/libs/"                       />
-    <!-- ***  libs imported from the Appserver, currently fixed to gf.3.0.2,   *** -->
-    <!-- ***  TODO: make jee.lib.dir configurable                              *** -->
-    <property name="jee.lib.dir"             value="../OpenRideServer-ejb/libs.glassfish.3.0.2"        />
     <!-- ***  EJB contains classes imported in OpenRideServerRS                *** -->
     <!-- ***  TODO: check if this exists before importing, give errormessage   *** -->
     <property name="OpenRideServer-ejb.jar"  value="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" />
@@ -88,7 +85,11 @@
    <!-- *** target "build": compile classes, rewrite jsps to use our Google Maps Key  *** -->
    <!-- ********************************************************************************* -->
 
-   <target name="build">
+   <target name="build" depends="loadLocalProperties">
+
+
+   <!-- load jee libs as configure in master project -->
+   <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
 
    <!-- *** ensure that build.dir is there   *** -->
    <mkdir dir="${build.dir}" />

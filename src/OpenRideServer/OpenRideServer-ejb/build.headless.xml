@@ -8,8 +8,7 @@
 
   <!-- this is where the jee configuration files are (currently only persistence.xml) -->
   <property name="conf.dir" value="config"    />
-
-
+  
   <!-- this is where the sources live --> 
   <property name="src.dir" value="src/java" /> 
 
@@ -19,10 +18,6 @@
 
   <!-- this is where required libraries (except JEE libs) are -->
   <property name="lib.dir" value="libs" /> 
-
-  <!-- This is where JEE libs are. Currently these are taken fro glassfish.3.0.2  -->
-  <!-- TODO: these should go  into the master project OpenRideServer              -->
-  <property name="jee.lib.dir" value="libs.glassfish.3.0.2" /> 
 
   <!-- this is where finally the ejb.jar gets created  --> 
   <property name="dist.dir" value="dist" /> 
@@ -48,15 +43,47 @@
 
 
 
+
+<!-- ************************************************************************ -->
+<!-- *** Load local properties file from OpenRideServer project           *** -->
+<!-- ************************************************************************ -->
+    <target name="loadLocalProperties">
+
+         <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+            <condition>
+                <not>
+                        <resourcecount count="1">
+                                <fileset id="fs" dir=".." includes="local.properties"/>
+                        </resourcecount>
+                </not>
+           </condition>
+        </fail>
+
+     <!-- *** So, as localconf is in place, we can happily load the local.properties  *** -->
+         <loadproperties>
+                <file file="../local.properties"/>
+        </loadproperties>
+
+ </target> <!-- end of target load local properties -->
+
+
+
+
+
+
+
   
 
  <!-- ************************************************** -->
  <!-- ***** target "compile": compile java classes ***** -->
  <!-- ************************************************** -->
 
- <target name="compile" depends="check" description="Compile java classes">
+ <target name="compile" depends="check,loadLocalProperties" description="Compile java classes">
    
    <mkdir dir="${build.dir}" />
+
+   <!-- get jee libs from master project -->
+   <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
 
    <javac srcdir="${src.dir}" destdir="${build.dir}" >
 	<classpath>
@@ -64,16 +91,13 @@
                      <include name="**/*.jar" />  
            </fileset>  
 
-
            <fileset dir="${jee.lib.dir}"> 
                      <include name="**/*.jar" />  
            </fileset> 
 
         </classpath>
 
-
    </javac>
-
 
 
   </target> <!-- end of target "compile"  -->
