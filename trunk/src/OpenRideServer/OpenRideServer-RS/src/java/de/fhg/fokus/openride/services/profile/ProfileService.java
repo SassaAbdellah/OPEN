@@ -196,7 +196,7 @@ public class ProfileService {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            // Pilotierung: nur ZU-Adressen zulässig
+            // Pilotierung: nur ZU-Adressen zulaessig
             /*if (!r.getEmail().endsWith("zeppelin-university.de") && !r.getEmail().endsWith("zeppelin-university.net") && !r.getEmail().endsWith("fokus.fraunhofer.de")) {
                 // "E-Mail-Adresse muss auf \"zeppelin-university.de\" enden."
                 return Response.status(Response.Status.BAD_REQUEST).build();
