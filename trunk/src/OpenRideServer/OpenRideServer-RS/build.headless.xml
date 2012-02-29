@@ -13,12 +13,9 @@
     <!-- classes.dir is the directory where the classes are compiled to -->
     <property name="classes.dir" value="${build.dir}/classes" />
 
-     <!-- *** external libs and jee libs are                                   *** -->
-     <!-- *** imported from the OpenRideServer-ejb project                      *** -->
+     <!-- *** external libs are  imported from the OpenRideServer-ejb project                      *** -->
     <property name="ejb.lib.dir"              value="../OpenRideServer-ejb/libs/"                       />
-    <!-- ***  libs imported from the Appserver, currently fixed to gf.3.0.2,   *** -->
-    <!-- ***  TODO: make jee.lib.dir configurable                              *** -->
-    <property name="jee.lib.dir"             value="../OpenRideServer-ejb/libs.glassfish.3.0.2"        />
+    
     <!-- ***  EJB contains classes imported in OpenRideServerRS                *** -->
     <!-- ***  TODO: check if this exists before importing, give errormessage   *** -->
     <property name="OpenRideServer-ejb.jar"  value="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" />
@@ -46,11 +43,8 @@
      	 <loadproperties>
       		<file file="../local.properties"/>
      	</loadproperties>
- 
 
-
-
-    </target>
+    </target> <!-- end of target load local properties -->
 
 
     <!-- ************************************************************************* -->
@@ -200,7 +194,10 @@
    <!-- ************************************************************** -->
 
 
-   <target name="build">
+   <target name="build" depends="loadLocalProperties" >
+
+   <!-- jee libraries are configured in master project -->
+   <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
 
    <!-- *** ensure that build.dir is there   *** -->
    <mkdir dir="${build.dir}" />
