@@ -23,45 +23,70 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
+<%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
+
+<f:view>
 
 
-<!--TODO: include here a simplistic unprotected header for including CSS and the like  -->
+     <!-- header mark is here to be automaticall replaced by ant with  a directive including  the -->
+     <!-- header appropriate for either OpenRideWeb or OpenRideServerRS  subproject               --> 
+ 
+    HEADER_MARK
 
-<h1 style="text-align: right; margin: 15px 10px;"><img src="/OpenRideServer-RS/img/logo.png" alt="OpenRide" /></h1>
 
-<h3>Impressum</h3>
 
-    <p>Diese Webpräsenz is ein Projekt von: <br/> 
-        Jochen Laser                        <br/> 
-        Fliederweg 2a                       <br/> 
-        D-19288 Wöbbelin                    <br/> 
-        Germany                             <br/> 
-    </p>
+    <h1>Impressum</h1>
+
     <p>
-        unterstützt von <a href="http://www.xeneris.net" target="_blank">Xeneris Media</a> </p>
+      Diese Web Präsenz ist ein privates Projekt von: <br/>
+    
+                                         <br/>  
+      <strong> VORNAME NAME </strong>    <br/>
+                                         <br/>
+      Strasse Hausnummer                 <br/>         
+      PLZ ORT                            <br/>         
+      LAND                               <br/>
+             
+    </p> 
+      
+    <h2>Nutzungsrechte</h2>
+    <p>
+
+        Das Kartenmaterial zur Gestaltung dieser Webseite stammt aus dem  
+        <a href="http://www.openstreetmap.de/">OpenStreetMap-Projekt</a> 
+        und steht  unter der 
+        <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution Share Alike-Lizenz 2.0</a>.
     </p>
 
-<h3 class="separated" style="margin-bottom: 0.75em;">Vorstand</h3>
+    <h2>Haftungshinweise</h2>
+
+    <p>
+     Die Betreiber dieser Webpräsenz übernehmen keine Haftung für die Inhalte externer Links. 
+     Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich.
+    </p>
+
+    <p>
+     Wir sind bemüht, das Webangebot stets aktuell und inhaltlich richtig sowie vollständig anzubieten. 
+     Dennoch ist das Auftreten von Fehlern nicht völlig auszuschließen. 
+     Der Betreiber übernimmt keine Haftung für die Aktualität, die inhaltliche Richtigkeit sowie für die Vollständigkeit 
+     der in diesem Webangebot eingestellten Informationen. 
+     Dies bezieht sich auf eventuelle Schäden materieller oder ideeller Art Dritter, 
+     die durch die Nutzung dieses Webangebotes verursacht wurden.
+     </p>
+
+     <p>
+      Geschützte Marken und Namen, Bilder und Texte werden auf unseren Seiten in der Regel nicht als solche kenntlich gemacht. 
+      Das Fehlen einer solchen Kennzeichnung bedeutet jedoch nicht, dass es sich um einen freien Namen, 
+      ein freies Bild oder einen freien Text im Sinne des Markenzeichenrechts handelt.
+     </p>
 
 
-<h3 class="separated" style="margin-bottom: 0.75em;">Redaktion</h3>
+     <!-- footer mark is here to be automaticall replaced by ant with  a directive including  the -->
+     <!-- footer appropriate for either OpenRideWeb or OpenRideServerRS  subproject               -->
 
-
-<h3 class="separated" style="margin-bottom: 0.75em;">Nutzungsrechte</h3>
-
-   <p>Das Kartenmaterial zur Gestaltung dieser Webseite ist dem <a href="http://www.openstreetmap.de/">OpenStreetMap-Projekt</a> entnommen und steht
-        unter der Lizenz <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution Share Alike-Lizenz 2.0</a>.</p>
-
-<h3 class="separated" style="margin-bottom: 0.75em;">Haftungshinweis</h3>
-
-    <p>Wir übernehmen keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
-    <p>Wir sind bemüht, das Webangebot stets aktuell und inhaltlich richtig sowie vollständig anzubieten. Dennoch ist das Auftreten von Fehlern nicht völlig auszuschließen. Das Fraunhofer-Institut bzw. die Fraunhofer-Gesellschaft übernimmt keine Haftung für die Aktualität, die inhaltliche Richtigkeit sowie für die Vollständigkeit der in ihrem Webangebot eingestellten Informationen. Dies bezieht sich auf eventuelle Schäden materieller oder ideeller Art Dritter, die durch die Nutzung dieses Webangebotes verursacht wurden.</p>
-    <p>Geschützte Marken und Namen, Bilder und Texte werden auf unseren Seiten in der Regel nicht als solche kenntlich gemacht. Das Fehlen einer solchen Kennzeichnung bedeutet jedoch nicht, dass es sich um einen freien Namen, ein freies Bild oder einen freien Text im Sinne des Markenzeichenrechts handelt.</p>
-
-    <p><a href="./">&laquo; Zurück zur Startseite</a></p>
+    FOOTER_MARK
 
 
 
-<!--TODO: include here a simplistic unprotected footer  -->
-
-
+</f:view>
