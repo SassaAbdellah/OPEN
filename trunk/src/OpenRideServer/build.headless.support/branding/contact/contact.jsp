@@ -28,27 +28,21 @@
 
 <f:view>
     
-    <!-- Todo: include a simplistic, unprotected, project independent header here -->
+    HEADER_MARK 
 
     <h1>Kontakt</h1>
 
-   <p>
-    Diese Webpräsenz wird betrieben von: <br/>
-    Jochen Laser    <br/>
-    Fliederweg 2a   <br/>
-    19288 Wöbbelin  </br>    
-    email: opernride[at]avci[dot]com
+    <p>
+     <strong> VORNAME NACHNAME </strong> <br/>
+     <br/>
+     Strasse Hausnummer  <br/>
+     PLZ Ort <br/>
+     LAND <br/>
+
+    </p>
 
 
-   </p>
-
-
-
-<p>Besuchen Sie OpenRide auf <a href="http://sourceforge.net/projects/openride/" target="_blank">SourceForge</a> 
-oder schreiben Sie an den OpenRide-Support: <br /> <a href="mailto:openride-support@lists.sourceforge.net">openride-support@lists.sourceforge.net</a></p>
-
-
-    <!-- TODO: include a simplistic, unprotected project ignorant footer here -->
+  FOOTER_MARK
 
 
 </f:view>
