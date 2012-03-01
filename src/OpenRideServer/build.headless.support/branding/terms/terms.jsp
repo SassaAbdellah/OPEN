@@ -24,7 +24,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<jsp:include page="/WEB-INF/jspf/welcome_header.jsp"></jsp:include>
+<!-- TODO: include here a simplistic, unprotected, project ignorant header for CSS and the like -->
 
 <h1 style="text-align: right; margin: 15px 10px;"><img src="/OpenRideServer-RS/img/logo.png" alt="OpenRide" /></h1>
 
@@ -155,4 +155,7 @@
      <a href="./">&laquo; Zurück zur Startseite</a>
     </p>
 
-    <jsp:include page="/WEB-INF/jspf/welcome_footer.jsp"></jsp:include>
+    
+
+<!-- TODO: include here a simplistic, unprotected, project ignorant footer (powered by openride or the like) -->
+

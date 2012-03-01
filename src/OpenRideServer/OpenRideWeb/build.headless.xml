@@ -46,6 +46,34 @@
     </target> <!-- end of target named="loadLocalProperties" -->
 
 
+    <!-- ****************************************************************************** -->
+    <!-- *** Do the branding, i.e add your own imprint, terms of use, partnerlinks...   -->
+    <!-- ****************************************************************************** -->
+
+    <target name="branding" depends="loadLocalProperties" description="add your own imprint, terms of use, partnerlinks..." >
+  
+     <!-- exchange imprint        -->
+     <property name="imprint.jsp" value="../${imprint.jsp.base}" />   
+     <copy file="${imprint.jsp}" tofile="${build.dir}/imprint.jsp" overwrite="true" verbose="true" />
+    
+  
+     <!-- exchange terms of use   -->
+     <property name="terms.jsp" value="../${terms.jsp.base}" />   
+     <copy file="${terms.jsp}" tofile="${build.dir}/terms.jsp" overwrite="true" verbose="true" />
+    
+     <!-- exchange terms of use   -->
+     <property name="contact.jsp" value="../${contact.jsp.base}" />   
+     <copy file="${contact.jsp}" tofile="${build.dir}/contact.jsp" overwrite="true" verbose="true" />
+    
+  
+  
+
+
+
+    </target> <!--end of target "branding" -->
+
+
+
 
    
     <!-- ************************************************************************* -->
@@ -72,11 +100,6 @@
      <!-- replace file="${build.dir}/profile.jsp"   token="${google.maps.api.key.old}" value="${google.maps.api.key}" / -->
 
     </target>  <!-- end of target "replaceMapsKey" -->
-
-
-
-
-
 
 
 
@@ -121,6 +144,17 @@
         <include name="**/*.properties" />
       </fileset>
      </copy> 
+
+
+
+
+
+
+     <!-- ******************************************************************* -->
+     <!-- *** Apply the branding to what is in the build.dir              *** -->    
+     <!-- ******************************************************************* -->
+
+     <antcall target="branding" />
 
 
      <!-- ******************************************************************* -->
