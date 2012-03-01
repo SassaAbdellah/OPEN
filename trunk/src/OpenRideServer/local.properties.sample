@@ -30,4 +30,10 @@ imprint.jsp.base=build.headless.support/branding/imprint/imprint.jsp
 # to create a branded version of OpenRide
 #
 #
-build.headless.support/branding/terms/terms.jsp
+terms.jsp.base=build.headless.support/branding/terms/terms.jsp
+#
+# the base path for the contac jsp -- change this for your own terms 
+# to create a branded version of OpenRide
+#
+#
+contact.jsp.base=build.headless.support/branding/contact/contact.jsp

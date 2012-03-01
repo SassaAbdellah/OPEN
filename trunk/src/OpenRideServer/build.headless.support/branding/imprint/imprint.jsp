@@ -24,13 +24,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<jsp:include page="/WEB-INF/jspf/welcome_header.jsp"></jsp:include>
+
+<!--TODO: include here a simplistic unprotected header for including CSS and the like  -->
 
 <h1 style="text-align: right; margin: 15px 10px;"><img src="/OpenRideServer-RS/img/logo.png" alt="OpenRide" /></h1>
 
 <h3>Impressum</h3>
 
-<small>
     <p>Diese Webpräsenz is ein Projekt von: <br/> 
         Jochen Laser                        <br/> 
         Fliederweg 2a                       <br/> 
@@ -40,7 +40,6 @@
     <p>
         unterstützt von <a href="http://www.xeneris.net" target="_blank">Xeneris Media</a> </p>
     </p>
-</small>
 
 <h3 class="separated" style="margin-bottom: 0.75em;">Vorstand</h3>
 
@@ -55,12 +54,14 @@
 
 <h3 class="separated" style="margin-bottom: 0.75em;">Haftungshinweis</h3>
 
-<small>
     <p>Wir übernehmen keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
     <p>Wir sind bemüht, das Webangebot stets aktuell und inhaltlich richtig sowie vollständig anzubieten. Dennoch ist das Auftreten von Fehlern nicht völlig auszuschließen. Das Fraunhofer-Institut bzw. die Fraunhofer-Gesellschaft übernimmt keine Haftung für die Aktualität, die inhaltliche Richtigkeit sowie für die Vollständigkeit der in ihrem Webangebot eingestellten Informationen. Dies bezieht sich auf eventuelle Schäden materieller oder ideeller Art Dritter, die durch die Nutzung dieses Webangebotes verursacht wurden.</p>
     <p>Geschützte Marken und Namen, Bilder und Texte werden auf unseren Seiten in der Regel nicht als solche kenntlich gemacht. Das Fehlen einer solchen Kennzeichnung bedeutet jedoch nicht, dass es sich um einen freien Namen, ein freies Bild oder einen freien Text im Sinne des Markenzeichenrechts handelt.</p>
 
     <p><a href="./">&laquo; Zurück zur Startseite</a></p>
-</small>
 
-<jsp:include page="/WEB-INF/jspf/welcome_footer.jsp"></jsp:include>
+
+
+<!--TODO: include here a simplistic unprotected footer  -->
+
+
