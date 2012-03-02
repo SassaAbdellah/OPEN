@@ -61,60 +61,128 @@
      <property name="imprint.jsp" value="../${imprint.jsp.base}" />   
      <copy file="${imprint.jsp}" tofile="${build.dir}/imprint.jsp" overwrite="true" verbose="true" />
 
-     <!-- adapt HEADER_MARK in imprint.jsp to include OpenRideWeb Header   --> 
-     <replace  file="${build.dir}/imprint.jsp"   
-      	token="HEADER_MARK" 
-      	value="&lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;" 
-     />
+     <!-- adapt HEADER_MARK in imprint.jsp to include OpenRideWeb Header   -->
+ 
+     <replace  file="${build.dir}/imprint.jsp"   token="HEADER_MARK" >
+       
+       <replacevalue>
+
+         &lt;!-- *** taglibs to be imported *** --&gt;
+         &lt;%@taglib prefix=&quot;f&quot; uri=&quot;http://java.sun.com/jsf/core&quot;%&gt;
+         &lt;%@taglib prefix=&quot;h&quot; uri=&quot;http://java.sun.com/jsf/html&quot;%>
+  
+
+         &lt;!-- *** start view *** --&gt;
+         &lt;f:view&gt;
+
+         &lt;!-- *** include header jsp *** --&gt;
+      	 &lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;
+ 
+       </replacevalue>
+
+     </replace>
 
       <!-- adapt FOOTER_MARK in imprint.jsp to include OpenRideWeb Footer   -->
-     <replace  file="${build.dir}/imprint.jsp"
-        token="FOOTER_MARK"
-        value=" &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;&lt;jsp:param name=&quot;section&quot; value=&quot;imprint&quot; /&gt;&lt;/jsp:include&gt;"
-     />
+     <replace  file="${build.dir}/imprint.jsp" token="FOOTER_MARK">
+       
+       <replacevalue> 
+        &lt;!-- *** close view     *** --&gt; 
+        &lt;/f:view&gt;
+  
 
+        &lt;!-- *** include footer *** --&gt; 
+        &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;
+        &lt;jsp:param name=&quot;section&quot; value=&quot;imprint&quot; /&gt;
+        &lt;/jsp:include&gt;"
+       </replacevalue>
 
+       </replace>
      
-     <!-- *** process terms.jsp *** -->
+     
+
+    <!-- ********** process terms.jsp ********************************************************** -->
   
      <!-- exchange terms of use   -->
      <property name="terms.jsp" value="../${terms.jsp.base}" />   
      <copy file="${terms.jsp}" tofile="${build.dir}/terms.jsp" overwrite="true" verbose="true" />
 
+     <replace  file="${build.dir}/terms.jsp"   token="HEADER_MARK" >
 
-     <!-- adapt HEADER_MARK in terms.jsp to include OpenRideWeb Header   --> 
-     <replace  file="${build.dir}/terms.jsp"   
-      	token="HEADER_MARK" 
-      	value="&lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;" 
-     />
+       <replacevalue>
 
-     <replace  file="${build.dir}/terms.jsp"
-        token="FOOTER_MARK"
-        value=" &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;&lt;jsp:param name=&quot;section&quot; value=&quot;terms&quot; /&gt;&lt;/jsp:include&gt;"
-     />
+         &lt;!-- *** taglibs to be imported *** --&gt;
+         &lt;%@taglib prefix=&quot;f&quot; uri=&quot;http://java.sun.com/jsf/core&quot;%&gt;
+         &lt;%@taglib prefix=&quot;h&quot; uri=&quot;http://java.sun.com/jsf/html&quot;%>
 
-    
-    <!-- *** process contact.jsp *** -->
+
+         &lt;!-- *** start view *** --&gt;
+         &lt;f:view&gt;
+
+         &lt;!-- *** include header jsp *** --&gt;
+         &lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;
+
+       </replacevalue>
+     </replace> <!-- replace HEADER_MARK -->
+
+     <!-- adapt FOOTER_MARK in imprint.jsp to include OpenRideWeb Footer   -->
+     <replace  file="${build.dir}/terms.jsp" token="FOOTER_MARK">
+
+       <replacevalue> 
+        &lt;!-- *** close view     *** --&gt;
+        &lt;/f:view&gt;
+
+
+        &lt;!-- *** include footer *** --&gt;
+        &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;
+        &lt;jsp:param name=&quot;section&quot; value=&quot;terms&quot; /&gt;
+        &lt;/jsp:include&gt;"
+       </replacevalue>
+
+       </replace> <!-- replace FOOTER_MARK -->
+
+
+    <!-- ********** process contact.jsp ********************************************************** -->
 
      <!-- exchange contact page   -->
      <property name="contact.jsp" value="../${contact.jsp.base}" />
      <copy file="${contact.jsp}" tofile="${build.dir}/contact.jsp" overwrite="true" verbose="true" />
 
 
-     <!-- adapt HEADER_MARK in contact.jsp to include OpenRideWeb Header   -->
-     <replace  file="${build.dir}/contact.jsp"
-        token="HEADER_MARK"
-        value="&lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;"
-     />
+      <replace  file="${build.dir}/contact.jsp"   token="HEADER_MARK" >
 
-     <replace  file="${build.dir}/contact.jsp"
-        token="FOOTER_MARK"
-        value=" &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;&lt;/jsp:include&gt;"
-     />
-  
+       <replacevalue>
+
+         &lt;!-- *** taglibs to be imported *** --&gt;
+         &lt;%@taglib prefix=&quot;f&quot; uri=&quot;http://java.sun.com/jsf/core&quot;%&gt;
+         &lt;%@taglib prefix=&quot;h&quot; uri=&quot;http://java.sun.com/jsf/html&quot;%>
 
 
+         &lt;!-- *** start view *** --&gt;
+         &lt;f:view&gt;
 
+         &lt;!-- *** include header jsp *** --&gt;
+         &lt;jsp:include page=&quot;/WEB-INF/jspf/header.jsp&quot; /&gt;
+
+       </replacevalue>
+
+     </replace> <!-- replace HEADER_MARK -->
+
+
+      <!-- adapt FOOTER_MARK in contact.jsp to include OpenRideWeb Footer   -->
+     <replace  file="${build.dir}/contact.jsp" token="FOOTER_MARK">
+
+       <replacevalue> 
+        &lt;!-- *** close view     *** --&gt;
+        &lt;/f:view&gt;
+
+
+        &lt;!-- *** include footer *** --&gt;
+        &lt;jsp:include page=&quot;/WEB-INF/jspf/footer.jsp&quot;&gt;
+        &lt;jsp:param name=&quot;section&quot; value=&quot;imprint&quot; /&gt;
+        &lt;/jsp:include&gt;"
+       </replacevalue>
+
+       </replace>
 
 
     </target> <!--end of target "branding" -->
