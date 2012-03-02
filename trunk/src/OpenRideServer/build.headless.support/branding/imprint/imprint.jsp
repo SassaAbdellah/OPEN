@@ -23,18 +23,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
-<%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
-
-<f:view>
-
-
      <!-- header mark is here to be automaticall replaced by ant with  a directive including  the -->
-     <!-- header appropriate for either OpenRideWeb or OpenRideServerRS  subproject               --> 
+     <!-- jsp directives  appropriate for either OpenRideWeb or OpenRideServerRS  subproject               --> 
  
     HEADER_MARK
-
-
 
     <h1>Impressum</h1>
 
@@ -83,10 +75,8 @@
 
 
      <!-- footer mark is here to be automaticall replaced by ant with  a directive including  the -->
-     <!-- footer appropriate for either OpenRideWeb or OpenRideServerRS  subproject               -->
+     <!-- jsp directives appropriate for either OpenRideWeb or OpenRideServerRS  subproject               -->
 
     FOOTER_MARK
 
 
-
-</f:view>
