@@ -23,11 +23,18 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="footer"><div>
-        <span>Copyright &copy; 2010, <a href="http://www.fokus.fraunhofer.de/">Fraunhofer Institute FOKUS</a></span>
-        <br /><span><a href="/OpenRideServer-RS/imprint.jsp">Impressum</a> |
-            <a href="/OpenRideServer-RS/terms.jsp">Haftungsausschluss | Datenschutzerkl&auml;rung</a></span>
-        <span class="clear"> </span>
-    </div></div>
+        <span>
+	   <a href="http://www.open-ride.com" target="_blank">powered by OpenRide</a>
+         </span>
+        <br />
+        <span>
+          <a href="/OpenRideServer-RS/imprint.jsp">Impressum</a> |
+          <a href="/OpenRideServer-RS/terms.jsp">Haftungsausschluss | Datenschutzerkl&auml;rung</a>
+        </span>
+        <span class="clear"> 
+        </span>
+    </div>
+</div>
 
 </div>
 </body>
