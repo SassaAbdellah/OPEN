@@ -29,7 +29,7 @@
         <span class="clear"></span>
     </div>
     <div id="footer"><div>
-        <span class="left">Copyright &copy; 2010, <a href="http://www.fokus.fraunhofer.de/">Fraunhofer Institute FOKUS</a></span>
+        <span class="left"><a href="http://www.open-ride.com/" target="_blank"> powered by OpenRide </a></span>
         <span class="right"><a href="imprint.jsf">Impressum</a> | <a href="terms.jsf">Haftungsausschluss | Datenschutzerklärung</a></span>
         <span class="clear"> </span>
     </div></div>
