@@ -31,7 +31,6 @@
 
     <jsp:include page="/WEB-INF/jspf/welcome_registration.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/jspf/welcome_login.jsp"><jsp:param name="login_error" value="true" /></jsp:include>
-    <jsp:include page="/WEB-INF/jspf/welcome_partners.jsp"></jsp:include>
 
     <jsp:include page="/WEB-INF/jspf/footer.jsp"></jsp:include>
 

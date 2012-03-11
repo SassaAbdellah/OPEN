@@ -49,9 +49,7 @@
         <ul>
             <li class="<c:if test="${param.section=='home'}">active</c:if>" id="homelink"><a href="./"><h:outputText rendered="#{UserBean.isLoggedIn}" value="Home" /><h:outputText rendered="#{!UserBean.isLoggedIn}" value="Home" /></a></li>
             <li<c:if test="${param.section=='about'}"> class="active"</c:if>><a href="about.jsf">Über OpenRide</a></li>
-            <li<c:if test="${param.section=='partners'}"> class="active"</c:if>><a href="partners.jsf">Partner</a></li>
             <li<c:if test="${param.section=='faq'}"> class="active"</c:if>><a href="faq.jsf">FAQ</a></li>
-            <li<c:if test="${param.section=='forum'}"> class="active"</c:if>><a href="forum.jsf">Forum</a></li>
             <li<c:if test="${param.section=='contact'}"> class="active"</c:if>><a href="contact.jsf">Kontakt</a></li>
         </ul>
     </div>            

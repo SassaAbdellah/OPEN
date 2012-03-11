@@ -43,7 +43,6 @@
         <ul>
             <li id="homelink"><a href="/OpenRideWeb/">Home</a></li>
             <li><a href="/OpenRideWeb/about.jsf">Über OpenRide</a></li>
-            <li><a href="/OpenRideWeb/partners.jsf">Partner</a></li>
             <li><a href="/OpenRideWeb/faq.jsf">FAQ</a></li>
             <li><a href="/OpenRideWeb/forum.jsf">Forum</a></li>
             <li><a href="/OpenRideWeb/contact.jsf">Kontakt</a></li>
