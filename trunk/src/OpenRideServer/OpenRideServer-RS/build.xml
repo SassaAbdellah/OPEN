@@ -11,6 +11,32 @@
     <description>Builds, tests, and runs the project OpenRideServer-RS.</description>
     <import file="nbproject/build-impl.xml"/>
 
+
+ <!--  defining ant task for compressing the js and css -->
+        <property
+            name="yui-compressor.jar"
+            location="./lib/yuicompressor-2.4.2.jar" />
+        <property
+            name="yui-compressor-ant-task.jar"
+            location="./lib/yui-compressor-ant-task-0.5.jar" />
+
+        <path id="task.classpath">
+            <pathelement location="${yui-compressor.jar}" />
+            <pathelement location="${yui-compressor-ant-task.jar}" />
+        </path>
+
+        <!-- yui-compressor task definition -->
+        <taskdef
+            name="yui-compressor"
+            classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+            <classpath refid="task.classpath" />
+        </taskdef>
+	
+
+
+
+ <!--  defining ant task for compressing the js and css -->
+
     <!--
    * minify will concatenate all of our non-TinyMCE javascripts and stylesheets
    * then use the YUI compressor library to compress them
