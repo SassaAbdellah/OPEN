@@ -21,6 +21,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+
+
+
+
 package de.fhg.fokus.openride.routing;
 
 
@@ -31,10 +36,35 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.mapsforge.core.GeoCoordinate;
-import org.mapsforge.server.routing.IEdge;
-import org.mapsforge.server.routing.IRouter;
-import org.mapsforge.server.routing.IVertex;
-import org.mapsforge.server.routing.highwayHierarchies.RouterImpl;
+
+
+/** "Edge" interface in mapsforge. 
+ *   Before updating to mapsforge.0.3.x
+ *   org.mapsforge.server.routing.Edge was used.
+ */
+import org.mapsforge.core.Edge;
+/**
+ * "Router" Interface in mapsforge.
+ *  Before updating to mapsforge.0.3.x 
+ *  org.mapsforge.server.routing.IRouter was used.
+ */
+import org.mapsforge.core.Router;
+
+
+/** "Vertex" interface in mapsforge.
+ *  Before updating to mapsforege.0.3.x
+ *  org.mapsforge.server.routing.IVertex was used.
+ */
+import org.mapsforge.core.Vertex;
+
+
+/** Router implementation in mapsforge. 
+ *  Before updating to mapsforge.0.3.x
+ *  org.mapsforge.server.routing.highwayHierarchies.RouterImpl was used.
+ */
+
+import org.mapsforge.routing.server.hh.HHRouterServerside;
+
 
 /**
  * Wraps the mapsforge router. It may be possible that there will be some
@@ -55,7 +85,7 @@ public class RouterWrapper {
     private static final long FILE_SYSTEM_CHECK_INTERVALL = 30000;
     private static RouterWrapper instance = null;
 
-    private volatile IRouter router;
+    private volatile Router router;
     private volatile long lastModified;
 
     public static RouterWrapper getInstance() {
@@ -94,7 +124,7 @@ public class RouterWrapper {
         logger.info("load routingGraph '" + F_ROUTING_GRAPH.getAbsolutePath() + "' ...");
         try {
             FileInputStream fis = new FileInputStream(F_ROUTING_GRAPH);
-            IRouter tmp = RouterImpl.deserialize(fis);
+            Router tmp = HHRouterServerside.deserialize(fis);
             fis.close();
 
             this.router = tmp;
@@ -113,9 +143,9 @@ public class RouterWrapper {
     public GeoCoordinate[] getMapCoordinates(GeoCoordinate[] coords) {
         // we need to use it as a variable since it might
         //be that the router gets reloaded from file system during computation.
-        IRouter myRouter = this.router;
+        Router myRouter = this.router;
         if(coords != null && myRouter != null) {
-            IVertex[] vertices = getVertices(myRouter, coords);
+            Vertex[] vertices = getVertices(myRouter, coords);
             GeoCoordinate[] result = new GeoCoordinate[vertices.length];
             for(int i=0;i<result.length;i++) {
                 result[i] = vertices[i].getCoordinate();
@@ -128,9 +158,9 @@ public class RouterWrapper {
     public GeoCoordinate[] getVertexCoordinates(GeoCoordinate[] coords) {
         // we need to use it as a variable since it might
         //be that the router gets reloaded from file system during computation.
-        IRouter myRouter = this.router;
+        Router myRouter = this.router;
         if(coords != null && myRouter != null) {
-            IVertex[] vertices = getVertices(myRouter, coords);
+            Vertex[] vertices = getVertices(myRouter, coords);
             GeoCoordinate[] result = new GeoCoordinate[vertices.length];
             for(int i=0;i<result.length;i++) {
                 result[i] = vertices[i].getCoordinate();
@@ -147,10 +177,10 @@ public class RouterWrapper {
     public LinkedList<GeoCoordinate> getShortestPath(GeoCoordinate[] coords) {
         // we need to use it as a variable since it might
         //be that the router gets reloaded from file system during computation.
-        IRouter myRouter = this.router;
+        Router myRouter = this.router;
         if(coords != null && myRouter != null) {
-            IVertex[] vertices = getVertices(myRouter, coords);
-            LinkedList<IEdge> route = getRoute(myRouter, vertices);
+            Vertex[] vertices = getVertices(myRouter, coords);
+            LinkedList<Edge> route = getRoute(myRouter, vertices);
             if(route == null || vertices == null) {
                 return null;
             }
@@ -159,7 +189,7 @@ public class RouterWrapper {
                 //source == target
                 result.add(vertices[0].getCoordinate());
             } else {
-                for(IEdge e : route) {
+                for(Edge e : route) {
                     int start;
                     if(e.equals(route.getFirst())) {
                         start = 0;
@@ -188,10 +218,10 @@ public class RouterWrapper {
     public double getShortestPathAndTravelTime(GeoCoordinate[] coords, LinkedList<GeoCoordinate> buffCoords, LinkedList<Integer> buffTime) {
         // we need to use it as a variable since it might
         //be that the router gets reloaded from file system during computation.
-        IRouter myRouter = this.router;
+        Router myRouter = this.router;
         if(coords != null && myRouter != null) {
-            IVertex[] vertices = getVertices(myRouter, coords);
-            LinkedList<IEdge> route = getRoute(myRouter, vertices);
+            Vertex[] vertices = getVertices(myRouter, coords);
+            LinkedList<Edge> route = getRoute(myRouter, vertices);
             double routeLength = 0d;
             if(route == null) {
                 return Double.MAX_VALUE;
@@ -202,7 +232,7 @@ public class RouterWrapper {
                 buffTime.add(0);
             } else {
                 double timeOffset = 0d;
-                for(IEdge e : route) {
+                for(Edge e : route) {
                     GeoCoordinate[] waypoints = e.getAllWaypoints();
                     double edgeLength = getEdgeLength(waypoints);
                     routeLength += edgeLength;
@@ -246,10 +276,10 @@ public class RouterWrapper {
         return length;
     }
 
-    private static LinkedList<IEdge> getRoute(IRouter router, IVertex[] vertices) {
-        LinkedList<IEdge> route = new LinkedList<IEdge>();
+    private static LinkedList<Edge> getRoute(Router router, Vertex[] vertices) {
+        LinkedList<Edge> route = new LinkedList<Edge>();
         for(int i=1;i<vertices.length;i++) {
-            IEdge[] edges = router.getShortestPath(vertices[i-1].getId(), vertices[i].getId());
+            Edge[] edges = router.getShortestPath(vertices[i-1].getId(), vertices[i].getId());
             if(edges == null || edges.length == 0 && vertices[i-1].getId() != vertices[i].getId()) {
                 return null;
             }
@@ -260,11 +290,11 @@ public class RouterWrapper {
         return route;
     }
 
-    private static IVertex[] getVertices(IRouter router, GeoCoordinate[] coords) {
+    private static Vertex[] getVertices(Router router, GeoCoordinate[] coords) {
         if(coords == null) {
-            return new IVertex[0];
+            return new Vertex[0];
         }
-        IVertex[] vertices = new IVertex[coords.length];
+        Vertex[] vertices = new Vertex[coords.length];
         for(int i=0;i<coords.length;i++) {
             vertices[i] = router.getNearestVertex(coords[i]);
         }
