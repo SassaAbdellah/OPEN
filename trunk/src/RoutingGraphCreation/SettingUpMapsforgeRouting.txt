@@ -45,13 +45,13 @@ Overview
     2.6.1.  Obtaining the PBF Files
     2.6.2.  TODOS
 
-Obtaining and Building Mapsforge
+===  2 Obtaining and Building Mapsforge ===
 
    A readonly version of mapsforge is provided for non developers. check
    out mapsforge readonly from subversion:
    svn checkout http://mapsforge.googlecode.com/svn/trunk/ mapsforge-read-only
 
-Building the Mapsforge Project
+==  2.1 Building the Mapsforge Project ==
 
    In general, the mapsforge project is build using maven (should work
    with both maven2 and maven3). In short, issue the command
@@ -63,7 +63,7 @@ Building the Mapsforge Project
 
     http://code.google.com/p/mapsforge/wiki/GettingStartedDevelopers
 
-Building the Mapsforge-Routing subproject
+=== 2.2 Building the Mapsforge-Routing subproject ==
 
    While maven seems to build all other subprojects of the mapsforge
    project, a pom.xml seems to be missing for the mapsforge-routing
@@ -90,7 +90,7 @@ Building the Mapsforge-Routing subproject
   be sure to have osmosis in the path for what follows
 
 
-  Install the mapsforge-routing-hh plugin
+== 2.3 Install the mapsforge-routing-hh plugin ==
 
    Install the mapsforge-routing-hh plugin:
 
@@ -103,7 +103,7 @@ Building the Mapsforge-Routing subproject
    If the mapsforge-maps-writer-plugin is correctly installed, osmosis
    will be able to run the --rgw respectively --routing-graph-writer task.
 
-Create and populate the OSM database
+== 2.5 Create and populate the OSM database ==
 
    * create database user "osm" with superuse privs (run attached script
    07.createOSMUser as "postgres" user) * create empty database "osm" for
@@ -120,7 +120,7 @@ Create and populate the OSM database
    * Load modified osmm2rg schema (run attached script 10.populateOSMDB
    which loads the "modified osm2rg schema" osm2rg.mapsforge.20120415.sql)
 
-Creating the HH Graph
+== 2.6 Creating the HH Graph ==
 
    Copy the attached config.properties and
    highwayLevel2AverageSpeed.properties files to the mapsforge-routing
@@ -155,17 +155,17 @@ Creating the HH Graph
      * "produce-map-binary": Map used by mapsforge android client. Not
        needed by jORide.
 
-Obtaining the PBF Files
+= 2.6.1 Obtaining the PBF Files =
 
    PBF files from Openstreetmap project are obtained from the geofabrik:
    [43] http://www.geofabrik.com .
 
-TODOS
+= 2.6.2.TODOS =
 
    Make the map target work. Also not needed for openride, it should help
    to understand the map building process.
 
-Attachments
+=== Attachments ===============================================================================
 
      * build-joride.xml                      "Build script for mapsforge routing subproject" 
      * 07.createOSMUser                      "Create User for OSM DB"

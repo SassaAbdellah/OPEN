@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+#
+#
+#
+#
+psql   -d  osm <  ${HOME}/archives/osm2rg.mapsforge.20120415.sql
