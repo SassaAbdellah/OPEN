@@ -8,9 +8,6 @@
 
  1) OSLEVEL: 
 
-   
-
-
 
     Run script oslevel/01.createusers.sh 
 
@@ -20,7 +17,7 @@
    
  2) Postgres
 
-    Install  readline-devel, geos-devel , proj-devel (Fedora)
+    Install  readline-devel, geos-devel , proj-devel, zlib-devel (Fedora)
 
 
 
@@ -31,9 +28,10 @@
      * source /opt/postgres/openride.conf
 
      to get environment right
+     run script /opt
 
 
+/opt/postgres/postgres-build/01.build.postgres.sh
 
  3) Glassfish
  
-
