@@ -12,7 +12,7 @@ fi
 echo creating user postgres with home /opt/postgres
 #
 useradd --home '/opt/postgres' postgres
-groupad postgres
+groupadd postgres
 #
 mkdir /opt/postgres
 chown -R postgres.postgres /opt/postgres
@@ -22,7 +22,7 @@ chown -R postgres.postgres /opt/postgres
 echo creating user openride with home /opt/openride
 #
 useradd --home '/opt/openride' openride
-groupad openride
+groupadd openride
 #
 mkdir /opt/openride
 chown -R openride.openride /opt/openride
