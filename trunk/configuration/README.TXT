@@ -28,10 +28,10 @@
      * source /opt/postgres/openride.conf
 
      to get environment right
-     run script /opt
 
+     run script /opt/postgres/postgres-build/01.build.postgres.sh
+     to build postgres   
 
-/opt/postgres/postgres-build/01.build.postgres.sh
 
  3) Glassfish
  
