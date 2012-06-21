@@ -4,7 +4,7 @@
 # source glassfish configuration
 #
 #
-. ./00.glassfish.conf
+. ./opt/openride/etc/openride.glassfish.conf
 #
 #
 #
