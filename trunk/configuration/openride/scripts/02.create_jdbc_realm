@@ -3,7 +3,7 @@
 #
 # Source glassfish configuration
 #
-. ./00.glassfish.conf
+. ./opt/openride/etc/openride.glassfish.conf
 #
 #
 # see 
@@ -50,7 +50,6 @@ asadmin create-auth-realm    \
   ${REALM_NAME}
 #
 #
-
 #
 #
 # Set Hash Algorithm to MD5 for this REALM
