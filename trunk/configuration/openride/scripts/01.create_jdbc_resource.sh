@@ -10,7 +10,7 @@
 #
 # copy jdbc archive to glassfish lib dir 
 #
-cp -v ${POSTGRES_JDBC_ARCHIVE} "${GLASSFISH_DIR}/lib" 
+cp -v ${POSTGRES_JDBC_ARCHIVE} "${GLASSFISH_HOME}/lib" 
 #
 #
 #
