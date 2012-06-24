@@ -303,13 +303,25 @@ while the glassfish server is still running, run script
 
 
 
+4) Deploying
+
+Log in as "openride" and source the /opt/etc/openride.glassfish.conf 
+to get the settings right
+
+4.1) Get a suitable Routing Graph file, rename it to "routingGraph.hh" 
+and copy it to the directory 
+
+  "/opt/openride/glassfish/glassfish-3.0.1/glassfishv3/glassfish/domains/domain1/config/"
+
+(i.e: the config directory of the glassfish domain that the openride.ear runs in)
+
+4.2) Get the OpenRideServer.ear (If in doubt, build it from sources)
+and deploy it to glassfish domain "domain1" using command
+
+ asadmin deploy OpenRideServer.ear
 
 
-
-
-
-
-
+OpenRide/jORide should now be ready.
 
 
 
