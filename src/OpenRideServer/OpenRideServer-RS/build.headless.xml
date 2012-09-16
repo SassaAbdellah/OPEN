@@ -27,7 +27,7 @@
     <!-- ************************************************************************ -->	
     <!-- *** Load local properties file from OpenRideServer project           *** -->
     <!-- ************************************************************************ -->	
-    <target name="loadLocalProperties">
+    <target name="loadLocalProperties" description="Load local properties file from OpenRideServer project"   >
 	
          <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
             <condition>
@@ -233,7 +233,7 @@
    * purge-src takes our compressed files, moves them to the base /common dir
    * and deletes the source js and css dirs from the build dir
    -->
-    <!--target name="purge-src" depends="minify">
+    <!--target name="purge-src" depends="minify"  description="purge uncompressed css and js files from src">
         <echo message="Purging javascript and stylesheet sources" />
 
         <move file="${build.dir}/web/common/js/global-min.js" tofile="${build.dir}/web/common/global.js"/>
@@ -252,7 +252,7 @@
    <!-- ************************************************************** -->
 
 
-   <target name="build" depends="loadLocalProperties,branding" >
+   <target name="build" depends="loadLocalProperties,branding"  description="do the build" >
 
    <!-- jee libraries are configured in master project -->
    <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
@@ -269,7 +269,7 @@
 
    <!-- *** Compile Standard Classes  *** -->
 
-   <javac srcdir="src/java" destdir="${classes.dir}" > 
+   <javac srcdir="src/java" destdir="${classes.dir}"  description="compile the java code" > 
       <classpath>
  	<fileset dir="${ejb.lib.dir}">
 		<include name="**/*.jar" />
@@ -333,7 +333,7 @@
     <!-- ***  target "dist" : create the war file  *** -->	
     <!-- ********************************************* -->
     
-  <target name="dist" depends="build" >
+  <target name="dist" depends="build"  description="do the distribution" >
 
 
 
@@ -379,7 +379,7 @@
     <!-- ******************************************************** -->
     <!-- *** target clean:  clean dist and build directories  *** -->	
     <!-- ******************************************************** -->
-   <target name="clean">
+   <target name="clean" description="do the usual cleanup">
 	<delete dir="${dist.dir}"  />
 	<delete dir="${build.dir}" />
    </target> <!-- end of target "clean" -->
@@ -390,6 +390,6 @@
    <!-- *** target "all" :  do clean, then dist *** -->
    <!-- ******************************************* -->
 
-   <target name="all"  depends="clean,dist"  />
+   <target name="all"  depends="clean,dist"  description="first clean, then build" />
     
 </project>
