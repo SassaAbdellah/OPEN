@@ -19,7 +19,7 @@
     <!-- ***  target "dist": create the ear file  *** -->	
     <!-- ******************************************** -->
     
-  <target name="dist" >
+  <target name="dist" description=" target dist: create the ear file "  >
 
     <!-- assemble stuff in build.dir -->
     <mkdir dir="${build.dir}" /> 
@@ -73,7 +73,7 @@
     <!-- *** target clean: cleanup dist and build directories  *** -->	
     <!-- ********************************************************* -->
    
-   <target name="clean">
+   <target name="clean" description="cleanup build artefacts" >
 	<delete dir="${dist.dir}"  />
 	<delete dir="${build.dir}" />
 
@@ -91,6 +91,6 @@
    <!-- ***  target "all":  do clean, then dist *** -->
    <!-- ******************************************* -->
 
-   <target name="all"  depends="clean,dist"  />
+   <target name="all"  depends="clean,dist"  description="first clean, then dist..." />
     
 </project>
