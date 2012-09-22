@@ -37,3 +37,11 @@ terms.jsp.base=build.headless.support/branding/terms/terms.jsp
 #
 #
 contact.jsp.base=build.headless.support/branding/contact/contact.jsp
+#
+#
+# the language into which the Frontend should 
+# be translated into
+#
+#
+#
+lang=EN
