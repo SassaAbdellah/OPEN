@@ -227,7 +227,10 @@
             <include name="web/welcome_style.css" />
         </yui-compressor>
 
-    </target>
+    </target> <!-- ***** end of target minify  ***** -->
+
+
+
 
     <!--
    * purge-src takes our compressed files, moves them to the base /common dir
@@ -244,6 +247,125 @@
 
     </target-->
 
+
+
+
+
+ 
+
+ 
+    <!-- *************************************************************************************** -->
+    <!-- ************ load ressources for translation   **************************************** -->
+    <!-- *************************************************************************************** -->
+
+
+    <!-- load contrib tasks -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+                <pathelement location="../build.headless.support/build-libs/ant-contrib-1.0b3.jar" />
+        </classpath>
+    </taskdef>
+
+
+ 
+    <!-- the languange to use is defined in local.properties file  **************** -->
+    <!-- after loading that, the  language will be in the "lang" property -->
+    <property name="local.properties.file" value="../local.properties" />  
+    <property file="${local.properties.file}"   />  
+
+  
+   <!-- Now, we are ready to load the labels which depend on ${lang} -->
+   <property 
+	name="label.properties" 
+        value="../build.headless.support/internationalisation/lang/${lang}/labels.properties"  
+   /> 
+   <!-- load labels -->
+   <property file="${label.properties}"  />
+
+
+
+ 
+
+
+ 
+    <!-- *************************************************************************************** -->
+    <!-- ************ Check that resources needed for translation are in place ***************** -->
+    <!-- *************************************************************************************** -->
+
+    <target name="translation_check" description="check that property files for translation are in place">
+
+      <!-- ***** check that main properties file is in place  ***************  -->
+           <fail message=" missing  local.properties.file (${local.properties.file})" >
+                <condition>
+                <not> <resourcecount count="1"> <fileset  file="${local.properties.file}"/> </resourcecount> </not>
+           </condition>
+        </fail>
+
+       <!-- ***** check that label properties file is in place  ***************  -->
+           <fail message=" missing  label.properties.file (${label.properties})" >
+                <condition> <not> <resourcecount count="1"> <fileset file="${label.properties}"  /> </resourcecount> </not>
+           </condition>
+        </fail>
+
+    </target> <!-- target name="translation_check" -->
+
+
+
+      <!-- ***************************************************************** -->
+      <!-- ** replace markers in javascript and jsp files for translation ** -->
+      <!-- ***************************************************************** -->
+      <!-- ** evaluate parameter token                                    ** -->
+      <!-- ** replace all appearances of ${token}                         ** -->
+      <!-- ** with the value ${${token}} to which                         ** -->
+      <!-- ** the parameter named ${token} points                         ** -->
+      <!-- ***************************************************************** -->
+
+     <target name="replace">
+
+      <propertycopy property="value"   from="${token}" />
+
+       <echo message=" replacing ${token} with  ${value} "/>
+
+
+      <replace dir="${build.dir}/web" token="${token}" value="${value}"  >
+  	<include name="**/*.jsp" />
+  	<include name="**/*.js"  />
+      </replace>
+
+    </target>  <!-- target "replace" -->
+
+
+   <!-- ********************************************************************************************* -->
+   <!-- **** translate iterate through the number targets, and replace tokens with values        **** -->
+   <!-- ********************************************************************************************* -->
+   
+   <target name="translate">
+   
+
+   <!-- select markers and replacement values, which are in label.properties file -->
+   <propertyselector property="targets" match="(MARK.*)" select="\1" />
+
+	<echo message="" />
+	<echo message="***********************************************************************************"  /> 
+	<echo message="translating to language : ${lang}"  /> 
+	<echo message="Label Description       : ${label.lang.description} " />
+	<echo message="***********************************************************************************"  /> 
+	<echo message="" />
+
+
+        <!-- select markers and replacement values, which are in label.properties file -->
+        <propertyselector property="targets" match="(MARK.*)" select="\1" />
+
+         <echo message="${targets}" />
+
+	<!-- iterate through property list and replace tokens for translation  -->
+        <foreach list="${targets}"  target="replace"  param="token" inheritall="true" />
+    </target>
+    
+
+
+
+   
 
 
  
@@ -313,6 +435,13 @@
      <fileset dir="web" />
    </copy>
 
+
+  <!-- ************************************************ -->
+  <!-- *** do the translation in ${build.dir}/web   *** -->  
+  <!-- ************************************************ -->
+   <antcall target="translate"  inheritall="true" inheritrefs="true" />
+
+
    <!-- ************************************* -->
    <!-- apply actual google maps key          -->
    <!-- ************************************* --> 
@@ -322,7 +451,6 @@
    <!-- ***   run minify on build.dir     *** -->
    <!-- ************************************* -->
    <antcall target="minify"  inheritall="true" inheritrefs="true" />
-
 
 
    </target>  <!-- end of target "build" -->
