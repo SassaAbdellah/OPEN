@@ -26,7 +26,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <img src="/OpenRideServer-RS/img/logo.png" alt="OpenRide" style="float: right; margin: 13px 10px 14px 0;" />
-<h1>Herzlich willkommen!</h1>
+<h1> MARK.Welcome ! </h1>
 
 <form id="loginForm" action="/OpenRideServer-RS/j_security_check" method="post" class="login">
     <h3>Jetzt einloggen und starten:</h3>
