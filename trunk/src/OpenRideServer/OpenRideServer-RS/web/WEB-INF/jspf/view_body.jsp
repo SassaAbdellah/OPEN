@@ -368,7 +368,7 @@
                 </div>
                 <div id="homeUI_live" style="display: none;">
                     <div id="homeinfo">
-                        <h3>Willkommen <span id="usernametag"></span>!</h3>
+                        <h3> MARK.Welcome <span id="usernametag"></span>!</h3>
                         <img id="profilepicimg" src="../../OpenRideWeb/pictures/profile/default_0.jpg" alt="profilepic" width="125" height="125" />
                         <p style="margin-top: -6px;">
                             <span class="statshl" id="homeinfoopenoffers"></span>
