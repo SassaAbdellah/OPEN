@@ -340,7 +340,23 @@
    <!-- ********************************************************************************************* -->
    
    <target name="translate">
-   
+  
+   <!-- copy translated images to build images directory -->   
+
+     <!-- Now, we are ready to load the labels which depend on ${lang} -->
+   <property name="img.dir" value="../build.headless.support/internationalisation/lang/${lang}/img/" />
+
+   <echo message="copying translated images from ${img.dir}"  />
+
+   <copy todir="${build.dir}/web/img/" overwrite="true" >
+     <fileset dir="${img.dir}" />
+   </copy>
+
+
+
+
+
+
 
    <!-- select markers and replacement values, which are in label.properties file -->
    <propertyselector property="targets" match="(MARK.*)" select="\1" />
