@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+     <ui:composition template="/templates/simpleLayout.xhtml">
+
+         <ui:define name="windowTitle">
+             #{msgs.loginTitle}
+         </ui:define>
+
+
+         <ui:define name="content">
+
+      	<form method="POST" action="../j_security_check" >  <!-- we use non JSF form to evade JSF Navigation Cases  -->
+
+               <!-- label and input for username  *********************************************** -->
+               <div class="formLabel"> #{msgs.loginUsername} :                                 </div>
+               <div class="formInput"> <input   name="j_username"/>                            </div>
+
+               <!-- label and input for password  *********************************************** -->
+               <div class="formLabel"> #{msgs.loginPassword} :                                 </div>
+               <div class="formInput">  <input  type="password" name="j_password" />           </div>
+
+               <!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
+               <div class="submitbutton"> <input type="submit" value="#{msgs.loginSubmit}"  /> </div>
+
+      </form>
+      </ui:define>
+
+    </ui:composition>
+
+
+
+   </body>
+</html>

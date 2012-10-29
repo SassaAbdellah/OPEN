@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+   version="2.0">
+
+
+
+
+   <application>
+     
+     <!-- Messages Properties  ******************************* -->
+       
+      <resource-bundle>
+         <base-name>de.avci.joride.messages</base-name>
+         <var>msgs</var>
+      </resource-bundle>
+      
+      <!-- Navigation Properties ******************************* -->
+        <resource-bundle>
+         <base-name>de.avci.joride.navigation</base-name>
+         <var>nav</var>
+      </resource-bundle>
+      
+   </application>
+
+
+
+
+
+
+
+   <!-- Navigation Case                                  -->
+   <!-- enable new login (for example after loginFailed) -->
+
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>login</from-outcome>
+         <to-view-id>/faces/public/login.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>logout</from-outcome>
+         <to-view-id>/faces/public/logout.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+   <!-- Navigation Case  -->
+   <!-- go home          -->
+
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>home</from-outcome>
+         <to-view-id>/faces/public/index.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+
+
+
+   <!-- Navigation Case                           -->
+   <!-- go to startpage for the rider section     -->
+
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>rider</from-outcome>
+         <to-view-id>/faces/public/rider.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+   <!-- Navigation Case                            -->
+   <!-- go to startpage for the driver section     -->
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>driver</from-outcome>
+         <to-view-id>/faces/protected/driver/index.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+   <!-- Navigation Case                             -->
+   <!-- go to startpage for the preferences section -->
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>preferences</from-outcome>
+         <to-view-id>/faces/protected/preferences/index.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+ <!-- go to the nominatim search -->
+   <navigation-rule>
+      <navigation-case>
+         <from-outcome>nominatimq</from-outcome>
+         <to-view-id>/faces/public/geocoding/nominatim/jsonp.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+    
+ <!-- go to the osmmapper page -->
+  <navigation-rule>
+      <navigation-case>
+         <from-outcome>osmmap</from-outcome>
+         <to-view-id>/faces/public/geocoding/nominatim/osmmap.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+	
+	
+    <!-- ***********************************************************  -->	
+    <!-- *****  Application Section **************************************  -->
+    <!-- ***********************************************************  -->	
+  
+    <application>	
+    <!-- *****  Beans Section **************************************  -->
+
+	<!-- ****** HTTPUser Bean ****** -->
+	<managed-bean> 
+           <managed-bean-name>HTTPUser</managed-bean-name>
+           <managed-bean-class>de.avci.joride.session.HTTPUser</managed-bean-class>
+           <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> 
+        
+        <!-- ****** Nominatim Bean ****** -->
+	<managed-bean> 
+           <managed-bean-name>nominatimq</managed-bean-name>
+           <managed-bean-class>de.avci.joride.utils.geocoding.osm.NominatimJSONQuery</managed-bean-class>
+           <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> 
+        
+        <!-- ****** OSMResut (OpenStreetMap!) ****** -->
+	<managed-bean> 
+           <managed-bean-name>osmresult</managed-bean-name>
+           <managed-bean-class>de.avci.joride.utils.geocoding.osm.OSMResult</managed-bean-class>
+           <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> 
+        
+        
+        
+        
+        
+        
+
+    </application>	
+
+
+
+</faces-config>
