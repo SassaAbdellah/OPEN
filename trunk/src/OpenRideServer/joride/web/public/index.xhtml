@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<body>
+
+
+     <ui:composition template="/templates/navbar1Layout.xhtml">
+         
+         <!-- set "classHome" property to highlight, so that home tab will be higlighted -->
+         <ui:param name="classHome" value="Highlight" />
+
+         <ui:define name="windowTitle">
+             #{msgs.title}
+         </ui:define>
+
+
+         <ui:define name="content">
+
+              <h:form>
+
+              <ul>
+
+                <li>
+                    <a href="/joride/faces/public/geocoding/nominatim/geolocate.xhtml">
+                        TODO: geolocate
+                    </a>
+                </li>
+
+
+
+                  
+                <li> 
+                    <a href="/joride/faces/public/geocoding/nominatim/jasonp.xhtml">
+                        TODO: nominatim
+                    </a>
+                </li>
+                  
+ 		<li>
+              		<h:commandLink action="rider">    #{msgs.nav1_rider_label}      </h:commandLink> :  #{msgs.nav1_rider_desc}   
+		</li>
+ 		<li>    
+          		<h:commandLink action="driver">   #{msgs.nav1_driver_label}     </h:commandLink> :  #{msgs.nav1_driver_desc}
+		</li>
+		<li>
+              		<h:commandLink action="preferences">  #{msgs.nav1_preferences_label} </h:commandLink>  :  #{msgs.nav1_preferences_desc}   
+                </li>
+              </ul>
+
+              </h:form>
+
+
+
+
+
+         </ui:define>
+
+
+
+
+      </ui:composition>
+
+
+
+
+
+  </body>
+</html>

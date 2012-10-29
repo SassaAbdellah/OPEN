@@ -1,0 +1,136 @@
+body{
+        color:#000000;
+ 	background-color:#F0F0F0;
+	font-family:sans-serif;
+        max-width:400px;
+}
+
+a {
+	color:#FF8C00; 	 
+	text-decoration:none;
+}
+
+a:hover {
+        color:#FF8C00; 	 
+	text-decoration:underline; 
+}
+
+
+
+
+#header{
+     vertical-align:middle;
+     text-align:left;
+     margin-bottom:10px;   
+}
+
+
+#content{
+
+        padding-top:15px;
+        padding-bottom:15px;
+        padding-right:15px;
+        padding-left:15px;
+
+	background-color:#FFFFFF;
+}
+
+
+#footer{
+	font-size:0.75em; 
+
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+
+
+form{
+	padding:0px;
+ 	margin:0px;
+}
+
+.formLabel{
+ 	font-size:0.8em;
+}
+
+.formInput{
+ 	font-size:0.8em;
+}
+
+
+
+#navbar1{
+	font-size:0.8em;
+
+	margin:0px;
+	padding:0px;
+}
+
+
+
+
+.nav1{  
+        padding-top:5px;
+        padding-left:5px;
+        padding-right:5px;
+
+        margin-right:5px;
+	background-color:#D0D0D0;
+}
+
+
+.nav1 a{
+	color:#FFFFFF;
+}
+
+.nav1 a:hover {
+        color:#FF8C00;
+        text-decoration:underline;
+}
+
+
+
+
+
+.nav1Highlight{
+        padding-top:5px;
+        padding-left:5px;
+        padding-right:5px;
+
+
+        margin-right:5px;
+	background-color:#FFFFFF;
+}
+
+.nav1Highlight a{
+	color:#000000;
+}
+
+.nav1Highlight a:hover {
+        color:#FF8C00;
+        text-decoration:underline;
+}
+
+
+/* Results from Geosearch come inside 
+ * divs of class geosearch_result'.
+ * have a big margin to help distinguish
+ * each individual item 
+ *
+ */
+.geosearch_result {
+    margin-top:15px;
+    margin-left:15px;
+    margin-right:15px;
+    margin-bottom:30px;
+}
+
+
+
+
+
+
+
+
+

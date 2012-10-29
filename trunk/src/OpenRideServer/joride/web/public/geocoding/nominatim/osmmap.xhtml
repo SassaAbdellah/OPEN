@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+     <ui:composition template="/templates/simpleLayout.xhtml">
+         
+         
+                 
+
+         <ui:define name="windowTitle">
+             #{msgs.geocodeSearchTitle}
+         </ui:define>
+
+         <ui:define name="content">
+             
+             
+             
+             
+          <!-- include standard jquery  -->
+           
+             
+         <!-- initialize Result Object -->
+          #{osmresult.initFromHTTPRequest()}
+          
+         <h:form>
+          <div class="formLabel"> display
+          </div>
+          <div class="formInput">
+              <h:inputTextarea id="display"    value="#{osmresult.displayString}" /> 
+	  </div>     
+               
+          <div class="formLabel"> callerID
+          </div>   
+          <div class="formInput">
+              <h:inputText id="callerID"       value="#{osmresult.callerID}"      />
+	  </div> 
+    
+         
+          <div class="formLabel"> returnAdress
+          </div>
+          <div class="formInput">
+              <h:inputText id="returnAddress"  value="#{osmresult.returnAddress}"  /> 
+	  </div>
+             
+     
+          <!-- hidden inputs for longitude and latitude --> 
+          <h:inputHidden id="lon"            value="#{osmresult.longitude}"     /> 
+          <h:inputHidden id="lat"            value="#{osmresult.latitude}"      /> 
+	  
+          
+ 	
+         </h:form>     
+         
+          <!-- **************************************************************************** -->
+          <!-- div to show the map  --> 
+
+          <!-- **************************************************************************** -->
+
+          <div id="mapdiv" style="width:300px; height:300px;" > </div>
+        
+          <!-- when dragging, we want to show current coordinates below viewport --> 
+          <table>
+              <tr> <th>lon</th> <th> : </th> <td>  <span id="lonSpan"> </span> </td> </tr> 
+              <tr> <th>lat</th> <th> : </th>   <td>  <span id="latSpan"> </span> </td> </tr>
+          </table>    
+            
+        
+          
+          
+
+
+
+
+          <h:outputScript library="js" name="jquery-1.4.1.js" />
+
+	  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  	  <script>
+ 
+	    //	/////////////////////////////////////////////////////////////
+            // create openlayers control object
+            // //////////////////////////////////////////////////////////////
+    
+            OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+                defaultHandlerOptions: {
+                    'single': true, // enable zoom on single click
+                    'double': true, // enable moving the marker on dblclick
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    );
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            // react to double mouse click only,
+                            // ignore single mouseclic
+                            'dblclick': this.moveMarker
+                        }, this.handlerOptions
+                    );
+                },
+                
+                // move the marker to doubleclicked coordinates
+                moveMarker: function(e) {
+                    var coord = map.getLonLatFromViewPortPx(e.xy);
+
+		   // ///////////////////////////////////	
+                   //  move the marker to current click position 
+                   // ///////////////////////////////////
+                   jorideMarkersLayer.clearMarkers();    
+                   var nextMarker=new OpenLayers.Marker(coord); 
+		   jorideMarkersLayer.addMarker(nextMarker);
+             
+                  
+		   // /////////////////////////////////////////////////
+		   // transform display friendly EPSG:90913 coordinate 
+                   // back to latitude/Longitude EPSG:4236 
+		   // /////////////////////////////////////////////////
+
+		   var lonlat=coord.transform(
+				new OpenLayers.Projection("EPSG:900913"), 
+				new OpenLayers.Projection("EPSG:4326")
+					 );
+
+		   // set longitude and latitude in input controls	
+			
+                   $('#lat').val(lonlat.lat); 
+                   $('#lon').val(lonlat.lon); 
+
+                   $('#latSpan').html(lonlat.lat); 
+                   $('#lonSpan').html(lonlat.lon); 
+                   
+                   // no more actions on doubleclick (i.e: do not zoom in)
+                   this.handler.stopDouble = true;
+                }
+
+            });
+
+           
+	    //	/////////////////////////////////////////////////////////////
+            // create openlayers control object
+            // //////////////////////////////////////////////////////////////
+    
+
+
+
+
+
+    		map = new OpenLayers.Map("mapdiv");
+    		map.addLayer(new OpenLayers.Layer.OSM());
+
+    		var lonLat = new OpenLayers.LonLat(#{osmresult.longitude},#{osmresult.latitude}).transform(
+            	new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984 to Spherical Mercator Projection
+            	map.getProjectionObject() //
+         	 );
+
+    		var zoom=16;
+
+    		
+                // add markers layer. Overwrite calculate in Range function to 
+                // ensure that markers are visible at any zoom level
+       
+                var jorideMarkersLayer= new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});           
+    		map.addLayer(jorideMarkersLayer);
+                
+                var marker=new OpenLayers.Marker(lonLat);
+    		jorideMarkersLayer.addMarker(marker);
+    		map.setCenter (lonLat, zoom );
+
+		// //////////////////////////////////////////
+	        // add click handler control 
+		// //////////////////////////////////////////
+		
+                var click = new OpenLayers.Control.Click();
+                map.addControl(click);
+                click.activate();
+
+
+
+  	</script>
+        
+         
+         
+         
+         
+         
+         
+         
+         
+             
+      </ui:define>
+
+    </ui:composition>
+
+
+
+   </body>
+</html>
