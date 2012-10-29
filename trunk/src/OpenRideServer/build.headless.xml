@@ -44,6 +44,13 @@
     <copy file="OpenRideAdmin/dist/OpenRideAdmin.war"         todir="${build.dir}"              /> 
 
 
+    <!--build joride subproject              ************************************************* -->
+    <ant  dir="joride"              antfile="build.headless.xml"                                />
+    <copy file="joride/dist/joride.war"                todir="${build.dir}"              />
+
+
+
+
 
     <!-- Add libraries *********************************************************************** -->
     <copy  todir="${build.dir}/lib"  >       
