@@ -10,7 +10,22 @@
    <path id="classpath">
       <fileset dir="${appdir}">        
         <include name="lib/build/*.jar"/>
+      </fileset> 
+        <!-- include classes from ejb project -->
+        <pathelement location="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" />
+ 
+        <!-- external jars from ejb project  -->
+      <fileset dir="../OpenRideServer-ejb/libs/">        
+	<include name="*.jar"	/>
       </fileset>
+
+      <!-- include jee libs from some glassfish -->
+
+      <fileset dir="../build.headless.support/jee/libs.glassfish.3.0.2/">
+	<include name="*.jar"	/>
+      </fileset>
+
+
    </path>
    
 
@@ -41,12 +56,17 @@
       </copy>
    </target>
    
-   <target name="compile" depends="copy" 
-         description="Compile source files.">
+   <target 
+	name="compile" 
+	depends="copy" 
+	description="Compile source files."
+	>
+
       <javac 
          srcdir="${appdir}/src/java" 
          destdir="${build.dir}/WEB-INF/classes"
          debug="true"
+	 includeantruntime="false"
          deprecation="true">
          <compilerarg value="-Xlint:unchecked"/>
          <include name="**/*.java"/>
