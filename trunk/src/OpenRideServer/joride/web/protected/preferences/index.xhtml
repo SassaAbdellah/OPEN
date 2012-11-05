@@ -1,39 +1,71 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<body>
+    <body>
 
 
-     <ui:composition template="/templates/navbar1Layout.xhtml">
-         
-         <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
-         <ui:param name="classPreferences" value="Highlight" />
+        <ui:composition template="/templates/navbar1Layout.xhtml">
 
-         <ui:define name="windowTitle">
-             #{msgs.title}
-         </ui:define>
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
 
-
-         <ui:define name="content">
-
-          preferences and profile section...
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
 
 
+            <ui:define name="content">
 
-         </ui:define>
+                <h:form>
+                    <ul>
+                        <li>
+                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink> 
+                            <p> #{msgs.nav1_pref_personalData_desc} </p>   
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li>
+                            <h:commandLink action="preferences.contactInformation">    #{msgs.nav1_pref_contactInformation_label}     </h:commandLink> 
+                            <p> #{msgs.nav1_pref_contactInformation_desc} </p>  
+                        </li>
+                    </ul>
+                    
+                     <ul>
+                        <li>
+                            <h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink> 
+                            <p> #{msgs.nav1_pref_riderPreferences_desc} </p>   
+                        </li>
+                    </ul>
+                    
+                    <ul>
+                        <li>
+                            <h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink> 
+                            <p> #{msgs.nav1_pref_driverPreferences_desc}  </p> 
+                        </li>
+                    </ul>
 
 
 
 
-      </ui:composition>
+                </h:form>
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
 
 
 
 
 
-  </body>
+    </body>
 </html>

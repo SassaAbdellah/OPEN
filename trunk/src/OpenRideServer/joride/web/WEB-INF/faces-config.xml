@@ -87,7 +87,7 @@
       </navigation-case>
     </navigation-rule>
 
-   <!-- Navigation Case                             -->
+   <!-- Navigation Cases for "Profile and Preferences subsection"                             -->
    <!-- go to startpage for the preferences section -->
 
     <navigation-rule>
@@ -96,6 +96,19 @@
          <to-view-id>/faces/protected/preferences/index.xhtml </to-view-id>
       </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+      <navigation-case>
+         <from-outcome>preferences.personalData</from-outcome>
+         <to-view-id>faces/protected/preferences/personalData.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+
+
+
+
 
  <!-- go to the nominatim search -->
    <navigation-rule>
@@ -137,7 +150,7 @@
            <managed-bean-scope>session</managed-bean-scope>
 	</managed-bean> 
         
-        <!-- ****** OSMResut (OpenStreetMap!) ****** -->
+        <!-- ****** OSMResult (Result of OpenStreetMap! geocode query) ****** -->
 	<managed-bean> 
            <managed-bean-name>osmresult</managed-bean-name>
            <managed-bean-class>de.avci.joride.utils.geocoding.osm.OSMResult</managed-bean-class>
@@ -145,8 +158,12 @@
 	</managed-bean> 
         
         
-        
-        
+        <!-- ****** jprofile (JProfileEntity) ****** -->
+	<managed-bean> 
+           <managed-bean-name>jprofile</managed-bean-name>
+           <managed-bean-class>de.avci.joride.jbeans.customerprofile.JCustomerEntity</managed-bean-class>
+           <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean> 
         
         
 
