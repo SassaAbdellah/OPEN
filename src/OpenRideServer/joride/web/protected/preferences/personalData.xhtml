@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+                preferences and profile section...
+
+
+                <!-- the profile must be filled with data before anything -->   
+                <!-- useful can be done with it                           -->
+                #{jprofile.updateFromDB()}
+
+                <h:form>
+
+                    <div class="formLabel"> TODO: custNickname </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custNickname}" disabled="true" />
+                    </div>
+
+                    <div class="formLabel"> TODO: custFirstname </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custFirstname}" disabled="true" />
+                    </div>
+
+                    <div class="formLabel"> TODO: custLastname </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custLastname}" disabled="true" />
+                    </div>
+
+
+
+                    <div class="formLabel"> TODO: CustDateofbirth </div>     
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custDateofbirth}" />
+                    </div>
+
+
+                    <div class="formLabel">  TODO:  CustGender </div>  
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custGender}" />
+                    </div>
+
+                    <div class="formLabel"> TODO:  CustGroup   </div>    
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custGroup}" />
+                    </div>
+
+
+                    <div class="formLabel"> TODO: CustIssmoker   </div>       
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custIssmoker}" />
+                    </div>
+
+
+                    <div class="formLabel"> TODO: CustLicensedate      </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custLicensedate}" />
+                    </div>
+
+                </h:form>
+
+                #{jprofile.debugPrintout()}
+
+
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
