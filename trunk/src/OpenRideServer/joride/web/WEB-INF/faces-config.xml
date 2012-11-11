@@ -97,7 +97,7 @@
       </navigation-case>
     </navigation-rule>
 
-    <navigation-rule>
+    <navigation-rule> <!-- navigate to preferences.personalData -->
       <navigation-case>
          <from-outcome>preferences.personalData</from-outcome>
          <to-view-id>faces/protected/preferences/personalData.xhtml </to-view-id>
@@ -105,6 +105,22 @@
     </navigation-rule>
 
 
+    
+    
+    <navigation-rule> <!-- navigate to preferences.riderPreferences -->
+      <navigation-case>
+         <from-outcome>preferences.riderPreferences</from-outcome>
+         <to-view-id>faces/protected/preferences/riderPreferences.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule> <!-- navigate to preferences.driverPreferences -->
+      <navigation-case>
+         <from-outcome>preferences.driverPreferences</from-outcome>
+         <to-view-id>faces/protected/preferences/driverPreferences.xhtml </to-view-id>
+      </navigation-case>
+    </navigation-rule>
 
 
 
@@ -158,11 +174,14 @@
 	</managed-bean> 
         
         
-        <!-- ****** jprofile (JProfileEntity) ****** -->
+        <!-- ******  jprofile (JProfileEntity)                             ****** -->
+        <!-- ******* Scope is request scope, so that                       ****** -->
+        <!-- ******* parts of the data can be updated from different pages *****  -->
+        
 	<managed-bean> 
            <managed-bean-name>jprofile</managed-bean-name>
            <managed-bean-class>de.avci.joride.jbeans.customerprofile.JCustomerEntity</managed-bean-class>
-           <managed-bean-scope>session</managed-bean-scope>
+           <managed-bean-scope>request</managed-bean-scope>
 	</managed-bean> 
         
         

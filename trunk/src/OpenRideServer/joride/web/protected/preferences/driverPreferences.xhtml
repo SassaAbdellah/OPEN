@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+
+                <h1>   #{msgs.nav1_pref_driverPreferences_label}  </h1>
+
+
+                <div id="navbar2">
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                        </span> |
+
+                        <span class="nav2Highlight">         
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                        </span>
+                        |
+                        <span class="nav2">          
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+
+                    </h:form>
+
+                </div>
+
+                <!-- the profile must be filled with data before anything -->   
+                <!-- useful can be done with it                           -->
+                #{jprofile.updateFromDB()}
+
+                <h:form>
+
+                    <!-- int custDriverprefAge -->
+
+                    <div class="formLabel"> #{msgs.custDriverprefAge} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custDriverprefAge}"   />
+                    </div>
+
+                    <!-- char custDriverprefGender -->
+                    <!-- nickname may not be changed -->
+                    <div class="formLabel"> #{msgs.custDriverprefGender} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custDriverprefGender}"   />
+                    </div>
+
+
+                    <!-- char custDriverprefSmoker --> 
+
+                    <div class="formLabel"> #{msgs.custDriverprefSmoker} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custDriverprefSmoker}"  />
+                    </div>
+
+
+
+                    <h:commandButton action="#{jprofile.updateDriverPreferencesToDB}"  value="#{msgs.formSubmit}" />
+
+
+                </h:form>
+
+               CarDetails:    #{jprofile.carDetailsArray}
+           
+                
+                <h:dataTable value="#{jprofile.carDetailsArray}" var="car" >
+                    
+              
+                    <h:column>
+                        #{car.cardetBrand}
+                    </h:column>
+                   
+                     <h:column> 
+                        #{car.cardetColour}
+                    </h:column>
+                    
+                     <h:column>
+                        #{car.cardetBuildyear}
+                    </h:column>
+                        
+                     <h:column>
+                        #{car.cardetPlateno}
+                    </h:column>
+                    
+                   
+                
+                    
+                </h:dataTable>
+                
+                
+                
+                
+                
+                
+
+            </ui:define> <!-- content section -->
+
+
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

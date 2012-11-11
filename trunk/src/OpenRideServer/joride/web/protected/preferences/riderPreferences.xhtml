@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+                <h1>   #{msgs.nav1_pref_riderPreferences_label}  </h1>
+
+
+                <div id="navbar2">
+
+
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                        </span> |
+
+                        <span class="nav2">     
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                        </span>
+                        |
+                        <span class="nav2Highlight">
+                              <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+
+                    </h:form>
+
+
+
+
+
+                </div>
+
+                <!-- the profile must be filled with data before anything -->   
+                <!-- useful can be done with it                           -->
+                #{jprofile.updateFromDB()}
+
+                <h:form>
+
+                    <!-- int custRiderprefAge -->
+
+                    <div class="formLabel"> #{msgs.custRiderprefAge} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custRiderprefAge}"   />
+                    </div>
+
+                    <!-- char custRiderprefGender -->
+                    <!-- nickname may not be changed -->
+                    <div class="formLabel"> #{msgs.custRiderprefGender} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custRiderprefGender}"   />
+                    </div>
+
+
+                    <!-- char custRiderprefSmoker --> 
+
+                    <div class="formLabel"> #{msgs.custRiderprefSmoker} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custRiderprefSmoker}"  />
+                    </div>
+
+
+
+                    <h:commandButton action="#{jprofile.updateRiderPreferencesToDB}"  value="#{msgs.formSubmit}" />
+
+
+                </h:form>
+
+
+
+
+
+
+
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
