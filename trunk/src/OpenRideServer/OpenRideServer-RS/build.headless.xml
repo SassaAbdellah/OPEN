@@ -339,7 +339,7 @@
    <!-- **** translate iterate through the number targets, and replace tokens with values        **** -->
    <!-- ********************************************************************************************* -->
    
-   <target name="translate">
+   <target name="translate" if="lang" >
   
    <!-- copy translated images to build images directory -->   
 
