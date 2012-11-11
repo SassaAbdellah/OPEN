@@ -17,10 +17,46 @@
                 #{msgs.title}
             </ui:define>
 
+          <!-- navbar 2 specific for this page -->
+    
+          
+
+
+
+
+
+
+
+
 
             <ui:define name="content">
 
-                preferences and profile section...
+                <h1>  #{msgs.nav1_pref_personalData_label}  </h1>
+            
+                
+              <div id="navbar2">
+                <h:form>
+                    <span class="nav2">
+                        <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                    </span> |
+
+                    <span class="nav2Highlight">         
+                        <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                    </span>
+                            |
+                    <span class="nav2Highlight">          
+                        <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                    </span> 
+                   
+                </h:form>
+            </div>
+
+                
+                
+                
+                
+                
+                
 
 
                 <!-- the profile must be filled with data before anything -->   
@@ -29,54 +65,90 @@
 
                 <h:form>
 
-                    <div class="formLabel"> TODO: custNickname </div>
+
+                    <!-- nickname may not be changed -->
+                    <div class="formLabel"> #{msgs.custNickname} </div>
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custNickname}" disabled="true" />
+                        <h:inputHidden value="#{jprofile.custNickname}"  />
                     </div>
 
-                    <div class="formLabel"> TODO: custFirstname </div>
+                    <!-- firstname may not be changed by user -->
+                    <div class="formLabel"> #{msgs.custFirstname} </div>
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custFirstname}" disabled="true" />
+                        <h:inputHidden value="#{jprofile.custFirstname}"  />
                     </div>
 
-                    <div class="formLabel"> TODO: custLastname </div>
+                    <!-- lastname may not be changed by the user -->
+                    <div class="formLabel"> #{msgs.custLastname} </div>
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custLastname}" disabled="true" />
+                        <h:inputHidden value="#{jprofile.custLastname}"  />
                     </div>
 
 
-
-                    <div class="formLabel"> TODO: CustDateofbirth </div>     
+                    <!-- Date of Birth -->
+                    <div class="formLabel"> #{msgs.custDateofbirth} </div>     
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custDateofbirth}" />
                     </div>
 
 
-                    <div class="formLabel">  TODO:  CustGender </div>  
+                    <!-- String custEmail -->
+                    <div class="formLabel"> #{msgs.custEmail} </div>     
                     <div class="formInput">
-                        <h:inputText value="#{jprofile.custGender}" />
+                        <h:inputText value="#{jprofile.custEmail}" />
                     </div>
 
-                    <div class="formLabel"> TODO:  CustGroup   </div>    
+                    <!--  String custMobilePhoneNo -->
+                    <div class="formLabel"> #{msgs.custMobilephoneno} </div>     
                     <div class="formInput">
-                        <h:inputText value="#{jprofile.custGroup}" />
+                        <h:inputText value="#{jprofile.custMobilephoneno}" />
+                    </div>
+
+                    <!--   String custFixedPhoneNo -->
+                    <div class="formLabel"> #{msgs.custFixedphoneno} </div>     
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custFixedphoneno}" />
+                    </div>
+
+                    <!--  String custAddrStreet -->
+                    <div class="formLabel"> #{msgs.custAddrStreet} </div>     
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custAddrStreet}" />
+                    </div>
+
+                    <!-- int custAddrZipcode -->
+                    <div class="formLabel"> #{msgs.custAddrZipcode} </div>     
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custAddrZipcode}" />
+                    </div>
+
+                    <!-- String custAddrCity -->
+                    <div class="formLabel"> #{msgs.custAddrCity} </div>     
+                    <div class="formInput">
+                        <h:inputText value="#{jprofile.custAddrCity}" />
                     </div>
 
 
-                    <div class="formLabel"> TODO: CustIssmoker   </div>       
+
+                    <div class="formLabel"> #{msgs.custIssmoker}   </div>       
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custIssmoker}" />
                     </div>
 
-
-                    <div class="formLabel"> TODO: CustLicensedate      </div>
+                    <div class="formLabel"> #{msgs.custLicensedate}      </div>
                     <div class="formInput">
                         <h:inputText value="#{jprofile.custLicensedate}" />
                     </div>
 
+
+                    <h:commandButton action="#{jprofile.updatePersonalDataToDB}"  value="#{msgs.formSubmit}" />
+
                 </h:form>
 
-                #{jprofile.debugPrintout()}
+
 
 
 

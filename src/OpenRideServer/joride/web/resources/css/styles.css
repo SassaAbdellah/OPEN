@@ -51,7 +51,13 @@ form{
 }
 
 .formLabel{
- 	font-size:0.8em;
+ 	font-size: 0.8em;
+        font-style: normal;
+        font-weight: bold;
+        
+        margin-top: 5px;
+        margin-bottom: 5px;
+        
 }
 
 .formInput{
@@ -111,6 +117,42 @@ form{
         color:#FF8C00;
         text-decoration:underline;
 }
+
+
+
+#navbar2{
+	font-size:0.75em;
+	margin:0px;
+	padding:0px;
+}
+
+
+
+
+
+
+.nav2 a{
+	color:#D0D0D0;
+}
+
+.nav2 a:hover {
+        color:#FF8C00;
+        text-decoration:underline;
+}
+
+
+
+.nav2Highlight a{
+   // no need to set anything here, we use "normal links"
+}
+
+.nav2Highlight a:hover {
+        color:#D0D0D0;
+        text-decoration:underline;
+}
+
+
+
 
 
 /* Results from Geosearch come inside 
