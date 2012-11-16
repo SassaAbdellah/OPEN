@@ -3,7 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       >
 
     <body>
 
@@ -73,8 +75,21 @@
 
                     <div class="formLabel"> #{msgs.custRiderprefSmoker} </div>
                     <div class="formInput">
-                        <h:inputText value="#{jprofile.custRiderprefSmoker}"  />
+                 
+      
+                    <h:selectOneMenu value="#{jprofile.custRiderprefSmoker}">
+                        <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
+                        <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
+
+   		    </h:selectOneMenu>
+                        
                     </div>
+                    
+                 
+                    
+                    
+                    
+                    
 
 
 

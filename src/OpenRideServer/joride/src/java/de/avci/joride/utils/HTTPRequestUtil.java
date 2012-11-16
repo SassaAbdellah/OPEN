@@ -61,5 +61,45 @@ public class HTTPRequestUtil {
         return this.getHTTPServletRequest().getUserPrincipal().getName();        
     }
     
+    
+ 
+    /** Returns the value for the given Parameter as an Array of Strings
+     * 
+     * @param paramName
+     * @return 
+     */
+    public String[] getParamValueAsArray(String paramName){ 
+        return getHTTPServletRequest().getParameterMap().get(paramName);
+    } 
+    
+    
+    
+    /** Returns the HTTP Request parameter's value as a single String
+     *  (as opposed to an Array of Strings). 
+     *  Return null, if the HTTPRequest did not feature such a parameter.
+     * 
+     * @param paramName the httprequest parameter to be evaluated
+     * @return 
+     */
+    public String getParameterSingleValue(String paramName){
+    
+        String[] ar=this.getParamValueAsArray(paramName);
+    
+        if(ar==null){ return null;}
+        if(ar.length==0){return null;}
+        
+        String res="";
+        
+        for(int i=0; i< ar.length; i++){
+            res+=ar[i];
+        }
+        
+        return res;
+    }
+    
+    
+    
+   
+    
    
 } // class

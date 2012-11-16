@@ -150,14 +150,16 @@ public class JCustomerEntityService {
            //String custAddrCity 
            jCustomerEntity.getCustAddrCity(),
            //char custIssmoker
-           // FIXME: Smoker preferences are currently dummy
-            'n',
+           jCustomerEntity.getCustSmoker().charAt(0),  
            //Date custLicenseDate);
            jCustomerEntity.getCustLicensedate()
          ); // end of method call to setCustomerPersonalData
                                   
     }
     
+    
+    
+ 
     
     
         

@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.avci.joride.jbeans.customerprofile;
 
-import de.avci.joride.session.HTTPUser;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
@@ -22,8 +14,33 @@ import javax.inject.Named;
  *
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class JCustomerEntity extends CustomerEntity {
+
+    /**
+     * A character signifying Nonsmoker in prefrerences and personal data
+     *
+     */
+    protected static final char NONSMOKER_CHAR = 'n';
+
+    /**
+     * @return char used to mark nonsmoker in database
+     */
+    public char getNonsmokerChar() {
+        return NONSMOKER_CHAR;
+    }
+    /**
+     * A character signifying Smoker in prefrerences and personal data
+     *
+     */
+    protected static final char SMOKER_CHAR = 'y';
+
+    /**
+     * @return char used to mark smoker in database
+     */
+    public char getSmokerChar() {
+        return SMOKER_CHAR;
+    }
 
     /**
      * Empty public bean constructor.
@@ -82,7 +99,7 @@ public class JCustomerEntity extends CustomerEntity {
         // Car Details Collection
         //
         this.setCarDetailsEntityCollection(ce.getCarDetailsEntityCollection());
-        
+
         // Session ID
         //
         this.setCustSessionId(ce.getCustSessionId());
@@ -157,25 +174,65 @@ public class JCustomerEntity extends CustomerEntity {
         super.setCustRiderprefSmoker(arg);
     }
 
-
-    
-    
-    
-     /**  Returns the CarDetails of this 
+    /**
+     * Returns the CarDetails of this
      */
     public Object[] getCarDetailsArray() {
 
-        Collection con = this.getCarDetailsEntityCollection();       
-        return con.toArray();
+        Collection con = this.getCarDetailsEntityCollection();
+
+        if (con != null) {
+            return con.toArray();
+        }
+
+        return new Object[0];
 
     }
 
-    
-    
-    
-    
-    
-    
+    /**
+     * String Wrapper for the (boolean) custIssmoker property
+     *
+     *
+     * @return 's' aka smokerChar is custIssmoker==true, else 'n' aka
+     * nonSmokerChar
+     */
+    public String getCustSmoker() {
+
+        try {
+            if (getCustIssmoker()) {
+                return "" + this.getSmokerChar();
+            }
+        } catch (java.lang.NullPointerException exc) {
+            return "" + this.getNonsmokerChar();
+        }
+
+        return "" + this.getNonsmokerChar();
+    }
+
+    /**
+     * String Wrapper for the (boolean) custIssmoker property Sets the
+     * custIssmoker property to 'true', if argument starts with the "smokerChar"
+     * 's'. Sets the custIssmoker property to false else. '
+     */
+    public void setCustSmoker(String arg) {
+
+        if (arg == null) {
+            this.setCustIssmoker(Boolean.FALSE);
+            return;
+        }
+
+        if (arg.length() == 0) {
+            this.setCustIssmoker(Boolean.FALSE);
+            return;
+        }
+
+        if (arg.startsWith("" + SMOKER_CHAR)) {
+            this.setCustIssmoker(Boolean.TRUE);
+            return;
+        }
+
+        this.setCustIssmoker(Boolean.FALSE);
+    }
 
     /**
      * Update Data in the JCustomerEntityBean from Database
