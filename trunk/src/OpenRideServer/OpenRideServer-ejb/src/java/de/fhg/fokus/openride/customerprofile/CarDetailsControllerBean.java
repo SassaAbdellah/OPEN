@@ -30,6 +30,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
+import java.util.List;
+
 /**
  *
  * @author pab
@@ -88,6 +90,37 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
         finish();
     }
 
+    
+    
+    /**
+     * This method updates an existing <code>CarDetailsEntity</code> to the database.
+     * @param cardetId  cardetId identifying the car
+     * @param carBrand the brand of the car.
+     * @param buildYear
+     * @param color
+     * @param plateno
+     */
+    public void updateCarDetails(int cardetId, String brand, Short buildYear, String color, String plateNo) {
+        init();
+
+        CarDetailsEntity cd = getCarDetailsByCardetId(cardetId);
+        if (cd != null) {
+            cd.setCardetBrand(brand);
+            cd.setCardetBuildyear(buildYear);
+            cd.setCardetColour(color);
+            cd.setCardetPlateno(plateNo);
+            em.persist(cd);
+        } else {
+            System.err.println("Attempt to update nonexistent car "+cardetId);
+        }
+
+        finish();
+    }
+
+    
+    
+    
+    
     /**
      * This method removes one specific car from the DB.
      * @param carDetid This parameter identifies the car that shall be deleted.
@@ -104,8 +137,12 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
         finish();
     }
 
-    /**
-     * This method returns the Cardetails of a specific car for a customer. FIXME: one customer can only have one car? => For now, yes.
+    /** This method returns the Cardetails of a specific car for a customer. 
+     *  FIXME: one customer can only have one car? => For now, yes.
+     *  TODO: use method getCarDetailsList instead, then remove 
+     *   *this method* (JL)
+     * 
+     * 
      * @param custId
      * @return
      */
@@ -116,4 +153,42 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
             return null;
         }
     }
-}
+    
+    
+    
+    /** This method returns the Cardetails of a cat with specific ID. 
+     * 
+     * 
+     * @param custId
+     * @return
+     */
+    public CarDetailsEntity getCarDetailsByCardetId ( int cardetId) {
+        try {
+            return (CarDetailsEntity) em.createNamedQuery("CarDetailsEntity.findByCardetId").setParameter("cardetId", cardetId).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    /** This method returns the list of CarDetails for a customer. 
+     *  @param custId
+     *  @return
+     */
+    public List <CarDetailsEntity> getCarDetailsList(CustomerEntity customer) {
+        try {
+            return   em.createNamedQuery("CarDetailsEntity.findByCustId").setParameter("custId", customer).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    
+    
+    
+    
+} // class CarDetailsControllerBean
