@@ -25,6 +25,7 @@
 package de.fhg.fokus.openride.customerprofile;
 
 import javax.ejb.Local;
+import java.util.List;
 
 /**
  *
@@ -36,9 +37,17 @@ public interface CarDetailsControllerLocal {
     void addCarDetails(CustomerEntity customer, String brand, Short buildYear, String color, String plateNo);
 
     void updateCarDetails(CustomerEntity customer, String brand, Short buildYear, String color, String plateNo);
-
+    void updateCarDetails(int cardetId, String brand, Short buildYear, String color, String plateNo);
+      
+    
+    
     void removeCarDetails(int carDetid);
-
+    
+    CarDetailsEntity getCarDetailsByCardetId(int carDetid);
+    
+    
     CarDetailsEntity getCarDetails(CustomerEntity customer);
+    
+    List <CarDetailsEntity> getCarDetailsList(CustomerEntity customer);
     
 }
