@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+
+                <h1>   #{msgs.nav1_pref_carDetailsLabel}  </h1>
+
+
+                <div id="navbar2">
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                        </span> |
+
+                        <span class="nav2Highlight">         
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                        </span>
+                        |
+                        <span class="nav2Highlight">          
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+
+                    </h:form>
+
+                </div>
+
+           
+
+                <h:form>
+
+                    <!-- Brand -->
+
+                    <div class="formLabel"> #{msgs.cardetBrandLabel} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jcardetails.cardetBrand}"   />
+                    </div>
+                    
+ 
+                    
+                   <div class="formLabel"> #{msgs.cardetColorLabel} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jcardetails.cardetColor}"   />
+                    </div>
+
+                    <div class="formLabel"> #{msgs.cardetBuildyearLabel} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jcardetails.cardetBuildyear}"   />
+                    </div>
+
+                    <div class="formLabel">  #{msgs.cardetLicenseplateLabel} </div>
+                    <div class="formInput">
+                        <h:inputText value="#{jcardetails.cardetPlateno}"   />
+                    </div>
+
+                    <h:commandButton  actionListener="#{jcardetails.doCrudAction}" action="preferences.driverPreferences"  value="#{msgs.formCreate}" >
+                    </h:commandButton>
+
+                  
+                </h:form>
+
+            </ui:define> <!-- content section -->
+
+
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

@@ -125,6 +125,24 @@
 
 
 
+    <navigation-rule> <!-- navigate to preferences.carDetailsCreate (below driver preferences) -->
+      <navigation-case>
+         <from-outcome>preferences.carDetailsCreate</from-outcome>
+         <to-view-id>/faces/protected/preferences/carDetailsCreate.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+      <navigation-rule> <!-- navigate to preferences.carDetailsCreate (below driver preferences) -->
+      <navigation-case>
+         <from-outcome>preferences.carDetailsEdit</from-outcome>
+         <to-view-id>/faces/protected/preferences/carDetailsEdit.xhtml</to-view-id>
+      </navigation-case>
+    </navigation-rule>
+
+
+
+
 
  <!-- go to the nominatim search -->
    <navigation-rule>
@@ -159,6 +177,20 @@
            <managed-bean-scope>session</managed-bean-scope>
 	</managed-bean> 
         
+        
+        <!-- ******  CRUD Parameters  ****** -->
+      
+	<managed-bean> 
+           <managed-bean-name>crud</managed-bean-name>
+           <managed-bean-class>de.avci.joride.utils.CRUDConstants</managed-bean-class>
+           <managed-bean-scope>application</managed-bean-scope>
+	</managed-bean> 
+        
+        
+        
+        
+        
+        
         <!-- ****** Nominatim Bean ****** -->
 	<managed-bean> 
            <managed-bean-name>nominatimq</managed-bean-name>
@@ -181,6 +213,15 @@
 	<managed-bean> 
            <managed-bean-name>jprofile</managed-bean-name>
            <managed-bean-class>de.avci.joride.jbeans.customerprofile.JCustomerEntity</managed-bean-class>
+           <managed-bean-scope>request</managed-bean-scope>
+	</managed-bean> 
+        
+           
+        <!-- ******  cardetails (JCarDetailsEntity)   ****** -->
+      
+	<managed-bean> 
+           <managed-bean-name>jcardetails</managed-bean-name>
+           <managed-bean-class>de.avci.joride.jbeans.cardetails.JCarDetailsEntity</managed-bean-class>
            <managed-bean-scope>request</managed-bean-scope>
 	</managed-bean> 
         

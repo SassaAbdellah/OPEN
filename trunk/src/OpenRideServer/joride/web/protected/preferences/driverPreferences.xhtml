@@ -3,7 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
 
     <body>
 
@@ -67,10 +69,25 @@
 
                     <!-- char custDriverprefSmoker --> 
 
+
                     <div class="formLabel"> #{msgs.custDriverprefSmoker} </div>
-                    <div class="formInput">
-                        <h:inputText value="#{jprofile.custDriverprefSmoker}"  />
+                    <div class="formInput"> 
+
+
+                        <h:selectOneMenu value="#{jprofile.custDriverprefSmoker}">
+                            <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
+                            <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
+
+                        </h:selectOneMenu>
+
                     </div>
+
+
+
+
+
+
+
 
 
 
@@ -79,38 +96,80 @@
 
                 </h:form>
 
-               CarDetails:    #{jprofile.carDetailsArray}
-           
-                
-                <h:dataTable value="#{jprofile.carDetailsArray}" var="car" >
-                    
-              
-                    <h:column>
-                        #{car.cardetBrand}
-                    </h:column>
-                   
-                     <h:column> 
-                        #{car.cardetColour}
-                    </h:column>
-                    
-                     <h:column>
-                        #{car.cardetBuildyear}
-                    </h:column>
-                        
-                     <h:column>
-                        #{car.cardetPlateno}
-                    </h:column>
-                    
-                   
-                
-                    
-                </h:dataTable>
-                
-                
-                
-                
-                
-                
+
+
+
+                <h2> #{msgs.cardetails} </h2>
+
+                <h:form>
+                    <h:commandLink value="#{msgs.cardetAddCar}" action="preferences.carDetailsCreate" />
+                      
+
+
+
+                    <!-- Datatable displaying the brand an license plates -->
+                    <!-- of this driver's cars                            -->
+
+
+                    <h:dataTable 
+                        value="#{jcardetails.carDetailsList}" 
+                        styleClass="table" 
+                        headerClass="tableheader"
+                        var="car" >
+
+
+                        <h:column>
+                            <f:facet name="header"> #{msgs.cardetBrandLabel} </f:facet>                  
+                            #{car.cardetBrand}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> #{msgs.cardetLicenseplateLabel} </f:facet>     
+                            #{car.cardetPlateno}
+                        </h:column>
+
+
+                        <h:column>
+                            <f:facet name="header"> &nbsp; </f:facet> 
+
+                            <!-- column containing delete action --> 
+                            <h:commandLink  action="preferences.carDetailsEdit"   >
+                                <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudUpdate}"/>
+                                <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
+                            
+                                #{msgs.formEdit}
+                            </h:commandLink>
+                        </h:column>
+
+
+
+
+
+
+                        <h:column>
+                            <f:facet name="header"> &nbsp; </f:facet> 
+
+                            <!-- column containing delete action --> 
+                            <h:commandLink actionListener="#{jcardetails.doCrudAction}" >
+                                <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
+                                <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
+                  
+
+
+                                #{msgs.formDelete}
+                            </h:commandLink>
+                        </h:column>
+
+                    </h:dataTable>
+                </h:form>   
+
+
+
+
+
+
+
+
 
             </ui:define> <!-- content section -->
 
