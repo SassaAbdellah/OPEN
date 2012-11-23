@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+                #{jfavpoint.updateFromDB()}
+
+                <h1>  #{jfavpoint.favptDisplayname} </h1>
+
+                <p>
+                    <div class="formLabel"> #{msgs.favptAddressExplanation} </div>
+                    #{jfavpoint.favptAddress}
+                </p>
+
+                <p>    
+                    <div class="formLabel"> #{msgs.favptPoint} </div>
+                    #{jfavpoint.favptPoint}
+                </p>
+
+                
+                
+                <h:inputHidden value="#{jfavpoint.favptId}" />
+                
+              
+
+                <h:form>
+                    <h:commandLink action="preferences.favoritePlaces" value="#{msgs.back}" />
+                </h:form>
+
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

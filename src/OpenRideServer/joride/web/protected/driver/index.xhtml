@@ -1,34 +1,98 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"  >
 
-<body>
-
-
-     <ui:composition template="/templates/navbar1Layout.xhtml">
-         
-         <!-- set "classDriver" property to highlight, so that home tab will be higlighted -->
-         <ui:param name="classDriver" value="Highlight" />
-
-         <ui:define name="windowTitle">
-             #{msgs.title}
-         </ui:define>
+    <body>
 
 
-         <ui:define name="content">
-         Driver's section...
-         </ui:define>
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classDriver" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classDriver" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+                <div id="navbar2">
+
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+                    </h:form>
+
+                </div>
+
+                <h1> Driver's section </h1>
 
 
 
 
-      </ui:composition>
+                <h:form>
 
-      <ui:debug />
+                    <!-- Datatable displaying the active rides -->
 
 
-  </body>
+                    <h:dataTable 
+                        value="#{driverride.drivesForDriver}" 
+                        styleClass="table" 
+                        headerClass="tableheader"
+                        var="driverride" 
+                        >
+
+
+
+                        <h:column>            
+                            <h3>
+                                #{driverride.startDateFormatted}
+                            </h3>
+
+                            <div class="formInput">  #{msgs.rideStart} : </div>
+                            #{driverride.startptAddress}
+                            <br/>
+                            <div class="formInput">  #{msgs.rideDestination} : </div> 
+                            #{driverride.endptAddress}
+
+
+                            <div class="formInput">
+                                <h:commandLink action="driver.driveDisplay" value="TODO">
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
+                                </h:commandLink>
+                            </div>
+
+                        </h:column>
+
+
+
+                    </h:dataTable>
+                </h:form>  
+
+
+
+
+
+
+
+
+                Driver's section...
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+        <ui:debug />
+
+
+    </body>
 </html>

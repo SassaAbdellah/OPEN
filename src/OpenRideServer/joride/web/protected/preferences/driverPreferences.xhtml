@@ -23,11 +23,6 @@
 
             <ui:define name="content">
 
-
-
-                <h1>   #{msgs.nav1_pref_driverPreferences_label}  </h1>
-
-
                 <div id="navbar2">
                     <h:form>
                         <span class="nav2Highlight">
@@ -38,13 +33,18 @@
                             <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
                         </span>
                         |
-                        <span class="nav2">          
-                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
                         </span> 
 
                     </h:form>
 
                 </div>
+
+
+                <h1>   #{msgs.nav1_pref_driverPreferences_label}  </h1>
+
+
 
                 <!-- the profile must be filled with data before anything -->   
                 <!-- useful can be done with it                           -->
@@ -102,10 +102,6 @@
                 <h2> #{msgs.cardetails} </h2>
 
                 <h:form>
-                    <h:commandLink value="#{msgs.cardetAddCar}" action="preferences.carDetailsCreate" />
-                      
-
-
 
                     <!-- Datatable displaying the brand an license plates -->
                     <!-- of this driver's cars                            -->
@@ -118,42 +114,32 @@
                         var="car" >
 
 
-                        <h:column>
-                            <f:facet name="header"> #{msgs.cardetBrandLabel} </f:facet>                  
+                        <h:column>            
                             #{car.cardetBrand}
                         </h:column>
 
-                        <h:column>
-                            <f:facet name="header"> #{msgs.cardetLicenseplateLabel} </f:facet>     
+                        <h:column>  
                             #{car.cardetPlateno}
                         </h:column>
 
 
-                        <h:column>
-                            <f:facet name="header"> &nbsp; </f:facet> 
-
+                        <h:column>     
                             <!-- column containing delete action --> 
                             <h:commandLink  action="preferences.carDetailsEdit"   >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudUpdate}"/>
                                 <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
-                            
+
                                 #{msgs.formEdit}
                             </h:commandLink>
                         </h:column>
 
 
-
-
-
-
-                        <h:column>
-                            <f:facet name="header"> &nbsp; </f:facet> 
-
+                        <h:column>     
                             <!-- column containing delete action --> 
                             <h:commandLink actionListener="#{jcardetails.doCrudAction}" >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
                                 <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
-                  
+
 
 
                                 #{msgs.formDelete}
@@ -163,12 +149,9 @@
                     </h:dataTable>
                 </h:form>   
 
-
-
-
-
-
-
+                <h:form>
+                    <h:commandLink value="#{msgs.cardetAddCar}" action="preferences.carDetailsCreate" />
+                </h:form>
 
 
             </ui:define> <!-- content section -->

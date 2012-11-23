@@ -185,8 +185,17 @@ form{
 .table {
     margin-top:15px;
     margin-bottom:15px;
-    font-size:0.75em;
+   
+    font-size:0.9em;
 }
+
+td {
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-right:5px;
+    margin-left:5px;
+}
+
 
 
 

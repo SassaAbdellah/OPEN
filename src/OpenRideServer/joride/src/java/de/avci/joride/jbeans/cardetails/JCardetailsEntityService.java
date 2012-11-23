@@ -20,7 +20,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 
-/** Service to get and put JCustomerEntityBeans to the System.
+/** Service to get and put JCarDetailEntityBeans to the System.
  * 
  *
  * 

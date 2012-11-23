@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+
+                #{driverride.updateFromDB()}
+
+
+                === snip ===
+
+
+
+
+
+                <div class="formLabel">   rideComment </div>
+                #{driverride.rideComment}
+
+                <div class="formLabel"> startptAddress </div>
+                #{driverride.startptAddress}
+
+                <div class="formLabel"> endptAddress </div>
+                #{driverride.endptAddress}
+
+                <div class="formLabel"> rideStartpt </div>
+                #{driverride.rideStartpt}
+
+                <div class="formLabel"> rideEndpt </div>
+                #{driverride.rideEndpt}
+
+                <div class="formLabel"> rideAcceptableDetourInKm </div>
+                #{driverride.rideAcceptableDetourInKm}
+
+                <div class="formLabel">  rideAcceptableDetourInMin </div>
+                #{driverride.rideAcceptableDetourInMin}
+
+                <div class="formLabel"> rideAcceptableDetourInPercent </div>
+                #{driverride.rideAcceptableDetourInPercent}
+
+                <div class="formLabel"> rideCurrpos </div>
+                #{driverride.rideCurrpos}
+
+                <div class="formLabel"> rideId </div>
+                #{driverride.rideId}
+
+                <div class="formLabel"> rideOfferedseatsNo </div>
+                #{driverride.rideOfferedseatsNo}
+
+                <div class="formLabel"> rideRoutePointDistanceMeters </div>
+                #{driverride.rideRoutePointDistanceMeters}
+
+                <div class="formLabel">  rideSeriesId </div>
+                #{driverride.rideSeriesId}
+
+                <div class="formLabel"> rideStarttime </div>
+                #{driverride.rideStarttime}
+
+                <div class="formLabel"> rideWeekdays</div>
+                #{driverride.rideWeekdays}
+               
+                <div class="formLabel">riderUndertakesRideEntityCollection </div>
+                #{driverride.riderUndertakesRideEntityCollection}
+               
+
+
+
+                === snap ===
+
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
