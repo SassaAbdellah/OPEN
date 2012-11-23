@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-       xmlns:f="http://java.sun.com/jsf/core"
-       >
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
 
     <body>
 
@@ -23,32 +23,30 @@
             <ui:define name="content">
 
 
-                <h1>   #{msgs.nav1_pref_riderPreferences_label}  </h1>
-
-
                 <div id="navbar2">
 
 
                     <h:form>
                         <span class="nav2Highlight">
                             <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
-                        </span> |
-
-                        <span class="nav2">     
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
-                        </span>
+                        </span> 
                         |
                         <span class="nav2Highlight">
-                              <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
                         </span> 
-
+                        |
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
+                        </span> 
                     </h:form>
 
-
-
-
-
                 </div>
+                
+                
+                <h1>   #{msgs.nav1_pref_riderPreferences_label}  </h1>
+
+
+                
 
                 <!-- the profile must be filled with data before anything -->   
                 <!-- useful can be done with it                           -->
@@ -75,21 +73,21 @@
 
                     <div class="formLabel"> #{msgs.custRiderprefSmoker} </div>
                     <div class="formInput">
-                 
-      
-                    <h:selectOneMenu value="#{jprofile.custRiderprefSmoker}">
-                        <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
-                        <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
 
-   		    </h:selectOneMenu>
-                        
+
+                        <h:selectOneMenu value="#{jprofile.custRiderprefSmoker}">
+                            <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
+                            <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
+
+                        </h:selectOneMenu>
+
                     </div>
-                    
-                 
-                    
-                    
-                    
-                    
+
+
+
+
+
+
 
 
 

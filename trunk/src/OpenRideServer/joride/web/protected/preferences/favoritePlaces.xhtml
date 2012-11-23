@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classPreferences" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+            <ui:define name="content">
+
+                <div id="navbar2">
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                        </span> 
+                        |
+                        <span class="nav2Highlight">         
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                        </span>
+                        |
+                        <span class="nav2Highlight">          
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+
+                    </h:form>
+
+                </div>
+
+                <h1>   #{msgs.nav1_pref_favoritePlaces_label}  </h1>
+
+
+                <p>
+
+                    <!-- Displaying favorite places and links for deleting them  -->
+                    <!-- Currently, no editing facilities offered                -->
+
+                    <h:form>    
+                        <h:dataTable 
+                            value="#{jfavpoint.favoritePointList}"
+                            styleClass="table" 
+                            headerClass="tableheader"
+                            var="fp" >
+
+                            <!-- Column for Displayname -->
+                            <h:column>                
+                                #{fp.favptDisplayname}
+                            </h:column>
+
+
+                            <!-- Column for display link -->
+                            <h:column>
+                                <!-- column containing delete action --> 
+                                <h:commandLink action="preferences.favoritePlacesDisplay" >
+
+                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
+                                    <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
+                                    #{msgs.formDisplay}
+
+                                </h:commandLink>
+                            </h:column>
+
+
+
+                            <!-- Column for delete link -->
+                            <h:column>
+                                <!-- column containing delete action --> 
+                                <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
+                                    <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{fp.favptId}"/>
+
+                                    #{msgs.formDelete}
+                                </h:commandLink>
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:form>   
+
+                </p>
+
+
+                <p>
+                    <h:form>
+                        <h:commandLink value="#{msgs.favpointAddPoint}" action="preferences.favoritePlacesCreate" />
+                    </h:form>
+                </p>
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
