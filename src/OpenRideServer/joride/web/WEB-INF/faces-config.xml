@@ -285,14 +285,7 @@
         <managed-bean-class>de.avci.joride.utils.geocoding.osm.NominatimJSONQuery</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
-        
-        <!-- ****** OSMResult (Result of OpenStreetMap! geocode query) ****** -->
-    <managed-bean> 
-        <managed-bean-name>osmresult</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.geocoding.osm.OSMResult</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
-        
+           
         
         <!-- ******  jprofile (JProfileEntity)                             ****** -->
         <!-- ******* Scope is request scope, so that                       ****** -->
