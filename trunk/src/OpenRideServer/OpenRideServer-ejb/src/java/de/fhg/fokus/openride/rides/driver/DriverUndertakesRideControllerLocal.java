@@ -107,6 +107,9 @@ public interface DriverUndertakesRideControllerLocal {
     public LinkedList<DriverUndertakesRideEntity> getAllDrives();
 
     public List<DriverUndertakesRideEntity> getActiveDrives(String nickname);
+    
+    public List<DriverUndertakesRideEntity> getDrivesForDriver(String nickname);
+    
 
     public DriverUndertakesRideEntity getCurrentDrive(String nickname);
 

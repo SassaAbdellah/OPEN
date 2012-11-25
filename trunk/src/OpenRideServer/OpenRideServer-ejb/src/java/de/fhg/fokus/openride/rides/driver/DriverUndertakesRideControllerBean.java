@@ -433,42 +433,66 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         returnList = future;
         finish();
         return returnList;
-    }
+        
+    } // getDrives(nickname)
+    
+    
+    
+    /** This method searches for all the rides where the given user acts as driver
+     * @param nickname The nickname of the user.
+     * @return A List containing all <code>RiderUndertakesRideEntity</code>'s refering the user. Otherwise return null, if nothing was found.
+     */
+    public List<DriverUndertakesRideEntity> getDrivesForDriver(String nickname) {
+        
+        
+           // Get the CustomerEntity by <code>nickname</code>
+        List<CustomerEntity> c = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
 
-    /**
-     * This method can be used to find active drives of a user with <code>nickname</code>.
+        if (c.size() != 1) {
+            
+           throw new Error("Retrieved unexpected Number "+c.size()+"of customers for nickname "+nickname);
+        }
+            // Get the Entity. It should be only one, since nicknames are unique by constraint.
+        CustomerEntity e = c.get(0);
+             
+         // Use the Id of the user to get his rides.
+         //returnList = em.createNativeQuery("SELECT d FROM DriverUndertakesRide d WHERE d.cust_id = +"+e.getCustId()+";").getResultList();
+           List<DriverUndertakesRideEntity>   returnList = em.createNamedQuery("DriverUndertakesRideEntity.findByCustId").setParameter("custId", e).getResultList();
+            if (returnList == null) {
+                returnList = new LinkedList<DriverUndertakesRideEntity>();
+            } 
+     
+        
+            return returnList;
+        
+    } // getDrivesforDriver(nickname)
+    
+    
+
+    
+    
+
+    /**  This method can be used to find active drives of a user with <code>nickname</code>.
+     *   It looks as if "active rides" denotes all those rides, which start within 
+     *   a  timespan  given by ACTIVE_DELAY_TIME around the current Date/Time.
+     *    
+     *   ACTIVE_DELAY_TIME is currently set to 
+     * 
+     * 
      * @param nickname The nickname of the user.
      * @return active drives of user <code>nickname</code>
      */
     public List<DriverUndertakesRideEntity> getActiveDrives(String nickname) {
-//        init();
-//        List<DriverUndertakesRideEntity> activeDrives = null;
-//
-//        // Get the CustomerEntity by <code>nickname</code>
-//        List<CustomerEntity> c = (List<CustomerEntity>)em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
-//
-//        if(c.size()==1){
-//            // Get the Entity. It should be only one, since nicknames are unique by constraint.
-//            CustomerEntity e = c.get(0);
-//
-//
-//            // e.getCustId();
-//            // Use the Id of the user to get his rides.
-//
-//            //TODO: Use Franks tables which contain the active drives to find the ones of the user.
-//        }else{
-//            activeDrives = new LinkedList<DriverUndertakesRideEntity>();
-//        }
-//        finish();
-//        return activeDrives;
-        //TODO: return only active drives, for now all drives get returned.
 
-        // Get the CustomerEntity by <code>nickname</code>
+        
+        
+        init();
 
         List<CustomerEntity> c = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
         if (c.size() == 1) {
             // customer found
             CustomerEntity customer = c.get(0);
+            
             Query query = em.createNamedQuery("DriverUndertakesRideEntity.findByCustId");
             query.setParameter("custId", customer);
             Date date = new Date(System.currentTimeMillis());
@@ -476,6 +500,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             java.util.Date earlier = new java.util.Date();
             earlier.setTime(earlier.getTime() - DriverUndertakesRideControllerBean.ACTIVE_DELAY_TIME);
             List<DriverUndertakesRideEntity> rides = query.getResultList();
+            
             List<DriverUndertakesRideEntity> activeRides = new ArrayList<DriverUndertakesRideEntity>();
             for (Iterator<DriverUndertakesRideEntity> it = rides.iterator(); it.hasNext();) {
                 DriverUndertakesRideEntity driverUndertakesRideEntity = it.next();
@@ -485,6 +510,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                     it.remove();
                 }
             }
+            
+            
+            
+            
             Collections.sort(activeRides, new Comparator() {
 
                 public int compare(Object o1, Object o2) {
@@ -502,7 +531,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                         return 0;
                     }
                 }
-            });
+            }); // end of Comparator
+            
+            finish();
+            
             return activeRides;
         } else {
             //customer nickname not found
