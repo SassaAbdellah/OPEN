@@ -40,16 +40,16 @@ import org.postgis.Point;
  */
 @Named
 @SessionScoped
+
+
+
+
+/**
+ * 
+ */
 public class WebflowPoint implements Serializable {
 
-    /**
-     * Name of the http request parameter that contains the target. The target
-     * is used by the target page to determine which point should be updated.
-     * (For ex: a RideRequest contains start and endpoint, and the target
-     * parameter can be used to determin wether start or endpoint should be set)
-     *
-     */
-    protected static final String PARAM_NAME_TARGET = "target";
+  
 
     /**
      * Make PARAM_NAME_TARGET available as a bean method.
@@ -57,7 +57,7 @@ public class WebflowPoint implements Serializable {
      * @return
      */
     public String getParamTarget() {
-        return PARAM_NAME_TARGET;
+        return WebflowPointConstants.PARAM_NAME_TARGET;
     }
     
     
@@ -70,30 +70,25 @@ public class WebflowPoint implements Serializable {
     }
     
     
-    /** Name of the http request parameter that contains the longitude
-     */
-    protected static final String PARAM_NAME_LON = "lon";
+ 
 
     /** Make PARAM_NAME_LON availlable as a bean method.
      *
      * @return
      */
     public String getParamLon() {
-        return PARAM_NAME_LON;
+        return WebflowPointConstants.PARAM_NAME_LON;
     }
     
-    /** String containing the current value for the longitude.
+    /** Double containing the current value for the longitude.
      */
-    protected String lon;
+    protected Double lon;
 
-    public String getLon() {
+    public Double getLon() {
         return lon;
     }
     
-    
-    /** Name of the http request parameter that contains the latitude
-     */
-    protected static final String PARAM_NAME_LAT = "lat";
+  
 
     /**
      * Make PARAM_NAME_LAT available as a bean method.
@@ -101,29 +96,29 @@ public class WebflowPoint implements Serializable {
      * @return
      */
     public String getParamLat() {
-        return PARAM_NAME_LAT;
+        return WebflowPointConstants.PARAM_NAME_LAT;
     }
-    /**
-     * String containing the current value for the latitude.
+    
+    
+    
+    /**  Double containing the current value for the latitude.
      *
      */
-    protected String lat;
+    protected Double lat;
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
-    /**
-     * Name of the http request parameter that contains the Displaystring
-     */
-    protected static final String PARAM_NAME_DISPLAYSTRING = "displaystring";
+    
+    
+ 
 
-    /**
-     * Make PARAM_NAME_DISPLAYSTRING available as a bean method.
+    /** Make PARAM_NAME_DISPLAYSTRING available as a bean method.
      *
      * @return
      */
     public String getParamDisplaystring() {
-        return PARAM_NAME_DISPLAYSTRING;
+        return WebflowPointConstants.PARAM_NAME_DISPLAYSTRING;
     }
     /**
      * String containing the current value for the displaystring.
@@ -134,18 +129,14 @@ public class WebflowPoint implements Serializable {
     public String getDisplaystring() {
         return displaystring;
     }
-    /**
-     * Name of the http request parameter that contains the Address
-     */
-    protected static final String PARAM_NAME_ADDRESS = "address";
-
+   
     /**
      * Make PARAM_NAME_ADDRESS available as a bean method.
      *
      * @return
      */
     public String getParamAddress() {
-        return PARAM_NAME_ADDRESS;
+        return WebflowBeanConstants.PARAM_NAME_ADDRESS;
     }
     /**
      * String containing the current value for the address.
@@ -176,12 +167,21 @@ public class WebflowPoint implements Serializable {
 
         String vLon = hru.getParameterSingleValue(getParamLon());
         if (vLon != null) {
-            this.lon = vLon;
+            
+            try{ this.lon = new Double(vLon);
+            } catch(java.lang.NumberFormatException exc){
+                System.err.println("Error while converting longitude "+exc);
+            }
+            
+            
         }
 
         String vLat = hru.getParameterSingleValue(getParamLat());
         if (vLat != null) {
-            this.lat = vLat;
+             try{ this.lat = new Double(vLat);
+            } catch(java.lang.NumberFormatException exc){
+                System.err.println("Error while converting latitude "+exc);
+            }
         }
 
         String vDisplaystring = hru.getParameterSingleValue(getParamDisplaystring());

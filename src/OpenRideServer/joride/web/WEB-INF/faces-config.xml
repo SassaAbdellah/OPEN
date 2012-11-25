@@ -251,9 +251,9 @@
       
     <managed-bean> 
         <managed-bean-name>webflow</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.WebflowConstants</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
+        <managed-bean-class>de.avci.joride.utils.WebflowBean</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean> 
         
         
         

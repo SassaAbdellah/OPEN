@@ -49,55 +49,36 @@ import java.io.Serializable;
  * 
  * 
  */
-public class WebflowConstants  implements Serializable {
+public class WebflowBean  implements Serializable {
     
 
-    /**
-     * Webflow param name for parameter that contains the nextPage of a webflow.
-     */
-    protected static final String PARAM_NAME_NEXT = "next";
-
-    /**
-     * Make PARAM_VALUE_NEXT accessible in the bean fashion.
+   
+    /**  Make PARAM_VALUE_NEXT accessible in the bean fashion.
      */
     public String getParamNext() {
-        return PARAM_NAME_NEXT;
+        return WebflowBeanConstants.PARAM_NAME_NEXT;
     }
-    /**
-     * Webflow param name for parameter that contains the previousPage of a
-     * webflow.
-     */
-    protected static final String PARAM_NAME_BACK = "back";
-
+  
     /**
      * Make PARAM_VALUE_BACK accessible in the bean fashion.
      */
     public String getParamBack() {
-        return PARAM_NAME_BACK;
+        return WebflowBeanConstants.PARAM_NAME_BACK;
     }
-    /**
-     * Webflow param name for parameter that contains the "cancel" Page of a
-     * webflow.
-     */
-    protected static final String PARAM_NAME_CANCEL = "cancel";
+  
 
-    /**
-     * Make PARAM_NAME_CANCEL accessible in the bean fashion.
+    /**  Make PARAM_NAME_CANCEL accessible in the bean fashion.
      */
     public String getParamCancel() {
-        return PARAM_NAME_CANCEL;
+        return WebflowBeanConstants.PARAM_NAME_CANCEL;
     }
-    /**
-     * Webflow param name for parameter that contains the "finish" Page of a
-     * webflow.
-     */
-    protected static final String PARAM_NAME_FINISH = "finish";
+    
+    
 
-    /**
-     * Make PARAM_NAME_FINISH accessible in the bean fashion.
+    /**  Make PARAM_NAME_FINISH accessible in the bean fashion.
      */
     public String getParamFinish() {
-        return PARAM_NAME_FINISH;
+        return WebflowBeanConstants.PARAM_NAME_FINISH;
     }
  
     
@@ -192,4 +173,4 @@ public class WebflowConstants  implements Serializable {
     
     
     
-} // class
+} 
