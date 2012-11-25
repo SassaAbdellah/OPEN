@@ -4,6 +4,9 @@
  */
 package de.avci.joride.utils.geocoding.osm;
 
+import de.avci.joride.utils.WebflowBeanConstants;
+import de.avci.joride.utils.WebflowPointConstants;
+
 
 
 
@@ -178,32 +181,33 @@ public abstract class AbstractNominatimQuery {
     /** Parameternames for passing Latitude and Longitude
      */
     public String getParamNameLatitude(){
-        return OSMConstants.PARAM_NAME_latitude;
+        return WebflowPointConstants.PARAM_NAME_LAT;
      }
     
     /** Parameternames for passing Latitude and Longitude
      */
     public String getParamNameLongitude(){
-        return OSMConstants.PARAM_NAME_longitude;
+        return WebflowPointConstants.PARAM_NAME_LON;
      }
     
     
     /** Parameter name for passing display String
      */
     public String getParamNameDisplayStr(){
-        return OSMConstants.PARAM_NAME_displayStr;
+        return WebflowPointConstants.PARAM_NAME_DISPLAYSTRING;
     }
     
     /** Parameter name for passing callerID
      */
-    public String getParamNameCallerID(){
-        return OSMConstants.PARAM_NAME_callerID;
+    public String getParamNameTarget(){
+        return WebflowPointConstants.PARAM_NAME_TARGET;
+                
     }
     
      /** Parameter name for passing returnAddress
      */
     public String getParamNameReturnAddress(){
-        return OSMConstants.PARAM_NAME_returnAddress;
+        return WebflowBeanConstants.PARAM_NAME_BACK;
     }
     
     

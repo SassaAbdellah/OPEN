@@ -106,7 +106,13 @@ public class JFavoritePointEntity extends FavoritePointEntity {
             this.setFavptPoint(fpe.getFavptPoint());
                                     
       } // updateFromDB
+      
+      
+      
+      
     
    
+      
+     
    
 } // class

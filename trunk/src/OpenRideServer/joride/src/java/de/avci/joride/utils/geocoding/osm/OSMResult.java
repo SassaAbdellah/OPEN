@@ -4,6 +4,8 @@
  */
 package de.avci.joride.utils.geocoding.osm;
 
+import de.avci.joride.utils.WebflowBean;
+import de.avci.joride.utils.WebflowPoint;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
@@ -118,12 +120,13 @@ public class OSMResult implements Serializable {
         
     HttpServletRequest request= (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();    
    
+        WebflowPoint point=new WebflowPoint();
     
-         this.setDisplayString(request.getParameter(OSMConstants.PARAM_NAME_displayStr));
-         this.setLatitude(request.getParameter(OSMConstants.PARAM_NAME_latitude));   
-         this.setLongitude(request.getParameter(OSMConstants.PARAM_NAME_longitude));   
-         this.setCallerID(request.getParameter(OSMConstants.PARAM_NAME_callerID));   
-         this.setReturnAddres(request.getParameter(OSMConstants.PARAM_NAME_returnAddress));   
+         this.setDisplayString(request.getParameter(point.getParamDisplaystring()));
+         this.setLatitude(request.getParameter(point.getParamLat()));   
+         this.setLongitude(request.getParameter(point.getParamLon()));   
+         this.setCallerID(request.getParameter(point.getParamTarget()));   
+         this.setReturnAddres(request.getParameter(new WebflowBean().getBack()));   
         
          
     }
