@@ -10,7 +10,7 @@
 
      <ui:composition template="/templates/simpleLayout.xhtml">
          
-         
+        
                  
 
          <ui:define name="windowTitle">
@@ -21,40 +21,36 @@
              
              
              
-             
           <!-- include standard jquery  -->
            
              
-         <!-- initialize Result Object -->
-          #{osmresult.initFromHTTPRequest()}
+         <!-- initialize Result Point and Webflow  -->
+          #{point.smartUpdate()}
+          #{webflow.smartUpdate()}
           
          <h:form>
-          <div class="formLabel"> display
+          <div class="formLabel"> Address
           </div>
           <div class="formInput">
-              <h:inputTextarea id="display"    value="#{osmresult.displayString}" /> 
+              <h:inputTextarea id="#{point.paramAddress}"  value="#{point.address}" /> 
 	  </div>     
                
-          <div class="formLabel"> callerID
+          <div class="formLabel"> target
           </div>   
           <div class="formInput">
-              <h:inputText id="callerID"       value="#{osmresult.callerID}"      />
+              <h:inputText id="#{point.paramTarget}"       value="#{point.target}"      />
 	  </div> 
     
          
-          <div class="formLabel"> returnAdress
+          <div class="formLabel"> Finish Address
+              
           </div>
           <div class="formInput">
-              <h:inputText id="returnAddress"  value="#{osmresult.returnAddress}"  /> 
+              <h:inputText id="#{webflow.paramFinish}"  value="#{webflow.finish}"  /> 
 	  </div>
              
      
-          <!-- hidden inputs for longitude and latitude --> 
-          <h:inputHidden id="lon"            value="#{osmresult.longitude}"     /> 
-          <h:inputHidden id="lat"            value="#{osmresult.latitude}"      /> 
-	  
-          
- 	
+    
          </h:form>     
          
           <!-- **************************************************************************** -->
@@ -64,13 +60,18 @@
 
           <div id="mapdiv" style="width:300px; height:300px;" > </div>
         
-          <!-- when dragging, we want to show current coordinates below viewport --> 
-          <table>
-              <tr> <th>lon</th> <th> : </th> <td>  <span id="lonSpan"> </span> </td> </tr> 
-              <tr> <th>lat</th> <th> : </th>   <td>  <span id="latSpan"> </span> </td> </tr>
-          </table>    
+      
             
-        
+          <form>
+              
+              
+              <div> lon </div> 
+              <input type="text" id="#{point.paramLon}" name="#{point.paramLon}" value="#{point.lon}" />
+              <div> lat </div>
+              <input type="text" id="#{point.paramLat}" name="#{point.paramLat}" value="#{point.lat}" />
+              
+              
+          </form>
           
           
 
@@ -160,7 +161,7 @@
     		map = new OpenLayers.Map("mapdiv");
     		map.addLayer(new OpenLayers.Layer.OSM());
 
-    		var lonLat = new OpenLayers.LonLat(#{osmresult.longitude},#{osmresult.latitude}).transform(
+              var lonLat = new OpenLayers.LonLat(#{point.lon},#{point.lat}).transform(
             	new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984 to Spherical Mercator Projection
             	map.getProjectionObject() //
          	 );
