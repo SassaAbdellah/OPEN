@@ -68,16 +68,16 @@ r
                 
                 
                 // Name of the parameter to pass longitude in URL
-                var lonP='#{nominatimq.paramNameLongitude}';
+                var lonP='#{point.paramLon}';
                 // Name of the parameter to pass latitude in URL
-                var latP='#{nominatimq.paramNameLatitude}';
+                var latP='#{point.paramLat}';
               
                 // Name of the Parameter to pass display String in URL
-                var displayP='#{nominatimq.paramNameDisplayStr}';
+                var displayP='#{point.paramDisplaystring}';
                 // Name of the Parameter to pass calllerID in URL
-                var callerIDP='#{nominatimq.paramNameTarget}';
+                var callerIDP='#{point.paramTarget}';
                  // Name of the Parameter to pass return address in URL
-                var returnAddressP='#{nominatimq.paramNameReturnAddress}';
+                 var returnAddressP='#{webflow.paramFinish}';
                 // URL where the mapper is (for displaying results in map)
                 var mapURL='#{nominatimq.OSMMapperURL}';
            
