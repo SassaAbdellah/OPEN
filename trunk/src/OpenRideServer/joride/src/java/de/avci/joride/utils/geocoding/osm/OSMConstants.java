@@ -21,7 +21,7 @@ public class OSMConstants {
      *  Note, that this might be evaluated by the paranoid 
      *  webkit javascript, so we rather escape the '.' here.
      */
-    public static final String OSMMAP="osmmap\\.xhtml";
+    public static final String OSMMAP="/joride/faces/public/geocoding/osmmap\\.xhtml";
       
     
 } 
