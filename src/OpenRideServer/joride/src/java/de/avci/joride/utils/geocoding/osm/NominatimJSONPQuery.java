@@ -177,14 +177,7 @@ public class NominatimJSONPQuery  implements Serializable {
   
 
     
-    /** Base URL for calling the Mapper Servlet
-     * 
-     * @return 
-     */
-    public String getOSMMapperURL(){    
-        return OSMConstants.OSMMAP;
-    }
-    
+   
    
     
     
