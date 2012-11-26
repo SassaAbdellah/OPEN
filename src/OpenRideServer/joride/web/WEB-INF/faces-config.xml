@@ -213,7 +213,7 @@
   <navigation-rule>
         <navigation-case>
             <from-outcome> pickpoint </from-outcome>
-            <to-view-id>  faces/public/geocoding/pickpoint.xhtml </to-view-id>
+            <to-view-id>  /faces/public/geocoding/pickpoint.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
 
