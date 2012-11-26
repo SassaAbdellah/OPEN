@@ -208,6 +208,24 @@
 
 
 
+<!-- start page for picking a point    -->
+
+  <navigation-rule>
+        <navigation-case>
+            <from-outcome> pickpoint </from-outcome>
+            <to-view-id>  faces/public/geocoding/pickpoint.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+ <!-- geolocate to determine your current position -->
+  <navigation-rule>
+        <navigation-case>
+            <from-outcome> geolocate </from-outcome>
+            <to-view-id>  /faces/public/geocoding/geolocate.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
 
 
 

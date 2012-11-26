@@ -33,6 +33,7 @@ r
 
             <ui:define name="content">
 
+                #{webflow.smartUpdate()}
                 
               <h:outputScript library="js" name="jquery-1.4.1.js" />
               <h:outputScript library="js" name="geolocation.js" />   
@@ -88,6 +89,25 @@ r
     
 
 
+                 
+                 <h:form>
+                  <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+                 </h:form>
+                
+                  
+                    webflow data:
+                    <ul>
+                        <li>back:  #{webflow.back}</li>
+                        <li>next:  #{webflow.next}</li>
+                        <li>finish:  #{webflow.finish}</li>
+                        <li> cancel: #{webflow.cancel} </li>
+                    </ul>
+                
+                 
+                
+             
+             
+             
 
             </ui:define>
 
