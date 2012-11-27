@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" >
 
 
 
@@ -14,100 +15,96 @@
 
     <body>
 
-  
-        
-        
+
+
+
         <ui:composition template="/templates/simpleLayout.xhtml">
 
 
-     
+
 
             <ui:define name="windowTitle">
                 #{msgs.geolocationServiceLabel}
- 
-            
 
-r
+
+
+                r
 
             </ui:define>
 
             <ui:define name="content">
 
                 #{webflow.smartUpdate()}
-                
-              <h:outputScript library="js" name="jquery-1.4.1.js" />
-              <h:outputScript library="js" name="geolocation.js" />   
-    
-              
-              <!-- this is where the results of the geolocation service will be appended -->
-              <p id="geosearch_out"> </p>
 
-     
-                   
-            <!-- ************************************************ -->
-            <!-- This chunk of javascript defines parameters that  --> 
-            <!-- will be used in the callback function             -->
-            <!-- ************************************************* -->
-            <script type="text/javascript"> 
-                // Heading on top of results
-                var geocodeResultHeader='#{msgs.geocodeResultHeader}';
-                // Caption on the link to accept a result
-                var geocodeAcceptLabel='#{msgs.geocodeAcceptLabel}';
-                // Caption on the link to show a result on map
-                var geocodeShowInMapLabel='#{msgs.geocodeShowInMapLabel}';
+                <h:outputScript library="js" name="jquery-1.4.1.js" />
+                <h:outputScript library="js" name="geolocation.js" />   
+
+
+                <!-- this is where the results of the geolocation service will be appended -->
+                <p id="geosearch_out"> </p>
+
+
+
+                <!-- ************************************************ -->
+                <!-- This chunk of javascript defines parameters that  --> 
+                <!-- will be used in the callback function             -->
+                <!-- ************************************************* -->
+                <script type="text/javascript"> 
+                    // Heading on top of results
+                    var geocodeResultHeader='#{msgs.geocodeResultHeader}';
+                    // Caption on the link to accept a result
+                    var geocodeAcceptLabel='#{msgs.geocodeAcceptLabel}';
+                    // Caption on the link to show a result on map
+                    var geocodeShowInMapLabel='#{msgs.geocodeShowInMapLabel}';
                 
             
-                // Error to be shown when geolocation is not supported on device
-                var  geolocationNotSupportedError='#{msgs.geolocationNotSupportedError}';
-                // Error to be shown when geolocation is not Allowed by User
-                var geolocationNotAllowedError='#{msgs.geolocationNotAllowedError}';
-                // Error to be shown when geolocation service does not work
-                var geolocationUnavaillableError ='#{msgs.geolocationUnavaillableError}';
-                // Error to be shown when geolocation service timed out
-                var geolocationTimedOutError='#{msgs.geolocationNotAllowedError}';
+                    // Error to be shown when geolocation is not supported on device
+                    var  geolocationNotSupportedError='#{msgs.geolocationNotSupportedError}';
+                    // Error to be shown when geolocation is not Allowed by User
+                    var geolocationNotAllowedError='#{msgs.geolocationNotAllowedError}';
+                    // Error to be shown when geolocation service does not work
+                    var geolocationUnavaillableError ='#{msgs.geolocationUnavaillableError}';
+                    // Error to be shown when geolocation service timed out
+                    var geolocationTimedOutError='#{msgs.geolocationNotAllowedError}';
                 
                 
                 
-                // Name of the parameter to pass longitude in URL
-                var lonP='#{point.paramLon}';
-                // Name of the parameter to pass latitude in URL
-                var latP='#{point.paramLat}';
+                    // Name of the parameter to pass longitude in URL
+                    var lonP='#{point.paramLon}';
+                    // Name of the parameter to pass latitude in URL
+                    var latP='#{point.paramLat}';
               
-                // Name of the Parameter to pass display String in URL
-                var displayP='#{point.paramDisplaystring}';
-                // Name of the Parameter to pass calllerID in URL
-                var callerIDP='#{point.paramTarget}';
-                 // Name of the Parameter to pass return address in URL
-                 var returnAddressP='#{webflow.paramFinish}';
-                // URL where the mapper is (for displaying results in map)
-                var mapURL='#{nav.urlOSMMap}';
+                    // Name of the Parameter to pass display String in URL
+                    var displayP='#{point.paramDisplaystring}';
+                    // Name of the Parameter to pass calllerID in URL
+                    var callerIDP='#{point.paramTarget}';
+                    // Name of the Parameter to pass retur    n address in URL
+                    var returnAddressP='#{webflow.paramFinish}';
+                    // URL where the mapper is (for displaying results in map)
+                    var mapURL='#{nav.urlOSMMap}';
            
-            </script>
-
-            
-             <button onclick="getLocation()"> #{msgs.geolocationServiceLabel} </button>
-    
+                </script>
 
 
-                 
-                 <h:form>
-                  <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
-                 </h:form>
-                
-                  
-                    webflow data:
-                    <ul>
-                        <li>back:  #{webflow.back}</li>
-                        <li>next:  #{webflow.next}</li>
-                        <li>finish:  #{webflow.finish}</li>
-                        <li> cancel: #{webflow.cancel} </li>
-                    </ul>
-                
-                 
-                
-             
-             
-             
+                <button onclick="getLocation()"> #{msgs.geolocationServiceLabel} </button>
+
+
+
+
+                <div class="webflow">
+
+                    <h:form>
+
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                        |
+                        <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+
+                    </h:form>
+
+                </div>
+
+
+
 
             </ui:define>
 

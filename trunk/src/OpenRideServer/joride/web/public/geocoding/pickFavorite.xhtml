@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" >
+
+
+
+
+
+
+
+    <body>
+
+
+
+
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+
+
+
+            <ui:define name="windowTitle">
+                #{msgs.geolocationServiceLabel}
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h1> TODO: pick favorite </h1>
+
+                #{webflow.smartUpdate()}
+
+
+
+                <p>
+
+                    <!-- Displaying favorite places and links for deleting them  -->
+                    <!-- Currently, no editing facilities offered                -->
+
+                    <h:form>    
+                        <h:dataTable 
+                            value="#{jfavpoint.favoritePointList}"
+                            styleClass="table" 
+                            headerClass="tableheader"
+                            var="fp" >
+
+                            <!-- Single column for presenting data -->
+                            <h:column>                
+                               <h4> #{fp.favptDisplayname} </h4>
+                               <p>
+                               #{fp.favptAddress}
+                               </p>
+                                <!-- column containing delete action --> 
+                                <h:commandLink  >
+                                    #{msgs.formAccept}
+                                </h:commandLink>
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:form>   
+
+                </p>
+
+
+
+
+
+
+
+
+
+                <div class="webflow">
+
+                    <h:form>
+
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                        |
+                        <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+
+                    </h:form>
+
+                </div>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+
+
+    </body>
+</html>

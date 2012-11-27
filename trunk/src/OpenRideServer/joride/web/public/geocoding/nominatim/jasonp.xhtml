@@ -87,7 +87,7 @@
                     var displayP='#{point.paramAddress}';
                     // Name of the Parameter to pass calllerID in URL
                     var callerIDP='#{point.paramTarget}';
-                   // Name of the Parameter to pass return address in URL
+                    // Name of the Parameter to pass return address in URL
                     var returnAddressP='#{webflow.paramBack}';
                     // URL where the mapper is (for displaying results in map)
                     var mapURL='#{nav.urlOSMMap}';
@@ -103,6 +103,19 @@
                     type="text/javascript"
                     src="#{nominatimq.queryString}"
                 ></script>
+
+
+                <div class="webflow">
+
+                    <h:form>
+
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                        |
+                        <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+
+                    </h:form>
+
+                </div>
 
 
 
