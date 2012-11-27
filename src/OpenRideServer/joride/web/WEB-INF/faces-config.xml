@@ -225,6 +225,13 @@
         </navigation-case>
     </navigation-rule>
 
+ <!-- pick point from list of favorite points -->
+  <navigation-rule>
+        <navigation-case>
+            <from-outcome> pickfavorite </from-outcome>
+            <to-view-id>  /faces/public/geocoding/pickFavorite.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 
 
