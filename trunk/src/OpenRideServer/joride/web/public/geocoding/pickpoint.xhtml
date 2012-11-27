@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+      
+    <h:head>
+        <title> TODO: Pick a Point </title>
+    </h:head>
+    
+    <h:body>
+        
+     
+           
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+
+            <ui:define name="windowTitle">
+                #{msgs.geolocationServiceLabel}
+            </ui:define>
+
+
+
+            <ui:define name="content"> 
+                     
+               #{webflow.smartUpdate()}                
+                
+              
+                
+                
+                <h1>TODO: fix a place!</h1>
+                
+                <h:form>
+                <ul>
+                    
+                              
+                    <li>
+                        <h:commandLink value="TODO: pick from favorites" action="pickfavorite">
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                        </h:commandLink>
+                    </li>
+                    
+                    
+                    <li>
+                        <h:commandLink value="TODO: geolocate" action="geolocate">
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                        </h:commandLink>
+                    </li>
+                    
+                    <li>
+                        <h:commandLink value="TODO: nominatim per javascript" action="jnominatim">
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                        </h:commandLink>
+                    </li>
+                </ul>
+                </h:form>
+                
+                
+                
+                
+             
+                 <h:form>
+                  <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+                 </h:form>
+                
+                  
+                    webflow data:
+                    <ul>
+                        <li>back:  #{webflow.back}</li>
+                        <li>next:  #{webflow.next}</li>
+                        <li>finish:  #{webflow.finish}</li>
+                        <li> cancel: #{webflow.cancel} </li>
+                    </ul>
+                
+                 
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+
+        
+        
+      
+    </h:body>
+</html>
+

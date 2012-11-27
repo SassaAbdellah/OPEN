@@ -191,22 +191,7 @@
         </navigation-case>
     </navigation-rule>
 
-    <navigation-rule> <!-- webflow #1 -->
-        <navigation-case>
-            <from-outcome>webflow1</from-outcome>
-            <to-view-id>/faces/public/webflow/index1.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-
-    <navigation-rule> <!-- webflow #2 -->
-        <navigation-case>
-            <from-outcome>webflow2</from-outcome>
-            <to-view-id>/faces/public/webflow/index2.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-
+  
 
 <!-- start page for picking a point    -->
 
