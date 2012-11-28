@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+      
+    <h:head>
+        <title> TestPage for Picking Points </title>
+    </h:head>
+    
+    <h:body>
+        
+     
+           
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+
+            <ui:define name="windowTitle">
+                   joride: testpage for picking points
+            </ui:define>
+
+
+
+            <ui:define name="content"> 
+                     
+               #{webflow.smartUpdate()}                
+               
+               
+               #{webflowPoint.smartUpdate()}
+              
+                
+                
+                <h1> Try picking a point! </h1>
+                
+                <h:form>
+                <ul>
+                    
+                              
+                    <li>
+                        <h:commandLink value="TODO: Pick a Point" action="pickpoint">
+                            <f:param name="#{webflow.getParamBack()}"   value="pointTest" />
+                            <f:param name="#{webflow.getParamCancel()}" value="pointTest" />
+                            
+                            
+                            
+                            <f:param name="#{point.getParamDisplaystring()}" value="Displaystring" />
+                            <f:param name="#{point.getParamAddress()}"       value="Address"       />
+                            <f:param name="#{point.getParamLat()}"           value="11.111"        />
+                            <f:param name="#{point.getParamLon()}"           value="22.222"        />
+                            <f:param name="#{point.getParamTarget()}"        value="Just a target..." />
+                            <f:param name="#{point.getParamTargetURL()}"     value="http://localhost:8080/joride/faces/public/geocoding/pickpointTestpage.xhtml" />
+     
+                        </h:commandLink>
+                        
+                    </li>
+                    
+                </ul>
+                </h:form>
+                
+                #{point.smartUpdate()}
+                
+                <h2>Debug Printout for Point: </h2>
+                #{point.debugPrintout}
+                
+              
+                <h2>Postgis Point </h2>
+                 #{point.point}
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+
+        
+        
+      
+    </h:body>
+</html>
+

@@ -50,6 +50,30 @@ import org.postgis.Point;
 public class WebflowPoint implements Serializable {
 
   
+    
+    
+     
+
+    /**
+     * Make PARAM_NAME_TARGETURL available as a bean method.
+     *
+     * @return
+     */
+    public String getParamTargetURL() {
+        return WebflowPointConstants.PARAM_NAME_TARGETURL;
+    }
+    
+    
+    /** String containing the targeturl 
+     */
+    protected String targeturl=null;
+    
+    public String getTargetURL(){
+        return targeturl;
+    }
+    
+    
+  
 
     /**
      * Make PARAM_NAME_TARGET available as a bean method.
@@ -147,6 +171,11 @@ public class WebflowPoint implements Serializable {
     public String getAddress() {
         return address;
     }
+    
+    
+    
+    
+    
 
     /**
      * Do a smart update, i.e: Check out http request, and overwrite any of the
@@ -158,6 +187,14 @@ public class WebflowPoint implements Serializable {
 
         HTTPRequestUtil hru = new HTTPRequestUtil();
         
+        
+          
+        String vTargetUrl = hru.getParameterSingleValue(getParamTargetURL());
+        if (vTargetUrl != null) {
+            this.targeturl = vTargetUrl;
+        }
+        
+     
         
         String vTarget = hru.getParameterSingleValue(getParamTarget());
         if (vTarget != null) {
@@ -198,6 +235,31 @@ public class WebflowPoint implements Serializable {
 
     
     
+    /** Return a get request targeting the target URL and
+     *  transporting the Displaystring/Address/target/lon/lat values
+     * 
+     * 
+     * @return 
+     */
+    
+    public String getResultURL(){
+    
+        String res=this.getTargetURL();
+        res+="?";
+        res+=this.getParamDisplaystring()+"="+this.getDisplaystring();
+        res+="&";
+        res+=this.getParamAddress()+"="+this.getAddress();
+        res+="&";
+        res+=this.getParamTarget()+"="+this.getTarget();
+        res+="&";
+        res+=this.getParamLat()+"="+this.getLat();
+        res+="&";
+        res+=this.getParamLon()+"="+this.getLon();
+        
+        return res;
+    
+    }
+    
     
     /**
      * clear all values
@@ -208,33 +270,67 @@ public class WebflowPoint implements Serializable {
         this.lon = null;
         this.displaystring = null;
         this.address = null;
+        this.targeturl=null;
     }
+    
+    
+    
+    /** Print out a summary of properties
+     * 
+     * @return 
+     */
+   public  String getDebugPrintout(){ 
+        
+        String res="\n";
+        res+="\n Displaystring : "+getDisplaystring();
+        res+="\n Adress        : "+getAddress();
+        res+="\n TargetUrl     : "+getTargetURL();
+        res+="\n Target        : "+getTarget();
+        res+="\n Lat           : "+getLat();
+        res+="\n Lon           : "+getLon();
+       
+        return res;
+    }
+    
 
     /**
      * Returns a postgis point
      *
      */
-    Point getPoint() {
+    public Point getPoint() {
 
 
-        Double latitude;
+        Double latitude=null;
 
         try {
             latitude = new Double(this.getLat());
         } catch (java.lang.NumberFormatException exc) {
             System.err.println("Cannot determine numerical latitude from " + this.getLat());
             return null;
+        } catch (java.lang.NullPointerException exc) {
+            System.err.println("Latitude was null, cannot create point");
+            return null;
         }
+        
+        
+        
+        
 
-        Double longitude;
+        Double longitude=null;
 
         try {
             longitude = new Double(this.getLon());
         } catch (java.lang.NumberFormatException exc) {
             System.err.println("Cannot determine numerical longitude from " + this.getLat());
             return null;
+        } catch (java.lang.NullPointerException exc) {
+            System.err.println("Longitude was null, cannot create point");
+            return null;
         }
 
         return new Point(longitude, latitude);
     }
+    
+    
+    
 } // class

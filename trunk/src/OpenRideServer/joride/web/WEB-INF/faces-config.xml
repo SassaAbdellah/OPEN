@@ -184,12 +184,6 @@
     </navigation-rule>
 
 
-    <navigation-rule> <!-- webflow #1 -->
-        <navigation-case>
-            <from-outcome>webflow1</from-outcome>
-            <to-view-id>/faces/public/webflow/index1.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
 
   
 
@@ -249,6 +243,13 @@
 
 
 
+    <!-- nominatim via javascript/jsonp -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>pointtest</from-outcome>
+            <to-view-id>/faces/public/geocoding/pickpointTestpage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 	
 	
     <!-- ***********************************************************  -->	
