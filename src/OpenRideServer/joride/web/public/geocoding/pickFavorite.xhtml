@@ -50,13 +50,12 @@
                             <!-- Single column for presenting data -->
                             <h:column>                
                                <h4> #{fp.favptDisplayname} </h4>
-                               <p>
-                               #{fp.favptAddress}
-                               </p>
+                               #{fp.favptAddress} <br/>
                                 <!-- column containing delete action --> 
                                 <h:commandLink  >
                                     #{msgs.formAccept}
                                 </h:commandLink>
+                            
                             </h:column>
 
                         </h:dataTable>
