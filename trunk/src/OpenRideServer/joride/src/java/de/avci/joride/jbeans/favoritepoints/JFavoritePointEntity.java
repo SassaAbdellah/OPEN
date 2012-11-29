@@ -4,10 +4,9 @@
  */
 package de.avci.joride.jbeans.favoritepoints;
 
-import de.avci.joride.jbeans.cardetails.JCardetailsEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
-import de.fhg.fokus.openride.customerprofile.CarDetailsEntity;
+import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.FavoritePointEntity;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -109,6 +108,31 @@ public class JFavoritePointEntity extends FavoritePointEntity {
       
       
       
+      /** Update Point data from HTTPRequest's Parameter.
+       *  I.e: if HTTPRequest transports Address/Displaystring or Coordinate points,
+       *  then update the respective data from http request.
+       * 
+       */
+      public void smartUpdatePoints(){
+      
+          // create new point
+          WebflowPoint p=new WebflowPoint();
+          //
+          p.smartUpdate();
+          // 
+          if(p.getAddress()!=null ){
+              this.setFavptAddress(p.getAddress());
+          }
+          
+          if(p.getDisplaystring()!=null){
+              this.setFavptDisplayname(p.getDisplaystring());
+          }
+          
+          if(p.getPoint()!=null){
+              this.setFavptPoint(p.getDatabaseString());
+          }
+          
+      }
       
     
    

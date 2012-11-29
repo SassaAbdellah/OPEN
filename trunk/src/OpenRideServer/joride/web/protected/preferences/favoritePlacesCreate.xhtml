@@ -27,14 +27,14 @@
 
                 <h:form>
 
-                    <!-- Brand -->
+                    <!-- see, if we got some data from a webflow  -->
+                    <!-- these will then take precedence          -->
+                    #{jfavpoint.smartUpdatePoints()}
 
-                    
-                    
 
-                    
-                    
-                    
+
+
+
                     <!-- private String favptDisplayname; -->
 
                     <div class="formLabel"> #{msgs.favptDisplayname} </div>
@@ -54,8 +54,26 @@
                         <h:inputText value="#{jfavpoint.favptPoint}" />
                     </div>
 
+                    <h:commandLink value="TODO: pick a point" action="pickpoint">
 
-                    
+                        <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/preferences/favoritePlacesCreate.xhtml"/>
+
+                        <f:param name="#{point.getParamDisplaystring()}" value="Displaystring2 for my facourite" />
+                        <f:param name="#{point.getParamAddress()}"       value="Address for favourite"       />
+                        <f:param name="#{point.getParamLat()}"           value="53.2"        />
+                        <f:param name="#{point.getParamLon()}"           value="11.6"        />
+                        <f:param name="#{point.getParamTarget()}"        value="Just a target..." />
+
+
+
+
+
+                    </h:commandLink>
+
+
+
+
+
                     <h:commandButton  actionListener="#{jfavpoint.doCrudAction}"  action="preferences.favoritePlaces"  value="#{msgs.formCreate}" >
                         <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudCreate}"/>
                     </h:commandButton>
