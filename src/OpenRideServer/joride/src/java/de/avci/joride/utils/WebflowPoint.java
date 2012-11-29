@@ -332,5 +332,26 @@ public class WebflowPoint implements Serializable {
     }
     
     
+  /* Serialize PostGis Point coordinates to be stored in  
+     *  the database. That is:
+     *  return ""+this.getLat()+","+this.getLon();
+     *  or null, if any of the coordinates is null.
+     * 
+     * @returns a serialized version of the String, that can be 
+     * stored in the database
+     */
+    public String getDatabaseString(){
+    
+        
+        if((this.getLat()==null)||(this.getLon()==null)){
+            
+           System.err.println("Attempt to serialize point with null coordinate");
+           return null;
+        }
+        
+        return ""+this.getLat()+","+this.getLon();
+    }
+    
+    
     
 } // class
