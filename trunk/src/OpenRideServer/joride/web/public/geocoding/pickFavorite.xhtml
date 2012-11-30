@@ -28,7 +28,7 @@
             </ui:define>
 
             <ui:define name="content">
-
+-
                 <h1> TODO: pick favorite </h1>
 
                 #{webflow.smartUpdate()}
@@ -51,9 +51,20 @@
                             <h:column>                
                                <h4> #{fp.favptDisplayname} </h4>
                                #{fp.favptAddress} <br/>
+                               #{fp.favptPoint}   <br/> 
                                 <!-- column containing delete action --> 
-                                <h:commandLink  >
+                                <h:commandLink  action="#{webflow.getFinish()}">
                                     #{msgs.formAccept}
+                                   
+                                 
+                                    <f:param name="#{point.paramLat}"           value="#{fp.lat}"              />
+                                    <f:param name="#{point.paramLon}"           value="#{fp.lon}"              />
+                                    
+                                    <f:param name="#{point.paramAddress}"       value="#{fp.favptAddress}"     />
+                                    <f:param name="#{point.paramDisplaystring}" value="#{fp.favptDisplayname}" />
+                              
+                                    
+                                    
                                 </h:commandLink>
                             
                             </h:column>

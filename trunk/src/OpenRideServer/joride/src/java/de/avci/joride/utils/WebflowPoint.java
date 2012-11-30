@@ -312,9 +312,7 @@ public class WebflowPoint implements Serializable {
             return null;
         }
         
-        
-        
-        
+             
 
         Double longitude=null;
 
@@ -342,16 +340,8 @@ public class WebflowPoint implements Serializable {
      */
     public String getDatabaseString(){
     
-        
-        if((this.getLat()==null)||(this.getLon()==null)){
-            
-           System.err.println("Attempt to serialize point with null coordinate");
-           return null;
-        }
-        
-        return ""+this.getLat()+","+this.getLon();
+        PostGISPointUtil pu=new PostGISPointUtil();
+        return pu.getDatabaseString(this.getPoint());
     }
-    
-    
-    
+   
 } // class
