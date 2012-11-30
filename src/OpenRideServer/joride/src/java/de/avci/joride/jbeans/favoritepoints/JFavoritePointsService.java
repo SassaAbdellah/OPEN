@@ -6,10 +6,9 @@ package de.avci.joride.jbeans.favoritepoints;
 
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
-import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
 
+import java.util.Iterator;
+import java.util.ArrayList;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.customerprofile.FavoritePointControllerLocal;
@@ -63,13 +62,26 @@ public class JFavoritePointsService {
        * 
        * @return list
        */
-      public List <FavoritePointEntity> getFavoritePointList(){
+      public List <JFavoritePointEntity> getFavoritePointList(){
       
           CustomerEntity ce=this.getCustomerEntity();
           
           FavoritePointControllerLocal  fpc=this.lookupFavoritePointControllerLocal();
      
-          return fpc.getFavoritePointsByCustomer(ce);
+         List <FavoritePointEntity> fpl =  fpc.getFavoritePointsByCustomer(ce);
+         
+         
+         List <JFavoritePointEntity> jfpl=new ArrayList <JFavoritePointEntity> ();
+         
+         Iterator <FavoritePointEntity>  it=fpl.iterator();
+         
+         while (it.hasNext()){
+             jfpl.add(new JFavoritePointEntity(it.next()));
+         }
+         
+         return jfpl;
+         
+   
       }
       
       
@@ -133,7 +145,7 @@ public class JFavoritePointsService {
        * @param  favPointId
        * @return 
        */
-      public FavoritePointEntity getFavoritePointEntitySafely(int favpointId){
+      public JFavoritePointEntity getFavoritePointEntitySafely(int favpointId){
       
           
          CustomerEntity ce=this.getCustomerEntity();
@@ -155,7 +167,7 @@ public class JFavoritePointsService {
          }
          
          
-         return fpe;
+         return new JFavoritePointEntity(fpe);
       
       }
       

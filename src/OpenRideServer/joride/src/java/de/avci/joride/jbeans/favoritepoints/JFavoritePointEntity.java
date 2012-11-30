@@ -6,12 +6,15 @@ package de.avci.joride.jbeans.favoritepoints;
 
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.PostGISPointUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.FavoritePointEntity;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+
+import org.postgis.Point;
 
 /**
  * JSF Bean Wrapper for FavouritePointEntity
@@ -29,7 +32,7 @@ public class JFavoritePointEntity extends FavoritePointEntity {
      *
      * @return list
      */
-    public List<FavoritePointEntity> getFavoritePointList() {
+    public List<JFavoritePointEntity> getFavoritePointList() {
 
         return (new JFavoritePointsService()).getFavoritePointList();
     }
@@ -134,7 +137,60 @@ public class JFavoritePointEntity extends FavoritePointEntity {
           
       }
       
+      
+      
+      /** Get Longitude from point
+       * 
+       * @return 
+       */
+      public Double getLon(){
+          
+          PostGISPointUtil pu=new PostGISPointUtil();
+          Point p=pu.pointFromDBString(this.getFavptPoint()); 
+          return pu.getLon(p);
+      }
+      
     
+           
+      /** Get Latitude from point
+       * 
+       * @return 
+       */
+      public Double getLat(){
+          
+          PostGISPointUtil pu=new PostGISPointUtil();
+          Point p=pu.pointFromDBString(this.getFavptPoint()); 
+          return pu.getLat(p);
+      }
+      
+    
+      /** Create a new JFavoritePointEntity from a FavoritePointEntity 
+       *  (without leading "J")
+       * 
+       * @param fp 
+       */
+      
+      public JFavoritePointEntity(FavoritePointEntity fp){
+      
+          this.setCustId(fp.getCustId());
+          this.setFavptAddress(fp.getFavptAddress());
+          this.setFavptDisplayname(fp.getFavptDisplayname());
+          this.setFavptFrequency(fp.getFavptFrequency());
+          this.setFavptId(fp.getFavptId());
+          this.setFavptPoint(fp.getFavptPoint());
+               
+      }
+      
+      
+      
+      /** Dump default constructor
+       * 
+       * @param fp 
+       */
+       public JFavoritePointEntity(){    
+      }
+      
+      
    
       
      
