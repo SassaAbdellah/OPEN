@@ -29,66 +29,50 @@
 
 
                 <h1>TODO: fix a place!</h1>
+                
+                
+                <p>
+                    #{point.smartUpdate()}
+                    Target URL is : #{point.targetURL}
+                </p>
 
                 <h:form>
-                    <ul>
-
-
-                        <li>
+                    
+                        <p>
                             <h:commandLink value="TODO: pick from favorites" action="pickfavorite">
                                 <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                             </h:commandLink>
-                        </li>
+                        </p>
 
 
-                        <li>
+                        <p>
                             <h:commandLink value="TODO: geolocate" action="geolocate">
-                                <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                                
+                                 
+                                <f:param name="#{webflow.getParamBack()}" value="pickpoint"          />
+                                <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
+                                
+                                
                             </h:commandLink>
-                        </li>
+                        </p>
 
-                        <li>
+                        <p>
                             <h:commandLink value="TODO: nominatim per javascript" action="jnominatim">
                                 <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                             </h:commandLink>
-                        </li>
-
-
-                        <li>
-                            #{point.smartUpdate()}
-                            #{point.targetURL} 
-                            
-                            <a href="#{point.getResultURL()}" >
-                                back to pointtestpage
-                            </a>
-                                
-                        
-                            
-                            
-                        </li>
-
-
-
-                    </ul>
+                        </p>
+                   
                 </h:form>
 
 
+                
+            
 
 
 
                 <h:form>
                     <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
                 </h:form>
-
-
-                webflow data:
-                <ul>
-                    <li>back:  #{webflow.back}</li>
-                    <li>next:  #{webflow.next}</li>
-                    <li>finish:  #{webflow.finish}</li>
-                    <li> cancel: #{webflow.cancel} </li>
-                </ul>
-
 
 
 
