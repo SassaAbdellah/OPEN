@@ -14,7 +14,7 @@ import org.postgis.Point;
 public class PostGISPointUtil {
 
     /* Serialize PostGis Point coordinates to be stored in the database. That
-     * is: return ""+point.getX()+","+point.getY(); or null, if any of the
+     * is: return ""+point.getY()+","+point.getX(); or null, if any of the
      * coordinates is null.
      *
      * @returns a serialized version of the String, that can be stored in the
@@ -22,7 +22,7 @@ public class PostGISPointUtil {
      */
     public String getDatabaseString(Point point) {
 
-        return "" + point.getX() + "," + point.getY();
+        return "" + point.getY() + "," + point.getX();
     }
 
     /** Create a point from longitude and latitude
@@ -48,11 +48,12 @@ public class PostGISPointUtil {
         
             int commapos=dbString.indexOf(',');
             
-            String lonStr=dbString.substring(0, commapos);
-            String latStr=dbString.substring(commapos+1);
+            String latStr=dbString.substring(0, commapos);
+            String lonStr=dbString.substring(commapos+1);
             
-            Double lonD=new Double(lonStr);
+          
             Double latD=new Double(latStr);
+            Double lonD=new Double(lonStr);
             
             return new Point(lonD,latD);
         

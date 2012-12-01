@@ -39,8 +39,10 @@
 
 
 
+                <!-- update webflow and point data -->
 
-
+                #{webflow.smartUpdate()}
+                #{point.smartUpdate()}
 
 
 
@@ -91,6 +93,11 @@
                     var returnAddressP='#{webflow.paramBack}';
                     // URL where the mapper is (for displaying results in map)
                     var mapURL='#{nav.urlOSMMap}';
+                     // Target url: this is where the "accept" link will point to
+                    var targetURL='#{point.targetURL}'
+                    
+                    
+                    
            
                 </script>
 
