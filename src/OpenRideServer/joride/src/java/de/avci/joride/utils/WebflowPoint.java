@@ -93,6 +93,9 @@ public class WebflowPoint implements Serializable {
         return target;
     }
     
+    public void setTarget( String arg){
+        this.target=arg;
+    }
     
  
 
@@ -110,6 +113,10 @@ public class WebflowPoint implements Serializable {
 
     public Double getLon() {
         return lon;
+    }
+    
+    public void setLon(Double arg) {
+        lon=arg;
     }
     
   
@@ -134,7 +141,9 @@ public class WebflowPoint implements Serializable {
         return lat;
     }
     
-    
+    public void setLat(Double arg) {
+        lat=arg;
+    }
  
 
     /** Make PARAM_NAME_DISPLAYSTRING available as a bean method.
@@ -162,6 +171,8 @@ public class WebflowPoint implements Serializable {
     public String getParamAddress() {
         return WebflowBeanConstants.PARAM_NAME_ADDRESS;
     }
+    
+    
     /**
      * String containing the current value for the address.
      *
@@ -170,6 +181,11 @@ public class WebflowPoint implements Serializable {
 
     public String getAddress() {
         return address;
+    }
+    
+    
+    public void setAddress(String arg){
+        this.address=arg;
     }
     
     

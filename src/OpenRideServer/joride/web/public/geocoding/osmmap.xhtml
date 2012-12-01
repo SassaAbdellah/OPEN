@@ -29,7 +29,9 @@
                 #{point.smartUpdate()}
                 #{webflow.smartUpdate()}
 
-                <h:form>
+                <form action="#{point.targetURL}" method="GET" >
+                    
+                    
                     <div class="formLabel"> Address
                     </div>
                     <div class="formInput">
@@ -46,24 +48,25 @@
                     <div class="formLabel"> Finish Address
 
                     </div>
-                    <div class="formInput">
-                        <h:inputText id="#{webflow.paramFinish}"  value="#{webflow.finish}"  /> 
-                    </div>
+                  
 
 
                     <div class="formLabel"> lon </div> 
 
                     <div class="formInput">
-                        <h:inputText class="#{point.paramLon}" name="#{point.paramLon}" value="#{point.lon}" />
+                        <h:inputText class="#{point.paramLon}" id="#{point.paramLon}" value="#{point.lon}" />
                     </div>
 
                     <div class="formLabel"> lat </div>
 
                     <div class="formInput">
-                        <h:inputText class="#{point.paramLat}"  name="#{point.paramLat}" value="#{point.lat}" />
+                        <h:inputText class="#{point.paramLat}"  id="#{point.paramLat}" value="#{point.lat}" />
                     </div>   
+                    
+                    
+                    <button type="submit" >  #{msgs.finish} </button>
 
-                </h:form>     
+                </form>     
 
                 <!-- **************************************************************************** -->
                 <!-- div to show the map  --> 
