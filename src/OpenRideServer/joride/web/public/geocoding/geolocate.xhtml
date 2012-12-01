@@ -25,16 +25,21 @@
 
             <ui:define name="windowTitle">
                 #{msgs.geolocationServiceLabel}
-
-
-
-                r
-
             </ui:define>
 
             <ui:define name="content">
 
                 #{webflow.smartUpdate()}
+                #{point.smartUpdate()}
+                
+                
+                <p>
+                    TODO: TargetURL is : #{point.targetURL}
+                </p>
+
+                
+                
+                
 
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
                 <h:outputScript library="js" name="geolocation.js" />   
@@ -73,7 +78,8 @@
                     var lonP='#{point.paramLon}';
                     // Name of the parameter to pass latitude in URL
                     var latP='#{point.paramLat}';
-              
+                 
+                    
                     // Name of the Parameter to pass display String in URL
                     var displayP='#{point.paramDisplaystring}';
                     // Name of the Parameter to pass calllerID in URL
@@ -82,6 +88,11 @@
                     var returnAddressP='#{webflow.paramFinish}';
                     // URL where the mapper is (for displaying results in map)
                     var mapURL='#{nav.urlOSMMap}';
+                    // Target url: this is where the "accept" link will point to
+                    var targetURL='#{point.targetURL}'
+                    
+                    
+                    
            
                 </script>
 
@@ -89,7 +100,7 @@
                 <button onclick="getLocation()"> #{msgs.geolocationServiceLabel} </button>
 
 
-
+           
 
                 <div class="webflow">
 

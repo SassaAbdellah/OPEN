@@ -43,6 +43,11 @@ function showPosition(position)
         
         var mapperURL=mapURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat); 
 
+        // build the URL for acceppting the place
+        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat); 
+
+
+
         mapperURL=encodeURI(mapperURL);
         console.log('mapperURL : '+mapperURL);
         
@@ -52,7 +57,7 @@ function showPosition(position)
         
 
         $('#geosearch_out').append('\<br\/\>');
-        $('#geosearch_out').append(geocodeAcceptLabel.link('dummy'));
+        $('#geosearch_out').append(geocodeAcceptLabel.link(targetedURL));
         $('#geosearch_out').append('........................');
         $('#geosearch_out').append(geocodeShowInMapLabel.link(mapperURL));
         $('#geosearch_out').append('\<br\/\>')
