@@ -38,7 +38,7 @@ function showPosition(position)
         
         
         // build the url for calling the mapper
-        // note that early webkit browsers want to have ampersant escaped as '&aml;
+        // note that early webkit browsers want to have ampersant escaped as '&amp;
         // which is not done by the encodeURI funtion
         
         var mapperURL=mapURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat); 

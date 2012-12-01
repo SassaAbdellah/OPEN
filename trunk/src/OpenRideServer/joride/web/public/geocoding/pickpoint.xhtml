@@ -59,6 +59,8 @@
                         <p>
                             <h:commandLink value="TODO: nominatim per javascript" action="jnominatim">
                                 <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                                <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
+                          
                             </h:commandLink>
                         </p>
                    

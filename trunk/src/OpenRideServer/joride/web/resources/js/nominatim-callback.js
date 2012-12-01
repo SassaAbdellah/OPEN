@@ -64,6 +64,12 @@
         mapperURL=encodeURI(mapperURL);
         console.log('mapperURL : '+mapperURL);
         
+           // build the URL for acceppting the place
+        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+displayP+'\='+display); 
+
+        console.log('targetedURL : '+targetedURL);
+        
+        
         // since webkit has trouble displaying divs, we had to add 
         // tons of ugly br tags here.
         // TODO: find out what's wrong with webkit on android 2.2'
@@ -71,7 +77,7 @@
 	$('#geosearch_out').append('\<br\/\>')
         $('#geosearch_out').append(response[i].display_name);  
         $('#geosearch_out').append('\<br\/\>');
-        $('#geosearch_out').append(geocodeAcceptLabel.link('dummy'));
+        $('#geosearch_out').append(geocodeAcceptLabel.link(targetedURL));
         $('#geosearch_out').append('........................');
         $('#geosearch_out').append(geocodeShowInMapLabel.link(mapperURL));
         $('#geosearch_out').append('\<br\/\>')
