@@ -97,7 +97,7 @@
                 </h:form>
 
 
-
+                <!-- Car Details below -->
 
                 <h2> #{msgs.cardetails} </h2>
 
@@ -114,33 +114,49 @@
                         var="car" >
 
 
-                        <h:column>            
-                            #{car.cardetBrand}
-                        </h:column>
-
-                        <h:column>  
-                            #{car.cardetPlateno}
-                        </h:column>
-
-
                         <h:column>     
-                            <!-- column containing delete action --> 
+                            
+                            <table> <!-- nested table for car details item -->
+                                
+                                <tr> 
+                                    <td> <span class="formLabel"> #{msgs.cardetBrandLabel} </span> </td>
+                                    <td> <span class="formLabel">:</span></td>
+                                    <td> #{car.cardetBrand} </td>
+                                </tr>
+                                    
+                                <tr> 
+                                    <td> <span class="formLabel">#{msgs.cardetColorLabel}</span> </td>
+                                    <td> <span class="formLabel">:</span></td>
+                                    <td> #{car.cardetColour} </td>
+                                </tr>
+                                
+                                  <tr> 
+                                    <td> <span class="formLabel"> #{msgs.cardetBuildyearLabel}</span> </td>
+                                    <td> <span class="formLabel"> : </span></td>
+                                    <td> #{car.cardetBuildyear} </td>
+                                </tr>
+                                
+                                <tr> 
+                                    <td> <span class="formLabel"> #{msgs.cardetLicenseplateLabel} </span> </td>
+                                    <td> <span class="formLabel"> :</span></td>
+                                    <td> #{car.cardetPlateno} </td>
+                                </tr>
+                            </table>
+                        
+                     
                             <h:commandLink  action="preferences.carDetailsEdit"   >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudUpdate}"/>
                                 <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
-
                                 #{msgs.formEdit}
                             </h:commandLink>
-                        </h:column>
-
-
-                        <h:column>     
-                            <!-- column containing delete action --> 
+                            <!--- end of commandlink for display action -->
+                            
+                            &nbsp; &nbsp; &nbsp; 
+                       
+                            <!-- comandlink for delete action --> 
                             <h:commandLink actionListener="#{jcardetails.doCrudAction}" >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
                                 <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
-
-
 
                                 #{msgs.formDelete}
                             </h:commandLink>
