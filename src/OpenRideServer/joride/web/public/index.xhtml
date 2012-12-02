@@ -11,9 +11,9 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
-            
-       
-            
+
+
+
             <!-- set "classHome" property to highlight, so that home tab will be higlighted -->
             <ui:param name="classHome" value="Highlight" />
 
@@ -25,20 +25,25 @@
             <ui:define name="content">
 
                 <h:form>
-              
 
-                    <ul>
-                              
-                        <li>
-                            <h:commandLink action="rider">    #{msgs.nav1_rider_label}      </h:commandLink> :  #{msgs.nav1_rider_desc}   
-                        </li>
-                        <li>    
-                            <h:commandLink action="driver">   #{msgs.nav1_driver_label}     </h:commandLink> :  #{msgs.nav1_driver_desc}
-                        </li>
-                        <li>
-                            <h:commandLink action="preferences">  #{msgs.nav1_preferences_label} </h:commandLink>  :  #{msgs.nav1_preferences_desc}   
-                        </li>
-                    </ul>
+                    <p>
+                        <h:commandLink action="rider">    #{msgs.nav1_rider_label}      </h:commandLink> 
+                        <br/> 
+                        #{msgs.nav1_rider_desc}   
+                    </p>
+
+                    <p>
+
+                        <h:commandLink action="driver">   #{msgs.nav1_driver_label}     </h:commandLink> 
+                        <br/>                     
+                        #{msgs.nav1_driver_desc}
+                    </p>
+                    <p>
+                        <h:commandLink action="preferences">  #{msgs.nav1_preferences_label} </h:commandLink>  
+                        <br/>                     
+                        #{msgs.nav1_preferences_desc}   
+                    </p>
+
 
                 </h:form>
 
