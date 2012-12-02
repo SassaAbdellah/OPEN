@@ -30,41 +30,37 @@
                 #{webflow.smartUpdate()}
 
                 <form action="#{point.targetURL}" method="GET" >
-                    
-                    
+
+
                     <div class="formLabel"> Address
                     </div>
                     <div class="formInput">
                         <h:inputTextarea id="#{point.paramAddress}"  value="#{point.address}" /> 
                     </div>     
 
-                    <div class="formLabel"> target
-                    </div>   
+
                     <div class="formInput">
-                        <h:inputText id="#{point.paramTarget}"       value="#{point.target}"      />
+                        <h:inputHidden id="#{point.paramTarget}"    value="#{point.target}" />
                     </div> 
 
-
-                    <div class="formLabel"> Finish Address
-
-                    </div>
-                  
-
-
-                    <div class="formLabel"> lon </div> 
-
-                    <div class="formInput">
-                        <h:inputText class="#{point.paramLon}" id="#{point.paramLon}" value="#{point.lon}" />
-                    </div>
-
-                    <div class="formLabel"> lat </div>
-
-                    <div class="formInput">
-                        <h:inputText class="#{point.paramLat}"  id="#{point.paramLat}" value="#{point.lat}" />
-                    </div>   
+                    <table>
                     
-                    
-                    <button type="submit" >  #{msgs.finish} </button>
+                     <tr>
+                         <td>   <span class="formLabel">  #{msgs.geolocationLongitude}   </span> </td>
+                         <td> : </td>
+                         <td>   <span id="lonSpan"> #{point.lat} </span> <h:inputText  id="#{point.paramLon}" value="#{point.lon}" /> </td>
+                 
+                     </tr>
+                        
+                        <tr>
+                          <td>  <span class="formLabel">   #{msgs.geolocationLatitude} </span> </td> 
+                          <td>: </td>
+                          <td> <span id="latSpan"> #{point.lat} </span>   <h:inputText id="#{point.paramLat}"   value="#{point.lat}" /> </td>
+                        </tr>
+                    </table>   
+
+
+                    <button type="submit" >  #{msgs.formAccept} </button>
 
                 </form>     
 
@@ -137,10 +133,14 @@
 
                             // set longitude and latitude in input controls	
                             // (i.e: input controls that have class lat or lon) 
-                                      
-                            $('.lat').val(lonlat.lat); 
-                            $('.lon').val(lonlat.lon); 
+                            $('#lat').val(lonlat.lat); 
+                            $('#lon').val(lonlat.lon); 
+                            
+                            
 
+                            $('#latSpan').html(lonlat.lat)
+                            $('#lonSpan').html(lonlat.lon); 
+                            
                          
                    
                             // no more actions on doubleclick (i.e: do not zoom in)
