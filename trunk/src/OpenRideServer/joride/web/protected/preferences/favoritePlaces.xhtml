@@ -67,14 +67,19 @@
                                 <p>
                                     <h4>#{fp.favptDisplayname}</h4> 
                                   
-                                <!-- display action --> 
+                                #{fp.favptAddress} <br/>
+                                
+                                
+                                               <!-- display action --> 
                                 <h:commandLink action="preferences.favoritePlacesDisplay" >
 
                                     <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
                                     <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
                                     [ #{msgs.formDisplay} ]
-                                </h:commandLink> <br/> 
-                                #{fp.favptAddress} <br/>
+                                </h:commandLink> 
+                                               
+                                 &nbsp; &nbsp; &nbsp;
+                                
                                   <!--  delete action --> 
                                 <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
                                     <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
