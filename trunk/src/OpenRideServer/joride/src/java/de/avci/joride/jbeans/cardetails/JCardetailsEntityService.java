@@ -68,7 +68,7 @@ public class JCardetailsEntityService {
           carDetailsControllerBean.addCarDetails(
                   ce, 
                   jcarDetailsEntity.getCardetBrand(), 
-                  (short) 12, 
+                  jcarDetailsEntity.getCardetBuildyear(), 
                   jcarDetailsEntity.getCardetColor(),
                   jcarDetailsEntity.getCardetPlateno()
                   );
