@@ -21,36 +21,32 @@
             <ui:define name="content">
 
                 <h:form>
-                    <ul>
-                        <li>
-                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink> 
-                            <p> #{msgs.nav1_pref_personalData_desc} </p>   
-                        </li>
-                    </ul>
 
-   
-                     <ul>
-                        <li>
-                            <h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink> 
-                            <p> #{msgs.nav1_pref_riderPreferences_desc} </p>   
-                        </li>
-                    </ul>
-                    
-                    <ul>
-                        <li>
-                            <h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink> 
-                            <p> #{msgs.nav1_pref_driverPreferences_desc}  </p> 
-                        </li>
-                    </ul>
+                    <p>
+                        <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink> 
+                        <br/>
+                        #{msgs.nav1_pref_personalData_desc}
+                    </p>   
 
-                    
-                    
-                      <ul>
-                        <li>
-                            <h:commandLink action="preferences.favoritePlaces">    #{msgs.nav1_pref_favoritePlaces_label}     </h:commandLink> 
-                            <p> #{msgs.nav1_pref_favoritePlaces_desc}  </p> 
-                        </li>
-                    </ul>
+                    <p>
+                        <h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink> 
+                        <br/>
+                        #{msgs.nav1_pref_riderPreferences_desc} 
+                    </p>   
+
+                    <p> 
+                        <h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink> 
+                        <br/>  
+                        #{msgs.nav1_pref_driverPreferences_desc} 
+                    </p> 
+
+
+                    <p>
+                        <h:commandLink action="preferences.favoritePlaces">    #{msgs.nav1_pref_favoritePlaces_label}     </h:commandLink> 
+                        <br/>                    
+                        #{msgs.nav1_pref_favoritePlaces_desc}  
+                    </p> 
+
 
 
 
