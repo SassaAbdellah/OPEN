@@ -10,6 +10,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -146,6 +147,52 @@ public class JDriverUndertakesRideEntityService {
     
     
  
+      
+      /** Get RoutePoints for Drive with DriveId
+       * 
+       * @param driveId
+       * @return 
+       */
+      public JRoutePointsEntity getRoutePointsForDrive(int driveId){
+      
+          //
+          // Check, if drive does really belong to the calling user
+          //
+               
+         CustomerEntity ce=this.getCustomerEntity();
+         DriverUndertakesRideControllerLocal durcl=this.lookupDriverUndertakesRideControllerBeanLocal();
+         
+     
+         if(ce==null){ 
+             throw new Error ("Cannot determine Drives, customerEntity is null");
+         }
+         
+         if(ce.getCustNickname()==null){ 
+             throw new Error ("Cannot determine Drives, customerNickname is null");
+         } 
+         
+         
+        DriverUndertakesRideEntity dure=durcl.getDriveByDriveId(driveId);
+     
+         
+         
+         if(dure.getCustId().getCustId()  != ce.getCustId()){
+             throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
+         }
+         
+          
+         // 
+         // done with checking for user
+         //
+          
+         List<RoutePointEntity> routePoints=durcl.getRoutePoints(driveId);
+         
+         JRoutePointsEntity res=new JRoutePointsEntity();
+         res.setRoutePoints(routePoints);
+         
+         return res;
+         
+      }
      
  
     

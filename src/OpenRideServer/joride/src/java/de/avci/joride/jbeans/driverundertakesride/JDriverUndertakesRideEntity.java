@@ -179,4 +179,31 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     }
     
     
+    
+
+    /** Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
+     * 
+     * @return 
+     */
+    public JRoutePointsEntity getRoutePoints(){
+        
+    
+        int rideID=this.getRideId();
+        return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
+       
+    }
+    
+    
+     
+    /** Get the RoutePoints for this Drive encoded in a JSONString
+     * 
+     * @return 
+     */
+    public String getRoutePointsAsJSON(){
+        return this.getRoutePoints().getRoutePointsAsJSON();
+    }
+    
+    
+    
+    
 } // class 
