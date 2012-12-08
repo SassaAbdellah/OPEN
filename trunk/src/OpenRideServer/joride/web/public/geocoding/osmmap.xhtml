@@ -81,11 +81,18 @@
                 <!-- alternatively, it can be included from OpenLayers.org   -->
                 <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
                
-                
                 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
                
+                
+                
+                
+                <!--  TODO: externalize the Javascript code below, -->
+                <!--  into external javascript.js library          -->
+                <!--  so that the xhtml is not cluttered anymore   -->
+                
+                
                <script>
- 
+                   
                     //	/////////////////////////////////////////////////////////////
                     // create openlayers control object
                     // //////////////////////////////////////////////////////////////
@@ -160,6 +167,7 @@
                     // create openlayers control object
                     // //////////////////////////////////////////////////////////////
     
+    
 
 
 
@@ -172,6 +180,21 @@
                     new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984 to Spherical Mercator Projection
                     map.getProjectionObject() //
                 );
+                    
+                    
+                </script>
+                <!-- creation of map and control object ends above -->    
+                <!-- code above has to be externalized first       -->
+                
+                
+                
+                
+                <!-- below, we start feeding the map with data -->
+                
+                <script>
+                    
+                    
+                    
 
                     var zoom=16;
 
