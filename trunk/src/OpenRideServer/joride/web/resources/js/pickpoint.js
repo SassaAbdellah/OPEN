@@ -75,7 +75,7 @@ function createClickControlForMap( yMap){
                             // back to lat/lon
                             // /////////////////////////////////////////////////
 
-                            var lonlat=coord.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+                            lonlat=coord.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
 
                             // set longitude and latitude in input controls	
                             // (i.e: input controls that have class lat or lon) 
@@ -105,7 +105,7 @@ function createClickControlForMap( yMap){
                 // crete a new OpenLayers.Control.Click object for the given map
                 //
                 function activateClick(zMap){  
-                    	var click = new OpenLayers.Control.Click();
+                    	click = new OpenLayers.Control.Click();
                     	zMap.addControl(click);
                     	click.activate();
 		}
