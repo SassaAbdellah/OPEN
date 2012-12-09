@@ -109,8 +109,10 @@ function createMap(divId, routepoints) {
 
 
     line = createLinestring(routepoints,map);
-
-    console.log("linestring : "+line);
+    
+    // dropped as not to annoy M$ IIE
+    // 
+    //  console.log("linestring : "+line);
 
     style = { 
         strokeColor: '#000000', 
