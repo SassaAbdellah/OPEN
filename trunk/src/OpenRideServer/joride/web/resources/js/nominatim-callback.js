@@ -37,8 +37,10 @@
 
      "use strict";
 
-     var jsontext=(JSON.stringify(response));
-     console.log(jsontext); 
+    // M$ IE Browser can't cope with the folloing two lines :-( 
+    //   
+    // var jsontext=(JSON.stringify(response));
+    // console.log(jsontext); 
  
      var numberOfResults=response.length;
     
@@ -62,12 +64,17 @@
         var mapperURL=mapURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+displayP+'\='+display); 
 
         mapperURL=encodeURI(mapperURL);
-        console.log('mapperURL : '+mapperURL);
+        
+        // dropped as not to annoy M$ IIE
+        // 
+        //console.log('mapperURL : '+mapperURL);
         
            // build the URL for acceppting the place
         var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+displayP+'\='+display); 
-
-        console.log('targetedURL : '+targetedURL);
+  
+        // dropped as not to annoy M$ IIE
+        // 
+        // console.log('targetedURL : '+targetedURL);
         
         
         // since webkit has trouble displaying divs, we had to add 

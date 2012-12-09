@@ -4,16 +4,23 @@
 
 
 function getLocation() {
-      
-     console.log('running getLocation()'); 
+    
+    
+      // dropped as not to annoy M$ IIE
+      // 
+      //  console.log('running getLocation()'); 
   
   if (navigator.geolocation)
     {
-        
-    console.log("geocoding is supported! good!");
+      
+        // dropped as not to annoy M$ IIE
+        // 
+        //  console.log("geocoding is supported! good!");
     navigator.geolocation.getCurrentPosition(showPosition,handleError);
     
-    console.log("done with getting position");
+        // dropped as not to annoy M$ IIE
+        // 
+        // console.log("done with getting position");
     }
     
     
@@ -21,14 +28,19 @@ function getLocation() {
   }
 function showPosition(position)
   {
-      console.log("called showposition");
+      
+        // dropped as not to annoy M$ IIE
+        // 
+        // console.log("called showposition");
       
       var lat=position.coords.latitude;
       var lon=position.coords.longitude;
       
       
-      console.log("lat : "+lat);
-      console.log("lon : "+lon);
+        // dropped as not to annoy M$ IIE
+        // 
+        // console.log("lat : "+lat);
+        // console.log("lon : "+lon);
   
       alert("lat : "+lat+" lon : "+lon);
       
@@ -49,7 +61,9 @@ function showPosition(position)
 
 
         mapperURL=encodeURI(mapperURL);
-        console.log('mapperURL : '+mapperURL);
+        
+        // dropped as not to annoy M$ IIE
+        // console.log('mapperURL : '+mapperURL);
         
         // since webkit has trouble displaying divs, we had to add 
         // tons of ugly br tags here.
