@@ -22,7 +22,7 @@
 
 
 
-          
+
 
 
                 <!-- initialize Result Point and Webflow  -->
@@ -44,18 +44,18 @@
                     </div> 
 
                     <table>
-                    
-                     <tr>
-                         <td>   <span class="formLabel">  #{msgs.geolocationLongitude}   </span> </td>
-                         <td> : </td>
-                         <td>   <span id="lonSpan"> #{point.lon} </span> <h:inputHidden  id="#{point.paramLon}" value="#{point.lon}" /> </td>
-                 
-                     </tr>
-                        
+
                         <tr>
-                          <td>  <span class="formLabel">   #{msgs.geolocationLatitude} </span> </td> 
-                          <td>: </td>
-                          <td> <span id="latSpan"> #{point.lat} </span>   <h:inputHidden id="#{point.paramLat}"   value="#{point.lat}" /> </td>
+                            <td>   <span class="formLabel">  #{msgs.geolocationLongitude}   </span> </td>
+                            <td> : </td>
+                            <td>   <span id="lonSpan"> #{point.lon} </span> <h:inputHidden  id="#{point.paramLon}" value="#{point.lon}" /> </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>  <span class="formLabel">   #{msgs.geolocationLatitude} </span> </td> 
+                            <td>: </td>
+                            <td> <span id="latSpan"> #{point.lat} </span>   <h:inputHidden id="#{point.paramLat}"   value="#{point.lat}" /> </td>
                         </tr>
                     </table>   
 
@@ -73,61 +73,61 @@
 
 
 
-        
-                
+
+
                 <!-- we may deliver a local OpenLayers version 2.12              -->
                 <!-- alternatively, it can be included from OpenLayers.org   -->
                 <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-               
+
                 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-               
-                  
+
+
                 <!-- include standard jquery  -->
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
-            
-                
+
+
                 <!-- include pickpoint script  -->
                 <h:outputScript library="js" name="pickpoint.js" />
-                
-                
-                
-            
+
+
+
+
                 <!-- creation of map and control object ends above -->    
                 <!-- code above has to be externalized first       -->
-                
-                             
-                
+
+
+
                 <!-- below, we start feeding the map with data -->
-                
+
                 <script>
                                       
-	 	     var map=createOSMMap();	
-
-		     createClickControlForMap(map);	
-                     activateClick(map);
-
-		     // 
-                     //	
-                     var jorideMarkersLayer;	
+                    var map=createOSMMap();	
 
 
                     // //////////////////////////////////////////
                     // add click handler control 
                     // //////////////////////////////////////////
-			
-             
+                    createClickControlForMap(map);	
+                    activateClick(map);
+
+                    // 
+                    //	
+                    var jorideMarkersLayer;	
+
+           
                     // initialize stuff!
                     createMarkersLayer(#{point.lon}, #{point.lat} , 16, map);
 		
+                
                     activateClick();  	 
 
 		
 
                 </script>
 
-                
-                
-            
+
+
+
 
 
 
