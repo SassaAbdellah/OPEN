@@ -41,6 +41,69 @@
                 
                 <h:inputHidden value="#{jfavpoint.favptId}" />
                 
+                
+                
+                    <!-- **************************************************************************** -->
+                <!-- div to show the map  --> 
+
+                <!-- **************************************************************************** -->
+
+                <div id="mapdiv" style="width:300px; height:300px;" > </div>
+
+
+
+
+
+                <!-- we may deliver a local OpenLayers version 2.12              -->
+                <!-- alternatively, it can be included from OpenLayers.org   -->
+                <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+
+                <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+
+                <!-- include standard jquery  -->
+                <h:outputScript library="js" name="jquery-1.4.1.js" />
+
+
+                <!-- include pickpoint script  -->
+                <h:outputScript library="js" name="pickpoint.js" />
+
+
+
+
+                <!-- creation of map and control object ends above -->    
+                <!-- code above has to be externalized first       -->
+
+
+
+                <!-- Show map with default click handler -->
+
+                <script>
+                                      
+                    var map=createOSMMap();	  
+
+                    // 
+                    //	
+                    var jorideMarkersLayer;	
+
+           
+                    // create markers layer, and center at lon/lat of favorite point
+                    createMarkersLayer( #{jfavpoint.lon}, #{jfavpoint.lat} , 16, map);
+		
+                
+ 
+                </script>
+
+
+
+                
+                
+                
+                
+                
+                
+                
+                
               
 
                 <h:form>
