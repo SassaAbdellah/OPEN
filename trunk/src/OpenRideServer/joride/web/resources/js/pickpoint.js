@@ -1,54 +1,81 @@
-                    //	/////////////////////////////////////////////////////////////
-                    // create openlayers control object
-                    // //////////////////////////////////////////////////////////////
+ 
+
+
+//
+// Create and return map with an osm layer
+// for div named "mapdiv
+//
+ function createOSMMap(){
+	xMap = new OpenLayers.Map("mapdiv");
+        xMap.addLayer(new OpenLayers.Layer.OSM());
+        return xMap;
+    }
+                    
+
+
+//
+// Create a Click control that moves the marker
+//
+//
+function createClickControlForMap( yMap){
+	
+	// ////////////////////////////////////////////////////////////
+        // create openlayers control object
+        // //////////////////////////////////////////////////////////////
     
-                    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-                        defaultHandlerOptions: {
+        OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+                
+		defaultHandlerOptions: {
                             'single': true, // enable zoom on single click
                             'double': true, // enable moving the marker on dblclick
                             'pixelTolerance': 0,
                             'stopSingle': false,
                             'stopDouble': false
-                        },
+                  },
 
-                        initialize: function(options) {
+                     
+		initialize: function(options) {
                             this.handlerOptions = OpenLayers.Util.extend(
                             {}, this.defaultHandlerOptions
-                        );
-                            OpenLayers.Control.prototype.initialize.apply(
+                );
+                         
+		 OpenLayers.Control.prototype.initialize.apply(
                             this, arguments
                         );
-                            this.handler = new OpenLayers.Handler.Click(
+                      
+		this.handler = new OpenLayers.Handler.Click(
                             this, {
                                 // react to double mouse click only,
                                 // ignore single mouseclic
                                 'dblclick': this.moveMarker
                             }, this.handlerOptions
-                        );
+                      	);
                         },
                 
                         // move the marker to doubleclicked coordinates
+                        // read coordinates, and set/lon/lat inputs to
+                        // the new lon/lat values
                         moveMarker: function(e) {
-                            var coord = map.getLonLatFromViewPortPx(e.xy);
+                            
+
+
+			    coord = yMap.getLonLatFromViewPortPx(e.xy);
 
                             // ///////////////////////////////////	
                             //  move the marker to current click position 
                             // ///////////////////////////////////
                             jorideMarkersLayer.clearMarkers();    
-                            var nextMarker=new OpenLayers.Marker(coord); 
+                            nextMarker=new OpenLayers.Marker(coord); 
                             jorideMarkersLayer.addMarker(nextMarker);
                            
-                            console.log("number of layers in map : "+map.getNumLayers());
+                            
                   
                             // /////////////////////////////////////////////////
-                            // transform display friendly EPSG:90913 coordinate 
-                            // back to latitude/Longitude EPSG:4236 
+                            // transform from map's coordinate 
+                            // back to lat/lon
                             // /////////////////////////////////////////////////
 
-                            var lonlat=coord.transform(
-                            new OpenLayers.Projection("EPSG:900913"), 
-                            new OpenLayers.Projection("EPSG:4326")
-                        );
+                            var lonlat=coord.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
 
                             // set longitude and latitude in input controls	
                             // (i.e: input controls that have class lat or lon) 
@@ -68,51 +95,57 @@
 
                     });
 
-           
-                    //	/////////////////////////////////////////////////////////////
-                    // create openlayers control object
-                    // //////////////////////////////////////////////////////////////
-    
-    
-
-
-
-
-
-                    map = new OpenLayers.Map("mapdiv");
-                    map.addLayer(new OpenLayers.Layer.OSM());
-
-                    
-
-                    var lonLat = new OpenLayers.LonLat( pLongitude , pLatitude).transform(
-                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984 to Spherical Mercator Projection
-                    map.getProjectionObject() //
-                );
-                    
-                    
-
-
-
-		       
-                                     
-                
-                 var marker=new OpenLayers.Marker(lonLat);
-                    jorideMarkersLayer.addMarker(marker);
-                    map.setCenter (lonLat, pZoom );
-
-                    // //////////////////////////////////////////
-                    // add click handler control 
-                    // //////////////////////////////////////////
+                    } // end of function createClickControlForMap()
 		
-                    var click = new OpenLayers.Control.Click();
-                    map.addControl(click);
-                    click.activate();
+                    // 
+                    // Done with creating the map 
+                   
+
+                //
+                // crete a new OpenLayers.Control.Click object for the given map
+                //
+                function activateClick(zMap){  
+                    	var click = new OpenLayers.Control.Click();
+                    	zMap.addControl(click);
+                    	click.activate();
+		}
 
 
 
-               
+		
 
 
+                   
+               // add markers layer. Overwrite calculate in Range function to 
+               // ensure that markers are visible at any zoom level
+                 
+               function createMarkersLayer(pLongitude,pLatitude,pZoom,pMap){ 
+
+                   	jorideMarkersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});           
+                     	pMap.addLayer(jorideMarkersLayer);
+
+
+			ll=new OpenLayers.LonLat(pLongitude,pLatitude).transform(
+            				new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            				pMap.getProjectionObject() // to current map's projection
+           				);
+		   
+
+
+
+
+                    	marker=new OpenLayers.Marker(ll);
+                    	jorideMarkersLayer.addMarker(marker);
+
+		
+                    	map.setCenter (ll, pZoom );
+
+               } // end of function createMarkersLayer
+
+
+
+
+	
 
 
 
