@@ -16,8 +16,10 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import org.postgis.Point;
 
 /**
  * Small Wrapper class making Entity Bean CustomerEntity availlable as a CDI
@@ -58,44 +60,38 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * @return
      */
     public List<JDriverUndertakesRideEntity> getDrivesForDriver() {
-        
-    
-        List <DriverUndertakesRideEntity> inlist=(new JDriverUndertakesRideEntityService()).getDrivesForDriver();
-        
+
+
+        List<DriverUndertakesRideEntity> inlist = (new JDriverUndertakesRideEntityService()).getDrivesForDriver();
+
         return this.castList(inlist);
     }
-    
-    
-    
-    /** Cast a list of DriverUndertakesRideEntity Objects 
-     *  into a list of JDriverUndertakesRideEntity Objects,
-     *  for easy display.
-     * 
-     * 
+
+    /**
+     * Cast a list of DriverUndertakesRideEntity Objects into a list of
+     * JDriverUndertakesRideEntity Objects, for easy display.
+     *
+     *
      * @param inlist
-     * @return 
+     * @return
      */
-    protected List <JDriverUndertakesRideEntity> castList( List <DriverUndertakesRideEntity> inlist){
-    
-     
-        List <JDriverUndertakesRideEntity>  res= new LinkedList <JDriverUndertakesRideEntity> ();
-        
-        Iterator  <DriverUndertakesRideEntity> it=inlist.iterator();
-        
-        while (it.hasNext()){
-        
-            JDriverUndertakesRideEntity jdure=new JDriverUndertakesRideEntity();
+    protected List<JDriverUndertakesRideEntity> castList(List<DriverUndertakesRideEntity> inlist) {
+
+
+        List<JDriverUndertakesRideEntity> res = new LinkedList<JDriverUndertakesRideEntity>();
+
+        Iterator<DriverUndertakesRideEntity> it = inlist.iterator();
+
+        while (it.hasNext()) {
+
+            JDriverUndertakesRideEntity jdure = new JDriverUndertakesRideEntity();
             jdure.updateFromDB(it.next());
-            
+
             res.add(jdure);
         }
-        
+
         return res;
     }
-    
-    
-    
-    
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
@@ -125,37 +121,36 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return getDateFormat().format(this.getRideStarttime());
     }
 
-    
-    
-   
-    /** Update this Object's data from the Database.
-     *  
-     *  The id of the Object to be updated is read in from http-request
-     * 
+    /**
+     * Update this Object's data from the Database.
+     *
+     * The id of the Object to be updated is read in from http-request
+     *
      */
-    public void updateFromDB(){
-    
-        String idStr=(new HTTPRequestUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
-   
-        int id=0;
-        
-        try { id=new Integer(idStr).intValue();
-        } catch(java.lang.NumberFormatException exc){
-            throw new Error("ID Parameter does not contain Numeric Value "+idStr);
+    public void updateFromDB() {
+
+        String idStr = (new HTTPRequestUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
+
+        int id = 0;
+
+        try {
+            id = new Integer(idStr).intValue();
+        } catch (java.lang.NumberFormatException exc) {
+            throw new Error("ID Parameter does not contain Numeric Value " + idStr);
         }
-        
-        
-        DriverUndertakesRideEntity drue=new JDriverUndertakesRideEntityService().getDriveByIdSavely(id);
-        
-        JDriverUndertakesRideEntity jdrue=new JDriverUndertakesRideEntity();
+
+
+        DriverUndertakesRideEntity drue = new JDriverUndertakesRideEntityService().getDriveByIdSavely(id);
+
+        JDriverUndertakesRideEntity jdrue = new JDriverUndertakesRideEntity();
         this.updateFromDB(drue);
-        
+
     }
-    
-    
-    /** Update from a given DriverUndertakesRideEntity object.
-     * 
-     * @param dure 
+
+    /**
+     * Update from a given DriverUndertakesRideEntity object.
+     *
+     * @param dure
      */
     public void updateFromDB(DriverUndertakesRideEntity dure) {
 
@@ -177,33 +172,81 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.setRiderUndertakesRideEntityCollection(dure.getRiderUndertakesRideEntityCollection());
         this.setStartptAddress(dure.getStartptAddress());
     }
-    
-    
-    
 
-    /** Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
-     * 
-     * @return 
+    /**
+     * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
+     *
+     * @return
      */
-    public JRoutePointsEntity getRoutePoints(){
-        
-    
-        int rideID=this.getRideId();
+    public JRoutePointsEntity getRoutePoints() {
+
+
+        int rideID = this.getRideId();
         return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
-       
+
     }
-    
-    
-     
-    /** Get the RoutePoints for this Drive encoded in a JSONString
-     * 
-     * @return 
+
+    /**
+     * Get the RoutePoints for this Drive encoded in a JSONString
+     *
+     * @return
      */
-    public String getRoutePointsAsJSON(){
+    public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
-    
-    
-    
-    
+    /**
+     * Value for point.target parameters. If "Startpoint" ist set, then
+     * smartUpdate will set the startpoint
+     */
+    private static final String paramValueStartpoint = "STARTPOINT";
+
+    /**
+     * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
+     *
+     * @return
+     */
+    public String getParamValueStartpoint() {
+        return paramValueStartpoint;
+    }
+    /**
+     * Value for point.target parameters. If "Endpoint" ist set, then
+     * smartUpdate will set the startpoint
+     */
+    private static final String paramValueEndpoint = "ENDPOINT";
+
+    /**
+     * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
+     *
+     * @return
+     */
+    public String getParamValueEndpoint() {
+        return paramValueEndpoint;
+    }
+    /**
+     * Flag to signify that this object has not been initialized.
+     *
+     */
+    private boolean initializedFlag = false;
+
+    /**
+     * Initialize a newly created JDriverUndertakesRideEntity
+     *
+     */
+    public void initialize() {
+
+        if (initializedFlag) {
+            return;
+        }
+
+        // set starttime to current Time
+        super.setRideStarttime(new Date(System.currentTimeMillis()));
+        super.setStartptAddress("TODO: init StartpointAddress");
+        super.setEndptAddress("TODO: init EndpointAddress");
+        super.setRideStartpt(new Point());
+        super.setRideEndpt(new Point());
+
+        // mark this as initialized
+        initializedFlag = true;
+
+    }
 } // class 

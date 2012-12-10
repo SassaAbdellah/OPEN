@@ -89,12 +89,22 @@
     
     
     <!-- Navigation Case -->
-    <!-- go to page where Drive Entities can be displayed     -->
+    <!-- go to page where Drive Entities are displayed     -->
     
     <navigation-rule>
         <navigation-case>
             <from-outcome>driver.driveDisplay</from-outcome>
             <to-view-id>/faces/protected/driver/driveDisplay.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+       <!-- Navigation Case -->
+    <!-- go to page where new Drive Entities get created    -->
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.driveCreate</from-outcome>
+            <to-view-id>/faces/protected/driver/driveCreate.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
