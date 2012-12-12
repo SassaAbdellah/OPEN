@@ -104,6 +104,8 @@ public class JFavoritePointEntity extends FavoritePointEntity {
 
     } // updateFromDB
 
+    
+    
     /**
      * Update Point data from HTTPRequest's Parameter. I.e: if HTTPRequest
      * transports Address/Displaystring or Coordinate points, then update the

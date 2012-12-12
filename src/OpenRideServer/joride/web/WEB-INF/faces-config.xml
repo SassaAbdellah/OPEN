@@ -110,6 +110,17 @@
     
     
     
+    <!-- Navigation Case -->
+    <!-- go to page where Routepoints for new Drive get created   -->
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.driveCreateRoute</from-outcome>
+            <to-view-id>/faces/protected/driver/driveCreateRouteForDrive.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
     
 
    <!-- Navigation Cases for "Profile and Preferences subsection"                             -->
@@ -199,7 +210,7 @@
 
 <!-- start page for picking a point    -->
 
-  <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome> pickpoint </from-outcome>
             <to-view-id>  /faces/public/geocoding/pickpoint.xhtml </to-view-id>
@@ -207,7 +218,7 @@
     </navigation-rule>
 
  <!-- geolocate to determine your current position -->
-  <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome> geolocate </from-outcome>
             <to-view-id>  /faces/public/geocoding/geolocate.xhtml </to-view-id>
@@ -215,7 +226,7 @@
     </navigation-rule>
 
  <!-- pick point from list of favorite points -->
-  <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome> pickfavorite </from-outcome>
             <to-view-id>  /faces/public/geocoding/pickFavorite.xhtml </to-view-id>
@@ -274,7 +285,8 @@
         <managed-bean-name>webflow</managed-bean-name>
         <managed-bean-class>de.avci.joride.utils.WebflowBean</managed-bean-class>
     
-        <managed-bean-scope>session</managed-bean-scope></managed-bean> 
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
         
         
         
@@ -328,8 +340,9 @@
     </managed-bean> 
         
         
-       <!-- ******  favoritePoints (JFavoritePoints)   ****** -->
-      
+       <!-- ******  favoritePoints (JFavoritePoints)               ***** -->
+       <!-- ******  we chose request scope, since we have to leave ***** --> 
+       <!-- ******  the page for picking points                    ***** -->
     <managed-bean> 
         <managed-bean-name>jfavpoint</managed-bean-name>
         <managed-bean-class>de.avci.joride.jbeans.favoritepoints.JFavoritePointEntity</managed-bean-class>
@@ -339,12 +352,21 @@
         
         
         
-         <!-- ******  Offers (JDriverUndertakesRideEntity)   ****** -->
-      
+    <!-- ****** Bean for ***exisisting*** offers (JDriverUndertakesRideEntity) , request scoped   ****** -->
+    <!-- ****** Note that there is also a bean for *new* offers, which is session scoped          ******-->
     <managed-bean> 
         <managed-bean-name>driverride</managed-bean-name>
         <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
+        
+        
+    <!-- ****** Bean for ***new*** offers (JDriverUndertakesRideEntity) , request scoped   ****** -->
+    <!-- ****** Note that there is also a bean for existing offers, which is request scoped          ******-->
+    <managed-bean> 
+        <managed-bean-name>newdriverride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
         
 

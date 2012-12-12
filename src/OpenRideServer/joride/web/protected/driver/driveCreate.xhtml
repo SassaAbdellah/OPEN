@@ -22,11 +22,11 @@
 
             <ui:define name="content">
 
+                <h1> "driver.driveCreate"  </h1>
 
-                <!-- initialize the bean if not yet done -->
-                #{driverride.initialize()}
-
-                <h1> TODO: Create new Drive  </h1>
+                #{newdriverride.initialize()}
+                #{newdriverride.smartUpdate()}
+                
                 <h:form>
                     <p>
                         <h2> #{msgs.rideStart} </h2>
@@ -34,19 +34,34 @@
 
                         <div class="formLabel">   #{msgs.rideStarttime}  </div>
                         <div class="formInput"> 
-                            <h:inputText value="#{driverride.rideStarttime}" />  
+                            <h:inputText value="#{newdriverride.rideStarttime}" />  
                         </div>
                         <!-- property ridecomment currently ommitted -->
                         <!-- as it -->
 
                         <div class="formLabel">  #{msgs.rideStartptAddress}             </div>
                         <div class="formInput"> 
-                            <h:inputTextarea value="#{driverride.startptAddress}" />   
+                            <h:inputTextarea value="#{newdriverride.startptAddress}" />   
                         </div>
-                        <div class="formInput">  
-                            (startpoint currently ommitted)
-                            <!-- h:inputText value="#{driverride.rideStartpt}" / -->     
-                        </div>
+                        <table>
+                            <tr>
+                                <td class="formLabel">TODO: lat </td> 
+                                <td> : </td>
+                                <td class="formInput"> 
+                                    #{newdriverride.latitudeStart}
+                                    <h:inputHidden value="#{newdriverride.latitudeStart}" />
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td class="formLabel">TODO: lon </td> 
+                               <td> : </td>
+                                <td class="formInput">
+                                    #{newdriverride.longitudeStart} 
+                                    <h:inputHidden value="#{newdriverride.longitudeStart}" />
+                                </td>
+                            </tr>
+                        </table>
+
 
 
                         <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
@@ -54,7 +69,7 @@
                             <!-- point parameters -->
                             <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/driver/driveCreate.xhtml"/>
                             <!-- set the target parameters, so we know which point to update -->
-                            <f:param name="#{point.paramTarget}"    value="#{driverride.paramValueStartpoint}"/>
+                            <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetStartpoint}"/>
 
                             <!-- webflow parameters -->
 
@@ -71,16 +86,29 @@
                     <p>
                         <h2>  #{msgs.rideDestination}    </h2>
                         <div class="formLabel"> #{msgs.rideDestinationAddress}</div> 
-
-                        <div class="formInput">  #{driverride.endptAddress}     </div>
-
+                        
                         <div class="formInput"> 
-                            <h:inputTextarea value="#{driverride.endptAddress}" />   
+                            <h:inputTextarea value="#{newdriverride.endptAddress}" />   
                         </div>
-                        <div class="formInput">  
-                            (input point disabled)
-                            <!-- h:inputText value="#{driverride.rideEndpt}" immediate="true" / -->     
-                        </div>
+                                            <table>
+                            <tr>
+                                <td class="formLabel">TODO: lat </td> 
+                                  <td> : </td>
+                                <td class="formInput"> 
+                                    #{newdriverride.latitudeEnd}
+                                    <h:inputHidden value="#{newdriverride.latitudeEnd}" />
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td class="formLabel">TODO: lon </td> 
+                                  <td> : </td>
+                                <td class="formInput">
+                                    #{newdriverride.longitudeEnd} 
+                                    <h:inputHidden value="#{newdriverride.longitudeEnd}" />
+                                </td>
+                            </tr>
+                        </table>
+
 
                         <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
 
@@ -88,7 +116,7 @@
                             <!-- point parameters -->
                             <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/driver/driveCreate.xhtml"/>
                             <!-- set the target parameters, so we know which point to update -->
-                            <f:param name="#{point.paramTarget}"    value="#{driverride.paramValueEndpoint}"/>
+                            <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetEndpoint}"/>
 
                             <!-- webflow parameters -->
 
@@ -105,7 +133,7 @@
                         <div class="formLabel"> #{msgs.rideAcceptableDetourInKm}       </div>
 
 
-                        <div class="formInput"> #{driverride.rideAcceptableDetourInKm} </div>
+                        <div class="formInput"> #{newdriverride.rideAcceptableDetourInKm} </div>
                     </p>
                     <!-- property rideAcceptableDetourInMin ommitted, we use -->
                     <!-- acceptable detour km instead                        -->
@@ -118,15 +146,22 @@
                     <!-- do not have support for real-time tracking                  -->
                     <p>
                         <div class="formLabel"> #{msgs.rideOfferedseatsNo}              </div>
-                        <div class="formInput">  #{driverride.rideOfferedseatsNo}            </div>
+                        <div class="formInput">  #{newdriverride.rideOfferedseatsNo}            </div>
 
                         <div class="formLabel"> #{msgs.rideRoutePointDistanceMeters}    </div>
-                        <div class="formInput">  #{driverride.rideRoutePointDistanceMeters}  </div>
+                        <div class="formInput">  #{newdriverride.rideRoutePointDistanceMeters}  </div>
 
                         <div class="formLabel">   #{msgs.rideSeriesId}                  </div>
-                        <div class="formInput">  #{driverride.rideSeriesId}                  </div>
+                        <div class="formInput">  #{newdriverride.rideSeriesId}                  </div>
                     </p>
 
+                    
+                    
+                    <h:commandLink action="driver.driveCreateRoute" >
+                        TODO: create Route for new Drive
+                    </h:commandLink>
+                    
+                    
 
                 </h:form>
 
