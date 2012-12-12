@@ -9,7 +9,10 @@
 
     <body>
 
-
+        <!-- ****************************************** -->
+        <!-- *** Create A Route for a new Drive         -->
+        <!-- ****************************************** -->
+        
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
             <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
@@ -23,14 +26,9 @@
             <ui:define name="content">
 
 
-                #{driverride.updateFromDB()}
-
-
-                <h1> TODO: rideId:  #{driverride.rideId} </h1>
-                
                 
                 <div class="formLabel">   #{msgs.rideStarttime}  </div>
-                <div class="formInput"> #{driverride.rideStarttime}   </div>
+                <div class="formInput"> #{newdriverride.rideStarttime}   </div>
 
                 
                 
@@ -38,16 +36,16 @@
                 <!-- as it -->
                 
                 <div class="formLabel">  #{msgs.rideStartptAddress}             </div>
-                <div class="formInput">  #{driverride.startptAddress}   </div>
+                <div class="formInput">  #{newdriverride.startptAddress}   </div>
                  
                 <table>
                     <tr> <td class="formLabel">TODO: lat </td> 
-                        <td class="formInput"> #{driverride.latitudeStart} 
+                        <td class="formInput"> #{newdriverride.latitudeStart} 
                         </td>
                     </tr>
                     <tr> 
                         <td class="formLabel">TODO: lon </td> 
-                        <td class="formInput"> #{driverride.longitudeStart}  
+                        <td class="formInput"> #{newdriverride.longitudeStart}  
                         </td>
                     </tr>
                 </table>
@@ -58,54 +56,16 @@
                 
                 
                 <div class="formLabel">  #{msgs.rideDestination}               </div>
-                <div class="formInput">  #{driverride.endptAddress}     </div>
-                <div class="formInput">  #{driverride.rideEndpt}        </div>
+                <div class="formInput">  #{newdriverride.endptAddress}     </div>
+                <div class="formInput">  #{newdriverride.rideEndpt}        </div>
                 
                                  
-                <table>
-                    <tr> <td class="formLabel">TODO: lat </td> 
-                        <td class="formInput"> #{driverride.latitudeEnd} 
-                        </td>
-                    </tr>
-                    <tr> 
-                        <td class="formLabel">TODO: lon </td> 
-                        <td class="formInput"> #{driverride.longitudeEnd}  
-                        </td>
-                    </tr>
-                </table>
-           
+            
                 
                 
                 
                 
-                
-
-                <div class="formLabel"> #{msgs.rideAcceptableDetourInKm}       </div>
-                <div class="formInput"> #{driverride.rideAcceptableDetourInKm} </div>
-
-                <!-- property rideAcceptableDetourInMin ommitted, we use -->
-                <!-- acceptable detour km instead                        -->
-
-                <!-- property rideAcceptableDetourInPercent is currently          -->
-                <!-- ommitted, as we do not know with percent of what we deal here -->
-               
-                
-                <!-- property rideCurrpos is currently ommitted, as we currently -->
-                <!-- do not have support for real-time tracking                  -->
-        
-
-             
-
-                <div class="formLabel"> #{msgs.rideOfferedseatsNo}              </div>
-                <div class="formInput">  #{driverride.rideOfferedseatsNo}            </div>
- 
-                <div class="formLabel"> #{msgs.rideRoutePointDistanceMeters}    </div>
-                <div class="formInput">  #{driverride.rideRoutePointDistanceMeters}  </div>
-
-                <div class="formLabel">   #{msgs.rideSeriesId}                  </div>
-                <div class="formInput">  #{driverride.rideSeriesId}                  </div>
-
-               
+              
                 
                 
                 <!-- Property "rideWeekdays" currently ommitted,        -->
@@ -143,11 +103,21 @@
 
 
                  
+                <p>
+                    TODO: Route for this Drive: <br/>
+                    <hr/>
+                    #{newdriverride.findRoutePointsAsJSON()}
+                    <hr/>
+                    
+                </p>
+                
+                
+                
                
                
                <script>
                
-               myroutepoints=#{driverride.routePointsAsJSON};
+               myroutepoints=#{newdriverride.findRoutePointsAsJSON()};
                 createMap("mapdiv", myroutepoints);
                
                

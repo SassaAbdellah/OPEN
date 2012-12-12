@@ -5,11 +5,6 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 
-import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
-import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
-import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import java.io.Serializable;
 
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
@@ -30,7 +25,7 @@ public class JRoutePointsEntity implements Serializable {
      */
      private List <RoutePointEntity> routePoints;
     
-     public List getRoutePoints(){
+     public List <RoutePointEntity> getRoutePoints(){
          return this.routePoints;
      }
      

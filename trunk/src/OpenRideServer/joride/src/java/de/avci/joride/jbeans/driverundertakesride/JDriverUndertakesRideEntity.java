@@ -10,6 +10,8 @@ import javax.inject.Named;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.PostGISPointUtil;
+import de.avci.joride.utils.WebflowPoint;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import javax.enterprise.context.SessionScoped;
 import org.postgis.Point;
 
 /**
@@ -29,7 +32,8 @@ import org.postgis.Point;
  *
  */
 @Named
-@RequestScoped
+@SessionScoped
+
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
     /**
@@ -179,12 +183,26 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * @return
      */
     public JRoutePointsEntity getRoutePoints() {
-
-
+        
         int rideID = this.getRideId();
         return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
 
     }
+    
+    
+        /**
+     * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
+     *
+     * @return
+     */
+    public JRoutePointsEntity findRoutePoints() {
+ 
+        return new JDriverUndertakesRideEntityService().findRoute(this);
+
+    }
+    
+    
+    
 
     /**
      * Get the RoutePoints for this Drive encoded in a JSONString
@@ -194,59 +212,212 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
+    
+    
+      /**
+     * Get the RoutePoints for this Drive encoded in a JSONString
+     *
+     * @return
+     */
+    public String findRoutePointsAsJSON() {
+        return this.findRoutePoints().getRoutePointsAsJSON();
+    }
+    
+    
+    
+    
+    
+    
     /**
      * Value for point.target parameters. If "Startpoint" ist set, then
      * smartUpdate will set the startpoint
      */
-    private static final String paramValueStartpoint = "STARTPOINT";
+    private static final String paramValueTargetStartpoint = "STARTPOINT";
 
     /**
      * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
      *
      * @return
      */
-    public String getParamValueStartpoint() {
-        return paramValueStartpoint;
+    public String getParamValueTargetStartpoint() {
+        return paramValueTargetStartpoint;
     }
     /**
      * Value for point.target parameters. If "Endpoint" ist set, then
      * smartUpdate will set the startpoint
      */
-    private static final String paramValueEndpoint = "ENDPOINT";
+    private static final String paramValueTargetEndpoint = "ENDPOINT";
 
     /**
      * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
      *
      * @return
      */
-    public String getParamValueEndpoint() {
-        return paramValueEndpoint;
+    public String getParamValueTargetEndpoint() {
+        return paramValueTargetEndpoint;
     }
-    /**
-     * Flag to signify that this object has not been initialized.
-     *
-     */
-    private boolean initializedFlag = false;
 
     /**
-     * Initialize a newly created JDriverUndertakesRideEntity
-     *
+     * Return the Longitude of the rideStartpt , or null if the rideStartpt is
+     * null;
      */
-    public void initialize() {
+    public double getLongitudeStart() {
 
-        if (initializedFlag) {
-            return;
+        if (this.getRideStartpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getRideStartpt().getX());
+    }
+
+    /**
+     * Return the Latitude of the rideStartpt , or null if the rideStartpt is
+     * null;
+     */
+    public double getLatitudeStart() {
+
+        if (this.getRideStartpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getRideStartpt().getY());
+    }
+
+    /**
+     * Return the Longitude of the rideEndpt , or null if the rideEndpt is null;
+     */
+    public double getLongitudeEnd() {
+
+        if (this.getRideEndpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getRideEndpt().getX());
+    }
+
+    /**
+     * Return the Latitude of the rideStartpt , or null if the rideStartpt is
+     * null;
+     */
+    public double getLatitudeEnd() {
+
+        if (this.getRideEndpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getRideEndpt().getY());
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLongitudeStart(double arg) {
+
+        if (this.getRideStartpt() == null) {
+            this.setRideStartpt(new Point(arg, 0));
         }
 
-        // set starttime to current Time
-        super.setRideStarttime(new Date(System.currentTimeMillis()));
-        super.setStartptAddress("TODO: init StartpointAddress");
-        super.setEndptAddress("TODO: init EndpointAddress");
-        super.setRideStartpt(new Point());
-        super.setRideEndpt(new Point());
-
-        // mark this as initialized
-        initializedFlag = true;
-
+        this.getRideStartpt().setX(arg);
     }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLatitudeStart(double arg) {
+
+        if (this.getRideStartpt() == null) {
+            this.setRideStartpt(new Point(0, arg));
+        }
+
+        this.getRideStartpt().setY(arg);
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLongitudeEnd(double arg) {
+
+        if (this.getRideEndpt() == null) {
+            this.setRideEndpt(new Point(arg, 0));
+        }
+
+        this.getRideEndpt().setX(arg);
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLatitudeEnd(double arg) {
+
+        if (this.getRideEndpt() == null) {
+            this.setRideEndpt(new Point(0, arg));
+        }
+
+        this.getRideEndpt().setY(arg);
+    }
+
+
+    public void smartUpdate() {
+
+        WebflowPoint webflowPoint = new WebflowPoint();
+        webflowPoint.smartUpdate();
+
+
+        //   
+        // see, if we should update the startpoints
+        // 
+
+        if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
+
+            if (webflowPoint.getParamAddress() != null) {
+                this.setStartptAddress(webflowPoint.getAddress());
+            }
+
+            // Set Start/End Latitude depending on target param
+            if (webflowPoint.getLat() != null) {
+                this.setLatitudeStart(webflowPoint.getLat());
+            }
+
+            // Set Start/End Longitude depending on target param
+            if (webflowPoint.getLon() != null) {
+                this.setLongitudeStart(webflowPoint.getLon());
+            }
+
+        } //   if(paramValueTargetStartpoint.equals(webflowPoint.getTarget()))
+
+
+
+
+        //   
+        // see, if we should update the endpoints
+        // 
+
+        if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
+
+            if (webflowPoint.getParamAddress() != null) {
+                this.setEndptAddress(webflowPoint.getAddress());
+            }
+
+            // Set Start/End Latitude depending on target param
+            if (webflowPoint.getLat() != null) {
+                this.setLatitudeEnd(webflowPoint.getLat());
+            }
+
+            // Set Start/End Longitude depending on target param
+            if (webflowPoint.getLon() != null) {
+                this.setLongitudeEnd(webflowPoint.getLon());
+            }
+
+        } //   if(paramValueTargetStartpoint.equals(webflowPoint.getTarget()))
+    }
+
+    
+        /** Initialize the RideStarttime property if it is not yet initialized.
+         * 
+         */
+      public  void initialize(){
+        
+            if(this.getRideStarttime()==null){
+                this.setRideStarttime(new Date(System.currentTimeMillis()));
+            }
+        
+        }
+    
+  
 } // class 
