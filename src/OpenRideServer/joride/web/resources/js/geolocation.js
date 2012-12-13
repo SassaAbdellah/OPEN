@@ -56,7 +56,7 @@ function showPosition(position)
         var mapperURL=mapURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat); 
 
         // build the URL for acceppting the place
-        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat); 
+        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+targetP+'\='+target); 
 
 
 

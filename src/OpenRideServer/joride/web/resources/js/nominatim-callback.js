@@ -52,6 +52,7 @@
    var i=0;
    while(i<numberOfResults){
         
+        
         var display=response[i].display_name;
         var lat=response[i].lat;
         var lon=response[i].lon;
@@ -70,7 +71,7 @@
         //console.log('mapperURL : '+mapperURL);
         
            // build the URL for acceppting the place
-        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+displayP+'\='+display); 
+        var targetedURL=targetURL+('\?'+lonP+'\='+lon+'&amp;'+latP+'\='+lat+'&amp;'+displayP+'\='+display+'&amp;'+targetP+'\='+target); 
   
         // dropped as not to annoy M$ IIE
         // 
