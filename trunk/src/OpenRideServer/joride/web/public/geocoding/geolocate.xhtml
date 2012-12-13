@@ -32,15 +32,7 @@
                 #{webflow.smartUpdate()}
                 #{point.smartUpdate()}
                 
-                
-                <p>
-                    TODO: TargetURL is : #{point.targetURL}
-                </p>
-
-                
-                
-                
-
+             
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
                 <h:outputScript library="js" name="geolocation.js" />   
 
@@ -82,8 +74,12 @@
                     
                     // Name of the Parameter to pass display String in URL
                     var displayP='#{point.paramDisplaystring}';
-                    // Name of the Parameter to pass calllerID in URL
-                    var callerIDP='#{point.paramTarget}';
+                    // Name of the Parameter to pass target in URL
+                    // (this is how page decides which point to update)
+                    var targetP='#{point.paramTarget}';
+                    // value of the target
+                    var target='#{point.target}'
+                    
                     // Name of the Parameter to pass retur    n address in URL
                     var returnAddressP='#{webflow.paramFinish}';
                     // URL where the mapper is (for displaying results in map)
