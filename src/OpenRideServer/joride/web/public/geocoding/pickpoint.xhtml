@@ -29,47 +29,45 @@
 
 
                 <h1>TODO: fix a place!</h1>
-                
-                
-                <p>
-                    #{point.smartUpdate()}
-                    Target URL is : #{point.targetURL}
-                </p>
+
+
+
+                #{point.smartUpdate()}
 
                 <h:form>
-                    
-                                        
-                        <p>
-                            <h:commandLink value="#{msgs.geolocationPickFromFavorites}" action="pickfavorite" >
-                                <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
-                            </h:commandLink>
-                        </p>
 
 
-                        <p>
-                            <h:commandLink value="#{msgs.geolocationGeolocate}" action="geolocate">
-                                
-                                 
-                                <f:param name="#{webflow.getParamBack()}" value="pickpoint"          />
-                                <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
-                                
-                                
-                            </h:commandLink>
-                        </p>
+                    <p>
+                        <h:commandLink value="#{msgs.geolocationPickFromFavorites}" action="pickfavorite" >
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                        </h:commandLink>
+                    </p>
 
-                        <p>
-                            <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim">
-                                <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
-                                <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
-                          
-                            </h:commandLink>
-                        </p>
-                   
+
+                    <p>
+                        <h:commandLink value="#{msgs.geolocationGeolocate}" action="geolocate">
+
+
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint"          />
+                            <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
+
+
+                        </h:commandLink>
+                    </p>
+
+                    <p>
+                        <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim">
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                            <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
+
+                        </h:commandLink>
+                    </p>
+
                 </h:form>
 
 
-                
-            
+
+
 
 
 

@@ -12,8 +12,9 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classPreferences" value="Highlight" />
+          
+             <!-- set "classDriver" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classDriver" value="Highlight" />
 
             <ui:define name="windowTitle">
                 #{msgs.title}
@@ -22,20 +23,23 @@
 
             <ui:define name="content">
 
-                <h1> "driver.driveCreate"  </h1>
+                <h1> #{msgs.rideNewDrive} </h1>
 
                 #{newdriverride.initialize()}
                 #{newdriverride.smartUpdate()}
                 
                 <h:form>
+                    
                     <p>
-                        <h2> #{msgs.rideStart} </h2>
-
-
-                        <div class="formLabel">   #{msgs.rideStarttime}  </div>
+                      <div class="formLabel">   #{msgs.rideStarttime}  </div>
                         <div class="formInput"> 
                             <h:inputText value="#{newdriverride.rideStarttime}" />  
                         </div>
+                    </p>
+                    <p>
+                                                
+                        <h2> #{msgs.rideStart} </h2>
+
                         <!-- property ridecomment currently ommitted -->
                         <!-- as it -->
 
