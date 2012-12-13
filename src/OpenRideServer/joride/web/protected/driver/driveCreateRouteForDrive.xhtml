@@ -12,7 +12,7 @@
         <!-- ****************************************** -->
         <!-- *** Create A Route for a new Drive         -->
         <!-- ****************************************** -->
-        
+
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
             <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
@@ -26,74 +26,95 @@
             <ui:define name="content">
 
 
-                
-                <div class="formLabel">   #{msgs.rideStarttime}  </div>
-                <div class="formInput"> #{newdriverride.rideStarttime}   </div>
 
-                
-                
-                <!-- property ridecomment currently ommitted -->
-                <!-- as it -->
-                
-                <div class="formLabel">  #{msgs.rideStartptAddress}             </div>
-                <div class="formInput">  #{newdriverride.startptAddress}   </div>
-                 
                 <table>
-                    <tr> <td class="formLabel">TODO: lat </td> 
-                        <td class="formInput"> #{newdriverride.latitudeStart} 
-                        </td>
+                    <tr>
+                        <td  class="formLabel">   #{msgs.rideStarttime}      </td>
+                        <td> : </td>
+                        <td class="formInput"> #{newdriverride.rideStarttime}   </td>
                     </tr>
+
+
+                    <!-- property ridecomment currently ommitted -->
+                    <!-- as it -->
+                    <tr>
+                        <td class="formLabel">  #{msgs.rideStartptAddress}     </td>
+                        <td> : </td>
+                        <td class="formInput">  #{newdriverride.startptAddress}   </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formLabel"> #{msgs.geolocationLatitude} </td>
+                        <td> : </td>
+                        <td class="formInput"> #{newdriverride.latitudeStart} </td>
+                    </tr>
+
                     <tr> 
-                        <td class="formLabel">TODO: lon </td> 
-                        <td class="formInput"> #{newdriverride.longitudeStart}  
-                        </td>
+                        <td class="formLabel">#{msgs.geolocationLongitude} </td>
+                        <td> : </td>
+                        <td class="formInput"> #{newdriverride.longitudeStart} </td>
                     </tr>
+
+
+                    <tr>
+                        <td class="formLabel">  #{msgs.rideDestination}        </td>
+                        <td> : </td>
+                        <td class="formInput">  #{newdriverride.endptAddress}     </td>
+                    </tr>
+
+                    <tr> 
+                        <td class="formLabel"> #{msgs.geolocationLatitude} </td>
+                        <td>:</td>
+                        <td class="formInput"> #{newdriverride.latitudeEnd}  </td>
+                    </tr>
+
+                    <tr> 
+                        <td class="formLabel">#{msgs.geolocationLongitude}  </td> 
+                        <td>:</td>
+                        <td class="formInput"> #{newdriverride.longitudeEnd}   </td>
+                    </tr>
+
+
+
                 </table>
-           
-                
-                
-                
-                
-                
-                <div class="formLabel">  #{msgs.rideDestination}               </div>
-                <div class="formInput">  #{newdriverride.endptAddress}     </div>
-                <div class="formInput">  #{newdriverride.rideEndpt}        </div>
-                
-                                 
-            
-                
-                
-                
-                
-              
-                
-                
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- Property "rideWeekdays" currently ommitted,        -->
                 <!-- as there currently seems to be no support for this -->
-             
-               
-               <!-- Property riderUndertakesRideEntityCollection currently ommitted -->
-               <!-- as we could not bring some sense into it *yet*  -->
-             
 
-               
-               
-               
+
+                <!-- Property riderUndertakesRideEntityCollection currently ommitted -->
+                <!-- as we could not bring some sense into it *yet*  -->
+
+
+
+
+
                 <!-- include standard jquery  -->
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
-                
+
                 <!-- we may deliver a local OpenLayers version 2.12              -->
                 <!-- alternatively, it can be included from OpenLayers.org   -->
-               
+
                 <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
                 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-               
-                  <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-               
-                  <!-- include functions for displaying the routing -->
-                  <h:outputScript library="js" name="jorideRouting.js" /> 
-                  
-                 
+
+                <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+
+                <!-- include functions for displaying the routing -->
+                <h:outputScript library="js" name="jorideRouting.js" /> 
+
+
                 <!-- **************************************************************************** -->
                 <!-- div to show the map  --> 
 
@@ -101,40 +122,26 @@
 
                 <div id="mapdiv" style="width:300px; height:300px;" > </div>
 
+                <!-- show routepoints in map -->
 
-                 
+                <script>
+               
+                    myroutepoints=#{newdriverride.findRoutePointsAsJSON()};
+                    createMap("mapdiv", myroutepoints);
+                             
+                </script>
+
                 <p>
-                    TODO: Route for this Drive: <br/>
-                    <hr/>
-                    #{newdriverride.findRoutePointsAsJSON()}
-                    <hr/>
-                    
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
                 </p>
-                
-                
-                
-               
-               
-               <script>
-               
-               myroutepoints=#{newdriverride.findRoutePointsAsJSON()};
-                createMap("mapdiv", myroutepoints);
-               
-               
-               
-               </script>
-
-               <p>
-            
-                #{webflow.smartUpdate()}
-
-                <h:form>
-                    <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
-                </h:form>
-               </p>
 
 
-          
+
             </ui:define>
 
 
