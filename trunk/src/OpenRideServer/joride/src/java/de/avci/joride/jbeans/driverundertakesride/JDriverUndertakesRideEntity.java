@@ -4,21 +4,19 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
-import de.avci.joride.utils.PostGISPointUtil;
 import de.avci.joride.utils.WebflowPoint;
 
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Iterator;
+
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import javax.enterprise.context.SessionScoped;
@@ -35,7 +33,34 @@ import org.postgis.Point;
 @SessionScoped
 
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
+    
+    
+    
+    /** Default Value for Acceptable Detour in Km.
+     *  May be changed by the user in Frontends.
+     */
+    private Integer ACCEPTABLE_DETOUR_KM_DEFAULT=10;
+    
+     /** Default Value for Acceptable Detour in Min.
+     *  May be changed by the user in Frontends.
+     */
+    private Integer ACCEPTABLE_DETOUR_MIN_DEFAULT=15;
+    
+    
+     /** Default Value for Acceptable Detour in Percent.
+     *  May be changed by the user in Frontends.
+     */
+    private Integer ACCEPTABLE_DETOUR_PERCENT_DEFAULT=20;
+    
 
+     /** Default Value for Number of offered seats.
+     *  May be changed by the user in Frontends.
+     */
+    private Integer NUMBER_SEATS_OFFERED_DEFAULT=1;
+    
+
+    
+    
     /**
      * Get a list of active drives for this driver.
      *
@@ -416,8 +441,59 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
             if(this.getRideStarttime()==null){
                 this.setRideStarttime(new Date(System.currentTimeMillis()));
             }
-        
+              
+            this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
+            this.setRideAcceptableDetourInMin(ACCEPTABLE_DETOUR_MIN_DEFAULT);
+            this.setRideAcceptableDetourInPercent(ACCEPTABLE_DETOUR_PERCENT_DEFAULT);
+            
+            this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
         }
     
+      
+      /** DriverUnderTakesRideController already provides support 
+       *  for setting intermediate points on a route.
+       * 
+       *  This is currently not supported by the frontend and routing mechs,
+       *  but to be added soon.
+       * 
+       *  Until then, this methods returns an empty Array, to satisfy 
+       *  the DriverUnderTakesRideController interface.
+       * 
+       * @return 
+       */
+      public Point[] getIntermediatePoints(){
+                   
+          return new Point[0];
+      }
+      
+      
+    
+      /** Create a new DriverUndertakesRideEntity and Save it to the Database.
+       *  Note that the set of Routepoints will always be 
+       *  created for this entity. Routepoints are not created
+       *  programmatically by the user.
+       * 
+       * 
+       * 
+       * 
+       *   @return id of the newly create DriverUndertakesRideEntity
+       */
+      public int addToDB(){
+          
+          
+          if(this.getRideId()!=null){
+              throw new Error("Cannot add Ride to Database, Id already exists");
+          }
+          
+          JDriverUndertakesRideEntityService jdures=new JDriverUndertakesRideEntityService();
+          
+          int my_id=jdures.addDriveSavely(this);
+          
+          this.setRideId(new Integer(my_id));
+          
+          return this.getRideId();
+          
+      }
+      
   
 } // class 

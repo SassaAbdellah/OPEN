@@ -4,7 +4,6 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
-
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.jbeans.driverundertakesride.JRoutePointsEntity;
@@ -20,12 +19,14 @@ import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 
 
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.LinkedList;
+import org.postgis.Point;
 
 
 
@@ -283,7 +284,133 @@ public class JDriverUndertakesRideEntityService {
       }
       
     
+      
+      /** Check if JDriverUndertakesRideEntity is ready to be saved to DB.
+       *  Brutally throws an error if not.
+       * 
+       * 
+       * @param jdure 
+       */
+      protected void checkJDriverUndertakesRideEntity(JDriverUndertakesRideEntity jdure){
+          
+          
+           String errPrefix="Checking JDriverUndertakeRideEntity failed, reason :\n";
+           
+            //Point ridestartPt
+           if(jdure.getRideStartpt()==null){ 
+               throw new Error(errPrefix+"rideStartpt is null");
+           }
+           
+            // Point rideendPt
+            if(jdure.getRideEndpt()==null){
+                  throw new Error(errPrefix+"rideEndpt is null");
+            }
+            
+            //  Point[] intermediatePoints
+              if(jdure.getIntermediatePoints()==null){
+                  throw new Error(errPrefix+"intermediate points are null");
+            }
+            
+            
+            //java.sql.Date ridestartTime
+            if(jdure.getRideStarttime()==null){
+                  throw new Error(errPrefix+"ride starttime is null");
+            }
+            //String rideComment
+            // jdure.getRideComment(),No checks, rideComment may possibly be null
+            
+            //Integer acceptableDetourInMin
+            if(jdure.getRideAcceptableDetourInMin()==null){
+                 throw new Error(errPrefix+"ride acceptable Detour in Min is null");
+            }
+            // Integer acceptableDetourKm
+            if(jdure.getRideAcceptableDetourInKm()==null){
+                 throw new Error(errPrefix+"ride acceptable Detour in KM is null");
+            }
+                
+                
+            // Integer acceptableDetourPercent,
+            if (jdure.getRideAcceptableDetourInPercent()==null){
+                 throw new Error(errPrefix+"ride acceptable Detour in Percent is null");
+            }
+     
+            //int offeredSeatsNo,
+           
+            
+            
+            //String startptAddress,
+            if(jdure.getStartptAddress()==null){
+                throw new Error(errPrefix+"startpoint Address is null");
+            }
+                
+            //String endptAddress
+            if(jdure.getEndptAddress()==null){
+             throw new Error(errPrefix+"endpoint Address is null");
+            }
+      }
      
     
+      /** Add a new Drive (rsp: driverUndertakesRideEntity) savely to the persistence layer.
+       *  As usually, savely here means that the calling user is determined
+       *  from http request and will get set as driver from serverside
+       *    
+       *  Note that the Route for this ride will not be 
+       *  transferred as a parameter, but will be autocreated.
+       *  TODO: dealing with the route as depicted above might    
+       *  not be what we want in the long run, so this 
+       *  should be revisited.
+       * 
+       * 
+       * 
+       * 
+       * 
+       * 
+       * @param jdure
+       * @return 
+       */
+      
+      public int addDriveSavely(JDriverUndertakesRideEntity jdure){
+   
+          // check integrity of Offer
+          this.checkJDriverUndertakesRideEntity(jdure);
+    
+           //
+          // Check, if drive does really belong to the calling user
+          //
+               
+         CustomerEntity ce=this.getCustomerEntity();
+         DriverUndertakesRideControllerLocal durcl=this.lookupDriverUndertakesRideControllerBeanLocal();
+         
+          
+         return durcl.addRide(
+             // Customer ID
+            ce.getCustId(),
+            //Point ridestartPt
+            jdure.getRideStartpt(),
+            // Point rideendPt
+            jdure.getRideEndpt(),
+            //  Point[] intermediatePoints
+            jdure.getIntermediatePoints(),
+            //java.sql.Date ridestartTime
+            new java.sql.Date(jdure.getRideStarttime().getTime()),
+            //String rideComment
+            jdure.getRideComment(),
+            //Integer acceptableDetourInMin
+            jdure.getRideAcceptableDetourInMin(),
+            // Integer acceptableDetourKm
+            jdure.getRideAcceptableDetourInKm(),
+            // Integer acceptableDetourPercent,
+            jdure.getRideAcceptableDetourInPercent(),
+            //int offeredSeatsNo,
+            jdure.getRideOfferedseatsNo(),
+            //String startptAddress,
+            jdure.getStartptAddress(),
+            //String endptAddress
+            jdure.getEndptAddress()
+            );
+
+      }
+      
+      
     
 } // class
