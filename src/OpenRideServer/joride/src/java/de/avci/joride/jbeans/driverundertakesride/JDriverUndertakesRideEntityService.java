@@ -175,6 +175,30 @@ public class JDriverUndertakesRideEntityService {
          
       } //  getDriveByIdSavely(int id)
     
+      
+      
+      /** Savely update JDriverUndertakesRideEntity from database
+       * 
+       *
+       * 
+       * @param rideId ride Id from the DriverUndertakesRideEntity providing the data.
+       *               If this is null, simply no update will be done. 
+       * 
+       * @param jdure  JDriverUndertakesRideEntity to be updated with data from database 
+       */
+      public void updateJDriverUndertakesRideEntityByIDSavely(Integer rideId, JDriverUndertakesRideEntity jdure){
+      
+      
+          if(rideId==null){
+              // nothing to do in that case!
+              return;
+          }
+          
+          
+          DriverUndertakesRideEntity dure=this.getDriveByIdSavely(rideId);
+          // update
+          jdure.updateFromDriverUndertakesRideEntity(dure);
+      }
     
  
       
