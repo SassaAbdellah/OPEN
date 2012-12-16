@@ -20,6 +20,7 @@ import java.util.Date;
 
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import org.postgis.Point;
 
 /**
@@ -114,7 +115,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         while (it.hasNext()) {
 
             JDriverUndertakesRideEntity jdure = new JDriverUndertakesRideEntity();
-            jdure.updateFromDB(it.next());
+            jdure.updateFromDriverUndertakesRideEntity(it.next());
 
             res.add(jdure);
         }
@@ -150,13 +151,14 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return getDateFormat().format(this.getRideStarttime());
     }
 
-    /**
-     * Update this Object's data from the Database.
-     *
-     * The id of the Object to be updated is read in from http-request
-     *
+ 
+    /** See, if the  CRUDConstants().getParamNameCrudId() parameter is  present in HTTPRequest.
+     * If the ID parameter is != null, then update data from DriverUndertakesRideEntity
+     * in database with rideId given by id parameter.
+     * If parameter's value is not null, then leave **this** untouched
+     * 
      */
-    public void updateFromDB() {
+    public void update() {
 
         String idStr = (new HTTPRequestUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
 
@@ -169,19 +171,16 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         }
 
 
-        DriverUndertakesRideEntity drue = new JDriverUndertakesRideEntityService().getDriveByIdSavely(id);
-
-        JDriverUndertakesRideEntity jdrue = new JDriverUndertakesRideEntity();
-        this.updateFromDB(drue);
+       
+        this.updateFromId(id);
 
     }
 
-    /**
-     * Update from a given DriverUndertakesRideEntity object.
+    /** Update from a given DriverUndertakesRideEntity object.
      *
-     * @param dure
+     *  @param dure DriverUndertakesRideEntityObject to update *this* object.
      */
-    public void updateFromDB(DriverUndertakesRideEntity dure) {
+    public void updateFromDriverUndertakesRideEntity(DriverUndertakesRideEntity dure) {
 
         this.setCustId(dure.getCustId());
         this.setEndptAddress(dure.getEndptAddress());
@@ -201,6 +200,22 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.setRiderUndertakesRideEntityCollection(dure.getRiderUndertakesRideEntityCollection());
         this.setStartptAddress(dure.getStartptAddress());
     }
+    
+    
+   /** Update *this* with the Data read in from database for given id,
+    *  or just do nothing if ID is null.
+    * 
+    * @param id rideId of the DriverUndertakeRide Entity to update from.
+    */
+   public void updateFromId(Integer id){
+       
+       JDriverUndertakesRideEntityService service=new JDriverUndertakesRideEntityService();   
+       service.updateJDriverUndertakesRideEntityByIDSavely(id, this);
+  
+   }
+    
+    
+    
 
     /**
      * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
@@ -229,10 +244,11 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     
     
 
-    /**
-     * Get the RoutePoints for this Drive encoded in a JSONString
+    /** Get the RoutePoints for this Drive encoded in a JSONString
      *
+     * 
      * @return
+     * 
      */
     public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
@@ -494,6 +510,39 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
           return this.getRideId();
           
       }
+      
+      
+      
+      
+        public void doCrudAction(ActionEvent evt) {
+
+        HTTPRequestUtil hru = new HTTPRequestUtil();
+
+        System.out.println("doCrudAction Event : " + evt.toString());
+
+        String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
+        System.out.println("Param Action : " + action);
+
+        String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
+        System.out.println("Param ID     : " + id);
+
+
+        // Deleting is not yet implemented,  
+        //
+        // if (CRUDConstants.PARAM_VALUE_CRUD_DELETE.equals(action)) {
+        //    this.delete(new Integer(id).intValue());
+         // }
+
+        
+        if (CRUDConstants.PARAM_VALUE_CRUD_CREATE.equals(action)) {
+            this.addToDB();
+        }
+
+    }
+
+      
+      
+      
       
   
 } // class 
