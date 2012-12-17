@@ -66,6 +66,9 @@ public interface RiderUndertakesRideControllerLocal {
 
     LinkedList<RiderUndertakesRideEntity> getAllRides();
 
+    /** get all rides/requests for customer ce, newest first  */
+    List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce);
+    
     List<RiderUndertakesRideEntity> getActiveRideRequestsByCustId(String custId);
 
     List<RiderUndertakesRideEntity> getRidesWithoutRatingByRider(CustomerEntity rider);

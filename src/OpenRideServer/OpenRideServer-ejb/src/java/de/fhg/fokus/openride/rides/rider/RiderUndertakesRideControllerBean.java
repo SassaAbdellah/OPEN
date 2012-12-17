@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.rides.rider;
 
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
@@ -71,7 +70,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     private UserTransaction u;
 
     /**
-     * This method returns the <code>startpoint</code> of a ride.
+     * This method returns the
+     * <code>startpoint</code> of a ride.
+     *
      * @param riderrouteId
      * @return null, if no Point was found; the startpoint of the ride.
      */
@@ -122,9 +123,12 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * TODO: update counts for available seats for each routepoint -> needs information about lift and drop index
-     *  FIXME: Swap fake rideId to real rideId
-     * @param riderRouteId FIXME: this is the fake <code>rideID</code>
+     * TODO: update counts for available seats for each routepoint -> needs
+     * information about lift and drop index FIXME: Swap fake rideId to real
+     * rideId
+     *
+     * @param riderRouteId FIXME: this is the fake
+     * <code>rideID</code>
      * @param riderrouteId FIXME: this is the real rideId
      * @return 1 if rider was added -1 if not
      */
@@ -200,9 +204,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         for (MatchEntity match : matches) {
             if (match.getDriverState() != null && match.getRiderState() != null && match.getDriverState().equals(MatchEntity.ACCEPTED) && match.getRiderState().equals(MatchEntity.ACCEPTED)) {
                 // this match has not to be deleted
-            /*TODO:
-                } else if(match.getDriverState() != null&& match.getRiderState() != null &&
-                (match.getRiderState() != MatchEntity.ACCEPTED || match.getDriverState() != MatchEntity.ACCEPTED) ){
+            /*
+                 * TODO: } else if(match.getDriverState() != null&&
+                 * match.getRiderState() != null && (match.getRiderState() !=
+                 * MatchEntity.ACCEPTED || match.getDriverState() !=
+                 * MatchEntity.ACCEPTED) ){
                  */
             } else {
                 // this match might be invalid due to changed driverroute!
@@ -242,8 +248,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method is called, when a new search or ride is persisted. It updates the
-     * Matches table.
+     * This method is called, when a new search or ride is persisted. It updates
+     * the Matches table.
      */
     public void callAlgorithm(int riderrouteId, boolean setRiderAccess) {
         // there are still free places
@@ -282,13 +288,15 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     /**
      * This method creates a new riderequest of a customer.
+     *
      * @param custId
      * @param starttime
      * @param noPassengers
      * @param startpt
      * @param endpt
      * @param price
-     * @return -1, if the Entity could not be persisted; the rideId to indentify the Ride later on.
+     * @return -1, if the Entity could not be persisted; the rideId to indentify
+     * the Ride later on.
      */
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment) {
         init();
@@ -300,7 +308,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         logger.info("---------------------------addRideRequest, customer is :" + customer + "----------------------");
 //        List<AccountHistoryEntity> a = (List<AccountHistoryEntity>)em.createNamedQuery("AccountHistoryEntity.findByCustId").setParameter("custId", customer.getCustId()).getResultList();
         if (customer != null) {
-            /* new change: primary key */
+            /*
+             * new change: primary key
+             */
             //r = new RiderUndertakesRideEntity(index, starttime,noPassengers,startpt,endpt,price,a.get(0).getAccountHistoryEntityPK().getAccountTimestamp());
 
             // FIXME: (pab) This index is only valid if a rideId with the same value exists!
@@ -309,7 +319,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             r.setCustId(customer);
             r.setComment(comment);
             logger.info("---------------------------addRideRequest 1: " + r.getCustId().getCustId());
-            
+
             em.persist(r);
             logger.log(Level.INFO, "riderundertakesride added ");
         } else {
@@ -327,8 +337,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     /**
      * This method searches for all the rides a user has had.
+     *
      * @param nickname The nickname of the user.
-     * @return null, if no entries were found; a List containing all <code>RiderUndertakesRideEntity</code>'s refering the user.
+     * @return null, if no entries were found; a List containing all
+     * <code>RiderUndertakesRideEntity</code>'s refering the user.
      */
     public List<RiderUndertakesRideEntity> getRidesByCustId(String custId) {
         List<RiderUndertakesRideEntity> returnList = null;
@@ -340,8 +352,18 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     /**
      * This method searches for all the rides a user has had.
+     *
      * @param nickname The nickname of the user.
-     * @return null, if no entries were found; a List containing all <code>RiderUndertakesRideEntity</code>'s refering the user.
+     * @return null, if no entries were found; a List containing all
+     * <code>RiderUndertakesRideEntity</code>'s refering the user.
+     *
+     *
+     * TODO: when looking inside the code found in original OpenRide, I found
+     * that contrary to what the method's name indicates, and contrary to the
+     * docs this method returns *future* rides only. Since it is not quite
+     * cleare where this is used, I have left it in place unchanged, but added
+     * getAllRidesForCustomer() method to do what was originally indicated.
+     *
      */
     public List<RiderUndertakesRideEntity> getRides(String nickname) {
         List<RiderUndertakesRideEntity> returnList = null;
@@ -389,9 +411,52 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 }
             });
         }
+
         returnList = future;
         return returnList;
     }
+
+    /** Get all rides for given customer, sorted by age, i.e: newest startdates
+     *  first
+     *
+     * @param cd : customer to search rides for
+     * @return
+     */
+    public List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce) {
+        List<RiderUndertakesRideEntity> returnList = null;
+
+
+        returnList = em.createNamedQuery("RiderUndertakesRideEntity.findByCustId").setParameter("custId", ce).getResultList();
+
+        if (returnList == null) {
+            returnList = new LinkedList<RiderUndertakesRideEntity>();
+            return returnList;
+        }
+
+
+        Collections.sort(returnList, new Comparator() {
+
+            public int compare(Object o1, Object o2) {
+                RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
+                RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
+                java.util.Date now = new java.util.Date();
+                // both rides are future rides
+                if (ent1 == null || ent2 == null) {
+                    return 0;
+                } else if (ent1.getStarttimeEarliest().before(ent2.getStarttimeEarliest())) {
+                    return 1;
+                } else if (ent1.getStarttimeEarliest().after(ent2.getStarttimeEarliest())) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        }); // end of call to collections.sort
+
+
+
+        return returnList;
+    } // getRides by CustomerId
 
     public List<RiderUndertakesRideEntity> getInactiveRideRequests(String nickname) {
         List<RiderUndertakesRideEntity> returnList = null;
@@ -447,9 +512,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method can be used to find active rides of a user with <code>nickname</code>.
+     * This method can be used to find active rides of a user with
+     * <code>nickname</code>.
+     *
      * @param nickname The nickname of the user.
-     * @return null, if no user with <code>nickname</code> was found; active rides of user <code>nickname</code>
+     * @return null, if no user with
+     * <code>nickname</code> was found; active rides of user
+     * <code>nickname</code>
      */
     public List<RiderUndertakesRideEntity> getActiveRideRequests(String nickname) {
         List<RiderUndertakesRideEntity> returnList = null;
@@ -509,13 +578,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     private List<MatchEntity> getActiveMatches(int riderrouteId) {
         List<MatchEntity> entities = em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
-        /*java.util.Date now = new java.util.Date();
-        for(MatchEntity m : entities){
-        if(m.getDriverUndertakesRideEntity().getRideStarttime().before(now)){
-        // this is not active anymore
-        entities.remove(m);
+        /*
+         * java.util.Date now = new java.util.Date(); for(MatchEntity m :
+         * entities){
+         * if(m.getDriverUndertakesRideEntity().getRideStarttime().before(now)){
+         * // this is not active anymore entities.remove(m); }
         }
-        }*/
+         */
         return entities;
     }
 
@@ -557,7 +626,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param rider
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a rider that have not yet been rated by both parties.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a rider that have not yet been rated by both parties.
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutRatingByRider(CustomerEntity rider) {
         try {
@@ -572,7 +642,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param rider
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a rider that have not yet been rated by this rider.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a rider that have not yet been rated by this rider.
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutGivenRatingByRider(CustomerEntity rider) {
         try {
@@ -587,7 +658,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param rider
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a rider that have not yet been rated by the driver.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a rider that have not yet been rated by the driver.
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutReceivedRatingByRider(CustomerEntity rider) {
         try {
@@ -602,7 +674,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param driver
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a driver that have not yet been rated by all parties.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a driver that have not yet been rated by all parties.
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutRatingByDriver(CustomerEntity driver) {
         try {
@@ -617,7 +690,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param driver
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a driver that have not yet been rated by this customer.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a driver that have not yet been rated by this customer.
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutGivenRatingByDriver(CustomerEntity driver) {
         try {
@@ -632,7 +706,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param driver
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a driver that have not yet been rated by (all of) the rider(s).
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a driver that have not yet been rated by (all of) the rider(s).
      */
     public List<RiderUndertakesRideEntity> getRidesWithoutReceivedRatingByDriver(CustomerEntity driver) {
         try {
@@ -647,7 +722,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param rider
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a rider that have been rated by the driver.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a rider that have been rated by the driver.
      */
     public List<RiderUndertakesRideEntity> getRatedRidesByRider(CustomerEntity rider) {
         try {
@@ -662,7 +738,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     /**
      *
      * @param driver
-     * @return ArrayList of IDs of the rides undertaken by a specific customer as a driver that have been rated by the rider.
+     * @return ArrayList of IDs of the rides undertaken by a specific customer
+     * as a driver that have been rated by the rider.
      */
     public List<RiderUndertakesRideEntity> getRatedRidesByDriver(CustomerEntity driver) {
         try {
@@ -712,7 +789,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             if (positiveRatings == 0) {
                 return 0;
             } else {
-                ratingsRatio = (float) positiveRatings / (float) (positiveRatings + /*neutralRatings + */ negativeRatings);
+                ratingsRatio = (float) positiveRatings / (float) (positiveRatings + /*
+                         * neutralRatings +
+                         */ negativeRatings);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -897,8 +976,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method can be used to remove a rider from a Ride, that has
-     * been already accepted by both parties.
+     * This method can be used to remove a rider from a Ride, that has been
+     * already accepted by both parties.
+     *
      * @param rideid
      */
     public void removeRiderFromRide(int riderrouteid, int rideid) {
@@ -933,7 +1013,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method can be used to get a list of offers that have been matched by the algorithm.
+     * This method can be used to get a list of offers that have been matched by
+     * the algorithm.
+     *
      * @param riderrouteId
      * @return
      */
@@ -967,12 +1049,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 if ((m.getDriverState() != null && m.getRiderState() != null) && (m.getDriverState().equals(MatchEntity.ACCEPTED) && m.getRiderState().equals(MatchEntity.ACCEPTED))) {
                     // If there already exists one Match that has been finished only return this one.
                     list.add(m);
-                    /*if (setRiderAccess) {
-                    for (MatchEntity match : list) {
-                    match.setRiderAccess(new Date());
-                    em.merge(match);
+                    /*
+                     * if (setRiderAccess) { for (MatchEntity match : list) {
+                     * match.setRiderAccess(new Date()); em.merge(match); }
                     }
-                    }*/
+                     */
                 } else if ((m.getDriverState() != null && m.getDriverState().equals(MatchEntity.REJECTED)) || (m.getRiderState() != null && m.getRiderState().equals(MatchEntity.REJECTED))) {
                     // at least one of both candidates has rejected the other
                     rejectedMatches.add(m);
@@ -1001,16 +1082,17 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
 
 
-        /*List<MatchEntity> matches = routeMatchingBean.searchForDrivers(riderrouteId);
-        matches = filter(matches);
-
-        for (MatchEntity m : matches) {
-        // persist match, so it can be found later on!
-        em.persist(m);
-        }
-
-        //persist open matchings
-        newMatches.addAll(matches);*/
+        /*
+         * List<MatchEntity> matches =
+         * routeMatchingBean.searchForDrivers(riderrouteId); matches =
+         * filter(matches);
+         *
+         * for (MatchEntity m : matches) { // persist match, so it can be found
+         * later on! em.persist(m); }
+         *
+         * //persist open matchings
+        newMatches.addAll(matches);
+         */
         newMatches.addAll(rejectedMatches);
 
 
@@ -1030,12 +1112,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 }
             });
 
-            /*if (setRiderAccess) {
-            for (MatchEntity m : list) {
-            m.setRiderAccess(new Date());
-            em.merge(m);
+            /*
+             * if (setRiderAccess) { for (MatchEntity m : list) {
+             * m.setRiderAccess(new Date()); em.merge(m); }
             }
-            }*/
+             */
 
             return list;
         } else {
@@ -1084,8 +1165,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method is comparing all the matches found by the algorithm to these which are
-     * already persisted in the db and adds each unmatched.
+     * This method is comparing all the matches found by the algorithm to these
+     * which are already persisted in the db and adds each unmatched.
+     *
      * @param newMatches
      * @param matches
      * @return
@@ -1115,7 +1197,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     /**
-     * This method returns such rides that have not yet been booked and which are nontheless in an active state.
+     * This method returns such rides that have not yet been booked and which
+     * are nontheless in an active state.
+     *
      * @param nickname
      * @return
      */
