@@ -125,12 +125,17 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
+     * 
+     * @deprecated  should be done centrally in utils* class
+     * 
      */
     protected DateFormat dateFormat;
 
     /**
      * Accessor with lazy instantiation
      *
+     * 
+     * 
      * @return
      */
     protected DateFormat getDateFormat() {

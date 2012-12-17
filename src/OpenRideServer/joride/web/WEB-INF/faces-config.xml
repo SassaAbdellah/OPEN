@@ -380,6 +380,16 @@
     </managed-bean> 
         
 
+   <!-- ****** Bean for ***exisisting*** RideRequests (JRiderUndertakesRideEntity) , request scoped   ****** -->
+    <!-- ****** Note that there is also a bean for *new* requests, which is session scoped          ******-->
+    <managed-bean> 
+        <managed-bean-name>ride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
+        
+ 
+ 
  
 
 
