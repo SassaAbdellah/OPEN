@@ -3,7 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
 
     <body>
 
@@ -32,6 +34,54 @@
                 </div>
                 
                 <h1> TODO: rider's section </h1>
+                
+                
+                
+                TODO: Your Ride Requests:
+                
+            
+              
+                    <h:dataTable 
+                        value="#{ride.ridesForRider}" 
+                        styleClass="table" 
+                        headerClass="tableheader"
+                        var="ride" 
+                        >
+
+
+
+                        <h:column>            
+                            <h3>
+                             #{ride.starttimeEarliest}
+    
+                            </h3>
+
+                            <div class="formInput">  #{msgs.rideStart} : </div>
+                            #{ride.startptAddress}
+                            <br/>
+                            <div class="formInput">  #{msgs.rideDestination} : </div> 
+                            #{ride.endptAddress}
+
+
+                            <div class="formInput">
+                                <h:commandLink action="rider.rideDisplay" value="#{msgs.formDisplay}">
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
+                                    <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                </h:commandLink>
+                            </div>
+
+                        </h:column>
+
+
+
+                    </h:dataTable>
+                
+                
+                
+                
+                
+                
+                
 
             </ui:define>
 
