@@ -29,6 +29,21 @@
                         <span class="nav2Highlight">
                             <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
                         </span> 
+                        
+                        
+                              |
+
+                        <span class="nav2Highlight">
+                            <h:commandLink action="rider.rideCreate"   value="#{msgs.rideNewRide}">  
+
+                                <f:param name="#{webflow.paramBack}"    value="rider" /> 
+                                <f:param name="#{webflow.paramFinish}"  value="rider" /> 
+                                <f:param name="#{webflow.paramCancel}"  value="rider" /> 
+                            </h:commandLink>
+                        </span>
+
+                        
+                        
                     </h:form>
 
                 </div>
@@ -67,7 +82,7 @@
                             <div class="formInput">
                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.formDisplay}">
                                     <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                    <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    <f:param name="#{webflow.getParamBack()}" value="rider"          />
                                 </h:commandLink>
                             </div>
 

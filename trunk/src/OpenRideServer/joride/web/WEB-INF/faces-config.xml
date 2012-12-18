@@ -85,10 +85,20 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>rider.rideDisplay</from-outcome>
-            <to-view-id>/faces/protected/rider/displayRide.xhtml </to-view-id>
+            <to-view-id>/faces/protected/rider/rideDisplay.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
 
+ <!-- Navigation Case                           -->
+   <!-- go to startpage for the rider section     -->
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.rideCreate</from-outcome>
+            <to-view-id>/faces/protected/rider/rideCreate.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 
 
@@ -404,6 +414,17 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean> 
         
+   <!-- ****** Bean for ***new*** RideRequests (JRiderUndertakesRideEntity) , session scoped   ****** -->
+    <!-- ****** Note that there is also a bean for *existing* requests, which is request scoped          ******-->
+    <managed-bean> 
+        <managed-bean-name>newride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+        
+ 
+ 
+ 
  
  
  

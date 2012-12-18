@@ -399,6 +399,10 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     }
 
 
+    /** Update bean, thereby evaluating the HTTPRequest
+     *  and update startpoint or endpoint data 
+     *  depending on params present in HTTPRequest
+     */
     public void smartUpdate() {
 
         WebflowPoint webflowPoint = new WebflowPoint();
