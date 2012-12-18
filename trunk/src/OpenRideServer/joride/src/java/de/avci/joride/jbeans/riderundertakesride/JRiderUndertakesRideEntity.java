@@ -5,6 +5,8 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.utils.CRUDConstants;
+import de.avci.joride.utils.HTTPRequestUtil;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
 import javax.enterprise.context.SessionScoped;
@@ -143,10 +145,50 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public List <RiderUndertakesRideEntity> getRidesForRider(){
     
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
-
-        
-        
     }
+    
+    
+    
+        
+   /** Update *this* with the Data read in from database for given id,
+    *  or just do nothing if ID is null.
+    * 
+    * @param id rideId of the DriverUndertakeRide Entity to update from.
+    */
+   public void updateFromRiderRouteId(Integer myRiderRouteId){
+       
+       JRiderUndertakesRideEntityService service=new JRiderUndertakesRideEntityService();   
+       service.updateJRiderUndertakesRideEntityByRiderRouteIDSavely(myRiderRouteId, this);
+             
+   }
+    
+     /** See, if the  CRUDConstants().getParamNameCrudId() parameter is  present in HTTPRequest.
+     * If the ID parameter is != null, then update data from RriverUndertakesRideEntity
+     * in database with riderRouteId given by id parameter.
+     * If parameter's value is not null, then leave **this** untouched
+     * 
+     */
+    public void update() {
+
+        String idStr = (new HTTPRequestUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
+
+        int id = 0;
+
+        try {
+            id = new Integer(idStr).intValue();
+        } catch (java.lang.NumberFormatException exc) {
+            throw new Error("ID Parameter does not contain Numeric Value " + idStr);
+        }
+
+
+       
+        this.updateFromRiderRouteId(id);
+
+    }
+
+  
+    
+    
 
 
 } // class
