@@ -85,6 +85,69 @@ public class JRiderUndertakesRideEntityService {
       }
       
       
+        /** Savely get the Ride with given riderRouteId.
+       *  
+       *  Current user/customer is determined from HTTPRequest's AuthPrincipal.
+       * 
+       * @return 
+       */
+      public RiderUndertakesRideEntity getRideByRiderRouteIdSavely(int myRiderRouteId){
+      
+          
+         CustomerEntity ce=this.getCustomerEntity();
+         RiderUndertakesRideControllerLocal rurcl=this.lookupRiderUndertakesRideControllerBeanLocal();
+         
+     
+         if(ce==null){ 
+             throw new Error ("Cannot determine Ride, customerEntity is null");
+         }
+         
+         if(ce.getCustNickname()==null){ 
+             throw new Error ("Cannot determine Ride, customerNickname is null");
+         } 
+         
+         
+        RiderUndertakesRideEntity rure=rurcl.getRideByRiderRouteId(myRiderRouteId);
+     
+         
+         
+         if(rure.getCustId().getCustId()  != ce.getCustId()){
+             throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
+         }
+         
+         return rure;
+         
+      } //  getDriveByIdSavely(int id)
+    
+      
+      
+       
+     
+      /** Savely update JRiderUndertakesRideEntity from database
+       * 
+       *
+       * 
+       * @param riderRouteId  ride Id from the DriverUndertakesRideEntity providing the data.
+       *                      If this is null, simply no update will be done. 
+       * 
+       * @param jdure  JDriverUndertakesRideEntity to be updated with data from database 
+       */
+      public void updateJRiderUndertakesRideEntityByRiderRouteIDSavely(Integer riderRouteId, JRiderUndertakesRideEntity jrure){
+      
+      
+          if(riderRouteId==null){
+              // nothing to do in that case!
+              return;
+          }
+          
+          
+           RiderUndertakesRideEntity rure=this.getRideByRiderRouteIdSavely(riderRouteId);
+          // update
+          jrure.updateFromRiderUndertakesRideEntity(rure);
+      }
+    
+ 
+      
         
     
 }

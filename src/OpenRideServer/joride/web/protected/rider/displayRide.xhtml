@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+
+            <!-- set "classRider" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classRider" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+
+                <div id="navbar2">
+
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
+                        </span> 
+                    </h:form>
+
+                </div>
+
+
+                #{ride.update()}
+
+
+
+                <h1> TODO: Display Ride #{ride.riderrouteId} </h1>
+
+
+
+
+                <h2> TODO: Data to be entered by User initially </h2>
+
+                <p>
+                    <div class="formLabel">  TODO:  starttimeEarliest </div>
+                    <div class="formInput">  #{ride.starttimeEarliest} </div>
+
+                    <div class="formLabel">  TODO:  starttimeLatest </div>
+                    <div class="formInput">  #{ride.starttimeLatest} </div>
+
+                    <div class="formLabel">   TODO: noPassengers </div>
+                    <div class="formInput">  #{ride.noPassengers} </div>
+
+                    <div class="formLabel">   TODO:  price </div>
+                    <div class="formInput">  #{ride.price} </div>
+
+
+                    <div class="formLabel">  TODO: startptAddress </div>
+                    <div class="formInput">  #{ride.startptAddress} </div>
+
+                    <div class="formLabel">  TODO:  Point startpt </div>
+                    <div class="formInput">  #{ride.startpt} </div>
+
+                    <div class="formLabel">  TODO:  endptAddress </div>
+                    <div class="formInput">  #{ride.endptAddress} </div>
+
+                    <div class="formLabel">   TODO: Point endpt </div>
+                    <div class="formInput">  #{ride.endpt} </div>
+
+
+                    <h3> TODO: Comment (currently unused) </h3>
+                    <p>
+                        <div class="formLabel">   TODO: comment </div>
+                        <div class="formInput">  #{ride.comment} </div>
+                    </p>
+                </p>
+
+
+                <h2> TODO: matching Data </h2>
+                <p>
+
+                    <div class="formLabel">  TODO:  timestampbooked </div>
+                    <div class="formInput">  #{ride.timestampbooked} </div>
+                    <div class="formLabel">  TODO: timestamprealized </div>
+                    <div class="formInput">  #{ride.timestamprealized} </div>
+                    <div class="formLabel">  TODO: rideId </div>
+                    <div class="formInput">  #{ride.rideId} </div>
+                </p>
+
+
+
+                <h2> TODO: Rating </h2>
+                <p>
+                    <div class="formLabel">  TODO:  givenrating </div>
+                    <div class="formInput">  #{ride.givenrating} </div>
+
+                    <div class="formLabel">  TODO:  givenratingComment </div>
+                    <div class="formInput">  #{ride.givenratingComment} </div>
+
+                    <div class="formLabel">  TODO:  givenratingDate </div>
+                    <div class="formInput">  #{ride.givenratingDate} </div>
+
+                    <div class="formLabel">  TODO:  receivedrating </div>
+                    <div class="formInput">  #{ride.receivedrating} </div>
+
+                    <div class="formLabel">  TODO: receivedratingComment </div>
+                    <div class="formInput">  #{ride.receivedratingComment} </div>
+
+                    <div class="formLabel">  TODO:  receivedratingDate </div>
+                    <div class="formInput">  #{ride.receivedratingDate} </div>
+                </p>
+
+
+                <h2> TODO: Generated Data </h2>
+                <p>
+
+                    <div class="formLabel"> TODO: riderrouteId </div>
+                    <div class="formInput">  #{ride.riderrouteId} </div>
+
+                    <div class="formLabel">  TODO:  custId </div>
+                    <div class="formInput">  #{ride.custId} </div>
+
+                </p>
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

@@ -77,6 +77,22 @@
     </navigation-rule>
 
 
+
+   <!-- Navigation Case                           -->
+   <!-- go to startpage for the rider section     -->
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.rideDisplay</from-outcome>
+            <to-view-id>/faces/protected/rider/displayRide.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+
+
    <!-- Navigation Case                            -->
    <!-- go to startpage for the driver section     -->
 
