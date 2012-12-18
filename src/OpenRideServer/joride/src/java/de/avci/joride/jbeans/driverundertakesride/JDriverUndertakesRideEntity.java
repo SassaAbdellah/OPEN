@@ -215,7 +215,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
    public void updateFromId(Integer id){
        
        JDriverUndertakesRideEntityService service=new JDriverUndertakesRideEntityService();   
-       service.updateJDriverUndertakesRideEntityByIDSavely(id, this);
+       service.updateJDriverUndertakesRideEntityByIDSafely(id, this);
   
    }
     
@@ -493,7 +493,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
       
       
     
-      /** Create a new DriverUndertakesRideEntity and Save it to the Database.
+      /** Create a new DriverUndertakesRideEntity and save it to the Database.
        *  Note that the set of Routepoints will always be 
        *  created for this entity. Routepoints are not created
        *  programmatically by the user.
@@ -512,7 +512,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
           
           JDriverUndertakesRideEntityService jdures=new JDriverUndertakesRideEntityService();
           
-          int my_id=jdures.addDriveSavely(this);
+          int my_id=jdures.addDriveSafely(this);
           
           this.setRideId(new Integer(my_id));
           
