@@ -33,7 +33,9 @@
                     <p>
                         <div class="formLabel">   #{msgs.rideStarttime}  </div>
                         <div class="formInput"> 
-                            <h:inputText value="#{newdriverride.rideStarttime}" />  
+                            <h:inputText value="#{newdriverride.rideStarttime}" >                
+                                <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
+                            </h:inputText>
                         </div>
                     </p>
                     <p>

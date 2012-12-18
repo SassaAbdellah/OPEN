@@ -22,6 +22,14 @@
             <base-name>de.avci.joride.navigation</base-name>
             <var>nav</var>
         </resource-bundle>
+        
+          <!-- Date/Time Properties ******************************* -->
+        <resource-bundle>
+            <base-name>de.avci.joride.datetime</base-name>
+            <var>datetime</var>
+        </resource-bundle>
+        
+        
       
     </application>
 
