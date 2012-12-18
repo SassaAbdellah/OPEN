@@ -128,6 +128,15 @@
 
 
 
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
+                </p>
+
 
             </ui:define>
 

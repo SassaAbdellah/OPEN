@@ -7,11 +7,14 @@ package de.avci.joride.jbeans.riderundertakesride;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
+import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.List;
+import org.postgis.Point;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -186,7 +189,219 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
     }
 
-  
+        /** Initialize the RideStarttime property if it is not yet initialized.
+         * 
+         */
+      public  void initialize(){
+        
+          
+            // naturally, we cannot start earlier then now
+            if(this.getStarttimeEarliest()==null){
+                this.setStarttimeEarliest(new Date(System.currentTimeMillis()));
+            }
+           
+            // two hours from now seems to be a good default
+            if(this.getStarttimeLatest()==null){
+                this.setStarttimeLatest(new Date(System.currentTimeMillis()+(1000*60*60*2)));
+            }
+            
+           
+            this.setNoPassengers(1);
+        }
+    
+      
+    
+    
+    /**
+     * Value for point.target parameters. If "Startpoint" ist set, then
+     * smartUpdate will set the startpoint
+     */
+    private static final String paramValueTargetStartpoint = "STARTPOINT";
+
+    /**
+     * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
+     *
+     * @return
+     */
+    public String getParamValueTargetStartpoint() {
+        return paramValueTargetStartpoint;
+    }
+    /**
+     * Value for point.target parameters. If "Endpoint" ist set, then
+     * smartUpdate will set the startpoint
+     */
+    private static final String paramValueTargetEndpoint = "ENDPOINT";
+
+    /**
+     * Trivial Accessor making paramValueStartpoint accessible with JSF Methods
+     *
+     * @return
+     */
+    public String getParamValueTargetEndpoint() {
+        return paramValueTargetEndpoint;
+    }
+
+    /**
+     * Return the Longitude of the rideStartpt , or null if the rideStartpt is
+     * null;
+     */
+    public double getLongitudeStart() {
+
+        if (this.getStartpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getStartpt().getX());
+    }
+
+    /**
+     * Return the Latitude of the rideStartpt , or null if the rideStartpt is
+     * null;
+     */
+    public double getLatitudeStart() {
+
+        if (this.getStartpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getStartpt().getY());
+    }
+
+    /**
+     * Return the Longitude of the rideEndpt , or null if the rideEndpt is null;
+     */
+    public double getLongitudeEnd() {
+
+        if (this.getEndpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getEndpt().getX());
+    }
+
+    /**
+     * Return the Latitude of the rideStartpt , or null if the rideStartpt is
+     * null;
+     */
+    public double getLatitudeEnd() {
+
+        if (this.getEndpt() == null) {
+            return new Double(0);
+        }
+        return new Double(getEndpt().getY());
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLongitudeStart(double arg) {
+
+        if (this.getStartpt() == null) {
+            this.setStartpt(new Point(arg, 0));
+        }
+
+        this.getStartpt().setX(arg);
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLatitudeStart(double arg) {
+
+        if (this.getStartpt() == null) {
+            this.setStartpt(new Point(0, arg));
+        }
+
+        this.getStartpt().setY(arg);
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLongitudeEnd(double arg) {
+
+        if (this.getEndpt() == null) {
+            this.setEndpt(new Point(arg, 0));
+        }
+
+        this.getEndpt().setX(arg);
+    }
+
+    /**
+     * set the latitude of the rideStartpt
+     */
+    public void setLatitudeEnd(double arg) {
+
+        if (this.getEndpt() == null) {
+            this.setEndpt(new Point(0, arg));
+        }
+
+        this.getEndpt().setY(arg);
+    }
+    
+    
+    /** Update bean, thereby evaluating the HTTPRequest
+     *  and update startpoint or endpoint data 
+     *  depending on params present in HTTPRequest
+     */
+    public void smartUpdate() {
+
+        WebflowPoint webflowPoint = new WebflowPoint();
+        webflowPoint.smartUpdate();
+
+
+        //   
+        // see, if we should update the startpoints
+        // 
+
+        if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
+
+            if (webflowPoint.getParamAddress() != null) {
+                this.setStartptAddress(webflowPoint.getAddress());
+            }
+
+            // Set Start/End Latitude depending on target param
+            if (webflowPoint.getLat() != null) {
+                this.setLatitudeStart(webflowPoint.getLat());
+            }
+
+            // Set Start/End Longitude depending on target param
+            if (webflowPoint.getLon() != null) {
+                this.setLongitudeStart(webflowPoint.getLon());
+            }
+
+        } //   if(paramValueTargetStartpoint.equals(webflowPoint.getTarget()))
+        
+        
+        
+          //   
+        // see, if we should update the endpoints
+        // 
+
+        if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
+
+            if (webflowPoint.getParamAddress() != null) {
+                this.setEndptAddress(webflowPoint.getAddress());
+            }
+
+            // Set Start/End Latitude depending on target param
+            if (webflowPoint.getLat() != null) {
+                this.setLatitudeEnd(webflowPoint.getLat());
+            }
+
+            // Set Start/End Longitude depending on target param
+            if (webflowPoint.getLon() != null) {
+                this.setLongitudeEnd(webflowPoint.getLon());
+            }
+
+        } //   if(paramValueTargetEndpoint.equals(webflowPoint.getTarget()))
+
+        
+        
+        
+        
+
+    } // smartUpdate
+
+
+
     
     
 

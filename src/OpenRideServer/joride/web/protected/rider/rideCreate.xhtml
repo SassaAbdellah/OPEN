@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+
+            <!-- set "classRider" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classRider" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+
+                <div id="navbar2">
+
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
+                        </span> 
+                    </h:form>
+
+                </div>
+
+
+                #{newride.initialize()}
+                #{newride.smartUpdate()}
+
+
+                <h1> TODO: Create New Ride </h1>
+
+
+
+                <h:form> <!-- form for entering ride data -->
+                <h2> TODO: Data to be entered by User initially </h2>
+                
+
+                <p>
+                    <div class="formLabel">  TODO:  starttimeEarliest </div>
+                    <div class="formInput">  <h:inputText value="#{newride.starttimeEarliest}" /> </div>
+
+                    <div class="formLabel">  TODO:  starttimeLatest </div>
+                    <div class="formInput">   <h:inputText value="#{newride.starttimeLatest}"/> </div>
+
+                    <div class="formLabel">   TODO: noPassengers </div>
+                    <div class="formInput">  <h:inputText value="#{newride.noPassengers}" /> </div>
+
+                    <div class="formLabel">   TODO:  price </div>
+                    <div class="formInput">  <h:inputText value="#{newride.price}"/> </div>
+
+
+                    <div class="formLabel">  TODO: startptAddress </div>
+
+                    
+                    <p>    <!-- Beginning of "set data for Startpoint" section -->
+
+                    <h2> #{msgs.rideStart} </h2>
+               
+
+
+                        <!-- property ridecomment currently ommitted -->
+                        <!-- as it -->
+
+                        <div class="formLabel">  #{msgs.rideStartptAddress}             </div>
+                        <div class="formInput"> 
+                            <h:inputTextarea value="#{newride.startptAddress}" />   
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="formLabel"> #{msgs.geolocationLatitude} </td> 
+                                <td> : </td>
+                                <td class="formInput"> 
+                                    #{newride.latitudeStart}
+                                    <h:inputHidden value="#{newride.latitudeStart}" />
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td class="formLabel"> #{msgs.geolocationLongitude} </td> 
+                                <td> : </td>
+                                <td class="formInput">
+                                    #{newride.longitudeStart} 
+                                    <h:inputHidden value="#{newride.longitudeStart}" />
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                        <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
+
+                            <!-- point parameters -->
+                            <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/rider/rideCreate.xhtml"/>
+                            <!-- set the target parameters, so we know which point to update -->
+                            <f:param name="#{point.paramTarget}"    value="#{newride.paramValueTargetStartpoint}"/>
+
+                            <!-- webflow parameters -->
+
+                            <f:param name="#{webflow.paramBack}"    value="rider.rideCreate" /> 
+                            <f:param name="#{webflow.paramFinish}"  value="rider.rideCreate" /> 
+                            <f:param name="#{webflow.paramCancel}"  value="rider.rideCreate" /> 
+
+                        </h:commandLink>
+
+                    </p> <!-- End of "set data for Startpoint" section -->
+
+                    <p> <!-- Beginning of "set data for Endpoint" section -->
+                        
+                        <h2>  #{msgs.rideDestination}    </h2>
+                        <div class="formLabel"> #{msgs.rideDestinationAddress}</div> 
+
+                        <div class="formInput"> 
+                            <h:inputTextarea value="#{newride.endptAddress}" />   
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="formLabel">#{msgs.geolocationLatitude} </td> 
+                                <td> : </td>
+                                <td class="formInput"> 
+                                    #{newride.latitudeEnd}
+                                    <h:inputHidden value="#{newride.latitudeEnd}" />
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td class="formLabel"> #{msgs.geolocationLongitude} </td> 
+                                <td> : </td>
+                                <td class="formInput">
+                                    #{newride.longitudeEnd} 
+                                    <h:inputHidden value="#{newride.longitudeEnd}" />
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
+
+
+                            <!-- point parameters -->
+                            <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/rider/rideCreate.xhtml"/>
+                            <!-- set the target parameters, so we know which point to update -->
+                            <f:param name="#{point.paramTarget}"    value="#{newride.paramValueTargetEndpoint}"/>
+
+                            <!-- webflow parameters -->
+
+                            <f:param name="#{webflow.paramBack}"    value="rider.rideCreate" /> 
+                            <f:param name="#{webflow.paramFinish}"  value="rider.rideCreate" /> 
+                            <f:param name="#{webflow.paramCancel}"  value="rider.rideCreate" /> 
+
+
+                        </h:commandLink>
+
+                    </p> <!-- End of "set data for Endpoint" section -->
+
+
+                    <h3> Todo: Comment </h3>
+                    <p>
+                        <div class="formLabel">   TODO: Comment (Unused in Original OR, but should soon be revived!)  </div>
+                        <div class="formInput">  #{newride.comment} </div>
+                    </p>
+                </p>
+                
+                
+                </h:form> <!-- form for entering ride data -->
+
+
+                <h2> TODO: Generated Data </h2>
+                <p>
+
+                    <div class="formLabel"> TODO: riderrouteId </div>
+                    <div class="formInput">  #{newride.riderrouteId} </div>
+
+                    <div class="formLabel">  TODO:  custId </div>
+                    <div class="formInput">  #{newride.custId} </div>
+
+                </p>
+
+
+
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
+                </p>
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
