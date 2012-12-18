@@ -38,49 +38,60 @@
 
 
 
-                <h1> TODO: Display Ride #{ride.riderrouteId} </h1>
+                <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
 
 
 
+                <table>   
+                    <tr>
+                        <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
+                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>   <span class="formInput">  #{ride.starttimeEarliest} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.rideStarttimeLatest} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.starttimeLatest} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.rideNoPassengers} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.noPassengers} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.ridePrice} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.price} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  TODO:  Point startpt </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.startpt} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>  <span class="formLabel">   TODO: Point endpt </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.endpt} </span> </td>
+                    </tr>
+                    <tr>
+                        <td>   <span class="formLabel">  #{msgs.rideComment} </span> </td>
+                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>   <span class="formInput">  #{ride.comment} </span> </td>
+                    </tr>
 
-                <h2> TODO: Data to be entered by User initially </h2>
+                </table>
 
-                <p>
-                    <div class="formLabel">  TODO:  starttimeEarliest </div>
-                    <div class="formInput">  #{ride.starttimeEarliest} </div>
-
-                    <div class="formLabel">  TODO:  starttimeLatest </div>
-                    <div class="formInput">  #{ride.starttimeLatest} </div>
-
-                    <div class="formLabel">   TODO: noPassengers </div>
-                    <div class="formInput">  #{ride.noPassengers} </div>
-
-                    <div class="formLabel">   TODO:  price </div>
-                    <div class="formInput">  #{ride.price} </div>
-
-
-                    <div class="formLabel">  TODO: startptAddress </div>
-                    <div class="formInput">  #{ride.startptAddress} </div>
-
-                    <div class="formLabel">  TODO:  Point startpt </div>
-                    <div class="formInput">  #{ride.startpt} </div>
-
-                    <div class="formLabel">  TODO:  endptAddress </div>
-                    <div class="formInput">  #{ride.endptAddress} </div>
-
-                    <div class="formLabel">   TODO: Point endpt </div>
-                    <div class="formInput">  #{ride.endpt} </div>
-
-
-                    <h3> TODO: Comment (currently unused) </h3>
-                    <p>
-                        <div class="formLabel">   TODO: comment </div>
-                        <div class="formInput">  #{ride.comment} </div>
-                    </p>
-                </p>
-
-
-                <h2> TODO: matching Data </h2>
+                <h2> TODO: Data concerned with Matches </h2>
                 <p>
 
                     <div class="formLabel">  TODO:  timestampbooked </div>
@@ -93,7 +104,7 @@
 
 
 
-                <h2> TODO: Rating </h2>
+                <h2> TODO: Data concerned with Rating </h2>
                 <p>
                     <div class="formLabel">  TODO:  givenrating </div>
                     <div class="formInput">  #{ride.givenrating} </div>
@@ -113,19 +124,6 @@
                     <div class="formLabel">  TODO:  receivedratingDate </div>
                     <div class="formInput">  #{ride.receivedratingDate} </div>
                 </p>
-
-
-                <h2> TODO: Generated Data </h2>
-                <p>
-
-                    <div class="formLabel"> TODO: riderrouteId </div>
-                    <div class="formInput">  #{ride.riderrouteId} </div>
-
-                    <div class="formLabel">  TODO:  custId </div>
-                    <div class="formInput">  #{ride.custId} </div>
-
-                </p>
-
 
 
                 <p> <!-- webflow stanza -->

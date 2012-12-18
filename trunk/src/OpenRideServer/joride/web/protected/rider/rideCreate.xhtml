@@ -38,29 +38,37 @@
                 #{newride.smartUpdate()}
 
 
-                <h1> TODO: Create New Ride </h1>
+                <h1> TODO: create new RideRequest </h1>
 
 
 
                 <h:form> <!-- form for entering ride data -->
-                    <h2> TODO: Data to be entered by User initially </h2>
-
-
+                 
                     <p>
-                        <div class="formLabel">  TODO:  starttimeEarliest </div>
-                        <div class="formInput">  <h:inputText value="#{newride.starttimeEarliest}" /> </div>
+                        <div class="formLabel">  #{msgs.rideStarttimeEarliest} </div>
+                        <div class="formInput"> 
+                            <h:inputText value="#{newride.starttimeEarliest}" >   
+                                <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
+                            </h:inputText> 
+                        </div>
 
-                        <div class="formLabel">  TODO:  starttimeLatest </div>
-                        <div class="formInput">   <h:inputText value="#{newride.starttimeLatest}"/> </div>
+                        <div class="formLabel">  #{msgs.rideStarttimeLatest} </div>
+                        <div class="formInput">   
+                            <h:inputText value="#{newride.starttimeLatest}"> 
+                               <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
+                            </h:inputText>
+                        
+                        </div>
 
-                        <div class="formLabel">   TODO: noPassengers </div>
-                        <div class="formInput">  <h:inputText value="#{newride.noPassengers}" /> </div>
+                        <div class="formLabel">  #{msgs.rideNoPassengers} </div>
+                        <div class="formInput">  
+                            <h:inputText value="#{newride.noPassengers}" > 
+                                <f:convertNumber  integerOnly="true" />
+                            </h:inputText> 
+                        </div>
 
-                        <div class="formLabel">   TODO:  price </div>
+                        <div class="formLabel">   #{msgs.ridePrice} </div>
                         <div class="formInput">  <h:inputText value="#{newride.price}"/> </div>
-
-
-                        <div class="formLabel">  TODO: startptAddress </div>
 
 
                         <p>    <!-- Beginning of "set data for Startpoint" section -->
@@ -114,6 +122,8 @@
 
                         </p> <!-- End of "set data for Startpoint" section -->
 
+                        
+                        
                         <p> <!-- Beginning of "set data for Endpoint" section -->
 
                             <h2>  #{msgs.rideDestination}    </h2>
@@ -162,9 +172,8 @@
                         </p> <!-- End of "set data for Endpoint" section -->
 
 
-                        <h3> Todo: Comment </h3>
                         <p>
-                            <div class="formLabel">   TODO: Comment (Unused in Original OR, but should soon be revived!)  </div>
+                            <div class="formLabel">  #{msgs.rideComment} TODO: (Unused in Original OR, but should soon be revived!)  </div>
                             <div class="formInput">  #{newride.comment} </div>
                         </p>
                     </p>
