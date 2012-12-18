@@ -48,7 +48,7 @@ public class JCardetailsEntityService {
        * @return 
        */
       public CustomerEntity getCustomerEntity(){
-          return (new JCustomerEntityService()).getCustomerEntitySavely();
+          return (new JCustomerEntityService()).getCustomerEntitySafely();
       }
       
       

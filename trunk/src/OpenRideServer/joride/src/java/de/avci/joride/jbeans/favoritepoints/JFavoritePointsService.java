@@ -49,14 +49,14 @@ public class JFavoritePointsService {
        * @return 
        */
       public CustomerEntity getCustomerEntity(){
-          return (new JCustomerEntityService()).getCustomerEntitySavely();
+          return (new JCustomerEntityService()).getCustomerEntitySafely();
       }
       
   
       
       /** Returns the list of favourite points for the 
        *  current customer.  
-       *  Current customer is determined savely from HTTPRequest's
+       *  Current customer is determined safely from HTTPRequest's
        *  Auth Principal 
        * 
        * 

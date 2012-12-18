@@ -55,7 +55,7 @@ public class JCustomerEntity extends CustomerEntity {
     public void updateFromDB() {
 
 
-        CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntitySavely();
+        CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntitySafely();
 
         this.setCustAccountBalance(ce.getCustAccountBalance());
         this.setCustAddrCity(ce.getCustAddrCity());

@@ -79,7 +79,7 @@ public class JDriverUndertakesRideEntityService {
        * @return 
        */
       public CustomerEntity getCustomerEntity(){
-          return (new JCustomerEntityService()).getCustomerEntitySavely();
+          return (new JCustomerEntityService()).getCustomerEntitySafely();
       }
       
       
@@ -141,13 +141,13 @@ public class JDriverUndertakesRideEntityService {
       
       
                 
-      /** Savely get the Drive with given ID.
+      /** Safely get the Drive with given ID.
        *  
        *  Current user/customer is determined from HTTPRequest's AuthPrincipal.
        * 
        * @return 
        */
-      public DriverUndertakesRideEntity getDriveByIdSavely(int id){
+      public DriverUndertakesRideEntity getDriveByIdSafely(int id){
       
           
          CustomerEntity ce=this.getCustomerEntity();
@@ -173,11 +173,11 @@ public class JDriverUndertakesRideEntityService {
          
          return dure;
          
-      } //  getDriveByIdSavely(int id)
+      } //  getDriveByIdSafely(int id)
     
       
       
-      /** Savely update JDriverUndertakesRideEntity from database
+      /** Safely update JDriverUndertakesRideEntity from database
        * 
        *
        * 
@@ -186,7 +186,7 @@ public class JDriverUndertakesRideEntityService {
        * 
        * @param jdure  JDriverUndertakesRideEntity to be updated with data from database 
        */
-      public void updateJDriverUndertakesRideEntityByIDSavely(Integer rideId, JDriverUndertakesRideEntity jdure){
+      public void updateJDriverUndertakesRideEntityByIDSafely(Integer rideId, JDriverUndertakesRideEntity jdure){
       
       
           if(rideId==null){
@@ -195,7 +195,7 @@ public class JDriverUndertakesRideEntityService {
           }
           
           
-          DriverUndertakesRideEntity dure=this.getDriveByIdSavely(rideId);
+          DriverUndertakesRideEntity dure=this.getDriveByIdSafely(rideId);
           // update
           jdure.updateFromDriverUndertakesRideEntity(dure);
       }
@@ -374,8 +374,8 @@ public class JDriverUndertakesRideEntityService {
       }
      
     
-      /** Add a new Drive (rsp: driverUndertakesRideEntity) savely to the persistence layer.
-       *  As usually, savely here means that the calling user is determined
+      /** Add a new Drive (rsp: driverUndertakesRideEntity) safely to the persistence layer.
+       *  As usually, safely here means that the calling user is determined
        *  from http request and will get set as driver from serverside
        *    
        *  Note that the Route for this ride will not be 
@@ -393,7 +393,7 @@ public class JDriverUndertakesRideEntityService {
        * @return 
        */
       
-      public int addDriveSavely(JDriverUndertakesRideEntity jdure){
+      public int addDriveSafely(JDriverUndertakesRideEntity jdure){
    
           // check integrity of Offer
           this.checkJDriverUndertakesRideEntity(jdure);

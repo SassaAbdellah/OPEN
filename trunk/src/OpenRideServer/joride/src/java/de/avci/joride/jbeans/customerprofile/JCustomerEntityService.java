@@ -45,7 +45,7 @@ public class JCustomerEntityService {
      *  Thus, no dangerous passing of nicknames in parameters is necessary.
      * 
      */
-    public CustomerEntity getCustomerEntitySavely() {
+    public CustomerEntity getCustomerEntitySafely() {
   
         // SecurityMeasure: ensure that the userName is equal to
         // the AuthPrincipal of the Request
@@ -71,9 +71,9 @@ public class JCustomerEntityService {
      * @return the customer id associated to the current HTTPRequest's Principal 
      * 
      */
-    Integer getCustIDSavely(){
+    Integer getCustIDSafely(){
     
-        CustomerEntity ce=getCustomerEntitySavely();
+        CustomerEntity ce=getCustomerEntitySafely();
         
         if(ce==null){
             System.err.println("CustomerEntity was null, cannot return custID");
@@ -81,7 +81,7 @@ public class JCustomerEntityService {
         }
         
         return ce.getCustId();
-    } // getCustIdSavely()
+    } // getCustIdSafely()
     
      
    
@@ -124,7 +124,7 @@ public class JCustomerEntityService {
            // we can proceed to adding data to db        
            CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
            
-           Integer customerID=this.getCustIDSavely();
+           Integer customerID=this.getCustIDSafely();
                System.out.println("customerID is : "+customerID);
            
            if(customerID==null){
@@ -193,7 +193,7 @@ public class JCustomerEntityService {
            // we can proceed to adding data to db        
            CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
            
-           Integer customerID=this.getCustIDSavely();
+           Integer customerID=this.getCustIDSafely();
                System.out.println("customerID is : "+customerID);
            
            if(customerID==null){
@@ -252,7 +252,7 @@ public class JCustomerEntityService {
            // we can proceed to adding data to db        
            CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
            
-           Integer customerID=this.getCustIDSavely();
+           Integer customerID=this.getCustIDSafely();
                System.out.println("customerID is : "+customerID);
            
            if(customerID==null){

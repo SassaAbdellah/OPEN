@@ -5,6 +5,7 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
@@ -14,6 +15,7 @@ import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.List;
+import javax.faces.event.ActionEvent;
 import org.postgis.Point;
 
 /**
@@ -24,26 +26,22 @@ import org.postgis.Point;
  */
 @Named
 @SessionScoped
-
-
 public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
-    
-    
-    
-          /**
+
+    /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
-     * 
-     * @deprecated  should be done centrally in utils* class
-     * 
+     *
+     * @deprecated should be done centrally in utils* class
+     *
      */
     protected DateFormat dateFormat;
 
     /**
      * Accessor with lazy instantiation
      *
-     * 
-     * 
+     *
+     *
      * @return
      */
     protected DateFormat getDateFormat() {
@@ -63,12 +61,9 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public String getStartDateFormatted() {
         return getDateFormat().format(this.getStarttimeEarliest());
     }
-    
-    
-    
-    
 
-    /** Update from a given RiderUndertakesRideEntity object.
+    /**
+     * Update from a given RiderUndertakesRideEntity object.
      *
      * @param rure RiderUndertakesRideEntity to update from
      */
@@ -82,7 +77,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         // private String givenratingComment;
         this.setGivenratingComment(rure.getGivenratingComment());
-        
+
         // private Date givenratingDate;
         this.setGivenratingDate(rure.getGivenratingDate());
 
@@ -92,7 +87,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         // private String receivedratingComment;
         this.setReceivedratingComment(rure.getReceivedratingComment());
-       
+
         // private Date receivedratingDate;
         this.setReceivedratingDate(rure.getReceivedratingDate());
 
@@ -136,40 +131,37 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         this.setComment(rure.getComment());
 
     } //   public void updateFromRiderUndertakesRideEntit
-    
-    
-    
-    
-    
-    /** Lists *all* rides this customer has ever requested
-     * 
-     * @return 
+
+    /**
+     * Lists *all* rides this customer has ever requested
+     *
+     * @return
      */
-    public List <RiderUndertakesRideEntity> getRidesForRider(){
-    
+    public List<RiderUndertakesRideEntity> getRidesForRider() {
+
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
-    
-    
-    
-        
-   /** Update *this* with the Data read in from database for given id,
-    *  or just do nothing if ID is null.
-    * 
-    * @param id rideId of the DriverUndertakeRide Entity to update from.
-    */
-   public void updateFromRiderRouteId(Integer myRiderRouteId){
-       
-       JRiderUndertakesRideEntityService service=new JRiderUndertakesRideEntityService();   
-       service.updateJRiderUndertakesRideEntityByRiderRouteIDSavely(myRiderRouteId, this);
-             
-   }
-    
-     /** See, if the  CRUDConstants().getParamNameCrudId() parameter is  present in HTTPRequest.
-     * If the ID parameter is != null, then update data from RriverUndertakesRideEntity
-     * in database with riderRouteId given by id parameter.
-     * If parameter's value is not null, then leave **this** untouched
-     * 
+
+    /**
+     * Update *this* with the Data read in from database for given id, or just
+     * do nothing if ID is null.
+     *
+     * @param id rideId of the DriverUndertakeRide Entity to update from.
+     */
+    public void updateFromRiderRouteId(Integer myRiderRouteId) {
+
+        JRiderUndertakesRideEntityService service = new JRiderUndertakesRideEntityService();
+        service.updateJRiderUndertakesRideEntityByRiderRouteIDSavely(myRiderRouteId, this);
+
+    }
+
+    /**
+     * See, if the CRUDConstants().getParamNameCrudId() parameter is present in
+     * HTTPRequest. If the ID parameter is != null, then update data from
+     * RriverUndertakesRideEntity in database with riderRouteId given by id
+     * parameter. If parameter's value is not null, then leave **this**
+     * untouched
+     *
      */
     public void update() {
 
@@ -184,34 +176,31 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         }
 
 
-       
+
         this.updateFromRiderRouteId(id);
 
     }
 
-        /** Initialize the RideStarttime property if it is not yet initialized.
-         * 
-         */
-      public  void initialize(){
-        
-          
-            // naturally, we cannot start earlier then now
-            if(this.getStarttimeEarliest()==null){
-                this.setStarttimeEarliest(new Date(System.currentTimeMillis()));
-            }
-           
-            // two hours from now seems to be a good default
-            if(this.getStarttimeLatest()==null){
-                this.setStarttimeLatest(new Date(System.currentTimeMillis()+(1000*60*60*2)));
-            }
-            
-           
-            this.setNoPassengers(1);
+    /**
+     * Initialize the RideStarttime property if it is not yet initialized.
+     *
+     */
+    public void initialize() {
+
+
+        // naturally, we cannot start earlier then now
+        if (this.getStarttimeEarliest() == null) {
+            this.setStarttimeEarliest(new Date(System.currentTimeMillis()));
         }
-    
-      
-    
-    
+
+        // two hours from now seems to be a good default
+        if (this.getStarttimeLatest() == null) {
+            this.setStarttimeLatest(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 2)));
+        }
+
+
+        this.setNoPassengers(1);
+    }
     /**
      * Value for point.target parameters. If "Startpoint" ist set, then
      * smartUpdate will set the startpoint
@@ -335,11 +324,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         this.getEndpt().setY(arg);
     }
-    
-    
-    /** Update bean, thereby evaluating the HTTPRequest
-     *  and update startpoint or endpoint data 
-     *  depending on params present in HTTPRequest
+
+    /**
+     * Update bean, thereby evaluating the HTTPRequest and update startpoint or
+     * endpoint data depending on params present in HTTPRequest
      */
     public void smartUpdate() {
 
@@ -368,10 +356,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
             }
 
         } //   if(paramValueTargetStartpoint.equals(webflowPoint.getTarget()))
-        
-        
-        
-          //   
+
+
+
+        //   
         // see, if we should update the endpoints
         // 
 
@@ -393,17 +381,58 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         } //   if(paramValueTargetEndpoint.equals(webflowPoint.getTarget()))
 
-        
-        
-        
-        
-
     } // smartUpdate
 
+    /**
+     * Create a new RiderUndertakesRideEntity and save it to the Database.
+     * Return the Id of the newly created database.
+     *
+     * @return id of the newly create DriverUndertakesRideEntity
+     */
+    public int addToDB() {
 
 
+        if (this.getRiderrouteId() != null) {
+            throw new Error("Cannot add Ride to Database, riderrouteid already exists");
+        }
+
+        JRiderUndertakesRideEntityService jrures = new JRiderUndertakesRideEntityService();
+
+        int my_id = jrures.addRideRequest(this);
+
+        this.setRiderrouteId(new Integer(my_id));
+
+        return this.getRiderrouteId();
+
+    } // addToDB
     
     
+       
+        public void doCrudAction(ActionEvent evt) {
+
+        HTTPRequestUtil hru = new HTTPRequestUtil();
+
+        System.out.println("doCrudAction Event : " + evt.toString());
+
+        String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
+        System.out.println("Param Action : " + action);
+
+        String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
+        System.out.println("Param ID     : " + id);
 
 
+        // Deleting is not yet implemented,  
+        //
+        // if (CRUDConstants.PARAM_VALUE_CRUD_DELETE.equals(action)) {
+        //    this.delete(new Integer(id).intValue());
+         // }
+
+        
+        if (CRUDConstants.PARAM_VALUE_CRUD_CREATE.equals(action)) {
+            this.addToDB();
+        }
+
+    }
+    
+    
 } // class
