@@ -141,6 +141,22 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
+    
+     /**  Lists *all* **active** **open** rides for this customer.
+     *  I.e: Rides which have lastStartTime still in the future,
+     *  and are not booked.
+     *
+     * @return list of all Active OpenRides
+     */
+    public List<RiderUndertakesRideEntity> getActiveOpenRidesForRider() {
+
+        return (new JRiderUndertakesRideEntityService()).getActiveOpenRides();
+    }
+
+    
+    
+    
+    
 
     /**
      * Update *this* with the Data read in from database for given id, or just
