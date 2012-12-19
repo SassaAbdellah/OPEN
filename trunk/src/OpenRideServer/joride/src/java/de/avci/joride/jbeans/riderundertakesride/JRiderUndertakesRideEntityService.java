@@ -184,4 +184,38 @@ public class JRiderUndertakesRideEntityService {
                 //String endptAddress
                 jrure.getEndptAddress());
     }
+    
+    
+    
+    /** Return a list of *recent* rides, of this user i.e: 
+     *  Rides for which the "lastStartTime" value is still in the future.
+     *  and which are not booked.
+     * 
+     * @return 
+     */
+    public List <RiderUndertakesRideEntity> getActiveOpenRides(){
+        
+        
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+       
+        if(ce.getCustNickname()==null){
+             throw new Error("Cannot determine Rides, customer's nickname is null");
+        }
+    
+      
+        return rurcl.getActiveOpenRides(ce.getCustNickname());
+        
+    } // getActiveOpenRides
+    
+    
+    
+    
+    
 } // class
