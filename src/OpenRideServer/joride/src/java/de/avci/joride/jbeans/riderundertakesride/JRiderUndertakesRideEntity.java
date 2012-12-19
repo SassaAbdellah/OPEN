@@ -9,14 +9,19 @@ import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntitySer
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.Iterator;
 import javax.faces.event.ActionEvent;
 import org.postgis.Point;
+
+
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -141,22 +146,33 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
-    
-     /**  Lists *all* **active** **open** rides for this customer.
-     *  I.e: Rides which have lastStartTime still in the future,
-     *  and are not booked.
+
+    /**Lists *all* **active** **open** rides for this customer. I.e: Rides which
+     * have lastStartTime still in the future, and are not booked.
      *
      * @return list of all Active OpenRides
      */
-    public List<RiderUndertakesRideEntity> getActiveOpenRidesForRider() {
+    public List<JRiderUndertakesRideEntity> getActiveOpenRidesForRider() {
 
-        return (new JRiderUndertakesRideEntityService()).getActiveOpenRides();
+        List<RiderUndertakesRideEntity> activeOpenRides = (new JRiderUndertakesRideEntityService()).getActiveOpenRides();
+
+        List <JRiderUndertakesRideEntity> res = new LinkedList <JRiderUndertakesRideEntity>();
+
+        Iterator <RiderUndertakesRideEntity> it=activeOpenRides.iterator();
+        
+        while(it.hasNext()){
+            JRiderUndertakesRideEntity jrue=new JRiderUndertakesRideEntity();
+            jrue.updateFromRiderUndertakesRideEntity(it.next());
+            res.add(jrue);
+        }
+        
+        
+        return res;
     }
-
     
     
-    
-    
+   
+  
 
     /**
      * Update *this* with the Data read in from database for given id, or just
@@ -398,6 +414,12 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         } //   if(paramValueTargetEndpoint.equals(webflowPoint.getTarget()))
 
     } // smartUpdate
+    
+    
+    
+    
+    
+   
 
     /**
      * Create a new RiderUndertakesRideEntity and save it to the Database.
@@ -421,10 +443,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         return this.getRiderrouteId();
 
     } // addToDB
-    
-    
-       
-        public void doCrudAction(ActionEvent evt) {
+
+    public void doCrudAction(ActionEvent evt) {
 
         HTTPRequestUtil hru = new HTTPRequestUtil();
 
@@ -441,13 +461,32 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         //
         // if (CRUDConstants.PARAM_VALUE_CRUD_DELETE.equals(action)) {
         //    this.delete(new Integer(id).intValue());
-         // }
+        // }
 
-        
+
         if (CRUDConstants.PARAM_VALUE_CRUD_CREATE.equals(action)) {
             this.addToDB();
         }
-
+        
+    } // doCrudAction()
+    
+   
+    
+    
+    /** Returns a list of Matching Drive Offers for this ride
+     * 
+     * @return Returns a list of Matching Drive Offers for this ride
+     */
+    public List <MatchEntity> getMatches(){
+        return (new JRiderUndertakesRideEntityService()).getMatchesForRide(this.getRiderrouteId());
+    }
+    
+    /** Returns the Number of OpenMatches for this RideRequest
+     * 
+     * @return  Returns the Number of OpenMatches for this RideRequest
+     */
+    public int getNoMatches(){
+        return this.getMatches().size();
     }
     
     
