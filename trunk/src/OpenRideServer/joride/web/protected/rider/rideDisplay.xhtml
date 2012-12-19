@@ -36,13 +36,13 @@
 
                 #{ride.update()}
 
-
-
-                <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
-
-
-
                 <table>   
+                    <tr>
+                        <td colspan="3">
+                                 <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
+                        </td>
+                    </tr>
+                    
                     <tr>
                         <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
                         <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
@@ -64,25 +64,49 @@
                         <td>  <span class="formInput">  #{ride.price} </span> </td>
                     </tr>
                     <tr>
+                        <td colspan="3"> <h2> #{msgs.rideStart} </h2> </td>
+                    </tr>
+                    <tr>
                         <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
                         <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                         <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
                     </tr>
                     <tr>
-                        <td>  <span class="formLabel">  TODO:  Point startpt </span> </td>
+                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
                         <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.startpt} </span> </td>
+                        <td>  <span class="formInput">  #{ride.longitudeStart} </span> </td>
                     </tr>
+
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.latitudeStart} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">  <h2> #{msgs.rideDestination} </h2> </td>
+                    </tr>
+
                     <tr>
                         <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
                         <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                         <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
                     </tr>
+
+
                     <tr>
-                        <td>  <span class="formLabel">   TODO: Point endpt </span> </td>
+                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
                         <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.endpt} </span> </td>
+                        <td>  <span class="formInput">  #{ride.longitudeEnd} </span> </td>
                     </tr>
+
+                    <tr>
+                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
+                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>  <span class="formInput">  #{ride.latitudeEnd} </span> </td>
+                    </tr>
+
+
                     <tr>
                         <td>   <span class="formLabel">  #{msgs.rideComment} </span> </td>
                         <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>

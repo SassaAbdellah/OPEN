@@ -7,6 +7,8 @@ package de.avci.joride.jbeans.riderundertakesride;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
@@ -34,6 +36,22 @@ public class JRiderUndertakesRideEntityService {
      */
     public CustomerEntity getCustomerEntity() {
         return (new JCustomerEntityService()).getCustomerEntitySafely();
+    }
+
+    /**
+     * Lookup MatchingBeanLocal that controls my requests.
+     *
+     * @return
+     */
+    protected RouteMatchingBeanLocal lookupRouteMatchingBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (RouteMatchingBeanLocal) c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/RouteMatchingBean!de.fhg.fokus.openride.matching.RouteMatchingBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+
     }
 
     /**
@@ -141,8 +159,9 @@ public class JRiderUndertakesRideEntityService {
         jrure.updateFromRiderUndertakesRideEntity(rure);
     }
 
-    /** Add new RideRequest to the Database,
-     *  generates and returns the ID of the so created ride request.
+    /**
+     * Add new RideRequest to the Database, generates and returns the ID of the
+     * so created ride request.
      */
     public int addRideRequest(JRiderUndertakesRideEntity jrure) {
 
@@ -184,18 +203,16 @@ public class JRiderUndertakesRideEntityService {
                 //String endptAddress
                 jrure.getEndptAddress());
     }
-    
-    
-    
-    /** Return a list of *recent* rides, of this user i.e: 
-     *  Rides for which the "lastStartTime" value is still in the future.
-     *  and which are not booked.
-     * 
-     * @return 
+
+    /**
+     * Return a list of *recent* rides, of this user i.e: Rides for which the
+     * "lastStartTime" value is still in the future. and which are not booked.
+     *
+     * @return
      */
-    public List <RiderUndertakesRideEntity> getActiveOpenRides(){
-        
-        
+    public List<RiderUndertakesRideEntity> getActiveOpenRides() {
+
+
         CustomerEntity ce = this.getCustomerEntity();
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
@@ -204,18 +221,27 @@ public class JRiderUndertakesRideEntityService {
             throw new Error("Cannot determine Rides, customerEntity is null");
         }
 
-       
-        if(ce.getCustNickname()==null){
-             throw new Error("Cannot determine Rides, customer's nickname is null");
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customer's nickname is null");
         }
-    
-      
+
+
         return rurcl.getActiveOpenRides(ce.getCustNickname());
-        
+
     } // getActiveOpenRides
+
+    /**
+     * Returns a list of Matches for a rideRequest
+     *
+     * @return
+     */
+    public List<MatchEntity> getMatchesForRide(int riderrouteId) {
+
+        return this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
+    }
     
     
-    
-    
+   
     
 } // class

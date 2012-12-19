@@ -78,6 +78,8 @@
                             <div class="formInput">  #{msgs.rideDestination} : </div> 
                             #{ride.endptAddress}
 
+                            <div class="formInput"> TODO: Number of Matching Rides:  </div>
+                            #{ride.noMatches}
 
                             <div class="formInput">
                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.formDisplay}">
@@ -86,6 +88,8 @@
                                 </h:commandLink>
                             </div>
 
+                            
+                            
                         </h:column>
 
 
