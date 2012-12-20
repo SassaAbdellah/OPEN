@@ -39,10 +39,10 @@
                 <table>   
                     <tr>
                         <td colspan="3">
-                                 <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
+                            <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
                         <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
@@ -113,41 +113,80 @@
                         <td>   <span class="formInput">  #{ride.comment} </span> </td>
                     </tr>
 
+                    <!-- Matching Offers -->
+
+                    <tr> <td colspan="3"> <h2> #{msgs.rideMatchingOffers} </h2> </td> </tr>
+                    <tr>
+                        <td>   <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
+                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td>   <span class="formInput">  #{ride.noMatches} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <h:form>
+                                <h:commandLink>
+                                    TODO: show Matches
+                                </h:commandLink>
+                            </h:form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideTimestampbooked}  </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.timestampbooked} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideTimestamprealized} </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.timestamprealized} </span> </td>   
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="3"> <h2> #{msgs.rideRatings} </h2> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideGivenRating} </span>  </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.givenrating} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideGivenRatingComment} </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.givenratingComment} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideGivenRatingDate} </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.receivedrating} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideReceivedRatingComment} </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.receivedratingComment} </span> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideReceivedRatingDate} </span> </td>
+                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                        <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
+                    </tr>
+
                 </table>
 
-                <h2> TODO: Data concerned with Matches </h2>
-                <p>
-
-                    <div class="formLabel">  TODO:  timestampbooked </div>
-                    <div class="formInput">  #{ride.timestampbooked} </div>
-                    <div class="formLabel">  TODO: timestamprealized </div>
-                    <div class="formInput">  #{ride.timestamprealized} </div>
-                    <div class="formLabel">  TODO: rideId </div>
-                    <div class="formInput">  #{ride.rideId} </div>
-                </p>
-
-
-
-                <h2> TODO: Data concerned with Rating </h2>
-                <p>
-                    <div class="formLabel">  TODO:  givenrating </div>
-                    <div class="formInput">  #{ride.givenrating} </div>
-
-                    <div class="formLabel">  TODO:  givenratingComment </div>
-                    <div class="formInput">  #{ride.givenratingComment} </div>
-
-                    <div class="formLabel">  TODO:  givenratingDate </div>
-                    <div class="formInput">  #{ride.givenratingDate} </div>
-
-                    <div class="formLabel">  TODO:  receivedrating </div>
-                    <div class="formInput">  #{ride.receivedrating} </div>
-
-                    <div class="formLabel">  TODO: receivedratingComment </div>
-                    <div class="formInput">  #{ride.receivedratingComment} </div>
-
-                    <div class="formLabel">  TODO:  receivedratingDate </div>
-                    <div class="formInput">  #{ride.receivedratingDate} </div>
-                </p>
 
 
                 <p> <!-- webflow stanza -->
