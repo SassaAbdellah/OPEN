@@ -67,50 +67,64 @@
 
                         <h:column>     <!-- single column of nested tables -->         
 
-                            <p>
-                                <table> <!-- nested table #1 -->  
-                                    <tr> 
-                                        <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
-                                    </tr>
+                            <tr> <!-- big table row and td -->
+                                <td> 
+                                    <p>
+                                        <table> <!-- nested table #1 -->
 
-                                    <tr> 
-                                        <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
-                                    </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h2> #{msgs.rideRequest} #{ride.riderrouteId} </h2>
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                <td colspan="3">
+                                                    <span class="formLabel">
+                                                        <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
+                                                            <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
+                                                            <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                                        </h:commandLink>
+                                                    </span>
+                                                </td>
+                                            </tr>
 
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
-                                    </tr>
 
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                    </tr>
+                                            <tr> 
+                                                <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
+                                                <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                                <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
+                                            </tr>
 
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput">   #{ride.noMatches} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <span class="formInput">
-                                                <h:commandLink action="rider.rideDisplay" value="#{msgs.formDisplay}">
-                                                    <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                                    <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                                </h:commandLink>
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <tr> 
+                                                <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
+                                                <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                                <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
+                                            </tr>
 
-                                </table> <!-- nested table #1 -->  
-                            </p>
+                                            <tr>
+                                                <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
+                                                <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                                <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
+                                            </tr>
+
+                                            <tr>
+                                                <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
+                                                <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                                <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
+                                                <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                                                <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
+                                            </tr>
+                                          
+                                           
+                                        </table> <!-- nested table #1 -->  
+                                    </p>
+                                </td>        
+                            </tr> <!-- End of big table row and td -->
+
                         </h:column>
 
 
