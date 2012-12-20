@@ -5,11 +5,11 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
+import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
-import de.fhg.fokus.openride.matching.MatchEntity;
+import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
 import java.util.Date;
@@ -477,8 +477,13 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
      * 
      * @return Returns a list of Matching Drive Offers for this ride
      */
-    public List <MatchEntity> getMatches(){
-        return (new JRiderUndertakesRideEntityService()).getMatchesForRide(this.getRiderrouteId());
+    public List <JMatchingEntity> getMatches(){
+        
+        if(this.getRiderrouteId()==null){
+            throw new Error("Rider route id is null");
+        }
+        
+        return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
     }
     
     /** Returns the Number of OpenMatches for this RideRequest

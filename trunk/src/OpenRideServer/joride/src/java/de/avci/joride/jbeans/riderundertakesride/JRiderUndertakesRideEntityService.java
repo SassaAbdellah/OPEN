@@ -38,22 +38,7 @@ public class JRiderUndertakesRideEntityService {
         return (new JCustomerEntityService()).getCustomerEntitySafely();
     }
 
-    /**
-     * Lookup MatchingBeanLocal that controls my requests.
-     *
-     * @return
-     */
-    protected RouteMatchingBeanLocal lookupRouteMatchingBeanLocal() {
-        try {
-            javax.naming.Context c = new InitialContext();
-            return (RouteMatchingBeanLocal) c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/RouteMatchingBean!de.fhg.fokus.openride.matching.RouteMatchingBeanLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-
-    }
-
+   
     /**
      * Lookup RiderUndertakesRideControllerLocal Bean that controls my requests.
      *
@@ -231,16 +216,7 @@ public class JRiderUndertakesRideEntityService {
 
     } // getActiveOpenRides
 
-    /**
-     * Returns a list of Matches for a rideRequest
-     *
-     * @return
-     */
-    public List<MatchEntity> getMatchesForRide(int riderrouteId) {
 
-        return this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
-    }
-    
     
    
     

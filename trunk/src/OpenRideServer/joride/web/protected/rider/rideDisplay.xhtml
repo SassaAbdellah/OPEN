@@ -125,8 +125,9 @@
                     <tr>
                         <td colspan="3">
                             <h:form>
-                                <h:commandLink>
-                                    TODO: show Matches
+                                <h:commandLink   value="#{msgs.rideMatchesShowOffers}" action="rider.rideMatchingsList">
+                                    <f:param  name="#{crud.paramNameCrudId}"  value="#{ride.riderrouteId}"/>
+                                    <f:param  name="#{webflow.getParamBack()}" value="rider"          />
                                 </h:commandLink>
                             </h:form>
                         </td>
