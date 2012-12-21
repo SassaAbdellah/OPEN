@@ -77,7 +77,7 @@
                                                     <h2> #{msgs.rideRequest} #{ride.riderrouteId} </h2>
                                                 </td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td colspan="3">
                                                     <span class="formLabel">
                                                         <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
@@ -118,8 +118,19 @@
                                                 <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
                                                 <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
                                             </tr>
-                                          
-                                           
+
+                                            <tr>
+                                                <td colspan="3">
+                                                    <span class="formLabel">
+                                                        <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchingOffers}">
+                                                            <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                            <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                                        </h:commandLink>
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+
                                         </table> <!-- nested table #1 -->  
                                     </p>
                                 </td>        
