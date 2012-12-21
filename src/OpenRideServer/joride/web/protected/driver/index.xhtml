@@ -60,29 +60,66 @@
                         value="#{driverride.drivesForDriver}" 
                         styleClass="table" 
                         headerClass="tableheader"
-                        var="driverride" 
+                        var="drive" 
                         >
 
 
 
-                        <h:column>            
-                            <h3>
-                                #{driverride.startDateFormatted}
-                            </h3>
+                        <h:column>   <!-- we use single column and nested table to display rides -->        
 
-                            <div class="formInput">  #{msgs.rideStart} : </div>
-                            #{driverride.startptAddress}
-                            <br/>
-                            <div class="formInput">  #{msgs.rideDestination} : </div> 
-                            #{driverride.endptAddress}
+                            <tr>
+                                <p>
+                                    <table> <!-- nested three column table -->
+                           
 
+                                        <tr>
+                                            <td colspan="3">
+                                                <span class="formLabel">
+                                                    <h2>  #{drive.startDateFormatted} </h2>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        
+                                                     <tr>
+                                            <td colspan="3">
+                                                <span class="formLabel">
+                                                    <h:commandLink action="driver.driveDisplay" value="#{msgs.formDisplay}">
+                                                        <f:param  name="#{crud.paramNameCrudId}" value="#{drive.rideId}"/>
+                                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                                    </h:commandLink>
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                            <div class="formInput">
-                                <h:commandLink action="driver.driveDisplay" value="#{msgs.formDisplay}">
-                                    <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
-                                    <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                </h:commandLink>
-                            </div>
+                                        <tr>
+                                            <td class="formLabel">  #{msgs.rideStart}  </td>
+                                            <td class="formLabel"> &nbsp;:&nbsp; </td>
+                                            <td class="formInput"> #{drive.startptAddress} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="formLabel">   #{msgs.rideDestination}  </td>
+                                            <td class="formLabel"> &nbsp;:&nbsp; </td>
+                                            <td class="formInput"> #{drive.endptAddress} </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
+                                            <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                                            <td> <span class="formInput">  #{drive.noMatches}            </span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <span class="formLabel">
+                                                    <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchingRequests}">
+                                                        <f:param   name="#{crud.paramNameCrudId}"   value="#{drive.rideId}"/>
+                                                        <f:param   name="#{webflow.getParamBack()}" value="driver"              />
+                                                    </h:commandLink>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p>
+                            </tr>
 
                         </h:column>
 
