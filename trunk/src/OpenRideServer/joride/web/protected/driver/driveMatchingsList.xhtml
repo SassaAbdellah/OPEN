@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!-- ***************************************************** -->
+<!--    Display a list of Matchings for given ride         -->
+<!-- ***************************************************** -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <body>
+
+
+
+        <ui:composition template="/templates/navbar1Layout.xhtml">
+
+
+            <!-- set "classRider" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classRider" value="Highlight" />
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+
+                <div id="navbar2">
+
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
+                        </span>
+                    </h:form>
+
+                </div>
+
+
+                #{driverride.update()}
+
+
+                <h:dataTable 
+                    value="#{driverride.matches}" 
+                    styleClass="table" 
+                    headerClass="tableheader"
+                    var="match" 
+                    >
+
+                    <h:column>     <!-- single column of nested tables -->         
+
+                        <tr> 
+                            <td>                                 
+                                <p>
+                                    <table>
+
+                                        <tr>
+                                            <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
+                                            <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                            <td> <span class="formInput"> #{match.matchEntity.matchExpectedStartTime}</span> </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td> <span class="formLabel"> #{msgs.matchRiderName} </span> </td> 
+                                            <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                            <td> <span class="formInput"> #{match.ride.custId.custFirstname}  #{match.ride.custId.custLastname} </span> </td> 
+                                        </tr>
+
+                                        <tr>
+                                            <td> <span class="formLabel"> #{msgs.matchRideId}         </span> </td> 
+                                            <td> <span class="formLabel"> &nbsp;:&nbsp;               </span> </td>
+                                            <td> <span class="formInput"> #{match.ride.riderrouteId}  </span> </td> 
+                                        </tr>
+
+
+
+                                    </table>
+                                </p>
+
+                            </td>
+                        </tr>
+
+                    </h:column>
+
+                </h:dataTable>
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

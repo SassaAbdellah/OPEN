@@ -7,6 +7,8 @@ package de.avci.joride.jbeans.driverundertakesride;
 import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.matching.JMatchingEntity;
+import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
@@ -32,36 +34,29 @@ import org.postgis.Point;
  */
 @Named
 @SessionScoped
-
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
-    
-    
-    
-    /** Default Value for Acceptable Detour in Km.
-     *  May be changed by the user in Frontends.
-     */
-    private Integer ACCEPTABLE_DETOUR_KM_DEFAULT=10;
-    
-     /** Default Value for Acceptable Detour in Min.
-     *  May be changed by the user in Frontends.
-     */
-    private Integer ACCEPTABLE_DETOUR_MIN_DEFAULT=15;
-    
-    
-     /** Default Value for Acceptable Detour in Percent.
-     *  May be changed by the user in Frontends.
-     */
-    private Integer ACCEPTABLE_DETOUR_PERCENT_DEFAULT=20;
-    
 
-     /** Default Value for Number of offered seats.
-     *  May be changed by the user in Frontends.
+    /**
+     * Default Value for Acceptable Detour in Km. May be changed by the user in
+     * Frontends.
      */
-    private Integer NUMBER_SEATS_OFFERED_DEFAULT=1;
-    
+    private Integer ACCEPTABLE_DETOUR_KM_DEFAULT = 10;
+    /**
+     * Default Value for Acceptable Detour in Min. May be changed by the user in
+     * Frontends.
+     */
+    private Integer ACCEPTABLE_DETOUR_MIN_DEFAULT = 15;
+    /**
+     * Default Value for Acceptable Detour in Percent. May be changed by the
+     * user in Frontends.
+     */
+    private Integer ACCEPTABLE_DETOUR_PERCENT_DEFAULT = 20;
+    /**
+     * Default Value for Number of offered seats. May be changed by the user in
+     * Frontends.
+     */
+    private Integer NUMBER_SEATS_OFFERED_DEFAULT = 1;
 
-    
-    
     /**
      * Get a list of active drives for this driver.
      *
@@ -125,17 +120,17 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
-     * 
-     * @deprecated  should be done centrally in utils* class
-     * 
+     *
+     * @deprecated should be done centrally in utils* class
+     *
      */
     protected DateFormat dateFormat;
 
     /**
      * Accessor with lazy instantiation
      *
-     * 
-     * 
+     *
+     *
      * @return
      */
     protected DateFormat getDateFormat() {
@@ -156,12 +151,12 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return getDateFormat().format(this.getRideStarttime());
     }
 
- 
-    /** See, if the  CRUDConstants().getParamNameCrudId() parameter is  present in HTTPRequest.
-     * If the ID parameter is != null, then update data from DriverUndertakesRideEntity
-     * in database with rideId given by id parameter.
+    /**
+     * See, if the CRUDConstants().getParamNameCrudId() parameter is present in
+     * HTTPRequest. If the ID parameter is != null, then update data from
+     * DriverUndertakesRideEntity in database with rideId given by id parameter.
      * If parameter's value is not null, then leave **this** untouched
-     * 
+     *
      */
     public void update() {
 
@@ -176,14 +171,15 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         }
 
 
-       
+
         this.updateFromId(id);
 
     }
 
-    /** Update from a given DriverUndertakesRideEntity object.
+    /**
+     * Update from a given DriverUndertakesRideEntity object.
      *
-     *  @param dure DriverUndertakesRideEntityObject to update *this* object.
+     * @param dure DriverUndertakesRideEntityObject to update *this* object.
      */
     public void updateFromDriverUndertakesRideEntity(DriverUndertakesRideEntity dure) {
 
@@ -205,22 +201,19 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.setRiderUndertakesRideEntityCollection(dure.getRiderUndertakesRideEntityCollection());
         this.setStartptAddress(dure.getStartptAddress());
     }
-    
-    
-   /** Update *this* with the Data read in from database for given id,
-    *  or just do nothing if ID is null.
-    * 
-    * @param id rideId of the DriverUndertakeRide Entity to update from.
-    */
-   public void updateFromId(Integer id){
-       
-       JDriverUndertakesRideEntityService service=new JDriverUndertakesRideEntityService();   
-       service.updateJDriverUndertakesRideEntityByIDSafely(id, this);
-  
-   }
-    
-    
-    
+
+    /**
+     * Update *this* with the Data read in from database for given id, or just
+     * do nothing if ID is null.
+     *
+     * @param id rideId of the DriverUndertakeRide Entity to update from.
+     */
+    public void updateFromId(Integer id) {
+
+        JDriverUndertakesRideEntityService service = new JDriverUndertakesRideEntityService();
+        service.updateJDriverUndertakesRideEntityByIDSafely(id, this);
+
+    }
 
     /**
      * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
@@ -228,39 +221,35 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * @return
      */
     public JRoutePointsEntity getRoutePoints() {
-        
+
         int rideID = this.getRideId();
         return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
 
     }
-    
-    
-        /**
+
+    /**
      * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
      *
      * @return
      */
     public JRoutePointsEntity findRoutePoints() {
- 
+
         return new JDriverUndertakesRideEntityService().findRoute(this);
 
     }
-    
-    
-    
 
-    /** Get the RoutePoints for this Drive encoded in a JSONString
+    /**
+     * Get the RoutePoints for this Drive encoded in a JSONString
      *
-     * 
+     *
      * @return
-     * 
+     *
      */
     public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
-    
-    
-      /**
+
+    /**
      * Get the RoutePoints for this Drive encoded in a JSONString
      *
      * @return
@@ -268,12 +257,6 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public String findRoutePointsAsJSON() {
         return this.findRoutePoints().getRoutePointsAsJSON();
     }
-    
-    
-    
-    
-    
-    
     /**
      * Value for point.target parameters. If "Startpoint" ist set, then
      * smartUpdate will set the startpoint
@@ -398,10 +381,9 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.getRideEndpt().setY(arg);
     }
 
-
-    /** Update bean, thereby evaluating the HTTPRequest
-     *  and update startpoint or endpoint data 
-     *  depending on params present in HTTPRequest
+    /**
+     * Update bean, thereby evaluating the HTTPRequest and update startpoint or
+     * endpoint data depending on params present in HTTPRequest
      */
     public void smartUpdate() {
 
@@ -457,73 +439,68 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         } //   if(paramValueTargetStartpoint.equals(webflowPoint.getTarget()))
     }
 
-    
-        /** Initialize the RideStarttime property if it is not yet initialized.
-         * 
-         */
-      public  void initialize(){
-        
-            if(this.getRideStarttime()==null){
-                this.setRideStarttime(new Date(System.currentTimeMillis()));
-            }
-              
-            this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
-            this.setRideAcceptableDetourInMin(ACCEPTABLE_DETOUR_MIN_DEFAULT);
-            this.setRideAcceptableDetourInPercent(ACCEPTABLE_DETOUR_PERCENT_DEFAULT);
-            
-            this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
+    /**
+     * Initialize the RideStarttime property if it is not yet initialized.
+     *
+     */
+    public void initialize() {
+
+        if (this.getRideStarttime() == null) {
+            this.setRideStarttime(new Date(System.currentTimeMillis()));
         }
-    
-      
-      /** DriverUnderTakesRideController already provides support 
-       *  for setting intermediate points on a route.
-       * 
-       *  This is currently not supported by the frontend and routing mechs,
-       *  but to be added soon.
-       * 
-       *  Until then, this methods returns an empty Array, to satisfy 
-       *  the DriverUnderTakesRideController interface.
-       * 
-       * @return 
-       */
-      public Point[] getIntermediatePoints(){
-                   
-          return new Point[0];
-      }
-      
-      
-    
-      /** Create a new DriverUndertakesRideEntity and save it to the Database.
-       *  Note that the set of Routepoints will always be 
-       *  created for this entity. Routepoints are not created
-       *  programmatically by the user.
-       * 
-       * 
-       * 
-       * 
-       *   @return id of the newly create DriverUndertakesRideEntity
-       */
-      public int addToDB(){
-          
-          
-          if(this.getRideId()!=null){
-              throw new Error("Cannot add Ride to Database, Id already exists");
-          }
-          
-          JDriverUndertakesRideEntityService jdures=new JDriverUndertakesRideEntityService();
-          
-          int my_id=jdures.addDriveSafely(this);
-          
-          this.setRideId(new Integer(my_id));
-          
-          return this.getRideId();
-          
-      }
-      
-      
-      
-      
-        public void doCrudAction(ActionEvent evt) {
+
+        this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
+        this.setRideAcceptableDetourInMin(ACCEPTABLE_DETOUR_MIN_DEFAULT);
+        this.setRideAcceptableDetourInPercent(ACCEPTABLE_DETOUR_PERCENT_DEFAULT);
+
+        this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
+    }
+
+    /**
+     * DriverUnderTakesRideController already provides support for setting
+     * intermediate points on a route.
+     *
+     * This is currently not supported by the frontend and routing mechs, but to
+     * be added soon.
+     *
+     * Until then, this methods returns an empty Array, to satisfy the
+     * DriverUnderTakesRideController interface.
+     *
+     * @return
+     */
+    public Point[] getIntermediatePoints() {
+
+        return new Point[0];
+    }
+
+    /**
+     * Create a new DriverUndertakesRideEntity and save it to the Database. Note
+     * that the set of Routepoints will always be created for this entity.
+     * Routepoints are not created programmatically by the user.
+     *
+     *
+     *
+     *
+     * @return id of the newly create DriverUndertakesRideEntity
+     */
+    public int addToDB() {
+
+
+        if (this.getRideId() != null) {
+            throw new Error("Cannot add Ride to Database, Id already exists");
+        }
+
+        JDriverUndertakesRideEntityService jdures = new JDriverUndertakesRideEntityService();
+
+        int my_id = jdures.addDriveSafely(this);
+
+        this.setRideId(new Integer(my_id));
+
+        return this.getRideId();
+
+    }
+
+    public void doCrudAction(ActionEvent evt) {
 
         HTTPRequestUtil hru = new HTTPRequestUtil();
 
@@ -540,18 +517,35 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         //
         // if (CRUDConstants.PARAM_VALUE_CRUD_DELETE.equals(action)) {
         //    this.delete(new Integer(id).intValue());
-         // }
+        // }
 
-        
+
         if (CRUDConstants.PARAM_VALUE_CRUD_CREATE.equals(action)) {
             this.addToDB();
         }
 
     }
 
-      
-      
-      
-      
-  
+    /**
+     * Returns a list of Matching Ride Request for this drive Offers
+     *
+     * @return Returns a list of Matching Ride Requests for this Offer
+     */
+    public List<JMatchingEntity> getMatches() {
+
+        if (this.getRideId() == null) {
+            throw new Error("Cannot return matches, My rideId is null!!");
+        }
+
+        return (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
+    }
+
+    /**
+     * Returns the Number of OpenMatches for this RideRequest
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
+     */
+    public int getNoMatches() {
+        return this.getMatches().size();
+    }
 } // class 
