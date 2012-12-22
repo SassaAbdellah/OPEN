@@ -18,7 +18,7 @@
             <ui:param name="classRider" value="Highlight" />
 
             <ui:define name="windowTitle">
-                #{msgs.title}
+                #{msgs.rideCreateNewRequest}
             </ui:define>
 
             <ui:define name="content">
@@ -38,7 +38,7 @@
                 #{newride.smartUpdate()}
 
 
-                <h1> TODO: create new RideRequest </h1>
+                <h1>   #{msgs.rideCreateNewRequest} </h1>
 
 
 
@@ -183,7 +183,7 @@
 
 
                     <h:commandButton 
-                        value="TODO: persist JRiderUndertakeRideEntity" 
+                        value="  #{msgs.rideCreateNewRequest}"
                         actionListener="#{newride.doCrudAction}"
                         action="rider" 
                         >
