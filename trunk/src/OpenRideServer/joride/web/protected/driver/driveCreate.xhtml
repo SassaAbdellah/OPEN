@@ -17,7 +17,7 @@
             <ui:param name="classDriver" value="Highlight" />
 
             <ui:define name="windowTitle">
-                #{msgs.title}
+                #{msgs.rideNewDrive}   
             </ui:define>
 
 
@@ -136,10 +136,8 @@
                     </p>
 
                     <p>
-                        <div class="formLabel"> #{msgs.rideAcceptableDetourInKm}       </div>
-
-
-                        <div class="formInput"> #{newdriverride.rideAcceptableDetourInKm} </div>
+                        <div class="formLabel"> #{msgs.rideAcceptableDetourInKm}           </div>
+                        <div class="formInput"> #{newdriverride.rideAcceptableDetourInKm}  </div>
                     </p>
                     <!-- property rideAcceptableDetourInMin ommitted, we use -->
                     <!-- acceptable detour km instead                        -->
@@ -164,7 +162,7 @@
 
                     <p>
                         <h:commandLink action="driver.driveCreateRoute" >
-                            TODO: create Route for new Drive
+                               #{msgs.rideEditRoute}
                         </h:commandLink>
                     </p>
 
@@ -174,7 +172,7 @@
                         <!-- Add New Drive to Database, then display it -->
 
                         <h:commandButton 
-                            value="TODO: persist JDriverUndertakeRideEntity" 
+                            value="#{msgs.rideCreateNewOffer}" 
                             actionListener="#{newdriverride.doCrudAction}"
                             action="driver.driveDisplayNewDrive" 
                             >
