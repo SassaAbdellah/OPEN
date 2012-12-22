@@ -44,6 +44,20 @@
                     </tr>
 
                     <tr>
+                        <td colspan="3">
+                            <span class="formLabel">
+                                <h:form>
+                                    <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                        <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                    </h:commandLink>
+                                </h:form>
+                            </span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
                         <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
                         <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                         <td>   <span class="formInput">  #{ride.starttimeEarliest} </span> </td>
