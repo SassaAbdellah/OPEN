@@ -7,7 +7,7 @@
 
 
     <h:head>
-        <title> TODO: Pick a Point </title>
+        <title> #{msgs.geolocationSelectPlace} </title>
     </h:head>
 
     <h:body>
@@ -18,7 +18,7 @@
 
 
             <ui:define name="windowTitle">
-                #{msgs.geolocationServiceLabel}
+                #{msgs.geolocationPickFromFavorites}
             </ui:define>
 
 
@@ -28,7 +28,7 @@
                 #{webflow.smartUpdate()}                
 
 
-                <h1>TODO: fix a place!</h1>
+                <h1> #{msgs.geolocationSelectPlace}</h1>
 
 
 
@@ -69,12 +69,12 @@
 
 
 
+                <p> <!-- generic webflow stanza -->
 
-
-                <h:form>
-                    <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
-                </h:form>
-
+                    <h:form>
+                        <h:commandLink value="#{msgs.cancel}" action="#{webflow.getCancel()}"/>
+                    </h:form>
+                </p>
 
 
 
