@@ -16,7 +16,7 @@
 
 
 
-        <ui:composition template="/templates/navbar1Layout.xhtml">
+        <ui:composition template="/templates/simpleLayout.xhtml">
 
 
             <!-- set "classRider" property to highlight, so that home tab will be higlighted -->
@@ -85,6 +85,20 @@
                     </h:column>
 
                 </h:dataTable>
+
+
+
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
+                </p>
+
+
+
 
             </ui:define>
 

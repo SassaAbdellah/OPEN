@@ -48,8 +48,8 @@
                             <span class="formLabel">
                                 <h:form>
                                     <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
-                                        <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                        <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
                                     </h:commandLink>
                                 </h:form>
                             </span>
