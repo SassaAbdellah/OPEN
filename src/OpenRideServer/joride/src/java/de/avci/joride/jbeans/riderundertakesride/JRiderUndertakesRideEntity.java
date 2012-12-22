@@ -480,7 +480,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public List <JMatchingEntity> getMatches(){
         
         if(this.getRiderrouteId()==null){
-            throw new Error("Rider route id is null");
+            System.err.println("riderRouteId is null, returning empty list");
+            return new LinkedList<JMatchingEntity> ();
         }
         
         return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
