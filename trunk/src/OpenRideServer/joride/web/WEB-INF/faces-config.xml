@@ -119,6 +119,18 @@
             <to-view-id>/faces/protected/rider/rideMatchingsList.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    
+    <!-- Navigation Case                                    -->
+    <!-- show display for single matching for given *ride*  -->
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.matchDisplay</from-outcome>
+            <to-view-id>/faces/protected/rider/rideMatchDisplay.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 
 
 
@@ -179,17 +191,26 @@
      <!-- Navigation Case                           -->
     <!-- list matchings for drive     -->
 
-     <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>driver.driveMatchingsList</from-outcome>
             <to-view-id>/faces/protected/driver/driveMatchingsList.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    
+    <!-- Navigation Case                                    -->
+    <!-- show display for single matching for given *drive*  -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.matchDisplay</from-outcome>
+            <to-view-id>/faces/protected/driver/driveMatchDisplay.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 
     
-    
-    
+   
 
    <!-- Navigation Cases for "Profile and Preferences subsection"                             -->
    <!-- go to startpage for the preferences section -->
@@ -436,6 +457,23 @@
         <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
+    
+      <!-- ****** Session scoped bean to circumvent JSF Implementation Bugs  connected with         ****** -->
+    <!-- ****** ui:repeat and h:datatable tags. commandlinks from inside these constructs        ****** -->
+    <!-- ****** will only work with request of view scoped data, but not with session scope      ****** -->
+    <!-- ****** Note that there is also a bean for *existing* drives, which is session scoped  ******-->
+    <managed-bean> 
+        <managed-bean-name>rscdriverride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+            
+    
+    
+    
+    
+    
+    
         
 
    <!-- ****** Bean for ***exisisting*** RideRequests (JRiderUndertakesRideEntity) , request scoped   ****** -->
@@ -447,13 +485,24 @@
     </managed-bean> 
         
    <!-- ****** Bean for ***new*** RideRequests (JRiderUndertakesRideEntity) , session scoped   ****** -->
-    <!-- ****** Note that there is also a bean for *existing* requests, which is request scoped          ******-->
+    <!-- ****** Note that there is also a bean for *existing* requests, which is session scoped          ******-->
     <managed-bean> 
         <managed-bean-name>newride</managed-bean-name>
         <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
         
+        
+   <!-- ****** Session scoped bean to circumvent JSF Implementation Bugs  connected with         ****** -->
+    <!-- ****** ui:repeat and h:datatable tags. commandlinks from inside these constructs        ****** -->
+    <!-- ****** will only work with request of view scoped data, but not with session scope      ****** -->
+    <!-- ****** Note that there is also a bean for *existing* requests, which is session scoped  ******-->
+    <managed-bean> 
+        <managed-bean-name>rscride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+            
  
  
  

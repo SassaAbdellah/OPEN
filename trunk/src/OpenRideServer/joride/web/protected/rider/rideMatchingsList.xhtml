@@ -38,58 +38,58 @@
 
                 </div>
 
+                
+                <!-- due to problems with commandlinks inside h:dataTable and ui:repeat -->
+                <!-- we have to use request scoped bean for rides here!                 -->
+                #{rscride.update()}
 
-                #{ride.update()}
-
-                <h1>  Matching trips for request  #{ride.riderrouteId}</h1>
-
-
-                <h:form>
-                    <h:dataTable 
-                        value="#{ride.matches}" 
-                        styleClass="table" 
-                        headerClass="tableheader"
-                        var="match" 
-                        >
+                <h1>  Matching trips for request  #{rscride.riderrouteId}</h1>
 
 
+                <ui:repeat value="#{rscride.matches}"   var="match" >
 
-                        <h:column>     <!-- single column of nested tables -->         
+                    <p>
+                        <table>
 
-                            <tr> 
-                                <td>
 
-                                    <p>
-                                        <table>
-                                            <tr>
-                                                <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
-                                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                                <td> <span class="formInput"> #{match.matchEntity.matchExpectedStartTime}</span> </td> 
-                                            </tr>
 
-                                            <tr>
-                                                <td> <span class="formLabel"> #{msgs.matchesDriversName}  </span> </td> 
-                                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                                <td> <span class="formInput"> #{match.drive.custId.custNickname}    </span> </td> 
-                                            </tr>
-
-                                            <tr>
-                                                <td> <span class="formLabel"> #{msgs.matchDriveID}   </span> </td> 
-                                                <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
-                                                <td> <span class="formInput"> #{match.drive.rideId}  </span> </td> 
-                                            </tr>
-                                        </table>
-                                    </p>
-
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                <td> <span class="formInput"> #{match.matchEntity.matchExpectedStartTime}</span> </td> 
+                            </tr>
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchesDriversName}  </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                <td> <span class="formInput"> #{match.drive.custId.custNickname}    </span> </td> 
+                            </tr>
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchDriveID}   </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                                <td> <span class="formInput"> #{match.drive.rideId}  </span> </td> 
+                            </tr>
+                            
+                            
+                            <tr>
+                                <td colspan="3">
+                                    <span class="formLabel">
+                                        <h:form>
+                                        <h:commandLink action="rider.matchDisplay" value="TODO: display Match">
+                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
+                                            <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                        </h:commandLink>
+                                        </h:form>
+                                    </span>
                                 </td>
                             </tr>
 
-                        </h:column>
 
 
 
-                    </h:dataTable>
-                </h:form>
+                        </table>
+                    </p>
+                </ui:repeat>
+
 
 
 
