@@ -8,10 +8,12 @@ import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import java.io.Serializable;
 
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.utils.HTTPRequestUtil;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import de.fhg.fokus.openride.matching.MatchEntity;
+import javax.servlet.http.HttpUtils;
 
 /**
  * Wrapper making MatchingEntity available as a CDI Bean for use in JSF
@@ -25,35 +27,56 @@ import de.fhg.fokus.openride.matching.MatchEntity;
 public class JMatchingEntity implements Serializable {
 
     /**
-     * The Match Entity that this Object is build around. 
+     * HTTPRequest Parameter to tell JMatchingEntity the rider Id (id of offer)
+     * of this request.
+     */
+    protected static String PARAM_NAME_riderId = "riderid";
+
+    /**
+     * Accessor for the PARAM_NAME_riderId parameter
+     *
+     * @return
+     */
+    public String getParamRiderID() {
+        return this.PARAM_NAME_riderId;
+    }
+    /**
+     * HTTPRequest Parameter to tell JMatchingEntity the ridererrouteId (id of
+     * request) of this request.
+     */
+    protected static String PARAM_NAME_riderrouteId = "riderrouteid";
+
+    /**
+     * Accessor for the PARAM_NAME_riderrouteId parameter
+     *
+     * @return
+     */
+    public String getParamRiderrouteId() {
+        return this.PARAM_NAME_riderrouteId;
+    }
+    /**
+     * The Match Entity that this Object is build around.
      */
     private MatchEntity matchEntity = null;
 
     public MatchEntity getMatchEntity() {
         return this.matchEntity;
     }
-    
-  
-    
-    
-    /** Non trivial setter! -- In addition to setting the MatchEntity property,
-     *  it does also blank out the Drive and Ride properties,
-     *  so that lazy instantiation will renew them.
-     * 
-     * @param arg 
+
+    /**
+     * Non trivial setter! -- In addition to setting the MatchEntity property,
+     * it does also blank out the Drive and Ride properties, so that lazy
+     * instantiation will renew them.
+     *
+     * @param arg
      */
-    public void setMatchEntitiy(MatchEntity arg){
-    
-        this.matchEntity=arg;
-        this.drive=null;
-        this.ride=null;
+    public void setMatchEntitiy(MatchEntity arg) {
+
+        this.matchEntity = arg;
+        this.drive = null;
+        this.ride = null;
 
     }
-    
-    
-    
-    
-    
     /**
      * Representation of the matchEntities riderUndertakesRideEntity prop. This
      * is created via lazy instantiation.
@@ -96,58 +119,54 @@ public class JMatchingEntity implements Serializable {
 
         return drive;
     }
-    
-    
-    /** Get Driver State in it's integer representation.
-     * 
-     *  @return  the driver state
-     * 
+
+    /**
+     * Get Driver State in it's integer representation.
+     *
+     * @return the driver state
+     *
      */
-    public Integer getDriverState(){
+    public Integer getDriverState() {
         return this.getMatchEntity().getDriverState();
     }
-    
-     /** Get Rider State in it's integer representation.
-     * 
-     *  @return the rider state
-     * 
+
+    /**
+     * Get Rider State in it's integer representation.
+     *
+     * @return the rider state
+     *
      */
-    public Integer getRiderState(){
+    public Integer getRiderState() {
         return this.getMatchEntity().getRiderState();
     }
-    
-    
-    
-    
-    
-    /** Accept Driver for this match.
-     *  This methods attempts to be save, i.e checks if the caller is in role to accept match
-     * 
-     * 
-     * @return  true if accepting the driver worked out, else false<
-     * 
+
+    /**
+     * Accept Driver for this match. This methods attempts to be save, i.e
+     * checks if the caller is in role to accept match
+     *
+     *
+     * @return true if accepting the driver worked out, else false<
+     *
      */
-    public String getAcceptDriver(){
-       
-        return ""+new JMatchingEntityService().acceptDriverSavely(this);
-    
+    public String getAcceptDriver() {
+
+        return "" + new JMatchingEntityService().acceptDriverSavely(this);
+
     }
-    
-    
-       
-    /** Accept Rider for this match.
-     *  This methods attempts to be save, i.e checks if the caller is in role to accept match
-     * 
-     * @return  true if accepting the rider worked out, else false<
-     * 
+
+    /**
+     * Accept Rider for this match. This methods attempts to be save, i.e checks
+     * if the caller is in role to accept match
+     *
+     * @return true if accepting the rider worked out, else false<
+     *
      */
-    public String getAcceptRider(){
-        return ""+new JMatchingEntityService().acceptRiderSavely(this);
+    public String getAcceptRider() {
+        return "" + new JMatchingEntityService().acceptRiderSavely(this);
     }
-    
-    
-    
-    /** Create a new JMatchingEntity from a real matchingEntity
+
+    /**
+     * Create a new JMatchingEntity from a real matchingEntity
      *
      * @param arg
      */
@@ -155,7 +174,33 @@ public class JMatchingEntity implements Serializable {
         this.matchEntity = arg;
     }
 
-    /** Bean constructor
+    
+    
+    /** Update from parameters given in HTTPRequest, i.e
+     *  evaluate riderId and riderrouteId parameter,
+     *  get match (if possible)
+     *  and update data from match.
+     *
+     */
+    public void smartUpdate() {
+
+        HTTPRequestUtil hru = new HTTPRequestUtil();
+        String rideIdStr = hru.getParameterSingleValue(PARAM_NAME_riderId);
+        Integer rideIdArg = new Integer(rideIdStr);
+
+        String riderrouteIdStr  = hru.getParameterSingleValue(PARAM_NAME_riderrouteId);
+        Integer riderrouteIdArg = new Integer(riderrouteIdStr);
+
+
+        MatchEntity me=new JMatchingEntityService().getMatchSafely(rideIdArg, riderrouteIdArg);
+
+
+        this.setMatchEntitiy(me);
+
+    }
+
+    /**
+     * Bean constructor
      */
     public JMatchingEntity() {
     }

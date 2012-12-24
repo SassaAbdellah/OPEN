@@ -504,7 +504,13 @@
     </managed-bean> 
             
  
- 
+    <!-- Bean to accept/reject matching rides or Offers -->
+    <managed-bean> 
+        <managed-bean-name>match</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.matching.JMatchingEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+            
  
  
  
