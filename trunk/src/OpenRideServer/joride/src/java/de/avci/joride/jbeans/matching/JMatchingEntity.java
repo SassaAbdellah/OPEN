@@ -4,6 +4,7 @@
  */
 package de.avci.joride.jbeans.matching;
 
+import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import java.io.Serializable;
 
@@ -198,6 +199,29 @@ public class JMatchingEntity implements Serializable {
         this.setMatchEntitiy(me);
 
     }
+    
+  
+    /** Provides  rider's data visible before a ride had been accepted upon
+     */
+    public JPublicCustomerProfile getPublicRiderData(){
+        
+        JPublicCustomerProfile res=new JPublicCustomerProfile();
+        res.updateFromCustomerEntity(this.getRide().getCustId());
+        return res;
+    }
+    
+    /** Provides  driver's data visible before a ride had been accepted upon
+     */
+    public JPublicCustomerProfile getPublicDriverData(){
+        
+        JPublicCustomerProfile res=new JPublicCustomerProfile();
+        res.updateFromCustomerEntity(this.getDrive().getCustId());
+        return res;
+    }
+    
+    
+    
+    
 
     /**
      * Bean constructor
