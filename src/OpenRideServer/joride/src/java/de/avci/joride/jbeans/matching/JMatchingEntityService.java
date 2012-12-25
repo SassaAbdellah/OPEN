@@ -7,13 +7,12 @@ package de.avci.joride.jbeans.matching;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import java.util.List;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -146,7 +145,10 @@ public class JMatchingEntityService {
      * @param jme -- the Matching entity to be updated
      * @return true, if setting the matching has works. Else false.
      */
-    public boolean acceptRiderSavely(JMatchingEntity jme) {
+    public boolean acceptRiderSafely(JMatchingEntity jme) {
+
+          
+        System.out.println(""+this.getClass()+" acceptRiderSafely beeing called");
 
 
         // see who calls us!
@@ -212,8 +214,10 @@ public class JMatchingEntityService {
      * @param jme -- the Matching entity to be updated
      * @return true, if setting the matching has works. Else false.
      */
-    public boolean acceptDriverSavely(JMatchingEntity jme) {
+    public boolean acceptDriverSafely(JMatchingEntity jme) {
 
+        
+        System.out.println(""+this.getClass()+" acceptDriverSafely beeing called");
 
         // see who calls us!
         CustomerEntity caller = this.getCustomerEntity();
@@ -233,7 +237,155 @@ public class JMatchingEntityService {
 
 
         if (!(caller.getCustId().equals(riderId))) {
-            throw new Error("Cannot proceed to accept driver, rider Id " + riderId + " does not match caller id " + caller.getCustId());
+            throw new Error("Cannot proceed to accept Driver, rider Id " + riderId + " does not match caller id " + caller.getCustId());
+        }
+
+
+        //
+        // With all the checking done, we can possibly proceed to 
+        // finally accept the rider
+        //
+
+        Integer rideId = null;
+        try {   rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
+        } catch (Exception exc) {
+            throw new Error("Cannot proceed to accept driver, Unexpected Error while determining ride Id ", exc);
+        }
+
+        Integer riderrouteId = null;
+        try {
+            riderrouteId = jme.getMatchEntity().getRiderUndertakesRideEntity().getRiderrouteId();
+        } catch (Exception exc) {
+            throw new Error("Cannot proceed to accept driver, Unexpected Error while determining riderroute Id ", exc);
+        }
+
+
+        MatchEntity me = this.lookupDriverUndertakesRideControllerBeanLocal().acceptDriver(rideId, riderrouteId);
+
+        // bad case may happen, if so return false
+        if (me == null) {
+            
+            System.err.println(""+this.getClass()+" acceptDriver failed ");
+            return false;
+        }
+        
+        System.out.println(""+this.getClass()+" acceptDriver succeded ");
+        
+        // update the Match Entity
+        jme.setMatchEntitiy(me);
+
+        return true;
+    }
+    
+    
+    
+    /**
+     * reject the driver for this match savely.
+     *
+     * As it is up to the rider of a ride to accept the driver, we do some
+     * extensive checking about whether or not the driver is allowed to call
+     *
+     * @param jme -- the Matching entity to be updated
+     * @return true, if setting the matching has works. Else false.
+     */
+    public boolean rejectDriverSafely(JMatchingEntity jme) {
+
+        
+        System.out.println(""+this.getClass()+" rejectDriverSafely beeing called");
+
+        // see who calls us!
+        CustomerEntity caller = this.getCustomerEntity();
+
+        if (caller == null) {
+            throw new Error("Cannot proceed to reject driver, Caller is null");
+        }
+
+        if (caller.getCustId() == null) {
+            throw new Error("Cannot proceed to reject driver, CallerId is null");
+        }
+
+
+        // determine the rider of the match entity's trip
+
+        Integer riderId = jme.getMatchEntity().getRiderUndertakesRideEntity().getCustId().getCustId();
+
+
+        if (!(caller.getCustId().equals(riderId))) {
+            throw new Error("Cannot proceed to reject Driver, rider Id " + riderId + " does not match caller id " + caller.getCustId());
+        }
+
+
+        //
+        // With all the checking done, we can possibly proceed to 
+        // finally accept the rider
+        //
+
+        Integer rideId = null;
+        try {   rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
+        } catch (Exception exc) {
+            throw new Error("Cannot proceed to reject driver, Unexpected Error while determining ride Id ", exc);
+        }
+
+        Integer riderrouteId = null;
+        try {
+            riderrouteId = jme.getMatchEntity().getRiderUndertakesRideEntity().getRiderrouteId();
+        } catch (Exception exc) {
+            throw new Error("Cannot proceed to reject driver, Unexpected Error while determining riderroute Id ", exc);
+        }
+
+
+        MatchEntity me = this.lookupDriverUndertakesRideControllerBeanLocal().rejectDriver(rideId, riderrouteId);
+
+        // bad case may happen, if so return false
+        if (me == null) {
+            
+            System.err.println(""+this.getClass()+" rejectDriver failed ");
+            return false;
+        }
+        
+        System.out.println(""+this.getClass()+" rejectDriver succeded ");
+        
+        // update the Match Entity
+        jme.setMatchEntitiy(me);
+
+        return true;
+    } // reject driver safely
+    
+    
+       /**
+     * Accept the rider for this match savely.
+     *
+     * As it is up to the driver of a ride to accept the rider, we do some
+     * extensive checking about wether or not the driver is allowed to call
+     *
+     * @param jme -- the Matching entity to be updated
+     * @return true, if setting the matching has works. Else false.
+     */
+    public boolean rejectRiderSafely(JMatchingEntity jme) {
+
+          
+        System.out.println(""+this.getClass()+" rejectRiderSafely beeing called");
+
+
+        // see who calls us!
+        CustomerEntity caller = this.getCustomerEntity();
+
+        if (caller == null) {
+            throw new Error("Cannot proceed to reject rider, Caller is null");
+        }
+
+        if (caller.getCustId() == null) {
+            throw new Error("Cannot proceed to reject rider, CallerId is null");
+        }
+
+
+        // determine the driver of the match entity's trip
+
+        Integer driverId = jme.getMatchEntity().getDriverUndertakesRideEntity().getCustId().getCustId();
+
+
+        if (!(caller.getCustId().equals(driverId))) {
+            throw new Error("Cannot proceed to reject rider, driver Id " + driverId + " does not match caller id " + caller.getCustId());
         }
 
 
@@ -246,18 +398,18 @@ public class JMatchingEntityService {
         try {
             rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
         } catch (Exception exc) {
-            throw new Error("Cannot proceed to accept driver, Unexpected Error while determining ride Id ", exc);
+            throw new Error("Cannot proceed to reject rider, Unexpected Error while determining ride Id ", exc);
         }
 
         Integer riderrouteId = null;
         try {
             riderrouteId = jme.getMatchEntity().getRiderUndertakesRideEntity().getRiderrouteId();
         } catch (Exception exc) {
-            throw new Error("Cannot proceed to accept rider, Unexpected Error while determining riderroute Id ", exc);
+            throw new Error("Cannot proceed to reject rider, Unexpected Error while determining riderroute Id ", exc);
         }
 
 
-        MatchEntity me = this.lookupDriverUndertakesRideControllerBeanLocal().acceptDriver(rideId, riderrouteId);
+        MatchEntity me = this.lookupDriverUndertakesRideControllerBeanLocal().rejectRider(rideId, riderrouteId);
 
         // bad case may happen, if so return false
         if (me == null) {
@@ -267,7 +419,14 @@ public class JMatchingEntityService {
         jme.setMatchEntitiy(me);
 
         return true;
-    }
+        
+        
+    } //reject rider safely
+
+     
+    
+    
+    
 
     /** Savely update match for the Drive/Ride combination given by driveId,
      * rideId. Savely means, that the caller is checked to be either driver or rider
@@ -309,5 +468,12 @@ public class JMatchingEntityService {
         
      
         return me;
-    }
-}
+        
+    } // getMatchSafely
+    
+    
+    
+   
+    
+    
+} //class
