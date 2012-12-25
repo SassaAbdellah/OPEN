@@ -14,6 +14,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import de.fhg.fokus.openride.matching.MatchEntity;
+import java.awt.event.ActionEvent;
 import javax.servlet.http.HttpUtils;
 
 /**
@@ -31,19 +32,20 @@ public class JMatchingEntity implements Serializable {
      * HTTPRequest Parameter to tell JMatchingEntity the rider Id (id of offer)
      * of this request.
      */
-    protected static String PARAM_NAME_riderId = "riderid";
+    protected static String PARAM_NAME_rideId = "rideid";
 
     /**
      * Accessor for the PARAM_NAME_riderId parameter
      *
      * @return
      */
-    public String getParamRiderID() {
-        return this.PARAM_NAME_riderId;
+    public String getParamRideID() {
+        return this.PARAM_NAME_rideId;
     }
     /**
      * HTTPRequest Parameter to tell JMatchingEntity the ridererrouteId (id of
      * request) of this request.
+     *
      */
     protected static String PARAM_NAME_riderrouteId = "riderrouteid";
 
@@ -143,28 +145,47 @@ public class JMatchingEntity implements Serializable {
 
     /**
      * Accept Driver for this match. This methods attempts to be save, i.e
-     * checks if the caller is in role to accept match
-     *
-     *
-     * @return true if accepting the driver worked out, else false<
-     *
+     * checks if the caller is in role to accept match.
      */
-    public String getAcceptDriver() {
-
-        return "" + new JMatchingEntityService().acceptDriverSavely(this);
-
+    public void acceptDriver(ActionEvent evt) {
+        new JMatchingEntityService().acceptDriverSafely(this);
     }
+    
+    /**
+     * Reject Driver for this match. This methods attempts to be save, i.e
+     * checks if the caller is in role to accept match.
+     */
+    public void rejectDriver(ActionEvent evt) {
+        new JMatchingEntityService().rejectDriverSafely(this);
+    }
+
+    
+    
+    
 
     /**
      * Accept Rider for this match. This methods attempts to be save, i.e checks
-     * if the caller is in role to accept match
-     *
-     * @return true if accepting the rider worked out, else false<
-     *
+     * if the caller is in role to accept match.
      */
-    public String getAcceptRider() {
-        return "" + new JMatchingEntityService().acceptRiderSavely(this);
+    public void acceptRider(ActionEvent evt) {
+        new JMatchingEntityService().acceptRiderSafely(this);
     }
+    
+    
+    
+    /**
+     * Reject Rider for this match. This methods attempts to be save, i.e checks
+     * if the caller is in role to accept match.
+     */
+    public void rejectRider(ActionEvent evt) {
+        new JMatchingEntityService().rejectRiderSafely(this);
+    }
+    
+    
+    
+    
+    
+    
 
     /**
      * Create a new JMatchingEntity from a real matchingEntity
@@ -175,53 +196,47 @@ public class JMatchingEntity implements Serializable {
         this.matchEntity = arg;
     }
 
-    
-    
-    /** Update from parameters given in HTTPRequest, i.e
-     *  evaluate riderId and riderrouteId parameter,
-     *  get match (if possible)
-     *  and update data from match.
+    /**
+     * Update from parameters given in HTTPRequest, i.e evaluate riderId and
+     * riderrouteId parameter, get match (if possible) and update data from
+     * match.
      *
      */
     public void smartUpdate() {
 
         HTTPRequestUtil hru = new HTTPRequestUtil();
-        String rideIdStr = hru.getParameterSingleValue(PARAM_NAME_riderId);
+        String rideIdStr = hru.getParameterSingleValue(PARAM_NAME_rideId);
         Integer rideIdArg = new Integer(rideIdStr);
 
-        String riderrouteIdStr  = hru.getParameterSingleValue(PARAM_NAME_riderrouteId);
+        String riderrouteIdStr = hru.getParameterSingleValue(PARAM_NAME_riderrouteId);
         Integer riderrouteIdArg = new Integer(riderrouteIdStr);
 
 
-        MatchEntity me=new JMatchingEntityService().getMatchSafely(rideIdArg, riderrouteIdArg);
-
+        MatchEntity me = new JMatchingEntityService().getMatchSafely(rideIdArg, riderrouteIdArg);
 
         this.setMatchEntitiy(me);
 
     }
-    
-  
-    /** Provides  rider's data visible before a ride had been accepted upon
+
+    /**
+     * Provides rider's data visible before a ride had been accepted upon
      */
-    public JPublicCustomerProfile getPublicRiderData(){
-        
-        JPublicCustomerProfile res=new JPublicCustomerProfile();
+    public JPublicCustomerProfile getPublicRiderData() {
+
+        JPublicCustomerProfile res = new JPublicCustomerProfile();
         res.updateFromCustomerEntity(this.getRide().getCustId());
         return res;
     }
-    
-    /** Provides  driver's data visible before a ride had been accepted upon
+
+    /**
+     * Provides driver's data visible before a ride had been accepted upon
      */
-    public JPublicCustomerProfile getPublicDriverData(){
-        
-        JPublicCustomerProfile res=new JPublicCustomerProfile();
+    public JPublicCustomerProfile getPublicDriverData() {
+
+        JPublicCustomerProfile res = new JPublicCustomerProfile();
         res.updateFromCustomerEntity(this.getDrive().getCustId());
         return res;
     }
-    
-    
-    
-    
 
     /**
      * Bean constructor

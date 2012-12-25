@@ -59,7 +59,7 @@
                                 <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
                             </tr>
                             <tr>
-                                <td> <span class="formLabel"> #{msgs.matchesDriversName}  </span> </td> 
+                                <td> <span class="formLabel"> #{msgs.matchDriversName}  </span> </td> 
                                 <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
                                 <td> <span class="formInput"> #{matching.drive.custId.custNickname}    </span> </td> 
                             </tr>
@@ -76,7 +76,7 @@
                                         <h:form>
                                         <h:commandLink action="rider.matchDisplay" value="TODO: display Match">
                                             
-                                            <f:param name="#{match.paramRiderID}"        value="#{matching.drive.rideId}"    />
+                                            <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
                                             <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
                                             
                                             <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
