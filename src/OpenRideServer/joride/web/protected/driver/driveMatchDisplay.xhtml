@@ -34,14 +34,113 @@
                 #{match.smartUpdate()}
                 
                 
-                <ul>
-                    <li>
-                        TODO RideId: #{match.matchEntity.driverUndertakesRideEntity.rideId}; 
-                    </li>
-                    <li>
-                        TODO RiderouteId: #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}; 
-                    </li>
-                </ul>
+                         TODO: Drive Match Display
+
+                #{match.smartUpdate()}
+
+
+                <table>
+
+
+
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime}                </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;                                  </span> </td>
+                        <td> <span class="formInput"> #{match.matchEntity.matchExpectedStartTime} </span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchRidersNickname}         </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;                          </span> </td>
+                        <td> <span class="formInput"> #{match.ride.custId.custNickname}  </span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchDriveID}      </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;             </span> </td>
+                        <td> <span class="formInput"> #{match.drive.rideId}  </span> </td> 
+                    </tr>
+                    
+                      <tr>
+                        <td> <span class="formLabel"> #{msgs.matchRiderrouteId}      </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;             </span> </td>
+                        <td> <span class="formInput"> #{match.ride.riderrouteId}  </span> </td> 
+                    </tr>
+
+                    
+                    
+
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchRidersGender}            </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;                         </span> </td>
+                        <td> <span class="formInput"> #{match.publicRiderData.custGender}  </span> </td> 
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel"> TODO: driverState             </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                        <td> <span class="formInput"> #{match.driverState}          </span> </td> 
+                    </tr>
+
+
+                    <tr>
+                        <td> <span class="formLabel"> TODO: riderState             </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                        <td> <span class="formInput"> #{match.riderState}          </span> </td> 
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            TODO: Add Rider's Rating here once rating is implemented
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p>
+                                <h:form>
+                                    <h:commandLink actionListener="#{match.acceptRider(evt)}" action="driver.matchDisplay">
+                                        #{msgs.matchAcceptRequestedRide}
+
+                                        <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
+                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
+                                                                                
+                                        <f:param name="#{webflow.getParamBack()}"  value="driver"                      />
+
+                                    </h:commandLink>
+                                    
+                                </h:form>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="3">
+                              <p>
+                                <h:form>
+                                    <h:commandLink actionListener="#{match.rejectRider(evt)}" action="driver.matchDisplay">
+                                        #{msgs.matchRejectRequestedRide}
+
+                                        <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
+                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
+                                        
+                                        
+                                        
+                                        <f:param name="#{webflow.getParamBack()}"  value="driver"                      />
+
+                                    </h:commandLink>
+                                    
+                                </h:form>
+                            </p>
+                            
+                            
+                        </td>
+                    </tr>
+
+                </table>
+
+ 
+                
+                
+                
+                
                 
 
 
