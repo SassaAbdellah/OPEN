@@ -12,9 +12,15 @@
       xmlns:f="http://java.sun.com/jsf/core"
       >
 
+
+
+
     <body>
 
 
+        <!-- ***** Displays matching's data for rider                    **** -->
+        <!-- ***** i.e driver's public data,                             **** -->
+        <!-- ***** control to accept upon hitch from rider's perspective **** -->
 
         <ui:composition template="/templates/simpleLayout.xhtml">
 
@@ -34,14 +40,46 @@
                 #{match.smartUpdate()}
 
 
-                <ul>
-                    <li>
-                        TODO RideId: #{match.matchEntity.driverUndertakesRideEntity.rideId}; 
-                    </li>
-                    <li>
-                        TODO RiderouteId: #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}; 
-                    </li>
-                </ul>
+                <table>
+
+
+
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                        <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchesDriversName}  </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                        <td> <span class="formInput"> #{matching.drive.custId.custNickname}    </span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchDriveID}   </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                        <td> <span class="formInput"> #{matching.drive.rideId}  </span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> #{msgs.matchesDriversName}  </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                        <td> <span class="formInput"> #{match.publicDriverData.custNickname}  </span> </td> 
+                    </tr>
+                    <tr>
+                        <td> <span class="formLabel"> TODO: Driver's Gender   </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                        <td> <span class="formInput"> #{match.publicDriverData.custGender}  </span> </td> 
+                    </tr>
+
+                    <tr>
+                        <td> <span class="formLabel"> TODO: Driver's License since  </span> </td> 
+                        <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                        <td> <span class="formInput"> #{match.publicDriverData.custLicensedate}  </span> </td> 
+                    </tr>
+
+                </table>
+
+
+
 
 
 
