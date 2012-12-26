@@ -150,7 +150,7 @@ public class JMatchingEntity implements Serializable {
     public void acceptDriver(ActionEvent evt) {
         new JMatchingEntityService().acceptDriverSafely(this);
     }
-    
+
     /**
      * Reject Driver for this match. This methods attempts to be save, i.e
      * checks if the caller is in role to accept match.
@@ -159,10 +159,6 @@ public class JMatchingEntity implements Serializable {
         new JMatchingEntityService().rejectDriverSafely(this);
     }
 
-    
-    
-    
-
     /**
      * Accept Rider for this match. This methods attempts to be save, i.e checks
      * if the caller is in role to accept match.
@@ -170,9 +166,7 @@ public class JMatchingEntity implements Serializable {
     public void acceptRider(ActionEvent evt) {
         new JMatchingEntityService().acceptRiderSafely(this);
     }
-    
-    
-    
+
     /**
      * Reject Rider for this match. This methods attempts to be save, i.e checks
      * if the caller is in role to accept match.
@@ -180,8 +174,160 @@ public class JMatchingEntity implements Serializable {
     public void rejectRider(ActionEvent evt) {
         new JMatchingEntityService().rejectRiderSafely(this);
     }
+
+    /**
+     * wether or not to disable the link that allows the requester to accept a
+     * ride offer.
+     *
+     * Rules herein follow the document
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11" from original OR
+     * distribution. (Unfortunately in availlable in German only)
+     *
+     *
+     * @return true if link should be shown, else false
+     */
+    public boolean enableAcceptOfferLink() {
+
+
+        // Rider can always accept if Rider State is yet undecided
+        if (this.getRiderState() == null) {
+
+            return true;
+        }
+
+        // Rider can correct an Erroneous Accept
+        if (MatchEntity.REJECTED.equals(this.getRiderState())) {
+            return true;
+        }
+        
+        return false;
+    }
+
     
     
+        
+    /** 
+     * Convenience method
+     * 
+     * @return negated value of {@link enableAcceptOfferLink()}
+     * 
+     */
+    public boolean disableAcceptOfferLink(){
+        return ! enableAcceptOfferLink();
+    }
+    
+    
+    /** 
+     * whether or not to disable the link that allows the 
+     * requester to reject a ride offer.
+     * 
+     * Rules herein follow the document
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
+     * from original OR distribution. (Unfortunately availlable in German only)
+     * 
+     * 
+     * @return true if link should be shown, else false 
+     */
+    public boolean enableRejectOfferLink(){
+    
+   
+        //  If rider State is yet undecided,
+        //  rider can accept or reject
+        if(this.getRiderState()==null){
+                return true;
+        }
+        
+        return false;
+    }
+    
+        
+    /** 
+     * Convenience method
+     * 
+     * @return negated value of {@link enableRejectOfferLink()}
+     * 
+     */
+    public boolean disableRejectOfferLink(){
+        return ! enableRejectOfferLink();
+    }
+    
+    
+     
+    /** 
+     * whether or not to disable the link that allows the 
+     * driver to reject a ride request.
+     * 
+     * Rules herein follow the document
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
+     * from original OR distribution. (Unfortunately availlable in German only)
+     * 
+     * 
+     * @return true if link should be shown, else false 
+     */
+    public boolean enableAcceptRequestLink(){
+    
+        // if Driver State is yet undecided, 
+        // driver can both accept or reject
+        if(this.getDriverState()==null){
+                return true;  
+        }
+         
+        // if Driver has rejected by Error,  
+        // driver he can accept to correct
+        if(MatchEntity.REJECTED.equals(this.getDriverState())){
+                return true;  
+        }
+         
+        return false;
+    }
+    
+        
+    /** 
+     * Convenience method
+     * 
+     * @return negated value of {@link enableRejectOfferLink()}
+     * 
+     */
+    public boolean disableAcceptRequestLink(){
+        return ! enableAcceptRequestLink();
+    }
+      
+   
+    
+            
+    /** 
+     * whether or not to disable the link that allows the 
+     * driver to reject a ride request.
+     *  
+     * Rules herein follow the document
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
+     * from original OR distribution. (Unfortunately availlable in German only)
+     * 
+     * 
+     * @return true if link should be shown, else false 
+     */
+    public boolean enableRejectRequestLink(){
+    
+   
+        if(this.getDriverState()==null){
+                return true;  
+        }
+         
+        return false;
+    }
+    
+        
+    /** 
+     * Convenience method
+     * 
+     * @return negated value of {@link enableRejectOfferLink()}
+     * 
+     */
+    public boolean disableRejectRequestLink(){
+        return ! enableRejectRequestLink();
+    }
+      
+       
     
     
     
@@ -195,7 +341,7 @@ public class JMatchingEntity implements Serializable {
     JMatchingEntity(MatchEntity arg) {
         this.matchEntity = arg;
     }
-
+    
     /**
      * Update from parameters given in HTTPRequest, i.e evaluate riderId and
      * riderrouteId parameter, get match (if possible) and update data from
@@ -243,4 +389,6 @@ public class JMatchingEntity implements Serializable {
      */
     public JMatchingEntity() {
     }
+    
+  
 } // class 

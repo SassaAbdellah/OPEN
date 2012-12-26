@@ -96,12 +96,16 @@
                         <td colspan="3">
                             <p>
                                 <h:form>
-                                    <h:commandLink actionListener="#{match.acceptRider(evt)}" action="driver.matchDisplay">
+                                    <h:commandLink 
+                                        actionListener="#{match.acceptRider(evt)}"
+                                        action="driver.matchDisplay"
+                                        disabled="#{match.disableAcceptRequestLink()}"
+                                        >
+                                        
                                         #{msgs.matchAcceptRequestedRide}
 
                                         <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
-                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
-                                                                                
+                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />                                            
                                         <f:param name="#{webflow.getParamBack()}"  value="driver"                      />
 
                                     </h:commandLink>
@@ -115,7 +119,11 @@
                         <td colspan="3">
                               <p>
                                 <h:form>
-                                    <h:commandLink actionListener="#{match.rejectRider(evt)}" action="driver.matchDisplay">
+                                    <h:commandLink 
+                                        actionListener="#{match.rejectRider(evt)}" 
+                                        action="driver.matchDisplay"
+                                        disabled="#{match.disableRejectRequestLink()}"
+                                        >
                                         #{msgs.matchRejectRequestedRide}
 
                                         <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
