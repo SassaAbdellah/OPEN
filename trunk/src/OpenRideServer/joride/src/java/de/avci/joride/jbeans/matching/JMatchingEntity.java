@@ -6,16 +6,14 @@ package de.avci.joride.jbeans.matching;
 
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
-import java.io.Serializable;
-
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.utils.HTTPRequestUtil;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-
+import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import java.awt.event.ActionEvent;
-import javax.servlet.http.HttpUtils;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  * Wrapper making MatchingEntity available as a CDI Bean for use in JSF
@@ -191,7 +189,6 @@ public class JMatchingEntity implements Serializable {
 
         // Rider can always accept if Rider State is yet undecided
         if (this.getRiderState() == null) {
-
             return true;
         }
 
@@ -390,5 +387,90 @@ public class JMatchingEntity implements Serializable {
     public JMatchingEntity() {
     }
     
-  
+    
+    
+    /** Mnemonic message describing the rider state.
+     * 
+     * @return 
+     */
+    public String getRiderStateMessage(){
+    
+    
+       Integer rs=this.getRiderState();
+       
+       PropertiesLoader pl=new PropertiesLoader();
+       
+       if(rs==null){
+           return  pl.getMessagesProps().getProperty("matchRiderStateNoRiderRequest");
+       }
+       
+       if(rs.equals(MatchEntity.ACCEPTED)){
+             return  pl.getMessagesProps().getProperty("matchRiderStateACCEPTED");
+       }
+       
+        if(rs.equals(MatchEntity.COUNTERMANDED)){
+          return  pl.getMessagesProps().getProperty("matchRiderStateCOUNTERMANDED");
+       }
+       
+        if(rs.equals(MatchEntity.NOT_ADAPTED)){
+            return  pl.getMessagesProps().getProperty("matchRiderStateNOT_ADAPTED");
+        
+        }
+        
+       if(rs.equals(MatchEntity.NO_MORE_AVAILABLE)){
+           return  pl.getMessagesProps().getProperty("matchRiderStateNO_MORE_AVAILLABLE");
+       }
+       
+       
+       if(rs.equals(MatchEntity.REJECTED)){
+            return  pl.getMessagesProps().getProperty("matchRiderStateREJECTED");
+       }
+    
+       return"Cannot find state message for riderstate : "+rs;
+       
+    }
+    
+    
+    /** Mnemonic message describing the driver state.
+     * 
+     * @return 
+     */
+    public String getDriverStateMessage(){
+    
+    
+       Integer ds=this.getDriverState();
+       
+       PropertiesLoader pl=new PropertiesLoader();
+       
+       if(ds==null){
+           return  pl.getMessagesProps().getProperty("matchDriverStateNoDriverOffer");
+       }
+       
+       if(ds.equals(MatchEntity.ACCEPTED)){
+             return  pl.getMessagesProps().getProperty("matchDriverStateACCEPTED");
+       }
+       
+        if(ds.equals(MatchEntity.COUNTERMANDED)){
+          return  pl.getMessagesProps().getProperty("matchDriverStateCOUNTERMANDED");
+       }
+       
+        if(ds.equals(MatchEntity.NOT_ADAPTED)){
+            return  pl.getMessagesProps().getProperty("matchDriverStateNOT_ADAPTED");
+        
+        }
+        
+       if(ds.equals(MatchEntity.NO_MORE_AVAILABLE)){
+           return  pl.getMessagesProps().getProperty("matchDriverStateNO_MORE_AVAILLABLE");
+       }
+       
+       
+       if(ds.equals(MatchEntity.REJECTED)){
+            return  pl.getMessagesProps().getProperty("matchDriverStateREJECTED");
+       }
+    
+       return"Cannot find state message for driver state : "+ds;
+    
+    }
+    
+    
 } // class 
