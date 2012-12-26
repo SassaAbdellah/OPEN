@@ -59,15 +59,15 @@
                         <td> <span class="formLabel"> &nbsp;:&nbsp;             </span> </td>
                         <td> <span class="formInput"> #{match.drive.rideId}  </span> </td> 
                     </tr>
-                    
-                      <tr>
+
+                    <tr>
                         <td> <span class="formLabel"> #{msgs.matchRiderrouteId}      </span> </td> 
                         <td> <span class="formLabel"> &nbsp;:&nbsp;             </span> </td>
                         <td> <span class="formInput"> #{match.ride.riderrouteId}  </span> </td> 
                     </tr>
 
-                    
-                    
+
+
 
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchDriversGender}            </span> </td> 
@@ -110,7 +110,11 @@
                         <td colspan="3">
                             <p>
                                 <h:form>
-                                    <h:commandLink actionListener="#{match.acceptDriver(evt)}" action="rider.matchDisplay">
+                                    <h:commandLink 
+                                        actionListener="#{match.acceptDriver(evt)}" 
+                                        action="rider.matchDisplay"
+                                        disabled="#{match.disableAcceptOfferLink()}"
+                                        >
                                         #{msgs.matchAcceptOfferedRide}
 
                                         <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
@@ -118,17 +122,24 @@
                                         <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
 
                                     </h:commandLink>
-                                    
+
                                 </h:form>
                             </p>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <td colspan="3">
-                              <p>
+                            <p>
                                 <h:form>
-                                    <h:commandLink actionListener="#{match.rejectDriver(evt)}" action="rider.matchDisplay">
+                                    <h:commandLink 
+                                        actionListener="#{match.rejectDriver(evt)}" 
+                                        action="rider.matchDisplay"
+                                        disabled="#{match.disableRejectOfferLink()}"
+                                        >
+
+
+
                                         #{msgs.matchRejectOfferedRide}
 
                                         <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
@@ -136,11 +147,11 @@
                                         <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
 
                                     </h:commandLink>
-                                    
+
                                 </h:form>
                             </p>
-                            
-                            
+
+
                         </td>
                     </tr>
 
