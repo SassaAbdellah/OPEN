@@ -35,13 +35,14 @@
             <ui:define name="content">
 
 
-                TODO: Ride Match Display
+                <h1> #{msgs.matchMatchingRide} </h1>
+
 
                 #{match.smartUpdate()}
 
 
                 <table>
-                    
+
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime}                </span> </td> 
                         <td> <span class="formLabel"> &nbsp;:&nbsp;                                  </span> </td>
@@ -127,25 +128,25 @@
 
                     <tr>
                         <td colspan="3">
-                                <h:form>
-                                    <span class="commandlink" >
-                                        <h:commandLink 
-                                            actionListener="#{match.rejectDriver(evt)}" 
-                                            action="rider.matchDisplay"
-                                            disabled="#{match.disableRejectOfferLink()}"
-                                            >
+                            <h:form>
+                                <span class="commandlink" >
+                                    <h:commandLink 
+                                        actionListener="#{match.rejectDriver(evt)}" 
+                                        action="rider.matchDisplay"
+                                        disabled="#{match.disableRejectOfferLink()}"
+                                        >
 
 
 
-                                            #{msgs.matchRejectOfferedRide}
+                                        #{msgs.matchRejectOfferedRide}
 
-                                            <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
-                                            <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />                                        
-                                            <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
+                                        <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
+                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />                                        
+                                        <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
 
-                                        </h:commandLink>
-                                    </span>
-                                </h:form>
+                                    </h:commandLink>
+                                </span>
+                            </h:form>
                         </td>
                     </tr>
 

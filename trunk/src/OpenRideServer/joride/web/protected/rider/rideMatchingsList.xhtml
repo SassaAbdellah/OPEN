@@ -38,7 +38,7 @@
 
                 </div>
 
-                
+
                 <!-- due to problems with commandlinks inside h:dataTable and ui:repeat -->
                 <!-- we have to use request scoped bean for rides here!                 -->
                 #{rscride.update()}
@@ -68,20 +68,20 @@
                                 <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
                                 <td> <span class="formInput"> #{matching.drive.rideId}  </span> </td> 
                             </tr>
-                            
-                            
+
+
                             <tr>
                                 <td colspan="3">
                                     <span class="formLabel">
                                         <h:form>
-                                        <h:commandLink action="rider.matchDisplay" value="TODO: display Match">
-                                            
-                                            <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
-                                            <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
-                                            
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                        </h:commandLink>
+                                            <h:commandLink action="rider.matchDisplay" value="#{msgs.matchMatchingDrive}">
+
+                                                <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
+                                                <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
+
+                                                <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
+                                                <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                            </h:commandLink>
                                         </h:form>
                                     </span>
                                 </td>
