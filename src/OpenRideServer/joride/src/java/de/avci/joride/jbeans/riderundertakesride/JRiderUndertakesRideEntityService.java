@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import org.postgis.Point;
 
 /**
@@ -219,6 +220,42 @@ public class JRiderUndertakesRideEntityService {
         return rurcl.getActiveOpenRides(ce.getCustNickname());
 
     } // getActiveOpenRides
+    
+    
+    
+     /**
+     * Return a list of *recent* rides, of this user i.e: Rides for which the
+     * "lastStartTime" value is still in the future. and which are not booked.
+     * The user gets determined from the HttpServletRequest's remoteUser,
+     * thus this method can be considered to be save.
+     *
+     * @return
+     */
+    public List<RiderUndertakesRideEntity> getActiveOpenRides(HttpServletRequest request) {
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+        return rurcl.getActiveOpenRides(request.getRemoteUser());
+
+    } // getActiveOpenRides
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    /** Returns true, if the ride given by riderrouteId has been updated, else false.
+     *  This is just a small wrapper to RiderUndertakesRideControllerBeanLocal.isRideUpdated(...)
+     * 
+     * @param riderrouteId
+     * @return 
+     */
+    public boolean isRideUpdated(Integer riderrouteId) {
+       return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
+    }
 
 
     

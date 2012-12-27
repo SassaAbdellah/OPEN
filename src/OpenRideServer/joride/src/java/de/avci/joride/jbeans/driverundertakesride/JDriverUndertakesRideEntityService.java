@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.LinkedList;
+import javax.servlet.http.HttpServletRequest;
 import org.postgis.Point;
 
 
@@ -83,6 +84,19 @@ public class JDriverUndertakesRideEntityService {
       }
       
       
+      /** Get a customerEntity from the current request
+       * 
+       * @return 
+       */
+      public CustomerEntity getCustomerEntity(HttpServletRequest request){
+          return (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
+      }
+      
+      
+      
+      
+      
+      
       /** Get a list of Rides the current User has offered.
        *  Current user/customer is determined from HTTPRequest's AuthPrincipal.
        * 
@@ -96,6 +110,26 @@ public class JDriverUndertakesRideEntityService {
          return durcl.getActiveDrives(ce.getCustNickname());
           
       }
+      
+      
+      
+            
+      /** Get a list of Rides the current User has offered.
+       *  Current user/customer is determined from HTTPRequest's AuthPrincipal.
+       * 
+       * @return 
+       */
+      public List <DriverUndertakesRideEntity> getActiveDrivesForDriver(HttpServletRequest request){
+      
+         CustomerEntity ce=this.getCustomerEntity(request);
+         DriverUndertakesRideControllerLocal durcl=this.lookupDriverUndertakesRideControllerBeanLocal();
+         
+         return durcl.getActiveDrives(ce.getCustNickname());
+          
+      }
+      
+      
+      
       
             
       /** Get a list of open active Rides the current user has offered.
@@ -436,6 +470,18 @@ public class JDriverUndertakesRideEntityService {
             );
 
       }
+
+      
+    /** True, if drive has been updated since last driver access, else false.
+     *  Small wrapper to "isDriveUpdated" in DriverUndertakesRideControllerLocal
+     * 
+     * @param rideId
+     * @return 
+     */
+    public boolean isDriveUpdated(Integer rideId) {
+   
+        return lookupDriverUndertakesRideControllerBeanLocal().isDriveUpdated(rideId);
+    }
       
       
     
