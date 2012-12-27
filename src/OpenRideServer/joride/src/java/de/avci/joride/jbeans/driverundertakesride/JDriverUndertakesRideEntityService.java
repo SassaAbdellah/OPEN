@@ -340,6 +340,8 @@ public class JDriverUndertakesRideEntityService {
             if(jdure.getRideStarttime()==null){
                   throw new Error(errPrefix+"ride starttime is null");
             }
+            
+            
             //String rideComment
             // jdure.getRideComment(),No checks, rideComment may possibly be null
             
@@ -397,7 +399,7 @@ public class JDriverUndertakesRideEntityService {
    
           // check integrity of Offer
           this.checkJDriverUndertakesRideEntity(jdure);
-    
+         
            //
           // Check, if drive does really belong to the calling user
           //

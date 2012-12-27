@@ -66,6 +66,37 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public String getStartDateFormatted() {
         return getDateFormat().format(this.getStarttimeEarliest());
     }
+    
+    
+    /** if comment property is null, replace it with an empty string rather 
+     *  than null to avoid Nullpointertrouble in backend.
+     *  Also, remove leading and trailing blanks
+     */
+    protected void cleanseComment(){
+    
+        if(this.getComment()==null){
+            this.setComment("");
+        }
+       
+        this.setComment(this.getComment().trim());
+    }
+    
+      /** if price property is null, replace it with "Double.NaN"
+     *   to avoid Nullpointertrouble in backend.
+     *  Also, remove leading and trailing blanks
+     */
+    protected void cleansePrice(){
+    
+        if(this.getPrice()==null){
+            this.setPrice(Double.NaN);
+        }
+       
+        this.setComment(this.getComment().trim());
+    }
+    
+    
+    
+    
 
     /**
      * Update from a given RiderUndertakesRideEntity object.

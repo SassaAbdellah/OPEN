@@ -161,10 +161,14 @@ public class JRiderUndertakesRideEntityService {
         if (ce.getCustId() == null) {
             throw new Error("Cannot determine Rides, customerId is null");
         }
+        
+        // null comments may cause nullpointer trouble, so clean it here
+        jrure.cleanseComment();
+        // null prices may cause nullpointer trouble, so clean it here
+        jrure.cleansePrice();
+        
 
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
-
-
 
         return rurcl.addRideRequest(
                 // int cust_id, 
@@ -182,7 +186,7 @@ public class JRiderUndertakesRideEntityService {
                 //double price, 
                 jrure.getPrice(),
                 //String comment, 
-                "created with joride frontend",
+                jrure.getComment(),
                 //String startptAddress, 
                 jrure.getStartptAddress(),
                 //String endptAddress
