@@ -4,6 +4,7 @@
  */
 package de.avci.joride.restful;
 
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
@@ -35,8 +36,12 @@ public class UpdateService {
      *  Example for JSON comes here:
      * 
      *  {"UpdateResponse":{"updatedoffers":0,"updatedsearches":0}}
-     * 
      *  TODO: get better Documentation for JSON Object (WADL?)
+     * 
+     * 
+     *  Service is to be found at an URL like that:
+     *  http://host:port/joride/jax-rs/update/
+     * 
      * 
      */
     public String getUpdateText(@Context HttpServletRequest request) {
@@ -87,9 +92,16 @@ public class UpdateService {
                 updatedsearchesCount++;
             }
         }
+        
+        
+        String UpdateResponse=JoRideConstants.PARAM_NAME_UPDATE_RESPONSE;
+        String NoUpdateOffers=JoRideConstants.PARAM_NAME_NO_UPDATED_OFFERS;
+        String NoUpdateRequests=JoRideConstants.PARAM_NAME_NO_UPDATED_REQUESTS;
+        
+        
 
         // For simplicity, we build the JSON Response "byHand" here //
-        String result = "{\"UpdateResponse\":{\"updatedoffers\":" + updatedoffersCount + ",\"updatedsearches\":" + updatedsearchesCount + "}}";
+        String result = "{\""+UpdateResponse+"\":{\""+NoUpdateOffers+"\":" +updatedoffersCount + ",\""+NoUpdateRequests+"\":" + updatedsearchesCount + "}}";
 
         return result;
 
