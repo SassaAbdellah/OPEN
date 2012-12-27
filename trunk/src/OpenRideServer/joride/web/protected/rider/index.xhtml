@@ -9,7 +9,7 @@
 
     <body>
 
-
+        
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
@@ -42,8 +42,6 @@
                             </h:commandLink>
                         </span>
 
-
-
                     </h:form>
 
                 </div>
@@ -52,24 +50,15 @@
 
 
 
-                TODO: Your Active, Open Ride Requests:
+                <h2> #{msgs.rideActiveRequests} : </h2>
 
                
 
                 <h:form>
-                    <h:dataTable 
-                        value="#{ride.activeOpenRidesForRider}" 
-                        styleClass="table" 
-                        headerClass="tableheader"
-                        var="ride" 
-                        >
-
-
-
-                        <h:column>     <!-- single column of nested tables -->         
-
-                            <tr> <!-- big table row and td -->
-                                <td> 
+                    <ui:repeat  value="#{ride.activeOpenRidesForRider}" var="ride">
+                    
+                   
+                
                                     <p>
                                         <table> <!-- nested table #1 -->
 
@@ -134,14 +123,8 @@
 
                                         </table> <!-- nested table #1 -->  
                                     </p>
-                                </td>        
-                            </tr> <!-- End of big table row and td -->
-
-                        </h:column>
-
-
-
-                    </h:dataTable>
+                    </ui:repeat>
+                    
                 </h:form>
 
 
