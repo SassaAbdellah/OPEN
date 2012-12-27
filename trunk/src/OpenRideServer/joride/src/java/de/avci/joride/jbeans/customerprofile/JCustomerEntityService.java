@@ -5,6 +5,8 @@ package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.utils.HTTPRequestUtil;
 
+import javax.servlet.http.HttpServletRequest;
+
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 
@@ -59,6 +61,32 @@ public class JCustomerEntityService {
         return  customerEntity;
       
     } // getCustomerEntity
+    
+    
+    
+    /** Determine a CustomerEntity from a HTTPServletRequest.
+     *  The user is determined from the request's remoteUser property,
+     *  and can thus be considered to be safe.
+     * 
+     * @param request request from which the remote user should be read
+     * @return 
+     */
+
+    public CustomerEntity getCustomerEntityFromRequest(HttpServletRequest request) {
+  
+        // SecurityMeasure: ensure that the userName is equal to
+        // the AuthPrincipal of the Request
+      
+       String userName=request.getRemoteUser();
+        
+        
+        CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
+
+        // TODO: do something more sane than just cast
+        return  customerEntity;
+      
+    } // getCustomerEntity
+    
     
     
         
