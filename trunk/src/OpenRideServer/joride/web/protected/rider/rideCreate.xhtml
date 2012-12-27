@@ -69,6 +69,16 @@
 
                         <div class="formLabel">   #{msgs.ridePrice} </div>
                         <div class="formInput">  <h:inputText value="#{newride.price}"/> </div>
+                        
+                          <!-- comment -->
+                         <div class="formLabel">   #{msgs.rideComment}  </div>
+                        
+                         <div class="formInput"> 
+                             <h:inputTextarea value="#{newride.comment}" />                
+                          </div>
+                        
+                    </p>
+                    
 
 
                         <p>    <!-- Beginning of "set data for Startpoint" section -->
@@ -170,14 +180,6 @@
                             </h:commandLink>
 
                         </p> <!-- End of "set data for Endpoint" section -->
-
-
-                        <p>
-                            <div class="formLabel">  #{msgs.rideComment} TODO: (Unused in Original OR, but should soon be revived!)  </div>
-                            <div class="formInput">  #{newride.comment} </div>
-                        </p>
-                    </p>
-
 
                     <!--- Submit Data to create a new RideRequest -->
 
