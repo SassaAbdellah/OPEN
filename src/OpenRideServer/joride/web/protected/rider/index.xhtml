@@ -65,18 +65,15 @@
                                 <tr>
                                     <td colspan="3">
                                         <h2> #{msgs.rideRequest} #{ride.riderrouteId} </h2>
+                                        <!-- show message if ride is updated -->
+                                        <ui:fragment rendered="#{ride.rideUpdated}">
+                               
+                                            <h:graphicImage library="images" name="updated.gif" width="30" height="30" />
+                                            #{msgs.updatedRide}
+                                        </ui:fragment>
                                     </td>
                                 </tr>
-                                
-                                  <tr>
-                                            <td class="formLabel">  TODO: is ride Updated </td>
-                                            <td class="formLabel"> &nbsp;:&nbsp; </td>
-                                            <td class="formInput"> #{ride.rideUpdated} </td>
-                                        </tr>
 
-                                
-                                
-                                
                                 <tr>
                                     <td colspan="3">
                                         <span class="formLabel">
@@ -87,7 +84,6 @@
                                         </span>
                                     </td>
                                 </tr>
-
 
                                 <tr> 
                                     <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
