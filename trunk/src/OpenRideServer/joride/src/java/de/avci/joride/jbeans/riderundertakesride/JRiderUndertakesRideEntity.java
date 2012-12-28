@@ -21,8 +21,6 @@ import java.util.Iterator;
 import javax.faces.event.ActionEvent;
 import org.postgis.Point;
 
-
-
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
  *
@@ -66,37 +64,33 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public String getStartDateFormatted() {
         return getDateFormat().format(this.getStarttimeEarliest());
     }
-    
-    
-    /** if comment property is null, replace it with an empty string rather 
-     *  than null to avoid Nullpointertrouble in backend.
-     *  Also, remove leading and trailing blanks
+
+    /**
+     * if comment property is null, replace it with an empty string rather than
+     * null to avoid Nullpointertrouble in backend. Also, remove leading and
+     * trailing blanks
      */
-    protected void cleanseComment(){
-    
-        if(this.getComment()==null){
+    protected void cleanseComment() {
+
+        if (this.getComment() == null) {
             this.setComment("");
         }
-       
+
         this.setComment(this.getComment().trim());
     }
-    
-      /** if price property is null, replace it with "Double.NaN"
-     *   to avoid Nullpointertrouble in backend.
-     *  Also, remove leading and trailing blanks
+
+    /**
+     * if price property is null, replace it with "Double.NaN" to avoid
+     * Nullpointertrouble in backend. Also, remove leading and trailing blanks
      */
-    protected void cleansePrice(){
-    
-        if(this.getPrice()==null){
+    protected void cleansePrice() {
+
+        if (this.getPrice() == null) {
             this.setPrice(Double.NaN);
         }
-       
+
         this.setComment(this.getComment().trim());
     }
-    
-    
-    
-    
 
     /**
      * Update from a given RiderUndertakesRideEntity object.
@@ -178,7 +172,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
 
-    /**Lists *all* **active** **open** rides for this customer. I.e: Rides which
+    /**
+     * Lists *all* **active** **open** rides for this customer. I.e: Rides which
      * have lastStartTime still in the future, and are not booked.
      *
      * @return list of all Active OpenRides
@@ -187,23 +182,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
         List<RiderUndertakesRideEntity> activeOpenRides = (new JRiderUndertakesRideEntityService()).getActiveOpenRides();
 
-        List <JRiderUndertakesRideEntity> res = new LinkedList <JRiderUndertakesRideEntity>();
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
 
-        Iterator <RiderUndertakesRideEntity> it=activeOpenRides.iterator();
-        
-        while(it.hasNext()){
-            JRiderUndertakesRideEntity jrue=new JRiderUndertakesRideEntity();
+        Iterator<RiderUndertakesRideEntity> it = activeOpenRides.iterator();
+
+        while (it.hasNext()) {
+            JRiderUndertakesRideEntity jrue = new JRiderUndertakesRideEntity();
             jrue.updateFromRiderUndertakesRideEntity(it.next());
             res.add(jrue);
         }
-        
-        
+
+
         return res;
     }
-    
-    
-   
-  
 
     /**
      * Update *this* with the Data read in from database for given id, or just
@@ -445,12 +436,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         } //   if(paramValueTargetEndpoint.equals(webflowPoint.getTarget()))
 
     } // smartUpdate
-    
-    
-    
-    
-    
-   
 
     /**
      * Create a new RiderUndertakesRideEntity and save it to the Database.
@@ -498,33 +483,41 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         if (CRUDConstants.PARAM_VALUE_CRUD_CREATE.equals(action)) {
             this.addToDB();
         }
-        
+
     } // doCrudAction()
-    
-   
-    
-    
-    /** Returns a list of Matching Drive Offers for this ride
-     * 
+
+    /**
+     * Returns a list of Matching Drive Offers for this ride
+     *
      * @return Returns a list of Matching Drive Offers for this ride
      */
-    public List <JMatchingEntity> getMatches(){
-        
-        if(this.getRiderrouteId()==null){
+    public List<JMatchingEntity> getMatches() {
+
+        if (this.getRiderrouteId() == null) {
             System.err.println("riderRouteId is null, returning empty list");
-            return new LinkedList<JMatchingEntity> ();
+            return new LinkedList<JMatchingEntity>();
         }
-        
+
         return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
     }
+
     
-    /** Returns the Number of OpenMatches for this RideRequest
-     * 
-     * @return  Returns the Number of OpenMatches for this RideRequest
+    
+    /**
+     * Returns true, if this ride has been updated
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
      */
-    public int getNoMatches(){
+    public boolean getRideUpdated() {
+        return (new JRiderUndertakesRideEntityService()).isRideUpdated(this.getRiderrouteId());
+    }
+
+    /**
+     * Returns the Number of OpenMatches for this RideRequest
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
+     */
+    public int getNoMatches() {
         return this.getMatches().size();
     }
-    
-    
 } // class

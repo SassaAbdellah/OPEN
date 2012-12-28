@@ -73,10 +73,14 @@
         <param-value>Development</param-value>
     </context-param>
    
+   
+   
+   <!--  most of the jsfs and webservices are protected  -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
             <url-pattern>/faces/protected/*</url-pattern>
+            <url-pattern>/jax-rs/protected/*</url-pattern>
             <url-pattern>/protected/*</url-pattern>
             <url-pattern>/resources/*</url-pattern>
         </web-resource-collection>

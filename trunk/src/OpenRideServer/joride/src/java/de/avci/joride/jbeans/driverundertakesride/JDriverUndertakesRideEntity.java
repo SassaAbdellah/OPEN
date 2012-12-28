@@ -535,10 +535,19 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         if (this.getRideId() == null) {
             System.err.println("Cannot return matches, My rideId is null!!, returning empty list.");
-            return new LinkedList <JMatchingEntity>();
+            return new LinkedList<JMatchingEntity>();
         }
 
         return (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
+    }
+
+    /**
+     * Returns true, if this drive has been updated
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
+     */
+    public boolean getDriveUpdated() {
+        return (new JDriverUndertakesRideEntityService()).isDriveUpdated(this.getRideId());
     }
 
     /**

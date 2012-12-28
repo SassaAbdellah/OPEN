@@ -21,10 +21,12 @@ import javax.ws.rs.core.Context;
 /**
  * Simple Update Service providing information about updated requests and offers
  * to the Webclient.
+ * 
+ * 
  *
  * @author jochen
  */
-@Path("update")
+@Path("protected/update")
 @Produces("text/json")
 public class UpdateService {
 
@@ -47,13 +49,9 @@ public class UpdateService {
     public String getUpdateText(@Context HttpServletRequest request) {
         
         
-       
-        
-
         if(request.getRemoteUser()==null){
             throw new Error("Cannot determine update, request's remoteuser is null");
         }
-
      
         CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
 
