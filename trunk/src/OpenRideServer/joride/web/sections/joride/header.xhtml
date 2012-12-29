@@ -1,34 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 
-   <head><title>IGNORED</title></head>
-   <body>
+    <head><title>IGNORED</title></head>
+    <body>
 
 
 
-      <!--  Header Section for all of JoRide -->
+        <!--  Header Section for all of JoRide -->
 
-	<ui:composition>
-		<div id="header">
-			Joride Header &nbsp; #{HTTPUser.currentUser}
-                        
-                
-			<h:form>      
+        <ui:composition>
+            <div id="header">
+
+
+                TODO: jORide Header &nbsp; #{HTTPUser.currentUser}
+
+
+                <!-- ***  stuff inside update alert section is for polling *** -->
+                <!-- **   and displaying  update messages in header        *** -->
+
+                <div id="updateAlert"> 
+
+                    <!-- include jquery for update polling   -->
+                    <h:outputScript library="js" name="jquery-1.4.1.js" />
+                    <h:outputScript library="js" name="updateAlert.js"  />
+
+                    <table>
+                        <tr> 
+                            <td> <span id="updatedRequestsImg" >  </span> </td> 
+                            <td> <span id="updatedRequestsMsg" >  </span>  </td> 
+                        </tr>
+                        <tr> 
+                            <td> <span id="updatedOffersImg"   >  </span> </td> 
+                            <td> <span id="updatedOffersMsg"   >  </span> </td> 
+                        </tr>
+                    </table>
+
+
+
+
+                    <script>
+
+                        /** URL where the "update" image is located  */
+                        var updatedImageURL='#{nav.urlBase}/#{nav.urlUpdateAlertImage}';   
+                        /* Message to be displayed when there are updated requests */  
+                        var rideUpdateMessage=#{msgs.updateRideUpdateMessage};
+                        /* Message to be displayed when there are updated offers */  
+                        var driveUpdateMessage=#{msgs.updateDriveUpdateMessage};
                       
-                            <h:outputLink value="#{HTTPUser.getLoginURL()}">
-                          		#{HTTPUser.loginLabel}
-                        	</h:outputLink>
-				<h:outputLink value="#{HTTPUser.getLogoutURL()}">
-                          		#{HTTPUser.logoutLabel}
-                        	</h:outputLink>
-                        </h:form>
-              
-		</div>
-	</ui:composition>
+                    
+                        /*  Call showUpdates function periodically every minute!
+                         *  (1 minute == 60000 milliseconds )
+                         *  
+                         *  TODO: make update interval configurable by properties
+                         *  
+                         */
+                        setInterval('$.getJSON(\'#{nav.urlBase}/${nav.urlUpdateService}\',showUpdates)', 60000); 
 
-   </body>
+                    </script>
+
+                </div> 
+
+                <!-- *** end of update alert stuff *** -->
+
+
+
+
+                <h:form>      
+                    <h:outputLink value="#{HTTPUser.getLoginURL()}">
+                        #{HTTPUser.loginLabel}
+                    </h:outputLink>
+                    <h:outputLink value="#{HTTPUser.getLogoutURL()}">
+                        #{HTTPUser.logoutLabel}
+                    </h:outputLink>
+                </h:form>
+
+            </div>
+        </ui:composition>
+
+    </body>
 </html>

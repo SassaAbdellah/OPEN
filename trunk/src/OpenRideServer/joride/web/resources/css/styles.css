@@ -25,6 +25,13 @@ a:hover {
 }
 
 
+#updateAlert{
+      font-size:0.66em;
+      text-color:#A0A0A0;
+}
+
+
+
 #content{
 
     padding-top:15px;
