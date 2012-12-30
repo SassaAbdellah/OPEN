@@ -23,6 +23,7 @@
 
 package de.fhg.fokus.openride.rides.driver;
 
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import de.fhg.fokus.openride.routing.RoutePoint;
@@ -161,5 +162,22 @@ public interface DriverUndertakesRideControllerLocal {
     List<DriverUndertakesRideEntity> getInactiveDrives(String nickname);
 
     List<DriverUndertakesRideEntity> getActiveOpenDrives(String nickname);
+    
+    
+       
+    /**  Returns all drives for a given driver that have startpoints defined after a given date.
+     * 
+     * 
+     * @param customerEntity    The Customer for which to get Drives.
+     * @param rideStarttime     Timestamp that servers as a lower bound for starttime
+     * 
+     * @return active drives of user <code>nickname</code> after <code> rideStarttime </code>
+     */
+    public List<DriverUndertakesRideEntity> getDrivesAfterTime(CustomerEntity ce, Date rideStarttime);
+
+    
+    
+    
+    
 
 }
