@@ -542,6 +542,33 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
         //return getDrives(nickname);
     }
+    
+    
+    
+    /**  Returns all drives for a given driver that have startpoints defined after a given date.
+     * 
+     * 
+     * @param customerId        CustomerEntity for which to get drives
+     * @param rideStarttime     Timestamp that servers as a lower bound for starttime
+     * 
+     * @return active drives of user <code>nickname</code> after <code> rideStarttime </code>
+     */
+    public List<DriverUndertakesRideEntity> getDrivesAfterTime(CustomerEntity custId, Date rideStarttime) {
+
+        init();
+
+        List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime").setParameter("custId",custId).setParameter("time",rideStarttime).getResultList();
+        return res;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public LinkedList<DriverUndertakesRideEntity> getAllDrives() {
         init();
