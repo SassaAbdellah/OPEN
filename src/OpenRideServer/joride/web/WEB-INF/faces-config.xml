@@ -30,6 +30,15 @@
         </resource-bundle>
         
         
+        
+           <!-- update Properties ******************************* -->
+        <resource-bundle>
+            <base-name>de.avci.joride.update</base-name>
+            <var>update</var>
+        </resource-bundle>
+        
+        
+        
       
     </application>
 

@@ -58,7 +58,7 @@
                          *  TODO: make update interval configurable by properties
                          *  
                          */
-                        setInterval('$.getJSON(\'#{nav.urlBase}/${nav.urlUpdateService}\',showUpdates)', 60000); 
+                        setInterval('$.getJSON(\'#{nav.urlBase}/${nav.urlUpdateService}\',showUpdates)', #{update.updateInterval}); 
 
                     </script>
 
