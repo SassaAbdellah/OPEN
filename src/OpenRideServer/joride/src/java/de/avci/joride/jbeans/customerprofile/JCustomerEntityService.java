@@ -233,11 +233,11 @@ public class JCustomerEntityService {
                    
           //  int custId
            customerID,         
-           // int custDriverprefAge
-           jCustomerEntity.getCustDriverprefAge(),
+           // int custDriverprefAge is set to 0
+           0,
        
-           // char custDriverprefGender
-           jCustomerEntity.getCustDriverprefGender(),
+           // char custDriverprefGender is set to '-'
+           '-',
            
            // char custDriverprefSmoker) 
            jCustomerEntity.getCustDriverprefSmoker()
@@ -292,11 +292,11 @@ public class JCustomerEntityService {
                    
           //  int custId
            customerID,         
-           // int custRiderprefAge
-           jCustomerEntity.getCustRiderprefAge(),
+           // int custRiderprefAge is fixed to '0'
+           0,
        
-           // char custRiderprefGender
-           jCustomerEntity.getCustRiderprefGender(),
+           // char custRiderprefGender is fixed to '-'
+           '-',
            
            // char custRiderprefSmoker) 
            jCustomerEntity.getCustRiderprefIssmoker()
