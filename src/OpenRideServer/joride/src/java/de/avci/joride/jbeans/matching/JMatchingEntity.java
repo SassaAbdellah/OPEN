@@ -4,6 +4,7 @@
  */
 package de.avci.joride.jbeans.matching;
 
+import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
@@ -471,6 +472,36 @@ public class JMatchingEntity implements Serializable {
        return"Cannot find state message for driver state : "+ds;
     
     }
+    
+    
+    
+    
+    /** Create label for gender from single shortcut character stored in DB.
+     * 
+     * @param arg
+     * @return 
+     */
+    public String getDriverGenderLabel(){
+    
+             JCustomerEntity jce=new JCustomerEntity();
+             jce.setCustGender(this.getDrive().getCustId().getCustGender());
+             return jce.getGenderLabel();
+    }
+    
+     /** Create label for gender from single shortcut character stored in DB.
+     * 
+     * @param arg
+     * @return 
+     */
+    public String getRiderGenderLabel(){
+    
+             JCustomerEntity jce=new JCustomerEntity();
+             jce.setCustGender(this.getRide().getCustId().getCustGender());
+             return jce.getGenderLabel();
+    }
+    
+    
+    
     
     
 } // class 
