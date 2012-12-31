@@ -1,5 +1,6 @@
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.utils.PropertiesLoader;
 import java.util.Collection;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -317,5 +318,62 @@ public class JCustomerEntity extends CustomerEntity {
         return res;
 
     }
+    /**
+     * Character to mark male gender in customer table
+     */
+    private static char GENDER_MALE = 'm';
+
+    /**
+     * Make constant availlable as JSF property.
+     */
+    public char getGenderMale() {
+        return this.GENDER_MALE;
+    }
+    /**
+     * Character to mark female gender in customer table
+     */
+    private static char GENDER_FEMALE = 'f';
+
+    /**
+     * Make constant availlable as JSF property.
+     */
+    public char getGenderFemale() {
+        return this.GENDER_FEMALE;
+    }
+    /**
+     * Character to mark in customer table the gender of people who do not want
+     * to tell, or are neither male nor female
+     */
+    private static char GENDER_OTHER = '-';
+
+    /**
+     * Make constant availlable as JSF property.
+     */
+    public char getGenderOther() {
+        return this.GENDER_OTHER;
+    }
+    
+    
+    /** Display the gender on a label
+     */
+    public String getGenderLabel(){
+        
+        PropertiesLoader loader=new PropertiesLoader();
+    
+        if(this.getCustGender()==this.GENDER_MALE){
+            return loader.getMessagesProps().getProperty("custGenderMale");
+        }
+        
+        if(this.getCustGender()==this.GENDER_FEMALE){
+            return loader.getMessagesProps().getProperty("custGenderFemale");
+        }
+        
+        
+        return loader.getMessagesProps().getProperty("custGenderOther");
+    
+    }
+    
+    
+    
 }// class
 

@@ -19,37 +19,37 @@
                 #{msgs.title}
             </ui:define>
 
-          <!-- navbar 2 specific for this page -->
-    
-        
-            <ui:define name="content">
-   
-                
-              <div id="navbar2">
-                <h:form>
-          
-                    <span class="nav2Highlight">         
-                        <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
-                    </span>
-                            |
-                    <span class="nav2Highlight">          
-                        <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
-                    </span> 
-                            |
-                     <span class="nav2Highlight">
-                         <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
-                    </span> 
-                   
-                </h:form>
-            </div>
+            <!-- navbar 2 specific for this page -->
 
-             <h1>  #{msgs.nav1_pref_personalData_label}  </h1>
-                         
-                
-                
-                
-                
-                
+
+            <ui:define name="content">
+
+
+                <div id="navbar2">
+                    <h:form>
+
+                        <span class="nav2Highlight">         
+                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                        </span>
+                        |
+                        <span class="nav2Highlight">          
+                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                        </span> 
+                        |
+                        <span class="nav2Highlight">
+                            <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
+                        </span> 
+
+                    </h:form>
+                </div>
+
+                <h1>  #{msgs.nav1_pref_personalData_label}  </h1>
+
+
+
+
+
+
 
 
                 <!-- the profile must be filled with data before anything -->   
@@ -79,8 +79,24 @@
                         <h:inputText value="#{jprofile.custLastname}" disabled="true" />
                         <h:inputHidden value="#{jprofile.custLastname}"  />
                     </div>
+                    
+                      <!-- Gender is not to be changed after account creation  -->
+
+                    <div class="formLabel"> #{msgs.custGender}   </div>       
+                    <div class="formInput">
+
+                        <h:selectOneMenu value="#{jprofile.custGender}" disabled="true">
+                            <f:selectItem itemValue="#{jprofile.genderFemale}"  itemLabel="#{msgs.custGenderFemale}" />
+                            <f:selectItem itemValue="#{jprofile.genderMale}"    itemLabel="#{msgs.custGenderMale}" />
+                            <f:selectItem itemValue="#{jprofile.genderOther}"   itemLabel="#{msgs.custGenderOther}" />
+                        </h:selectOneMenu>
+
+                    </div>
 
 
+
+
+                  
                     <!-- Date of Birth -->
                     <div class="formLabel"> #{msgs.custDateofbirth} </div>     
                     <div class="formInput">
@@ -128,12 +144,12 @@
 
                     <div class="formLabel"> #{msgs.custIssmoker}   </div>       
                     <div class="formInput">
-                      
-                    <h:selectOneMenu value="#{jprofile.custSmoker}">
-                        <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
-                        <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
-   		    </h:selectOneMenu>
-                        
+
+                        <h:selectOneMenu value="#{jprofile.custSmoker}">
+                            <f:selectItem itemValue="#{jprofile.smokerChar}" itemLabel="#{msgs.custSmoker}" />
+                            <f:selectItem itemValue="#{jprofile.nonsmokerChar}" itemLabel="#{msgs.custNonSmoker}" />
+                        </h:selectOneMenu>
+
                     </div>
 
                     <div class="formLabel"> #{msgs.custLicensedate}      </div>
