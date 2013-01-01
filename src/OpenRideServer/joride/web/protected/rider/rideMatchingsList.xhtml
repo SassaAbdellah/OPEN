@@ -43,7 +43,7 @@
                 <!-- we have to use request scoped bean for rides here!                 -->
                 #{rscride.update()}
 
-                <h1>  Matching trips for request  #{rscride.riderrouteId}</h1>
+                <h1>  #{msgs.matchMatchingOffersForRequest}  #{rscride.riderrouteId}</h1>
 
 
                 <ui:repeat value="#{rscride.matches}"   var="matching" >
