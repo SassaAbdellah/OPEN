@@ -82,7 +82,7 @@
                                             </td>
                                         </tr>
 
-                                           <tr>
+                                        <tr>
                                             <td colspan="3">
                                                 <span class="formLabel">
                                                     <h:commandLink action="driver.driveDisplay" value="#{msgs.formDisplay}">
@@ -93,7 +93,7 @@
                                             </td>
                                         </tr>
 
-                                        
+
                                         <tr>                                            
                                             <td>
                                                 <span class="formLabel">
@@ -108,7 +108,7 @@
                                             </td>
                                         </tr>
 
-                                     
+
                                         <tr>
                                             <td class="formLabel">  #{msgs.rideStart}  </td>
                                             <td class="formLabel"> &nbsp;:&nbsp; </td>
@@ -131,16 +131,23 @@
                                             <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
                                             <td> <span class="formInput">  #{drive.noMatches}            </span> </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <span class="formLabel">
-                                                    <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
-                                                        <f:param   name="#{crud.paramNameCrudId}"   value="#{drive.rideId}"/>
-                                                        <f:param   name="#{webflow.getParamBack()}" value="driver"              />
-                                                    </h:commandLink>
-                                                </span>
-                                            </td>
-                                        </tr>
+
+
+                                        <!-- show link only if there are matches -->
+
+                                        <ui:fragment rendered="#{drive.hasMatches}">
+
+                                            <tr>
+                                                <td colspan="3">
+                                                    <span class="formLabel">
+                                                        <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
+                                                            <f:param   name="#{crud.paramNameCrudId}"   value="#{drive.rideId}"/>
+                                                            <f:param   name="#{webflow.getParamBack()}" value="driver"              />
+                                                        </h:commandLink>
+                                                    </span>
+                                                </td>
+                                            </tr>                     
+                                        </ui:fragment>
                                     </table>
                                 </p>
                             </tr>

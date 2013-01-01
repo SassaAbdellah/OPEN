@@ -558,34 +558,37 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public int getNoMatches() {
         return this.getMatches().size();
     }
-    
-    
-    /** Return a list of Drive offers starting after given starttime. 
-     *  Returned list is ordered descending by offer's starttime.
-     * 
+
+    /**
+     * @return Returns true, if the number of Matches is > 0, else false
+     *
+     */
+    public boolean getHasMatches() {
+        return this.getMatches().size() > 0;
+    }
+
+    /**
+     * Return a list of Drive offers starting after given starttime. Returned
+     * list is ordered descending by offer's starttime.
+     *
      * @param starttime
-     * @return 
+     * @return
      */
-    public List <JDriverUndertakesRideEntity> getDrivesAfterStarttime(Date starttime){
-    
-        java.sql.Date sqltime=new java.sql.Date(starttime.getTime());
+    public List<JDriverUndertakesRideEntity> getDrivesAfterStarttime(Date starttime) {
+
+        java.sql.Date sqltime = new java.sql.Date(starttime.getTime());
         return new JDriverUndertakesRideEntityService().getDrivesAfterTimeSafely(sqltime);
     }
-    
-    
-    /** Return a list of future Drive offers.
-     *  Returned list is ordered descending by offer's starttime.
-     * 
-     * @return 
+
+    /**
+     * Return a list of future Drive offers. Returned list is ordered descending
+     * by offer's starttime.
+     *
+     * @return
      */
-    public List <JDriverUndertakesRideEntity> getFutureDrives(){
-    
-        java.sql.Date sqltime=new java.sql.Date(System.currentTimeMillis());
+    public List<JDriverUndertakesRideEntity> getFutureDrives() {
+
+        java.sql.Date sqltime = new java.sql.Date(System.currentTimeMillis());
         return new JDriverUndertakesRideEntityService().getDrivesAfterTimeSafely(sqltime);
     }
-    
-    
-    
-    
-    
 } // class 

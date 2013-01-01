@@ -520,4 +520,18 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public int getNoMatches() {
         return this.getMatches().size();
     }
+    
+    /**
+     * @return Returns true, if the number of Matches is > 0, else false
+     *
+     */
+    public boolean getHasMatches() {
+        return this.getMatches().size() > 0;
+    }
+
+    
+    
+    
+    
+    
 } // class
