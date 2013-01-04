@@ -40,7 +40,16 @@
                     <p>
                         <div class="formLabel">   #{msgs.rideStarttime}  </div>
                         <div class="formInput"> 
-                            <p:calendar value="#{newdriverride.rideStarttime}" mode="inline" id="starttimeCal"  locale="de" pattern="#{datetime.tsformat}" >  
+
+                            <p:calendar 
+                                value="#{newdriverride.rideStarttime}"
+                                id="starttimeCal"  
+                                locale="de" 
+                                pattern="#{datetime.tsformat}"
+                                mode="popup"
+                                navigator="true"
+                                showOn="button"
+                                >  
                                 <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
                             </p:calendar>  
 

@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       >
-    
-    
+
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -55,17 +55,35 @@
                     <p>
                         <div class="formLabel">  #{msgs.rideStarttimeEarliest} </div>
                         <div class="formInput"> 
-                            <h:inputText value="#{newride.starttimeEarliest}" >   
+                            <p:calendar 
+                                value="#{newride.starttimeEarliest}"  
+                                id="starttimeEarliestCal"   
+                                locale="de" 
+                                pattern="#{datetime.tsformat}" 
+                                mode="popup"
+                                navigator="true"
+                                showOn="button"
+                                >  
                                 <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
-                            </h:inputText> 
-                            
+
+                            </p:calendar>  
                         </div>
 
                         <div class="formLabel">  #{msgs.rideStarttimeLatest} </div>
                         <div class="formInput">   
-                            <h:inputText value="#{newride.starttimeLatest}"> 
+                            <p:calendar 
+                                value="#{newride.starttimeLatest}" 
+                                id="starttimeLatestCal"  
+                                locale="de" 
+                                pattern="#{datetime.tsformat}" 
+                                mode="popup"
+                                navigator="true"
+                                showOn="button"
+                                >  
+
                                 <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
-                            </h:inputText>
+
+                            </p:calendar>  
 
                         </div>
 
