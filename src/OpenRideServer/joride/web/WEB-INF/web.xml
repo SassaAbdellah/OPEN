@@ -109,4 +109,32 @@
     <security-role>
         <role-name>customer</role-name>
     </security-role>
+    
+    
+    <!-- ******************************************************************** -->
+    <!-- ** Standar all-to-UTF8 encoding filter gets applied to everything ** -->
+    <!-- ******************************************************************** -->
+    
+    <filter>
+
+	<filter-name>EncodingFilter</filter-name>
+	<filter-class>
+            de.avci.joride.session.EncodingFilter
+	</filter-class>
+
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+
+</filter>
+
+<filter-mapping>
+	<filter-name>EncodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+    
+    
+    
+    
 </web-app>
