@@ -5,7 +5,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       >
+
+
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
 
     <body>
 
@@ -33,25 +40,31 @@
                     <p>
                         <div class="formLabel">   #{msgs.rideStarttime}  </div>
                         <div class="formInput"> 
-                            <h:inputText value="#{newdriverride.rideStarttime}" >                
+
+
+
+                            <p:calendar value="#{newdriverride.rideStarttime}"  id="starttimeCal"  locale="de" pattern="#{datetime.tsformat}" >  
                                 <f:convertDateTime  pattern="#{datetime.tsformat}" type="both" />
-                            </h:inputText>
+                            </p:calendar>  
+
+
+
                         </div>
                     </p>
                     <p>
-                         <div class="formLabel">   #{msgs.rideComment}  </div>
-                        
+                        <div class="formLabel">   #{msgs.rideComment}  </div>
+
                         <div class="formInput"> 
                             <h:inputTextarea value="#{newdriverride.rideComment}" />                
                         </div>
-                        
+
                     </p>
-                    
-                    
+
+
                     <p>
 
                         <h2> #{msgs.rideStart} </h2>
-                        
+
                         <div class="formLabel">  #{msgs.rideStartptAddress}             </div>
                         <div class="formInput"> 
                             <h:inputTextarea value="#{newdriverride.startptAddress}" />   
@@ -148,7 +161,7 @@
                             <h:inputText id="detourkm" value="#{newdriverride.rideAcceptableDetourInKm}" >
                                 <f:convertNumber type="number" integerOnly="true"/>
                                 <f:validateLongRange minimum="0" />
-                                
+
                                 <h:message for="detourkm" />
                             </h:inputText>  
                         </div>
@@ -182,7 +195,7 @@
 
                     <p>
                         <h:commandLink action="driver.driveCreateRoute" >
-                               #{msgs.rideEditRoute}
+                            #{msgs.rideEditRoute}
                         </h:commandLink>
                     </p>
 

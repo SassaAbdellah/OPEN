@@ -5,7 +5,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       >
+    
+    
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
+
 
     <body>
 
@@ -41,8 +49,8 @@
                 </div>
 
                 <h1>   #{msgs.nav1_pref_favoritePlaces_label}  </h1>
-                
-                
+
+
                 <p> <!--_ link for creating a new favorite -->
                     <h:form>
                         <h:commandLink value="#{msgs.favpointAddPoint}" action="preferences.favoritePlacesCreate" />
@@ -52,7 +60,7 @@
                 <p>
 
                     <!-- Displaying favorite places and links for deleting them  -->
-                    
+
 
                     <h:form>    
                         <h:dataTable 
@@ -63,32 +71,32 @@
 
                             <!-- Column single column with data displayed atop of each other -->
                             <h:column>            
-                                
+
                                 <p>
                                     <h4>#{fp.favptDisplayname}</h4> 
-                                  
-                                #{fp.favptAddress} <br/>
-                                
-                                
-                                               <!-- display action --> 
-                                <h:commandLink action="preferences.favoritePlacesDisplay" >
 
-                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
-                                    <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
-                                    [ #{msgs.formDisplay} ]
-                                </h:commandLink> 
-                                               
-                                 &nbsp; &nbsp; &nbsp;
-                                
-                                  <!--  delete action --> 
-                                <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
-                                    <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
-                                    <f:param  name="#{crud.paramNameCrudId}" value="#{fp.favptId}"/>
+                                    #{fp.favptAddress} <br/>
 
-                                    [#{msgs.formDelete}]
-                                </h:commandLink>
+
+                                    <!-- display action --> 
+                                    <h:commandLink action="preferences.favoritePlacesDisplay" >
+
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
+                                        <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
+                                        [ #{msgs.formDisplay} ]
+                                    </h:commandLink> 
+
+                                    &nbsp; &nbsp; &nbsp;
+
+                                    <!--  delete action --> 
+                                    <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
+                                        <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{fp.favptId}"/>
+
+                                        [#{msgs.formDelete}]
+                                    </h:commandLink>
                                 </p>
-                                                               
+
                             </h:column>
 
                         </h:dataTable>
@@ -97,7 +105,7 @@
                 </p>
 
 
-             
+
 
 
 

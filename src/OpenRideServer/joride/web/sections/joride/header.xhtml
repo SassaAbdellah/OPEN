@@ -2,10 +2,18 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" >
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:p="http://primefaces.org/ui"
+      >
 
 
-    <head><title>IGNORED</title></head>
+    <h:head>
+        
+        
+        <title>IGNORED</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    </h:head>
     <body>
 
 
@@ -14,8 +22,9 @@
 
         <ui:composition>
             <div id="header">
-
-
+               <!-- dummy input is there to enforce loading of jquers the primefaces way-->
+                 
+               
                 TODO: jORide Header &nbsp; #{HTTPUser.currentUser}
 
 
@@ -23,9 +32,12 @@
                 <!-- **   and displaying  update messages in header        *** -->
 
                 <div id="updateAlert"> 
-
-                    <!-- include jquery for update polling   -->
-                    <h:outputScript library="js" name="jquery-1.4.1.js" />
+                    
+                    
+                    <!-- as jquery has to be loaded via primefaces to avoid namespace conflicts -->
+                    <!-- make sure to have primefaces ui namespace in the path!                   -->
+                    
+                    <h:outputScript library="primefaces" name="jquery/jquery.js"/>
                     <h:outputScript library="js" name="updateAlert.js"  />
 
                     <table>

@@ -5,22 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core" >
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui"
+      >
 
 
-
-
-
-
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
 
     <body>
 
-
-
-
         <ui:composition template="/templates/simpleLayout.xhtml">
-
-
 
 
             <ui:define name="windowTitle">
@@ -31,8 +27,8 @@
 
                 #{webflow.smartUpdate()}
                 #{point.smartUpdate()}
-                
-             
+
+
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
                 <h:outputScript library="js" name="geolocation.js" />   
 
@@ -96,7 +92,7 @@
                 <button onclick="getLocation()"> #{msgs.geolocationServiceLabel} </button>
 
 
-           
+
 
                 <div class="webflow">
 
