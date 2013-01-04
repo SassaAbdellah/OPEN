@@ -35,10 +35,13 @@
                     
                     
                     <!-- as jquery has to be loaded via primefaces to avoid namespace conflicts -->
-                    <!-- make sure to have primefaces ui namespace in the path!                   -->
+                    <!-- make sure to have primefaces ui namespace in the path!      -->              
+                    <h:outputScript library="primefaces" name="jquery/jquery.js"      />
+                    <!-- we want to have localized primefaces controls               -->
+                    <h:outputScript library="js"         name="primefacesLocale.js"   />
                     
-                    <h:outputScript library="primefaces" name="jquery/jquery.js"/>
-                    <h:outputScript library="js" name="updateAlert.js"  />
+                    <!-- check for update regularily                                 -->
+                    <h:outputScript library="js" name="updateAlert.js"                />
 
                     <table>
                         <tr> 
