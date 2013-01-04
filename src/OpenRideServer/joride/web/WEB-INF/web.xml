@@ -9,7 +9,7 @@
 
 
   
-   <!-- Login Servlet -->
+    <!-- Login Servlet -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>de.avci.joride.session.LoginServlet</servlet-class>
@@ -23,7 +23,7 @@
 
 
 
-   <!-- Logout Servlet -->
+    <!-- Logout Servlet -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>de.avci.joride.session.LogoutServlet</servlet-class>
@@ -37,7 +37,7 @@
 
 
 
-   <!-- Faces Servlet -->
+    <!-- Faces Servlet -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -47,7 +47,7 @@
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
    
-   <!--  jax-rs servlet -->
+    <!--  jax-rs servlet -->
    
     <servlet>
         <servlet-name>JAX-RS Servlet</servlet-name>
@@ -68,14 +68,29 @@
     <welcome-file-list>
         <welcome-file>faces/public/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    
+    
+    
+    
+    <!-- TODO: change this when it comes to productive USE ! -->
+    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    <!-- *** For the time beeing, we start with hardwired afterwork theme *** -->
+    <!-- *** TODO: make this configurable for packager                    *** -->
+    
+    <context-param>   
+        <param-name>primefaces.THEME</param-name>
+        <param-value>afterwork</param-value> 
+    </context-param>
    
    
    
-   <!--  most of the jsfs and webservices are protected  -->
+    <!--  most of the jsfs and webservices are protected  -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
@@ -117,22 +132,22 @@
     
     <filter>
 
-	<filter-name>EncodingFilter</filter-name>
-	<filter-class>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>
             de.avci.joride.session.EncodingFilter
-	</filter-class>
+        </filter-class>
 
-	<init-param>
-		<param-name>encoding</param-name>
-		<param-value>UTF-8</param-value>
-	</init-param>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
 
-</filter>
+    </filter>
 
-<filter-mapping>
-	<filter-name>EncodingFilter</filter-name>
-	<url-pattern>/*</url-pattern>
-</filter-mapping>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     
     
     
