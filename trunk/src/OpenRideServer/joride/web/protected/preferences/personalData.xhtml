@@ -5,7 +5,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       >
+    
+    
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
+
 
     <body>
 
@@ -79,8 +87,8 @@
                         <h:inputText value="#{jprofile.custLastname}" disabled="true" />
                         <h:inputHidden value="#{jprofile.custLastname}"  />
                     </div>
-                    
-                      <!-- Gender is not to be changed after account creation  -->
+
+                    <!-- Gender is not to be changed after account creation  -->
 
                     <div class="formLabel"> #{msgs.custGender}   </div>       
                     <div class="formInput">
@@ -96,7 +104,7 @@
 
 
 
-                  
+
                     <!-- Date of Birth -->
                     <div class="formLabel"> #{msgs.custDateofbirth} </div>     
                     <div class="formInput">
