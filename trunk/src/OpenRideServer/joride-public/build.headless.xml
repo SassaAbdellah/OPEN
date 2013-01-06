@@ -38,28 +38,35 @@
    </path>
 
 
+
+ <!-- *********************************************************************************** -->
+ <!-- ***  directories needed for synchonizing and cleaning                           *** -->
+ <!-- ***  directory where the joride project lives and where things are copied from  *** -->
+
+	<property name="joride.dir" value="../joride/" />
+	<!-- webdir of this project -->
+	<property name="web.dir" value="${appdir}/web"/>
+	<!-- webdir of joride project -->
+	<property name="joride.web.dir" value="${joride.dir}/web"/>	
+        <!-- all the resources (javascript, images, css)  will be imported from joride--> 
+        <property name="resources.dir" value="${web.dir}/resources/" />	 	
+        <!-- all the jfaces templates and sections will be imported from joride -->
+	<property name="templates.dir" value="${web.dir}/templates/" />
+        <!-- all the jfaces sections/fragments will be imported from joride -->
+	<property name="sections.dir" value="${web.dir}/sections/" />
+
+
+
   <target name="synchronize" description="Synchronize with joride project"> 
  	
-	
-	<!-- directory where the joride project lives and where things are copied from -->
-	<property name="joride.dir" value="../joride/" />
 
-	<!-- webdir of this project -->
-	<property name="web.dir" value="${appdir}/web"/>	
-	
-	<!-- webdir of joride project -->
-	<property name="joride.web.dir" value="${joride.dir}/web"/>		
-
-
-	<!-- completely synchronize web/resources directory with joride -->	
-	<property name="resources.dir" value="${web.dir}/resources/" />
+	<!-- completely synchronize web/resources directory with joride -->
 	<delete dir="${resources.dir}"/>
 	<copy todir="${resources.dir}">
 		<fileset dir="${joride.web.dir}/resources/"/>
 	</copy>
 
 	<!-- completely synchronize web/templates directory with joride -->	
-	<property name="templates.dir" value="${web.dir}/templates/" />
 	<delete dir="${templates.dir}"/>
 	<copy todir="${templates.dir}">
 		<fileset dir="${joride.web.dir}/templates/"/>
@@ -67,16 +74,11 @@
 
 
 	<!-- completely synchronize web/sections directory with joride -->	
-	<property name="sections.dir" value="${web.dir}/sections/" />
 	<delete dir="${sections.dir}"/>
 	<copy todir="${sections.dir}">
 		<fileset dir="${joride.web.dir}/sections/"/>
 	</copy>
 	
-
-
-
-
 
   </target>
 	
@@ -184,5 +186,20 @@
          description="Clean everything.">
       <delete dir="${build.dir}"/>
       <delete dir="${dist.dir}"/>
+
+      <!-- apart from the "usual suspects", the synchronized directories will have to be cleaned also -->	
+
+   	<!-- completely synchronize web/resources directory with joride -->
+	<delete dir="${resources.dir}"/>
+	<!-- completely synchronize web/templates directory with joride -->	
+	<delete dir="${templates.dir}"/>
+	<!-- completely synchronize web/sections directory with joride -->	
+	<delete dir="${sections.dir}"/>
+	
+
+
+
+
    </target>
 </project>
+	
