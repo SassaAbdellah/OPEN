@@ -42,17 +42,18 @@ contact.jsp.base=build.headless.support/branding/contact/contact.jsp
 #
 # uncomment the following, to build "old" OpenRideWeb/OpenRideAdmin/OpenRideServer-RS frontends.
 # (these should be build by default)
-build.OpenRideWeb=true
-build.OpenRideAdmin=true
-build.OpenRideServer-RS=true
+#build.OpenRideWeb=true
+#build.OpenRideAdmin=true
+#build.OpenRideServer-RS=true
 #
 #
 #
 #
 # uncomment this to build "joride" frontend (still under development)
+build.joride=true
 #
-#build.joride=true
-#
+# uncomment this to build "joride-public" frontend (still under development)
+build.joride-public=true
 #
 #
 # the language into which the Frontend should  be translated into

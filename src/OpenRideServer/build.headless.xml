@@ -25,6 +25,17 @@
     <copy file="joride/dist/joride.war"     todir="${build.dir}"                   />
    </target> <!-- joride -->
 
+   <!-- ************************************************************************************** -->
+   <!-- **** joride-public target is only to be build if build.joride-public param is set **** -->
+   <!-- ************************************************************************************** -->
+   <target name="joride-public" description="build the joride-public subproject"  if="build.joride-public" >
+
+    <echo> *** building joride-public subproject  *** </echo>
+ 
+    <ant  dir="joride-public"                             antfile="build.headless.xml"           />
+    <copy file="joride-public/dist/joride-public.war"     todir="${build.dir}"                   />
+   </target> <!-- joride -->
+
 
    <!-- ************************************************************************ -->
    <!-- **** OpenRideWeb Project is to be build only if "build.OpenRideWeb" **** -->
@@ -111,12 +122,17 @@
     <!--build OpenRideServer-RS subproject       ************************************************* -->
     <antcall target="OpenRideServer-RS" inheritAll="true" inheritRefs="true" />
 
-    <!--build OpenRideAdmin subproject       ************************************************* -->
+    <!--build OpenRideAdmin subproject           ************************************************* -->
     <antcall target="OpenRideAdmin" inheritAll="true" inheritRefs="true" />
 
 
-    <!--build joride subproject              ************************************************* -->
+    <!--build joride subproject                  ************************************************* -->
     <antcall target="joride" inheritAll="true" inheritRefs="true" />
+
+    <!--build joride-public subproject           ************************************************* -->
+    <antcall target="joride-public" inheritAll="true" inheritRefs="true" />
+
+
 
 
 
@@ -159,6 +175,8 @@
        <ant  dir="OpenRideWeb"          antfile="build.headless.xml"   target="clean" />
        <ant  dir="OpenRideServer-RS"    antfile="build.headless.xml"   target="clean" />
        <ant  dir="OpenRideAdmin"        antfile="build.headless.xml"   target="clean" />
+       <ant  dir="joride"               antfile="build.headless.xml"   target="clean" />
+       <ant  dir="joride-public"        antfile="build.headless.xml"   target="clean" />
 
    </target> <!-- end of target clean -->
   
