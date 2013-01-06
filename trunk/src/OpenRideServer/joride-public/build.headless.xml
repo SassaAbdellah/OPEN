@@ -111,7 +111,7 @@
    
    <target 
 	name="compile" 
-	depends="copy" 
+	depends="copy,synchronize" 
 	description="Compile source files."
 	>
 
