@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+
+    <h:head>
+        
+        
+        <title>IGNORED</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    </h:head>
+    <body>
+
+
+
+        <!--  Header Section for all of JoRide -->
+
+        <ui:composition>
+            <div id="header">
+               <!-- dummy input is there to enforce loading of jquers the primefaces way-->
+                 
+               
+                TODO: jORide Header &nbsp; #{HTTPUser.currentUser}
+
+
+                <!-- ***  stuff inside update alert section is for polling *** -->
+                <!-- **   and displaying  update messages in header        *** -->
+
+                <div id="updateAlert"> 
+                    
+                    
+                    <!-- as jquery has to be loaded via primefaces to avoid namespace conflicts -->
+                    <!-- make sure to have primefaces ui namespace in the path!      -->              
+                    <h:outputScript library="primefaces" name="jquery/jquery.js"      />
+                    <!-- we want to have localized primefaces controls               -->
+                    <h:outputScript library="js"         name="primefacesLocale.js"   />
+                    
+                    <!-- check for update regularily                                 -->
+                    <h:outputScript library="js" name="updateAlert.js"                />
+
+                    <table>
+                        <tr> 
+                            <td> <span id="updatedRequestsImg" >  </span> </td> 
+                            <td> <span id="updatedRequestsMsg" >  </span>  </td> 
+                        </tr>
+                        <tr> 
+                            <td> <span id="updatedOffersImg"   >  </span> </td> 
+                            <td> <span id="updatedOffersMsg"   >  </span> </td> 
+                        </tr>
+                    </table>
+
+
+
+
+                    <script>
+
+                        /** URL where the "update" image is located  */
+                        var updatedImageURL='#{nav.urlBase}/#{nav.urlUpdateAlertImage}';   
+                        /* Message to be displayed when there are updated requests */  
+                        var rideUpdateMessage=#{msgs.updateRideUpdateMessage};
+                        /* Message to be displayed when there are updated offers */  
+                        var driveUpdateMessage=#{msgs.updateDriveUpdateMessage};
+                      
+                    
+                        /*  Call showUpdates function periodically every minute!
+                         *  (1 minute == 60000 milliseconds )
+                         *  
+                         *  TODO: make update interval configurable by properties
+                         *  
+                         */
+                        setInterval('$.getJSON(\'#{nav.urlBase}/${nav.urlUpdateService}\',showUpdates)', #{update.updateInterval}); 
+
+                    </script>
+
+                </div> 
+
+                <!-- *** end of update alert stuff *** -->
+
+
+
+
+                <h:form>      
+                    <h:outputLink value="#{HTTPUser.getLoginURL()}">
+                        #{HTTPUser.loginLabel}
+                    </h:outputLink>
+                    <h:outputLink value="#{HTTPUser.getLogoutURL()}">
+                        #{HTTPUser.logoutLabel}
+                    </h:outputLink>
+                </h:form>
+
+            </div>
+        </ui:composition>
+
+    </body>
+</html>

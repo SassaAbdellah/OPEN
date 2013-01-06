@@ -1,0 +1,226 @@
+body{
+    color:#000000;
+    background-color:#F0F0F0;
+    font-family:sans-serif;
+    max-width:400px;
+}
+
+a {
+    color:#FF8C00; 	 
+    text-decoration:none;
+}
+
+a:hover {
+    color:#FF8C00; 	 
+    text-decoration:underline; 
+}
+
+
+
+
+#header{
+    vertical-align:middle;
+    text-align:left;
+    margin-bottom:10px;   
+}
+
+
+#updateAlert{
+      font-size:0.66em;
+      text-color:#A0A0A0;
+}
+
+
+
+#content{
+
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-right:15px;
+    padding-left:15px;
+
+    background-color:#FFFFFF;
+}
+
+
+#footer{
+    font-size:0.75em; 
+
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+
+
+/* se commandlink class as wrapper around
+* JSF commandlinks, so that disabled commandlinks
+* do not look like normal text
+*/
+.commandlink{
+    color: #D0D0D0;
+}   
+
+
+
+form{
+    padding:0px;
+    margin:0px;
+}
+
+.formLabel{
+    font-size: 0.8em;
+    font-style: normal;
+    font-weight: bold;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.formInput{
+    font-size:0.8em;
+}
+
+
+
+#navbar1{
+    font-size:0.8em;
+
+    margin:0px;
+    padding:0px;
+}
+
+
+
+
+.nav1{  
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+
+    margin-right:5px;
+    background-color:#D0D0D0;
+}
+
+
+.nav1 a{
+    color:#FFFFFF;
+}
+
+.nav1 a:hover {
+    color:#FF8C00;
+    text-decoration:underline;
+}
+
+
+
+
+
+.nav1Highlight{
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+
+
+    margin-right:5px;
+    background-color:#FFFFFF;
+}
+
+.nav1Highlight a{
+    color:#000000;
+}
+
+.nav1Highlight a:hover {
+    color:#FF8C00;
+    text-decoration:underline;
+}
+
+
+
+#navbar2{
+    font-size:0.75em;
+    margin:0px;
+    padding:0px;
+}
+
+
+
+
+
+
+.nav2 a{
+    color:#D0D0D0;
+}
+
+.nav2 a:hover {
+    color:#FF8C00;
+    text-decoration:underline;
+}
+
+
+  /* no need to set anything here, we use "normal links"
+  */
+.nav2Highlight a{
+  
+}
+
+.nav2Highlight a:hover {
+    color:#D0D0D0;
+    text-decoration:underline;
+}
+
+
+
+
+
+/* Results from Geosearch come inside 
+ * divs of class geosearch_result'.
+ * have a big margin to help distinguish
+ * each individual item 
+ *
+*/
+.geosearch_result {
+    margin-top:15px;
+    margin-left:15px;
+    margin-right:15px;
+    margin-bottom:30px;
+}
+
+
+/** Table headers for JSF table
+*
+*/
+
+.tableheader {
+
+    text-color:#FFFFFF;
+    background-color:#D0D0D0;
+
+}
+
+/** JSF Tables
+*/
+.table {
+    margin-top:15px;
+    margin-bottom:15px;
+
+    font-size:0.9em;
+}
+
+td {
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-right:5px;
+    margin-left:5px;
+}
+
+
+
+/* back| cancel | next | finish link at the bottom of a page
+*/
+.webflow{
+    font-size:0.75em;
+    margin-top:50px;
+    padding:0px;
+}
+
