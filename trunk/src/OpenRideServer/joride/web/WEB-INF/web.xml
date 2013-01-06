@@ -78,12 +78,13 @@
         <param-value>Development</param-value>
     </context-param>
     
-    <!-- *** For the time beeing, we start with hardwired afterwork theme *** -->
-    <!-- *** TODO: make this configurable for packager                    *** -->
     
+    
+    <!-- *** For the time beeing, we start with hardwired "smoothness" theme *** -->
+    <!-- *** TODO: make this configurable for packager                       *** -->
     <context-param>   
         <param-name>primefaces.THEME</param-name>
-        <param-value>afterwork</param-value> 
+        <param-value>smoothness</param-value> 
     </context-param>
    
    
