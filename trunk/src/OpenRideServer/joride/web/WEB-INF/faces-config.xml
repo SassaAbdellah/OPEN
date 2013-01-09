@@ -368,7 +368,34 @@
 
 
 
+    
+    <!-- contact page -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/faces/public/contact/contact.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
+
+    <!-- email contact form  -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>contactForm</from-outcome>
+            <to-view-id>/faces/public/contact/contactForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- confirm sucessfull sending of mail from contact form or elsewhere -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>SENT_OK</from-outcome>
+            <to-view-id>/faces/public/message/message-confirm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+ 
 	
 	
     <!-- ***********************************************************  -->	
@@ -516,7 +543,7 @@
     <managed-bean> 
         <managed-bean-name>rscride</managed-bean-name>
         <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean> 
             
  
@@ -527,11 +554,15 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
             
- 
- 
- 
- 
+    <!-- Bean to send messages (as in the contact form) -->
+    <managed-bean> 
+        <managed-bean-name>mailmessage</managed-bean-name>
+        <managed-bean-class>de.avci.joride.utils.MailMessage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
 
+
+   
 
 
 </faces-config>
