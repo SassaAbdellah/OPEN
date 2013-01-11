@@ -37,32 +37,48 @@
                     <h1> #{msgs.contactSendEmail} </h1>
 
 
-                    <h2> TODO: Recipient </h2>
+
+          
+
+
+                    <!--
+                    
+                    <h2> TODO: Sender </h2>
                     <p>
-                        <h:inputText value="#{mailmessage.recipient}"/>
+                        <h:inputText value="#{contactFormMessage.sender}"/>
                     </p>
 
+
+                    <h2> TODO: Recipient </h2>
+                    <p>
+                        <h:inputText value="#{contactFormMessage.recipient}"/>
+                    </p>
+
+                    
+                    -->
+                    
                     <h2> TODO: Subject </h2>
                     <p>
-                        <h:inputText value="#{mailmessage.subject}"/>
+                        <h:inputText value="#{contactFormMessage.subject}"/>
                     </p>
 
                     <h2> TODO: Message </h2>
                     <p>
-                        <h:inputTextarea value="#{mailmessage.message}" /> 
+                        <h:inputTextarea value="#{contactFormMessage.message}" /> 
                     </p>
 
 
 
                     <p>
-                        <h:commandButton value="submit" action="#{mailmessage.send()}">
+                        <h:commandButton value="submit" action="#{contactFormMessage
+                                                                  .sendContactFormMail()}">
                             <f:param name="#{webflow.paramBack}"            value="contactForm" /> 
                             <p:growl id="growl"  severity="error" />
                         </h:commandButton>
                     </p>
                 </h:form>
 
-
+ 
 
 
 

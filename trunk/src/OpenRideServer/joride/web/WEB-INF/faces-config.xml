@@ -44,6 +44,12 @@
             <var>update</var>
         </resource-bundle>
         
+        <!-- operational Properties ******************************* -->
+        <resource-bundle>
+            <base-name>de.avci.joride.operational</base-name>
+            <var>operational</var>
+        </resource-bundle>
+        
         
         
       
@@ -554,13 +560,7 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
             
-    <!-- Bean to send messages (as in the contact form) -->
-    <managed-bean> 
-        <managed-bean-name>mailmessage</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.MailMessage</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean> 
-
+   
 
    
 
