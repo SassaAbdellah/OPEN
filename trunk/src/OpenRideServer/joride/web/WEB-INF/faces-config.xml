@@ -417,15 +417,7 @@
     </managed-bean> 
     
   
-    <!-- *******  Webflow Parameters, Session Scope ****** -->
-      
-    <managed-bean> 
-        <managed-bean-name>webflow</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.WebflowBean</managed-bean-class>
-    
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
-        
+  
         
         
     <!-- *******  Webflow Point, Session Scope ****** -->

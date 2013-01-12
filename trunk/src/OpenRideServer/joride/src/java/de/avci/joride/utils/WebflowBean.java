@@ -39,7 +39,7 @@ import java.io.Serializable;
  */
 
 
-@Named
+@Named("webflow")
 @SessionScoped
 
 
