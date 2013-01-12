@@ -14,7 +14,7 @@ import javax.inject.Named;
  *
  *
  */
-@Named
+@Named("HTTPUser")
 @SessionScoped
 public class HTTPUser implements Serializable {
 

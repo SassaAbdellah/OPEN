@@ -417,37 +417,7 @@
     </managed-bean> 
     
   
-  
-        
-        
-    <!-- *******  Webflow Point, Session Scope ****** -->
-      
-    <managed-bean> 
-        <managed-bean-name>point</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.WebflowPoint</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
-           
-        
-       
-        
-    <!-- ******  CRUD Parameters, Application Scope    ****** -->
-    <managed-bean> 
-        <managed-bean-name>crud</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.CRUDConstants</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean> 
-        
-        
-        
-        
-        
-    <!-- ****** Nominatim Bean ****** -->
-    <managed-bean> 
-        <managed-bean-name>nominatimq</managed-bean-name>
-        <managed-bean-class>de.avci.joride.utils.geocoding.osm.NominatimJSONQuery</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
+ 
            
         
  

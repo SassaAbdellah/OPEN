@@ -15,7 +15,7 @@ import javax.inject.Named;
  */
 
 
-@Named
+@Named("crud")
 @ApplicationScoped
 public class CRUDConstants implements Serializable {
     
