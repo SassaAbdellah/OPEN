@@ -44,12 +44,139 @@
             <var>update</var>
         </resource-bundle>
         
-        
-        
-      
     </application>
 
 
+        
+        
+    <!-- navigation cases  -->
+        
+        
+
+    <!-- Navigation Case                                  -->
+    <!-- enable new login (for example after loginFailed) -->
+
+    <!-- todo: change login and logout targets! -->
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/faces/public/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/faces/public/logout.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- Navigation Case  -->
+    <!-- go home          -->
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/faces/public/index.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+
+
+   
+   
+    
+   
+    <!-- start page for picking a point    -->
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> pickpoint </from-outcome>
+            <to-view-id>  /faces/public/geocoding/pickpoint.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- geolocate to determine your current position -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> geolocate </from-outcome>
+            <to-view-id>  /faces/public/geocoding/geolocate.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- pick point from list of favorite points -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> pickfavorite </from-outcome>
+            <to-view-id>  /faces/public/geocoding/pickFavorite.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+
+    <!-- go to the nominatim search -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>nominatimq</from-outcome>
+            <to-view-id>/faces/public/geocoding/nominatim/jsonp.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- go to the osmmapper page -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>osmmap</from-outcome>
+            <to-view-id>/faces/public/geocoding/nominatim/osmmap.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- nominatim via javascript/jsonp -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>jnominatim</from-outcome>
+            <to-view-id>/faces/public/geocoding/nominatim/jasonp.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+    
+    <!-- contact page -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/faces/public/contact/contact.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- email contact form  -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>contactForm</from-outcome>
+            <to-view-id>/faces/public/contact/contactForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- confirm sucessfull sending of mail from contact form or elsewhere -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>SENT_OK</from-outcome>
+            <to-view-id>/faces/public/message/message-confirm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+ 
+ 
+        
 
 
 
