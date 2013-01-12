@@ -21,7 +21,7 @@ import org.postgis.Point;
  *
  * @author jochen
  */
-@Named
+@Named("jfavpoint")
 @RequestScoped
 public class JFavoritePointEntity extends FavoritePointEntity {
 
