@@ -450,36 +450,16 @@
     </managed-bean> 
            
         
-    <!-- ******  jprofile (JProfileEntity)                             ****** -->
-    <!-- ******* Scope is request scope, so that                       ****** -->
-    <!-- ******* parts of the data can be updated from different pages *****  -->
-        
-    <managed-bean> 
-        <managed-bean-name>jprofile</managed-bean-name>
-        <managed-bean-class>de.avci.joride.jbeans.customerprofile.JCustomerEntity</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean> 
+ 
         
            
-    <!-- ******  cardetails (JCarDetailsEntity)   ****** -->
-      
-    <managed-bean> 
-        <managed-bean-name>jcardetails</managed-bean-name>
-        <managed-bean-class>de.avci.joride.jbeans.cardetails.JCarDetailsEntity</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean> 
+   
         
+
         
-    <!-- ******  favoritePoints (JFavoritePoints)               ***** -->
-    <!-- ******  we chose request scope, since we have to leave ***** --> 
-    <!-- ******  the page for picking points                    ***** -->
-    <managed-bean> 
-        <managed-bean-name>jfavpoint</managed-bean-name>
-        <managed-bean-class>de.avci.joride.jbeans.favoritepoints.JFavoritePointEntity</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean> 
-        
-        
+            
+                
+                        
         
         
     <!-- ****** Bean for ***exisisting*** offers (JDriverUndertakesRideEntity) , request scoped   ****** -->
@@ -499,6 +479,10 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
     
+    
+    
+    
+    
     <!-- ****** Session scoped bean to circumvent JSF Implementation Bugs  connected with         ****** -->
     <!-- ****** ui:repeat and h:datatable tags. commandlinks from inside these constructs        ****** -->
     <!-- ****** will only work with request of view scoped data, but not with session scope      ****** -->
@@ -510,13 +494,6 @@
     </managed-bean> 
             
     
-    
-    
-    
-    
-    
-        
-
     <!-- ****** Bean for ***exisisting*** RideRequests (JRiderUndertakesRideEntity) , request scoped   ****** -->
     <!-- ****** Note that there is also a bean for *new* requests, which is session scoped          ******-->
     <managed-bean> 
@@ -545,13 +522,7 @@
     </managed-bean> 
             
  
-    <!-- Bean to accept/reject matching rides or Offers -->
-    <managed-bean> 
-        <managed-bean-name>match</managed-bean-name>
-        <managed-bean-class>de.avci.joride.jbeans.matching.JMatchingEntity</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean> 
-            
+  
    
 
    

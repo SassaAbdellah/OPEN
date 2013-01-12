@@ -14,7 +14,7 @@ import javax.inject.Named;
  * @author jochen
  *
  */
-@Named
+@Named("jprofile")
 @RequestScoped
 public class JCustomerEntity extends CustomerEntity {
 

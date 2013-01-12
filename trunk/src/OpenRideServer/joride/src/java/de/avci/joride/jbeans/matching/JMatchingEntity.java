@@ -23,7 +23,7 @@ import javax.inject.Named;
  * @author jochen
  *
  */
-@Named
+@Named("match")
 @SessionScoped
 public class JMatchingEntity implements Serializable {
 

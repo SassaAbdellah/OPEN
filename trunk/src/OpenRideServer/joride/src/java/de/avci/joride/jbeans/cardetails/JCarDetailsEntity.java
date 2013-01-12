@@ -21,7 +21,7 @@ import javax.faces.event.ActionEvent;
  * @author jochen
  *
  */
-@Named
+@Named("jcardetails")
 @RequestScoped
 
 public class JCarDetailsEntity extends CarDetailsEntity {
