@@ -10,6 +10,10 @@ import java.io.Serializable;
 
 import org.postgis.Point;
 
+
+
+
+
 /**
  * Defines Parameters and Values for setting Points and FavoritePoints in JoRide
  * Frontend, such as "lon"/"lat"/"displaystring"/"address".
@@ -38,7 +42,7 @@ import org.postgis.Point;
  *
  *
  */
-@Named
+@Named("point")
 @SessionScoped
 
 
