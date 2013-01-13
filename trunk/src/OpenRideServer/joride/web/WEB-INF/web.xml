@@ -89,14 +89,27 @@
    
    
    
+   
+    <!-- ** public access will be granted to:  ************** -->
+    <!-- **  * login servlet -->
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>LoginServlet</web-resource-name>
+            <url-pattern>  /login/* </url-pattern>
+            <url-pattern> /faces/javax.faces.resource/* </url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+   
+   
+  
+   
     <!--  most of the jsfs and webservices are protected  -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
-            <url-pattern>/faces/protected/*</url-pattern>
-            <url-pattern>/jax-rs/protected/*</url-pattern>
-            <url-pattern>/protected/*</url-pattern>
-            <url-pattern>/resources/*</url-pattern>
+            <url-pattern>/faces/*</url-pattern>
+          
         </web-resource-collection>
         <auth-constraint>
             <role-name>registereduser</role-name>
