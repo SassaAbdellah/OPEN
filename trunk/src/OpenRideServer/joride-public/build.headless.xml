@@ -53,7 +53,7 @@
         <!-- all the jfaces templates and sections will be imported from joride -->
 	<property name="templates.dir" value="${web.dir}/templates/" />
         <!-- all the jfaces sections/fragments will be imported from joride -->
-	<property name="sections.dir" value="${web.dir}/sections/" />
+	<property name="sections.dir" value="${web.dir}/sections/joride/" />
  
         <!-- web/public/ dir  be imported from joride -->
         <property name="web.public.dir" value="${web.dir}/public/" />
@@ -94,10 +94,13 @@
 	</copy>
 
 
-	<!-- completely synchronize web/sections directory with joride -->	
-	<delete dir="${sections.dir}"/>
+	<!-- synchronize header and footer, but not navigation bar -->	
+	<delete file="${sections.dir}/header.xhtml"/>
+	<delete file="${sections.dir}/footer.xhtml"/>
+
 	<copy todir="${sections.dir}">
-		<fileset dir="${joride.web.dir}/sections/"/>
+		<fileset file="${joride.web.dir}/sections/joride/header.xhtml"/>
+		<fileset file="${joride.web.dir}/sections/joride/footer.xhtml"/>
 	</copy>
 	
 
@@ -255,10 +258,14 @@
 
    	<!-- completely synchronize web/resources directory with joride -->
 	<delete dir="${resources.dir}"/>
+
 	<!-- completely synchronize web/templates directory with joride -->	
 	<delete dir="${templates.dir}"/>
-	<!-- completely synchronize web/sections directory with joride -->	
-	<delete dir="${sections.dir}"/>
+
+	<!-- synchronize  header and footer sections with joride -->	
+	<delete file="${sections.dir}/header.xhtml"/>
+	<delete file="${sections.dir}/footer.xhtml"/>
+
 	 <!-- completely synchronize web/public  directory with joride -->
         <delete dir="${web.public.dir}"/>
 

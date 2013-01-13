@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <head><title>IGNORED</title></head>
+    <body>
+
+
+        <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        </h:head>
+
+
+
+
+        <!--  Header Section for joride-pubkuc -->
+
+        <ui:composition>
+
+            <h:form>
+                <span class="nav1#{classHome}">
+                    <h:commandLink action="home">         #{msgs.nav1_home_label}       </h:commandLink>
+                </span>
+
+                <span class="nav1#{classRider}">         
+                    <h:commandLink action="myAccount">    #{msgs.nav1_myAccount_label}  </h:commandLink>    
+                </span>
+              
+            </h:form>
+        </ui:composition>
+
+
+
+
+    </body>
+</html>
