@@ -17,6 +17,11 @@ import javax.inject.Named;
 @Named("jprofile")
 @RequestScoped
 public class JCustomerEntity extends CustomerEntity {
+    
+    /** Normalizer for normalizing input
+     */
+     private CustomerDataNormalizer normalizer = new CustomerDataNormalizer();
+    
 
     /**
      * A character signifying Nonsmoker in prefrerences and personal data
@@ -373,6 +378,9 @@ public class JCustomerEntity extends CustomerEntity {
     
     }
     
+    
+  
+
     
     
 }// class
