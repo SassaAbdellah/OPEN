@@ -309,7 +309,50 @@ public class JCustomerEntityService {
     
     
     
+    /** Returns true, if an account with that email address
+     *  already exists in the db, else false.
+     * 
+     * @param email email adress to be checked
+     * 
+     * @return  true if account exists for given email address, else false
+     */
+    public boolean emailExists(String email){
     
-
+          // with security checks beeing done,
+           // we can proceed to adding data to db        
+           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
+           CustomerEntity ce= cc.getCustomerByEmail(email);
+    
+           return ce!=null;
+           
+    } // email exists
+    
+    
+    
+        
+    /** Returns true, if an account with that nickname address
+     *  already exists in the db, else false.
+     * 
+     * @param nickname to be checked
+     * 
+     * @return  true if account exists for given email address, else false
+     */
+    public boolean nicknameExists(String nickname){
+    
+          // with security checks beeing done,
+           // we can proceed to adding data to db        
+           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
+           CustomerEntity ce= cc.getCustomerByNickname(nickname);
+    
+           return ce!=null;
+           
+    } // nickname exists
+    
+    
+    
+    
+    
+    
+    
     
 } // class
