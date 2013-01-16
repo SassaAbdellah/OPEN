@@ -4,11 +4,16 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 
 import javax.servlet.http.HttpServletRequest;
 
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import java.nio.CharBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -349,7 +354,51 @@ public class JCustomerEntityService {
     } // nickname exists
     
     
+   
+ 
+   
+    /** Creates a customerEntity from Data in JRegistrationRequest.
+     *  
+     * 
+     * @param    request for the data to be created
+     * @return   true if request was successfull, else false
+     */
+    public boolean addCustomerEntry(JRegistrationRequest jrr){
     
+        
+        try{
+            CustomerControllerLocal cc=this.lookupCustomerControllerBeanLocal();
+        
+             // create a random password
+             String random1=""+Math.random()+new java.util.Date();        
+             String initialPassword=CustomerControllerBean.getMD5Hash(random1);
+        
+              // TODO: Send email to caller's address
+        
+         
+              // Create a customer Account
+                cc.addCustomer(
+                //String custNickname
+                jrr.getNickName(), 
+                  //String custPasswd
+                  initialPassword, 
+                  //String custFirstname
+                  jrr.getGivenName(), 
+                  // String custLastname,
+                  jrr.getSurName(),
+                  // char custGender  -- gender may be set later, or let open
+                  (new JCustomerEntity().getGenderOther()), 
+                  //String custEmail
+                  jrr.getEmailAddress(), 
+                  //String custMobilephoneno mobile phone may be added later
+                  null
+                  ) ;
+        } catch(Exception exc){
+            return false;
+        }
+        
+        return true;
+    }
     
     
     
