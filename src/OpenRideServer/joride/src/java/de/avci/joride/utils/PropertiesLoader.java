@@ -17,7 +17,7 @@ public class PropertiesLoader {
      * @param bundlename
      * @return
      */
-    protected ResourceBundle getResourceBundleByName(String bundlename) {
+    private ResourceBundle loadResourceBundleByName(String bundlename) {
 
         return ResourceBundle.getBundle(bundlename);
     }
@@ -51,7 +51,7 @@ public class PropertiesLoader {
      */
     public Properties getNavigationProps() {
 
-        ResourceBundle rb = getResourceBundleByName(NAVIGATION_URL);
+        ResourceBundle rb = loadResourceBundleByName(NAVIGATION_URL);
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
@@ -67,7 +67,7 @@ public class PropertiesLoader {
      */
     public Properties getMessagesProps() {
 
-        ResourceBundle rb = getResourceBundleByName(MESSAGES_URL);
+        ResourceBundle rb = loadResourceBundleByName(MESSAGES_URL);
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
@@ -84,7 +84,7 @@ public class PropertiesLoader {
      */
     public Properties getOperationalProps() {
 
-        ResourceBundle rb = getResourceBundleByName(OPERATIONAL_URL);
+        ResourceBundle rb = loadResourceBundleByName(OPERATIONAL_URL);
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }

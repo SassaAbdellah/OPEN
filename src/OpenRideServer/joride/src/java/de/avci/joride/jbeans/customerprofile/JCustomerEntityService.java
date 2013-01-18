@@ -1,4 +1,5 @@
-/** Service to get and Put CustomerEntityBeans the EJB Way.
+/**
+ * Service to get and Put CustomerEntityBeans the EJB Way.
  *
  */
 package de.avci.joride.jbeans.customerprofile;
@@ -20,20 +21,19 @@ import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-
-/** Service to get and put JCustomerEntityBeans to the System.
- * 
+/**
+ * Service to get and put JCustomerEntityBeans to the System.
  *
- * 
+ *
+ *
  * @author jochen
- * 
+ *
  */
 public class JCustomerEntityService {
-    
+
     CustomerControllerLocal customerControllerBean = lookupCustomerControllerBeanLocal();
-    
-  
-      private CustomerControllerLocal lookupCustomerControllerBeanLocal() {
+
+    private CustomerControllerLocal lookupCustomerControllerBeanLocal() {
         try {
             javax.naming.Context c = new InitialContext();
             return (CustomerControllerLocal) c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/CustomerControllerBean!de.fhg.fokus.openride.customerprofile.CustomerControllerLocal");
@@ -42,366 +42,336 @@ public class JCustomerEntityService {
             throw new RuntimeException(ne);
         }
     }
-    
-    
 
-    /** Initialize the data of an (possibly empty) JCustomerProfile.
-     * 
-     *  For safety, it retreives the "Customer.nickname" for updateing the
-     *  data from the HTTPRequest.userPrincipal property.
-     *  Thus, no dangerous passing of nicknames in parameters is necessary.
-     * 
+    /**
+     * Initialize the data of an (possibly empty) JCustomerProfile.
+     *
+     * For safety, it retreives the "Customer.nickname" for updateing the data
+     * from the HTTPRequest.userPrincipal property. Thus, no dangerous passing
+     * of nicknames in parameters is necessary.
+     *
      */
     public CustomerEntity getCustomerEntitySafely() {
-  
+
         // SecurityMeasure: ensure that the userName is equal to
         // the AuthPrincipal of the Request
-      
-       String userName=(new HTTPRequestUtil()).getUserPrincipalName();
-        
-        
+
+        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+
+
         CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
 
         // TODO: do something more sane than just cast
-        return  customerEntity;
-      
+        return customerEntity;
+
     } // getCustomerEntity
-    
-    
-    
-    /** Determine a CustomerEntity from a HTTPServletRequest.
-     *  The user is determined from the request's remoteUser property,
-     *  and can thus be considered to be safe.
-     * 
+
+    /**
+     * Determine a CustomerEntity from a HTTPServletRequest. The user is
+     * determined from the request's remoteUser property, and can thus be
+     * considered to be safe.
+     *
      * @param request request from which the remote user should be read
-     * @return 
+     * @return
      */
-
     public CustomerEntity getCustomerEntityFromRequest(HttpServletRequest request) {
-  
+
         // SecurityMeasure: ensure that the userName is equal to
         // the AuthPrincipal of the Request
-      
-       String userName=request.getRemoteUser();
-        
-        
+
+        String userName = request.getRemoteUser();
+
+
         CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
 
         // TODO: do something more sane than just cast
-        return  customerEntity;
-      
+        return customerEntity;
+
     } // getCustomerEntity
-    
-    
-    
-        
-    
-    
-    /** Read the customer's nickname from current HTTPRequest's Authentication Data,
-     *  then determine and return the userID.
-     *  Since it relies on HTTPAuth Information we call it "safe".
-     * 
-     * @return the customer id associated to the current HTTPRequest's Principal 
-     * 
+
+    /**
+     * Read the customer's nickname from current HTTPRequest's Authentication
+     * Data, then determine and return the userID. Since it relies on HTTPAuth
+     * Information we call it "safe".
+     *
+     * @return the customer id associated to the current HTTPRequest's Principal
+     *
      */
-    Integer getCustIDSafely(){
-    
-        CustomerEntity ce=getCustomerEntitySafely();
-        
-        if(ce==null){
+    Integer getCustIDSafely() {
+
+        CustomerEntity ce = getCustomerEntitySafely();
+
+        if (ce == null) {
             System.err.println("CustomerEntity was null, cannot return custID");
             return null;
         }
-        
+
         return ce.getCustId();
     } // getCustIdSafely()
-    
-     
-   
-    
 
-    
-    /** Update the personal data persistent data for the given user.
-     *  As a safety measure, the customer entity's user name is checked
-     *  against the http request's user name
-     * 
+    /**
+     * Update the personal data persistent data for the given user. As a safety
+     * measure, the customer entity's user name is checked against the http
+     * request's user name
+     *
      */
-    public void setCustomerPersonalData(JCustomerEntity jCustomerEntity){
-        
-           // check that nickname of argument bean is equal 
-           // to http-request's user name
-           String userName=(new HTTPRequestUtil()).getUserPrincipalName();
-           
-           if(userName==null){
-              String errmsg="Refusing to update userdata, httpRequest is not authenticated";
-              System.err.println(errmsg);
-              throw new Error(errmsg);
-           }
-        
-           if(jCustomerEntity==null){
-               String errmsg="Refusing to update userdata, customerEntity is null";
-               System.err.println(errmsg);
-               throw new Error(errmsg);
-           }
-           
-           
-           String nickname=jCustomerEntity.getCustNickname();
-           
-           if(!(userName.equals(nickname))){
-               String errmsg="Refusing to update userdata, nickname "+nickname+" is not able to http username "+userName;
-               System.err.println(errmsg);
-               throw new Error(errmsg);
-           }
-           
-           // with security checks beeing done,
-           // we can proceed to adding data to db        
-           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
-           
-           Integer customerID=this.getCustIDSafely();
-               System.out.println("customerID is : "+customerID);
-           
-           if(customerID==null){
-               throw new Error("CustomerID is null, cannot save");
-           }
-           
-         
-           cc.setPersonalData(
-          //  int custId
-           customerID,
-           //Date custDateofbirth 
-           jCustomerEntity.getCustDateofbirth(),
-           //String custEmail 
-           jCustomerEntity.getCustEmail(),
-           //String custMobilePhoneNo 
-           jCustomerEntity.getCustMobilephoneno(),
-           //String custFixedPhoneNo 
-           jCustomerEntity.getCustFixedphoneno(),
-           //String custAddrStreet
-           jCustomerEntity.getCustAddrStreet(),
-           //int custAddrZipcode 
-           jCustomerEntity.getCustAddrZipcode(),
-           //String custAddrCity 
-           jCustomerEntity.getCustAddrCity(),
-           //char custIssmoker
-           jCustomerEntity.getCustSmoker().charAt(0),  
-           //Date custLicenseDate);
-           jCustomerEntity.getCustLicensedate()
-         ); // end of method call to setCustomerPersonalData
-                                  
+    public void setCustomerPersonalData(JCustomerEntity jCustomerEntity) {
+
+        // check that nickname of argument bean is equal 
+        // to http-request's user name
+        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+
+        if (userName == null) {
+            String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+        if (jCustomerEntity == null) {
+            String errmsg = "Refusing to update userdata, customerEntity is null";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+
+        String nickname = jCustomerEntity.getCustNickname();
+
+        if (!(userName.equals(nickname))) {
+            String errmsg = "Refusing to update userdata, nickname " + nickname + " is not able to http username " + userName;
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+
+        Integer customerID = this.getCustIDSafely();
+        System.out.println("customerID is : " + customerID);
+
+        if (customerID == null) {
+            throw new Error("CustomerID is null, cannot save");
+        }
+
+
+        cc.setPersonalData(
+                //  int custId
+                customerID,
+                //Date custDateofbirth 
+                jCustomerEntity.getCustDateofbirth(),
+                //String custEmail 
+                jCustomerEntity.getCustEmail(),
+                //String custMobilePhoneNo 
+                jCustomerEntity.getCustMobilephoneno(),
+                //String custFixedPhoneNo 
+                jCustomerEntity.getCustFixedphoneno(),
+                //String custAddrStreet
+                jCustomerEntity.getCustAddrStreet(),
+                //int custAddrZipcode 
+                jCustomerEntity.getCustAddrZipcode(),
+                //String custAddrCity 
+                jCustomerEntity.getCustAddrCity(),
+                //char custIssmoker
+                jCustomerEntity.getCustSmoker().charAt(0),
+                //Date custLicenseDate);
+                jCustomerEntity.getCustLicensedate()); // end of method call to setCustomerPersonalData
+
     }
-    
-    
-    
- 
-    
-    
-        
-    /** Update the driver preferences for the given user.
-     *  As a safety measure, the customer entity's user name is checked
-     *  against the http request's user name
-     * 
+
+    /**
+     * Update the driver preferences for the given user. As a safety measure,
+     * the customer entity's user name is checked against the http request's
+     * user name
+     *
      */
-    public void setCustDriverPrefs(JCustomerEntity jCustomerEntity){
-        
-           // check that nickname of argument bean is equal 
-           // to http-request's user name
-           String userName=(new HTTPRequestUtil()).getUserPrincipalName();
-           
-           if(userName==null){
-              String errmsg="Refusing to update userdata, httpRequest is not authenticated";
-              System.err.println(errmsg);
-              throw new Error(errmsg);
-           }
-        
-           if(jCustomerEntity==null){
-               String errmsg="Refusing to update userdata, customerEntity is null";
-               System.err.println(errmsg);
-               throw new Error(errmsg);
-           }
-           
-           
-         
-           
-           // with security checks beeing done,
-           // we can proceed to adding data to db        
-           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
-           
-           Integer customerID=this.getCustIDSafely();
-               System.out.println("customerID is : "+customerID);
-           
-           if(customerID==null){
-               throw new Error("CustomerID is null, cannot save");
-           }
-           
-         
-           cc.setDriverPrefs(
-                   
-          //  int custId
-           customerID,         
-           // int custDriverprefAge is set to 0
-           0,
-       
-           // char custDriverprefGender is set to '-'
-           '-',
-           
-           // char custDriverprefSmoker) 
-           jCustomerEntity.getCustDriverprefSmoker()
-           
-          
-         ); // end of method call to setCustomerDriverPrefs
-                                  
+    public void setCustDriverPrefs(JCustomerEntity jCustomerEntity) {
+
+        // check that nickname of argument bean is equal 
+        // to http-request's user name
+        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+
+        if (userName == null) {
+            String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+        if (jCustomerEntity == null) {
+            String errmsg = "Refusing to update userdata, customerEntity is null";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+
+
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+
+        Integer customerID = this.getCustIDSafely();
+        System.out.println("customerID is : " + customerID);
+
+        if (customerID == null) {
+            throw new Error("CustomerID is null, cannot save");
+        }
+
+
+        cc.setDriverPrefs(
+                //  int custId
+                customerID,
+                // int custDriverprefAge is set to 0
+                0,
+                // char custDriverprefGender is set to '-'
+                '-',
+                // char custDriverprefSmoker) 
+                jCustomerEntity.getCustDriverprefSmoker()); // end of method call to setCustomerDriverPrefs
+
     }
-    
-    
-    
-           
-    /** Update the rider preferences for the given user.
-     *  As a safety measure, the customer entity's user name is checked
-     *  against the http request's user name
-     * 
+
+    /**
+     * Update the rider preferences for the given user. As a safety measure, the
+     * customer entity's user name is checked against the http request's user
+     * name
+     *
      */
-    public void setCustRiderPrefs(JCustomerEntity jCustomerEntity){
-        
-           // check that nickname of argument bean is equal 
-           // to http-request's user name
-           String userName=(new HTTPRequestUtil()).getUserPrincipalName();
-           
-           if(userName==null){
-              String errmsg="Refusing to update userdata, httpRequest is not authenticated";
-              System.err.println(errmsg);
-              throw new Error(errmsg);
-           }
-        
-           if(jCustomerEntity==null){
-               String errmsg="Refusing to update userdata, customerEntity is null";
-               System.err.println(errmsg);
-               throw new Error(errmsg);
-           }
-           
-           
-         
-           
-           // with security checks beeing done,
-           // we can proceed to adding data to db        
-           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
-           
-           Integer customerID=this.getCustIDSafely();
-               System.out.println("customerID is : "+customerID);
-           
-           if(customerID==null){
-               throw new Error("CustomerID is null, cannot save");
-           }
-           
-         
-           cc.setRiderPrefs(
-                   
-          //  int custId
-           customerID,         
-           // int custRiderprefAge is fixed to '0'
-           0,
-       
-           // char custRiderprefGender is fixed to '-'
-           '-',
-           
-           // char custRiderprefSmoker) 
-           jCustomerEntity.getCustRiderprefIssmoker()
-           
-          
-         ); // end of method call to setCustomerDriverPrefs
-                                  
+    public void setCustRiderPrefs(JCustomerEntity jCustomerEntity) {
+
+        // check that nickname of argument bean is equal 
+        // to http-request's user name
+        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+
+        if (userName == null) {
+            String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+        if (jCustomerEntity == null) {
+            String errmsg = "Refusing to update userdata, customerEntity is null";
+            System.err.println(errmsg);
+            throw new Error(errmsg);
+        }
+
+
+
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+
+        Integer customerID = this.getCustIDSafely();
+        System.out.println("customerID is : " + customerID);
+
+        if (customerID == null) {
+            throw new Error("CustomerID is null, cannot save");
+        }
+
+
+        cc.setRiderPrefs(
+                //  int custId
+                customerID,
+                // int custRiderprefAge is fixed to '0'
+                0,
+                // char custRiderprefGender is fixed to '-'
+                '-',
+                // char custRiderprefSmoker) 
+                jCustomerEntity.getCustRiderprefIssmoker()); // end of method call to setCustomerDriverPrefs
+
     }
-    
-    
-    
-    
-    /** Returns true, if an account with that email address
-     *  already exists in the db, else false.
-     * 
+
+    /**
+     * Returns true, if an account with that email address already exists in the
+     * db, else false.
+     *
      * @param email email adress to be checked
-     * 
-     * @return  true if account exists for given email address, else false
+     *
+     * @return true if account exists for given email address, else false
      */
-    public boolean emailExists(String email){
-    
-          // with security checks beeing done,
-           // we can proceed to adding data to db        
-           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
-           CustomerEntity ce= cc.getCustomerByEmail(email);
-    
-           return ce!=null;
-           
+    public boolean emailExists(String email) {
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+        CustomerEntity ce = cc.getCustomerByEmail(email);
+
+        return ce != null;
+
     } // email exists
-    
-    
-    
-        
-    /** Returns true, if an account with that nickname address
-     *  already exists in the db, else false.
-     * 
+
+    /**
+     * Returns true, if an account with that nickname address already exists in
+     * the db, else false.
+     *
      * @param nickname to be checked
-     * 
-     * @return  true if account exists for given email address, else false
+     *
+     * @return true if account exists for given email address, else false
      */
-    public boolean nicknameExists(String nickname){
-    
-          // with security checks beeing done,
-           // we can proceed to adding data to db        
-           CustomerControllerLocal cc=lookupCustomerControllerBeanLocal();
-           CustomerEntity ce= cc.getCustomerByNickname(nickname);
-    
-           return ce!=null;
-           
+    public boolean nicknameExists(String nickname) {
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+        CustomerEntity ce = cc.getCustomerByNickname(nickname);
+
+        return ce != null;
+
     } // nickname exists
-    
-    
-   
- 
-   
-    /** Creates a customerEntity from Data in JRegistrationRequest.
-     *  
-     * 
-     * @param    request for the data to be created
-     * @return   true if request was successfull, else false
+
+    /** Creates a random password from date and random.
+     *
+     * @return a random password
      */
-    public boolean addCustomerEntry(JRegistrationRequest jrr){
-    
-        
-        try{
-            CustomerControllerLocal cc=this.lookupCustomerControllerBeanLocal();
-        
-             // create a random password
-             String random1=""+Math.random()+new java.util.Date();        
-             String initialPassword=CustomerControllerBean.getMD5Hash(random1);
-        
-              // TODO: Send email to caller's address
-        
-         
-              // Create a customer Account
-                cc.addCustomer(
-                //String custNickname
-                jrr.getNickName(), 
-                  //String custPasswd
-                  initialPassword, 
-                  //String custFirstname
-                  jrr.getGivenName(), 
-                  // String custLastname,
-                  jrr.getSurName(),
-                  // char custGender  -- gender may be set later, or let open
-                  (new JCustomerEntity().getGenderOther()), 
-                  //String custEmail
-                  jrr.getEmailAddress(), 
-                  //String custMobilephoneno mobile phone may be added later
-                  null
-                  ) ;
-        } catch(Exception exc){
-            return false;
+    public String createRandomPasswort() {
+
+        // create a random password
+        String random1 = "" + Math.random() + new java.util.Date();
+        String random2=CustomerControllerBean.getMD5Hash(random1);
+        if(random2.length()>9) {
+            return random2.substring(random2.length()-8);
         }
         
-        return true;
+        return random2;
     }
     
-    
-    
-    
-    
+
+    /**
+     *
+     * @param jrr
+     * @param password
+     * @return
+     */
+    public boolean addCustomerEntry(JRegistrationRequest jrr, String password) {
+
+
+        try {
+            CustomerControllerLocal cc = this.lookupCustomerControllerBeanLocal();
+
+
+
+            // TODO: Send email to caller's address
+
+
+            // Create a customer Account
+            cc.addCustomer(
+                    //String custNickname
+                    jrr.getNickName(),
+                    //String custPasswd
+                    password,
+                    //String custFirstname
+                    jrr.getGivenName(),
+                    // String custLastname,
+                    jrr.getSurName(),
+                    // char custGender  -- gender may be set later, or let open
+                    (new JCustomerEntity().getGenderOther()),
+                    //String custEmail
+                    jrr.getEmailAddress(),
+                    //String custMobilephoneno mobile phone may be added later
+                    null);
+        } catch (Exception exc) {
+            return false;
+        }
+
+        return true;
+    }
 } // class

@@ -80,8 +80,11 @@ public class LoginServlet extends HttpServlet {
 		
             String targetURL=request.getContextPath()+"/j_security_check";
             System.err.println("target url : "+targetURL);
-            request.setAttribute(PARAM_J_USERNAME,"jochen");
-            request.setAttribute(PARAM_J_PASSWORD,"jochen");
+           
+            
+            //
+            //request.setAttribute(PARAM_J_USERNAME,"jochen");
+            // request.setAttribute(PARAM_J_PASSWORD,"jochen");
             //
             // throw new Error(  
             //        "login by smart servlet not yet implemented\n"+
