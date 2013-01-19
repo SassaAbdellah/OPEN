@@ -192,6 +192,18 @@
     </navigation-rule>
  
  
+    <!-- confirm sucessfull reset of password -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>password_request_ok</from-outcome>
+            <to-view-id>/faces/account/resetPasswordConfirm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+ 
+
+
+
+
 
 
 </faces-config>
