@@ -318,7 +318,8 @@ public class JCustomerEntityService {
 
     } // nickname exists
 
-    /** Creates a random password from date and random.
+    /**
+     * Creates a random password from date and random.
      *
      * @return a random password
      */
@@ -326,14 +327,13 @@ public class JCustomerEntityService {
 
         // create a random password
         String random1 = "" + Math.random() + new java.util.Date();
-        String random2=CustomerControllerBean.getMD5Hash(random1);
-        if(random2.length()>9) {
-            return random2.substring(random2.length()-8);
+        String random2 = CustomerControllerBean.getMD5Hash(random1);
+        if (random2.length() > 9) {
+            return random2.substring(random2.length() - 8);
         }
-        
+
         return random2;
     }
-    
 
     /**
      *
@@ -374,4 +374,52 @@ public class JCustomerEntityService {
 
         return true;
     }
+
+    /**
+     * Get the customerId for given email.
+     *
+     * @return CustomerId for
+     */
+    Integer getCustomerIdByEmail(String email) {
+
+        CustomerControllerLocal ccl = this.lookupCustomerControllerBeanLocal();
+
+        CustomerEntity ce = ccl.getCustomerByEmail(email);
+
+        if (ce == null) {
+            return null;
+        }
+        return new Integer(ce.getCustId());
+    }
+    
+    
+    /** Resets the password for the given password ID
+     * 
+     * @param custId
+     * @return the new password 
+     */
+    public String resetPassword(Integer custId) throws Exception {
+ 
+       CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+       String newPassword=this.createRandomPasswort();
+       ccl.setPassword(custId, newPassword);
+       return newPassword;      
+    }
+
+    /** return the Customer Nickname for a given email address.
+     *  (this is) needed for the reset password usecase
+     * 
+     * @param email
+     * @return nickname of the customer for the given email, or null if there is no such customer
+     */
+    String getCustomerNicknameByEmail(String email) {
+        
+        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        CustomerEntity ce=ccl.getCustomerByEmail(email);
+        if(ce==null) {return null;}
+     
+        return ce.getCustNickname();   
+    }
+    
+    
 } // class
