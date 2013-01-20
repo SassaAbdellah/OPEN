@@ -7,13 +7,13 @@
       xmlns:p="http://primefaces.org/ui"
       >
 
-    
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
 
 
-    
+
     <body>
 
 
@@ -31,11 +31,18 @@
 
                 <h:form>
 
+
+                    <p> 
+                        <h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink> 
+                    </p>
+
                     <p>
                         <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink> 
                         <br/>
                         #{msgs.nav1_pref_personalData_desc}
                     </p>   
+
+
 
                     <p>
                         <h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink> 
@@ -55,10 +62,6 @@
                         <br/>                    
                         #{msgs.nav1_pref_favoritePlaces_desc}  
                     </p> 
-
-
-
-
 
                 </h:form>
 
