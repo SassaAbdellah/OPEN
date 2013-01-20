@@ -8,7 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       >
 
-    
+
     <h:head> </h:head>
     <h:body>
 
@@ -25,8 +25,8 @@
 
 
 
-            <!-- set "classHome" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classHome" value="Highlight" />
+            <!-- set "classAccount" property to highlight, so that home tab will be higlighted -->
+            <ui:param name="classAccount" value="Highlight" />
 
             <ui:define name="windowTitle">
                 #{msgs.title}
@@ -38,14 +38,14 @@
 
                 <h1>
                     #{msgs.registrationSuccess}
-                    
+
                 </h1>
 
                 <p>
-                #{msgs.registrationConfirmationMessage}
+                    #{msgs.registrationConfirmationMessage}
                 </p>
                 <pre>
-                #{registrationRequest.emailAddress}
+                    #{registrationRequest.emailAddress}
                 </pre>         
 
                 <!-- ******************************* -->
@@ -53,7 +53,7 @@
                 <!-- ******************************* -->
 
                 <div class="webflow">
-                    
+
                     #{webflow.smartUpdate()}
 
                     <h:form>
