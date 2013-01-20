@@ -87,13 +87,30 @@
     </navigation-rule>
 
 
+
+   <!-- *** Registration and account maintenance *** -->
     <navigation-rule>
         <navigation-case>
             <from-outcome> myAccount </from-outcome>
             <to-view-id>/faces/account/index.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
-   
+    
+    <!-- *** Create a new account *** -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> registration </from-outcome>
+            <to-view-id>/faces/account/registration.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+      <!-- *** Create a new account *** -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> resetPassword</from-outcome>
+            <to-view-id>/faces/account/resetPassword.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
    
     
    
