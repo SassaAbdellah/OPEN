@@ -6,12 +6,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       >
-      
-      
-      
-      
-      
-    
+
+
+
+
+
+
 
     <h:head> </h:head>
 
@@ -35,14 +35,20 @@
 
             <ui:define name="content">
 
-                <ul>
-                    <li> Create a new account
-                    </li>
-                    
-                   <li> Reset Your password
-                    </li>
-                
-                </ul>
+
+                <h:form>
+                    <ul>
+                        <li> 
+                            <h:commandLink value="#{msgs.registrationRegisterNewAccount}" action="registration" />
+                        </li>
+
+                        <li>  
+                            <h:commandLink value="#{msgs.resetPassword}" action="resetPassword" />
+                        </li>
+
+                    </ul>
+
+                </h:form>
 
             </ui:define>
 
