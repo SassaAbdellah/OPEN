@@ -420,6 +420,29 @@ public class JCustomerEntityService {
      
         return ce.getCustNickname();   
     }
+
+    
+    
+    /** Safely change password for current user.
+     *  Current user is determined from HTTPRequest AuthPrincipal
+     * 
+     * @param newpassword 
+     */
+    void setPasswordSafely(String newpassword) {
+        
+        // determine current customer from http-request
+        Integer custId=this.getCustIDSafely();
+        
+        //
+        if(custId==null){
+            throw new Error("Cannot determine Id from HTTPRequest");
+        }
+        
+        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        ccl.setPassword(custId, newpassword);
+        
+        
+    }
     
     
 } // class
