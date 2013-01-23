@@ -28,7 +28,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
+
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
 
     @PersistenceContext
     private EntityManager em;
-    private UserTransaction u;
+
 
     /**
      * This method adds a <code>CarDetailsEntity</code> to the database.
@@ -156,6 +156,12 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
     
     
     
+
+    
+    
+    
+    
+    
     /** This method returns the Cardetails of a cat with specific ID. 
      * 
      * 
@@ -186,6 +192,23 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
             return null;
         }
     }
+    
+    @Override
+    
+    public void removeCardetailsForCustomer(CustomerEntity customer) {
+        
+        
+        List <CarDetailsEntity> lcde=getCarDetailsList(customer);
+    
+        if(lcde!=null){
+            
+            for(CarDetailsEntity cde : lcde){
+                em.remove(cde);
+            }
+        }
+    }
+
+  
     
     
     
