@@ -50,4 +50,15 @@ public interface CarDetailsControllerLocal {
     
     List <CarDetailsEntity> getCarDetailsList(CustomerEntity customer);
     
+    
+    /** Remove all Cars for given Customer -- this is needed when 
+     *  dropping a customerEntry
+     * 
+     * @param customer 
+     */
+    void removeCardetailsForCustomer(CustomerEntity customer);
+    
+    
+    
+    
 }
