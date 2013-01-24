@@ -68,6 +68,7 @@ public class FavoritePointControllerBean extends ControllerBean implements Favor
     }
 
     
+    
     /**
      *
      * @param custId
@@ -83,6 +84,10 @@ public class FavoritePointControllerBean extends ControllerBean implements Favor
         em.remove(fp);
         return true;
     }
+    
+   
+    
+    
 
     public FavoritePointEntity getFavoritePoint(int favptId) {
         FavoritePointEntity fp = em.find(FavoritePointEntity.class, favptId);
@@ -124,4 +129,15 @@ public class FavoritePointControllerBean extends ControllerBean implements Favor
         }
     }
 
-}
+    
+    @Override
+    public void removeFavoritePointsForCustomer(CustomerEntity ce) {
+        
+        List <FavoritePointEntity> fpel=getFavoritePointsByCustomer(ce);
+        
+        for(FavoritePointEntity fpe: fpel){
+            em.remove(fpe);
+        }
+    }
+
+} // class

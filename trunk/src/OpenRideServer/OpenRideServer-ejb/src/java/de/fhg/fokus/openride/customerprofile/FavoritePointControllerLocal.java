@@ -36,6 +36,13 @@ public interface FavoritePointControllerLocal {
     int addFavoritePoint(String favptAddress, String favptPoint, String favptDisplayname, CustomerEntity customer);
 
     boolean removeFavoritePoint(int favptId);
+    
+    /** Remove all the favorite points for this customer,
+     *  typically if the customer is deleted
+     * 
+     * @param ce 
+     */
+    public void removeFavoritePointsForCustomer(CustomerEntity ce);
 
     FavoritePointEntity getFavoritePoint(int favptId);
 
