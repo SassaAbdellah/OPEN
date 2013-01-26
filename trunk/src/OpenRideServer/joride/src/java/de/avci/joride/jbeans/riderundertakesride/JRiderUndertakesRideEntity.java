@@ -29,6 +29,7 @@ import org.postgis.Point;
  */
 @Named
 @SessionScoped
+
 public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
     /**
@@ -530,7 +531,26 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     }
 
     
-    
+    /** Remove ride with given riderroute id. 
+     * 
+     *  Returns "rider" to move back to "rider" page if removal was successful,
+     *  else returns null.
+     *  May frequently fail, if there are open Matches for this ride.
+     * 
+     */
+    public String remove(){
+        
+        boolean success=new JRiderUndertakesRideEntityService().removeRideSafely(this);
+        
+        if(success){
+            return "rider";
+        } else {
+        
+            // TODO: add a message why this failed
+        
+            return null;
+        }
+    } // remove ride
     
     
     

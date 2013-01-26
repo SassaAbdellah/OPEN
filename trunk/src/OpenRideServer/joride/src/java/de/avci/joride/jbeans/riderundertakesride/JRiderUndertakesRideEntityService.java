@@ -39,7 +39,6 @@ public class JRiderUndertakesRideEntityService {
         return (new JCustomerEntityService()).getCustomerEntitySafely();
     }
 
-   
     /**
      * Lookup RiderUndertakesRideControllerLocal Bean that controls my requests.
      *
@@ -162,12 +161,12 @@ public class JRiderUndertakesRideEntityService {
         if (ce.getCustId() == null) {
             throw new Error("Cannot determine Rides, customerId is null");
         }
-        
+
         // null comments may cause nullpointer trouble, so clean it here
         jrure.cleanseComment();
         // null prices may cause nullpointer trouble, so clean it here
         jrure.cleansePrice();
-        
+
 
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
@@ -220,14 +219,69 @@ public class JRiderUndertakesRideEntityService {
         return rurcl.getActiveOpenRides(ce.getCustNickname());
 
     } // getActiveOpenRides
+
+    /**
+     * Savely remove the Ride with given riderRouteId.
+     *
+     * Current user/customer is determined from HTTPRequest's AuthPrincipal.
+     *
+     * @return true, if the ride has been removed, else false.
+     */
+    public boolean removeRideSafely(JRiderUndertakesRideEntity jrure) {
+
+
+     
+        CustomerEntity ce = this.getCustomerEntity();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Ride for removal, calling customerEntity is null");
+        }
+
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (rurcl == null) {
+            throw new Error("Cannot determine RiderUndertakesRideControllerLocal");
+        }
+
+        
+       if (jrure == null) {
+            throw new Error("Cannot remove ride, argument is null");
+        }
+
+      
+       if(jrure.getRiderrouteId()==null){
+           throw new Error("Cannot remove ride, riderrouteId is null");
+      }
     
-    
-    
-     /**
+       
+       
+        
+        
+        int riderrouteId=jrure.getRiderrouteId();
+        
+        RiderUndertakesRideEntity rure = rurcl.getRideByRiderRouteId(riderrouteId);
+
+        
+        
+        if (rure == null) {
+            throw new Error("Cannot remove ride with id " + jrure.getRiderrouteId() + ", ride is null!");
+        }
+
+
+        if (rure.getCustId().getCustId() != ce.getCustId()) {
+            throw new Error("Cannot retrieve Ride with given ID for removal, object does not belong to user");
+        }
+
+        return rurcl.removeRide(rure.getRiderrouteId());
+
+    } //  getDriveByIdSavely(int id)
+
+    /**
      * Return a list of *recent* rides, of this user i.e: Rides for which the
      * "lastStartTime" value is still in the future. and which are not booked.
-     * The user gets determined from the HttpServletRequest's remoteUser,
-     * thus this method can be considered to be save.
+     * The user gets determined from the HttpServletRequest's remoteUser, thus
+     * this method can be considered to be save.
      *
      * @return
      */
@@ -238,27 +292,15 @@ public class JRiderUndertakesRideEntityService {
 
     } // getActiveOpenRides
 
-    
-    
-    
-    
-    
-    
-
-    
-    
-    /** Returns true, if the ride given by riderrouteId has been updated, else false.
-     *  This is just a small wrapper to RiderUndertakesRideControllerBeanLocal.isRideUpdated(...)
-     * 
+    /**
+     * Returns true, if the ride given by riderrouteId has been updated, else
+     * false. This is just a small wrapper to
+     * RiderUndertakesRideControllerBeanLocal.isRideUpdated(...)
+     *
      * @param riderrouteId
-     * @return 
+     * @return
      */
     public boolean isRideUpdated(Integer riderrouteId) {
-       return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
+        return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
     }
-
-
-    
-   
-    
 } // class
