@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.rides.rider;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -66,9 +65,11 @@ public interface RiderUndertakesRideControllerLocal {
 
     LinkedList<RiderUndertakesRideEntity> getAllRides();
 
-    /** get all rides/requests for customer ce, newest first  */
+    /**
+     * get all rides/requests for customer ce, newest first
+     */
     List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce);
-    
+
     List<RiderUndertakesRideEntity> getActiveRideRequestsByCustId(String custId);
 
     List<RiderUndertakesRideEntity> getRidesWithoutRatingByRider(CustomerEntity rider);
@@ -119,6 +120,15 @@ public interface RiderUndertakesRideControllerLocal {
             String endptAddress);
 
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress);
+
+    /**
+     * True, if RiderUndertakesRide Entity with given riderrouteId is deletable,
+     * else false.
+     *
+     * @param riderrouteId
+     * @return
+     */
+    public boolean isDeletable(int riderrouteId);
 
     void removeRiderFromRide(int riderrouteid, int rideid);
 

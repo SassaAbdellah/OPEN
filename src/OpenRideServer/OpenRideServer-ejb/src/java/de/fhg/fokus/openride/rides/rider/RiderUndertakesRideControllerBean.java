@@ -127,8 +127,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * information about lift and drop index FIXME: Swap fake rideId to real
      * rideId
      *
-     * @param riderRouteId FIXME: this is the fake
-     * <code>rideID</code>
+     * @param riderRouteId FIXME: this is the fake <code>rideID</code>
      * @param riderrouteId FIXME: this is the real rideId
      * @return 1 if rider was added -1 if not
      */
@@ -393,7 +392,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             }
 
             Collections.sort(future, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
                     RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
@@ -416,8 +414,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         return returnList;
     }
 
-    /** Get all rides for given customer, sorted by age, i.e: newest startdates
-     *  first
+    /**
+     * Get all rides for given customer, sorted by age, i.e: newest startdates
+     * first
      *
      * @param cd : customer to search rides for
      * @return
@@ -435,7 +434,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
 
         Collections.sort(returnList, new Comparator() {
-
             public int compare(Object o1, Object o2) {
                 RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
                 RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
@@ -488,7 +486,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             }
 
             Collections.sort(past, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
                     RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
@@ -516,9 +513,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * <code>nickname</code>.
      *
      * @param nickname The nickname of the user.
-     * @return null, if no user with
-     * <code>nickname</code> was found; active rides of user
-     * <code>nickname</code>
+     * @return null, if no user with <code>nickname</code> was found; active
+     * rides of user <code>nickname</code>
      */
     public List<RiderUndertakesRideEntity> getActiveRideRequests(String nickname) {
         List<RiderUndertakesRideEntity> returnList = null;
@@ -552,7 +548,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             }
 
             Collections.sort(future, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
                     RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
@@ -583,7 +578,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
          * entities){
          * if(m.getDriverUndertakesRideEntity().getRideStarttime().before(now)){
          * // this is not active anymore entities.remove(m); }
-        }
+         }
          */
         return entities;
     }
@@ -870,8 +865,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         return getNegativeRatingsTotalByCustomerAndDate(customer, null);
     }
 
-    public boolean removeRide(int riderrouteId) {
-        System.out.println("remove ride");
+    @Override
+    public boolean isDeletable(int riderrouteId) {
+
+
 
         init();
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
@@ -884,6 +881,17 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 }
             }
         }
+
+        return deletable;
+    }
+
+    public boolean removeRide(int riderrouteId) {
+        System.out.println("remove ride");
+
+        init();
+        List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
+        boolean deletable = true;
+
         if (deletable) {
             // entity can be chang  ed
 
@@ -1052,7 +1060,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                     /*
                      * if (setRiderAccess) { for (MatchEntity match : list) {
                      * match.setRiderAccess(new Date()); em.merge(match); }
-                    }
+                     }
                      */
                 } else if ((m.getDriverState() != null && m.getDriverState().equals(MatchEntity.REJECTED)) || (m.getRiderState() != null && m.getRiderState().equals(MatchEntity.REJECTED))) {
                     // at least one of both candidates has rejected the other
@@ -1091,14 +1099,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
          * later on! em.persist(m); }
          *
          * //persist open matchings
-        newMatches.addAll(matches);
+         newMatches.addAll(matches);
          */
         newMatches.addAll(rejectedMatches);
 
 
         if (list.size() > 0) { // tku: Can there ever be more than 1 match in "list"???
             Collections.sort(list, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     MatchEntity ent1 = (MatchEntity) o1;
                     MatchEntity ent2 = (MatchEntity) o2;
@@ -1115,13 +1122,12 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             /*
              * if (setRiderAccess) { for (MatchEntity m : list) {
              * m.setRiderAccess(new Date()); em.merge(m); }
-            }
+             }
              */
 
             return list;
         } else {
             Collections.sort(newMatches, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     MatchEntity ent1 = (MatchEntity) o1;
                     MatchEntity ent2 = (MatchEntity) o2;
@@ -1236,7 +1242,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             }
 
             Collections.sort(future, new Comparator() {
-
                 public int compare(Object o1, Object o2) {
                     RiderUndertakesRideEntity ent1 = (RiderUndertakesRideEntity) o1;
                     RiderUndertakesRideEntity ent2 = (RiderUndertakesRideEntity) o2;
