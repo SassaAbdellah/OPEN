@@ -500,6 +500,17 @@
         <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
+    
+    
+    <!-- ****** Bean for RideRequests about to be removed , session scoped            ****** -->
+    <!-- ****** Note that there is also a bean for *existing* requests, which is session scoped          ******-->
+    <managed-bean> 
+        <managed-bean-name>cancellingride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
+    
         
         
     <!-- ****** Session scoped bean to circumvent JSF Implementation Bugs  connected with         ****** -->

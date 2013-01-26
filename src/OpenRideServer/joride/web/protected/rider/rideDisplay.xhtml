@@ -8,7 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       >
 
-    
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -210,6 +210,26 @@
                         <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                         <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
                     </tr>
+
+                    
+                    <tr>
+                        <td colspan="3">
+                            <span class="formLabel">
+                                
+                                <!-- Create a session scoped object to delete it -->
+                                <!-- in case the user clicks the following link  -->
+                                #{cancellingride.update()}
+                            
+                                
+                                <h:form>
+                                    <h:commandLink action="#{cancellingride.remove()}" value="#{msgs.rideRemoveThisRequest}">
+                                      
+                                    </h:commandLink>
+                                </h:form>
+                            </span>
+                        </td>
+                    </tr>
+
 
                 </table>
 

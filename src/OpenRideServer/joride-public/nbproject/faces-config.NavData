@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="templates/simpleLayout.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="faces/account/resetPasswordConfirm.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="faces/public/message/message-confirm.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="account/resetPassword.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="sections/joride/header.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="public/login.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="public/contact/contact.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="public/geocoding/pickFavorite.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="faces/account/index.xhtml " x="400" y="450" zoom="true"/>
+        <Node id="templates/navbar1Layout.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="faces/public/contact/contactForm.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="public/geocoding/pickpoint.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="public/contact/contactForm.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="faces/public/contact/contact.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="account/registration-confirm.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="public/message/message-confirm.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="public/index.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="faces/index.xhtml " x="150" y="150" zoom="true"/>
+        <Node id="public/geocoding/geolocate.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="account/resetPasswordConfirm.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="account/index.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="faces/account/registration.xhtml " x="1150" y="450" zoom="true"/>
+        <Node id="account/registration.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="public/geocoding/osmmap.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="faces/public/login.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="sections/joride/navbar1.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="faces/account/resetPassword.xhtml " x="1650" y="150" zoom="true"/>
+        <Node id="public/geocoding/nominatim/jasonp.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="public/loggedout.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="faces/account/registration-confirm.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="public/noauth.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="faces/public/logout.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="sections/joride/footer.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="1650" y="300" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
