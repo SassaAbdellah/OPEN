@@ -177,7 +177,12 @@ public interface DriverUndertakesRideControllerLocal {
 
     
     
-    
-    
+    /** True, if the ride with given rideId is deletable,
+     *  else false.
+     * 
+     * @param rideId
+     * @return 
+     */
+    boolean isDeletable(int rideId);
 
 }

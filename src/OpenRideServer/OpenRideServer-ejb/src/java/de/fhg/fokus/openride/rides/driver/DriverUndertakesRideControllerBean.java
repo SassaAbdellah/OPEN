@@ -236,11 +236,19 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         return de.getRideId();
     }
-
-    public boolean removeRide(int rideId) {
+    
+    
+    
+    
+    @Override
+    
+    public boolean isDeletable(int rideId){
+    
         init();
+        
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         boolean deletable = true;
+        
         if (states.size() > 0) {
             // state already exists
             for (MatchEntity entity : states) {
@@ -249,9 +257,26 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
             }
         }
+        
+        return deletable;
+    }
+    
+    
+    
+    
+
+    public boolean removeRide(int rideId) {
+        init();
+        
+        List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
+        
+        boolean deletable=this.isDeletable(rideId);
+        
+        
         if (deletable) {
             // entity can be changed
 
+             
             //TODO (03/09/10): Matches & Ride need to be removed in one transaction....!
             
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
@@ -272,6 +297,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 em.remove(ente);
             }
             System.out.println("entity removed: " + rideId);
+            
         } else {
             // all related states have to be adapted
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
