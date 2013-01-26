@@ -470,6 +470,16 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
     
+            
+    <!-- ****** Bean for an offer to be deleted , session scoped   ****** -->
+    <!-- ****** Note that there is also a bean for existing offers, which is request scoped          ******-->
+    <managed-bean> 
+        <managed-bean-name>canceldriverride</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
+    
     
     
     

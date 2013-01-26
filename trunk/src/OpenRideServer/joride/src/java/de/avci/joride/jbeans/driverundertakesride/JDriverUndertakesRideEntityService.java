@@ -192,6 +192,40 @@ public class JDriverUndertakesRideEntityService {
         return dure;
 
     } //  getDriveByIdSafely(int id)
+    
+    
+    
+    /**
+     * 
+     */
+    public boolean safelyRemoveDrive(JDriverUndertakesRideEntity jdure){
+    
+        
+        CustomerEntity ce = this.getCustomerEntity();
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+
+
+        if (ce == null) {
+            throw new Error("Cannot remove Drive, customerEntity is null");
+        }
+
+  
+        DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(jdure.getRideId());
+
+
+
+        if (dure.getCustId().getCustId() != ce.getCustId()) {
+            throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
+        }
+
+        return durcl.removeRide(jdure.getRideId());
+    }
+    
+    
+    
+    
+    
+    
 
     /**
      * Safely update JDriverUndertakesRideEntity from database

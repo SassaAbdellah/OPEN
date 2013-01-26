@@ -540,6 +540,35 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         return (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
     }
+    
+    
+    /** Remove this Offer
+     * 
+     * @return "driver" to jump back to driver's 
+     */
+    public String remove(){
+    
+    
+        boolean res=new JDriverUndertakesRideEntityService().safelyRemoveDrive(this);
+        
+        if(res){
+            
+            // jump back to driver's startpage
+            return "driver";
+        } else {
+            
+            // Todo: add message why removal was unsuccessful
+        
+            return null;
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
 
     /**
      * Returns true, if this drive has been updated
