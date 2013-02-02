@@ -148,6 +148,8 @@ public interface RiderUndertakesRideControllerLocal {
      *  typically if a customer is removed
      * 
      * @param riderrouteId 
+     * 
+     * @return true if ride can be successfully invalidated
      */
-    public void invalidateRide(Integer riderrouteId);
+    public boolean invalidateRide(Integer riderrouteId);
 }

@@ -1098,7 +1098,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     
     
     @Override
-    public void invalidateRide(Integer rideId) {
+    public boolean invalidateRide(Integer rideId) {
 
         
         DriverUndertakesRideEntity dure=this.getDriveByDriveId(rideId);
@@ -1109,8 +1109,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if (deletable) {
             this.removeRide(rideId);
             commitUserTransaction();
-            logger.info("Invalidating drive with rideId : " + rideId + " the hard way by removing it");
-            return;
+            logger.info("deleting drive with rideId : " + rideId + " the hard way by removing it");
+            return true;
         }
 
         // all related states have to be adapted
@@ -1141,9 +1141,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                        );  
         
         
-        em.merge(this);
-        
+        em.merge(this);  
         commitUserTransaction();
         
+        return true;
     } // invalidateRide
 }

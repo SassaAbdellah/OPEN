@@ -59,8 +59,14 @@ import org.postgis.Point;
 @Stateless
 public class RiderUndertakesRideControllerBean extends ControllerBean implements RiderUndertakesRideControllerLocal {
 
-    @EJB
-    private RatingBean ratingBean;
+    /*  
+     *  Rating bean is currently disabled
+     * 
+     * 
+     @EJB
+     private RatingBean ratingBean;
+    
+     */
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
     @EJB
@@ -69,7 +75,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     private CustomerControllerLocal customerControllerBean;
     @PersistenceContext
     private EntityManager em;
-   
 
     /**
      * This method returns the
@@ -1283,30 +1288,41 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
-    public void invalidateRide(Integer riderrouteId) {
-  
-        RiderUndertakesRideEntity rue=this.getRideByRiderRouteId(riderrouteId);  
+    public boolean invalidateRide(Integer riderrouteId) {
+
+        startUserTransaction();
+
+        RiderUndertakesRideEntity rue = this.getRideByRiderRouteId(riderrouteId);
         // remove ratings and comments for this ride
         rue.setComment("INVALIDATED");
-       
-       
-        ratingBean.rateRider(riderrouteId,null,"INVALIDATED");
-        ratingBean.rateDriver(riderrouteId, null, "INVALIDATED");
-       
-       
-       // stop here, if latest starttime is older than 24 hrs back
-        Date latency=new Date(System.currentTimeMillis()-(1000*60*60*24));
-        if(rue.getStarttimeEarliest().getTime()<latency.getTime()){
-            return;
+
+
+        /*
+         *  disabled as rating bean currently does not work
+         * 
+         *      
+         * ratingBean.rateRider(riderrouteId,null,"INVALIDATED");
+         * ratingBean.rateDriver(riderrouteId, null, "INVALIDATED");
+         *    
+         */
+
+
+        // stop here, if latest starttime is older than 24 hrs back
+        Date latency = new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24));
+        if (rue.getStarttimeEarliest().getTime() < latency.getTime()) {
+            commitUserTransaction();
+            return true;
         }
-        
-        LinkedList <MatchEntity> matchList=routeMatchingBean.searchForDrivers(riderrouteId);
-        Date now=new Date(System.currentTimeMillis());
-        for(MatchEntity match : matchList){
-            match.setRiderState(MatchEntity.COUNTERMANDED);   
+
+        LinkedList<MatchEntity> matchList = routeMatchingBean.searchForDrivers(riderrouteId);
+        Date now = new Date(System.currentTimeMillis());
+        for (MatchEntity match : matchList) {
+            match.setRiderState(MatchEntity.COUNTERMANDED);
             match.setRiderChange(now);
             em.merge(match);
         }
-        
+
+        commitUserTransaction();
+        return true;
     } // invalidate ride
 }
