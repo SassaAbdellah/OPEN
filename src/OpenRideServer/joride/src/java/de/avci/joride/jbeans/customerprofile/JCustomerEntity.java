@@ -4,6 +4,7 @@ import de.avci.joride.utils.PropertiesLoader;
 import java.util.Collection;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import java.awt.event.ActionEvent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -376,6 +377,18 @@ public class JCustomerEntity extends CustomerEntity {
         
         return loader.getMessagesProps().getProperty("custGenderOther");
     
+    }
+    
+    
+    
+    /** Invalidate the existing account
+     * 
+     * @return  logout URL
+     */
+    public String invalidate(ActionEvent evt){
+    
+        new JCustomerEntityService().invalidateCustomerAccount();
+        return "logout";
     }
     
     
