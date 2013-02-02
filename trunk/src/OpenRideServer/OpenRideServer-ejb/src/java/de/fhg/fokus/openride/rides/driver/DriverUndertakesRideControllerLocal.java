@@ -185,6 +185,12 @@ public interface DriverUndertakesRideControllerLocal {
      */
     boolean isDeletable(int rideId);
 
-    public void invalidateRide(Integer rideId);
+    /** Invalidate/countermand Ride with given Id.
+     *  
+     * 
+     * @param rideId
+     * @return  true, if countermanding was successful, else false.
+     */
+    public boolean invalidateRide(Integer rideId);
 
 }
