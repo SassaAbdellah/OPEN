@@ -47,7 +47,7 @@
                         <p:growl id="messages" />  
 
                         <div class="formInput">
-                            <p:commandButton 
+                             <p:commandButton 
                                 id="showDialogButton" 
                                 value="#{msgs.custRemoveAccountLabel}" 
                                 onclick="confirmation.show()" 
@@ -68,7 +68,7 @@
                                 value="#{msgs.custRemoveAccountApprove}" 
                                 update="messages" 
                                 oncomplete="confirmation.hide()"  
-                                actionListener="#{jprofile.invalidate()}" 
+                                actionListener="#{jprofile.invalidate(evt)}" 
                                 />  
                             
                             

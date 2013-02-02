@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -18,6 +19,10 @@ import javax.inject.Named;
 @Named("jprofile")
 @RequestScoped
 public class JCustomerEntity extends CustomerEntity {
+    
+    
+    Logger logger=Logger.getLogger(""+this.getClass());
+    
     
     /** Normalizer for normalizing input
      */
@@ -385,10 +390,12 @@ public class JCustomerEntity extends CustomerEntity {
      * 
      * @return  logout URL
      */
-    public String invalidate(ActionEvent evt){
+    public void invalidate(ActionEvent evt){
     
+        logger.info("Removing account with customerId: "+this.getCustId());
+        
         new JCustomerEntityService().invalidateCustomerAccount();
-        return "logout";
+   
     }
     
     
