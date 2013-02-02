@@ -531,18 +531,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     }
 
     
-    /** Remove ride with given riderroute id. 
+    /** Invalidate/countermand rideRequest with given riderroute id.
+     *  
      * 
      *  Returns "rider" to move back to "rider" page if removal was successful,
      *  else returns null.
      *  May frequently fail, if there are open Matches for this ride.
      * 
      */
-    public String remove(){
+    public String invalidate(){
         
-        boolean success=new JRiderUndertakesRideEntityService().removeRideSafely(this);
+        boolean result=new JRiderUndertakesRideEntityService().removeRideSafely(this);
         
-        if(success){
+        if(result){
             return "rider";
         } else {
         

@@ -568,6 +568,27 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     
     
     
+     /** Invalidate this offer
+     * 
+     * @return "driver" to jump back to driver's 
+     */
+    public String invalidate(){
+    
+    
+        boolean res=new JDriverUndertakesRideEntityService().invalidateOfferSavely(this.getRideId());
+        
+        if(res){
+            // jump back to driver's startpage
+            return "driver";
+        } else {
+            // Todo: add message why removal was unsuccessful      
+            return null;
+        }
+                
+    }
+    
+    
+    
     
 
     /**

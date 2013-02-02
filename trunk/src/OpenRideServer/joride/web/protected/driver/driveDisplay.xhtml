@@ -49,8 +49,9 @@
                             <p>
                                 <span class="formLabel">
                                     #{canceldriverride.update()}
+                                    
                                     <h:form>
-                                        <h:commandLink action="#{canceldriverride.remove()}" value="#{msgs.rideRemoveThisOffer}">            
+                                        <h:commandLink action="#{canceldriverride.invalidate()}" value="#{msgs.rideInvalidateThisOffer}">            
                                         </h:commandLink>
                                     </h:form>
                                 </span>
