@@ -54,6 +54,13 @@ public abstract class ControllerBean {
 
     @Temporal(TemporalType.TIMESTAMP)
 
+    
+    /** TODO:  Ugly code.... do something about that,
+     *  make it a property, or give it another name.
+     *  Also, user transaction "u" is frequently overwritten
+     *  in subclasses. Remove any of those usecases.
+     * 
+     */        
     UserTransaction u;
 
     /**
@@ -85,7 +92,7 @@ public abstract class ControllerBean {
      * This method is used to generate an entitymanager and a valid transaction to use the database connection.
      * And it starts the transaction already.
      */
-    public void init(){
+    public void startUserTransaction(){
             checkEntityManager();
             if (u != null) {
                 try {
@@ -100,8 +107,10 @@ public abstract class ControllerBean {
 
     /**
      * This method ends a Usertransaction an deletes the Entitymanager.
+     * 
+     * 
      */
-    public void finish(){
+    public void commitUserTransaction(){
             if (u != null){
                 try {
                     u.commit();

@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.rides.driver;
 
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
@@ -63,31 +62,30 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private CustomerControllerLocal customerControllerBean;
     @PersistenceContext
     private EntityManager em;
-    private UserTransaction u;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
 
     // FIXME: these methods are not needed. They should be written in DriverUndertakesRideEntity Class
     public Point getStartPoint() {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         return null;
     }
 
     public Point getEndPoint() {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         return null;
     }
 
     public String viaPoints() {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         return null;
     }
 
     public void persist(Object object) {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         em.persist(object);
     }
 
@@ -112,7 +110,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             logger.log(Level.INFO, "could not add drive: invalid params ::\n");
             return -1;
         }
-        init();
+        startUserTransaction();
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
 
         //add drive
@@ -146,7 +144,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                     routePoints[i].getDistance());
             em.persist(drp);
         }
-        finish();
+        commitUserTransaction();
 
         return de.getRideId();
     }
@@ -171,13 +169,13 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             logger.log(Level.INFO, "could not add drive: invalid params ::\n");
             return -1;
         }
-        init();
+        startUserTransaction();
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
         /*if(customer == null || e.size() != 0) {
-        logger.log(Level.INFO, "could not add drive: customer does not exists or drive-name not unique");
-        finish();
-        return -1;
-        }
+         logger.log(Level.INFO, "could not add drive: customer does not exists or drive-name not unique");
+         commitUserTransaction();
+         return -1;
+         }
          */
 
 
@@ -186,7 +184,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // Only add a DriverUndertakesRideEntity if a Ride with the same name is not(!) in the DB.
 
         /*List vec = em.createNativeQuery("SELECT d FROM DriverUndertakesRide d WHERE d.ride_id ="+0+";").getResultList();
-        logger.log(Level.INFO, "Vec "+vec.get(0));
+         logger.log(Level.INFO, "Vec "+vec.get(0));
          */
 //             logger.log(Level.INFO, "addRide 4");
 //             String str = "SELECT min(d.ride_id) + 1 FROM driverundertakesride d WHERE (d.ride_id + 1) NOT IN (SELECT ride_id FROM riderundertakesride);";
@@ -199,8 +197,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         //em.createNativeQuery("SELECT d FROM driverundertakesride d WHERE d.ride_id ="+index+" ;").getResultList() != null){
         //logger.log(Level.INFO, "addRide 5");
                 /*while ((em.find(DriverUndertakesRideEntity.class, index)) != null) {
-        index++;
-        }
+         index++;
+         }
          */
 
         //add drive
@@ -232,23 +230,19 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                     routePoints[i].getDistance());
             em.persist(drp);
         }
-        finish();
+        commitUserTransaction();
 
         return de.getRideId();
     }
-    
-    
-    
-    
+
     @Override
-    
-    public boolean isDeletable(int rideId){
-    
-        init();
-        
+    public boolean isDeletable(int rideId) {
+
+        startUserTransaction();
+
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         boolean deletable = true;
-        
+
         if (states.size() > 0) {
             // state already exists
             for (MatchEntity entity : states) {
@@ -257,28 +251,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
             }
         }
-        
+
         return deletable;
     }
-    
-    
-    
-    
 
     public boolean removeRide(int rideId) {
-        init();
-        
+        startUserTransaction();
+
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
-        
-        boolean deletable=this.isDeletable(rideId);
-        
-        
+
+        boolean deletable = this.isDeletable(rideId);
+
+
         if (deletable) {
             // entity can be changed
 
-             
+
             //TODO (03/09/10): Matches & Ride need to be removed in one transaction....!
-            
+
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
                 // delete Matches
                 em.remove(it.next());
@@ -297,7 +287,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 em.remove(ente);
             }
             System.out.println("entity removed: " + rideId);
-            
+
         } else {
             // all related states have to be adapted
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
@@ -308,39 +298,39 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 em.merge(matchEntity);
             }
         }
-        finish();
+        commitUserTransaction();
         return deletable;
     }
 
     public void updateDriverPosition() {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
     }
 
     public List<DriveRoutepointEntity> getDriveRoutePoints(int rideId) {
-        init();
+        startUserTransaction();
         Query q = em.createNamedQuery("DriveRoutepointEntity.findByDriveId");
         q.setParameter("rideId", rideId);
         List<DriveRoutepointEntity> routePoints = q.getResultList();
-        finish();
+        commitUserTransaction();
         return routePoints;
     }
 
     public List<RoutePointEntity> getRoutePoints(int rideId) {
-        init();
+        startUserTransaction();
         Query q = em.createNamedQuery("RoutePointEntity.findByRideId");
         q.setParameter("rideId", rideId);
         List<RoutePointEntity> routePoints = q.getResultList();
-        finish();
+        commitUserTransaction();
         return routePoints;
     }
 
     public List<RoutePointEntity> getRequiredRoutePoints(int rideId) {
-        init();
+        startUserTransaction();
         Query q = em.createNamedQuery("RoutePointEntity.findRequiredByRideId");
         q.setParameter("rideId", rideId);
         List<RoutePointEntity> routePoints = q.getResultList();
-        finish();
+        commitUserTransaction();
         return routePoints;
     }
 
@@ -350,7 +340,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @return
      */
     public List<DriverUndertakesRideEntity> getInactiveDrives(String nickname) {
-        init();
+        startUserTransaction();
         List<DriverUndertakesRideEntity> returnList = null;
         List<DriverUndertakesRideEntity> past = new ArrayList<DriverUndertakesRideEntity>();
         List<DriverUndertakesRideEntity> future = new ArrayList<DriverUndertakesRideEntity>();
@@ -378,7 +368,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
 
                 Collections.sort(past, new Comparator() {
-
                     public int compare(Object o1, Object o2) {
                         DriverUndertakesRideEntity ent1 = (DriverUndertakesRideEntity) o1;
                         DriverUndertakesRideEntity ent2 = (DriverUndertakesRideEntity) o2;
@@ -399,17 +388,19 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
         future.addAll(past);
         returnList = future;
-        finish();
+        commitUserTransaction();
         return returnList;
     }
 
     /**
      * This method searches for all the rides a user has had.
+     *
      * @param nickname The nickname of the user.
-     * @return A List containing all <code>RiderUndertakesRideEntity</code>'s refering the user. Otherwise return null, if nothing was found.
+     * @return A List containing all <code>RiderUndertakesRideEntity</code>'s
+     * refering the user. Otherwise return null, if nothing was found.
      */
     public List<DriverUndertakesRideEntity> getDrives(String nickname) {
-        init();
+        startUserTransaction();
         List<DriverUndertakesRideEntity> returnList = null;
         List<DriverUndertakesRideEntity> past = new ArrayList<DriverUndertakesRideEntity>();
         List<DriverUndertakesRideEntity> future = new ArrayList<DriverUndertakesRideEntity>();
@@ -437,7 +428,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
                 // fixme: here should be also these Drives which are obsolete
                 Collections.sort(future, new Comparator() {
-
                     public int compare(Object o1, Object o2) {
                         DriverUndertakesRideEntity ent1 = (DriverUndertakesRideEntity) o1;
                         DriverUndertakesRideEntity ent2 = (DriverUndertakesRideEntity) o2;
@@ -457,68 +447,67 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
         }
         returnList = future;
-        finish();
+        commitUserTransaction();
         return returnList;
-        
+
     } // getDrives(nickname)
-    
-    
-    
-    /** This method searches for all the rides where the given user acts as driver
+
+    /**
+     * This method searches for all the rides where the given user acts as
+     * driver
+     *
      * @param nickname The nickname of the user.
-     * @return A List containing all <code>RiderUndertakesRideEntity</code>'s refering the user. Otherwise return null, if nothing was found.
+     * @return A List containing all <code>RiderUndertakesRideEntity</code>'s
+     * refering the user. Otherwise return null, if nothing was found.
      */
     public List<DriverUndertakesRideEntity> getDrivesForDriver(String nickname) {
-        
-        
-           // Get the CustomerEntity by <code>nickname</code>
+
+
+        // Get the CustomerEntity by <code>nickname</code>
         List<CustomerEntity> c = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
 
         if (c.size() != 1) {
-            
-           throw new Error("Retrieved unexpected Number "+c.size()+"of customers for nickname "+nickname);
+
+            throw new Error("Retrieved unexpected Number " + c.size() + "of customers for nickname " + nickname);
         }
-            // Get the Entity. It should be only one, since nicknames are unique by constraint.
+        // Get the Entity. It should be only one, since nicknames are unique by constraint.
         CustomerEntity e = c.get(0);
-             
-         // Use the Id of the user to get his rides.
-         //returnList = em.createNativeQuery("SELECT d FROM DriverUndertakesRide d WHERE d.cust_id = +"+e.getCustId()+";").getResultList();
-           List<DriverUndertakesRideEntity>   returnList = em.createNamedQuery("DriverUndertakesRideEntity.findByCustId").setParameter("custId", e).getResultList();
-            if (returnList == null) {
-                returnList = new LinkedList<DriverUndertakesRideEntity>();
-            } 
-     
-        
-            return returnList;
-        
+
+        // Use the Id of the user to get his rides.
+        //returnList = em.createNativeQuery("SELECT d FROM DriverUndertakesRide d WHERE d.cust_id = +"+e.getCustId()+";").getResultList();
+        List<DriverUndertakesRideEntity> returnList = em.createNamedQuery("DriverUndertakesRideEntity.findByCustId").setParameter("custId", e).getResultList();
+        if (returnList == null) {
+            returnList = new LinkedList<DriverUndertakesRideEntity>();
+        }
+
+
+        return returnList;
+
     } // getDrivesforDriver(nickname)
-    
-    
 
-    
-    
-
-    /**  This method can be used to find active drives of a user with <code>nickname</code>.
-     *   It looks as if "active rides" denotes all those rides, which start within 
-     *   a  timespan  given by ACTIVE_DELAY_TIME around the current Date/Time.
-     *    
-     *   ACTIVE_DELAY_TIME is currently set to 
-     * 
-     * 
+    /**
+     * This method can be used to find active drives of a user with
+     * <code>nickname</code>. It looks as if "active rides" denotes all those
+     * rides, which start within a timespan given by ACTIVE_DELAY_TIME around
+     * the current Date/Time.
+     *
+     * ACTIVE_DELAY_TIME is currently set to
+     *
+     *
      * @param nickname The nickname of the user.
      * @return active drives of user <code>nickname</code>
      */
     public List<DriverUndertakesRideEntity> getActiveDrives(String nickname) {
 
-        
-        
-        init();
+
+
+        startUserTransaction();
 
         List<CustomerEntity> c = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
         if (c.size() == 1) {
             // customer found
             CustomerEntity customer = c.get(0);
-            
+
             Query query = em.createNamedQuery("DriverUndertakesRideEntity.findByCustId");
             query.setParameter("custId", customer);
             Date date = new Date(System.currentTimeMillis());
@@ -526,7 +515,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             java.util.Date earlier = new java.util.Date();
             earlier.setTime(earlier.getTime() - DriverUndertakesRideControllerBean.ACTIVE_DELAY_TIME);
             List<DriverUndertakesRideEntity> rides = query.getResultList();
-            
+
             List<DriverUndertakesRideEntity> activeRides = new ArrayList<DriverUndertakesRideEntity>();
             for (Iterator<DriverUndertakesRideEntity> it = rides.iterator(); it.hasNext();) {
                 DriverUndertakesRideEntity driverUndertakesRideEntity = it.next();
@@ -536,12 +525,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                     it.remove();
                 }
             }
-            
-            
-            
-            
-            Collections.sort(activeRides, new Comparator() {
 
+
+
+
+            Collections.sort(activeRides, new Comparator() {
                 public int compare(Object o1, Object o2) {
                     DriverUndertakesRideEntity ent1 = (DriverUndertakesRideEntity) o1;
                     DriverUndertakesRideEntity ent2 = (DriverUndertakesRideEntity) o2;
@@ -558,9 +546,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                     }
                 }
             }); // end of Comparator
-            
-            finish();
-            
+
+            commitUserTransaction();
+
             return activeRides;
         } else {
             //customer nickname not found
@@ -568,41 +556,34 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
         //return getDrives(nickname);
     }
-    
-    
-    
-    /**  Returns all drives for a given driver that have startpoints defined after a given date.
-     * 
-     * 
-     * @param customerId        CustomerEntity for which to get drives
-     * @param rideStarttime     Timestamp that servers as a lower bound for starttime
-     * 
-     * @return active drives of user <code>nickname</code> after <code> rideStarttime </code>
+
+    /**
+     * Returns all drives for a given driver that have startpoints defined after
+     * a given date.
+     *
+     *
+     * @param customerId CustomerEntity for which to get drives
+     * @param rideStarttime Timestamp that servers as a lower bound for
+     * starttime
+     *
+     * @return active drives of user <code>nickname</code> after <code> rideStarttime
+     * </code>
      */
     public List<DriverUndertakesRideEntity> getDrivesAfterTime(CustomerEntity custId, Date rideStarttime) {
 
-        init();
+        startUserTransaction();
 
-        List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime").setParameter("custId",custId).setParameter("time",rideStarttime).getResultList();
+        List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime").setParameter("custId", custId).setParameter("time", rideStarttime).getResultList();
         return res;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public LinkedList<DriverUndertakesRideEntity> getAllDrives() {
-        init();
+        startUserTransaction();
 
         List<DriverUndertakesRideEntity> l = em.createNamedQuery("DriverUndertakesRideEntity.findAll").getResultList();
         LinkedList<DriverUndertakesRideEntity> ll = new LinkedList<DriverUndertakesRideEntity>(l);
 
-        finish();
+        commitUserTransaction();
         return ll;
     }
 
@@ -627,12 +608,14 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     /**
-     * This method finds out users (that is passengers)that are already joining a particular drive.
+     * This method finds out users (that is passengers)that are already joining
+     * a particular drive.
+     *
      * @param driveId the drive id, identifying the drive
      * @return list of passengers
      */
     public List<RiderUndertakesRideEntity> getRidersForDrive(int driveId) {
-        init();
+        startUserTransaction();
         logger.getLogger("DriverUndertakesRideControllerBean").info("----------------------DriverUndertakesRideControllerBean getRidersForDrive: " + driveId + ".-------------------------------");
         List<DriverUndertakesRideEntity> driverEntities = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", driveId).getResultList();
         List<RiderUndertakesRideEntity> list = null;
@@ -648,15 +631,15 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 //                }
 //            }
 //        }
-        finish();
+        commitUserTransaction();
         return list;
     }
 
     public DriverUndertakesRideEntity getDriveByDriveId(int driveId) {
-        init();
+        startUserTransaction();
         List<DriverUndertakesRideEntity> returnList = null;
         returnList = em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", driveId).getResultList();
-        finish();
+        commitUserTransaction();
 
         DriverUndertakesRideEntity entity;
         if (returnList.size() == 1) {
@@ -737,7 +720,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
         //create instance of DriverUndertakesRideEntity
-        init();
+        startUserTransaction();
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
         DriverUndertakesRideEntity drive = new DriverUndertakesRideEntity(
                 ridestartTime,
@@ -772,10 +755,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 rp.setRideId(drive.getRideId());
                 em.persist(rp);
             }
-            finish();
+            commitUserTransaction();
         } else {
             logger.log(Level.INFO, "could not add drive: no route found ::\n");
-            finish();
+            commitUserTransaction();
             return -1;
         }
         callAlgorithm(drive.getRideId(), true);
@@ -784,6 +767,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
     /**
      * This method can be used to get a certain match from the database.
+     *
      * @param rideid
      * @param riderrouteid
      * @return null, if no entity was found; the entity
@@ -876,8 +860,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     /**
-     * This method is called, when a new search or ride is persisted. It updates the
-     * Matches table.
+     * This method is called, when a new search or ride is persisted. It updates
+     * the Matches table.
      */
     public void callAlgorithm(int rideId, boolean setDriverAccess) {
         // there are still free places
@@ -890,8 +874,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     /**
-     * This method returns a List of riders that have been matched or are already in
-     * booking process with the driver.
+     * This method returns a List of riders that have been matched or are
+     * already in booking process with the driver.
+     *
      * @param rideId
      * @return
      */
@@ -930,7 +915,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         } else {
             matches = getActiveMatches(rideId);
         }
-        
+
         // FIXME: this is only true if seats are added for all subroutes!!!
         // No more match can be added, because all seats are filled
 
@@ -948,7 +933,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
         Collections.sort(matches, new Comparator() {
-
             public int compare(Object o1, Object o2) {
                 MatchEntity ent1 = (MatchEntity) o1;
                 MatchEntity ent2 = (MatchEntity) o2;
@@ -1003,8 +987,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     /**
-     * This method is comparing all the matches found by the algorithm to these which are
-     * already persisted in the db and adds each unmatched.
+     * This method is comparing all the matches found by the algorithm to these
+     * which are already persisted in the db and adds each unmatched.
+     *
      * @param newMatches
      * @param matches
      * @return
@@ -1058,7 +1043,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     public List<DriverUndertakesRideEntity> getActiveOpenDrives(String nickname) {
-        init();
+        startUserTransaction();
         List<DriverUndertakesRideEntity> returnList = null;
         List<DriverUndertakesRideEntity> past = new ArrayList<DriverUndertakesRideEntity>();
         List<DriverUndertakesRideEntity> future = new ArrayList<DriverUndertakesRideEntity>();
@@ -1086,7 +1071,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
 
                 Collections.sort(future, new Comparator() {
-
                     public int compare(Object o1, Object o2) {
                         DriverUndertakesRideEntity ent1 = (DriverUndertakesRideEntity) o1;
                         DriverUndertakesRideEntity ent2 = (DriverUndertakesRideEntity) o2;
@@ -1106,8 +1090,60 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
         }
         returnList = future;
-        finish();
+        commitUserTransaction();
         return returnList;
     }
-}
 
+    
+    
+    
+    @Override
+    public void invalidateRide(Integer rideId) {
+
+        
+        DriverUndertakesRideEntity dure=this.getDriveByDriveId(rideId);
+        // TODO: check if we really want user transactions
+        startUserTransaction();
+        boolean deletable = this.isDeletable(rideId);
+
+        if (deletable) {
+            this.removeRide(rideId);
+            commitUserTransaction();
+            logger.info("Invalidating drive with rideId : " + rideId + " the hard way by removing it");
+            return;
+        }
+
+        // all related states have to be adapted
+        List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
+        for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
+            // mark Matches as countermanded
+            MatchEntity matchEntity = it.next();
+            matchEntity.setDriverState(MatchEntity.COUNTERMANDED);
+            matchEntity.setDriverChange(new java.util.Date());
+            em.merge(matchEntity);
+        }
+        
+        // mark ride as invalidated
+        
+        this.updateRide(dure.getRideId()            ,  //  rideId
+                        dure.getCustId().getCustId(),  // customerId
+                        dure.getRideStartpt()       ,  // ridestartPoint
+                        dure.getRideEndpt()         ,  // rideendPoint
+                        new Point[0]                ,  // intermediatePoints
+                        new java.sql.Date(dure.getRideStarttime().getTime()),  // ridestartTime
+                        "COUNTERMANDED",            // rideComment
+                        dure.getRideAcceptableDetourInKm(),      // acceptableDetourInMin
+                        dure.getRideAcceptableDetourInMin(),     // acceptableDetourKM
+                        dure.getRideAcceptableDetourInPercent(), // acceptableDetourPercent
+                        0,                          // offeredSeatsNo
+                        dure.getStartptAddress(),   // String startPtAddress
+                        dure.getEndptAddress()      // String endPtAddress
+                       );  
+        
+        
+        em.merge(this);
+        
+        commitUserTransaction();
+        
+    } // invalidateRide
+}

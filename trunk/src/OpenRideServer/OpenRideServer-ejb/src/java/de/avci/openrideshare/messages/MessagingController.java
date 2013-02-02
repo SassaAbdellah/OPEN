@@ -9,7 +9,10 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
- * Controller to implement
+ * Controller to finally implement a sending messages 
+ * currently this is a dummy which only writes 
+ * the messages to the log.
+ * 
  *
  * @author jochen
  */
@@ -48,10 +51,45 @@ public class MessagingController implements MessagingControllerLocal {
         
         logger.warning("Sending messages is not yet implemented : "+logstr);
         
-        
-        
+            
         return true;
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    
+    /** Currently placeholder dummy, writes the message to the logs 
+     * 
+     */
+    
+    public boolean sendSystemMessage(CustomerEntity recipient, String subject, String message) {
+        
+        
+         Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
+
+        String logstr =
+                "Sending System Message:\n"
+                + "\n" 
+                + "Recipient: "+recipient+"\n"
+                +"\n"
+                +"Subject: "+subject+"\n"
+                +"\n"
+                +"Message: "+message;
+               
+        
+        logger.warning("Sending system messages is not yet implemented : "+logstr);
+        
+
+        return true;
+     
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -143,4 +143,11 @@ public interface RiderUndertakesRideControllerLocal {
     void setMatchCountermand(Integer rideId, Integer riderrouteId);
 
     MatchEntity getMatch(Integer rideId, Integer riderrouteId);
+
+    /** Invalidate this ride and associated objects, 
+     *  typically if a customer is removed
+     * 
+     * @param riderrouteId 
+     */
+    public void invalidateRide(Integer riderrouteId);
 }
