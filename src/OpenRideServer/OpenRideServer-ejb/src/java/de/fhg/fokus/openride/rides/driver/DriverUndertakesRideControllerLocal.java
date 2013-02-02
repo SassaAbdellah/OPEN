@@ -185,4 +185,6 @@ public interface DriverUndertakesRideControllerLocal {
      */
     boolean isDeletable(int rideId);
 
+    public void invalidateRide(Integer rideId);
+
 }

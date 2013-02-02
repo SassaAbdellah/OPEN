@@ -52,7 +52,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
      * @param plateno
      */
     public void addCarDetails(CustomerEntity customer, String brand, Short buildYear, String color, String plateNo) {
-        init();
+        startUserTransaction();
 
         CarDetailsEntity cd = new CarDetailsEntity();
         cd.setCardetBrand(brand);
@@ -62,7 +62,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
         cd.setCustId(customer);
         em.persist(cd);
 
-        finish();
+        commitUserTransaction();
     }
 
     /**
@@ -74,7 +74,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
      * @param plateno
      */
     public void updateCarDetails(CustomerEntity customer, String brand, Short buildYear, String color, String plateNo) {
-        init();
+        startUserTransaction();
 
         CarDetailsEntity cd = getCarDetails(customer);
         if (cd != null) {
@@ -87,7 +87,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
             addCarDetails(customer, brand, buildYear, color, plateNo);
         }
 
-        finish();
+        commitUserTransaction();
     }
 
     
@@ -101,7 +101,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
      * @param plateno
      */
     public void updateCarDetails(int cardetId, String brand, Short buildYear, String color, String plateNo) {
-        init();
+        startUserTransaction();
 
         CarDetailsEntity cd = getCarDetailsByCardetId(cardetId);
         if (cd != null) {
@@ -114,7 +114,7 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
             System.err.println("Attempt to update nonexistent car "+cardetId);
         }
 
-        finish();
+        commitUserTransaction();
     }
 
     
@@ -126,15 +126,15 @@ public class CarDetailsControllerBean extends ControllerBean implements CarDetai
      * @param carDetid This parameter identifies the car that shall be deleted.
      */
     public void removeCarDetails(int carDetid) {
-        init();
+        startUserTransaction();
         em.remove(em.find(CarDetailsEntity.class, carDetid));
-        finish();
+        commitUserTransaction();
     }
 
     public void persist(Object object) {
-        init();
+        startUserTransaction();
         em.persist(object);
-        finish();
+        commitUserTransaction();
     }
 
     /** This method returns the Cardetails of a specific car for a customer. 

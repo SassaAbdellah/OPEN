@@ -49,7 +49,7 @@ public class DriverTrackerBean extends ControllerBean implements DriverTrackerLo
      * @param currPos
      */
     public void updateDriverPosition(String nickname, Point currPos) {
-         init();
+         startUserTransaction();
          List<DriverUndertakesRideEntity> returnList=null;
 
         //TODO: some errorhandling
@@ -70,12 +70,12 @@ public class DriverTrackerBean extends ControllerBean implements DriverTrackerLo
                 //TODO: Exception?
             }
         }
-         finish();
+         commitUserTransaction();
     }
 
     public void persist(Object object) {
-         init();
+         startUserTransaction();
         em.persist(object);
-        finish();
+        commitUserTransaction();
     }
 }

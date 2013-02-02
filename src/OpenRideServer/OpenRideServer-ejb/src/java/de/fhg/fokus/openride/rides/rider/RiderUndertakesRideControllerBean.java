@@ -27,6 +27,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
+import de.fhg.fokus.openride.rating.RatingBean;
 import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
@@ -49,7 +50,6 @@ import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.UserTransaction;
 import org.postgis.Point;
 
 /**
@@ -60,6 +60,8 @@ import org.postgis.Point;
 public class RiderUndertakesRideControllerBean extends ControllerBean implements RiderUndertakesRideControllerLocal {
 
     @EJB
+    private RatingBean ratingBean;
+    @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
     @EJB
     private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
@@ -67,7 +69,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     private CustomerControllerLocal customerControllerBean;
     @PersistenceContext
     private EntityManager em;
-    private UserTransaction u;
+   
 
     /**
      * This method returns the
@@ -77,48 +79,48 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * @return null, if no Point was found; the startpoint of the ride.
      */
     public Point getStartPoint(int rideId) {
-        init();
+        startUserTransaction();
         Point returnValue = null;
         List<RiderUndertakesRideEntity> c = (List<RiderUndertakesRideEntity>) em.createNamedQuery("RiderUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         if (c.size() == 1) {
             returnValue = (Point) c.get(0).getStartpt();
         }
-        finish();
+        commitUserTransaction();
         return returnValue;
     }
 
     public Point getEndPoint(int rideId) {
-        init();
+        startUserTransaction();
         Point returnValue = null;
         List<RiderUndertakesRideEntity> c = (List<RiderUndertakesRideEntity>) em.createNamedQuery("RiderUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         if (c.size() == 1) {
             returnValue = (Point) c.get(0).getEndpt();
         }
-        finish();
+        commitUserTransaction();
         return returnValue;
     }
 
     public Timestamp getStartTime(int rideId) {
-        init();
+        startUserTransaction();
         Timestamp returnValue = null;
         List<RiderUndertakesRideEntity> c = (List<RiderUndertakesRideEntity>) em.createNamedQuery("RiderUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         if (c.size() == 1) {
             returnValue = new Timestamp(c.get(0).getStarttimeEarliest().getTime());
         }
-        finish();
+        commitUserTransaction();
         return returnValue;
     }
 
     //TODO: What type shall be returned? Postgres specific?
     public Object getTolerance(int rideId) {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         return null;
     }
 
     public void persist(Object object) {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
         em.persist(object);
     }
 
@@ -132,7 +134,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * @return 1 if rider was added -1 if not
      */
     public int addRiderToRide(int riderRouteId, int rideId) {
-        init();
+        startUserTransaction();
         RiderUndertakesRideEntity ride = getRideByRiderRouteId(riderRouteId);
         em.lock(ride, LockModeType.PESSIMISTIC_WRITE);
 
@@ -195,7 +197,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             }
         }
 
-        finish();
+        commitUserTransaction();
         //return drive.getRideOfferedseatsNo()-passengers.size()-1;
         // clean up database
         List<MatchEntity> matches = driverUndertakesRideControllerBean.getMatches(rideId, true);
@@ -281,8 +283,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     public void addPaymentReference(int rideId) {
-        init();
-        finish();
+        startUserTransaction();
+        commitUserTransaction();
     }
 
     /**
@@ -298,7 +300,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * the Ride later on.
      */
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment) {
-        init();
+        startUserTransaction();
 
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
 
@@ -325,7 +327,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
             logger.log(Level.WARNING, "No Customer with id: " + cust_id);
         }
-        finish();
+        commitUserTransaction();
         if (r == null) {
             return -1;
         } else {
@@ -595,12 +597,12 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     public LinkedList<RiderUndertakesRideEntity> getAllRides() {
-        init();
+        startUserTransaction();
 
         List<RiderUndertakesRideEntity> l = em.createNamedQuery("RiderUndertakesRideEntity.findAll").getResultList();
         LinkedList<RiderUndertakesRideEntity> ll = new LinkedList<RiderUndertakesRideEntity>(l);
 
-        finish();
+        commitUserTransaction();
         return ll;
     }
 
@@ -870,7 +872,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
 
 
-        init();
+        startUserTransaction();
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
         boolean deletable = true;
         if (states.size() > 0) {
@@ -888,7 +890,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     public boolean removeRide(int riderrouteId) {
         System.out.println("remove ride");
 
-        init();
+        startUserTransaction();
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
         boolean deletable = true;
 
@@ -919,7 +921,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 em.merge(matchEntity);
             }
         }
-        finish();
+        commitUserTransaction();
         return deletable;
 
     }
@@ -952,7 +954,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     @Override
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) {
-        init();
+        startUserTransaction();
 
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
 
@@ -974,7 +976,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
             logger.log(Level.WARNING, "No Customer with id: " + cust_id);
         }
-        finish();
+        commitUserTransaction();
         if (r == null) {
             return -1;
         } else {
@@ -1279,4 +1281,32 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
         return null;
     }
+
+    @Override
+    public void invalidateRide(Integer riderrouteId) {
+  
+        RiderUndertakesRideEntity rue=this.getRideByRiderRouteId(riderrouteId);  
+        // remove ratings and comments for this ride
+        rue.setComment("INVALIDATED");
+       
+       
+        ratingBean.rateRider(riderrouteId,null,"INVALIDATED");
+        ratingBean.rateDriver(riderrouteId, null, "INVALIDATED");
+       
+       
+       // stop here, if latest starttime is older than 24 hrs back
+        Date latency=new Date(System.currentTimeMillis()-(1000*60*60*24));
+        if(rue.getStarttimeEarliest().getTime()<latency.getTime()){
+            return;
+        }
+        
+        LinkedList <MatchEntity> matchList=routeMatchingBean.searchForDrivers(riderrouteId);
+        Date now=new Date(System.currentTimeMillis());
+        for(MatchEntity match : matchList){
+            match.setRiderState(MatchEntity.COUNTERMANDED);   
+            match.setRiderChange(now);
+            em.merge(match);
+        }
+        
+    } // invalidate ride
 }

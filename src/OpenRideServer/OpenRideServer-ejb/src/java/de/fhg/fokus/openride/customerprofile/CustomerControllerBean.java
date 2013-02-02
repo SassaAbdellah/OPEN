@@ -24,6 +24,10 @@
 package de.fhg.fokus.openride.customerprofile;
 
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -55,6 +59,20 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     private static String one = "ich";
     @EJB
     private FavoritePointControllerLocal favoritePointControllerBean;
+    
+    // will be needed when savely removing rides
+    @EJB
+    private RiderUndertakesRideControllerLocal riderUndertakesRideControllerBean;
+    
+    // will be needed when savely removing rides
+    @EJB
+    private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
+    
+    
+    
+    
+    
+    
     final String TEMPLATE_USER = "template_user";
 
     /*@Override
@@ -67,30 +85,30 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public CustomerEntity getCustomerByCredentials(String custNickname, String custPasswd) {
         logger.info("getCustomerByCredentials");
-        init();
+        startUserTransaction();
         CustomerEntity c = getCustomerByNickname(custNickname);
         if (c != null && c.getCustPasswd().equals(getMD5Hash(custPasswd))) {
-            finish();
+            commitUserTransaction();
             return c;
         }
-        finish();
+        commitUserTransaction();
         return null;
     }
 
     public boolean isNicknameAvailable(String custNickname) {
-        init();
+        startUserTransaction();
         logger.info("isNicknameAvailable");
         CustomerEntity c = getCustomerByNickname(custNickname);
         if (c == null) {
-            finish();
+            commitUserTransaction();
             return true;
         }
-        finish();
+        commitUserTransaction();
         return false;
     }
 
     public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, char custGender, String custEmail, String custMobilephoneno) {
-        init();
+        startUserTransaction();
         logger.info("addCustomer");
         // Make sure no Customer exists for this same nickname
         List<CustomerEntity> customers = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", custNickname).getResultList();
@@ -112,7 +130,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         c.setCustGroup("customer");
 
         em.persist(c);
-        finish();
+        commitUserTransaction();
 
         if (this.getCustomerByNickname(this.TEMPLATE_USER) != null) {
             for (FavoritePointEntity fav : favoritePointControllerBean.getFavoritePointsByCustomer(this.getCustomerByNickname(this.TEMPLATE_USER))) {
@@ -129,7 +147,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, int custAddrZipcode, String custAddrCity) {
         logger.info("addCustomer");
-        init();
+        startUserTransaction();
         System.out.println("Username " + custNickname);
         boolean exists = false;
         List<CustomerEntity> entities = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", custNickname).getResultList();
@@ -158,10 +176,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
             e.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
 
             em.persist(e);
-            finish();
+            commitUserTransaction();
             return e.getCustId();
         } else {
-            finish();
+            commitUserTransaction();
             return -1;
         }
     }
@@ -181,18 +199,80 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         return stringBuffer.toString();
     }
 
-    /**
+    /** Remove (or rather invalidate) a customer.
+     *  Removing a customer means, that his personal data 
+     *  will be overwritten.
+     *  
+     * Note that this will be called inside a transaction explicitely.
      *
      * @param custId
      */
     public void removeCustomer(int custId) {
-        logger.info("removeCustomer");
-        init();
+        logger.info("removeCustomer : "+custId);
+        startUserTransaction();
         //TODO: make shure that all related entities are deleted, too.
-        CustomerEntity e = em.find(CustomerEntity.class, custId);
-        logger.log(Level.INFO, "Die Entity: " + e.toString());
-        em.remove(e);
-        finish();
+        CustomerEntity ce = em.find(CustomerEntity.class, custId);
+         
+        // avoid trivialities
+        if(ce==null){ return; }
+        
+        
+        String random=""+Math.random();
+        String ts=""+System.currentTimeMillis();
+        String seed="deleted_user"+random+":"+ts;
+        
+       
+        // TODO: remove all those ride request that can still be removed,
+        // and invalidate the rest
+       List <RiderUndertakesRideEntity> allRides=riderUndertakesRideControllerBean.getRidesForCustomer(ce);
+       
+       for (RiderUndertakesRideEntity re: allRides){
+           
+           if(riderUndertakesRideControllerBean.isDeletable(re.getRiderrouteId())){
+                // delete all rides that can be deleted
+               logger.info("Deleting Ride "+re.getRiderrouteId());
+               riderUndertakesRideControllerBean.removeRide(re.getRiderrouteId());
+           } else {
+               // invalidate all rides that cannot be deleted
+               logger.info("Invalidating Ride "+re.getRiderrouteId());
+               riderUndertakesRideControllerBean.invalidateRide(re.getRiderrouteId());
+           }
+       } //      for (RiderUndertakesRideEntity re: allRides) 
+       
+       // TODO remove or invalidate  driver undertakes ride entities and 
+       // associated instances
+       
+          // TODO: remove all those ride request that can still be removed,
+        // and invalidate the rest
+       List <DriverUndertakesRideEntity> allDrives=driverUndertakesRideControllerBean.getDrivesForDriver(ce.getCustNickname());
+       
+       for (DriverUndertakesRideEntity due: allDrives){
+           
+           if(driverUndertakesRideControllerBean.isDeletable(due.getRideId())){
+                // delete all drives that can be deleted
+               logger.info("Deleting Ride "+due.getRideId());
+               driverUndertakesRideControllerBean.removeRide(due.getRideId());
+           } else {
+               // invalidate all rides that cannot be deleted
+               logger.info("Invalidating Drive "+due.getRideId());
+               driverUndertakesRideControllerBean.invalidateRide(due.getRideId());
+           }
+       } //      for (RiderUndertakesRideEntity re: allRides) 
+       
+       
+       
+       
+       
+       
+       
+         
+        // TODO: 
+       //overwrite valid data for this user with randomized data
+       
+       
+       
+        // em.remove(e);
+        commitUserTransaction();
     }
 
     
@@ -203,10 +283,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public CustomerEntity getCustomer(int custId) {
         logger.info("getCustomer with custId: " + custId);
-        init();
+        startUserTransaction();
         //CustomerEntity e = em.find(CustomerEntity.class, custId);
         List<CustomerEntity> e = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustId").setParameter("custId", custId).getResultList();
-        finish();
+        commitUserTransaction();
         if (e != null && e.size() > 0) {
             return e.get(0);
         } else {
@@ -221,7 +301,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public CustomerEntity getCustomerByNickname(String nickname) {
         logger.info("getCustomerByNickname");
-        init();
+        startUserTransaction();
         List<CustomerEntity> q = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", nickname).getResultList();
         if (q.size() > 0) {
             // should only be one result, since customernicknames are unique in DB
@@ -230,7 +310,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
                 return v;
             }
         }
-        finish();
+        commitUserTransaction();
         return null;
     }
 
@@ -241,7 +321,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public CustomerEntity getCustomerByEmail(String email) {
         logger.info("getCustomerByEmail");
-        init();
+        startUserTransaction();
         List<CustomerEntity> q = (List<CustomerEntity>) em.createNamedQuery("CustomerEntity.findByCustEmail").setParameter("custEmail", email).getResultList();
         if (q.size() > 0) {
             // should only be one result, since email addresses are unique in DB
@@ -250,17 +330,17 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
                 return v;
             }
         }
-        finish();
+        commitUserTransaction();
         return null;
     }
 
     public LinkedList<CustomerEntity> getAllCustomers() {
-        init();
+        startUserTransaction();
 
         List<CustomerEntity> l = em.createNamedQuery("CustomerEntity.findAll").getResultList();
         LinkedList<CustomerEntity> ll = new LinkedList<CustomerEntity>(l);
 
-        finish();
+        commitUserTransaction();
         return ll;
     }
 
@@ -268,9 +348,9 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      * 
      */
     public void setCustomer() {
-        init();
+        startUserTransaction();
         //TODO: what shall this method do?
-        finish();
+        commitUserTransaction();
     }
 
     /**
@@ -282,7 +362,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      */
     public boolean isRegistered(String username, String password) {
         logger.info("isRegistered");
-        init();
+        startUserTransaction();
         //Query q = em.createNativeQuery("SELECT * FROM customer c WHERE c.cust_nickname = '"+username+"';");
         Query q = em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", username);
         if (q.getResultList().size() > 0) {
@@ -292,7 +372,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
                 return true;
             }
         }
-        finish();
+        commitUserTransaction();
 
         return false;
     }
@@ -342,13 +422,13 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
      * *********************Businessmethods end**************************
      */
     public void persist(Object object) {
-        init();
+        startUserTransaction();
         em.persist(object);
-        finish();
+        commitUserTransaction();
     }
 
     public void setPersonalData(int custId, Date custDateofbirth, String custEmail, String custMobilePhoneNo, String custFixedPhoneNo, String custAddrStreet, int custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate) {
-        init();
+        startUserTransaction();
         logger.info("setPersonalData");
         CustomerEntity c = getCustomer(custId);
 
@@ -377,11 +457,11 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         c.setCustLicensedate(custLicenseDate);
 
         em.persist(c);
-        finish();
+        commitUserTransaction();
     }
 
     public void setBasePersonalData(int custId, String custFirstName, String custLastName, char custGender) {
-        init();
+        startUserTransaction();
         logger.info("setBasePersonalData");
         CustomerEntity c = getCustomer(custId);
 
@@ -392,19 +472,19 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         c.setCustGender(custGender);
         
         em.persist(c);
-        finish();
+        commitUserTransaction();
     }
 
     public void setPassword(int custId, String custPasswd) {
-        init();
+        startUserTransaction();
         logger.info("setPassword");
         CustomerEntity c = getCustomer(custId);
         c.setCustPasswd(getMD5Hash(custPasswd));
-        finish();
+        commitUserTransaction();
     }
 
     public void setDriverPrefs(int custId, int custDriverprefAge, char custDriverprefGender, char custDriverprefSmoker) {
-        init();
+        startUserTransaction();
         logger.info("setDriverPrefs");
         CustomerEntity c = getCustomer(custId);
         //age
@@ -426,12 +506,12 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
             c.setCustDriverprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
             logger.info("invalid smoker pref - set to default (" + custDriverprefSmoker + ")");
         }
-        finish();
+        commitUserTransaction();
     }
 
     public void setRiderPrefs(int custId, int custRiderprefAge, char custRiderprefGender, char custRiderprefSmoker) {
         logger.info("setRiderPrefs");
-        init();
+        startUserTransaction();
         CustomerEntity c = getCustomer(custId);
         //age
         c.setCustRiderprefAge(custRiderprefAge);
@@ -452,6 +532,6 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
             c.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
             logger.info("invalid smoker pref - set to default (" + custRiderprefSmoker + ")");
         }
-        finish();
+        commitUserTransaction();
     }
 }
