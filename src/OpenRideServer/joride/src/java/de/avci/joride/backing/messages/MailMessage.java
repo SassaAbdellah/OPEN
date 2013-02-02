@@ -8,11 +8,8 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -262,30 +259,32 @@ public class MailMessage implements Serializable {
     
     
     /**
-     * Property Name under which the "noreply email recipient" is to be found in the JNDI
-     * Registry.
+     * Property Name under which the "noreply email recipient" 
+     * is to be found in the Properties
+     * 
      */
     protected String PROPERTY_NAME_NOREPLY_EMAIL_RECIPIENT = "noreplyEmailRecipient";
     
 
         
     /**
-     * Property Name under which the "webmaster email recipient" is to be found in the JNDI
-     * Registry.
+     * Property Name under which the "webmaster email recipient" 
+     * is to be found in the Properties
      */
     protected String PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT = "webmasterEmailRecipient";
     
     /**
-     * Property Name under which the "business email recipient" is to be found in the JNDI
-     * Registry.
+     * Property Name under which the "business email recipient" 
+     * is to be found in the Properties
      */
     protected String PROPERTY_NAME_BUSINESS_EMAIL_RECIPIENT = "businessEmailRecipient";
     
     
     
     /**
-     * Property Name under which the JNDI Name is to be found in the JNDI
-     * Registry.
+     * Property Name for properties which gives the jndi name 
+     * of the mail service
+     * 
      */
     protected String PROPERTY_NAME_MAIL_SERVICE_JNDI = "mailServiceJNDI";
 

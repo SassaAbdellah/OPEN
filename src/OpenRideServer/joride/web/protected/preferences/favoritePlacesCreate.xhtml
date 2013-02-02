@@ -7,8 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       >
-    
-    
+
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -62,31 +62,32 @@
                         <h:inputText value="#{jfavpoint.favptPoint}" />
                     </div>
 
-                    <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
+                    <div class="formInput">
+                        <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
 
 
-                        <!-- point parameters -->
+                            <!-- point parameters -->
 
-                        <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/preferences/favoritePlacesCreate.xhtml"/>
-
-
-                        <!-- webflow parameters -->
-
-                        <f:param name="#{webflow.paramBack}"    value="preferences.favoritePlacesCreate" /> 
-                        <f:param name="#{webflow.paramFinish}"  value="preferences.favoritePlacesCreate" /> 
-                        <f:param name="#{webflow.paramCancel}"  value="preferences.favoritePlacesCreate" /> 
+                            <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/preferences/favoritePlacesCreate.xhtml"/>
 
 
-                    </h:commandLink>
+                            <!-- webflow parameters -->
+
+                            <f:param name="#{webflow.paramBack}"    value="preferences.favoritePlacesCreate" /> 
+                            <f:param name="#{webflow.paramFinish}"  value="preferences.favoritePlacesCreate" /> 
+                            <f:param name="#{webflow.paramCancel}"  value="preferences.favoritePlacesCreate" /> 
 
 
+                        </h:commandLink>
+                    </div>
 
 
+                    <div class="formInput">
 
-                    <h:commandButton  actionListener="#{jfavpoint.doCrudAction}"  action="preferences.favoritePlaces"  value="#{msgs.formCreate}" >
-                        <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudCreate}"/>
-                    </h:commandButton>
-
+                        <h:commandButton  actionListener="#{jfavpoint.doCrudAction}"  action="preferences.favoritePlaces"  value="#{msgs.formCreate}" >
+                            <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudCreate}"/>
+                        </h:commandButton>
+                    </div>
 
 
                 </h:form>
