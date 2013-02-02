@@ -58,7 +58,7 @@
                                     <!-- in case the user clicks the following link  -->
                                     #{cancellingride.update()}
                                     <h:form>
-                                        <h:commandLink action="#{cancellingride.remove()}" value="#{msgs.rideRemoveThisRequest}">
+                                        <h:commandLink action="#{cancellingride.invalidate()}" value="#{msgs.rideInvalidateThisRequest}">
 
                                         </h:commandLink>
                                     </h:form>

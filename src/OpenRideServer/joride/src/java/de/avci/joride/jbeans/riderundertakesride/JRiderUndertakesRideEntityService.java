@@ -29,6 +29,10 @@ import org.postgis.Point;
  * @author jochen
  */
 public class JRiderUndertakesRideEntityService {
+    
+    
+    
+    Logger logger=Logger.getLogger(""+this.getClass());
 
     /**
      * Get a customerEntity from the current request
@@ -303,4 +307,45 @@ public class JRiderUndertakesRideEntityService {
     public boolean isRideUpdated(Integer riderrouteId) {
         return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
     }
+    
+    
+    
+   
+
+    /**
+     * Invalidate/cancel/countermand the ride with given Rideid. The identity is
+     * checked from http request. 
+     *
+     * @param rideId id of the ride to be invalidated.
+     *
+     * @return true if ride was invalidated, else false.
+     */
+    public boolean invalidateRequestSavely(int riderrouteId) {
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+        RiderUndertakesRideEntity rue = rurcl.getRideByRiderRouteId(riderrouteId);
+
+        // Sanity check, caller of this method must be owner of this offer
+
+        if (ce.getCustId() != rue.getCustId().getCustId()) {
+            throw new Error("Attempt to invalidate request that is not owned by User");
+        }
+
+        if (rurcl.isDeletable(riderrouteId)) {
+            logger.info("Offer " + riderrouteId + " is deleteable, removing it");
+            rurcl.removeRide(riderrouteId);
+        } else {
+            logger.info("Request " + riderrouteId + " is not deleteable, invalidating");
+            rurcl.invalidateRide(riderrouteId);
+        }
+
+        return true;
+    }
+    
+    
+    
 } // class

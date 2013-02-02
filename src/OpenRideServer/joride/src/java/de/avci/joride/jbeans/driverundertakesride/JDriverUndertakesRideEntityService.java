@@ -5,10 +5,8 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.jbeans.driverundertakesride.JRoutePointsEntity;
 
-import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -29,7 +27,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
-import org.postgis.Point;
 
 /**
  * Service
@@ -37,6 +34,8 @@ import org.postgis.Point;
  * @author jochen
  */
 public class JDriverUndertakesRideEntityService {
+
+    Logger logger = Logger.getLogger("" + this.getClass());
 
     /**
      * Lookup DriverUndertakesRideControllerLocal Bean that controls my offers.
@@ -192,15 +191,13 @@ public class JDriverUndertakesRideEntityService {
         return dure;
 
     } //  getDriveByIdSafely(int id)
-    
-    
-    
+
     /**
-     * 
+     *
      */
-    public boolean safelyRemoveDrive(JDriverUndertakesRideEntity jdure){
-    
-        
+    public boolean safelyRemoveDrive(JDriverUndertakesRideEntity jdure) {
+
+
         CustomerEntity ce = this.getCustomerEntity();
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
 
@@ -209,7 +206,7 @@ public class JDriverUndertakesRideEntityService {
             throw new Error("Cannot remove Drive, customerEntity is null");
         }
 
-  
+
         DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(jdure.getRideId());
 
 
@@ -220,12 +217,6 @@ public class JDriverUndertakesRideEntityService {
 
         return durcl.removeRide(jdure.getRideId());
     }
-    
-    
-    
-    
-    
-    
 
     /**
      * Safely update JDriverUndertakesRideEntity from database
@@ -503,31 +494,71 @@ public class JDriverUndertakesRideEntityService {
      * descending by starttime
      */
     public List<JDriverUndertakesRideEntity> getDrivesAfterTimeSafely(Date rideStarttime) {
-        
-        
-    
+
+
+
         CustomerEntity ce = this.getCustomerEntity();
-        if (ce == null) {  throw new Error("Cannot list ride offers, driver Id is null !");}
-        
+        if (ce == null) {
+            throw new Error("Cannot list ride offers, driver Id is null !");
+        }
+
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-        List <DriverUndertakesRideEntity> preres = durcl.getDrivesAfterTime(ce , rideStarttime);
-        
-        
+        List<DriverUndertakesRideEntity> preres = durcl.getDrivesAfterTime(ce, rideStarttime);
+
+
         // cast results from DriverUndertakesRideEntity to JDriverUndertakesRideEntity
-        
-        List <JDriverUndertakesRideEntity> res=new LinkedList <JDriverUndertakesRideEntity> ();   
-        Iterator <DriverUndertakesRideEntity> it=preres.iterator();
-       
-       
-         
-        while(it.hasNext()){
-            
-            JDriverUndertakesRideEntity jdure=new JDriverUndertakesRideEntity();
+
+        List<JDriverUndertakesRideEntity> res = new LinkedList<JDriverUndertakesRideEntity>();
+        Iterator<DriverUndertakesRideEntity> it = preres.iterator();
+
+
+
+        while (it.hasNext()) {
+
+            JDriverUndertakesRideEntity jdure = new JDriverUndertakesRideEntity();
             jdure.updateFromDriverUndertakesRideEntity(it.next());
             res.add(jdure);
         }
-        
-        return res;   
+
+        return res;
     }
+
     
+    
+    
+    
+    /**
+     * Invalidate/cancel/countermand the ride with given Rideid. The identity is
+     * checked from http request. Invalidation is
+     *
+     *
+     * @param rideId id of the drive to be invalidated.
+     *
+     * @return true if ride was invalidated, else false
+     */
+    public boolean invalidateOfferSavely(int rideId) {
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+
+
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+        DriverUndertakesRideEntity due = durcl.getDriveByDriveId(rideId);
+
+        // Sanity check, caller of this method must be owner of this offer
+
+        if (ce.getCustId() != due.getCustId().getCustId()) {
+            throw new Error("Attempt to invalidate Offer that is not owned by User");
+        }
+
+        if (durcl.isDeletable(rideId)) {
+            logger.info("Offer " + rideId + " is deleteable, removing it");
+            durcl.removeRide(rideId);
+        } else {
+            logger.info("Offer " + rideId + " is not deleteable, invalidating");
+            durcl.invalidateRide(rideId);
+        }
+
+        return true;
+    }
 } // class
