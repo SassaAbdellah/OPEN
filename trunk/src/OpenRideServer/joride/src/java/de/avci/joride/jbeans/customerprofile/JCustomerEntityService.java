@@ -445,4 +445,30 @@ public class JCustomerEntityService {
     }
     
     
+    
+    /** Invalidate account of the current customer.
+     *  Customer is determined using the 
+     *  http remote uid
+     * 
+     * @return  logout, so that successful logout will be reported
+     * 
+     */
+    public String invalidateCustomerAccount(){
+    
+    
+        CustomerEntity ce=this.getCustomerEntitySafely();
+        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        
+        if(ce!=null){
+            ccl.removeCustomer(ce.getCustId());
+        }
+        
+        return "logout";
+    }
+    
+    
+    
+    
+    
+    
 } // class

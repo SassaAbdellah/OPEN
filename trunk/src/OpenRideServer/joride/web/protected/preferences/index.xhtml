@@ -29,41 +29,99 @@
 
             <ui:define name="content">
 
-                <h:form>
 
 
-                    <p> 
+
+                <p> 
+                    <h:form>
                         <h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink> 
-                    </p>
+                    </h:form>
+                </p>
 
-                    <p>
+
+                <!-- ******* Delete Account  ******** -->
+                <p>
+
+                    <h:form prependId="false">  
+
+                        <p:growl id="messages" />  
+
+                        <div class="formInput">
+                            <p:commandButton 
+                                id="showDialogButton" 
+                                value="#{msgs.custRemoveAccountLabel}" 
+                                onclick="confirmation.show()" 
+                                type="button"
+                                />  
+                        </div>
+
+                        <p:confirmDialog 
+                            id="confirmDialog" 
+                            message="#{msgs.custRemoveAccountQuestion}"  
+                            header="#{msgs.custRemoveAccountLabel}" 
+                            severity="alert" 
+                            widgetVar="confirmation"
+                            >  
+
+                            <p:commandButton 
+                                id="confirm" 
+                                value="#{msgs.custRemoveAccountApprove}" 
+                                update="messages" 
+                                oncomplete="confirmation.hide()"  
+                                actionListener="#{jprofile.invalidate()}" 
+                                />  
+                            
+                            
+                            <p:commandButton 
+                                id="decline" 
+                                value="#{msgs.custRemoveAccountDissaprove}" 
+                                onclick="confirmation.hide()" 
+                                type="button" 
+                                />   
+
+                        </p:confirmDialog>  
+
+                    </h:form>   
+
+                </p>
+
+
+
+                <p>
+                    <h:form>
                         <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink> 
                         <br/>
                         #{msgs.nav1_pref_personalData_desc}
-                    </p>   
+                    </h:form>
+                </p>   
 
 
 
-                    <p>
+                <p>
+                    <h:form>
                         <h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink> 
                         <br/>
                         #{msgs.nav1_pref_riderPreferences_desc} 
-                    </p>   
+                    </h:form>
+                </p>   
 
-                    <p> 
+                <p> 
+                    <h:form>
                         <h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink> 
                         <br/>  
-                        #{msgs.nav1_pref_driverPreferences_desc} 
-                    </p> 
+                    </h:form>
+                </p> 
 
 
-                    <p>
+                <p>
+                    <h:form>
                         <h:commandLink action="preferences.favoritePlaces">    #{msgs.nav1_pref_favoritePlaces_label}     </h:commandLink> 
                         <br/>                    
                         #{msgs.nav1_pref_favoritePlaces_desc}  
-                    </p> 
+                    </h:form>
+                </p> 
 
-                </h:form>
+
 
 
 
