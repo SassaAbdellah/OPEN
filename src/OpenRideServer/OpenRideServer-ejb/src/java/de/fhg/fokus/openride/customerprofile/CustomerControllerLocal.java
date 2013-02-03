@@ -61,6 +61,8 @@ public interface CustomerControllerLocal {
     public void setDriverPrefs(int custId, int custDriverprefAge, char custDriverprefGender, char custDriverprefIssmoker);
 
     public void setPassword(int custId, String custPasswd);
+    
+    public void setNickname(int custId, String custNicknameArg);
 
     public boolean isNicknameAvailable(String custNickname);
 
