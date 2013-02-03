@@ -35,7 +35,22 @@
                     <h:commandLink action="preferences">  #{msgs.nav1_preferences_label}   </h:commandLink>    
                 </span>
             </h:form>
+
+            <h1> jrtabindex=#{jrtabindex} </h1>
+            
+            <p:tabMenu activeIndex="#{jrtabindex}">
+             
+                <p:menuitem outcome="home"        value="#{msgs.nav1_home_label}"           />    
+                <p:menuitem outcome="rider"       value="#{msgs.nav1_rider_label}"          />    
+                <p:menuitem outcome="driver"      value="#{msgs.nav1_driver_label}"         />    
+                <p:menuitem outcome="preferences" value="#{msgs.nav1_preferences_label}"    />    
+
+            </p:tabMenu>
+
+
         </ui:composition>
+
+
 
 
 

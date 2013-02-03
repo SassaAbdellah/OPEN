@@ -19,8 +19,8 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classPreferences" value="Highlight" />
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexPreferences}" />
 
             <ui:define name="windowTitle">
                 #{msgs.title}
