@@ -5,10 +5,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
       >
-    
-    
+
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -21,8 +21,10 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- set "classPreferences" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classPreferences" value="Highlight" />
+
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexPreferences}" />
+
 
             <ui:define name="windowTitle">
                 #{msgs.title}
@@ -61,17 +63,17 @@
                 <h:form>
 
                     <!-- int custDriverprefAge -->
-                    
+
                     <!-- removed from driverprefs, because not relevant for matching -->
 
                     <!-- char custDriverprefGender -->
-                    
+
                     <!-- currently removed. FIXME: check relevance for matching algoritm -->
 
                     <!-- nickname may not be changed -->
-                    
-                    
-                   
+
+
+
 
 
                     <!-- char custDriverprefSmoker --> 
@@ -122,44 +124,44 @@
 
 
                         <h:column>     
-                            
+
                             <table> <!-- nested table for car details item -->
-                                
+
                                 <tr> 
                                     <td> <span class="formLabel"> #{msgs.cardetBrandLabel} </span> </td>
                                     <td> <span class="formLabel">:</span></td>
                                     <td> #{car.cardetBrand} </td>
                                 </tr>
-                                    
+
                                 <tr> 
                                     <td> <span class="formLabel">#{msgs.cardetColorLabel}</span> </td>
                                     <td> <span class="formLabel">:</span></td>
                                     <td> #{car.cardetColour} </td>
                                 </tr>
-                                
-                                  <tr> 
+
+                                <tr> 
                                     <td> <span class="formLabel"> #{msgs.cardetBuildyearLabel}</span> </td>
                                     <td> <span class="formLabel"> : </span></td>
                                     <td> #{car.cardetBuildyear} </td>
                                 </tr>
-                                
+
                                 <tr> 
                                     <td> <span class="formLabel"> #{msgs.cardetLicenseplateLabel} </span> </td>
                                     <td> <span class="formLabel"> :</span></td>
                                     <td> #{car.cardetPlateno} </td>
                                 </tr>
                             </table>
-                        
-                     
+
+
                             <h:commandLink  action="preferences.carDetailsEdit"   >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudUpdate}"/>
                                 <f:param  name="#{crud.paramNameCrudId}" value="#{car.cardetId}"/>
                                 #{msgs.formEdit}
                             </h:commandLink>
                             <!--- end of commandlink for display action -->
-                            
+
                             &nbsp; &nbsp; &nbsp; 
-                       
+
                             <!-- comandlink for delete action --> 
                             <h:commandLink actionListener="#{jcardetails.doCrudAction}" >
                                 <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
