@@ -1,13 +1,20 @@
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.session.HTTPUser;
+import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import java.util.Collection;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Small Wrapper class making Entity Bean CustomerEntity availlable as a CDI
@@ -19,16 +26,12 @@ import javax.inject.Named;
 @Named("jprofile")
 @RequestScoped
 public class JCustomerEntity extends CustomerEntity {
-    
-    
-    Logger logger=Logger.getLogger(""+this.getClass());
-    
-    
-    /** Normalizer for normalizing input
-     */
-     private CustomerDataNormalizer normalizer = new CustomerDataNormalizer();
-    
 
+    Logger logger = Logger.getLogger("" + this.getClass());
+    /**
+     * Normalizer for normalizing input
+     */
+    private CustomerDataNormalizer normalizer = new CustomerDataNormalizer();
     /**
      * A character signifying Nonsmoker in prefrerences and personal data
      *
@@ -363,45 +366,57 @@ public class JCustomerEntity extends CustomerEntity {
     public char getGenderOther() {
         return this.GENDER_OTHER;
     }
-    
-    
-    /** Display the gender on a label
+
+    /**
+     * Display the gender on a label
      */
-    public String getGenderLabel(){
-        
-        PropertiesLoader loader=new PropertiesLoader();
-    
-        if(this.getCustGender()==this.GENDER_MALE){
+    public String getGenderLabel() {
+
+        PropertiesLoader loader = new PropertiesLoader();
+
+        if (this.getCustGender() == this.GENDER_MALE) {
             return loader.getMessagesProps().getProperty("custGenderMale");
         }
-        
-        if(this.getCustGender()==this.GENDER_FEMALE){
+
+        if (this.getCustGender() == this.GENDER_FEMALE) {
             return loader.getMessagesProps().getProperty("custGenderFemale");
         }
-        
-        
+
+
         return loader.getMessagesProps().getProperty("custGenderOther");
-    
+
     }
-    
-    
-    
-    /** Invalidate the existing account
-     * 
-     * @return  logout URL
+
+    /**
+     * Invalidate the existing account
+     *
+     * Note, that this is protected by a
+     *
+     *
+     * @return logout URL
      */
-    public void invalidate(ActionEvent evt){
-    
-        logger.info("Removing account with customerId: "+this.getCustId());
+    public void invalidate(ActionEvent evt) {
+
+        logger.info("Removing account with customerId: " + this.getCustId());
+
+        // remove account
         
         new JCustomerEntityService().invalidateCustomerAccount();
+        
+        // logout user
+        
+        try {
+  
+            String logoutURLStr=new HTTPUser().getLogoutURL();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(logoutURLStr);
+        } catch (IOException exc) {
+            Logger.getLogger(JCustomerEntity.class.getName()).log(
+                    Level.SEVERE, 
+                    "Unexpected Error while logging out ", 
+                    exc);
+        }
+
    
     }
-    
-    
-  
-
-    
-    
 }// class
 
