@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.customerprofile;
 
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -35,6 +34,7 @@ import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -54,32 +54,24 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     @PersistenceContext
     EntityManager em;
     @Temporal(TemporalType.TIMESTAMP)
-
     UserTransaction u;
     private static String one = "ich";
     @EJB
     private FavoritePointControllerLocal favoritePointControllerBean;
-    
     // will be needed when savely removing rides
     @EJB
     private RiderUndertakesRideControllerLocal riderUndertakesRideControllerBean;
-    
     // will be needed when savely removing rides
     @EJB
     private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
-    
-    
-    
-    
-    
-    
+    Logger logger = Logger.getLogger("" + this.getClass());
     final String TEMPLATE_USER = "template_user";
 
     /*@Override
-    public void init() {
-    super.init();
-    log(this.getClass(), "Init Testing");
-    }*/
+     public void init() {
+     super.init();
+     log(this.getClass(), "Init Testing");
+     }*/
     /**
      * *********************Businessmethods start*************************
      */
@@ -199,83 +191,101 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         return stringBuffer.toString();
     }
 
-    /** Remove (or rather invalidate) a customer.
-     *  Removing a customer means, that his personal data 
-     *  will be overwritten.
-     *  
+    /**
+     * Remove (or rather invalidate) a customer. Removing a customer means, that
+     * his personal data will be overwritten.
+     *
      * Note that this will be called inside a transaction explicitely.
      *
      * @param custId
      */
     public void removeCustomer(int custId) {
-        logger.info("removeCustomer : "+custId);
+
+        logger.info("removeCustomer : " + custId);
         startUserTransaction();
-        //TODO: make shure that all related entities are deleted, too.
+
+
+
+        //TODO: make sure that all related entities are deleted, too.
         CustomerEntity ce = em.find(CustomerEntity.class, custId);
-         
+
         // avoid trivialities
-        if(ce==null){ return; }
-        
-        
-        String random=""+Math.random();
-        String ts=""+System.currentTimeMillis();
-        String seed="deleted_user"+random+":"+ts;
-        
-       
+        if (ce == null) {
+            logger.warning("Unable to retrieve user for custId " + custId + " cannot remove customer");
+            return;
+        }
+
         // TODO: remove all those ride request that can still be removed,
         // and invalidate the rest
-       List <RiderUndertakesRideEntity> allRides=riderUndertakesRideControllerBean.getRidesForCustomer(ce);
-       
-       for (RiderUndertakesRideEntity re: allRides){
-           
-           if(riderUndertakesRideControllerBean.isDeletable(re.getRiderrouteId())){
+        List<RiderUndertakesRideEntity> allRides = riderUndertakesRideControllerBean.getRidesForCustomer(ce);
+
+        for (RiderUndertakesRideEntity re : allRides) {
+
+            if (riderUndertakesRideControllerBean.isDeletable(re.getRiderrouteId())) {
                 // delete all rides that can be deleted
-               logger.info("Deleting Ride "+re.getRiderrouteId());
-               riderUndertakesRideControllerBean.removeRide(re.getRiderrouteId());
-           } else {
-               // invalidate all rides that cannot be deleted
-               logger.info("Invalidating Ride "+re.getRiderrouteId());
-               riderUndertakesRideControllerBean.invalidateRide(re.getRiderrouteId());
-           }
-       } //      for (RiderUndertakesRideEntity re: allRides) 
-       
-       // TODO remove or invalidate  driver undertakes ride entities and 
-       // associated instances
-       
-          // TODO: remove all those ride request that can still be removed,
+                logger.info("Deleting Ride " + re.getRiderrouteId());
+                riderUndertakesRideControllerBean.removeRide(re.getRiderrouteId());
+            } else {
+                // invalidate all rides that cannot be deleted
+                logger.info("Invalidating Ride " + re.getRiderrouteId());
+                riderUndertakesRideControllerBean.invalidateRide(re.getRiderrouteId());
+            }
+        } //      for (RiderUndertakesRideEntity re: allRides) 
+
+        // TODO: remove all those ride request that can still be removed,
         // and invalidate the rest
-       List <DriverUndertakesRideEntity> allDrives=driverUndertakesRideControllerBean.getDrivesForDriver(ce.getCustNickname());
-       
-       for (DriverUndertakesRideEntity due: allDrives){
-           
-           if(driverUndertakesRideControllerBean.isDeletable(due.getRideId())){
+        List<DriverUndertakesRideEntity> allDrives = driverUndertakesRideControllerBean.getDrivesForDriver(ce.getCustNickname());
+
+        for (DriverUndertakesRideEntity due : allDrives) {
+
+            if (driverUndertakesRideControllerBean.isDeletable(due.getRideId())) {
                 // delete all drives that can be deleted
-               logger.info("Deleting Ride "+due.getRideId());
-               driverUndertakesRideControllerBean.removeRide(due.getRideId());
-           } else {
-               // invalidate all rides that cannot be deleted
-               logger.info("Invalidating Drive "+due.getRideId());
-               driverUndertakesRideControllerBean.invalidateRide(due.getRideId());
-           }
-       } //      for (RiderUndertakesRideEntity re: allRides) 
-       
-       
-       
-       
-       
-       
-       
-         
+                logger.info("Deleting Ride " + due.getRideId());
+                driverUndertakesRideControllerBean.removeRide(due.getRideId());
+            } else {
+                // invalidate all rides that cannot be deleted
+                logger.info("Invalidating Drive " + due.getRideId());
+                driverUndertakesRideControllerBean.invalidateRide(due.getRideId());
+            }
+        } //      for (RiderUndertakesRideEntity re: allRides) 
+
+
         // TODO: 
-       //overwrite valid data for this user with randomized data
-       
-       
-       
+        //overwrite valid data for this user with randomized data
+
+        String random = "" + Math.random();
+        String ts = "" + System.currentTimeMillis();
+        String seed = "deleted_user" + random + ":" + ts;
+
+        // set firstname, lastname and gender
+        this.setBasePersonalData(custId, seed, seed, '-');
+        // invalidate dob, email , cellphone, landline phone
+        // address data, smoker data, licensedate
+        this.setPersonalData(custId,
+                null, // mock date of birth
+                seed, //  mock email
+                seed, // mock mobile phone
+                seed, // mock landline
+                seed, // mock cust_addr street
+                custId, // mock zipcode
+                seed, // mock City
+                'n', // mock smokerprefs
+                null // mock licensedate
+                );
+
+        // invalidate nickname and password
+        this.setNickname(custId, seed);
+        this.setPassword(custId, seed);
+
+        em.merge(ce);
+        em.persist(ce);
+        //
+        // do not remove the customer, only overwrite the data
+        //
         // em.remove(e);
         commitUserTransaction();
     }
 
-    
     /**
      *
      * @param custId
@@ -295,7 +305,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     }
 
     /**
-     * Returns a <code>CustomerEntity</code> for a given <code>nickname</code>.
+     * Returns a
+     * <code>CustomerEntity</code> for a given
+     * <code>nickname</code>.
+     *
      * @param nickname The nickname of the requested Customer.
      * @return
      */
@@ -315,7 +328,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     }
 
     /**
-     * Returns a <code>CustomerEntity</code> for a given <code>email</code>.
+     * Returns a
+     * <code>CustomerEntity</code> for a given
+     * <code>email</code>.
+     *
      * @param email The email of the requested Customer.
      * @return
      */
@@ -345,7 +361,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     }
 
     /**
-     * 
+     *
      */
     public void setCustomer() {
         startUserTransaction();
@@ -354,8 +370,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     }
 
     /**
-     * This method can be used to check whether a Customer with the <code>username</code> and
+     * This method can be used to check whether a Customer with the
+     * <code>username</code> and
      * <code>password</code> exists.
+     *
      * @param username
      * @param password
      * @return true if a customer exists, false if not.
@@ -378,46 +396,50 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     }
 
     /**
-     * This method updates a sessionId for a User related to his nickname and password.
-     * This is needed if Sessions shall be supported by the application.
+     * This method updates a sessionId for a User related to his nickname and
+     * password. This is needed if Sessions shall be supported by the
+     * application.
+     *
      * @param nickname
      * @param password
      * @param id
      */
     /*public void updateSessionId(String nickname, String password, String id) {
-    init();
-    CustomerEntity e = (CustomerEntity)em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("cust_nickname", nickname).getSingleResult();
-    if(e.getCustPasswd().equals(password)){
-    e.setCustSessionId(id);
-    em.merge(e);
-    }
-    //else throw an exception? Error Management.
-    finish();
-    }*/
+     init();
+     CustomerEntity e = (CustomerEntity)em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("cust_nickname", nickname).getSingleResult();
+     if(e.getCustPasswd().equals(password)){
+     e.setCustSessionId(id);
+     em.merge(e);
+     }
+     //else throw an exception? Error Management.
+     finish();
+     }*/
     /**
-     * This method can be called to check whether someone with <code>nickname</code> is currently logged in.
-     * Therefore the field has to be set after the customer correctly logged in.
+     * This method can be called to check whether someone with
+     * <code>nickname</code> is currently logged in. Therefore the field has to
+     * be set after the customer correctly logged in.
+     *
      * @param nickname
      * @return
      */
     /*
-    FIXME: this seems not to be needed!
-    public boolean isLoggedIn(String nickname) {
+     FIXME: this seems not to be needed!
+     public boolean isLoggedIn(String nickname) {
 
-    boolean isLoggedIn = false;
+     boolean isLoggedIn = false;
 
-    init();
-    //Query q = em.createNativeQuery("SELECT * FROM customer c WHERE c.cust_nickname = '"+username+"';");
-    Query q = em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", "nickname2");
-    if(q.getResultList().size()>0){
+     init();
+     //Query q = em.createNativeQuery("SELECT * FROM customer c WHERE c.cust_nickname = '"+username+"';");
+     Query q = em.createNamedQuery("CustomerEntity.findByCustNickname").setParameter("custNickname", "nickname2");
+     if(q.getResultList().size()>0){
 
-    CustomerEntity v = (CustomerEntity)q.getResultList().get(0);
-    isLoggedIn = v.getIsLoggedIn();
-    }
-    finish();
+     CustomerEntity v = (CustomerEntity)q.getResultList().get(0);
+     isLoggedIn = v.getIsLoggedIn();
+     }
+     finish();
 
-    return isLoggedIn;
-    }*/
+     return isLoggedIn;
+     }*/
     /**
      * *********************Businessmethods end**************************
      */
@@ -470,18 +492,30 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         c.setCustLastname(custLastName);
 
         c.setCustGender(custGender);
-        
+
         em.persist(c);
         commitUserTransaction();
     }
 
+    @Override
     public void setPassword(int custId, String custPasswd) {
         startUserTransaction();
-        logger.info("setPassword");
+        logger.info("setPassword for custId : " + custId);
         CustomerEntity c = getCustomer(custId);
         c.setCustPasswd(getMD5Hash(custPasswd));
         commitUserTransaction();
     }
+    
+    @Override
+     public void setNickname(int custId, String custNicknameArg) {
+        startUserTransaction();
+        logger.info("setNickname for custId : " + custId);
+        CustomerEntity c = getCustomer(custId);
+        c.setCustNickname(custNicknameArg);
+        commitUserTransaction();
+    }
+    
+    
 
     public void setDriverPrefs(int custId, int custDriverprefAge, char custDriverprefGender, char custDriverprefSmoker) {
         startUserTransaction();
