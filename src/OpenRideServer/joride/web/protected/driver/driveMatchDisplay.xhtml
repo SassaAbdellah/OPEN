@@ -10,10 +10,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
       >
-    
-    
+
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -27,8 +27,10 @@
         <ui:composition template="/templates/simpleLayout.xhtml">
 
 
-            <!-- set "classRider" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classRider" value="Highlight" />
+
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
+
 
             <ui:define name="windowTitle">
                 #{msgs.title}
@@ -91,7 +93,7 @@
                         <td> <span class="formInput"> #{match.riderStateMessage}    </span> </td> 
                     </tr>
 
-                  
+
                     <tr>
                         <td colspan="3">
                             <h:form>

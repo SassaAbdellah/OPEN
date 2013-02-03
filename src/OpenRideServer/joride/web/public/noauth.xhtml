@@ -6,8 +6,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       >
-    
-    
+
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -23,6 +23,9 @@
             </ui:define>
 
 
+
+            <!-- highlight "home" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexHome}" />
 
 
             <ui:define name="content">

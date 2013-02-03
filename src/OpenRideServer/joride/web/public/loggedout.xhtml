@@ -16,11 +16,15 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
+
+
             <ui:define name="windowTitle">
                 #{msgs.loggedout}
             </ui:define>
 
 
+            <!-- highlight "home" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexHome}" />
 
 
             <ui:define name="content">
