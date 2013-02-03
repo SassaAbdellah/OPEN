@@ -5,10 +5,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
       >
 
-    
+
     <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </h:head>
@@ -20,8 +20,9 @@
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-            <!-- set "classDriver" property to highlight, so that home tab will be higlighted -->
-            <ui:param name="classDriver" value="Highlight" />
+
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
 
 
 
@@ -31,13 +32,13 @@
 
 
             <ui:define name="content">
-                
-                
+
+
                 <!-- page to display a new drive offer          -->
                 <!-- i.e: the newdriverride bean                -->
                 <!-- this is meant to be the end of workflow    -->
                 <!-- for creating a new drive                   -->
-               
+
 
 
                 <h1> #{msgs.rideNewOffer}  #{newdriverride.rideId} </h1>
@@ -51,12 +52,12 @@
                         <td> : </td>
                         <td class="formInput"> #{newdriverride.rideStarttime}   </td>
                     </tr>
-                   <tr>
+                    <tr>
                         <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
                         <td> : </td>
                         <td>  <span class="formInput">  #{newdriverride.rideComment}  </span> </td>
                     </tr>
-                    
+
                     <tr>
                         <td class="formLabel">  #{msgs.rideStartptAddress}     </td>
                         <td> : </td>
