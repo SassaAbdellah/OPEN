@@ -450,10 +450,10 @@ public class JCustomerEntityService {
      *  Customer is determined using the 
      *  http remote uid
      * 
-     * @return  logout, so that successful logout will be reported
+     * @return true, if all went well.
      * 
      */
-    public String invalidateCustomerAccount(){
+    public boolean invalidateCustomerAccount(){
     
     
         CustomerEntity ce=this.getCustomerEntitySafely();
@@ -461,9 +461,13 @@ public class JCustomerEntityService {
         
         if(ce!=null){
             ccl.removeCustomer(ce.getCustId());
+        } else { 
+        
+            throw new Error("Cannot invalidate customer, customerID ist null");
+        
         }
         
-        return "logout";
+        return true;
     }
     
     
