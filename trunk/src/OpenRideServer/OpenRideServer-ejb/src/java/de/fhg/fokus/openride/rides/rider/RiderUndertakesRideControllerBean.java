@@ -1296,15 +1296,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         // remove ratings and comments for this ride
         rue.setComment("INVALIDATED");
 
-
-        /*
-         *  disabled as rating bean currently does not work
-         * 
-         *      
-         * ratingBean.rateRider(riderrouteId,null,"INVALIDATED");
-         * ratingBean.rateDriver(riderrouteId, null, "INVALIDATED");
-         *    
-         */
+ 
+        // INVALIDATE Ratings
+        
+        rue.setGivenrating(null);
+        rue.setReceivedrating(null);
+        rue.setReceivedratingComment("INVALIDATED");
+        rue.setGivenratingComment("INVALIDATED");
 
 
         // stop here, if latest starttime is older than 24 hrs back
