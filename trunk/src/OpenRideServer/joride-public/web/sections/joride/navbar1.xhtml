@@ -18,16 +18,19 @@
 
         <ui:composition>
 
-            <h:form>
-                <span class="nav1#{classHome}">
-                    <h:commandLink action="home">         #{msgs.nav1_home_label}       </h:commandLink>
-                </span>
 
-                <span class="nav1#{classAccount}">         
-                    <h:commandLink action="myAccount">    #{msgs.nav1_myAccount_label}  </h:commandLink>    
-                </span>
-              
-            </h:form>
+
+            <p:tabMenu activeIndex="#{jrtabindex}">             
+                <p:menuitem outcome="home"        value="#{msgs.nav1_home_label}"        />    
+                <p:menuitem outcome="myAccount"   value="#{msgs.nav1_myAccount_label}"   />    
+            </p:tabMenu>
+
+
+
+
+
+
+
         </ui:composition>
 
 
