@@ -93,50 +93,6 @@ form{
 
 
 
-.nav1{  
-    padding-top:5px;
-    padding-left:5px;
-    padding-right:5px;
-
-    margin-right:5px;
-    background-color:#D0D0D0;
-}
-
-
-.nav1 a{
-    color:#FFFFFF;
-}
-
-.nav1 a:hover {
-    color:#FF8C00;
-    text-decoration:underline;
-}
-
-
-
-
-
-.nav1Highlight{
-    padding-top:5px;
-    padding-left:5px;
-    padding-right:5px;
-
-
-    margin-right:5px;
-    background-color:#FFFFFF;
-}
-
-.nav1Highlight a{
-    color:#000000;
-}
-
-.nav1Highlight a:hover {
-    color:#FF8C00;
-    text-decoration:underline;
-}
-
-
-
 #navbar2{
     font-size:0.75em;
     margin:0px;
