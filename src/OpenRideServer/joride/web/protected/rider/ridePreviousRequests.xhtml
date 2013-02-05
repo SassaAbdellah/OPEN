@@ -60,100 +60,20 @@
 
                 <h1>  #{msgs.ridePreviousRequests}  </h1>
 
-
-
-                <h2> #{msgs.rideActiveRequests} : </h2>
-
-
-
                 <h:form>
-                    <ui:repeat  value="#{ride.activeOpenRidesForRider}" var="ride">
-
-
-
-                        <p>
-                            <table> <!-- nested table #1 -->
-
-                                <tr>
-                                    <td colspan="3">
-                                        <h3> #{msgs.rideRequest} #{ride.riderrouteId} </h3>
-                                        <!-- show message if ride is updated -->
-                                        <ui:fragment rendered="#{ride.rideUpdated}">
-
-                                            <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
-                                            #{msgs.updatedRide}
-                                        </ui:fragment>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="3">
-                                        <span class="formLabel">
-                                            <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
-                                                <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                                <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                            </h:commandLink>
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                <tr> 
-                                    <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
-                                </tr>
-
-                                <tr> 
-                                    <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
-                                </tr>
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                    <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
-                                    <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
-                                </tr>
-
-
-                                <!-- *** show matchings list only if there are matchings *** -->
-                                <ui:fragment rendered="#{ride.hasMatches}">
-                                    <tr>
-                                        <td colspan="3">
-                                            <span class="formLabel">
-                                                <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
-                                                    <f:param  name="#{webflow.getParamBack()}" value="rider"               />
-                                                </h:commandLink>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </ui:fragment> 
-
-
-                            </table> <!-- nested table #1 -->  
-                        </p>
-                    </ui:repeat>
+                    
+                    <p:selectOneMenu value="#{timeinterval.days}" size="1" >
+                        <f:selectItem itemValue="1"  itemLabel="1"    />      
+                        <f:selectItem itemValue="5"  itemLabel="5"    />
+                        <f:selectItem itemValue="10" itemLabel="10"   />
+                        <f:selectItem itemValue="15" itemLabel="15"   />
+                        <f:selectItem itemValue="30" itemLabel="30"   />
+                        <f:selectItem itemValue="60" itemLabel="60"   />
+                        <f:selectItem itemValue="90" itemLabel="90"   />
+                        <f:selectItem itemValue="120" itemLabel="120" />
+                    </p:selectOneMenu>
 
                 </h:form>
-
 
 
 
