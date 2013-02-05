@@ -21,26 +21,26 @@
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-      
+
             <!-- highlight "preferences" tab -->
             <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
 
-            
+
             <ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
             <ui:define name="content">
 
-                <div id="navbar2">
 
+                <div id="navbar2">
                     <h:form>
                         <span class="nav2Highlight">
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
+                            <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
                         </span> 
                     </h:form>
-
                 </div>
+
 
 
                 #{ride.update()}
@@ -51,7 +51,7 @@
                             <h1> #{msgs.rideRequest} #{ride.riderrouteId} </h1>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <td colspan="3">
                             <p>
@@ -69,7 +69,7 @@
                         </td>
                     </tr>
 
-                                       
+
                     <tr>
                         <td colspan="3">
                             <span class="formLabel">

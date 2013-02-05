@@ -148,6 +148,15 @@
         </navigation-case>
     </navigation-rule>
     
+    
+    <!-- confirm sucessfull sending of mail from contact form or elsewhere -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> rider.previousRequests </from-outcome>
+            <to-view-id>/faces/protected/rider/previousRequests.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 
 
 
@@ -419,6 +428,10 @@
         </navigation-case>
     </navigation-rule>
   
+        
+           
+
+    
         
         
         
