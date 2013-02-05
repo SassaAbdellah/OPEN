@@ -37,15 +37,22 @@
 
             <ui:define name="content">
 
-                <div id="navbar2">
-
+                                <div id="navbar2">
                     <h:form>
                         <span class="nav2Highlight">
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>    
+                            <h:commandLink action="driver.previousDrives">   #{msgs.ridePreviousDrives}  </h:commandLink>    
+                        </span> 
+                        |
+                        <span class="nav2Highlight">
+                            <h:commandLink action="driver.driveCreate"   value="#{msgs.rideNewDrive}">  
+                                <f:param name="#{webflow.paramBack}"    value="driver" /> 
+                                <f:param name="#{webflow.paramFinish}"  value="driver" /> 
+                                <f:param name="#{webflow.paramCancel}"  value="driver" /> 
+                            </h:commandLink>
                         </span>
                     </h:form>
-
                 </div>
+            
 
                 <!-- we have to use session scoped drive here to                          -->
                 <!-- circumvent problems with commandlinks insid ui:repeat or h:datatable -->
