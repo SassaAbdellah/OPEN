@@ -33,27 +33,19 @@
 
 
                 <div id="navbar2">
-
                     <h:form>
-
                         <span class="nav2Highlight">
-                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                            <h:commandLink action="driver.previousDrives">   #{msgs.ridePreviousDrives}  </h:commandLink>    
                         </span> 
-
                         |
-
                         <span class="nav2Highlight">
                             <h:commandLink action="driver.driveCreate"   value="#{msgs.rideNewDrive}">  
-
                                 <f:param name="#{webflow.paramBack}"    value="driver" /> 
                                 <f:param name="#{webflow.paramFinish}"  value="driver" /> 
                                 <f:param name="#{webflow.paramCancel}"  value="driver" /> 
                             </h:commandLink>
                         </span>
-
-
                     </h:form>
-
                 </div>
 
                 <h1> #{msgs.driversSection} </h1>
