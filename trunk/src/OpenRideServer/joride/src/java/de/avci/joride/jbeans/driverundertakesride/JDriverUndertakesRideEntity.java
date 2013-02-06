@@ -136,7 +136,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     protected DateFormat getDateFormat() {
 
         if (this.dateFormat == null) {
-            dateFormat = (new JoRideConstants()).createDateFormat();
+            dateFormat = (new JoRideConstants()).createDateTimeFormat();
         }
 
         return dateFormat;

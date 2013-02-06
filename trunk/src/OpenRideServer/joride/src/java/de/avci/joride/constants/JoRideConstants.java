@@ -16,20 +16,46 @@ import java.text.SimpleDateFormat;
 public class JoRideConstants {
     
     
+    
+    
+       
+    /** Format to be used for dates.
+     *  (day in month in year, without time of day)
+     * 
+     *  FIXME: eventually this must be made confingurable as part 
+     *         of internationalization. Currently this is eurocentric.
+     */
+    public static String JORIDE_DATE_FORMAT_STR= "dd.MM.yyyy";
+    
+    
+    /** Creates a new DateTimeFormat 
+     *  (Datetime=Date+Time of Day)
+     * @return  
+     */
+    public DateFormat createDateFormat(){
+        return new SimpleDateFormat(JORIDE_DATE_FORMAT_STR);
+    }
+    
+    
+    
+    
+    
+    
+    
     /** Format to be used for timestamps.
      * 
      *  FIXME: eventually this must be made confingurable as part 
      *         of internationalization. Currently this is eurocentric.
      */
-    public static String JORIDE_DATE_FORMAT_STR= "dd.MM.yyyy HH:mm";
+    public static String JORIDE_TIMESTAMP_FORMAT_STR= "dd.MM.yyyy HH:mm";
     
     
-    /** Creates a new DateFormat 
-     * 
+    /** Creates a new DateTimeFormat 
+     *  (Datetime=Date+Time of Day)
      * @return  
      */
-    public DateFormat createDateFormat(){
-        return new SimpleDateFormat(JORIDE_DATE_FORMAT_STR);
+    public DateFormat createDateTimeFormat(){
+        return new SimpleDateFormat(JORIDE_TIMESTAMP_FORMAT_STR);
     }
     
     
