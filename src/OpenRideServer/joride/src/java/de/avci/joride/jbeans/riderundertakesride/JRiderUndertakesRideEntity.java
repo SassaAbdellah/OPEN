@@ -48,10 +48,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
      *
      * @return
      */
-    protected DateFormat getDateFormat() {
+    protected DateFormat getDateTimeFormat() {
 
         if (this.dateFormat == null) {
-            dateFormat = (new JoRideConstants()).createDateFormat();
+            dateFormat = (new JoRideConstants()).createDateTimeFormat();
         }
 
         return dateFormat;
@@ -63,7 +63,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
      * @return
      */
     public String getStartDateFormatted() {
-        return getDateFormat().format(this.getStarttimeEarliest());
+        return getDateTimeFormat().format(this.getStarttimeEarliest());
     }
 
     /**
