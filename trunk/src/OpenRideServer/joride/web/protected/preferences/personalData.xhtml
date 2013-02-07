@@ -36,23 +36,26 @@
             <ui:define name="content">
 
 
-                <div id="navbar2">
-                    <h:form>
 
-                        <span class="nav2Highlight">         
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
-                        </span>
-                        |
-                        <span class="nav2Highlight">          
-                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
-                        </span> 
-                        |
-                        <span class="nav2Highlight">
-                            <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
-                        </span> 
+                    <p>
+                        <div id="navbar2">
+                            <h:form>
 
-                    </h:form>
-                </div>
+                                <span class="nav2Highlight">         
+                                    <h:commandLink outcome="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                                </span>
+                                |
+                                <span class="nav2Highlight">          
+                                    <h:commandLink outcome="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                                </span> 
+                                |
+                                <span class="nav2Highlight">
+                                    <h:commandLink outcome="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
+                                </span> 
+
+                            </h:form>
+                        </div>
+                    </p>
 
 
 
@@ -61,6 +64,10 @@
 
 
                 <p:panel header="#{msgs.nav1_pref_personalData_label}" >
+
+
+       
+
 
                     <!-- the profile must be filled with data before anything -->   
                     <!-- useful can be done with it                           -->
@@ -206,7 +213,7 @@
                         </div>
 
 
-                        <h:commandButton action="#{jprofile.updatePersonalDataToDB}"  value="#{msgs.formSubmit}" />
+                        <p:commandButton actionListener="#{jprofile.updatePersonalDataToDB}"  value="#{msgs.formSubmit}" />
 
                     </h:form>
                 </p:panel>
