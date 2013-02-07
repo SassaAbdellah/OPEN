@@ -58,29 +58,46 @@
 
 
 
-                <h1>  #{msgs.ridePreviousRequests}  </h1>
+                <p:panel header="#{msgs.ridePreviousRequests}"  >
 
-                <h:form>
-                    
-                    <p:selectOneMenu value="#{timeinterval.days}" size="1" >
-                        <f:selectItem itemValue="1"  itemLabel="1"    />      
-                        <f:selectItem itemValue="5"  itemLabel="5"    />
-                        <f:selectItem itemValue="10" itemLabel="10"   />
-                        <f:selectItem itemValue="15" itemLabel="15"   />
-                        <f:selectItem itemValue="30" itemLabel="30"   />
-                        <f:selectItem itemValue="60" itemLabel="60"   />
-                        <f:selectItem itemValue="90" itemLabel="90"   />
-                        <f:selectItem itemValue="120" itemLabel="120" />
-                    </p:selectOneMenu>
-                    
-                    <p:calendar>
+                    <h:form>
                         
-                        
-                    </p:calendar>
+                        <div class="formLabel">
+                          TODO: Days before enddate
+                        </div>
 
-                </h:form>
+                        <div class="formInput">
+                            <p:selectOneMenu value="#{timeinterval.days}" size="1" >
+                                <f:selectItem itemValue="1"  itemLabel="1"    />      
+                                <f:selectItem itemValue="5"  itemLabel="5"    />
+                                <f:selectItem itemValue="10" itemLabel="10"   />
+                                <f:selectItem itemValue="15" itemLabel="15"   />
+                                <f:selectItem itemValue="30" itemLabel="30"   />
+                                <f:selectItem itemValue="60" itemLabel="60"   />
+                                <f:selectItem itemValue="90" itemLabel="90"   />
+                                <f:selectItem itemValue="120" itemLabel="120" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="formInput">
+                            <p:calendar 
+                                value="#{timeinterval.endDate}"  
+                                id="licensedateCal"   
+                                locale="de" 
+                                pattern="#{datetime.dateformat}" 
+                                mode="popup"
+                                navigator="true"
+                                showOn="button"
+                                >  
+                            </p:calendar>
+                        </div>
 
 
+
+
+                    </h:form>
+
+                </p:panel>
 
 
 
