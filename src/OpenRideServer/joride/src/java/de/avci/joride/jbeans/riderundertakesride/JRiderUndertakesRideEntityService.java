@@ -4,24 +4,17 @@
  */
 package de.avci.joride.jbeans.riderundertakesride;
 
-import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.matching.MatchEntity;
-import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
-import org.postgis.Point;
 
 /**
  * Wrapper for RiderUndertakesRideEntityService in OpenRideServer-ejb.
@@ -65,7 +58,7 @@ public class JRiderUndertakesRideEntityService {
      *
      * @return
      */
-    public List<RiderUndertakesRideEntity> getRidesForRider() {
+    public List<JRiderUndertakesRideEntity> getRidesForRider() {
 
 
         CustomerEntity ce = this.getCustomerEntity();
@@ -82,9 +75,21 @@ public class JRiderUndertakesRideEntityService {
 
 
         // get all rides related to this customer
-        return rurcl.getRidesForCustomer(ce);
+        List <RiderUndertakesRideEntity> res1=rurcl.getRidesForCustomer(ce);
 
-
+        // cast them to JRiderUntertakesRideEntity
+        List <JRiderUndertakesRideEntity> res=new LinkedList <JRiderUndertakesRideEntity> ();
+        
+        for(RiderUndertakesRideEntity rure : res1 ){
+            
+            JRiderUndertakesRideEntity jrure=new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+            
+            res.add(jrure);
+        }
+        
+        return res;
+        
 
     }
 

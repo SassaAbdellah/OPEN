@@ -163,12 +163,13 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
     } //   public void updateFromRiderUndertakesRideEntit
 
+   
     /**
      * Lists *all* rides this customer has ever requested
      *
      * @return
      */
-    public List<RiderUndertakesRideEntity> getRidesForRider() {
+    public List<JRiderUndertakesRideEntity> getRidesForRider() {
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }

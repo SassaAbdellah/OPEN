@@ -72,6 +72,14 @@ public class TimeInterval {
    
    
    
+   /** Dummy. This will finally be used to 
+    *  search all rides for a given timeIntervall
+    */ 
+   public String searchRidesForTimeInterval(){
+   
+       return "home";
+   }
+   
    
    
 } // class

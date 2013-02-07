@@ -32,38 +32,35 @@
 
             <ui:define name="content">
 
+                <p>
+                    <div id="navbar2">
 
-                <div id="navbar2">
+                        <h:form>
+                            <span class="nav2Highlight">
+                                <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
+                            </span> 
+                            |
+                            <span class="nav2Highlight">
+                                <h:commandLink action="rider.rideCreate"   value="#{msgs.rideNewRequest}">  
+                                    <f:param name="#{webflow.paramBack}"    value="rider" /> 
+                                    <f:param name="#{webflow.paramFinish}"  value="rider" /> 
+                                    <f:param name="#{webflow.paramCancel}"  value="rider" /> 
+                                </h:commandLink>
+                            </span>
 
-                    <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
-                        </span> 
+                        </h:form>
 
-                        |
-
-                        <span class="nav2Highlight">
-                            <h:commandLink action="rider.rideCreate"   value="#{msgs.rideNewRequest}">  
-
-                                <f:param name="#{webflow.paramBack}"    value="rider" /> 
-                                <f:param name="#{webflow.paramFinish}"  value="rider" /> 
-                                <f:param name="#{webflow.paramCancel}"  value="rider" /> 
-                            </h:commandLink>
-                        </span>
-
-                    </h:form>
-
-                </div>
-
+                    </div>
+                </p>
 
 
 
                 <p:panel header="#{msgs.ridePreviousRequests}"  >
 
                     <h:form>
-                        
+
                         <div class="formLabel">
-                          TODO: Days before enddate
+                            TODO: Length of time period in days
                         </div>
 
                         <div class="formInput">
@@ -79,6 +76,10 @@
                             </p:selectOneMenu>
                         </div>
 
+                        <div class="formLabel">
+                            TODO: Search period ends at: 
+                        </div>
+
                         <div class="formInput">
                             <p:calendar 
                                 value="#{timeinterval.endDate}"  
@@ -92,12 +93,84 @@
                             </p:calendar>
                         </div>
 
+                        <div class="formInput">
 
+                            <p:commandButton  
+                                value="TODO: search Rides for Interval" 
+                                actionListener="#{timeinterval.searchRidesForTimeInterval()}"
+                                />
 
+                        </div>
 
                     </h:form>
-
                 </p:panel>
+
+
+
+                <!-- Result Section -->
+
+
+
+                <h:form>
+                    <ui:repeat  value="#{ride.ridesForRider}" var="ride">
+
+
+
+                        <p>
+                            <table> <!-- nested table #1 -->
+
+
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="formLabel">
+                                            <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
+                                                <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
+                                                <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                            </h:commandLink>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr> 
+                                    <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
+                                </tr>
+
+                                <tr> 
+                                    <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.comment}  </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
+                                </tr>
+
+                            </table> <!-- nested table #1 -->  
+                        </p>
+                    </ui:repeat>
+
+                </h:form>
+
+
+
+
+
+
 
 
 
