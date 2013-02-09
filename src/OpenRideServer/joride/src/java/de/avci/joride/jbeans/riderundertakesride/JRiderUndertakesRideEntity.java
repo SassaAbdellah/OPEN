@@ -5,21 +5,25 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.auxiliary.TimeIntervalBean;
+import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
-import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import java.util.List;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 import org.postgis.Point;
+import org.slf4j.ext.XLogger;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -29,9 +33,9 @@ import org.postgis.Point;
  */
 @Named
 @SessionScoped
-
 public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
+    Logger log = Logger.getLogger("" + this.getClass());
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
@@ -163,7 +167,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
 
     } //   public void updateFromRiderUndertakesRideEntit
 
-   
     /**
      * Lists *all* rides this customer has ever requested
      *
@@ -172,6 +175,22 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public List<JRiderUndertakesRideEntity> getRidesForRider() {
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
+    }
+
+    /**  Fetch all rides between startDate and endDate
+     *   Parameters startDate and endDate are read from HTTPRequest.
+     *
+     */
+    public List<JRiderUndertakesRideEntity> getRidesForRiderBetweenDates() {
+
+        // fetch start and enddate
+        TimeIntervalBean tb=new TimeIntervalBean();
+        tb.smartUpdate();
+        
+        System.err.println("searching rides between "+tb.getStartDateFormatted()+" -> "+tb.getEndDateFormatted());
+                
+        
+        return (new JRiderUndertakesRideEntityService()).getRidesForRider(tb.getStartDate(),tb.getEndDate());                
     }
 
     /**
@@ -503,8 +522,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
     }
 
-    
-    
     /**
      * Returns true, if this ride has been updated
      *
@@ -522,7 +539,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public int getNoMatches() {
         return this.getMatches().size();
     }
-    
+
     /**
      * @return Returns true, if the number of Matches is > 0, else false
      *
@@ -531,29 +548,35 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         return this.getMatches().size() > 0;
     }
 
-    
-    /** Invalidate/countermand rideRequest with given riderroute id.
-     *  
-     * 
-     *  Returns "rider" to move back to "rider" page if removal was successful,
-     *  else returns null.
-     *  May frequently fail, if there are open Matches for this ride.
-     * 
+    /**
+     * Invalidate/countermand rideRequest with given riderroute id.
+     *
+     *
+     * Returns "rider" to move back to "rider" page if removal was successful,
+     * else returns null. May frequently fail, if there are open Matches for
+     * this ride.
+     *
      */
-    public String invalidate(){
-        
-        boolean result=new JRiderUndertakesRideEntityService().removeRideSafely(this);
-        
-        if(result){
-            return "rider";
-        } else {
-        
+    public String invalidate() {
+
+        boolean result = false;
+
+        try {
+            result = new JRiderUndertakesRideEntityService().removeRideSafely(this);
+        } catch (Exception exc) {
             // TODO: add a message why this failed
-        
+            log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed with unknown exception", exc);
             return null;
         }
+
+
+        if (result) {
+            return "rider";
+        } else {
+            // TODO: add a JSF message why this failed
+            log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed");
+            return null;
+        }
+
     } // remove ride
-    
-    
-    
 } // class

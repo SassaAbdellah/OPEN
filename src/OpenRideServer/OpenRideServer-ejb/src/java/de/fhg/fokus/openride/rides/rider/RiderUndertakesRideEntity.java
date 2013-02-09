@@ -28,9 +28,9 @@
 
 package de.fhg.fokus.openride.rides.rider;
 
-import de.fhg.fokus.openride.rides.driver.*;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
+import de.fhg.fokus.openride.rides.driver.*;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -103,7 +103,12 @@ import org.postgis.Point;
     @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 1 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 0 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = -1 AND r.givenratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d")
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
+    
+    
+    // TODO: replace starttime first with timestamprealized
+    // find rider's realized rides between startDate and endDate
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate ")
 
 })
 @Converter(name="convert", converterClass=PointConverter.class)

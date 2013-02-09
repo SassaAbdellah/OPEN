@@ -56,11 +56,9 @@
 
                 <!--  end of subnavigation section -->
 
-                
-                
-                <!-- update parameters on load! -->
-                #{timeinterval.smartUpdate()}
-                
+
+
+       
                 <!--  form to fire up request -->
 
                 <h:form>
@@ -68,30 +66,31 @@
 
                         <p:panelGrid columns="2">
 
-                            <p:outputLabel value="TODO: Length of time period in days" />
-
-                            <p:selectOneMenu value="#{timeinterval.days}" size="1" >
-                                <f:selectItem itemValue="1"  itemLabel="1"    />      
-                                <f:selectItem itemValue="5"  itemLabel="5"    />
-                                <f:selectItem itemValue="10" itemLabel="10"   />
-                                <f:selectItem itemValue="15" itemLabel="15"   />
-                                <f:selectItem itemValue="30" itemLabel="30"   />
-                                <f:selectItem itemValue="60" itemLabel="60"   />
-                                <f:selectItem itemValue="90" itemLabel="90"   />
-                                <f:selectItem itemValue="120" itemLabel="120" />
-                            </p:selectOneMenu>
-
-
-                            <p:outputLabel value="TODO: Search period ends at:" /> 
+                            <p:outputLabel value="#{msgs.timeintervalStart}" />
 
                             <p:calendar 
-                                value="#{timeinterval.endDate}"  
-                                id="licensedateCal"   
+                                value="#{timeinterval.startDate}"  
+                                id="startDateCal"   
                                 locale="de" 
                                 pattern="#{timeinterval.dateformat}" 
                                 mode="popup"
                                 navigator="true"
-                                showOn="button"
+                                showOn="focus"
+                                size="10"
+                                >  
+                            </p:calendar>
+
+
+                            <p:outputLabel value="#{msgs.timeintervalEnd}" /> 
+
+                            <p:calendar 
+                                value="#{timeinterval.endDate}"  
+                                id="endDateCal"   
+                                locale="de" 
+                                pattern="#{timeinterval.dateformat}" 
+                                mode="popup"
+                                navigator="true"
+                                showOn="focus"
                                 size="10"
                                 >  
                             </p:calendar>
@@ -104,15 +103,15 @@
                             >
 
                             <f:param 
-                                name="#{timeinterval.paramDays}" 
-                                value="#{timeinterval.days}"
+                                name="#{timeinterval.paramStartDate}" 
+                                value="#{timeinterval.startDateFormatted}"
                                 />
-                            
-                             <f:param 
-                                 name="#{timeinterval.paramEndDate}" 
-                                 value="#{timeinterval.endDateFormatted}"
+
+                            <f:param 
+                                name="#{timeinterval.paramEndDate}" 
+                                value="#{timeinterval.endDateFormatted}"
                                 />
-                            
+
                         </h:commandButton>
 
 
@@ -120,13 +119,23 @@
 
                 </h:form>
 
+                <!-- TODO: remove Parameter Display  -->
+
+                <ul>
+                    <li>
+                        TODO: startDate #{timeinterval.startDateFormatted}
+                    </li>
+
+                    <li>
+                        TODO: endDate #{timeinterval.endDateFormatted}
+                    </li>
+                </ul>
+
+
                 <!-- Result Section -->
-
-
-
                 <h:form>
                     <p:dataTable 
-                        value="#{ride.ridesForRider}" 
+                        value="#{ride.ridesForRiderBetweenDates}" 
                         var="ride" 
                         paginator="true" 
                         rows="1" 
@@ -171,10 +180,6 @@
 
 
                         </p:column>
-
-
-
-
 
                     </p:dataTable>
                 </h:form>

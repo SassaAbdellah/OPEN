@@ -1,20 +1,17 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.session.HTTPUser;
-import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import java.util.Collection;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Small Wrapper class making Entity Bean CustomerEntity availlable as a CDI
@@ -382,11 +379,11 @@ public class JCustomerEntity extends CustomerEntity {
             return loader.getMessagesProps().getProperty("custGenderFemale");
         }
 
-
         return loader.getMessagesProps().getProperty("custGenderOther");
-
     }
 
+    
+    
     /**
      * Invalidate the existing account
      *

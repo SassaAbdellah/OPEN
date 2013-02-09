@@ -152,4 +152,6 @@ public interface RiderUndertakesRideControllerLocal {
      * @return true if ride can be successfully invalidated
      */
     public boolean invalidateRide(Integer riderrouteId);
+
+    public List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce, Date startDate, Date endDate);
 }
