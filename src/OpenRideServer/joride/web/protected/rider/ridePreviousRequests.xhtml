@@ -25,13 +25,14 @@
             <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
 
 
-
             <ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
             <ui:define name="content">
 
+
+                <!-- subnavigation section -->
                 <p>
                     <div id="navbar2">
 
@@ -53,17 +54,22 @@
                     </div>
                 </p>
 
+                <!--  end of subnavigation section -->
 
+                
+                
+                <!-- update parameters on load! -->
+                #{timeinterval.smartUpdate()}
+                
+                <!--  form to fire up request -->
 
-                <p:panel header="#{msgs.ridePreviousRequests}"  >
+                <h:form>
+                    <p:panel header="#{msgs.ridePreviousRequests}"  >
 
-                    <h:form>
+                        <p:panelGrid columns="2">
 
-                        <div class="formLabel">
-                            TODO: Length of time period in days
-                        </div>
+                            <p:outputLabel value="TODO: Length of time period in days" />
 
-                        <div class="formInput">
                             <p:selectOneMenu value="#{timeinterval.days}" size="1" >
                                 <f:selectItem itemValue="1"  itemLabel="1"    />      
                                 <f:selectItem itemValue="5"  itemLabel="5"    />
@@ -74,96 +80,103 @@
                                 <f:selectItem itemValue="90" itemLabel="90"   />
                                 <f:selectItem itemValue="120" itemLabel="120" />
                             </p:selectOneMenu>
-                        </div>
 
-                        <div class="formLabel">
-                            TODO: Search period ends at: 
-                        </div>
 
-                        <div class="formInput">
+                            <p:outputLabel value="TODO: Search period ends at:" /> 
+
                             <p:calendar 
                                 value="#{timeinterval.endDate}"  
                                 id="licensedateCal"   
                                 locale="de" 
-                                pattern="#{datetime.dateformat}" 
+                                pattern="#{timeinterval.dateformat}" 
                                 mode="popup"
                                 navigator="true"
                                 showOn="button"
+                                size="10"
                                 >  
                             </p:calendar>
-                        </div>
 
-                        <div class="formInput">
+                        </p:panelGrid>
 
-                            <p:commandButton  
-                                value="TODO: search Rides for Interval" 
-                                actionListener="#{timeinterval.searchRidesForTimeInterval()}"
+                        <h:commandButton  
+                            value="TODO: search Rides for Interval"
+                            action="rider.previousRequests"
+                            >
+
+                            <f:param 
+                                name="#{timeinterval.paramDays}" 
+                                value="#{timeinterval.days}"
                                 />
+                            
+                             <f:param 
+                                 name="#{timeinterval.paramEndDate}" 
+                                 value="#{timeinterval.endDateFormatted}"
+                                />
+                            
+                        </h:commandButton>
 
-                        </div>
 
-                    </h:form>
-                </p:panel>
+                    </p:panel>
 
-
+                </h:form>
 
                 <!-- Result Section -->
 
 
 
                 <h:form>
-                    <ui:repeat  value="#{ride.ridesForRider}" var="ride">
+                    <p:dataTable 
+                        value="#{ride.ridesForRider}" 
+                        var="ride" 
+                        paginator="true" 
+                        rows="1" 
+                        >
+
+                        <p:column> 
+                            <f:facet name="header">
+
+                            </f:facet>
+
+                            <span class="formLabel">
+                                <p>
+                                    <p:outputLabel value="#{ride.startDateFormatted}" />
+                                </p>
+
+                                <p>
+                                    <p:outputLabel value="TODO: given" />     
+                                </p>
+                                <p>
+                                    <h:outputLabel value="TODO: received" />    
+                                </p>
+                            </span>
+
+                        </p:column>
+
+                        <p:column> 
+                            <f:facet name="header">
+
+                            </f:facet>
+                            <p>
+                                <p:outputLabel value="#{ride.endptAddress}" />
+                            </p>
+                            <p> 
+                                <p:commandLink value="TODO rate" />
+                            </p>
+                            <p>
+                                <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
+                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                </h:commandLink>
+                            </p>
+
+
+                        </p:column>
 
 
 
-                        <p>
-                            <table> <!-- nested table #1 -->
 
 
-                                <tr>
-                                    <td colspan="3">
-                                        <span class="formLabel">
-                                            <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
-                                                <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                                <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                            </h:commandLink>
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                <tr> 
-                                    <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
-                                </tr>
-
-                                <tr> 
-                                    <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
-                                </tr>
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                    <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                    <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                </tr>
-
-                            </table> <!-- nested table #1 -->  
-                        </p>
-                    </ui:repeat>
-
+                    </p:dataTable>
                 </h:form>
 
 
