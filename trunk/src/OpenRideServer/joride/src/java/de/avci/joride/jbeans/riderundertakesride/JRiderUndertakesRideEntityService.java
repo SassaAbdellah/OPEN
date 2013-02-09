@@ -4,10 +4,12 @@
  */
 package de.avci.joride.jbeans.riderundertakesride;
 
+import de.avci.joride.jbeans.auxiliary.TimeIntervalBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,10 +24,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author jochen
  */
 public class JRiderUndertakesRideEntityService {
-    
-    
-    
-    Logger logger=Logger.getLogger(""+this.getClass());
+
+    Logger log = Logger.getLogger("" + this.getClass());
 
     /**
      * Get a customerEntity from the current request
@@ -75,21 +75,75 @@ public class JRiderUndertakesRideEntityService {
 
 
         // get all rides related to this customer
-        List <RiderUndertakesRideEntity> res1=rurcl.getRidesForCustomer(ce);
+        List<RiderUndertakesRideEntity> res1 = rurcl.getRidesForCustomer(ce);
 
         // cast them to JRiderUntertakesRideEntity
-        List <JRiderUndertakesRideEntity> res=new LinkedList <JRiderUndertakesRideEntity> ();
-        
-        for(RiderUndertakesRideEntity rure : res1 ){
-            
-            JRiderUndertakesRideEntity jrure=new JRiderUndertakesRideEntity();
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
             jrure.updateFromRiderUndertakesRideEntity(rure);
-            
+
             res.add(jrure);
         }
-        
+
         return res;
-        
+
+
+    }
+
+    /**
+     * Get a list of all rides for the actual Rider in between start and end
+     * date
+     *
+     *
+     * @param startDate
+     *
+     * @param endDate
+     *
+     * @return
+     */
+    public List<JRiderUndertakesRideEntity> getRidesForRider(Date startDate, Date endDate) {
+
+
+        // check if the timespan is OK, throw an error if not.
+        // this should have been caught by the frontend,
+        // so we can happily throw an Error here        
+        TimeIntervalBean tb = new TimeIntervalBean();
+        long maxIntervalMillis = (1000 * 60 * 60 * 24 * tb.getMaxIntervalDays());
+        long intervalLength = (endDate.getTime()) - (startDate.getTime());
+        if(intervalLength>maxIntervalMillis) {
+            throw new Error("Requested interval length exceeds the allowed "+tb.getMaxIntervalDays()+" days!");
+        }
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customerNickname is null");
+        }
+
+
+        // get all rides related to this customer
+        List<RiderUndertakesRideEntity> res1 = rurcl.getRidesForCustomer(ce, startDate, endDate);
+
+        // cast them to JRiderUntertakesRideEntity
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+
+            res.add(jrure);
+        }
+
+        return res;
 
     }
 
@@ -239,7 +293,7 @@ public class JRiderUndertakesRideEntityService {
     public boolean removeRideSafely(JRiderUndertakesRideEntity jrure) {
 
 
-     
+
         CustomerEntity ce = this.getCustomerEntity();
 
         if (ce == null) {
@@ -253,26 +307,26 @@ public class JRiderUndertakesRideEntityService {
             throw new Error("Cannot determine RiderUndertakesRideControllerLocal");
         }
 
-        
-       if (jrure == null) {
+
+        if (jrure == null) {
             throw new Error("Cannot remove ride, argument is null");
         }
 
-      
-       if(jrure.getRiderrouteId()==null){
-           throw new Error("Cannot remove ride, riderrouteId is null");
-      }
-    
-       
-       
-        
-        
-        int riderrouteId=jrure.getRiderrouteId();
-        
+
+        if (jrure.getRiderrouteId() == null) {
+            throw new Error("Cannot remove ride, riderrouteId is null");
+        }
+
+
+
+
+
+        int riderrouteId = jrure.getRiderrouteId();
+
         RiderUndertakesRideEntity rure = rurcl.getRideByRiderRouteId(riderrouteId);
 
-        
-        
+
+
         if (rure == null) {
             throw new Error("Cannot remove ride with id " + jrure.getRiderrouteId() + ", ride is null!");
         }
@@ -312,14 +366,10 @@ public class JRiderUndertakesRideEntityService {
     public boolean isRideUpdated(Integer riderrouteId) {
         return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
     }
-    
-    
-    
-   
 
     /**
      * Invalidate/cancel/countermand the ride with given Rideid. The identity is
-     * checked from http request. 
+     * checked from http request.
      *
      * @param rideId id of the ride to be invalidated.
      *
@@ -341,16 +391,13 @@ public class JRiderUndertakesRideEntityService {
         }
 
         if (rurcl.isDeletable(riderrouteId)) {
-            logger.info("Offer " + riderrouteId + " is deleteable, removing it");
+            log.info("Offer " + riderrouteId + " is deleteable, removing it");
             rurcl.removeRide(riderrouteId);
         } else {
-            logger.info("Request " + riderrouteId + " is not deleteable, invalidating");
+            log.info("Request " + riderrouteId + " is not deleteable, invalidating");
             rurcl.invalidateRide(riderrouteId);
         }
 
         return true;
     }
-    
-    
-    
 } // class

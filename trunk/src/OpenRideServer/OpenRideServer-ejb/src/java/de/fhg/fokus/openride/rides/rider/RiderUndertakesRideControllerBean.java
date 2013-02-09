@@ -1323,4 +1323,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         commitUserTransaction();
         return true;
     } // invalidate ride
+
+    @Override
+    public List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce, Date startDate, Date endDate) {
+          
+            List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByRidersRidesBetween").setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
+            return res;
+    }
 }
