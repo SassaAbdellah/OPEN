@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -24,15 +25,13 @@ import javax.inject.Named;
  */
 @Named("timeinterval")
 @SessionScoped
-
-
 public class TimeIntervalBean implements Serializable {
 
     Logger log = Logger.getLogger("" + this.getClass());
     /**
      * Maximal timespan in days a user can search.
      */
-    protected long MAX_INTERVAL_DAYS = 9000000;
+    protected long MAX_INTERVAL_DAYS = Long.MAX_VALUE;
 
     /**
      * Make MAX_INTERVAL_DAYS availlable via JSF property
@@ -124,17 +123,17 @@ public class TimeIntervalBean implements Serializable {
      */
     public void smartUpdate() {
 
-        
+
         HTTPRequestUtil utils = new HTTPRequestUtil();
         String startDateStr = utils.getParameterSingleValue(getParamStartDate());
         String endDateStr = utils.getParameterSingleValue(getParamEndDate());
 
-        
-   
-        System.err.println("this.getClass smartUpdate start "+startDateStr+" end "+endDateStr);
-        
-        
-        
+
+
+        System.err.println("this.getClass smartUpdate start " + startDateStr + " end " + endDateStr);
+
+
+
         /* Update EndDate if parameter present
          */
         if (startDateStr == null) {
@@ -162,7 +161,27 @@ public class TimeIntervalBean implements Serializable {
                 log.log(Level.SEVERE, "Error while parsing end date", exc);
             }
         }
-        
-    } // smartUpdate
+
+    } // smartUpdate  
+
+    /**
+     * Programmatocally retrieve TimeInterval from Faces Context please note,
+     * this is a workaround in case neither injection nor actionListening is an
+     * option.
+     *
+     * @param beanName name of the Bean (e.g: time Interval)
+     * @return
+     */
+    public TimeIntervalBean retrieveCurrentTimeInterval(String beanName) {
+
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Object o = context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", this.getClass());
+            TimeIntervalBean res = (TimeIntervalBean) o;
+            return res;
+        } catch (Exception exc) {
+            throw new Error("Unexpected Error while retrieving time interval named " + beanName, exc);
+        }
+    } // 
 } // class
 
