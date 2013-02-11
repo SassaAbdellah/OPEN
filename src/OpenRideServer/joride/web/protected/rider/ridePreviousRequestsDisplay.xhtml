@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!-- ***************************************************** -->
+<!--    Display a list of Matchings for given ride         -->
+<!-- ***************************************************** -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
+
+
+    <body>
+
+
+
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+
+
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
+
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+
+
+
+                <div id="navbar2">
+                    <h:form>
+                        <span class="nav2Highlight">
+                            <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
+                        </span> 
+                    </h:form>
+                </div>
+
+
+
+
+
+                <!-- TODO: remove Parameter Display  -->
+
+                <ul>
+                    <li>
+                        TODO: startDate #{timeinterval.startDateFormatted}
+                    </li>
+
+                    <li>
+                        TODO: endDate #{timeinterval.endDateFormatted}
+                    </li>
+                </ul>
+
+
+
+                <!-- this will only work, it timeinterval's data are transferred via http params -->
+
+
+                <!-- Result Section -->
+                <h:form>
+
+
+                    <p:dataTable 
+                        value="#{ride.ridesForRiderInInterval}" 
+                        var="myride" 
+                        paginator="true" 
+                        rows="1" 
+                        >
+
+                        <p:column> 
+                            <f:facet name="header">
+
+                            </f:facet>
+
+                            <span class="formLabel">
+                                <p>
+                                    <p:outputLabel value="#{myride.startDateFormatted}" />
+                                </p>
+
+                                <p>
+                                    <p:outputLabel value="TODO: given" />     
+                                </p>
+                                <p>
+                                    <h:outputLabel value="TODO: received" />    
+                                </p>
+                            </span>
+
+                        </p:column>
+
+                        <p:column> 
+                            <f:facet name="header">
+
+                            </f:facet>
+                            <p>
+                                <p:outputLabel value="#{myride.endptAddress}" />
+                            </p>
+                            <p> 
+                                <p:commandLink value="TODO rate" />
+                            </p>
+                            <p>
+                                <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
+                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                </h:commandLink>
+                            </p>
+
+
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+
+
+
+
+
+
+
+
+
+
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
+                            <f:param name="#{timeinterval.paramEndDate}"   value="#{timeinterval.endDate}"   />
+                            <f:param name="#{timeinterval.paramStartDate}" value="#{timeinterval.startDate}" />
+                        </h:commandLink>
+                    </h:form>
+                </p>
+
+
+
+
+
+
+
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

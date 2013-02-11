@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedProperty;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 public class JRiderUndertakesRideEntityService {
 
     Logger log = Logger.getLogger("" + this.getClass());
+    
 
     /**
      * Get a customerEntity from the current request
@@ -94,28 +96,25 @@ public class JRiderUndertakesRideEntityService {
     }
 
     /**
-     * Get a list of all rides for the actual Rider in between start and end
-     * date
-     *
-     *
-     * @param startDate
-     *
-     * @param endDate
+     * Get a list of all rides for the actual Rider in between startdate and an enddate
+     * 
+     *  StartDate and EndDate are read in from http parameters using TimeIntervalBean
+     * 
      *
      * @return
      */
-    public List<JRiderUndertakesRideEntity> getRidesForRider(Date startDate, Date endDate) {
+    public List<JRiderUndertakesRideEntity> getRidesForRiderInInterval() {
 
 
-        // check if the timespan is OK, throw an error if not.
-        // this should have been caught by the frontend,
-        // so we can happily throw an Error here        
-        TimeIntervalBean tb = new TimeIntervalBean();
-        long maxIntervalMillis = (1000 * 60 * 60 * 24 * tb.getMaxIntervalDays());
-        long intervalLength = (endDate.getTime()) - (startDate.getTime());
-        if(intervalLength>maxIntervalMillis) {
-            throw new Error("Requested interval length exceeds the allowed "+tb.getMaxIntervalDays()+" days!");
-        }
+
+
+        /* TODO: temporarily disabled 
+         long maxIntervalMillis = (1000 * 60 * 60 * 24 * tb.getMaxIntervalDays());
+         long intervalLength = (endDate.getTime()) - (startDate.getTime());
+         if(intervalLength>maxIntervalMillis) {
+         throw new Error("Requested interval length exceeds the allowed "+tb.getMaxIntervalDays()+" days!");
+         }
+         */
 
         CustomerEntity ce = this.getCustomerEntity();
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
@@ -127,10 +126,25 @@ public class JRiderUndertakesRideEntityService {
         if (ce.getCustNickname() == null) {
             throw new Error("Cannot determine Rides, customerNickname is null");
         }
+        
+        
+        // retrieve startDateAndEndDate
+        
+        TimeIntervalBean tb=new TimeIntervalBean().retrieveCurrentTimeInterval("timeinterval");
+      
+        
+        
+        System.err.println("Updated Time Interval "+tb.getStartDateFormatted()+" -> "+tb.getEndDateFormatted());
+        
 
 
         // get all rides related to this customer
-        List<RiderUndertakesRideEntity> res1 = rurcl.getRidesForCustomer(ce, startDate, endDate);
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getRidesForCustomer(
+                ce,
+                tb.getStartDate(),
+                tb.getEndDate()
+                );
 
         // cast them to JRiderUntertakesRideEntity
         List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();

@@ -12,6 +12,7 @@ import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,10 +21,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import org.postgis.Point;
-import org.slf4j.ext.XLogger;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -33,7 +34,7 @@ import org.slf4j.ext.XLogger;
  */
 @Named
 @SessionScoped
-public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
+public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implements Serializable {
 
     Logger log = Logger.getLogger("" + this.getClass());
     /**
@@ -69,6 +70,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
     public String getStartDateFormatted() {
         return getDateTimeFormat().format(this.getStarttimeEarliest());
     }
+    
+       
+ 
+    
 
     /**
      * if comment property is null, replace it with an empty string rather than
@@ -177,21 +182,21 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
 
-    /**  Fetch all rides between startDate and endDate
-     *   Parameters startDate and endDate are read from HTTPRequest.
+ 
+    
+    /**
      *
+     *
+     * @return All rides the rider undertakes in the specified interval
      */
-    public List<JRiderUndertakesRideEntity> getRidesForRiderBetweenDates() {
+    public List<JRiderUndertakesRideEntity> getRidesForRiderInInterval() {
 
-        // fetch start and enddate
-        TimeIntervalBean tb=new TimeIntervalBean();
-        tb.smartUpdate();
-        
-        System.err.println("searching rides between "+tb.getStartDateFormatted()+" -> "+tb.getEndDateFormatted());
-                
-        
-        return (new JRiderUndertakesRideEntityService()).getRidesForRider(tb.getStartDate(),tb.getEndDate());                
+        return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
     }
+    
+    
+    
+    
 
     /**
      * Lists *all* **active** **open** rides for this customer. I.e: Rides which
@@ -579,4 +584,12 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity {
         }
 
     } // remove ride
+    
+    
+    
+    
+    
+    
+    
+    
 } // class

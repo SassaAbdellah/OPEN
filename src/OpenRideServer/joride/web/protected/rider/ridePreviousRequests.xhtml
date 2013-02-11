@@ -58,7 +58,9 @@
 
 
 
-       
+
+          
+                
                 <!--  form to fire up request -->
 
                 <h:form>
@@ -98,8 +100,8 @@
                         </p:panelGrid>
 
                         <h:commandButton  
-                            value="TODO: search Rides for Interval"
-                            action="rider.previousRequests"
+                            value="TODO: find  Rides for Interval"
+                            action="rider.previousRequestsDisplay"
                             >
 
                             <f:param 
@@ -111,6 +113,14 @@
                                 name="#{timeinterval.paramEndDate}" 
                                 value="#{timeinterval.endDateFormatted}"
                                 />
+                            
+                            
+                            <f:param 
+                                name="#{webflow.paramBack}" 
+                                value="rider.previousRequests"
+                                />
+
+
 
                         </h:commandButton>
 
@@ -119,83 +129,9 @@
 
                 </h:form>
 
-                <!-- TODO: remove Parameter Display  -->
-
-                <ul>
-                    <li>
-                        TODO: startDate #{timeinterval.startDateFormatted}
-                    </li>
-
-                    <li>
-                        TODO: endDate #{timeinterval.endDateFormatted}
-                    </li>
-                </ul>
-
-
-                <!-- Result Section -->
-                <h:form>
-                    <p:dataTable 
-                        value="#{ride.ridesForRiderBetweenDates}" 
-                        var="ride" 
-                        paginator="true" 
-                        rows="1" 
-                        >
-
-                        <p:column> 
-                            <f:facet name="header">
-
-                            </f:facet>
-
-                            <span class="formLabel">
-                                <p>
-                                    <p:outputLabel value="#{ride.startDateFormatted}" />
-                                </p>
-
-                                <p>
-                                    <p:outputLabel value="TODO: given" />     
-                                </p>
-                                <p>
-                                    <h:outputLabel value="TODO: received" />    
-                                </p>
-                            </span>
-
-                        </p:column>
-
-                        <p:column> 
-                            <f:facet name="header">
-
-                            </f:facet>
-                            <p>
-                                <p:outputLabel value="#{ride.endptAddress}" />
-                            </p>
-                            <p> 
-                                <p:commandLink value="TODO rate" />
-                            </p>
-                            <p>
-                                <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
-                                    <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
-                                </h:commandLink>
-                            </p>
-
-
-                        </p:column>
-
-                    </p:dataTable>
-                </h:form>
-
-
-
-
-
-
-
-
 
 
             </ui:define>
-
-
 
 
         </ui:composition>
