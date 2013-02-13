@@ -54,28 +54,20 @@
 
                 </div>
 
-                <h1> #{msgs.ridersSection}</h1>
-
-
-
-                <h2> #{msgs.rideActiveRequests} : </h2>
-
+              
+                #{msgs.rideActiveRequests}: 
 
 
                 <h:form>
                     <ui:repeat  value="#{ride.activeOpenRidesForRider}" var="ride">
 
-
-
                         <p>
                             <table> <!-- nested table #1 -->
-
                                 <tr>
                                     <td colspan="3">
                                         <h3> #{msgs.rideRequest} #{ride.riderrouteId} </h3>
                                         <!-- show message if ride is updated -->
                                         <ui:fragment rendered="#{ride.rideUpdated}">
-
                                             <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
                                             #{msgs.updatedRide}
                                         </ui:fragment>
@@ -128,7 +120,6 @@
                                     <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
                                 </tr>
 
-
                                 <!-- *** show matchings list only if there are matchings *** -->
                                 <ui:fragment rendered="#{ride.hasMatches}">
                                     <tr>
@@ -142,7 +133,6 @@
                                         </td>
                                     </tr>
                                 </ui:fragment> 
-
 
                             </table> <!-- nested table #1 -->  
                         </p>

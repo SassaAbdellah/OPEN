@@ -59,8 +59,8 @@
 
 
 
-          
-                
+
+
                 <!--  form to fire up request -->
 
                 <h:form>
@@ -96,11 +96,13 @@
                                 size="10"
                                 >  
                             </p:calendar>
-
+                            
                         </p:panelGrid>
 
+                        
+
                         <h:commandButton  
-                            value="TODO: find  Rides for Interval"
+                            value="#{msgs.rideShowRidesInThisInterval}"
                             action="rider.previousRequestsDisplay"
                             >
 
@@ -113,16 +115,16 @@
                                 name="#{timeinterval.paramEndDate}" 
                                 value="#{timeinterval.endDateFormatted}"
                                 />
-                            
-                            
+
+
                             <f:param 
                                 name="#{webflow.paramBack}" 
                                 value="rider.previousRequests"
                                 />
 
-
-
                         </h:commandButton>
+
+
 
 
                     </p:panel>

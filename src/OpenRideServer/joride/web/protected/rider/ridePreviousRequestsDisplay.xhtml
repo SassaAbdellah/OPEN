@@ -62,6 +62,7 @@
                     <li>
                         TODO: endDate #{timeinterval.endDateFormatted}
                     </li>
+
                 </ul>
 
 
@@ -91,10 +92,16 @@
                                 </p>
 
                                 <p>
-                                    <p:outputLabel value="TODO: given" />     
+                                    <p:outputLabel value="#{msgs.rideNoGivenRating} " rendered="#{!ride.riderRated}" />   
+                                    <p:outputLabel value="#{msgs.rideGivenRating} :"  rendered="#{ride.riderRated}"/>  <br/>
+                                    <p:rating readonly="#{true}" value="#{myride.givenrating}" rendered="#{ride.riderRated}"  /> 
                                 </p>
-                                <p>
-                                    <h:outputLabel value="TODO: received" />    
+
+
+                                <p>   
+                                    <p:outputLabel value="#{msgs.rideNoReceivedRating}" rendered="#{!ride.driverRated}"           />   
+                                    <h:outputLabel value="#{msgs.rideReceivedRating} :"            rendered="#{ride.driverRated}" />  <br/>
+                                    <p:rating readonly="#{true}" value="#{myride.receivedrating}"  rendered="#{ride.driverRated}" />
                                 </p>
                             </span>
 
@@ -107,16 +114,18 @@
                             <p>
                                 <p:outputLabel value="#{myride.endptAddress}" />
                             </p>
-                            <p> 
-                                <p:commandLink value="TODO rate" />
-                            </p>
                             <p>
                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
                                     <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
                                     <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
                                 </h:commandLink>
                             </p>
-
+                            <p>
+                                <h:commandLink action="rider.rideDisplay" value="#{msgs.rideRateThisRide}" rendered="#{myride.riderRateable}">
+                                    <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
+                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                </h:commandLink>
+                            </p>
 
                         </p:column>
 
