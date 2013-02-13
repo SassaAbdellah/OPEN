@@ -6,11 +6,14 @@ package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.TimeIntervalBean;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -586,7 +589,68 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     } // remove ride
     
     
+    /** Determines the caller from http-request,
+     *  and if caller is identical to rider, 
+     *  then allow for rider rating
+     * 
+     * 
+     * @return  true, if caller is identical to rider, else false
+     */
+    public boolean isRiderRateable(){
     
+         CustomerEntity caller=(new JCustomerEntityService()).getCustomerEntitySafely();
+       
+         if(caller.getCustId()==this.getCustId().getCustId()){
+             return true;
+         }
+        
+        return false;
+    }
+    
+    
+    
+    /** Determines the caller from http-request,
+     *  and if caller is identical to rider, 
+     *  then allow for rider cancel
+     * 
+     * @return  true, if caller is identical to rider, else false
+     */
+    public boolean isRiderCancellable(){
+    
+         CustomerEntity caller=(new JCustomerEntityService()).getCustomerEntitySafely();
+       
+         if(caller.getCustId()==this.getCustId().getCustId()){
+             return true;
+         }
+        
+        return false;
+    }
+    
+        
+    
+    /** Determines if this ride has already been rated
+     *  by the rider (receivedrating != null)
+     * 
+     * @return  true, if receivedrating is !=null, else false
+     */
+    public boolean isRiderRated(){
+    
+        if(this.getGivenrating()!=null){return true;}
+        return false;
+    }
+    
+    
+      
+    /** Determines if this ride has already been rated
+     *  by the driver (receivedrating != null)
+     * 
+     * @return  true, if receivedrating is !=null, else false
+     */
+    public boolean isDriverRated(){
+    
+        if(this.getReceivedrating()!=null){return true;}
+        return false;
+    }
     
     
     
