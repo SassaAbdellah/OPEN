@@ -73,10 +73,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     public String getStartDateFormatted() {
         return getDateTimeFormat().format(this.getStarttimeEarliest());
     }
-    
-       
- 
-    
 
     /**
      * if comment property is null, replace it with an empty string rather than
@@ -185,8 +181,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
     }
 
- 
-    
     /**
      *
      *
@@ -196,10 +190,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
     }
-    
-    
-    
-    
 
     /**
      * Lists *all* **active** **open** rides for this customer. I.e: Rides which
@@ -254,13 +244,14 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         try {
             id = new Integer(idStr).intValue();
+            this.updateFromRiderRouteId(id);
         } catch (java.lang.NumberFormatException exc) {
-            throw new Error("ID Parameter does not contain Numeric Value " + idStr);
+            log.log(Level.WARNING, "ID Parameter does not contain Numeric Value, value was : " + idStr);
         }
 
 
 
-        this.updateFromRiderRouteId(id);
+
 
     }
 
@@ -587,73 +578,106 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         }
 
     } // remove ride
-    
-    
-    /** Determines the caller from http-request,
-     *  and if caller is identical to rider, 
-     *  then allow for rider rating
-     * 
-     * 
-     * @return  true, if caller is identical to rider, else false
+
+    /**
+     * Determines the caller from http-request, and if caller is identical to
+     * rider, then allow for rider rating
+     *
+     *
+     * @return true, if caller is identical to rider, else false
      */
-    public boolean isRiderRateable(){
-    
-         CustomerEntity caller=(new JCustomerEntityService()).getCustomerEntitySafely();
-       
-         if(caller.getCustId()==this.getCustId().getCustId()){
-             return true;
-         }
-        
+    public boolean isRiderRateable() {
+
+        CustomerEntity caller = (new JCustomerEntityService()).getCustomerEntitySafely();
+
+
+        if (this.getCustId() == null) {
+            return false;
+        }
+        if (caller == null) {
+            return false;
+        }
+
+        if (caller.getCustId() == this.getCustId().getCustId()) {
+            return true;
+        }
+
         return false;
     }
-    
-    
-    
-    /** Determines the caller from http-request,
-     *  and if caller is identical to rider, 
-     *  then allow for rider cancel
-     * 
-     * @return  true, if caller is identical to rider, else false
+
+    /**
+     * Determines the caller from http-request, and if caller is identical to
+     * rider, then allow for rider cancel
+     *
+     * @return true, if caller is identical to rider, else false
      */
-    public boolean isRiderCancellable(){
-    
-         CustomerEntity caller=(new JCustomerEntityService()).getCustomerEntitySafely();
-       
-         if(caller.getCustId()==this.getCustId().getCustId()){
-             return true;
-         }
-        
+    public boolean isRiderCancellable() {
+
+        CustomerEntity caller = (new JCustomerEntityService()).getCustomerEntitySafely();
+
+        if (this.getCustId() == null) {
+            return false;
+        }
+        if (caller == null) {
+            return false;
+        }
+
+
+
+        if (caller.getCustId() == this.getCustId().getCustId()) {
+            return true;
+        }
+
         return false;
     }
-    
-        
-    
-    /** Determines if this ride has already been rated
-     *  by the rider (receivedrating != null)
-     * 
-     * @return  true, if receivedrating is !=null, else false
+
+    /**
+     * Determines if this ride has already been rated by the rider
+     * (receivedrating != null)
+     *
+     * @return true, if receivedrating is >= 0 , else false
      */
-    public boolean isRiderRated(){
-    
-        if(this.getGivenrating()!=null){return true;}
+    public boolean isRiderRated() {
+
+        if (this.getGivenrating() == null) {return false;}
+        if (this.getGivenrating() >= 0) {return true;}
         return false;
     }
-    
-    
-      
-    /** Determines if this ride has already been rated
-     *  by the driver (receivedrating != null)
-     * 
-     * @return  true, if receivedrating is !=null, else false
+
+    /**
+     * Determines if this ride has already been rated by the driver
+     * (receivedrating != null)
+     *
+     * @return true, if receivedrating is >=0 , else false
      */
-    public boolean isDriverRated(){
-    
-        if(this.getReceivedrating()!=null){return true;}
+    public boolean isDriverRated() {
+
+        if (this.getReceivedrating() == null) {return false;}
+        if (this.getReceivedrating() >= 0) { return true;}
         return false;
     }
-    
-    
-    
-    
-    
+
+    /**
+     * Update Rider's rating and comment for this ride
+     *
+     * @param rating
+     * @param comment
+     */
+    public void doSetGivenRating(ActionEvent evt) {
+        new JRiderUndertakesRideEntityService().setGivenRatingSavely(this);
+    }
+
+    /**
+     * Overwrite RiderUndertakesRideEntity() to start out with negative ratings,
+     * signifying that this ride has not been rated yet
+     *
+     */
+    public JRiderUndertakesRideEntity() {
+
+        super();
+
+        this.setGivenrating(-1);
+        this.setReceivedrating(-1);
+
+    }
 } // class
