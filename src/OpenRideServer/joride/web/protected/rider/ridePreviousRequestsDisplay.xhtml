@@ -71,66 +71,100 @@
 
 
                 <!-- Result Section -->
-                <h:form>
 
 
-                    <p:dataTable 
-                        value="#{ride.ridesForRiderInInterval}" 
-                        var="myride" 
-                        paginator="true" 
-                        rows="1" 
-                        >
 
-                        <p:column> 
-                            <f:facet name="header">
+                <p:dataTable 
+                    value="#{ride.ridesForRiderInInterval}" 
+                    var="myride" 
+                    paginator="true" 
+                    rows="1" 
+                    >
 
-                            </f:facet>
+                    <p:column> 
+                        <f:facet name="header">
 
-                            <span class="formLabel">
-                                <p>
-                                    <p:outputLabel value="#{myride.startDateFormatted}" />
-                                </p>
-
-                                <p>
-                                    <p:outputLabel value="#{msgs.rideNoGivenRating} " rendered="#{!ride.riderRated}" />   
-                                    <p:outputLabel value="#{msgs.rideGivenRating} :"  rendered="#{ride.riderRated}"/>  <br/>
-                                    <p:rating readonly="#{true}" value="#{myride.givenrating}" rendered="#{ride.riderRated}"  /> 
-                                </p>
+                        </f:facet>
 
 
-                                <p>   
-                                    <p:outputLabel value="#{msgs.rideNoReceivedRating}" rendered="#{!ride.driverRated}"           />   
-                                    <h:outputLabel value="#{msgs.rideReceivedRating} :"            rendered="#{ride.driverRated}" />  <br/>
-                                    <p:rating readonly="#{true}" value="#{myride.receivedrating}"  rendered="#{ride.driverRated}" />
-                                </p>
-                            </span>
+                        <p>
+                            <div class="formLabel">
+                                <p:outputLabel value="#{myride.startDateFormatted}" />
+                            </div>
+                        </p>
 
-                        </p:column>
+                        <p>
+                            <div class="formLabel">  
+                                #{msgs.rideGivenRating} 
+                            </div>  
 
-                        <p:column> 
-                            <f:facet name="header">
+                            <div class="formInput">  
+                                <p:outputLabel value="#{msgs.rideNoGivenRating}" rendered="#{!myride.riderRated}"                /> 
+                                <p:rating value="#{myride.givenrating}"          rendered="#{myride.riderRated}" readonly="true" /> 
+                            </div> 
 
-                            </f:facet>
-                            <p>
-                                <p:outputLabel value="#{myride.endptAddress}" />
-                            </p>
-                            <p>
+                            <div class="formInput"> 
+                                #{myride.givenratingComment} 
+                            </div> 
+
+                        </p>
+
+                        <p>
+                            <div class="formLabel"> 
+                                #{msgs.rideReceivedRating} 
+                            </div>  
+
+                            <div class="formInput">
+                                <!-- show rating if there is one, or message else -->
+                                <p:outputLabel  value="#{msgs.rideNoReceivedRating}"  rendered="#{!myride.driverRated}"            />
+                                <p:rating       value="#{myride.receivedrating}"        rendered="#{myride.driverRated}" readonly="true"  />
+                            </div> 
+
+                            <div class="formInput"> 
+                                #{myride.receivedratingComment}
+                            </div> 
+                        </p>
+
+                        <p>
+                            <div class="formLabel">
+                                <h:form rendered="#{myride.riderRateable}">
+                                    <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{myride.riderrouteId}" />
+                                        <f:param  name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                    </h:commandLink>
+                                </h:form>
+                            </div>
+                        </p>
+
+
+
+
+
+
+
+                    </p:column>
+
+                    <p:column> 
+                        <f:facet name="header">
+
+                        </f:facet>
+                        <p>
+                            <p:outputLabel value="#{myride.endptAddress}" />
+                        </p>
+                        <p>
+                            <h:form>
                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
                                     <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
                                     <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
                                 </h:commandLink>
-                            </p>
-                            <p>
-                                <h:commandLink action="rider.rideDisplay" value="#{msgs.rideRateThisRide}" rendered="#{myride.riderRateable}">
-                                    <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
-                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
-                                </h:commandLink>
-                            </p>
+                            </h:form>
+                        </p>
 
-                        </p:column>
 
-                    </p:dataTable>
-                </h:form>
+                    </p:column>
+
+                </p:dataTable>
+
 
 
 

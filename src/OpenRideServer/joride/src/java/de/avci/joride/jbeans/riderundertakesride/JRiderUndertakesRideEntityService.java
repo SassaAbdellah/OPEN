@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 public class JRiderUndertakesRideEntityService {
 
     Logger log = Logger.getLogger("" + this.getClass());
-    
 
     /**
      * Get a customerEntity from the current request
@@ -96,10 +95,12 @@ public class JRiderUndertakesRideEntityService {
     }
 
     /**
-     * Get a list of all rides for the actual Rider in between startdate and an enddate
-     * 
-     *  StartDate and EndDate are read in from http parameters using TimeIntervalBean
-     * 
+     * Get a list of all rides for the actual Rider in between startdate and an
+     * enddate
+     *
+     * StartDate and EndDate are read in from http parameters using
+     * TimeIntervalBean
+     *
      *
      * @return
      */
@@ -126,16 +127,16 @@ public class JRiderUndertakesRideEntityService {
         if (ce.getCustNickname() == null) {
             throw new Error("Cannot determine Rides, customerNickname is null");
         }
-        
-        
+
+
         // retrieve startDateAndEndDate
-        
-        TimeIntervalBean tb=new TimeIntervalBean().retrieveCurrentTimeInterval("timeinterval");
-      
-        
-        
-        System.err.println("Updated Time Interval "+tb.getStartDateFormatted()+" -> "+tb.getEndDateFormatted());
-        
+
+        TimeIntervalBean tb = new TimeIntervalBean().retrieveCurrentTimeInterval("timeinterval");
+
+
+
+        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
 
 
         // get all rides related to this customer
@@ -143,8 +144,7 @@ public class JRiderUndertakesRideEntityService {
                 rurcl.getRidesForCustomer(
                 ce,
                 tb.getStartDate(),
-                tb.getEndDate()
-                );
+                tb.getEndDate());
 
         // cast them to JRiderUntertakesRideEntity
         List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
@@ -298,6 +298,57 @@ public class JRiderUndertakesRideEntityService {
     } // getActiveOpenRides
 
     /**
+     * Savely set givenRating for this ride. .
+     *
+     * Current user/customer is determined from HTTPRequest's AuthPrincipal, and
+     * checked again the riderundertakesrideentity's custId.
+     *
+     * @return true, if the ride has been removed, else false.
+     */
+    public void setGivenRatingSavely(JRiderUndertakesRideEntity jrure) {
+
+
+
+
+        System.err.println(
+                "Set given rating for RiderrouteId : "
+                + jrure.getRiderrouteId()
+                + " Givenrating : "
+                + jrure.getGivenrating()
+                + " GivenRatingComment : "
+                + jrure.getGivenratingComment());
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        // Security checks
+        CustomerEntity ce = this.getCustomerEntity();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Ride for riderRating, calling customerEntity is null");
+        }
+        
+        // see, if caller is equal to rider ***in the database**
+        // note that just checking the argument would not be enough
+
+        RiderUndertakesRideEntity checkRide=this.getRideByRiderRouteIdSavely(jrure.getRiderrouteId());
+        
+        if(!(checkRide.getCustId().getCustId().equals(ce.getCustId()))){
+        
+            throw new Error("Cannot rate ride, caller is not identical to owner of ride request!");
+        }
+            
+        
+        
+
+        rurcl.setGivenRating(
+                jrure.getRiderrouteId(),
+                jrure.getGivenrating(),
+                jrure.getGivenratingComment()
+                );
+
+    }
+
+    /**
      * Savely remove the Ride with given riderRouteId.
      *
      * Current user/customer is determined from HTTPRequest's AuthPrincipal.
@@ -305,7 +356,6 @@ public class JRiderUndertakesRideEntityService {
      * @return true, if the ride has been removed, else false.
      */
     public boolean removeRideSafely(JRiderUndertakesRideEntity jrure) {
-
 
 
         CustomerEntity ce = this.getCustomerEntity();
@@ -321,30 +371,20 @@ public class JRiderUndertakesRideEntityService {
             throw new Error("Cannot determine RiderUndertakesRideControllerLocal");
         }
 
-
         if (jrure == null) {
             throw new Error("Cannot remove ride, argument is null");
         }
-
 
         if (jrure.getRiderrouteId() == null) {
             throw new Error("Cannot remove ride, riderrouteId is null");
         }
 
-
-
-
-
         int riderrouteId = jrure.getRiderrouteId();
-
         RiderUndertakesRideEntity rure = rurcl.getRideByRiderRouteId(riderrouteId);
-
-
 
         if (rure == null) {
             throw new Error("Cannot remove ride with id " + jrure.getRiderrouteId() + ", ride is null!");
         }
-
 
         if (rure.getCustId().getCustId() != ce.getCustId()) {
             throw new Error("Cannot retrieve Ride with given ID for removal, object does not belong to user");

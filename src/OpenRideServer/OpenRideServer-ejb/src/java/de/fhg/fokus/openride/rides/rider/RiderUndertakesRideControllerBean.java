@@ -280,10 +280,19 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     public void setGivenRating(int riderRouteId, int rating, String ratingComment) {
         RiderUndertakesRideEntity r = em.find(RiderUndertakesRideEntity.class, riderRouteId);
         if (r != null) {
+            startUserTransaction();
+            
+            System.err.println("Setting givenRating : "+
+                    "  riderrouteId  : "+riderRouteId+
+                    ", rating : "+rating+
+                    ", comment: " +ratingComment
+                    );
+            
             r.setGivenrating(rating);
             r.setGivenratingComment(ratingComment);
             r.setGivenratingDate(new Date());
             em.persist(r);
+            commitUserTransaction();
         }
     }
 
@@ -1327,7 +1336,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     @Override
     public List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce, Date startDate, Date endDate) {
           
-            List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByRidersRidesBetween").setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
+            List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByRidersRidesBetween").setParameter("custId",ce ).setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
             return res;
     }
 }

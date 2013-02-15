@@ -108,7 +108,7 @@ import org.postgis.Point;
     
     // TODO: replace starttime first with timestamprealized
     // find rider's realized rides between startDate and endDate
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate ")
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId ")
 
 })
 @Converter(name="convert", converterClass=PointConverter.class)
