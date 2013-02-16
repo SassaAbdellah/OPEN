@@ -12,6 +12,7 @@ import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
@@ -39,7 +40,13 @@ import org.postgis.Point;
 @SessionScoped
 public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implements Serializable {
 
-    Logger log = Logger.getLogger("" + this.getClass());
+    
+    
+    private PropertiesLoader propertiesLoader=new PropertiesLoader();
+    
+    
+    private Logger log = Logger.getLogger("" + this.getClass());
+    
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
@@ -530,6 +537,21 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         return (new JRiderUndertakesRideEntityService()).isRideUpdated(this.getRiderrouteId());
     }
 
+    
+    /** Short message to be displayed if ride has an update
+     */
+    public String getUpdatedShortcut(){
+    
+       
+        if(this.getRideUpdated()){
+            return " "+propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
+        }
+        
+        return "  ";
+    }
+    
+    
+    
     /**
      * Returns the Number of OpenMatches for this RideRequest
      *
