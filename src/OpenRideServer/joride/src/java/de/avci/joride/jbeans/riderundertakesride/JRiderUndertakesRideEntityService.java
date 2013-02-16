@@ -44,8 +44,15 @@ public class JRiderUndertakesRideEntityService {
      */
     protected RiderUndertakesRideControllerLocal lookupRiderUndertakesRideControllerBeanLocal() {
         try {
+            
             javax.naming.Context c = new InitialContext();
-            return (RiderUndertakesRideControllerLocal) c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/RiderUndertakesRideControllerBean!de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal");
+            Object o = c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/RiderUndertakesRideControllerBean!de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal");
+            if(o==null){
+                throw new Error("Error while looking up RiderUndertakesRideControllerLocal, lookup result is null. ");
+            }
+
+
+            return (RiderUndertakesRideControllerLocal) o;
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -326,25 +333,24 @@ public class JRiderUndertakesRideEntityService {
         if (ce == null) {
             throw new Error("Cannot determine Ride for riderRating, calling customerEntity is null");
         }
-        
+
         // see, if caller is equal to rider ***in the database**
         // note that just checking the argument would not be enough
 
-        RiderUndertakesRideEntity checkRide=this.getRideByRiderRouteIdSavely(jrure.getRiderrouteId());
-        
-        if(!(checkRide.getCustId().getCustId().equals(ce.getCustId()))){
-        
+        RiderUndertakesRideEntity checkRide = this.getRideByRiderRouteIdSavely(jrure.getRiderrouteId());
+
+        if (!(checkRide.getCustId().getCustId().equals(ce.getCustId()))) {
+
             throw new Error("Cannot rate ride, caller is not identical to owner of ride request!");
         }
-            
-        
-        
+
+
+
 
         rurcl.setGivenRating(
                 jrure.getRiderrouteId(),
                 jrure.getGivenrating(),
-                jrure.getGivenratingComment()
-                );
+                jrure.getGivenratingComment());
 
     }
 
@@ -418,7 +424,14 @@ public class JRiderUndertakesRideEntityService {
      * @return
      */
     public boolean isRideUpdated(Integer riderrouteId) {
-        return lookupRiderUndertakesRideControllerBeanLocal().isRideUpdated(riderrouteId);
+
+        // avoid trivial cases...
+        if (riderrouteId == null) {
+            return false;
+        }
+
+        RiderUndertakesRideControllerLocal rurcl = lookupRiderUndertakesRideControllerBeanLocal();
+        return rurcl.isRideUpdated(riderrouteId);
     }
 
     /**

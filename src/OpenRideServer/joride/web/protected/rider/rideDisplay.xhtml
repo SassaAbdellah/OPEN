@@ -32,238 +32,299 @@
 
             <ui:define name="content">
 
-
-                <div id="navbar2">
-                    <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
-                        </span> 
-                    </h:form>
-                </div>
-
+                <p>
+                    <div id="navbar2">
+                        <h:form>
+                            <span class="nav2Highlight">
+                                <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
+                            </span> 
+                        </h:form>
+                    </div>
+                </p>
 
 
                 #{ride.update()}
 
-                <table>   
-                    <tr>
-                        <th colspan="3">
-                            #{msgs.rideRequest} #{ride.riderrouteId} 
-                        </th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <span class="formLabel">
-                                #{cancellingride.update()}
+
+
+                <p:panel header="#{msgs.rideRequest} #{ride.riderrouteId}">
+
+                    <!-- show message if ride is updated -->
+                    <ui:fragment rendered="#{ride.rideUpdated}">
+                        <p>
+                            <div class="formLabel">
+                                <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
+                                #{msgs.updatedRide}
+                            </div>
+                        </p>
+                    </ui:fragment>
+
+
+                    <p> <!-- paragraph for action links -->
+                        <!-- *** show matchings list only if there are matchings *** -->
+                        <h:form rendered="#{ride.hasMatches}">
+                            <div class="formLabel">
+                                <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
+                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                    <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                </h:commandLink>
+                            </div>
+                        </h:form> 
+
+                        <div class="formLabel">
+                            #{cancellingride.update()}
+                            <h:form>
+                                <h:commandLink 
+                                    action="#{cancellingride.invalidate()}" 
+                                    value="#{msgs.rideInvalidateThisRequest}" 
+                                    disabled="#{!ride.riderCancellable}"
+                                    />
+                            </h:form>
+                        </div>
+                    </p>
+
+
+
+                    <!-- data are presented inside of an accordion with the first  -->
+                    <!--  -->
+                    <p:accordionPanel  activeIndex="0" multiple="false" > 
+                        <!-- Table summing up ride's Properties -->
+
+                        <p:tab title="#{msgs.rideOverview}">
+                            <table> 
+                                <tr> 
+                                    <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td>  <span class="formInput"> #{ride.starttimeEarliest} </span> </td>
+                                </tr>
+
+                                <tr> 
+                                    <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput"> #{ride.starttimeLatest} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.comment}  </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
+                                    <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                                    <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
+                                </tr>
+                            </table> <!-- nested table #1 -->  
+
+                            <!-- End of summary -->
+                        </p:tab>
+
+
+
+
+
+
+                        <p:tab title="#{msgs.ridePlacesAndTimes}">
+                            <table>
+                                <tr>
+                                    <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
+                                    <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>   <span class="formInput">  #{ride.starttimeEarliest} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.rideStarttimeLatest} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.starttimeLatest} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.rideNoPassengers} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.noPassengers} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.ridePrice} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.price} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.comment}  </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"> <h2> #{msgs.rideStart} </h2> </td>
+                                </tr>
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.longitudeStart} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.latitudeStart} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">  <h2> #{msgs.rideDestination} </h2> </td>
+                                </tr>
+
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.longitudeEnd} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
+                                    <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>  <span class="formInput">  #{ride.latitudeEnd} </span> </td>
+                                </tr>
+                            </table>
+                        </p:tab>
+
+                        <!-- Accordion to display matching off-->
+
+                        <p:tab title="#{msgs.rideBooking}">
+
+                            <!-- Matching Offers -->
+
+                            <div class="formLabel">
                                 <h:form>
-                                    <h:commandLink 
-                                        action="#{cancellingride.invalidate()}" 
-                                        value="#{msgs.rideInvalidateThisRequest}" 
-                                        disabled="#{!ride.riderCancellable}"
-                                        />
-                                </h:form>
-                            </span>
-                        </td>
-                    </tr>                
-                    <tr>
-                        <td colspan="3">
-                            <span class="formLabel">
-                                <!-- for whatever reason the rendered="#{ride.riderRateable}" clause breaks the -->
-                                <!-- commandlink, if the attribute is part of the h:commandlink element         -->
-                                <!-- This is why we apply it to the h:form element instead                      -->
-
-                                <h:form rendered="#{ride.riderRateable}">
-
-                                    <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
-                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
-                                        <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                    <h:commandLink   value="#{msgs.rideMatchesShowOffers}" action="rider.rideMatchingsList">
+                                        <f:param  name="#{crud.paramNameCrudId}"  value="#{ride.riderrouteId}"/>
+                                        <f:param  name="#{webflow.getParamBack()}" value="rider"          />
                                     </h:commandLink>
                                 </h:form>
-                            </span>
-                        </td>
-                    </tr>
+
+                            </div>
+
+                            <table>
+
+                                <tr>
+                                    <td>   <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
+                                    <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>   <span class="formInput">  #{ride.noMatches} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideTimestampbooked}  </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.timestampbooked} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideTimestamprealized} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.timestamprealized} </span> </td>   
+                                </tr>
+                            </table>
+                        </p:tab>
 
 
-                    <tr>
-                        <td colspan="3">
-                            <span class="formLabel">
-                                <h:form>
-                                    <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
-                                        <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
-                                    </h:commandLink>
-                                </h:form>
-                            </span>
-                        </td>
-                    </tr>
+                        <p:tab  title=" #{msgs.rideRatings}" >
+
+                            <table>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideGivenRating} </span>  </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> 
+                                        <span class="formInput">  
+                                            <p:outputLabel value="#{msgs.rideNoGivenRating}" rendered="#{!ride.riderRated}"                /> 
+                                            <p:rating value="#{ride.givenrating}"            rendered="#{ride.riderRated}" readonly="true" /> 
+                                        </span> 
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideGivenRatingComment} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.givenratingComment} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideGivenRatingDate} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">
+                                        <h:form rendered="#{ride.riderRateable}">
+                                            <div class="formLabel">
+                                                <!-- for whatever reason the rendered="#{ride.riderRateable}" clause breaks the -->
+                                                <!-- commandlink, if the attribute is part of the h:commandlink element         -->
+                                                <!-- This is why we apply it to the h:form element instead                      -->
 
 
-                    <tr>
-                        <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
-                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>   <span class="formInput">  #{ride.starttimeEarliest} </span> </td>
-                    </tr>
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.rideStarttimeLatest} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.starttimeLatest} </span> </td>
-                    </tr>
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.rideNoPassengers} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.noPassengers} </span> </td>
-                    </tr>
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.ridePrice} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.price} </span> </td>
-                    </tr>
+                                                <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
+                                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                    <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                                </h:commandLink>
+                                            </div>
+                                        </h:form>
+                                    </td>
+                                </tr>
 
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                    </tr>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td>
+                                        <span class="formInput">
+                                            <!-- show rating if there is one, or message else -->
+                                            <p:outputLabel  value="#{msgs.rideNoReceivedRating}"  rendered="#{!ride.driverRated}"            />
+                                            <p:rating       value="#{ride.receivedrating}"        rendered="#{ride.driverRated}" readonly="true"  />
+                                        </span> 
+                                    </td>
+                                </tr>
 
-                    <tr>
-                        <td colspan="3"> <h2> #{msgs.rideStart} </h2> </td>
-                    </tr>
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
-                    </tr>
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.longitudeStart} </span> </td>
-                    </tr>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideReceivedRatingComment} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.receivedratingComment} </span> </td>
+                                </tr>
 
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.latitudeStart} </span> </td>
-                    </tr>
+                                <tr>
+                                    <td> <span class="formLabel">  #{msgs.rideReceivedRatingDate} </span> </td>
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
+                                    <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
+                                </tr>
 
-                    <tr>
-                        <td colspan="3">  <h2> #{msgs.rideDestination} </h2> </td>
-                    </tr>
+                            </table>
 
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
-                    </tr>
+                        </p:tab>
 
 
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.longitudeEnd} </span> </td>
-                    </tr>
+                    </p:accordionPanel>
 
-                    <tr>
-                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
-                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>  <span class="formInput">  #{ride.latitudeEnd} </span> </td>
-                    </tr>
-
-                    <!-- Matching Offers -->
-
-                    <tr> <td colspan="3"> <h2> #{msgs.rideMatchingOffers} </h2> </td> </tr>
-
-
-                    <tr>
-                        <td colspan="3">
-                            <p>
-                                <span class="formLabel">
-                                    <h:form>
-                                        <h:commandLink   value="#{msgs.rideMatchesShowOffers}" action="rider.rideMatchingsList">
-                                            <f:param  name="#{crud.paramNameCrudId}"  value="#{ride.riderrouteId}"/>
-                                            <f:param  name="#{webflow.getParamBack()}" value="rider"          />
-                                        </h:commandLink>
-                                    </h:form>
-
-                                </span>
-                            </p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>   <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>   <span class="formInput">  #{ride.noMatches} </span> </td>
-                    </tr>
-
-                    <tr> <td colspan="3"> <h2> #{msgs.rideBooking} </h2> </td> </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideTimestampbooked}  </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.timestampbooked} </span> </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideTimestamprealized} </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.timestamprealized} </span> </td>   
-                    </tr>
-
-
-                    <tr>
-                        <td colspan="3"> <h2> #{msgs.rideRatings} </h2> </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideGivenRating} </span>  </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> 
-                            <span class="formInput">  
-                                <p:outputLabel value="#{msgs.rideNoGivenRating}" rendered="#{!ride.riderRated}"                /> 
-                                <p:rating value="#{ride.givenrating}"            rendered="#{ride.riderRated}" readonly="true" /> 
-                            </span> 
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideGivenRatingComment} </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.givenratingComment} </span> </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideGivenRatingDate} </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td>
-                            <span class="formInput">
-                                <!-- show rating if there is one, or message else -->
-                                <p:outputLabel  value="#{msgs.rideNoReceivedRating}"  rendered="#{!ride.driverRated}"            />
-                                <p:rating       value="#{ride.receivedrating}"        rendered="#{ride.driverRated}" readonly="true"  />
-                            </span> 
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideReceivedRatingComment} </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.receivedratingComment} </span> </td>
-                    </tr>
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideReceivedRatingDate} </span> </td>
-                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                        <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
-                    </tr>
-
-                </table>
-
+                </p:panel>
 
 
                 <p> <!-- webflow stanza -->
