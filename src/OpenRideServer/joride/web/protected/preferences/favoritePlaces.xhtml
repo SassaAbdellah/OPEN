@@ -66,31 +66,19 @@
 
 
                     <h:form>    
-                        <h:dataTable 
-                            value="#{jfavpoint.favoritePointList}"
-                            styleClass="table" 
-                            headerClass="tableheader"
-                            var="fp" >
+                        <p:accordionPanel value="#{jfavpoint.favoritePointList}" var="fp" >
 
-                            <!-- Column single column with data displayed atop of each other -->
-                            <h:column>            
 
+                            <p:tab title="#{fp.favptDisplayname}">            
                                 <p>
-                                    <h4>#{fp.favptDisplayname}</h4> 
-
                                     #{fp.favptAddress} <br/>
-
-
                                     <!-- display action --> 
                                     <h:commandLink action="preferences.favoritePlacesDisplay" >
-
                                         <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
                                         <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
                                         [ #{msgs.formDisplay} ]
                                     </h:commandLink> 
-
                                     &nbsp; &nbsp; &nbsp;
-
                                     <!--  delete action --> 
                                     <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
                                         <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
@@ -99,10 +87,9 @@
                                         [#{msgs.formDelete}]
                                     </h:commandLink>
                                 </p>
+                            </p:tab>
+                        </p:accordionPanel>
 
-                            </h:column>
-
-                        </h:dataTable>
                     </h:form>   
 
                 </p>
