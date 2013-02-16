@@ -84,6 +84,21 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        
+                                         <!-- *** show matchings list only if there are matchings *** -->
+                                        <ui:fragment rendered="#{ride.hasMatches}">
+                                            <tr>
+                                                <td colspan="3">
+                                                    <span class="formLabel">
+                                                        <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
+                                                            <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                            <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                                        </h:commandLink>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </ui:fragment> 
+                                        
 
                                         <tr> 
                                             <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
