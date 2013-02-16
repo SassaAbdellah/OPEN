@@ -31,128 +31,106 @@
 
             <ui:define name="content">
 
+                <p>
+                    <div id="navbar2">
+                        <h:form>
+                            <span class="nav2Highlight">
+                                <h:commandLink action="driver.previousDrives">   #{msgs.ridePreviousDrives}  </h:commandLink>    
+                            </span> 
+                            |
+                            <span class="nav2Highlight">
+                                <h:commandLink action="driver.driveCreate"   value="#{msgs.rideNewDrive}">  
+                                    <f:param name="#{webflow.paramBack}"    value="driver" /> 
+                                    <f:param name="#{webflow.paramFinish}"  value="driver" /> 
+                                    <f:param name="#{webflow.paramCancel}"  value="driver" /> 
+                                </h:commandLink>
+                            </span>
+                        </h:form>
+                    </div>
+                </p>
 
-                <div id="navbar2">
-                    <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="driver.previousDrives">   #{msgs.ridePreviousDrives}  </h:commandLink>    
-                        </span> 
-                        |
-                        <span class="nav2Highlight">
-                            <h:commandLink action="driver.driveCreate"   value="#{msgs.rideNewDrive}">  
-                                <f:param name="#{webflow.paramBack}"    value="driver" /> 
-                                <f:param name="#{webflow.paramFinish}"  value="driver" /> 
-                                <f:param name="#{webflow.paramCancel}"  value="driver" /> 
-                            </h:commandLink>
-                        </span>
-                    </h:form>
-                </div>
+                <!-- List of future offers for this driver -->
 
-                <h1> #{msgs.driversSection} </h1>
+                <p:panel header="#{msgs.rideActiveOffers}">
 
+                    <!-- primefaces dynamic accordion COOL!  -->
+                    <p:accordionPanel  activeIndex="-1" value="#{driverride.futureDrives}" var="drive">                  
 
-                <h2> #{msgs.rideActiveOffers} : </h2>
+                        <p:tab title="#{msgs.rideOffer} #{drive.rideId} #{drive.updatedShortcut}">
 
-                <h:form>
+                            <!-- show message if ride is updated -->
+                            <ui:fragment rendered="#{drive.driveUpdated}">
+                                <div class="formLabel">
+                                    <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
+                                    #{msgs.updatedRide}
+                                </div>
+                            </ui:fragment>
 
-                    <!-- List of future offers for this driver -->
+                            <!-- show link only if there are matches -->
+                            <ui:fragment rendered="#{drive.hasMatches}">
+                                <div class="formLabel">
+                                    <h:form>
+                                        <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
+                                            <f:param   name="#{crud.paramNameCrudId}"   value="#{drive.rideId}"/>
+                                            <f:param   name="#{webflow.getParamBack()}" value="driver"              />
+                                        </h:commandLink>
+                                    </h:form>
+                                </div>
+                            </ui:fragment>
 
-                    <ui:repeat  value="#{driverride.futureDrives}" var="drive">
-
-                        <p>
-                            <table> <!-- nested three column table -->
-
-                                <tr>
-                                    <td colspan="3">
-                                        <h3> #{msgs.rideOffer} #{drive.rideId} </h3>
-                                        <!-- show message if ride is updated -->
-                                        <ui:fragment rendered="#{drive.driveUpdated}">
-                                            <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
-                                            #{msgs.updatedDrive}
-                                        </ui:fragment>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="3">
-                                        <span class="formLabel">
-                                            <h:commandLink action="driver.driveDisplay" value="#{msgs.formDisplay}">
-                                                <f:param  name="#{crud.paramNameCrudId}" value="#{drive.rideId}"/>
-                                                <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                            </h:commandLink>
-                                        </span>
-                                    </td>
-                                </tr>
-
-
-                                <tr>                                            
-                                    <td>
-                                        <span class="formLabel">
-                                            #{msgs.rideStarttime}
-                                        </span>
-                                    </td>
-                                    <td class="formLabel"> &nbsp;:&nbsp; </td>
-                                    <td>
-                                        <span class="formInput">
-                                            #{drive.startDateFormatted} 
-                                        </span>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td class="formLabel">  #{msgs.rideStart}  </td>
-                                    <td class="formLabel"> &nbsp;:&nbsp; </td>
-                                    <td class="formInput"> #{drive.startptAddress} </td>
-                                </tr>
-                                <tr>
-                                    <td class="formLabel">   #{msgs.rideDestination}  </td>
-                                    <td class="formLabel"> &nbsp;:&nbsp; </td>
-                                    <td class="formInput"> #{drive.endptAddress} </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideComment} </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
-                                    <td>  <span class="formInput">  #{drive.rideComment}            </span> </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <span class="formLabel">  #{msgs.rideNoMatchingRequests} </span> </td>
-                                    <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
-                                    <td> <span class="formInput">  #{drive.noMatches}            </span> </td>
-                                </tr>
-
-
-                                <!-- show link only if there are matches -->
-
-                                <ui:fragment rendered="#{drive.hasMatches}">
+                            <h:form>
+                                <table> <!-- nested three column table -->
 
                                     <tr>
                                         <td colspan="3">
                                             <span class="formLabel">
-                                                <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
-                                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{drive.rideId}"/>
-                                                    <f:param   name="#{webflow.getParamBack()}" value="driver"              />
+                                                <h:commandLink action="driver.driveDisplay" value="#{msgs.formDisplay}">
+                                                    <f:param  name="#{crud.paramNameCrudId}" value="#{drive.rideId}"/>
+                                                    <f:param name="#{webflow.getParamBack()}" value="driver"          />
                                                 </h:commandLink>
                                             </span>
                                         </td>
-                                    </tr>                     
-                                </ui:fragment>
-                            </table>
-                        </p>
+                                    </tr>
+                                    <tr>                                            
+                                        <td>
+                                            <span class="formLabel">
+                                                #{msgs.rideStarttime}
+                                            </span>
+                                        </td>
+                                        <td class="formLabel"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            <span class="formInput">
+                                                #{drive.startDateFormatted} 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="formLabel">  #{msgs.rideStart}  </td>
+                                        <td class="formLabel"> &nbsp;:&nbsp; </td>
+                                        <td class="formInput"> #{drive.startptAddress} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="formLabel">   #{msgs.rideDestination}  </td>
+                                        <td class="formLabel"> &nbsp;:&nbsp; </td>
+                                        <td class="formInput"> #{drive.endptAddress} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <span class="formLabel">  #{msgs.rideComment} </span> </td>
+                                        <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                                        <td>  <span class="formInput">  #{drive.rideComment}            </span> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <span class="formLabel">  #{msgs.rideNoMatchingRequests} </span> </td>
+                                        <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
+                                        <td> <span class="formInput">  #{drive.noMatches}            </span> </td>
+                                    </tr>
 
-                    </ui:repeat>
-                </h:form>  
+                                </table>
+                            </h:form>  
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:panel>
 
-
-
-
-
-
-
-
-                Driver's section...
             </ui:define>
 
 

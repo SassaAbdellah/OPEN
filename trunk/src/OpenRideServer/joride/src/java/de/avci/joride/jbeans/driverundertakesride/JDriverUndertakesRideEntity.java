@@ -4,25 +4,22 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
-import javax.inject.Named;
-
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
-
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
-
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import java.text.DateFormat;
 import java.util.Date;
-
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 import org.postgis.Point;
 
 /**
@@ -56,6 +53,10 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * Frontends.
      */
     private Integer NUMBER_SEATS_OFFERED_DEFAULT = 1;
+    
+    
+    private PropertiesLoader propertiesLoader=new PropertiesLoader();
+   
 
     /**
      * Get a list of active drives for this driver.
@@ -600,6 +601,24 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return (new JDriverUndertakesRideEntityService()).isDriveUpdated(this.getRideId());
     }
 
+    
+     /** Short message to be displayed if ride has an update
+     */
+    public String getUpdatedShortcut(){
+    
+       
+        if(this.getDriveUpdated()){
+            return " "+propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
+        }
+        
+        return "  ";
+    }
+    
+    
+    
+    
+    
+    
     /**
      * Returns the Number of OpenMatches for this RideRequest
      *
