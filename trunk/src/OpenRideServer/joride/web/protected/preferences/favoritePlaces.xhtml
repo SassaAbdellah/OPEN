@@ -33,66 +33,62 @@
 
             <ui:define name="content">
 
-                <div id="navbar2">
-                    <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
-                        </span> 
-                        |
-                        <span class="nav2Highlight">         
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
-                        </span>
-                        |
-                        <span class="nav2Highlight">          
-                            <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
-                        </span> 
-
-                    </h:form>
-
-                </div>
-
-                <h1>   #{msgs.nav1_pref_favoritePlaces_label}  </h1>
-
-
-                <p> <!--_ link for creating a new favorite -->
-                    <h:form>
-                        <h:commandLink value="#{msgs.favpointAddPoint}" action="preferences.favoritePlacesCreate" />
-                    </h:form>
-                </p>
-
                 <p>
-
-                    <!-- Displaying favorite places and links for deleting them  -->
-
-
-                    <h:form>    
-                        <p:accordionPanel value="#{jfavpoint.favoritePointList}" var="fp" >
-
-
-                            <p:tab title="#{fp.favptDisplayname}">            
-                                <p>
-                                    #{fp.favptAddress} <br/>
-                                    <!-- display action --> 
-                                    <h:commandLink action="preferences.favoritePlacesDisplay" >
-                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
-                                        <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
-                                        [ #{msgs.formDisplay} ]
-                                    </h:commandLink> 
-                                    &nbsp; &nbsp; &nbsp;
-                                    <!--  delete action --> 
-                                    <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
-                                        <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
-                                        <f:param  name="#{crud.paramNameCrudId}" value="#{fp.favptId}"/>
-
-                                        [#{msgs.formDelete}]
-                                    </h:commandLink>
-                                </p>
-                            </p:tab>
-                        </p:accordionPanel>
-
-                    </h:form>   
-
+                    <div id="navbar2">
+                        <h:form>
+                            <span class="nav2Highlight">
+                                <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
+                            </span> 
+                            |
+                            <span class="nav2Highlight">         
+                                <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
+                            </span>
+                            |
+                            <span class="nav2Highlight">          
+                                <h:commandLink action="preferences.driverPreferences">   #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>    
+                            </span> 
+                        </h:form>
+                    </div>
                 </p>
+
+                <p:panel header="#{msgs.nav1_pref_favoritePlaces_label}" >
+
+
+                    <p> <!--_ link for creating a new favorite -->
+                        <h:form>
+                            <h:commandLink value="#{msgs.favpointAddPoint}" action="preferences.favoritePlacesCreate" />
+                        </h:form>
+                    </p>
+
+                    <p>   <!-- Displaying favorite places and links for deleting them  -->
+                        <h:form>    
+                            <p:accordionPanel value="#{jfavpoint.favoritePointList}" var="fp" activeIndex="-1" >
+
+
+                                <p:tab title="#{fp.favptDisplayname}">            
+                                    <p>
+                                        #{fp.favptAddress} <br/>
+                                        <!-- display action --> 
+                                        <h:commandLink action="preferences.favoritePlacesDisplay" >
+                                            <f:param  name="#{crud.paramNameCrudId}"   value="#{fp.favptId}"/>
+                                            <f:param  name="#{webflow.paramBack}"  value="preferences.favoritePlaces" />
+                                            [ #{msgs.formDisplay} ]
+                                        </h:commandLink> 
+                                        &nbsp; &nbsp; &nbsp;
+                                        <!--  delete action --> 
+                                        <h:commandLink actionListener="#{jfavpoint.doCrudAction}" >
+                                            <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudDelete}"/>
+                                            <f:param  name="#{crud.paramNameCrudId}" value="#{fp.favptId}"/>
+
+                                            [#{msgs.formDelete}]
+                                        </h:commandLink>
+                                    </p>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </h:form>   
+                    </p>
+                </p:panel>
+
 
 
 
