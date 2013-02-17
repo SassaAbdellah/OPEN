@@ -32,25 +32,20 @@
 
             <ui:define name="content">
 
-                <p>
-                    <div id="navbar2">
-                        <h:form>
-                            <span class="nav2Highlight">
-                                <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
-                            </span> 
-                            |
-                            <span class="nav2Highlight">
-                                <h:commandLink action="rider.rideCreate"   value="#{msgs.rideNewRequest}">  
 
-                                    <f:param name="#{webflow.paramBack}"    value="rider" /> 
-                                    <f:param name="#{webflow.paramFinish}"  value="rider" /> 
-                                    <f:param name="#{webflow.paramCancel}"  value="rider" /> 
-                                </h:commandLink>
-                            </span>
-                        </h:form>
-                    </div> <!-- navbar2 -->
-                </p>
-
+                <div id="navbar2">
+                    <h:form>
+                        <p:menuButton value="TODO: Navigation">
+                            <p:menuitem outcome="rider"                    value="#{msgs.nav1_rider_label}"     />    
+                            <p:menuitem outcome="rider.previousRequests"   value="#{msgs.ridePreviousRequests}"  />    
+                            <p:menuitem  outcome="rider.rideCreate"         value="#{msgs.rideNewRequest}"  >  
+                                <f:param name="#{webflow.paramBack}"    value="rider" /> 
+                                <f:param name="#{webflow.paramFinish}"  value="rider" /> 
+                                <f:param name="#{webflow.paramCancel}"  value="rider" /> 
+                            </p:menuitem>
+                        </p:menuButton>
+                    </h:form>
+                </div> <!-- navbar2 -->
 
 
                 <p:panel header="#{msgs.rideActiveRequests}">
@@ -59,17 +54,17 @@
                     <p:accordionPanel  activeIndex="-1" value="#{ride.activeOpenRidesForRider}" var="ride">
 
 
-                     
+
 
                         <p:tab title="#{msgs.rideRequest} #{ride.riderrouteId} #{ride.updatedShortcut} ">
 
-                        <!-- show message if ride is updated -->
-                        <ui:fragment rendered="#{ride.rideUpdated}">
-                            <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
-                            #{msgs.updatedRide}
-                        </ui:fragment>
-                            
-                            
+                            <!-- show message if ride is updated -->
+                            <ui:fragment rendered="#{ride.rideUpdated}">
+                                <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
+                                #{msgs.updatedRide}
+                            </ui:fragment>
+
+
 
                             <h:form>
                                 <p>
@@ -84,8 +79,8 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        
-                                         <!-- *** show matchings list only if there are matchings *** -->
+
+                                        <!-- *** show matchings list only if there are matchings *** -->
                                         <ui:fragment rendered="#{ride.hasMatches}">
                                             <tr>
                                                 <td colspan="3">
@@ -98,7 +93,7 @@
                                                 </td>
                                             </tr>
                                         </ui:fragment> 
-                                        
+
 
                                         <tr> 
                                             <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>

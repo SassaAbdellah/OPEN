@@ -39,15 +39,21 @@
             <ui:define name="content">
 
 
-
+                
                 <div id="navbar2">
                     <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="rider.previousRequests">   #{msgs.ridePreviousRequests}     </h:commandLink>    
-                        </span> 
+                        <p:menuButton value="TODO: Navigation">
+                            <p:menuitem outcome="rider"                     value="#{msgs.nav1_rider_label}"     />    
+                            <p:menuitem outcome="rider.previousRequests"   value="#{msgs.ridePreviousRequests}"  />    
+                            <p:menuitem  outcome="rider.rideCreate"         value="#{msgs.rideNewRequest}"  >  
+                                <f:param name="#{webflow.paramBack}"    value="rider" /> 
+                                <f:param name="#{webflow.paramFinish}"  value="rider" /> 
+                                <f:param name="#{webflow.paramCancel}"  value="rider" /> 
+                            </p:menuitem>
+                        </p:menuButton>
                     </h:form>
-                </div>
-
+                </div> <!-- navbar2 -->
+                
 
 
                 <!-- due to problems with commandlinks inside h:dataTable and ui:repeat -->
