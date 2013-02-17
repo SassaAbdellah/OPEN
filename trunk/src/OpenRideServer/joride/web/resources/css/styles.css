@@ -5,23 +5,20 @@ body{
     max-width:400px;
 }
 
+
 a {
-    color:#FF8C00; 	 
-    text-decoration:none;
+    text-decoration:underline;
+    font-weight: bold;
 }
 
 a:hover {
-    color:#FF8C00; 	 
-    text-decoration:underline; 
+    text-decoration:none; 
 }
-
-
 
 
 #header{
     vertical-align:middle;
     text-align:left;
-    margin-bottom:10px;   
 }
 
 
@@ -49,17 +46,6 @@ a:hover {
     margin-top:15px;
     margin-bottom:15px;
 }
-
-
-
-/* se commandlink class as wrapper around
-* JSF commandlinks, so that disabled commandlinks
-* do not look like normal text
-*/
-.commandlink{
-    color: #D0D0D0;
-}   
-
 
 
 form{
@@ -101,34 +87,6 @@ form{
 
 
 
-
-
-
-.nav2 a{
-    color:#D0D0D0;
-}
-
-.nav2 a:hover {
-    color:#FF8C00;
-    text-decoration:underline;
-}
-
-
-  /* no need to set anything here, we use "normal links"
-  */
-.nav2Highlight a{
-  
-}
-
-.nav2Highlight a:hover {
-    color:#D0D0D0;
-    text-decoration:underline;
-}
-
-
-
-
-
 /* Results from Geosearch come inside 
  * divs of class geosearch_result'.
  * have a big margin to help distinguish
@@ -143,16 +101,7 @@ form{
 }
 
 
-/** Table headers for JSF table
-*
-*/
 
-.tableheader {
-
-    text-color:#FFFFFF;
-    background-color:#D0D0D0;
-
-}
 
 /** JSF Tables
 */
