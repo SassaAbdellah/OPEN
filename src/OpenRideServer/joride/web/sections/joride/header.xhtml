@@ -4,15 +4,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:p="http://primefaces.org/ui"
-      >
+
+      xmlns:f="http://java.sun.com/jsf/core">
 
 
     <h:head>
-        
-        
+
+
         <title>IGNORED</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+
     </h:head>
     <body>
 
@@ -22,19 +23,19 @@
 
         <ui:composition>
             <div id="header">
-               <!-- dummy input is there to enforce loading of jquers the primefaces way-->
-                 
+                <!-- dummy input is there to enforce loading of jquers the primefaces way-->
+
                 <!-- ***  stuff inside update alert section is for polling *** -->
                 <!-- **   and displaying  update messages in header        *** -->
 
                 <div id="updateAlert"> 
-                                        
+
                     <!-- as jquery has to be loaded via primefaces to avoid namespace conflicts -->
                     <!-- make sure to have primefaces ui namespace in the path!      -->              
                     <h:outputScript library="primefaces" name="jquery/jquery.js"      />
                     <!-- we want to have localized primefaces controls               -->
                     <h:outputScript library="js"         name="primefacesLocale.js"   />
-                    
+
                     <!-- check for update regularily                                 -->
                     <h:outputScript library="js" name="updateAlert.js"                />
 
@@ -76,12 +77,14 @@
 
                 <!-- *** end of update alert stuff *** -->
 
-                <!-- show a login link, if user is not logged in -->
-                <h:form>      
+                <!-- show a login link only if user is not logged in -->
+
+                <h:form rendered="#{!HTTPUser.loggedIn}">      
                     <h:outputLink value="#{HTTPUser.getLoginURL()}">
                         #{HTTPUser.loginLabel}
                     </h:outputLink>
                 </h:form>
+
 
             </div>
         </ui:composition>

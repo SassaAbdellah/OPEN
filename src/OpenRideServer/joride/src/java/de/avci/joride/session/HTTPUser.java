@@ -48,7 +48,13 @@ public class HTTPUser implements Serializable {
 
     
     
-    
+    /** 
+     * 
+     * @return  true, if httprequest has a non-null user principal, else false
+     */
+    public boolean isLoggedIn(){
+        return getUserPrincipal()!=null;
+    }
     
     public String getLoginLabel() {
         if (getUserPrincipal() == null) {
