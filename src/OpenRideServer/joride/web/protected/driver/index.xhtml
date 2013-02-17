@@ -31,23 +31,19 @@
 
             <ui:define name="content">
 
-                <p>
-                    <div id="navbar2">
-                        <h:form>
-                            <span class="nav2Highlight">
-                                <h:commandLink action="driver.previousDrives">   #{msgs.ridePreviousDrives}  </h:commandLink>    
-                            </span> 
-                            |
-                            <span class="nav2Highlight">
-                                <h:commandLink action="driver.driveCreate"   value="#{msgs.rideNewDrive}">  
-                                    <f:param name="#{webflow.paramBack}"    value="driver" /> 
-                                    <f:param name="#{webflow.paramFinish}"  value="driver" /> 
-                                    <f:param name="#{webflow.paramCancel}"  value="driver" /> 
-                                </h:commandLink>
-                            </span>
-                        </h:form>
-                    </div>
-                </p>
+                <div id="navbar2">
+                    <h:form>
+                        <p:menuButton value="TODO Navigation">
+                            <p:menuitem outcome="driver"                 value="#{msgs.nav1_rider_label}"  />  
+                            <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
+                            <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
+                                <f:param name="#{webflow.paramBack}"     value="driver" /> 
+                                <f:param name="#{webflow.paramFinish}"   value="driver" /> 
+                                <f:param name="#{webflow.paramCancel}"   value="driver" /> 
+                            </p:menuitem>
+                        </p:menuButton>
+                    </h:form>
+                </div> <!-- (end of navbar2) -->
 
                 <!-- List of future offers for this driver -->
 
