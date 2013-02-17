@@ -32,24 +32,17 @@
 
             <ui:define name="content">
 
-                <div id="navbar2">
+                <div id="navbar1">
                     <h:form>
-                        <span class="nav2Highlight">
-                            <h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}    </h:commandLink>
-                        </span> |
-
-                        <span class="nav2Highlight">         
-                            <h:commandLink action="preferences.riderPreferences">   #{msgs.nav1_pref_riderPreferences_label}   </h:commandLink>    
-                        </span>
-                        |
-                        <span class="nav2Highlight">
-                            <h:commandLink action="preferences.favoritePlaces">  #{msgs.nav1_pref_favoritePlaces_label}    </h:commandLink>
-                        </span> 
-
+                        <p:menuButton value="TODO Navigation">
+                            <p:menuitem outcome="preferences"                    value="#{msgs.nav1_preferences_label}"            /> 
+                            <p:menuitem outcome="preferences.personalData"       value="#{msgs.nav1_pref_personalData_label}"      /> 
+                            <p:menuitem outcome="preferences.riderPreferences"   value="#{msgs.nav1_pref_riderPreferences_label}"  /> 
+                            <p:menuitem outcome="preferences.driverPreferences"  value="#{msgs.nav1_pref_driverPreferences_label}" /> 
+                            <p:menuitem outcome="preferences.favoritePlaces"     value="#{msgs.nav1_pref_favoritePlaces_label}"    /> 
+                        </p:menuButton>
                     </h:form>
-
                 </div>
-
 
 
                 <h1>   #{msgs.nav1_pref_carDetailsLabel}  </h1>
