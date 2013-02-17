@@ -24,16 +24,11 @@
             <div id="header">
                <!-- dummy input is there to enforce loading of jquers the primefaces way-->
                  
-               
-                TODO: jORide Header &nbsp; #{HTTPUser.currentUser}
-
-
                 <!-- ***  stuff inside update alert section is for polling *** -->
                 <!-- **   and displaying  update messages in header        *** -->
 
                 <div id="updateAlert"> 
-                    
-                    
+                                        
                     <!-- as jquery has to be loaded via primefaces to avoid namespace conflicts -->
                     <!-- make sure to have primefaces ui namespace in the path!      -->              
                     <h:outputScript library="primefaces" name="jquery/jquery.js"      />
@@ -81,15 +76,10 @@
 
                 <!-- *** end of update alert stuff *** -->
 
-
-
-
+                <!-- show a login link, if user is not logged in -->
                 <h:form>      
                     <h:outputLink value="#{HTTPUser.getLoginURL()}">
                         #{HTTPUser.loginLabel}
-                    </h:outputLink>
-                    <h:outputLink value="#{HTTPUser.getLogoutURL()}">
-                        #{HTTPUser.logoutLabel}
                     </h:outputLink>
                 </h:form>
 
