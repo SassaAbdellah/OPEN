@@ -18,31 +18,34 @@
     </h:head>
 
     <h:body>   
-        <div id="heading">
-            <ui:insert name="heading">
-                <ui:include src="/sections/joride/header.xhtml"/>
-            </ui:insert>
-        </div>
+
+        <p:panel> <!-- have an empty panel surround everything, so primefaces theming applies -->
 
 
-        <div id="navbar1">
-            <ui:insert name="navbar1">
-                <ui:include src="/sections/joride/navbar1.xhtml"/>
-            </ui:insert>
-        </div>
+            <div id="navbar1">
+                <ui:insert name="navbar1">
+                    <ui:include src="/sections/joride/navbar1.xhtml"/>
+                </ui:insert>
+            </div>
+
+            <div id="heading">
+                <ui:insert name="heading">
+                    <ui:include src="/sections/joride/header.xhtml"/>
+                </ui:insert>
+            </div>
 
 
-        <div id="content">
-            <ui:insert name="content"/>
-        </div>
+            <div id="content">
+                <ui:insert name="content"/>
+            </div>
 
-        <div id="footer">
-            <ui:insert name="sidebarLeft">
-                <ui:include src="/sections/joride/footer.xhtml"/>
-            </ui:insert>
-        </div>
+            <div id="footer">
+                <ui:insert name="sidebarLeft">
+                    <ui:include src="/sections/joride/footer.xhtml"/>
+                </ui:insert>
+            </div>
 
-
+        </p:panel>
 
 
         <ui:debug/>
