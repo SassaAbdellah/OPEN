@@ -35,91 +35,94 @@
                 #{msgs.title}
             </ui:define>
 
-            <div id="navbar2">
-                <h:form>
-                    <p:menuButton value="TODO Navigation">
-                        <p:menuitem outcome="driver"                 value="#{msgs.nav1_rider_label}"  />  
-                        <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
-                        <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
-                            <f:param name="#{webflow.paramBack}"     value="driver" /> 
-                            <f:param name="#{webflow.paramFinish}"   value="driver" /> 
-                            <f:param name="#{webflow.paramCancel}"   value="driver" /> 
-                        </p:menuitem>
-                    </p:menuButton>
-                </h:form>
-            </div> <!-- (end of navbar2) -->
 
-            <!-- we have to use session scoped drive here to                          -->
-            <!-- circumvent problems with commandlinks insid ui:repeat or h:datatable -->
+            <ui:define name="content">
+                
+                <div id="navbar2">
+                    <h:form>
+                        <p:menuButton value="TODO Navigation">
+                            <p:menuitem outcome="driver"                 value="#{msgs.nav1_driver_label}"  />  
+                            <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
+                            <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
+                                <f:param name="#{webflow.paramBack}"     value="driver" /> 
+                                <f:param name="#{webflow.paramFinish}"   value="driver" /> 
+                                <f:param name="#{webflow.paramCancel}"   value="driver" /> 
+                            </p:menuitem>
+                        </p:menuButton>
+                    </h:form>
+                </div> <!-- (end of navbar2) -->
 
-            #{rscdriverride.update()}
+                <!-- we have to use session scoped drive here to                          -->
+                <!-- circumvent problems with commandlinks insid ui:repeat or h:datatable -->
 
-
-
-            <ui:repeat   value="#{rscdriverride.matches}" var="matching" >
-
-                <p>
-                    <table>
-                        <tr>
-                            <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
-                            <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                            <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
-                        </tr>
-
-                        <tr>
-                            <td> <span class="formLabel"> #{msgs.matchRiderName} </span> </td> 
-                            <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                            <td> <span class="formInput"> #{matching.ride.custId.custNickname} </span> </td> 
-                        </tr>
-
-                        <tr>
-                            <td> <span class="formLabel"> #{msgs.matchRidersGender}            </span> </td> 
-                            <td> <span class="formLabel"> &nbsp;:&nbsp;                         </span> </td>
-                            <td> <span class="formInput"> #{matching.riderGenderLabel}  </span> </td> 
-                        </tr>
-
-                        <tr>
-                            <td> <span class="formLabel"> #{msgs.matchRideId}         </span> </td> 
-                            <td> <span class="formLabel"> &nbsp;:&nbsp;               </span> </td>
-                            <td> <span class="formInput"> #{matching.ride.riderrouteId}  </span> </td> 
-                        </tr>
+                #{rscdriverride.update()}
 
 
 
+                <ui:repeat   value="#{rscdriverride.matches}" var="matching" >
+
+                    <p>
+                        <table>
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
+                            </tr>
+
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchRiderName} </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                <td> <span class="formInput"> #{matching.ride.custId.custNickname} </span> </td> 
+                            </tr>
+
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchRidersGender}            </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;                         </span> </td>
+                                <td> <span class="formInput"> #{matching.riderGenderLabel}  </span> </td> 
+                            </tr>
+
+                            <tr>
+                                <td> <span class="formLabel"> #{msgs.matchRideId}         </span> </td> 
+                                <td> <span class="formLabel"> &nbsp;:&nbsp;               </span> </td>
+                                <td> <span class="formInput"> #{matching.ride.riderrouteId}  </span> </td> 
+                            </tr>
 
 
-                        <tr>
-                            <td colspan="3">
-                                <span class="formLabel">
-                                    <h:form>
-                                        <h:commandLink action="driver.matchDisplay" value="#{msgs.matchMatchingRide}">
-                                            <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
-                                            <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
-
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                        </h:commandLink>
-                                    </h:form>
-                                </span>
-                            </td>
-                        </tr>
 
 
-                    </table>
+
+                            <tr>
+                                <td colspan="3">
+                                    <span class="formLabel">
+                                        <h:form>
+                                            <h:commandLink action="driver.matchDisplay" value="#{msgs.matchMatchingRide}">
+                                                <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
+                                                <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
+
+                                                <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
+                                                <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                            </h:commandLink>
+                                        </h:form>
+                                    </span>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </p>
+
+                </ui:repeat>
+
+
+
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
                 </p>
-
-            </ui:repeat>
-
-
-
-            <p> <!-- webflow stanza -->
-
-                #{webflow.smartUpdate()}
-
-                <h:form>
-                    <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
-                </h:form>
-            </p>
 
 
 
