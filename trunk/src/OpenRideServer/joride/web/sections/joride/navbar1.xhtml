@@ -21,12 +21,12 @@
         <ui:composition>
 
             <p:tabMenu activeIndex="#{jrtabindex}">             
-                <p:menuitem outcome="home"                    value="&nbsp;" title="#{msgs.nav1_home_label}"           icon="ui-icon-home"   />   
+                <p:menuitem outcome="home"                    value="&nbsp;" title="#{msgs.nav1_home_label}" icon="ui-icon-home"               />   
                 <p:tooltip  for="home"  />
-                <p:menuitem outcome="rider"                   value="#{msgs.nav1_rider_label}"          />    
-                <p:menuitem outcome="driver"                  value="#{msgs.nav1_driver_label}"         />    
-                <p:menuitem outcome="preferences"             value="#{msgs.nav1_preferences_label}"    icon="ui-icon-person" />  
-                <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="&nbsp;" title="#{msgs.nav1_logout}"          icon="ui-icon-logout"  id="logout" /> 
+                <p:menuitem outcome="rider"                   value="#{msgs.nav1_rider_label}"               icon="ui-icon-person"              />    
+                <p:menuitem outcome="driver"                  value="#{msgs.nav1_driver_label}"              icon="ui-icon-star"                />    
+                <p:menuitem outcome="preferences"             value="#{msgs.nav1_preferences_label}"         icon="ui-icon-wrench"              />  
+                <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="&nbsp;" title="#{msgs.nav1_logout}"     icon="ui-icon-logout"  id="logout" /> 
                 <p:tooltip  for="logout" />
             </p:tabMenu>
 

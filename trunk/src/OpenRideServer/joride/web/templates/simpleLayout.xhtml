@@ -16,6 +16,10 @@
     </h:head>
 
     <h:body>   
+                
+        <p:panel> <!-- have an empty panel surround everything, so primefaces theming applies -->
+
+        
         <div id="heading">
             <ui:insert name="heading">
                 <ui:include src="/sections/joride/header.xhtml"/>
@@ -33,9 +37,9 @@
             </ui:insert>
         </div>
 
-
-
-
+        </p:panel>  <!-- end of overall panel -->
+        
+        
         <ui:debug/>
     </h:body>
 </html>
