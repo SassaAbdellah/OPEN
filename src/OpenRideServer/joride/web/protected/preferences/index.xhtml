@@ -29,7 +29,17 @@
 
             <ui:define name="content">
 
-
+                <div id="navbar1">
+                    <h:form>
+                        <p:menuButton value="TODO Navigation">
+                            <p:menuitem outcome="preferences"                    value="#{msgs.nav1_preferences_label}"            /> 
+                            <p:menuitem outcome="preferences.personalData"       value="#{msgs.nav1_pref_personalData_label}"      /> 
+                            <p:menuitem outcome="preferences.riderPreferences"   value="#{msgs.nav1_pref_riderPreferences_label}"  /> 
+                            <p:menuitem outcome="preferences.driverPreferences"  value="#{msgs.nav1_pref_driverPreferences_label}" /> 
+                            <p:menuitem outcome="preferences.favoritePlaces"     value="#{msgs.nav1_pref_favoritePlaces_label}"    /> 
+                        </p:menuButton>
+                    </h:form>
+                </div>
 
 
                 <p> 
@@ -46,14 +56,14 @@
 
                         <p:growl id="messages" />  
 
-                     
-                            <p:commandLink 
-                                id="showDialogButton" 
-                                value="#{msgs.custRemoveAccountLabel}" 
-                                onclick="confirmation.show()" 
-                               
-                                />  
-                    
+
+                        <p:commandLink 
+                            id="showDialogButton" 
+                            value="#{msgs.custRemoveAccountLabel}" 
+                            onclick="confirmation.show()" 
+
+                            />  
+
 
                         <p:confirmDialog 
                             id="confirmDialog" 
@@ -70,8 +80,8 @@
                                 oncomplete="confirmation.hide()"  
                                 actionListener="#{jprofile.invalidate(evt)}" 
                                 />  
-                            
-                            
+
+
                             <p:commandButton 
                                 id="decline" 
                                 value="#{msgs.custRemoveAccountDissaprove}" 
@@ -120,9 +130,6 @@
                         #{msgs.nav1_pref_favoritePlaces_desc}  
                     </h:form>
                 </p> 
-
-
-
 
 
             </ui:define>
