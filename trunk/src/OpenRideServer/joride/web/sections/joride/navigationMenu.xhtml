@@ -24,12 +24,30 @@
 
             <h:form> <!-- slidemenu with popup button -->
 
-                <p:commandButton 
-                    id="dynaButton" 
-                    value="#{msgs.nav1_navigation}" 
-                    type="button" 
-                    icon="ui-icon-transferthick-e-w"
-                    />  
+                <p:toolbar>  
+                    <p:toolbarGroup align="left">  
+                        <p:commandButton 
+                            id="dynaButton" 
+                            value="#{msgs.nav1_navigation}" 
+                            type="button" 
+                            icon="ui-icon-transferthick-e-w"
+                            />  
+                    </p:toolbarGroup>
+                    
+                    
+                    
+                    <!-- logout button to the very right -->
+                    <p:toolbarGroup align="right">  
+                        <p:commandButton 
+                            id="logoutButton" 
+                            value="#{msgs.nav1_logout}" 
+                            url="#{HTTPUser.getLogoutURL()}" 
+                            type="button" 
+                            icon="ui-icon-poweroff"
+                            />  
+                    </p:toolbarGroup>
+                    
+                </p:toolbar>
 
                 <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:180px">  
 
