@@ -1,13 +1,19 @@
 package de.avci.joride.session;
 
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  * A simplistic bean allowing access to HTTPAuthData
@@ -107,7 +113,26 @@ public class HTTPUser implements Serializable {
             return urlBase+urlLogout;
     } 
      
+      
+      
     
+      /** Invalidate Session, then forward to "loggedOutURL"
+       * 
+       * @return 
+       */
+    public String logOut(){
+    
+        HTTPUtil hpu=new HTTPUtil();
+        HttpSession session=hpu.getHTTPServletRequest().getSession();
+        session.invalidate();
+        try { hpu.getHTTPServletResponse().sendRedirect(getLoggedOutURL());
+        } catch (IOException exc) {
+            throw new Error("Unexpected Error", exc);
+        }
+        
+        return "logout";
+       
+    }
     
      
     

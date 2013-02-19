@@ -6,6 +6,7 @@ package de.avci.joride.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 
 /** Access to the HTTPServletRequest and some functions therein
@@ -18,7 +19,7 @@ import javax.faces.context.FacesContext;
  *
  * @author jochen
  */
-public class HTTPRequestUtil {
+public class HTTPUtil {
     
     
     
@@ -35,6 +36,27 @@ public class HTTPRequestUtil {
                 return null;
             }   
     }
+    
+    
+        /** 
+     * @return the HTTPServletRequest, or null if it can not be accessed 
+     */
+    public HttpServletResponse getHTTPServletResponse(){
+    
+        Object response = FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            if(response instanceof HttpServletResponse) {
+            return ((HttpServletResponse) response);
+            }else {
+                
+                return null;
+            }   
+    }
+    
+    
+    
+    
+    
+    
     
     
     /** Get Access to the HTTPAuth Principal's name.

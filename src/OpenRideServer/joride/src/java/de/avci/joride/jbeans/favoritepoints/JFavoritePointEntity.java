@@ -5,7 +5,7 @@
 package de.avci.joride.jbeans.favoritepoints;
 
 import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PostGISPointUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.FavoritePointEntity;
@@ -39,7 +39,7 @@ public class JFavoritePointEntity extends FavoritePointEntity {
 
     public void doCrudAction(ActionEvent evt) {
 
-        HTTPRequestUtil hru = new HTTPRequestUtil();
+        HTTPUtil hru = new HTTPUtil();
 
         System.out.println("doCrudAction Event : " + evt.toString());
 
@@ -89,7 +89,7 @@ public class JFavoritePointEntity extends FavoritePointEntity {
 
         int favpointId = 0;
 
-        String favpointIdStr = (new HTTPRequestUtil()).getParameterSingleValue(CRUDConstants.PARAM_NAME_CRUD_ID);
+        String favpointIdStr = (new HTTPUtil()).getParameterSingleValue(CRUDConstants.PARAM_NAME_CRUD_ID);
         favpointId = (new Integer(favpointIdStr)).intValue();
 
         System.err.println("============ Loading Favpoint :" + favpointId + " ");

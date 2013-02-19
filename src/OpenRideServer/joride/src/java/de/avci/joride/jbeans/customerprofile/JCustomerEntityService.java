@@ -4,7 +4,7 @@
  */
 package de.avci.joride.jbeans.customerprofile;
 
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +56,7 @@ public class JCustomerEntityService {
         // SecurityMeasure: ensure that the userName is equal to
         // the AuthPrincipal of the Request
 
-        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+        String userName = (new HTTPUtil()).getUserPrincipalName();
 
 
         CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
@@ -119,7 +119,7 @@ public class JCustomerEntityService {
 
         // check that nickname of argument bean is equal 
         // to http-request's user name
-        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+        String userName = (new HTTPUtil()).getUserPrincipalName();
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
@@ -188,7 +188,7 @@ public class JCustomerEntityService {
 
         // check that nickname of argument bean is equal 
         // to http-request's user name
-        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+        String userName = (new HTTPUtil()).getUserPrincipalName();
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
@@ -239,7 +239,7 @@ public class JCustomerEntityService {
 
         // check that nickname of argument bean is equal 
         // to http-request's user name
-        String userName = (new HTTPRequestUtil()).getUserPrincipalName();
+        String userName = (new HTTPUtil()).getUserPrincipalName();
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";

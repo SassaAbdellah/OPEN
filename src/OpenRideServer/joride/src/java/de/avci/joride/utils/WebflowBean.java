@@ -133,7 +133,7 @@ public class WebflowBean  implements Serializable {
      */
     public void smartUpdate(){
     
-        HTTPRequestUtil hru=new HTTPRequestUtil();
+        HTTPUtil hru=new HTTPUtil();
         
         String vBack=hru.getParameterSingleValue(getParamBack());
         if(vBack!=null){

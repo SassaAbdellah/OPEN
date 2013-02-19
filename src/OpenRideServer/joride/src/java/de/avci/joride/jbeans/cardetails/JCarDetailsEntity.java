@@ -7,7 +7,7 @@ package de.avci.joride.jbeans.cardetails;
 
 
 import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CarDetailsEntity;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -73,7 +73,7 @@ public class JCarDetailsEntity extends CarDetailsEntity {
     
      public void doCrudAction(ActionEvent evt){
     
-        HTTPRequestUtil hru=new HTTPRequestUtil(); 
+        HTTPUtil hru=new HTTPUtil(); 
          
         System.out.println("doCrudAction Event : "+evt.toString());
         
@@ -112,7 +112,7 @@ public class JCarDetailsEntity extends CarDetailsEntity {
                 
           int cardetID=0;
           
-          String cardetIdStr=(new HTTPRequestUtil()).getParameterSingleValue(CRUDConstants.PARAM_NAME_CRUD_ID);
+          String cardetIdStr=(new HTTPUtil()).getParameterSingleValue(CRUDConstants.PARAM_NAME_CRUD_ID);
           int cardetId=(new Integer(cardetIdStr)).intValue();
           
           System.err.println("============ Loading Cardet :"+cardetId+" ");
