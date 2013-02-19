@@ -35,20 +35,31 @@
 
             <ui:define name="content">
 
+                <ul>
+                    <!-- show a login link only if user is not logged in -->
+                    <li>
+                        <h:form rendered="#{!HTTPUser.loggedIn}">      
+                            <h:outputLink value="#{HTTPUser.getLoginURL()}">
+                                #{HTTPUser.loginLabel}
+                            </h:outputLink>
+                        </h:form>
+                    </li>
 
-                <h:form>
-                    <ul>
-                        <li> 
+                    <li> 
+                        <h:form>
                             <h:commandLink value="#{msgs.registrationRegisterNewAccount}" action="registration" />
-                        </li>
+                        </h:form>
+                    </li>
 
-                        <li>  
+                    <li>  
+                        <h:form>
                             <h:commandLink value="#{msgs.resetPassword}" action="resetPassword" />
-                        </li>
+                        </h:form>
+                    </li>
+                </ul>
 
-                    </ul>
 
-                </h:form>
+
 
             </ui:define>
 
