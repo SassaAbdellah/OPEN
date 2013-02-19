@@ -18,11 +18,19 @@
 
 
 
-        <!--  trivial placeholder for slidemenu in joride-public -->
+        <!--  navigation in joride-public is now done with normal links -->
 
         <ui:composition>
 
-           <!-- no slide menu for joride public  -->
+                <h:form>      
+                    <h:outputLink value="#{HTTPUser.getLoginURL()}">
+                        #{HTTPUser.loginLabel}
+                    </h:outputLink>
+                    |
+                    <h:commandLink value="#{msgs.registrationRegisterNewAccount}" action="registration" />
+                    |
+                    <h:commandLink value="#{msgs.resetPassword}" action="resetPassword" />
+                </h:form>
 
         </ui:composition>
 
