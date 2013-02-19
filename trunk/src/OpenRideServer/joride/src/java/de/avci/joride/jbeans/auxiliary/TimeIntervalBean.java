@@ -5,7 +5,7 @@
 package de.avci.joride.jbeans.auxiliary;
 
 import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -124,7 +124,7 @@ public class TimeIntervalBean implements Serializable {
     public void smartUpdate() {
 
 
-        HTTPRequestUtil utils = new HTTPRequestUtil();
+        HTTPUtil utils = new HTTPUtil();
         String startDateStr = utils.getParameterSingleValue(getParamStartDate());
         String endDateStr = utils.getParameterSingleValue(getParamEndDate());
 

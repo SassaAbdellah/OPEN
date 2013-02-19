@@ -8,7 +8,7 @@ import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import java.awt.event.ActionEvent;
@@ -348,7 +348,7 @@ public class JMatchingEntity implements Serializable {
      */
     public void smartUpdate() {
 
-        HTTPRequestUtil hru = new HTTPRequestUtil();
+        HTTPUtil hru = new HTTPUtil();
         String rideIdStr = hru.getParameterSingleValue(PARAM_NAME_rideId);
         Integer rideIdArg = new Integer(rideIdStr);
 

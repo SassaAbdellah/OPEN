@@ -205,7 +205,7 @@ public class WebflowPoint implements Serializable {
      */
     public void smartUpdate() {
 
-        HTTPRequestUtil hru = new HTTPRequestUtil();
+        HTTPUtil hru = new HTTPUtil();
         
         
           

@@ -8,7 +8,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -161,7 +161,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      */
     public void update() {
 
-        String idStr = (new HTTPRequestUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
+        String idStr = (new HTTPUtil()).getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
 
         int id = 0;
 
@@ -503,7 +503,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
     public void doCrudAction(ActionEvent evt) {
 
-        HTTPRequestUtil hru = new HTTPRequestUtil();
+        HTTPUtil hru = new HTTPUtil();
 
         System.out.println("doCrudAction Event : " + evt.toString());
 

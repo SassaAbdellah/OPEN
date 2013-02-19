@@ -7,7 +7,7 @@ package de.avci.joride.jbeans.cardetails;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPRequestUtil;
+import de.avci.joride.utils.HTTPUtil;
 
 import de.fhg.fokus.openride.customerprofile.CarDetailsControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CarDetailsEntity;
