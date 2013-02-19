@@ -31,19 +31,6 @@
 
             <ui:define name="content">
 
-                <div id="navbar2">
-                    <h:form>
-                        <p:menuButton value="TODO Navigation">
-                            <p:menuitem outcome="driver"                 value="#{msgs.nav1_driver_label}"  />  
-                            <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
-                            <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
-                                <f:param name="#{webflow.paramBack}"     value="driver" /> 
-                                <f:param name="#{webflow.paramFinish}"   value="driver" /> 
-                                <f:param name="#{webflow.paramCancel}"   value="driver" /> 
-                            </p:menuitem>
-                        </p:menuButton>
-                    </h:form>
-                </div> <!-- (end of navbar2) -->
 
                 <!-- List of future offers for this driver -->
 
