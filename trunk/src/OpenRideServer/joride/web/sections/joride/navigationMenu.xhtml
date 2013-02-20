@@ -38,12 +38,14 @@
 
                     <!-- logout button to the very right -->
                     <p:toolbarGroup align="right">  
-                    
+
                         <p:splitButton value="#{HTTPUser.currentUser}" icon="ui-icon-gear" >
-                              <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="#{msgs.nav1_logout}" icon="ui-icon-power" /> 
+                     
+                            <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="#{msgs.nav1_logout}" icon="ui-icon-power" /> 
+
                         </p:splitButton>
-                        
-                        
+
+
                     </p:toolbarGroup>
 
                 </p:toolbar>
@@ -55,7 +57,6 @@
 
                     <!-- Rider Submenu -->
                     <p:submenu label="#{msgs.nav1_rider_label}" icon="ui-icon-suitcase">
-
                         <p:menuitem outcome="rider"                    value="#{msgs.nav1_rider_label}"     />    
                         <p:menuitem outcome="rider.previousRequests"   value="#{msgs.ridePreviousRequests}"  />    
                         <p:menuitem  outcome="rider.rideCreate"         value="#{msgs.rideNewRequest}"  >  
@@ -63,12 +64,10 @@
                             <f:param name="#{webflow.paramFinish}"  value="rider" /> 
                             <f:param name="#{webflow.paramCancel}"  value="rider" /> 
                         </p:menuitem>
-
                     </p:submenu>
 
                     <!-- Driver Submenu -->
                     <p:submenu  label="#{msgs.nav1_driver_label}" icon="ui-icon-person">
-
                         <p:menuitem outcome="driver"                 value="#{msgs.nav1_driver_label}"  />  
                         <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
                         <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
@@ -89,12 +88,14 @@
 
 
                     <p:spacer/>
-
                     <p:menuitem outcome="preferences"  value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" /> 
 
                     <p:spacer/>
-
+                    <p:menuitem outcome="contact" value="#{msgs.contactSendEmail}" icon="ui-icon-mail-closed"/>
+                
+                    <p:spacer/>
                     <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="#{msgs.nav1_logout}" icon="ui-icon-power" /> 
+  
                 </p:slideMenu>
 
             </h:form> <!--  end of slidemenu stanza -->
