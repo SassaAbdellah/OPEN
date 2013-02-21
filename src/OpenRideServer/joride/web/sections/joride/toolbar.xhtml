@@ -40,8 +40,48 @@
                     <p:toolbarGroup align="right">  
 
                         <p:splitButton value="#{HTTPUser.currentUser}" icon="ui-icon-gear" >
-                     
-                            <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="#{msgs.nav1_logout}" icon="ui-icon-power" /> 
+
+
+                            <p:menuitem 
+                                action="rider"
+                                value="#{msgs.nav1_rider_active}"  
+                                ajax="false"
+                                icon="ui-icon-suitcase"
+                                />    
+
+
+                            <p:menuitem 
+                                action="rider.rideCreate"        
+                                value="#{msgs.rideNewRequest}" 
+                                ajax="false"
+                                icon="ui-icon-newwin"
+                                /> 
+
+                            <p:spacer />    
+
+                            <p:menuitem 
+                                action="driver"              
+                                value="#{msgs.nav1_driver_active}" 
+                                ajax="false"
+                                icon="ui-icon-person"
+                                />  
+
+                            <p:menuitem 
+                                action="driver.driveCreate"    
+                                value="#{msgs.rideNewDrive}"
+                                ajax="false"
+                                icon="ui-icon-newwin"
+                                />  
+
+                            <p:spacer />    
+
+
+                            <p:menuitem 
+                                url="#{HTTPUser.getLogoutURL()}"  
+                                value="#{msgs.nav1_logout}"       
+                                icon="ui-icon-power"
+                                /> 
+                            
 
                         </p:splitButton>
 
@@ -57,8 +97,7 @@
 
                     <!-- Rider Submenu -->
                     <p:submenu label="#{msgs.nav1_rider_label}" icon="ui-icon-suitcase">
-                        <p:menuitem outcome="rider"                    value="#{msgs.nav1_rider_label}"     />    
-                        <p:menuitem outcome="rider.previousRequests"   value="#{msgs.ridePreviousRequests}"  />    
+                        <p:menuitem outcome="rider"                    value="#{msgs.nav1_rider_active}"     />    
                         <p:menuitem  outcome="rider.rideCreate"         value="#{msgs.rideNewRequest}"  >  
                             <f:param name="#{webflow.paramBack}"    value="rider" /> 
                             <f:param name="#{webflow.paramFinish}"  value="rider" /> 
@@ -68,13 +107,17 @@
 
                     <!-- Driver Submenu -->
                     <p:submenu  label="#{msgs.nav1_driver_label}" icon="ui-icon-person">
-                        <p:menuitem outcome="driver"                 value="#{msgs.nav1_driver_label}"  />  
-                        <p:menuitem outcome="driver.previousDrives"  value="#{msgs.ridePreviousDrives}"  />    
+                        <p:menuitem outcome="driver"                 value="#{msgs.nav1_driver_active}"  />  
                         <p:menuitem outcome="driver.driveCreate"     value="#{msgs.rideNewDrive}">  
                             <f:param name="#{webflow.paramBack}"     value="driver" /> 
                             <f:param name="#{webflow.paramFinish}"   value="driver" /> 
                             <f:param name="#{webflow.paramCancel}"   value="driver" /> 
                         </p:menuitem>
+                    </p:submenu>
+
+                    <p:submenu  label="#{msgs.searchSubMenu}" icon="ui-icon-search">
+                        <p:menuitem outcome="search.requests"   value="#{msgs.rideSearchRequests}" icon="ui-icon-suitcase" />    
+                        <p:menuitem outcome="search.drives"  value="#{msgs.rideSearchDrives}" icon="ui-icon-person"  />         
                     </p:submenu>
 
                     <!-- preferences submenu  -->
@@ -91,11 +134,11 @@
                     <p:menuitem outcome="preferences"  value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" /> 
 
                     <p:spacer/>
-                    <p:menuitem outcome="contact" value="#{msgs.contactSendEmail}" icon="ui-icon-mail-closed"/>
-                
+                    <p:menuitem outcome="contact" value="#{msgs.contact}" icon="ui-icon-mail-closed"/>
+
                     <p:spacer/>
                     <p:menuitem url="#{HTTPUser.getLogoutURL()}"  value="#{msgs.nav1_logout}" icon="ui-icon-power" /> 
-  
+
                 </p:slideMenu>
 
             </h:form> <!--  end of slidemenu stanza -->
