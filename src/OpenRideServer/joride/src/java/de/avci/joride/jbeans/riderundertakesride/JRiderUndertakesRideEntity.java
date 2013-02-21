@@ -800,8 +800,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         String beanName=rspb0.getBeanNameRidesearchparam();
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
-        if(rspb==null){
-            
+        if(rspb==null){  
             System.err.println(this.getClass()+"RideSearchParamsBean is null, returning empty list");
             return new LinkedList <JRiderUndertakesRideEntity> ();
         }
@@ -809,9 +808,23 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         
         String reportType=rspb.getSearchType();
         
+        // see if we want to see **all** rides
         if(this.getParamValueRidereportAllRidesForRider().equals(reportType)){
             return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
         } 
+        
+         // see if we want to see **realized** rides only
+        if(this.getParamValueRidereportRealizedRidesForRider().equals(reportType)){
+            return (new JRiderUndertakesRideEntityService()).getRealizedRidesForRiderInInterval();
+        } 
+        
+          // see if we want to see **unrated** rides only
+        if(this.getParamValueRidereportUnratedRidesForRider().equals(reportType)){
+            return (new JRiderUndertakesRideEntityService()).getUnratedRidesForRiderInInterval();
+        } 
+        
+        
+        
         
         // if the parameter is not supported, then throw a new Error
         throw new Error("Parameter "+reportType+" is  not supported in getRideReport()");

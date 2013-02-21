@@ -118,13 +118,6 @@ public class JRiderUndertakesRideEntityService {
      */
     public List<JRiderUndertakesRideEntity> getRidesForRiderInInterval() {
 
-
-
-
-     
-   
-         
-
         CustomerEntity ce = this.getCustomerEntity();
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
@@ -142,10 +135,7 @@ public class JRiderUndertakesRideEntityService {
         String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
-
-
         System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
-
 
 
         // get all rides related to this customer
@@ -167,9 +157,117 @@ public class JRiderUndertakesRideEntityService {
         }
 
         return res;
+        
+    } // getRidesForRiderInInterval
 
+    
+    
+
+    /**
+     * Get a list of all **realized** rides for the actual Rider in between startdate and an
+     * enddate
+     *
+     * StartDate and EndDate are read in from http parameters using
+     * TimeIntervalBean
+     *
+     *
+     * @return
+     */
+    public List<JRiderUndertakesRideEntity> getRealizedRidesForRiderInInterval() {
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customerNickname is null");
+        }
+
+
+        // retrieve startDateAndEndDate
+        
+        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+
+        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
+
+        // get all rides related to this customer
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getRealizedRidesForRider(
+                ce,
+                tb.getStartDate(),
+                tb.getEndDate());
+
+        // cast them to JRiderUntertakesRideEntity
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+
+            res.add(jrure);
+        }
+
+        return res;
+        
+    } // getRealizedRidesForRiderInInterval
+    
+    public List<JRiderUndertakesRideEntity> getUnratedRidesForRiderInInterval() {
+       
+        
+                CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customerNickname is null");
+        }
+
+
+        // retrieve startDateAndEndDate
+        
+        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+
+        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
+
+        // get all rides related to this customer
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getUnratedRidesForRider(
+                ce,
+                tb.getStartDate(),
+                tb.getEndDate());
+
+        // cast them to JRiderUntertakesRideEntity
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+
+            res.add(jrure);
+        }
+
+        return res;
+        
+        
+        
     }
 
+
+    
+    
+    
     /**
      * Savely get the Ride with given riderRouteId.
      *
@@ -469,6 +567,9 @@ public class JRiderUndertakesRideEntityService {
 
         return true;
     }
+
+   
+  
     
     
     

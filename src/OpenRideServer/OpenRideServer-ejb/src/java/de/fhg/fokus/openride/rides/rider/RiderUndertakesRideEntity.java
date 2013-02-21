@@ -1,31 +1,30 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package de.fhg.fokus.openride.rides.rider;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -80,43 +79,40 @@ import org.postgis.Point;
     @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookings", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsAfterDate", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL AND r.starttimeEarliest >= :startDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsBetweenDates", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE (r.rideId IS NOT NULL) AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
-
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.givenrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutReceivedRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesBetweenDatesforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)") ,
-
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesBetweenDatesforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutReceivedRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.receivedrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-
     @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NOT NULL ORDER BY r.receivedratingDate DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NOT NULL ORDER BY r.givenratingDate DESC"),
-
     @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 1 AND r.receivedratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 0 AND r.receivedratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = -1 AND r.receivedratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider", query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
-
     @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 1 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 0 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = -1 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
-    
-    
-    // TODO: replace starttime first with timestamprealized
-    // find rider's realized rides between startDate and endDate
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId ")
-
+    // ride searches used by joride reporting
+    // get all rides for rider, regardless wether realized or not
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
+    // get all rides for rider that have been realized
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized > :startDate AND r.timestamprealized < :endDate AND r.custId = :custId "),
+    // get all rides for rider which have not yet been realized
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized > :startDate AND r.timestamprealized < :endDate AND r.custId = :custId  AND r.givenrating is NULL")
 })
-@Converter(name="convert", converterClass=PointConverter.class)
+@Converter(name = "convert", converterClass = PointConverter.class)
 public class RiderUndertakesRideEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "riderroute_id")
     private Integer riderrouteId;
     @Column(name = "givenrating")
@@ -158,8 +154,8 @@ public class RiderUndertakesRideEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date starttimeEarliest;
     /*@JoinColumn(name = "account_timestamp", referencedColumnName = "account_timestamp")
-    @ManyToOne
-    private AccountHistoryEntity accountHistoryEntity;*/
+     @ManyToOne
+     private AccountHistoryEntity accountHistoryEntity;*/
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id", insertable = true, updatable = true)
     @ManyToOne(optional = false)
     private CustomerEntity custId;
@@ -176,8 +172,6 @@ public class RiderUndertakesRideEntity implements Serializable {
     public RiderUndertakesRideEntity() {
     }
 
-
-
     public RiderUndertakesRideEntity(CustomerEntity cust_id, Date starttimeEarliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price) {
         this.custId = cust_id;
         this.starttimeEarliest = starttimeEarliest;
@@ -191,7 +185,6 @@ public class RiderUndertakesRideEntity implements Serializable {
     public RiderUndertakesRideEntity(Integer riderrouteId) {
         this.riderrouteId = riderrouteId;
     }
-
 
     public void setEndptAddress(String endptAddress) {
         this.endptAddress = endptAddress;
@@ -328,15 +321,16 @@ public class RiderUndertakesRideEntity implements Serializable {
     public void setStarttimeEarliest(Date starttimeEarliest) {
         this.starttimeEarliest = starttimeEarliest;
     }
-/*
-    public AccountHistoryEntity getAccountHistoryEntity() {
-        return accountHistoryEntity;
-    }
+    /*
+     public AccountHistoryEntity getAccountHistoryEntity() {
+     return accountHistoryEntity;
+     }
 
-    public void setAccountHistoryEntity(AccountHistoryEntity accountHistoryEntity) {
-        this.accountHistoryEntity = accountHistoryEntity;
-    }
-*/
+     public void setAccountHistoryEntity(AccountHistoryEntity accountHistoryEntity) {
+     this.accountHistoryEntity = accountHistoryEntity;
+     }
+     */
+
     public CustomerEntity getCustId() {
         return custId;
     }
@@ -385,5 +379,4 @@ public class RiderUndertakesRideEntity implements Serializable {
     public String toString() {
         return "de.fhg.fokus.openride.rides.driver.RiderUndertakesRideEntity[riderrouteId=" + riderrouteId + "]";
     }
-
 }
