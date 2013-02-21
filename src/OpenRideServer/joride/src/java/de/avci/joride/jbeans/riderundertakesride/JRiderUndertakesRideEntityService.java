@@ -139,7 +139,7 @@ public class JRiderUndertakesRideEntityService {
 
         // retrieve startDateAndEndDate
         
-        String param=new RideSearchParamsBean().getParamNameRidesearchparam();
+        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
 
