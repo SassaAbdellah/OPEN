@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -23,10 +22,27 @@ import javax.inject.Named;
  *
  * @author jochen
  */
-@Named("timeinterval")
+@Named("ridesearchparams")
 @SessionScoped
-public class TimeIntervalBean implements Serializable {
+public class RideSearchParamsBean implements Serializable {
 
+    /**
+     * Bean Name under which parameters for searching rides are known to the JSF
+     * Apparatus.
+     *
+     */
+    private static final String PARAM_NAME_RIDESEARPARAM = "ridesearchparams";
+    
+    /**
+     *  make PARAM_NAME_RIDESEARPARAM  availlable as a JSF Bean property
+     */
+    public String getParamNameRidesearchparam(){
+        return this.PARAM_NAME_RIDESEARPARAM;
+    }
+    
+    
+    
+    
     Logger log = Logger.getLogger("" + this.getClass());
     /**
      * Maximal timespan in days a user can search.
@@ -60,6 +76,7 @@ public class TimeIntervalBean implements Serializable {
     protected Date startDate = new Date();
 
     public void setStartDate(Date date) {
+        System.err.println("" + this.getClass() + " setting start date " + date);
         this.startDate = date;
     }
 
@@ -73,6 +90,7 @@ public class TimeIntervalBean implements Serializable {
     protected Date endDate = new Date();
 
     public void setEndDate(Date date) {
+        System.err.println("" + this.getClass() + " setting end date " + date);
         this.endDate = date;
     }
 
@@ -117,6 +135,30 @@ public class TimeIntervalBean implements Serializable {
     public String getParamEndDate() {
         return this.PARAM_NAME_END_DATE;
     }
+    /**
+     * A String determining the type of search to be executed
+     *
+     */
+    private String searchType = null;
+
+    public String getSearchType() {
+        return this.searchType;
+    }
+
+    public void setSearchType(String arg) {
+        this.searchType = arg;
+    }
+    /**
+     * Name of the Parameter to transport the search type
+     */
+    protected String PARAM_NAME_SEARCH_TYPE = "SEARCH_TYPE";
+
+    /**
+     * Make PARAM_NAME_SEARCH_TYPE availlable to JSF Beans
+     */
+    public String getParamNameSearchType() {
+        return PARAM_NAME_SEARCH_TYPE;
+    }
 
     /**
      * Update this Object from HTTP Parameters (if HTTP Parameters are present)
@@ -127,10 +169,10 @@ public class TimeIntervalBean implements Serializable {
         HTTPUtil utils = new HTTPUtil();
         String startDateStr = utils.getParameterSingleValue(getParamStartDate());
         String endDateStr = utils.getParameterSingleValue(getParamEndDate());
+        this.searchType = utils.getParameterSingleValue(getParamNameSearchType());
 
 
-
-        System.err.println("this.getClass smartUpdate start " + startDateStr + " end " + endDateStr);
+        log.fine("" + this.getClass() + "smartUpdate start " + startDateStr + " end " + endDateStr + " searchType " + getSearchType());
 
 
 
@@ -165,19 +207,44 @@ public class TimeIntervalBean implements Serializable {
     } // smartUpdate  
 
     /**
-     * Programmatocally retrieve TimeInterval from Faces Context please note,
+     * Checks if time interval specified in this object is within allowd bounds
+     * defined by {@link getMaxIntervalDays}
+     *
+     *
+     *
+     * @return true if number of days specified in this object does not exceed
+     * allowed interval, else false
+     *
+     */
+    public boolean isInAllowedMaxTimespan() {
+
+
+        long maxIntervalMillis = (1000 * 60 * 60 * 24 * this.getMaxIntervalDays());
+        long intervalLength = (endDate.getTime()) - (startDate.getTime());
+
+        if (intervalLength > maxIntervalMillis) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Programmatically retrieve TimeInterval from Faces Context please note,
      * this is a workaround in case neither injection nor actionListening is an
      * option.
      *
      * @param beanName name of the Bean (e.g: time Interval)
      * @return
      */
-    public TimeIntervalBean retrieveCurrentTimeInterval(String beanName) {
+    public RideSearchParamsBean retrieveCurrentTimeInterval(String beanName) {
+
+        System.err.println("" + this.getClass() + " retrieveCurrentTimeInterval(" + beanName + ")");
 
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             Object o = context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", this.getClass());
-            TimeIntervalBean res = (TimeIntervalBean) o;
+            RideSearchParamsBean res = (RideSearchParamsBean) o;
             return res;
         } catch (Exception exc) {
             throw new Error("Unexpected Error while retrieving time interval named " + beanName, exc);

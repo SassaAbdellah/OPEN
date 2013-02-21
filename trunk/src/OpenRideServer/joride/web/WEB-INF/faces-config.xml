@@ -149,14 +149,7 @@
     </navigation-rule>
     
     
-    <!-- page to display rides in the paast -->
-    <navigation-rule>
-        <navigation-case>
-            <from-outcome> rider.previousRequests </from-outcome>
-            <to-view-id>/faces/protected/rider/ridePreviousRequests.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    
+  
     
     <!-- page to display rides in the paast -->
     <navigation-rule>
@@ -176,13 +169,7 @@
     
     
     
-    <!-- page to display results of searches for rides in the past -->
-    <navigation-rule>
-        <navigation-case>
-            <from-outcome>rider.previousRequestsDisplay</from-outcome>
-            <to-view-id>/faces/protected/rider/ridePreviousRequestsDisplay.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+
    
 
 
@@ -262,18 +249,44 @@
 
 
    
+   
+   
+   
+   <!-- ********************************************* -->
+   <!-- *******   Search Navigation Cases     ******* -->
+   <!-- ********************************************* -->
 
+    <!-- page to display rides in the paast -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome> search.requests </from-outcome>
+            <to-view-id>/faces/protected/search/searchRequests.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <!-- page to display results of searches for rides in the past -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>search.requestsDisplay</from-outcome>
+            <to-view-id>/faces/protected/search/searchRequestsDisplay.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 
        
     <!-- page to launch searches for rides in the past -->
     <navigation-rule>
         <navigation-case>
-            <from-outcome> driver.previousDrives </from-outcome>
-            <to-view-id>/faces/protected/driver/previousDrives.xhtml</to-view-id>
+            <from-outcome> search.drives </from-outcome>
+            <to-view-id>/faces/protected/search/searchDrives.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
    
-   
+     
+   <!-- ********************************************* -->
+   <!-- ***  End of Search Navigation Cases     ***** -->
+   <!-- ********************************************* -->
     
    
    
@@ -500,21 +513,7 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
     
-  
- 
-           
-        
- 
-        
-           
-   
-        
-
-        
-            
-                
-                        
-        
+                    
         
     <!-- ****** Bean for ***exisisting*** offers (JDriverUndertakesRideEntity) , request scoped   ****** -->
     <!-- ****** Note that there is also a bean for *new* offers, which is session scoped          ******-->

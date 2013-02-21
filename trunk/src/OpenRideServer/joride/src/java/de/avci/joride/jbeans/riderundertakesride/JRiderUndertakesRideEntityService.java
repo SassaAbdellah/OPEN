@@ -4,17 +4,15 @@
  */
 package de.avci.joride.jbeans.riderundertakesride;
 
-import de.avci.joride.jbeans.auxiliary.TimeIntervalBean;
+import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.bean.ManagedProperty;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 public class JRiderUndertakesRideEntityService {
 
     Logger log = Logger.getLogger("" + this.getClass());
+    
+    
+    
+  
+    
+    
+    
 
     /**
      * Get a customerEntity from the current request
@@ -116,13 +121,9 @@ public class JRiderUndertakesRideEntityService {
 
 
 
-        /* TODO: temporarily disabled 
-         long maxIntervalMillis = (1000 * 60 * 60 * 24 * tb.getMaxIntervalDays());
-         long intervalLength = (endDate.getTime()) - (startDate.getTime());
-         if(intervalLength>maxIntervalMillis) {
-         throw new Error("Requested interval length exceeds the allowed "+tb.getMaxIntervalDays()+" days!");
-         }
-         */
+     
+   
+         
 
         CustomerEntity ce = this.getCustomerEntity();
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
@@ -137,8 +138,9 @@ public class JRiderUndertakesRideEntityService {
 
 
         // retrieve startDateAndEndDate
-
-        TimeIntervalBean tb = new TimeIntervalBean().retrieveCurrentTimeInterval("timeinterval");
+        
+        String param=new RideSearchParamsBean().getParamNameRidesearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
 
 
@@ -467,4 +469,16 @@ public class JRiderUndertakesRideEntityService {
 
         return true;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 } // class

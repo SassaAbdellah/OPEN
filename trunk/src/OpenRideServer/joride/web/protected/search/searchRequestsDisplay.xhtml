@@ -40,18 +40,22 @@
 
 
 
-
+             
 
 
                 <!-- TODO: remove Parameter Display  -->
 
                 <ul>
                     <li>
-                        TODO: startDate #{timeinterval.startDateFormatted}
+                        TODO: startDate: #{ridesearchparams.startDateFormatted}
                     </li>
 
                     <li>
-                        TODO: endDate #{timeinterval.endDateFormatted}
+                        TODO: endDate: #{ridesearchparams.endDateFormatted}
+                    </li>
+                    
+                    <li>
+                        TODO: searchType:  #{ridesearchparams.searchType}
                     </li>
 
                 </ul>
@@ -66,7 +70,7 @@
 
 
                 <p:dataTable 
-                    value="#{ride.ridesForRiderInInterval}" 
+                    value="#{ride.rideReport}" 
                     var="myride" 
                     paginator="true" 
                     rows="1" 
@@ -121,7 +125,7 @@
                                 <h:form rendered="#{myride.riderRateable}">
                                     <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
                                         <f:param  name="#{crud.paramNameCrudId}"   value="#{myride.riderrouteId}" />
-                                        <f:param  name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                        <f:param  name="#{webflow.getParamBack()}" value="search.requests" />
                                     </h:commandLink>
                                 </h:form>
                             </div>
@@ -146,7 +150,7 @@
                             <h:form>
                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
                                     <f:param  name="#{crud.paramNameCrudId}" value="#{myride.riderrouteId}"/>
-                                    <f:param name="#{webflow.getParamBack()}" value="rider.previousRequests" />
+                                    <f:param name="#{webflow.getParamBack()}" value="search.requests" />
                                 </h:commandLink>
                             </h:form>
                         </p>
@@ -173,8 +177,8 @@
 
                     <h:form>
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
-                            <f:param name="#{timeinterval.paramEndDate}"   value="#{timeinterval.endDate}"   />
-                            <f:param name="#{timeinterval.paramStartDate}" value="#{timeinterval.startDate}" />
+                            <f:param name="#{ridesearchparams.paramEndDate}"   value="#{ridesearchparams.endDate}"   />
+                            <f:param name="#{ridesearchparams.paramStartDate}" value="#{ridesearchparams.startDate}" />
                         </h:commandLink>
                     </h:form>
                 </p>

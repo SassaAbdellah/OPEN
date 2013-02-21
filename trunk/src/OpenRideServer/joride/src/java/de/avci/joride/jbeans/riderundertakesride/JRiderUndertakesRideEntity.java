@@ -5,7 +5,7 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.jbeans.auxiliary.TimeIntervalBean;
+import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
@@ -29,6 +29,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import org.postgis.Point;
+import org.slf4j.profiler.TimeInstrument;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -40,13 +42,8 @@ import org.postgis.Point;
 @SessionScoped
 public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implements Serializable {
 
-    
-    
-    private PropertiesLoader propertiesLoader=new PropertiesLoader();
-    
-    
+    private PropertiesLoader propertiesLoader = new PropertiesLoader();
     private Logger log = Logger.getLogger("" + this.getClass());
-    
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
@@ -186,16 +183,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     public List<JRiderUndertakesRideEntity> getRidesForRider() {
 
         return (new JRiderUndertakesRideEntityService()).getRidesForRider();
-    }
-
-    /**
-     *
-     *
-     * @return All rides the rider undertakes in the specified interval
-     */
-    public List<JRiderUndertakesRideEntity> getRidesForRiderInInterval() {
-
-        return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
     }
 
     /**
@@ -537,21 +524,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         return (new JRiderUndertakesRideEntityService()).isRideUpdated(this.getRiderrouteId());
     }
 
-    
-    /** Short message to be displayed if ride has an update
+    /**
+     * Short message to be displayed if ride has an update
      */
-    public String getUpdatedShortcut(){
-    
-       
-        if(this.getRideUpdated()){
-            return " "+propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
+    public String getUpdatedShortcut() {
+
+
+        if (this.getRideUpdated()) {
+            return " " + propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
         }
-        
+
         return "  ";
     }
-    
-    
-    
+
     /**
      * Returns the Number of OpenMatches for this RideRequest
      *
@@ -661,8 +646,12 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public boolean isRiderRated() {
 
-        if (this.getGivenrating() == null) {return false;}
-        if (this.getGivenrating() >= 0) {return true;}
+        if (this.getGivenrating() == null) {
+            return false;
+        }
+        if (this.getGivenrating() >= 0) {
+            return true;
+        }
         return false;
     }
 
@@ -674,8 +663,12 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public boolean isDriverRated() {
 
-        if (this.getReceivedrating() == null) {return false;}
-        if (this.getReceivedrating() >= 0) { return true;}
+        if (this.getReceivedrating() == null) {
+            return false;
+        }
+        if (this.getReceivedrating() >= 0) {
+            return true;
+        }
         return false;
     }
 
@@ -687,6 +680,126 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public void doSetGivenRating(ActionEvent evt) {
         new JRiderUndertakesRideEntityService().setGivenRatingSavely(this);
+    }
+    /**
+     * Mnemonic Value for
+     *
+     * @see RideSearchParamsBean searchType Property that will make
+     * getRideReport return a list of all rides in given Timespan
+     *
+     */
+    protected static final String RIDEREPORT_ALL_RIDES_FOR_RIDER = "All_RIDES_FOR_RIDER";
+
+    /**
+     * Make RIDEREPORT_ALL_RIDES_FOR_RIDER mnemonic available to outside in JSF
+     * Bean Fashion.
+     *
+     * @return RIDEREPORT_ALL_RIDES_FOR_RIDER
+     */
+    public String getParamValueRidereportAllRidesForRider() {
+        return RIDEREPORT_ALL_RIDES_FOR_RIDER;
+    }
+    /**
+     * Mnemonic Value for
+     *
+     * @see RideSearchParamsBean searchType Property that will make
+     * getRideReport return a list of all **realized** rides in given Timespan
+     *
+     */
+    protected static final String RIDEREPORT_REALIZED_RIDES_FOR_RIDER = "REALIZED_RIDES_FOR_RIDER";
+
+    /**
+     * Make RIDEREPORT_REALIZED_RIDES_FOR_RIDER mnemonic available to outside in
+     * JSF Bean Fashion.
+     *
+     * @return RIDEREPORT_REALIZED_RIDES_FOR_RIDER
+     */
+    public String getParamValueRidereportRealizedRidesForRider() {
+        return RIDEREPORT_REALIZED_RIDES_FOR_RIDER;
+    }
+    /**
+     * Mnemonic Value for
+     *
+     * @see RideSearchParamsBean searchType Property that will make
+     * getRideReport return a list of all **unrated** rides in given Timespan
+     *
+     */
+    protected static final String RIDEREPORT_UNRATED_RIDES_FOR_RIDER = "UNRATED_RIDES_FOR_RIDER";
+
+    /**
+     * Make RIDEREPORT_UNRATED_RIDES_FOR_RIDER mnemonic available to outside in
+     * JSF Bean Fashion.
+     *
+     * @return RIDEREPORT_UNRATED_RIDES_FOR_RIDER
+     */
+    public String getParamValueRidereportUnratedRidesForRider() {
+        return RIDEREPORT_UNRATED_RIDES_FOR_RIDER;
+    }
+    /**
+     * Mnemonic Value for
+     *
+     * @see RideSearchParamsBean searchType Property that will make
+     * getRideReport return a list of all rides in given Timespan where caller
+     * acted as driver
+     *
+     */
+    protected static final String RIDEREPORT_ALL_RIDES_FOR_DRIVER = "All_RIDES_FOR_DRIVER";
+
+    /**
+     * Make RIDEREPORT_ALL_RIDES_FOR_DRIVER mnemonic available to outside in JSF
+     * Bean Fashion.
+     *
+     * @return RIDEREPORT_ALL_RIDES_FOR_RIDER
+     */
+    public String getParamValueRidereportAllRidesForDRIVER() {
+        return RIDEREPORT_ALL_RIDES_FOR_DRIVER;
+    }
+
+    /**
+     * Determines the current Instance of RideSearchParamBean, and returns a
+     * list of JRiderUndertakesRideEntity Objects.
+     *
+     *
+     * The list of rides actually returned will be based on the value of the
+     * RideSearchParamBean's searchType property.
+     *
+     * I.e, if this property equals:
+     *
+     * <ul>
+     *
+     * <li> {
+     *
+     * @see RIDEREPORT_ALL_RIDES_FOR_RIDER } returns a list of all rides for
+     * this rider in given timespan </li>
+     *
+     * <li> {
+     * @see RIDEREPORT_REALIZED_RIDES_FOR_RIDER } returns a list of all
+     * *realized* rides for this rider in given timespan </li>
+     *
+     * <li> {
+     * @see RIDEREPORT_UNRATED_RIDES_FOR_RIDER } returns a list of all unrated
+     * rides for this rider in given timespan </li>
+     *
+     *
+     * <li> {
+     * @see RIDEREPORT_ALL_RIDES_FOR_DRIVER } returns a list of all rides for
+     * this given timespan, where caller acted as a driver. </li>
+     *
+     * </ul>
+     *
+     *
+     *
+     * @return List of Entities. See listing above.
+     *
+     */
+    public List<JRiderUndertakesRideEntity> getRideReport() {
+
+
+        RideSearchParamsBean params = new RideSearchParamsBean().retrieveCurrentTimeInterval(paramValueTargetEndpoint);
+
+        return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
+
+
     }
 
     /**
