@@ -144,14 +144,19 @@ public interface RiderUndertakesRideControllerLocal {
 
     MatchEntity getMatch(Integer rideId, Integer riderrouteId);
 
-    /** Invalidate this ride and associated objects, 
-     *  typically if a customer is removed
-     * 
-     * @param riderrouteId 
-     * 
+    /**
+     * Invalidate this ride and associated objects, typically if a customer is
+     * removed
+     *
+     * @param riderrouteId
+     *
      * @return true if ride can be successfully invalidated
      */
     public boolean invalidateRide(Integer riderrouteId);
 
     public List<RiderUndertakesRideEntity> getRidesForCustomer(CustomerEntity ce, Date startDate, Date endDate);
+
+    public List<RiderUndertakesRideEntity> getRealizedRidesForRider(CustomerEntity ce, Date startDate, Date endDate);
+
+    public List<RiderUndertakesRideEntity> getUnratedRidesForRider(CustomerEntity ce, Date startDate, Date endDate);
 }
