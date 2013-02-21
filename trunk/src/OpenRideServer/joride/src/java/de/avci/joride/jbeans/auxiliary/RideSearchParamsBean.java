@@ -31,13 +31,13 @@ public class RideSearchParamsBean implements Serializable {
      * Apparatus.
      *
      */
-    private static final String PARAM_NAME_RIDESEARPARAM = "ridesearchparams";
+    private static final String BEAN_NAME_RIDESEARPARAM = "ridesearchparams";
     
     /**
-     *  make PARAM_NAME_RIDESEARPARAM  availlable as a JSF Bean property
+     *  make BEAN_NAME_RIDESEARPARAM  availlable as a JSF Bean property
      */
-    public String getParamNameRidesearchparam(){
-        return this.PARAM_NAME_RIDESEARPARAM;
+    public String getBeanNameRidesearchparam(){
+        return this.BEAN_NAME_RIDESEARPARAM;
     }
     
     

@@ -47,9 +47,9 @@
 
                             <p:row>
                                 <p:selectOneMenu value="#{ridesearchparams.searchType}" >
-                                    <f:selectItem itemLabel="#{msgs.rideRidesSearchAllRides}"         itemValue="horst1" />
-                                    <f:selectItem itemLabel="#{msgs.rideRidesSearchRealizedRides}"    itemValue="horst2" />
-                                    <f:selectItem itemLabel="#{msgs.rideRidesSearchMeAsDriverRides}"  itemValue="horst3" />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportAllRidesForRider}"          itemValue="#{ride.paramValueRidereportAllRidesForRider}"      />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportRealizedRidesForRider}"     itemValue="#{ride.paramValueRidereportRealizedRidesForRider}" />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportUnratedRidesForRider}"      itemValue="#{ride.paramValueRidereportUnratedRidesForRider}"  />
                                 </p:selectOneMenu>
                             </p:row>    
 
