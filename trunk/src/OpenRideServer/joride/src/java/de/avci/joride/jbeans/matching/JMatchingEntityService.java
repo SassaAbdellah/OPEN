@@ -147,8 +147,8 @@ public class JMatchingEntityService {
      */
     public boolean acceptRiderSafely(JMatchingEntity jme) {
 
-          
-        System.out.println(""+this.getClass()+" acceptRiderSafely beeing called");
+
+        System.out.println("" + this.getClass() + " acceptRiderSafely beeing called");
 
 
         // see who calls us!
@@ -202,6 +202,9 @@ public class JMatchingEntityService {
         // update the Match Entity
         jme.setMatchEntitiy(me);
 
+        // add drive to ride if both parties have agreed
+        this.addRiderToRideSavely(me);
+
         return true;
     }
 
@@ -216,8 +219,8 @@ public class JMatchingEntityService {
      */
     public boolean acceptDriverSafely(JMatchingEntity jme) {
 
-        
-        System.out.println(""+this.getClass()+" acceptDriverSafely beeing called");
+
+        System.out.println("" + this.getClass() + " acceptDriverSafely beeing called");
 
         // see who calls us!
         CustomerEntity caller = this.getCustomerEntity();
@@ -247,7 +250,8 @@ public class JMatchingEntityService {
         //
 
         Integer rideId = null;
-        try {   rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
+        try {
+            rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
         } catch (Exception exc) {
             throw new Error("Cannot proceed to accept driver, Unexpected Error while determining ride Id ", exc);
         }
@@ -264,21 +268,21 @@ public class JMatchingEntityService {
 
         // bad case may happen, if so return false
         if (me == null) {
-            
-            System.err.println(""+this.getClass()+" acceptDriver failed ");
+
+            System.err.println("" + this.getClass() + " acceptDriver failed ");
             return false;
         }
-        
-        System.out.println(""+this.getClass()+" acceptDriver succeded ");
-        
+
+        System.out.println("" + this.getClass() + " acceptDriver succeded ");
+
         // update the Match Entity
         jme.setMatchEntitiy(me);
+        // add drive to ride if both parties have agreed
+        this.addRiderToRideSavely(me);
 
         return true;
     }
-    
-    
-    
+
     /**
      * reject the driver for this match savely.
      *
@@ -290,8 +294,8 @@ public class JMatchingEntityService {
      */
     public boolean rejectDriverSafely(JMatchingEntity jme) {
 
-        
-        System.out.println(""+this.getClass()+" rejectDriverSafely beeing called");
+
+        System.out.println("" + this.getClass() + " rejectDriverSafely beeing called");
 
         // see who calls us!
         CustomerEntity caller = this.getCustomerEntity();
@@ -321,7 +325,8 @@ public class JMatchingEntityService {
         //
 
         Integer rideId = null;
-        try {   rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
+        try {
+            rideId = jme.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
         } catch (Exception exc) {
             throw new Error("Cannot proceed to reject driver, Unexpected Error while determining ride Id ", exc);
         }
@@ -338,22 +343,44 @@ public class JMatchingEntityService {
 
         // bad case may happen, if so return false
         if (me == null) {
-            
-            System.err.println(""+this.getClass()+" rejectDriver failed ");
+
+            System.err.println("" + this.getClass() + " rejectDriver failed ");
             return false;
         }
-        
-        System.out.println(""+this.getClass()+" rejectDriver succeded ");
-        
+
+        System.out.println("" + this.getClass() + " rejectDriver succeded ");
+
         // update the Match Entity
         jme.setMatchEntitiy(me);
 
         return true;
     } // reject driver safely
-    
-    
-       /**
-     * Accept the rider for this match savely.
+
+    /**
+     * Check, if both rider and driver have accepted, and if so, link
+     * RideruntertakesRideEntity to DriverUndertakesRideEntity.
+     *
+     *
+     * @param me MatchEntity linking drive to ride
+     */
+    protected void addRiderToRideSavely(MatchEntity me) {
+
+
+        if (MatchEntity.ACCEPTED.equals(me.getRiderState())
+                && MatchEntity.ACCEPTED.equals(me.getDriverState())) {
+
+            RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+            rurcl.addRiderToRide(
+                    me.getRiderUndertakesRideEntity().getRiderrouteId(),
+                    me.getDriverUndertakesRideEntity().getRideId());
+
+        }
+
+    } // add rider to ride
+
+    /**
+     * Reject the rider for this match savely.
      *
      * As it is up to the driver of a ride to accept the rider, we do some
      * extensive checking about wether or not the driver is allowed to call
@@ -363,8 +390,7 @@ public class JMatchingEntityService {
      */
     public boolean rejectRiderSafely(JMatchingEntity jme) {
 
-          
-        System.out.println(""+this.getClass()+" rejectRiderSafely beeing called");
+        System.out.println("" + this.getClass() + " rejectRiderSafely beeing called");
 
 
         // see who calls us!
@@ -419,61 +445,60 @@ public class JMatchingEntityService {
         jme.setMatchEntitiy(me);
 
         return true;
-        
-        
+
+
     } //reject rider safely
 
-     
-    
-    
-    
-
-    /** Savely update match for the Drive/Ride combination given by driveId,
-     * rideId. Savely means, that the caller is checked to be either driver or rider
-     * of the respective rideOffer.
-     * If the caller is not the driver, an Error will be thrown.
+    /**
+     * Savely update match for the Drive/Ride combination given by driveId,
+     * rideId. Savely means, that the caller is checked to be either driver or
+     * rider of the respective rideOffer. If the caller is not the driver, an
+     * Error will be thrown.
      *
      *
      * @param rideId the ride Id of the respective rideOffer
      * @param riderrouteId the id of the matching drive
-     *    
+     *
      */
     public MatchEntity getMatchSafely(int rideId, int riderrouteId) {
 
 
         CustomerEntity caller = this.getCustomerEntity();
-        
+
         MatchEntity me = this.lookupRiderUndertakesRideControllerBeanLocal().getMatch(rideId, riderrouteId);
-        
+
         // there  a r e  no matches... can finish here
-        if(me==null){
+        if (me == null) {
             return null;
         }
-            
-        
+
+
         // check if either caller is either driver or rider
-        boolean callerMatch=false;
+        boolean callerMatch = false;
+
+        // retrieve the driver
+
+        try {
+            if (caller.getCustId().equals(me.getDriverUndertakesRideEntity().getCustId().getCustId())) {
+                callerMatch = true;
+            }
+        } catch (java.lang.NullPointerException exc) {
+        }
+
+        try {
+            if (caller.getCustId().equals(me.getRiderUndertakesRideEntity().getCustId().getCustId())) {
+                callerMatch = true;
+            }
+        } catch (java.lang.NullPointerException exc) {
+        }
+
         
-        if(caller.getCustId().equals(me.getDriverUndertakesRideEntity().getCustId().getCustId())) {
-            callerMatch=true;
-        }    
-        
-        if(caller.getCustId().equals(me.getRiderUndertakesRideEntity().getCustId().getCustId())) {
-            callerMatch=true;
-        }    
-        
-        if(!(callerMatch)){
+        if (!(callerMatch)) {
             throw new Error("Caller is neither driver nor rider for this ride, will not return matchEntity");
         }
-        
-     
+
+
         return me;
-        
+
     } // getMatchSafely
-    
-    
-    
-   
-    
-    
 } //class
