@@ -112,6 +112,14 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public void updateFromRiderUndertakesRideEntity(RiderUndertakesRideEntity rure) {
 
+        
+        if(rure==null){
+      
+            log.log(Level.WARNING, "refusing to update JRiderUndertakesRideEntity, argument is null ");
+            return;
+        }
+        
+        
         // private Integer riderrouteId;
         this.setRiderrouteId(rure.getRiderrouteId());
 
