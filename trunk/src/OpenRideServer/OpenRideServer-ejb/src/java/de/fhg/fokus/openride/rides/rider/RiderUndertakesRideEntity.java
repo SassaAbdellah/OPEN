@@ -100,12 +100,15 @@ import org.postgis.Point;
     @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
     // ride searches used by joride reporting
     // get all rides for rider, regardless wether realized or not
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween",          query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest  > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
     // get all rides for rider that have been realized
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized > :startDate AND r.timestamprealized < :endDate AND r.custId = :custId "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween",  query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId "),
     // get all rides for rider which have not yet been realized
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized > :startDate AND r.timestamprealized < :endDate AND r.custId = :custId  AND r.givenrating is NULL")
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween",   query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId  AND r.givenrating is NULL"),
+    // find all rides for driver in this interval
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween",         query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate ")
 })
+
 @Converter(name = "convert", converterClass = PointConverter.class)
 public class RiderUndertakesRideEntity implements Serializable {
 

@@ -159,4 +159,6 @@ public interface RiderUndertakesRideControllerLocal {
     public List<RiderUndertakesRideEntity> getRealizedRidesForRider(CustomerEntity ce, Date startDate, Date endDate);
 
     public List<RiderUndertakesRideEntity> getUnratedRidesForRider(CustomerEntity ce, Date startDate, Date endDate);
+
+    public List<RiderUndertakesRideEntity> getRidesForDriver(CustomerEntity ce, Date startDate, Date endDate);
 }

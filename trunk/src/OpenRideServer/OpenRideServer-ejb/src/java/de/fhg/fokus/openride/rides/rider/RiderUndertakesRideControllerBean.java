@@ -1352,4 +1352,12 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByRidersUnratedRidesBetween").setParameter("custId", ce).setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
         return res;
     }
+
+    @Override
+    public List<RiderUndertakesRideEntity> getRidesForDriver(CustomerEntity ce, Date startDate, Date endDate) {
+
+        // TODO: setting start date, end date currently omitted
+        List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByDriversRidesBetween").setParameter("custId", ce).setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
+        return res;
+    }
 }
