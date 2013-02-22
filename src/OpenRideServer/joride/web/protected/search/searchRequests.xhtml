@@ -50,6 +50,7 @@
                                     <f:selectItem itemLabel="#{ride.paramValueRidereportAllRidesForRider}"          itemValue="#{ride.paramValueRidereportAllRidesForRider}"      />
                                     <f:selectItem itemLabel="#{ride.paramValueRidereportRealizedRidesForRider}"     itemValue="#{ride.paramValueRidereportRealizedRidesForRider}" />
                                     <f:selectItem itemLabel="#{ride.paramValueRidereportUnratedRidesForRider}"      itemValue="#{ride.paramValueRidereportUnratedRidesForRider}"  />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportAllRidesForDriver}"      itemValue="#{ride.paramValueRidereportAllRidesForDriver}"  />
                                 </p:selectOneMenu>
                             </p:row>    
 
@@ -104,7 +105,7 @@
                             </p:row>
 
                             <f:facet name="footer">
-                                                             
+
                                 <h:commandButton  
                                     value="#{msgs.formSearch}"
                                     action="search.requestsDisplay"

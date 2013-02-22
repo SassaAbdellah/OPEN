@@ -751,7 +751,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      * @return RIDEREPORT_ALL_RIDES_FOR_RIDER
      */
-    public String getParamValueRidereportAllRidesForDRIVER() {
+    public String getParamValueRidereportAllRidesForDriver() {
         return RIDEREPORT_ALL_RIDES_FOR_DRIVER;
     }
 
@@ -796,38 +796,45 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
 
 
-        RideSearchParamsBean rspb0=new RideSearchParamsBean();
-        String beanName=rspb0.getBeanNameRidesearchparam();
+        RideSearchParamsBean rspb0 = new RideSearchParamsBean();
+        String beanName = rspb0.getBeanNameRidesearchparam();
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
-        if(rspb==null){  
-            System.err.println(this.getClass()+"RideSearchParamsBean is null, returning empty list");
-            return new LinkedList <JRiderUndertakesRideEntity> ();
+        if (rspb == null) {
+            System.err.println(this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            return new LinkedList<JRiderUndertakesRideEntity>();
         }
-        
-        
-        String reportType=rspb.getSearchType();
-        
+
+
+        String reportType = rspb.getSearchType();
+
         // see if we want to see **all** rides
-        if(this.getParamValueRidereportAllRidesForRider().equals(reportType)){
+        if (this.getParamValueRidereportAllRidesForRider().equals(reportType)) {
             return (new JRiderUndertakesRideEntityService()).getRidesForRiderInInterval();
-        } 
-        
-         // see if we want to see **realized** rides only
-        if(this.getParamValueRidereportRealizedRidesForRider().equals(reportType)){
+        }
+
+        // see if we want to see **realized** rides only
+        if (this.getParamValueRidereportRealizedRidesForRider().equals(reportType)) {
             return (new JRiderUndertakesRideEntityService()).getRealizedRidesForRiderInInterval();
-        } 
-        
-          // see if we want to see **unrated** rides only
-        if(this.getParamValueRidereportUnratedRidesForRider().equals(reportType)){
+        }
+
+        // see if we want to see **unrated** rides only
+        if (this.getParamValueRidereportUnratedRidesForRider().equals(reportType)) {
             return (new JRiderUndertakesRideEntityService()).getUnratedRidesForRiderInInterval();
-        } 
-        
-        
-        
-        
+        }
+
+
+        // see if we want to see **drivers** rides only
+        if (this.getParamValueRidereportAllRidesForDriver().equals(reportType)) {
+            return (new JRiderUndertakesRideEntityService()).getRidesForDriverInInterval();
+        }
+
+
+
+
+
         // if the parameter is not supported, then throw a new Error
-        throw new Error("Parameter "+reportType+" is  not supported in getRideReport()");
+        throw new Error("Parameter " + reportType + " is  not supported in getRideReport()");
 
     }
 
