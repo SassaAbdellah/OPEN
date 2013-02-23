@@ -31,49 +31,49 @@
 
             <ui:define name="content">
 
-                #{ride.update()}
+                #{ratingride.update()}
 
                 <h:form>
 
                     <p:panel header="#{msgs.rideRateThisRide}" >
 
-                        #{ride.update()}
+                        #{ratingride.update()}
 
                         <table>   
                             <tr>
                                 <th colspan="3">
-                                    #{msgs.rideRequest} #{ride.riderrouteId} 
+                                    #{msgs.rideRequest} #{ratingride.riderrouteId} 
                                 </th>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
                                 <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td>  <span class="formInput">  #{ride.comment}  </span> </td>
+                                <td>  <span class="formInput">  #{ratingride.comment}  </span> </td>
                             </tr>
 
                             <tr>
                                 <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
                                 <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
+                                <td>  <span class="formInput">  #{ratingride.startptAddress} </span> </td>
                             </tr>
 
                             <tr>
                                 <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
                                 <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
+                                <td>  <span class="formInput">  #{ratingride.endptAddress} </span> </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideTimestampbooked}  </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.timestampbooked} </span> </td>
+                                <td> <span class="formInput">  #{ratingride.timestampbooked} </span> </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideTimestamprealized} </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.timestamprealized} </span> </td>   
+                                <td> <span class="formInput">  #{ratingride.timestamprealized} </span> </td>   
                             </tr>
 
 
@@ -86,7 +86,7 @@
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                                 <td>
                                     <span class="formInput">  
-                                        <p:rating value="#{ride.givenrating}"  readonly="!#{ride.riderRateable}"/>
+                                        <p:rating value="#{ratingride.givenrating}"  readonly="#{!ratingride.riderRateable}" />
                                     </span> 
                                 </td>
                             </tr>
@@ -96,7 +96,7 @@
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                                 <td> 
                                     <span class="formInput"> 
-                                        <h:inputTextarea value="#{ride.givenratingComment}"  readonly="!#{ride.riderRateable}"/>
+                                        <h:inputTextarea value="#{ratingride.givenratingComment}"  readonly="#{!ratingride.riderRateable}"/>
                                     </span> 
                                 </td>
                             </tr>
@@ -104,42 +104,42 @@
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideGivenRatingDate} </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
+                                <td> <span class="formInput">  #{ratingride.givenratingDate} </span> </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.receivedrating} </span> </td>
+                                <td> <span class="formInput">  #{ratingride.receivedrating} </span> </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideReceivedRatingComment} </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.receivedratingComment} </span> </td>
+                                <td> <span class="formInput">  #{ratingride.receivedratingComment} </span> </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideReceivedRatingDate} </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
+                                <td> <span class="formInput">  #{ratingride.receivedratingDate} </span> </td>
                             </tr>
 
                         </table>
                         
                         <!-- fetch riderroute id, for other data may be incompletely transmitted  -->
-                        <h:inputHidden value="#{ride.riderrouteId}"/>
+                        <h:inputHidden value="#{ratingride.riderrouteId}"/>
 
                         #{webflow.smartUpdate()}
-                        <h:commandButton action="#{webflow.getBack()}" actionListener="#{ride.doSetGivenRating}"  value="#{msgs.rideRateThisRide}" >
-                             <f:param name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}" />
+                        <h:commandButton action="#{webflow.getBack()}" actionListener="#{ratingride.doSetGivenRating(evt)}"  value="#{msgs.rideRateThisRide}" >
+                             <f:param name="#{crud.paramNameCrudId}" value="#{ratingride.riderrouteId}" />
                         </h:commandButton>
                     </p:panel>
 
                     <p> <!-- webflow stanza -->
                         #{webflow.smartUpdate()}
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
-                            <f:param name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}" />
+                            <f:param name="#{crud.paramNameCrudId}" value="#{ratingride.riderrouteId}" />
                         </h:commandLink>
                     </p>   
 
