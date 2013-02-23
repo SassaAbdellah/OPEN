@@ -26,6 +26,8 @@ import javax.naming.NamingException;
  */
 public class JMatchingEntityService {
 
+    static final Logger log = Logger.getLogger("" + JMatchingEntity.class);
+
     /**
      * Lookup MatchingBeanLocal that controls my requests.
      *
@@ -465,16 +467,29 @@ public class JMatchingEntityService {
 
         CustomerEntity caller = this.getCustomerEntity();
 
+        System.err.println("" + this.getClass() + " getMatchSavely rideId " + rideId + " riderrouteId : " + riderrouteId);
+
         MatchEntity me = this.lookupRiderUndertakesRideControllerBeanLocal().getMatch(rideId, riderrouteId);
 
         // there  a r e  no matches... can finish here
         if (me == null) {
+            System.err.println("" + this.getClass() + " returning null prematuralely ");
             return null;
         }
 
 
         // check if either caller is either driver or rider
         boolean callerMatch = false;
+
+
+        // retrieve and catch the rider
+        try {
+            if (caller.getCustId().equals(me.getRiderUndertakesRideEntity().getCustId().getCustId())) {
+                callerMatch = true;
+            }
+        } catch (java.lang.NullPointerException exc) {
+        }
+
 
         // retrieve the driver
 
@@ -485,14 +500,9 @@ public class JMatchingEntityService {
         } catch (java.lang.NullPointerException exc) {
         }
 
-        try {
-            if (caller.getCustId().equals(me.getRiderUndertakesRideEntity().getCustId().getCustId())) {
-                callerMatch = true;
-            }
-        } catch (java.lang.NullPointerException exc) {
-        }
 
-        
+
+
         if (!(callerMatch)) {
             throw new Error("Caller is neither driver nor rider for this ride, will not return matchEntity");
         }
