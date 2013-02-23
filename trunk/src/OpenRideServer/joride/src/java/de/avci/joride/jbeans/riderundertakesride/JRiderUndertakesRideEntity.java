@@ -6,7 +6,6 @@ package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
@@ -25,12 +24,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import org.postgis.Point;
-import org.slf4j.profiler.TimeInstrument;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -112,14 +108,14 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public void updateFromRiderUndertakesRideEntity(RiderUndertakesRideEntity rure) {
 
-        
-        if(rure==null){
-      
+
+        if (rure == null) {
+
             log.log(Level.WARNING, "refusing to update JRiderUndertakesRideEntity, argument is null ");
             return;
         }
-        
-        
+
+
         // private Integer riderrouteId;
         this.setRiderrouteId(rure.getRiderrouteId());
 
@@ -595,29 +591,92 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     } // remove ride
 
     /**
-     * Determines the caller from http-request, and if caller is identical to
-     * rider, then allow for rider rating
+     * Determines the caller from http-request, and if caller is stakeholder
+     * (either rider or driver) then returns true
      *
-     *
-     * @return true, if caller is identical to rider, else false
+     * @return true, if caller is identical to rider or diver, else false
      */
-    public boolean isRiderRateable() {
+    public boolean isRateable() {
 
-        CustomerEntity caller = (new JCustomerEntityService()).getCustomerEntitySafely();
+        JRiderUndertakesRideEntityService jrureService = new JRiderUndertakesRideEntityService();
 
+        Integer id = this.getRiderrouteId();
 
-        if (this.getCustId() == null) {
+        if (id == null) {
+            log.log(Level.SEVERE, "Cannot determine rateable status, id is null");
             return false;
         }
-        if (caller == null) {
-            return false;
+
+
+        if (jrureService.callerIsRider(id)) {
+            return true;
         }
 
-        if (caller.getCustId() == this.getCustId().getCustId()) {
+        if (jrureService.callerIsDriver(id)) {
             return true;
         }
 
         return false;
+    }
+    
+    
+    
+    /** Checks if links for rider ratings should be presented
+     * 
+     *   @return  true, if caller is rider and ride is rateable
+     * 
+     */
+    public boolean isRiderRateable(){ 
+        return (this.isRateable()&& this.isCallerIsRider());
+    }
+    
+       
+    /** Checks if links for driver ratings should be presented
+     * 
+     *   @return  true, if caller is rider and ride is rateable
+     * 
+     */
+    public boolean isDriverRateable(){ 
+        return (this.isRateable()&& this.isCallerIsDriver());
+    }
+    
+    
+    
+
+    /**
+     * Checks, if the HTTP Caller is identical to the driver, and if so returns
+     * true -- else false
+     *
+     */
+    public boolean isCallerIsDriver() {
+
+        JRiderUndertakesRideEntityService jrureService = new JRiderUndertakesRideEntityService();
+        Integer id = this.getRiderrouteId();
+
+        if (id == null) {
+            log.log(Level.SEVERE, "Cannot determine driver caller status, id is null");
+            return false;
+        }
+
+        return (jrureService.callerIsDriver(id));
+    }
+
+    /**
+     * Checks, if the HTTP Caller is identical to the rider, and if so returns
+     * true -- else false
+     *
+     */
+    public boolean isCallerIsRider() {
+
+        JRiderUndertakesRideEntityService jrureService = new JRiderUndertakesRideEntityService();
+        Integer id = this.getRiderrouteId();
+
+        if (id == null) {
+            log.log(Level.SEVERE, "Cannot determine rider caller status, id is null");
+            return false;
+        }
+
+        return (jrureService.callerIsRider(id));
     }
 
     /**
@@ -687,6 +746,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * @param comment
      */
     public void doSetGivenRating(ActionEvent evt) {
+        
+        System.err.println(""+this.getClass()+" doSetGivenRating ");
+        
+        
+        
         new JRiderUndertakesRideEntityService().setGivenRatingSavely(this);
     }
     /**

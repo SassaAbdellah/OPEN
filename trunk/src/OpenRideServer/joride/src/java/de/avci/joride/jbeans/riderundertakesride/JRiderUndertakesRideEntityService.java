@@ -25,13 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 public class JRiderUndertakesRideEntityService {
 
     Logger log = Logger.getLogger("" + this.getClass());
-    
-    
-    
-  
-    
-    
-    
 
     /**
      * Get a customerEntity from the current request
@@ -49,10 +42,10 @@ public class JRiderUndertakesRideEntityService {
      */
     protected RiderUndertakesRideControllerLocal lookupRiderUndertakesRideControllerBeanLocal() {
         try {
-            
+
             javax.naming.Context c = new InitialContext();
             Object o = c.lookup("java:global/OpenRideServer/OpenRideServer-ejb/RiderUndertakesRideControllerBean!de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal");
-            if(o==null){
+            if (o == null) {
                 throw new Error("Error while looking up RiderUndertakesRideControllerLocal, lookup result is null. ");
             }
 
@@ -131,8 +124,8 @@ public class JRiderUndertakesRideEntityService {
 
 
         // retrieve startDateAndEndDate
-        
-        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+
+        String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
         System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
@@ -157,10 +150,10 @@ public class JRiderUndertakesRideEntityService {
         }
 
         return res;
-        
+
     } // getRidesForRiderInInterval
 
-      /**
+    /**
      * Get a list of all rides for the actual Rider in between startdate and an
      * enddate
      *
@@ -185,8 +178,8 @@ public class JRiderUndertakesRideEntityService {
 
 
         // retrieve startDateAndEndDate
-        
-        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+
+        String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
         System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
@@ -211,15 +204,12 @@ public class JRiderUndertakesRideEntityService {
         }
 
         return res;
-        
+
     } // getRidesForRiderInInterval
 
-    
-    
-
     /**
-     * Get a list of all **realized** rides for the actual Rider in between startdate and an
-     * enddate
+     * Get a list of all **realized** rides for the actual Rider in between
+     * startdate and an enddate
      *
      * StartDate and EndDate are read in from http parameters using
      * TimeIntervalBean
@@ -242,8 +232,8 @@ public class JRiderUndertakesRideEntityService {
 
 
         // retrieve startDateAndEndDate
-        
-        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+
+        String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
         System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
@@ -268,13 +258,13 @@ public class JRiderUndertakesRideEntityService {
         }
 
         return res;
-        
+
     } // getRealizedRidesForRiderInInterval
-    
+
     public List<JRiderUndertakesRideEntity> getUnratedRidesForRiderInInterval() {
-       
-        
-                CustomerEntity ce = this.getCustomerEntity();
+
+
+        CustomerEntity ce = this.getCustomerEntity();
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
         if (ce == null) {
@@ -287,8 +277,8 @@ public class JRiderUndertakesRideEntityService {
 
 
         // retrieve startDateAndEndDate
-        
-        String param=new RideSearchParamsBean().getBeanNameRidesearchparam();
+
+        String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
         System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
@@ -313,15 +303,9 @@ public class JRiderUndertakesRideEntityService {
         }
 
         return res;
-        
-        
-        
+
     }
 
-
-    
-    
-    
     /**
      * Savely get the Ride with given riderRouteId.
      *
@@ -348,10 +332,31 @@ public class JRiderUndertakesRideEntityService {
         RiderUndertakesRideEntity rure = rurcl.getRideByRiderRouteId(myRiderRouteId);
 
 
+        // check if the caller is either rider if driver for this ride
+        boolean stakeholder = false;
 
-        if (rure.getCustId().getCustId() != ce.getCustId()) {
+        // Rider is stakeholder
+        if (rure.getCustId().getCustId() == ce.getCustId()) {
+            stakeholder = true;
+        }
+
+        // if there is an accepted offer for this ride, then the driver
+        // should be considered being a stakeholder true
+
+        if (!stakeholder) {
+            if (rure.getRideId() != null) {
+                if (ce.getCustId() == (rure.getRideId().getCustId().getCustId())) {
+                    stakeholder = true;
+                }
+            } // (rure.getRideId()!=null)
+        } // (!stakeholder
+
+
+        if (!stakeholder) {
             throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
         }
+
+
 
         return rure;
 
@@ -472,7 +477,7 @@ public class JRiderUndertakesRideEntityService {
 
 
         System.err.println(
-                "Set given rating for RiderrouteId : "
+                "Set givenRating for RiderrouteId : "
                 + jrure.getRiderrouteId()
                 + " Givenrating : "
                 + jrure.getGivenrating()
@@ -509,9 +514,8 @@ public class JRiderUndertakesRideEntityService {
     }
 
     /**
-     * Savely remove the Ride with given riderRouteId.
-     *
-     * Current user/customer is determined from HTTPRequest's AuthPrincipal.
+     * Savely remove the Ride with given riderRouteId. Current user/customer is
+     * determined from HTTPRequest's AuthPrincipal.
      *
      * @return true, if the ride has been removed, else false.
      */
@@ -622,18 +626,73 @@ public class JRiderUndertakesRideEntityService {
         return true;
     }
 
-   
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    /**
+     * Determines wether the caller is the rider of this request, and if so,
+     * returns true, else false.
+     *
+     *
+     *
+     * @param riderrouteId id of the ride to be tested
+     * @return true, if HTTP Request's AuthPrincipal is owner of this request,
+     * else false
+     */
+    public boolean callerIsRider(int riderrouteId) {
+
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+        RiderUndertakesRideEntity rue = rurcl.getRideByRiderRouteId(riderrouteId);
+
+
+
+        if (null == ce) {
+            throw new Error("Cannot determine rider, customerEntity is null");
+        }
+
+        if (null == rue) {
+            throw new Error("Cannot determine rider property, RiderUndertakesRideEntity is null");
+        }
+
+        if (null == rue.getCustId()) {
+            throw new Error("Cannot determine rider property, RiderUndertakesRideEntity has no custId");
+        }
+
+
+        if (ce.getCustId() == rue.getCustId().getCustId()) {
+            return true;
+        }
+
+        return false;
+
+    } // callerIsRider
+
+    /**
+     * Determines wether the caller is the driver of this request, and if so,
+     * returns true, else false.
+     *
+     *
+     *
+     * @param riderrouteId id of the ride to be tested
+     * @return true, if HTTP Request's AuthPrincipal is driver of this request,
+     * else false
+     */
+    public boolean callerIsDriver(int riderrouteId) {
+
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+        RiderUndertakesRideEntity rure = rurcl.getRideByRiderRouteId(riderrouteId);
+
+        if (rure.getRideId() != null) {
+            if (ce.getCustId() == (rure.getRideId().getCustId().getCustId())) {
+                return true;
+            }
+        } // (rure.getRideId()!=null)
+
+        return false;
+
+
+    } // callerIsDriver
 } // class

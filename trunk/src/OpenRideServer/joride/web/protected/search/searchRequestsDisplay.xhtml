@@ -89,10 +89,11 @@
                         </p>
 
                         <p>
+                            
+                            <!-- link to rate the ride the -->
                             <div class="formLabel">  
                                 #{msgs.rideGivenRating} 
                             </div>  
-
                             <div class="formInput">  
                                 <p:outputLabel value="#{msgs.rideNoGivenRating}" rendered="#{!myride.riderRated}"                /> 
                                 <p:rating value="#{myride.givenrating}"          rendered="#{myride.riderRated}" readonly="true" /> 
@@ -122,7 +123,7 @@
 
                         <p>
                             <div class="formLabel">
-                                <h:form rendered="#{myride.riderRateable}">
+                                <h:form rendered="#{myride.rateable}">
                                     <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
                                         <f:param  name="#{crud.paramNameCrudId}"   value="#{myride.riderrouteId}" />
                                         <f:param  name="#{webflow.getParamBack()}" value="search.requests" />
