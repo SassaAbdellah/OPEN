@@ -618,30 +618,26 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         return false;
     }
-    
-    
-    
-    /** Checks if links for rider ratings should be presented
-     * 
-     *   @return  true, if caller is rider and ride is rateable
-     * 
+
+    /**
+     * Checks if links for rider ratings should be presented
+     *
+     * @return true, if caller is rider and ride is rateable
+     *
      */
-    public boolean isRiderRateable(){ 
-        return (this.isRateable()&& this.isCallerIsRider());
+    public boolean isRiderRateable() {
+        return (this.isRateable() && this.isCallerIsRider());
     }
-    
-       
-    /** Checks if links for driver ratings should be presented
-     * 
-     *   @return  true, if caller is rider and ride is rateable
-     * 
+
+    /**
+     * Checks if links for driver ratings should be presented
+     *
+     * @return true, if caller is rider and ride is rateable
+     *
      */
-    public boolean isDriverRateable(){ 
-        return (this.isRateable()&& this.isCallerIsDriver());
+    public boolean isDriverRateable() {
+        return (this.isRateable() && this.isCallerIsDriver());
     }
-    
-    
-    
 
     /**
      * Checks, if the HTTP Caller is identical to the driver, and if so returns
@@ -742,16 +738,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     /**
      * Update Rider's rating and comment for this ride
      *
-     * @param rating
-     * @param comment
      */
     public void doSetGivenRating(ActionEvent evt) {
-        
-        System.err.println(""+this.getClass()+" doSetGivenRating ");
-        
-        
-        
+
         new JRiderUndertakesRideEntityService().setGivenRatingSavely(this);
+    }
+
+    /**
+     * Update Driver's rating and comment for this ride
+     *
+     */
+    public void doSetReceivedRating(ActionEvent evt) {
+
+        new JRiderUndertakesRideEntityService().setReceivedRatingSavely(this);
     }
     /**
      * Mnemonic Value for

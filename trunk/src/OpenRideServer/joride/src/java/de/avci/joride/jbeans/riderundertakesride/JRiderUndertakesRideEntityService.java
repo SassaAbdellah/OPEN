@@ -486,30 +486,56 @@ public class JRiderUndertakesRideEntityService {
 
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
-        // Security checks
-        CustomerEntity ce = this.getCustomerEntity();
-
-        if (ce == null) {
-            throw new Error("Cannot determine Ride for riderRating, calling customerEntity is null");
-        }
 
         // see, if caller is equal to rider ***in the database**
-        // note that just checking the argument would not be enough
-
-        RiderUndertakesRideEntity checkRide = this.getRideByRiderRouteIdSavely(jrure.getRiderrouteId());
-
-        if (!(checkRide.getCustId().getCustId().equals(ce.getCustId()))) {
-
+    
+        if (!(this.callerIsRider(jrure.getRiderrouteId()))) {
             throw new Error("Cannot rate ride, caller is not identical to owner of ride request!");
         }
-
-
-
 
         rurcl.setGivenRating(
                 jrure.getRiderrouteId(),
                 jrure.getGivenrating(),
                 jrure.getGivenratingComment());
+
+    }
+
+    
+    /**
+     * Savely set receivedRating for this ride. .
+     *
+     * Current user/customer is determined from HTTPRequest's AuthPrincipal, and
+     * checked again the riderundertakesrideentity's custId.
+     *
+     * @return true, if the ride has been removed, else false.
+     */
+    public void setReceivedRatingSavely(JRiderUndertakesRideEntity jrure) {
+
+
+
+
+        System.err.println(
+                "Set receivedRating for RiderrouteId : "
+                + jrure.getRiderrouteId()
+                + " Receivedrating : "
+                + jrure.getReceivedrating()
+                + " ReceivedRatingComment : "
+                + jrure.getReceivedratingComment());
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+
+        // see, if caller is equal to driver ***in the database**
+      
+        if (!(this.callerIsDriver(jrure.getRiderrouteId()))) {
+            throw new Error("Cannot driver-rate ride, caller is not identical to driver of ride request!");
+        }
+
+        rurcl.setReceivedRating(
+                jrure.getRiderrouteId(),
+                jrure.getReceivedrating(),
+                jrure.getReceivedratingComment()
+                );
 
     }
 

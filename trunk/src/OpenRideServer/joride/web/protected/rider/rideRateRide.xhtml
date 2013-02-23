@@ -110,13 +110,21 @@
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ratingride.receivedrating} </span> </td>
+                                <td> 
+                                    <span class="formInput"> 
+                                        <p:rating value="#{ratingride.receivedrating}"  readonly="#{!ratingride.driverRateable}" />
+                                    </span> 
+                                </td>
                             </tr>
 
                             <tr>
                                 <td> <span class="formLabel">  #{msgs.rideReceivedRatingComment} </span> </td>
                                 <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                <td> <span class="formInput">  #{ratingride.receivedratingComment} </span> </td>
+                                <td> 
+                                    <span class="formInput"> 
+                                        <h:inputTextarea value="#{ratingride.receivedratingComment}"  readonly="#{!ratingride.driverRateable}"/>
+                                    </span> 
+                                </td>
                             </tr>
 
                             <tr>
@@ -126,14 +134,37 @@
                             </tr>
 
                         </table>
-                        
+
                         <!-- fetch riderroute id, for other data may be incompletely transmitted  -->
                         <h:inputHidden value="#{ratingride.riderrouteId}"/>
 
+
                         #{webflow.smartUpdate()}
-                        <h:commandButton action="#{webflow.getBack()}" actionListener="#{ratingride.doSetGivenRating(evt)}"  value="#{msgs.rideRateThisRide}" >
-                             <f:param name="#{crud.paramNameCrudId}" value="#{ratingride.riderrouteId}" />
+                        <!-- show button to do rider rating only if caller is rider -->                      
+                        <h:commandButton 
+                            action="#{webflow.getBack()}" 
+                            actionListener="#{ratingride.doSetGivenRating(evt)}"  
+                            value="#{msgs.rideRateThisRide}" 
+                            rendered="#{ratingride.callerIsRider}"
+                            >
+                            <f:param name="#{crud.paramNameCrudId}" value="#{ratingride.riderrouteId}" />
                         </h:commandButton>
+                        
+                        <!-- show button to do driver rating only if caller is driver -->                      
+                        <h:commandButton 
+                            action="#{webflow.getBack()}" 
+                            actionListener="#{ratingride.doSetReceivedRating(evt)}"  
+                            value="#{msgs.rideRateThisRide}" 
+                            rendered="#{ratingride.callerIsDriver}"
+                            >
+                            <f:param name="#{crud.paramNameCrudId}" value="#{ratingride.riderrouteId}" />
+                        </h:commandButton>
+
+
+
+
+
+
                     </p:panel>
 
                     <p> <!-- webflow stanza -->
