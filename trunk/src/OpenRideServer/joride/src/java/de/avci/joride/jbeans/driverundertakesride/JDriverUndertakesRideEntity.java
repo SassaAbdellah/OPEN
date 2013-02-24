@@ -8,8 +8,6 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
-import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
-import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -20,6 +18,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -36,6 +36,8 @@ import org.postgis.Point;
 @SessionScoped
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
+    transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
+    
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
      * Frontends.
@@ -504,13 +506,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         HTTPUtil hru = new HTTPUtil();
 
-        System.out.println("doCrudAction Event : " + evt.toString());
+        log.log(Level.FINE,"doCrudAction Event : " + evt.toString());
 
         String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
-        System.out.println("Param Action : " + action);
+        log.log(Level.FINE,"Param Action : " + action);
 
         String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
-        System.out.println("Param ID     : " + id);
+        log.log(Level.FINE,"Param ID     : " + id);
 
 
         // Deleting is not yet implemented,  
@@ -534,7 +536,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public List<JMatchingEntity> getMatches() {
 
         if (this.getRideId() == null) {
-            System.err.println("Cannot return matches, My rideId is null!!, returning empty list.");
+            log.log(Level.SEVERE,"Cannot return matches, My rideId is null!!, returning empty list.");
             return new LinkedList<JMatchingEntity>();
         }
 
@@ -675,8 +677,9 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         String beanName = rspb0.getBeanNameRidesearchparam();
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
+        
         if (rspb == null) {
-            System.err.println(this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            log.log(Level.SEVERE,this.getClass() + "RideSearchParamsBean is null, returning empty list");
             return new LinkedList<JDriverUndertakesRideEntity>();
         }
 
@@ -685,13 +688,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         // currently not supported, but to come soon
 
         String reportType = rspb.getSearchType();
-        java.sql.Date startDate=new java.sql.Date(rspb.getStartDate().getTime());
-        java.sql.Date endDate=new java.sql.Date(rspb.getEndDate().getTime());
-        
+        java.sql.Date startDate = new java.sql.Date(rspb.getStartDate().getTime());
+        java.sql.Date endDate = new java.sql.Date(rspb.getEndDate().getTime());
+
 
         return (new JDriverUndertakesRideEntityService()).getDrivesInInterval(startDate, endDate);
 
-        
-       
+
+
     }
 } // class 

@@ -26,6 +26,10 @@ import javax.inject.Named;
 @SessionScoped
 public class RideSearchParamsBean implements Serializable {
 
+    
+    transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
+    
+    
     /**
      * Bean Name under which parameters for searching rides are known to the JSF
      * Apparatus.
@@ -42,8 +46,6 @@ public class RideSearchParamsBean implements Serializable {
     
     
     
-    
-    Logger log = Logger.getLogger("" + this.getClass());
     /**
      * Maximal timespan in days a user can search.
      */
@@ -76,7 +78,7 @@ public class RideSearchParamsBean implements Serializable {
     protected Date startDate = new Date();
 
     public void setStartDate(Date date) {
-        System.err.println("" + this.getClass() + " setting start date " + date);
+        log.log(Level.FINE,"" + this.getClass() + " setting start date " + date);
         this.startDate = date;
     }
 
@@ -90,7 +92,7 @@ public class RideSearchParamsBean implements Serializable {
     protected Date endDate = new Date();
 
     public void setEndDate(Date date) {
-        System.err.println("" + this.getClass() + " setting end date " + date);
+         log.log(Level.FINE,"" + this.getClass() + " setting end date " + date);
         this.endDate = date;
     }
 
@@ -239,7 +241,7 @@ public class RideSearchParamsBean implements Serializable {
      */
     public RideSearchParamsBean retrieveCurrentTimeInterval(String beanName) {
 
-        System.err.println("" + this.getClass() + " retrieveCurrentTimeInterval(" + beanName + ")");
+         log.log(Level.FINE,"" + this.getClass() + " retrieveCurrentTimeInterval(" + beanName + ")");
 
         try {
             FacesContext context = FacesContext.getCurrentInstance();

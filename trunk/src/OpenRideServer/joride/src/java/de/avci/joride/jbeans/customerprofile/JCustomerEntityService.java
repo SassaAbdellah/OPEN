@@ -6,20 +6,13 @@ package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
-
-import javax.servlet.http.HttpServletRequest;
-
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import java.nio.CharBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Service to get and put JCustomerEntityBeans to the System.
@@ -30,6 +23,8 @@ import javax.naming.NamingException;
  *
  */
 public class JCustomerEntityService {
+    
+    Logger log=Logger.getLogger(this.getClass().getCanonicalName());
 
     CustomerControllerLocal customerControllerBean = lookupCustomerControllerBeanLocal();
 
@@ -102,7 +97,7 @@ public class JCustomerEntityService {
         CustomerEntity ce = getCustomerEntitySafely();
 
         if (ce == null) {
-            System.err.println("CustomerEntity was null, cannot return custID");
+             log.log(Level.WARNING,"CustomerEntity was null, cannot return custID");
             return null;
         }
 
@@ -123,13 +118,13 @@ public class JCustomerEntityService {
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
-            System.err.println(errmsg);
+             log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
         if (jCustomerEntity == null) {
             String errmsg = "Refusing to update userdata, customerEntity is null";
-            System.err.println(errmsg);
+             log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
@@ -138,7 +133,7 @@ public class JCustomerEntityService {
 
         if (!(userName.equals(nickname))) {
             String errmsg = "Refusing to update userdata, nickname " + nickname + " is not able to http username " + userName;
-            System.err.println(errmsg);
+            log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
@@ -147,7 +142,7 @@ public class JCustomerEntityService {
         CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
 
         Integer customerID = this.getCustIDSafely();
-        System.out.println("customerID is : " + customerID);
+        log.log(Level.FINE,"customerID is : " + customerID);
 
         if (customerID == null) {
             throw new Error("CustomerID is null, cannot save");
@@ -192,13 +187,13 @@ public class JCustomerEntityService {
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
-            System.err.println(errmsg);
+            log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
         if (jCustomerEntity == null) {
             String errmsg = "Refusing to update userdata, customerEntity is null";
-            System.err.println(errmsg);
+            log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
@@ -210,7 +205,7 @@ public class JCustomerEntityService {
         CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
 
         Integer customerID = this.getCustIDSafely();
-        System.out.println("customerID is : " + customerID);
+        log.log(Level.WARNING,"customerID is : " + customerID);
 
         if (customerID == null) {
             throw new Error("CustomerID is null, cannot save");
@@ -243,13 +238,13 @@ public class JCustomerEntityService {
 
         if (userName == null) {
             String errmsg = "Refusing to update userdata, httpRequest is not authenticated";
-            System.err.println(errmsg);
+            log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
         if (jCustomerEntity == null) {
             String errmsg = "Refusing to update userdata, customerEntity is null";
-            System.err.println(errmsg);
+            log.log(Level.SEVERE,errmsg);
             throw new Error(errmsg);
         }
 
@@ -261,7 +256,7 @@ public class JCustomerEntityService {
         CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
 
         Integer customerID = this.getCustIDSafely();
-        System.out.println("customerID is : " + customerID);
+        log.log(Level.FINE,"customerID is : " + customerID);
 
         if (customerID == null) {
             throw new Error("CustomerID is null, cannot save");
