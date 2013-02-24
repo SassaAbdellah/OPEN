@@ -43,26 +43,15 @@
 
                     <!--
                     
-                    <h2> TODO: Sender </h2>
-                    <p>
-                        <h:inputText value="#{contactFormMessage.sender}"/>
-                    </p>
-
-
-                    <h2> TODO: Recipient </h2>
-                    <p>
-                        <h:inputText value="#{contactFormMessage.recipient}"/>
-                    </p>
-
-                    
+                   
                     -->
                     
-                    <h2> TODO: Subject </h2>
+                    <h2> #{msgs.messageSubject} : </h2>
                     <p>
                         <h:inputText value="#{contactFormMessage.subject}"/>
                     </p>
 
-                    <h2> TODO: Message </h2>
+                    <h2>  #{msgs.messageContent} : </h2>
                     <p>
                         <h:inputTextarea value="#{contactFormMessage.message}" /> 
                     </p>
