@@ -5,8 +5,11 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -53,10 +56,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * Frontends.
      */
     private Integer NUMBER_SEATS_OFFERED_DEFAULT = 1;
-    
-    
-    private PropertiesLoader propertiesLoader=new PropertiesLoader();
-   
+    private PropertiesLoader propertiesLoader = new PropertiesLoader();
 
     /**
      * Get a list of active drives for this driver.
@@ -86,7 +86,6 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * @return
      */
     public List<JDriverUndertakesRideEntity> getDrivesForDriver() {
-
 
         List<DriverUndertakesRideEntity> inlist = (new JDriverUndertakesRideEntityService()).getDrivesForDriver();
 
@@ -541,56 +540,51 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         return (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
     }
-    
-    
-    /** Remove this Offer
-     * 
-     * @return "driver" to jump back to driver's 
+
+    /**
+     * Remove this Offer
+     *
+     * @return "driver" to jump back to driver's
      */
-    public String remove(){
-    
-    
-        boolean res=new JDriverUndertakesRideEntityService().safelyRemoveDrive(this);
-        
-        if(res){
-            
+    public String remove() {
+
+
+        boolean res = new JDriverUndertakesRideEntityService().safelyRemoveDrive(this);
+
+        if (res) {
+
             // jump back to driver's startpage
             return "driver";
         } else {
-            
+
             // Todo: add message why removal was unsuccessful
-        
+
             return null;
         }
-        
-        
-        
+
+
+
     }
-    
-    
-    
-     /** Invalidate this offer
-     * 
-     * @return "driver" to jump back to driver's 
+
+    /**
+     * Invalidate this offer
+     *
+     * @return "driver" to jump back to driver's
      */
-    public String invalidate(){
-    
-    
-        boolean res=new JDriverUndertakesRideEntityService().invalidateOfferSavely(this.getRideId());
-        
-        if(res){
+    public String invalidate() {
+
+
+        boolean res = new JDriverUndertakesRideEntityService().invalidateOfferSavely(this.getRideId());
+
+        if (res) {
             // jump back to driver's startpage
             return "driver";
         } else {
             // Todo: add message why removal was unsuccessful      
             return null;
         }
-                
+
     }
-    
-    
-    
-    
 
     /**
      * Returns true, if this drive has been updated
@@ -601,24 +595,19 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return (new JDriverUndertakesRideEntityService()).isDriveUpdated(this.getRideId());
     }
 
-    
-     /** Short message to be displayed if ride has an update
+    /**
+     * Short message to be displayed if ride has an update
      */
-    public String getUpdatedShortcut(){
-    
-       
-        if(this.getDriveUpdated()){
-            return " "+propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
+    public String getUpdatedShortcut() {
+
+
+        if (this.getDriveUpdated()) {
+            return " " + propertiesLoader.getMessagesProps().getProperty("updatedRideShort");
         }
-        
+
         return "  ";
     }
-    
-    
-    
-    
-    
-    
+
     /**
      * Returns the Number of OpenMatches for this RideRequest
      *
@@ -659,5 +648,50 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         java.sql.Date sqltime = new java.sql.Date(System.currentTimeMillis());
         return new JDriverUndertakesRideEntityService().getDrivesAfterTimeSafely(sqltime);
+    }
+
+    /**
+     * Determines the current Instance of RideSearchParamBean, and returns a
+     * list of JDriverUndertakesRideEntity Objects realized between startDate
+     * and endDate.
+     *
+     *
+     * The list of rides actually returned will currently NOT be based on the
+     * value of the RideSearchParamBean's searchType property.
+     *
+     * I.e, if this property equals:
+     *
+     *
+     *
+     *
+     * @return List of Entities. See listing above.
+     *
+     */
+    public List<JDriverUndertakesRideEntity> getDriveReport() {
+
+
+
+        RideSearchParamsBean rspb0 = new RideSearchParamsBean();
+        String beanName = rspb0.getBeanNameRidesearchparam();
+        RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
+
+        if (rspb == null) {
+            System.err.println(this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            return new LinkedList<JDriverUndertakesRideEntity>();
+        }
+
+
+        // see, what kind of report we are supposed to show
+        // currently not supported, but to come soon
+
+        String reportType = rspb.getSearchType();
+        
+
+        return this.getDrivesForDriver();
+
+
+        // if the parameter is not supported, then throw a new Error
+        // throw new Error("Parameter " + reportType + " is  not supported in getDriveReport()");
+
     }
 } // class 

@@ -30,10 +30,117 @@
 
 
             <ui:define name="content">
-                
-          
 
-                <h1> #{msgs.ridePreviousDrives} </h1>
+                <h:form>
+                    <p:panel>
+                        <p:panelGrid columns="1"> <!-- outer of 2 nested grids -->
+
+                            <f:facet name="header">
+                                #{msgs.rideSearchDrives}
+                            </f:facet>
+
+                            <p:row>
+                                <p:selectOneMenu value="#{ridesearchparams.searchType}" >
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportAllRidesForRider}"          itemValue="#{ride.paramValueRidereportAllRidesForRider}"      />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportRealizedRidesForRider}"     itemValue="#{ride.paramValueRidereportRealizedRidesForRider}" />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportUnratedRidesForRider}"      itemValue="#{ride.paramValueRidereportUnratedRidesForRider}"  />
+                                    <f:selectItem itemLabel="#{ride.paramValueRidereportAllRidesForDriver}"      itemValue="#{ride.paramValueRidereportAllRidesForDriver}"  />
+                                </p:selectOneMenu>
+                            </p:row>    
+
+                            <p:row>
+
+                                <p:panelGrid columns="2">
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.timeintervalStart}" />
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:calendar 
+                                                value="#{ridesearchparams.startDate}"  
+                                                id="startDateCal"   
+                                                locale="de" 
+                                                pattern="#{ridesearchparams.dateformat}" 
+                                                mode="popup"
+                                                navigator="true"
+                                                showOn="focus"
+                                                size="10"
+                                                >  
+                                            </p:calendar>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.timeintervalEnd}" /> 
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:calendar 
+                                                value="#{ridesearchparams.endDate}"  
+                                                id="endDateCal"   
+                                                locale="de" 
+                                                pattern="#{ridesearchparams.dateformat}" 
+                                                mode="popup"
+                                                navigator="true"
+                                                showOn="focus"
+                                                size="10"
+                                                >  
+                                            </p:calendar>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid> <!-- End of inner 2-column panel grid -->
+                            </p:row>
+
+                            <f:facet name="footer">
+
+                                <h:commandButton  
+                                    value="#{msgs.formSearch}"
+                                    action="search.drivesDisplay"
+                                    icon="ui-icon-search"
+                                    >
+
+                                    <f:param 
+                                        name="#{ridesearchparams.paramStartDate}" 
+                                        value="#{ridesearchparams.startDateFormatted}"
+                                        />
+
+                                    <f:param 
+                                        name="#{ridesearchparams.paramEndDate}" 
+                                        value="#{ridesearchparams.endDateFormatted}"
+                                        />
+
+                                    <f:param 
+                                        name="#{ridesearchparams.paramNameSearchType}" 
+                                        value="#{ridesearchparams.searchType}"
+                                        />
+
+
+                                    <f:param 
+                                        name="#{webflow.paramBack}" 
+                                        value="search.requests"
+                                        />
+
+                                </h:commandButton>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </p:panel>
+
+                </h:form>
+
+
+
+
+
+
 
 
 

@@ -282,6 +282,18 @@
             <to-view-id>/faces/protected/search/searchDrives.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <!-- page to display results of searches for drives in the past -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>search.drivesDisplay</from-outcome>
+            <to-view-id>/faces/protected/search/searchDrivesDisplay.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    
+    
    
      
     <!-- ********************************************* -->
