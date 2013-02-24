@@ -188,6 +188,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 em.merge(match);
             }
             em.lock(ride, LockModeType.NONE);
+            this.commitUserTransaction();
             return -1;
         }
 
