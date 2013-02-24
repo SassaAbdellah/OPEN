@@ -151,6 +151,52 @@ public class JDriverUndertakesRideEntityService {
         return durcl.getDrivesForDriver(ce.getCustNickname());
 
     }
+    
+    
+    
+    /**
+     * Get a list all Drives of this driver. Current user/customer is determined
+     * from HTTPRequest's AuthPrincipal.
+     *
+     * @return
+     */
+    public List<JDriverUndertakesRideEntity> getDrivesInInterval( Date startDate, Date endDate) {
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+
+
+        if (ce == null) {
+            throw new Error("Cannot determine Drives, customerEntity is null");
+        }
+
+        if (ce.getCustId() == null) {
+            throw new Error("Cannot determine Drives, customerId is null");
+        }
+
+        List <DriverUndertakesRideEntity> preres=durcl.getDrivesInInterval(ce, startDate, endDate);
+  
+    
+    
+      // cast results from DriverUndertakesRideEntity to JDriverUndertakesRideEntity
+
+        List<JDriverUndertakesRideEntity> res = new LinkedList<JDriverUndertakesRideEntity>();
+        Iterator<DriverUndertakesRideEntity> it = preres.iterator();
+
+        while (it.hasNext()) {
+            JDriverUndertakesRideEntity jdure = new JDriverUndertakesRideEntity();
+            jdure.updateFromDriverUndertakesRideEntity(it.next());
+            res.add(jdure);
+        }
+
+        return res;
+    } //getDrivesInInterval
+
+    
+    
+    
+    
 
     /**
      * Safely get the Drive with given ID.

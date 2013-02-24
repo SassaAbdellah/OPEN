@@ -685,13 +685,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         // currently not supported, but to come soon
 
         String reportType = rspb.getSearchType();
+        java.sql.Date startDate=new java.sql.Date(rspb.getStartDate().getTime());
+        java.sql.Date endDate=new java.sql.Date(rspb.getEndDate().getTime());
         
 
-        return this.getDrivesForDriver();
+        return (new JDriverUndertakesRideEntityService()).getDrivesInInterval(startDate, endDate);
 
-
-        // if the parameter is not supported, then throw a new Error
-        // throw new Error("Parameter " + reportType + " is  not supported in getDriveReport()");
-
+        
+       
     }
 } // class 
