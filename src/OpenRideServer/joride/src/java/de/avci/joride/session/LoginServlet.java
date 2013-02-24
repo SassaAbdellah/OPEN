@@ -1,6 +1,8 @@
 package de.avci.joride.session;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginServlet extends HttpServlet {
 	
-    
+    transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
+
     
     
         /** The (JEE Standard) URL where the j_security_check lives.
@@ -79,7 +82,7 @@ public class LoginServlet extends HttpServlet {
         throws java.io.IOException  {
 		
             String targetURL=request.getContextPath()+"/j_security_check";
-            System.err.println("target url : "+targetURL);
+            log.log(Level.FINE,"target url : "+targetURL);
            
             
             //

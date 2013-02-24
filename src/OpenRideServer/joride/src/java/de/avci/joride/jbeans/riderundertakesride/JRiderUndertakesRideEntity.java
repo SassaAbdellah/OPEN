@@ -482,13 +482,13 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         HTTPUtil hru = new HTTPUtil();
 
-        System.out.println("doCrudAction Event : " + evt.toString());
+        log.log(Level.FINE,"doCrudAction Event : " + evt.toString());
 
         String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
-        System.out.println("Param Action : " + action);
+        log.log(Level.FINE,"Param Action : " + action);
 
         String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
-        System.out.println("Param ID     : " + id);
+        log.log(Level.FINE,"Param ID     : " + id);
 
 
         // Deleting is not yet implemented,  
@@ -512,7 +512,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     public List<JMatchingEntity> getMatches() {
 
         if (this.getRiderrouteId() == null) {
-            System.err.println("riderRouteId is null, returning empty list");
+            log.log(Level.SEVERE,"riderRouteId is null, returning empty list");
             return new LinkedList<JMatchingEntity>();
         }
 
@@ -872,7 +872,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
         if (rspb == null) {
-            System.err.println(this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            log.log(Level.FINE,this.getClass() + "RideSearchParamsBean is null, returning empty list");
             return new LinkedList<JRiderUndertakesRideEntity>();
         }
 

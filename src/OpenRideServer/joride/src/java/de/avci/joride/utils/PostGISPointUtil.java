@@ -4,7 +4,8 @@
  */
 package de.avci.joride.utils;
 
-import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.postgis.Point;
 
 /**
@@ -12,6 +13,8 @@ import org.postgis.Point;
  * @author jochen
  */
 public class PostGISPointUtil {
+    
+    Logger log=Logger.getLogger(this.getClass().getCanonicalName());
 
     /* Serialize PostGis Point coordinates to be stored in the database. That
      * is: return ""+point.getY()+","+point.getX(); or null, if any of the
@@ -57,10 +60,9 @@ public class PostGISPointUtil {
             
             return new Point(lonD,latD);
         
-        
         } catch (java.lang.Exception exc) {
 
-            System.err.println("Error while deserializing point from String : " + dbString+" "+exc.getMessage());
+            log.log(Level.SEVERE,"Error while deserializing point from String : " + dbString+" ",exc);
             return null;
         }
 

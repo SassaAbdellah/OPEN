@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class JRiderUndertakesRideEntityService {
 
-    Logger log = Logger.getLogger("" + this.getClass());
+   transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 
     /**
      * Get a customerEntity from the current request
@@ -128,7 +128,7 @@ public class JRiderUndertakesRideEntityService {
         String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
-        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+        log.log(Level.WARNING,"Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
 
 
         // get all rides related to this customer
@@ -182,7 +182,7 @@ public class JRiderUndertakesRideEntityService {
         String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
-        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+        log.log(Level.FINE,"Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
 
 
         // get all rides related to this customer
@@ -202,9 +202,9 @@ public class JRiderUndertakesRideEntityService {
 
             res.add(jrure);
         }
-        
-        
-        System.err.println(""+this.getClass()+"getRidesForDriverInInterval returning "+res.size()+" results");
+
+
+        log.log(Level.FINE,"" + this.getClass() + "getRidesForDriverInInterval returning " + res.size() + " results");
 
         return res;
 
@@ -239,7 +239,7 @@ public class JRiderUndertakesRideEntityService {
         String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
-        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+       log.log(Level.FINE,"Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
 
 
         // get all rides related to this customer
@@ -284,7 +284,7 @@ public class JRiderUndertakesRideEntityService {
         String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
         RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
 
-        System.err.println("Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+        log.log(Level.FINE,"Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
 
 
         // get all rides related to this customer
@@ -479,7 +479,7 @@ public class JRiderUndertakesRideEntityService {
 
 
 
-        System.err.println(
+        log.log(Level.FINE,
                 "Set givenRating for RiderrouteId : "
                 + jrure.getRiderrouteId()
                 + " Givenrating : "
@@ -491,7 +491,7 @@ public class JRiderUndertakesRideEntityService {
 
 
         // see, if caller is equal to rider ***in the database**
-    
+
         if (!(this.callerIsRider(jrure.getRiderrouteId()))) {
             throw new Error("Cannot rate ride, caller is not identical to owner of ride request!");
         }
@@ -503,7 +503,6 @@ public class JRiderUndertakesRideEntityService {
 
     }
 
-    
     /**
      * Savely set receivedRating for this ride. .
      *
@@ -517,7 +516,7 @@ public class JRiderUndertakesRideEntityService {
 
 
 
-        System.err.println(
+       log.log(Level.FINE,
                 "Set receivedRating for RiderrouteId : "
                 + jrure.getRiderrouteId()
                 + " Receivedrating : "
@@ -529,7 +528,7 @@ public class JRiderUndertakesRideEntityService {
 
 
         // see, if caller is equal to driver ***in the database**
-      
+
         if (!(this.callerIsDriver(jrure.getRiderrouteId()))) {
             throw new Error("Cannot driver-rate ride, caller is not identical to driver of ride request!");
         }
@@ -537,8 +536,7 @@ public class JRiderUndertakesRideEntityService {
         rurcl.setReceivedRating(
                 jrure.getRiderrouteId(),
                 jrure.getReceivedrating(),
-                jrure.getReceivedratingComment()
-                );
+                jrure.getReceivedratingComment());
 
     }
 

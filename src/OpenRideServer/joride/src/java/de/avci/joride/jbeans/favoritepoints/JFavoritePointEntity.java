@@ -10,6 +10,8 @@ import de.avci.joride.utils.PostGISPointUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.FavoritePointEntity;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -24,6 +26,8 @@ import org.postgis.Point;
 @Named("jfavpoint")
 @RequestScoped
 public class JFavoritePointEntity extends FavoritePointEntity {
+
+    transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 
     /**
      * Returns the list of favourite points for the current customer given.
@@ -41,13 +45,13 @@ public class JFavoritePointEntity extends FavoritePointEntity {
 
         HTTPUtil hru = new HTTPUtil();
 
-        System.out.println("doCrudAction Event : " + evt.toString());
+        log.log(Level.FINE,"doCrudAction Event : " + evt.toString());
 
         String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
-        System.out.println("Param Action : " + action);
+         log.log(Level.FINE,"Param Action : " + action);
 
         String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
-        System.out.println("Param ID     : " + id);
+         log.log(Level.FINE,"Param ID     : " + id);
 
 
 
@@ -92,7 +96,7 @@ public class JFavoritePointEntity extends FavoritePointEntity {
         String favpointIdStr = (new HTTPUtil()).getParameterSingleValue(CRUDConstants.PARAM_NAME_CRUD_ID);
         favpointId = (new Integer(favpointIdStr)).intValue();
 
-        System.err.println("============ Loading Favpoint :" + favpointId + " ");
+        log.log(Level.FINE, "============ Loading Favpoint :" + favpointId + " ");
 
         FavoritePointEntity fpe = (new JFavoritePointsService()).getFavoritePointEntitySafely(favpointId);
 
@@ -104,8 +108,6 @@ public class JFavoritePointEntity extends FavoritePointEntity {
 
     } // updateFromDB
 
-    
-    
     /**
      * Update Point data from HTTPRequest's Parameter. I.e: if HTTPRequest
      * transports Address/Displaystring or Coordinate points, then update the
@@ -162,7 +164,7 @@ public class JFavoritePointEntity extends FavoritePointEntity {
         Point p = pu.pointFromDBString(this.getFavptPoint());
 
         // protect agains null pointer exceptions
-        if (pu == null || p == null ) {
+        if (pu == null || p == null) {
             return null;
         }
         return pu.getLat(p);

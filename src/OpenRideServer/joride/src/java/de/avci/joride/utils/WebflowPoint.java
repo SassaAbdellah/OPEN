@@ -4,10 +4,11 @@
  */
 package de.avci.joride.utils;
 
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-
 import org.postgis.Point;
 
 
@@ -54,7 +55,7 @@ import org.postgis.Point;
 public class WebflowPoint implements Serializable {
 
   
-    
+    Logger log= Logger.getLogger(this.getClass().getCanonicalName());
     
      
 
@@ -227,7 +228,8 @@ public class WebflowPoint implements Serializable {
             
             try{ this.lon = new Double(vLon);
             } catch(java.lang.NumberFormatException exc){
-                System.err.println("Error while converting longitude "+exc);
+                
+                log.log(Level.WARNING,"Error while converting longitude",exc);
             }
             
             
@@ -237,7 +239,7 @@ public class WebflowPoint implements Serializable {
         if (vLat != null) {
              try{ this.lat = new Double(vLat);
             } catch(java.lang.NumberFormatException exc){
-                System.err.println("Error while converting latitude "+exc);
+                log.log(Level.WARNING,"Error while converting latitude",exc);
             }
         }
 
@@ -325,10 +327,10 @@ public class WebflowPoint implements Serializable {
         try {
             latitude = new Double(this.getLat());
         } catch (java.lang.NumberFormatException exc) {
-            System.err.println("Cannot determine numerical latitude from " + this.getLat());
+            log.log(Level.WARNING,"Cannot determine numerical latitude from " + this.getLat(),exc);
             return null;
         } catch (java.lang.NullPointerException exc) {
-            System.err.println("Latitude was null, cannot create point");
+            log.log(Level.WARNING,"Latitude was null, cannot create point",exc);
             return null;
         }
         
@@ -339,10 +341,10 @@ public class WebflowPoint implements Serializable {
         try {
             longitude = new Double(this.getLon());
         } catch (java.lang.NumberFormatException exc) {
-            System.err.println("Cannot determine numerical longitude from " + this.getLat());
+            log.log(Level.WARNING,"Cannot determine numerical longitude from " + this.getLat(),exc);
             return null;
         } catch (java.lang.NullPointerException exc) {
-            System.err.println("Longitude was null, cannot create point");
+            log.log(Level.WARNING,"Longitude was null, cannot create point",exc);
             return null;
         }
 
