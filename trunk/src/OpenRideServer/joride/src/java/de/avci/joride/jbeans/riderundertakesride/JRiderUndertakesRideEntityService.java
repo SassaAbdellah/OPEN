@@ -202,6 +202,9 @@ public class JRiderUndertakesRideEntityService {
 
             res.add(jrure);
         }
+        
+        
+        System.err.println(""+this.getClass()+"getRidesForDriverInInterval returning "+res.size()+" results");
 
         return res;
 

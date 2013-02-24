@@ -31,8 +31,8 @@
             </ui:define>
 
             <ui:define name="content">
-                
-           
+
+
 
                 #{ride.update()}
 
@@ -266,7 +266,7 @@
                                     <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
                                 </tr>
 
-                                <tr>
+                                <tr> <!-- link to make this ride rider rateable -->
                                     <td colspan="3">
                                         <h:form rendered="#{ride.riderRateable}">
                                             <div class="formLabel">
@@ -307,6 +307,30 @@
                                     <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
                                     <td> <span class="formInput">  #{ride.receivedratingDate} </span> </td>
                                 </tr>
+
+
+                                <tr> <!-- link to make this ride driver rateable -->
+                                    <td colspan="3">
+                                        <h:form rendered="#{ride.driverRateable}">
+                                            <div class="formLabel">
+                                                <!-- for whatever reason the rendered="#{ride.driverRateable}" clause breaks the -->
+                                                <!-- commandlink, if the attribute is part of the h:commandlink element         -->
+                                                <!-- This is why we apply it to the h:form element instead                      -->
+
+
+                                                <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
+                                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                    <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                                </h:commandLink>
+                                            </div>
+                                        </h:form>
+                                    </td>
+                                </tr>
+
+
+
+
+
 
                             </table>
 
