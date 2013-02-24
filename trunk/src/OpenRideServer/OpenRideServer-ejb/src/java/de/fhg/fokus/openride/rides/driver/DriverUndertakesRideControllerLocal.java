@@ -163,6 +163,17 @@ public interface DriverUndertakesRideControllerLocal {
 
     List<DriverUndertakesRideEntity> getActiveOpenDrives(String nickname);
     
+    /** Get all Drives for driver given by custId in time Interval 
+     *  given by startDate, endDate
+     * 
+     * @param   custId      id of the driver
+     * @param   startDate   start of interval
+     * @param   endDate     end of interval
+     * 
+     * @return  list of all rides offered between startdate and end date
+     * 
+     */
+    List<DriverUndertakesRideEntity> getDrivesInInterval(CustomerEntity custId,Date startDate,Date endDate );
     
        
     /**  Returns all drives for a given driver that have startpoints defined after a given date.
@@ -192,5 +203,7 @@ public interface DriverUndertakesRideControllerLocal {
      * @return  true, if countermanding was successful, else false.
      */
     public boolean invalidateRide(Integer rideId);
+
+  
 
 }
