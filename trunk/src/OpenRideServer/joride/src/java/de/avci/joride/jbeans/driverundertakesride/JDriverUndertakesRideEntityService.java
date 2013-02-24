@@ -5,27 +5,22 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.avci.joride.jbeans.driverundertakesride.JRoutePointsEntity;
-
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
-import de.fhg.fokus.openride.routing.RouterBeanLocal;
 import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
+import de.fhg.fokus.openride.routing.RouterBeanLocal;
 import java.sql.Date;
 import java.util.Iterator;
-
-
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
