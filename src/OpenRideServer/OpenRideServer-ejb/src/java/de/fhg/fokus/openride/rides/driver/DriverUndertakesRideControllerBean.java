@@ -49,11 +49,14 @@ import org.postgis.Point;
 
 /**
  *
- * @author pab
+ * @author pab, jochen
  */
 @Stateless
 public class DriverUndertakesRideControllerBean extends ControllerBean implements DriverUndertakesRideControllerLocal {
 
+    
+    UserTransaction u;
+    
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
     @EJB
@@ -1094,14 +1097,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return returnList;
     }
 
-    
-    
-    
     @Override
     public boolean invalidateRide(Integer rideId) {
 
-        
-        DriverUndertakesRideEntity dure=this.getDriveByDriveId(rideId);
+
+        DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
         // TODO: check if we really want user transactions
         startUserTransaction();
         boolean deletable = this.isDeletable(rideId);
@@ -1122,28 +1122,37 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             matchEntity.setDriverChange(new java.util.Date());
             em.merge(matchEntity);
         }
-        
+
         // mark ride as invalidated
-        
-        this.updateRide(dure.getRideId()            ,  //  rideId
-                        dure.getCustId().getCustId(),  // customerId
-                        dure.getRideStartpt()       ,  // ridestartPoint
-                        dure.getRideEndpt()         ,  // rideendPoint
-                        new Point[0]                ,  // intermediatePoints
-                        new java.sql.Date(dure.getRideStarttime().getTime()),  // ridestartTime
-                        "COUNTERMANDED",            // rideComment
-                        dure.getRideAcceptableDetourInKm(),      // acceptableDetourInMin
-                        dure.getRideAcceptableDetourInMin(),     // acceptableDetourKM
-                        dure.getRideAcceptableDetourInPercent(), // acceptableDetourPercent
-                        0,                          // offeredSeatsNo
-                        dure.getStartptAddress(),   // String startPtAddress
-                        dure.getEndptAddress()      // String endPtAddress
-                       );  
-        
-        
-        em.merge(this);  
+
+        this.updateRide(dure.getRideId(), //  rideId
+                dure.getCustId().getCustId(), // customerId
+                dure.getRideStartpt(), // ridestartPoint
+                dure.getRideEndpt(), // rideendPoint
+                new Point[0], // intermediatePoints
+                new java.sql.Date(dure.getRideStarttime().getTime()), // ridestartTime
+                "COUNTERMANDED", // rideComment
+                dure.getRideAcceptableDetourInKm(), // acceptableDetourInMin
+                dure.getRideAcceptableDetourInMin(), // acceptableDetourKM
+                dure.getRideAcceptableDetourInPercent(), // acceptableDetourPercent
+                0, // offeredSeatsNo
+                dure.getStartptAddress(), // String startPtAddress
+                dure.getEndptAddress() // String endPtAddress
+                );
+
+
+        em.merge(this);
         commitUserTransaction();
-        
+
         return true;
     } // invalidateRide
-}
+
+    @Override
+    public List<DriverUndertakesRideEntity> getDrivesInInterval(CustomerEntity custId, Date startDate, Date endDate) {
+
+        List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findByCustIdBetweenDates").setParameter("custId", custId).setParameter("startdate", startDate).setParameter("enddate", endDate).getResultList();
+
+        return res;
+    }
+    
+} // class

@@ -1,36 +1,35 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package de.fhg.fokus.openride.rides.driver;
 
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -73,14 +72,17 @@ import org.postgis.Point;
     @NamedQuery(name = "DriverUndertakesRideEntity.findCustomerDrivesBeforeTime", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime <= :time ORDER BY d.rideStarttime DESC"),
     @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrives", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d"),
     @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrivesAfterDate", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d WHERE d.rideStarttime >= :date"),
-    @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrivesBetweenDates", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d WHERE d.rideStarttime BETWEEN :startdate AND :enddate")
+    @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrivesBetweenDates", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d WHERE d.rideStarttime BETWEEN :startdate AND :enddate"),
+    // Find all rides for user starting between given dates
+    @NamedQuery(name = "DriverUndertakesRideEntity.findByCustIdBetweenDates", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime BETWEEN :startdate AND :enddate")
 })
-        @Converter(name="convert", converterClass=PointConverter.class)
+@Converter(name = "convert", converterClass = PointConverter.class)
 public class DriverUndertakesRideEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ride_id")
     private Integer rideId;
     @Column(name = "ride_weekdays")
@@ -119,16 +121,14 @@ public class DriverUndertakesRideEntity implements Serializable {
     private CustomerEntity custId;
     @Column(name = "ride_route_point_distance_meters")
     private Double rideRoutePointDistanceMeters;
-
-
     /* ADDRESSES */
-
     @Column(name = "startpt_addr")
     private String startptAddressStreet;
     @Column(name = "endpt_addr")
     private String endptAddressStreet;
 
-    public DriverUndertakesRideEntity() {}
+    public DriverUndertakesRideEntity() {
+    }
 
     public DriverUndertakesRideEntity(Date rideStarttime,
             Point rideStartpt, Point rideEndpt,
@@ -280,8 +280,6 @@ public class DriverUndertakesRideEntity implements Serializable {
         this.rideRoutePointDistanceMeters = rideRoutePointDistanceMeters;
     }
 
-
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -306,5 +304,4 @@ public class DriverUndertakesRideEntity implements Serializable {
     public String toString() {
         return "de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity[rideId=" + rideId + "]";
     }
-
 }
