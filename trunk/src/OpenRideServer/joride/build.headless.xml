@@ -55,10 +55,29 @@
 	 </fileset>
       </copy>
    </target>
+
+
+   <target name="apply-local-properties" depends="copy" description="rewrite properties files with local properties">
+ 	
+	<fail />
+	<properties file="local.properties" />
+
+	<!-- operational properties file to -->
+
+	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
+
+
+        <!-- replace email target -->
+
+	
+
+ 
+   </target>
+
    
    <target 
 	name="compile" 
-	depends="copy" 
+	depends="copy,apply-local-properties" 
 	description="Compile source files."
 	>
 
