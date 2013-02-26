@@ -90,11 +90,13 @@ noreplyEmailRecipient=noreply@localhost
 #
 #
 # URL where terms and conditions are to be found
+# default setting points to a warning message.
 #
-termsURL=http://localhost:8080/terms
+termsURL=joride-public/faces/uninitialized.xhtml
 #
 # URL where imprint is to be found
+# default setting points to a warning message.
 #
-imprintURL=http://localhost:8080/imprint
+imprintURL=/joride-public/faces/uninitialized.xhtml
 
 
