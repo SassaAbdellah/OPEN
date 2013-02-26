@@ -14,15 +14,15 @@
 
     <body>        
         <ui:composition>   
-            
+
             <h:form>
-                <h:commandLink action="terms" value="#{msgs.imprint}"/>
+                <h:outputLink value="#{nav.termsURL}">   #{msgs.terms}  </h:outputLink>
                 |
-                <h:commandLink action="terms" value="#{msgs.terms}" />
+                <h:outputLink value="#{nav.imprintURL}"> #{msgs.imprint} </h:outputLink>
                 |
                 <h:commandLink action="contact" value="#{msgs.contact}"/>
             </h:form>
-            
+
         </ui:composition>
     </body>
 
