@@ -166,13 +166,99 @@
 	 </fileset>
       </copy>
 
-
-
-
-
    </target>
   
 
+
+   <target name="apply-local-properties" depends="prepare" description="rewrite properties files with local properties">
+ 	
+           <!-- check, that user has a local.properties file in place in master project -->     
+	
+
+        <property file="../local.properties" />
+
+	    <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+            <condition>
+                <not>
+                        <resourcecount count="1">
+                                <fileset id="fs" dir=".." includes="local.properties"/>
+                        </resourcecount>
+                </not>
+           </condition>
+        </fail>
+
+
+
+
+        <!-- ****************************  -->
+	<!-- Rewrite operational setting   -->
+        <!-- ****************************  -->
+
+	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
+        <!-- replace email target -->
+
+
+        <!-- replaceing mailServiceJNDI property with local settings  -->   
+ 
+       <replaceregexp byline="true">
+           <regexp pattern="mailServiceJNDI=(.*)"/>
+            <substitution expression="mailServiceJNDI=${mailServiceJNDI}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+     <!-- replaceing   webmasterEmailRecipient property with local settings  -->
+        
+      <replaceregexp byline="true">
+           <regexp pattern="webmasterEmailRecipient=(.*)"/>
+            <substitution expression="webmasterEmailRecipient=${webmasterEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+      <!-- replaceing  businessEmailRecipient  property with local settings  -->
+        
+      <replaceregexp byline="true">
+           <regexp pattern="businessEmailRecipient=(.*)"/>
+            <substitution expression="businessEmailRecipient=${businessEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+      <!-- replaceing  noreplyEmailRecipient  property with local settings  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="noreplyEmailRecipient=(.*)"/>
+            <substitution expression="noreplyEmailRecipient=${noreplyEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+
+
+        <!-- ****************************  -->
+        <!-- Rewrite navigation settings   -->
+        <!-- ****************************  -->
+
+        <property name="navparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/navigation.properties" />
+       
+
+       <!-- applying url for terms and conditions  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="termsURL=(.*)"/>
+            <substitution expression="termsURL=${termsURL}"/>
+            <fileset file="${navparamfile}" />
+       </replaceregexp>
+
+       <!-- applying url for imprint  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="imprintURL=(.*)"/>
+            <substitution expression="imprintURL=${imprintURL}"/>
+            <fileset file="${navparamfile}" />
+       </replaceregexp>
+
+   </target> <!--  end of target "apply local properties" -->
 
 
 
@@ -180,7 +266,7 @@
  
    <target 
 	name="compile" 
-	depends="prepare" 
+	depends="prepare,apply-local-properties" 
 	description="Compile source files."
 	>
 
