@@ -57,22 +57,68 @@
    </target>
 
 
+
+
+
+
    <target name="apply-local-properties" depends="copy" description="rewrite properties files with local properties">
  	
-	<fail />
-	<properties file="local.properties" />
-
-	<!-- operational properties file to -->
-
-	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
-
-
-        <!-- replace email target -->
-
+           <!-- check, that user has a local.properties file in place in master project -->     
 	
 
+        <property file="../local.properties" />
+
+	    <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+            <condition>
+                <not>
+                        <resourcecount count="1">
+                                <fileset id="fs" dir=".." includes="local.properties"/>
+                        </resourcecount>
+                </not>
+           </condition>
+        </fail>
+
+
+
+	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
+        <!-- replace email target -->
+
+
+        <!-- replaceing mailServiceJNDI property with local settings  -->   
  
-   </target>
+       <replaceregexp byline="true">
+           <regexp pattern="mailServiceJNDI=(.*)"/>
+            <substitution expression="mailServiceJNDI=${mailServiceJNDI}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+     <!-- replaceing   webmasterEmailRecipient property with local settings  -->
+        
+      <replaceregexp byline="true">
+           <regexp pattern="webmasterEmailRecipient=(.*)"/>
+            <substitution expression="webmasterEmailRecipient=${webmasterEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+      <!-- replaceing  businessEmailRecipient  property with local settings  -->
+        
+      <replaceregexp byline="true">
+           <regexp pattern="businessEmailRecipient=(.*)"/>
+            <substitution expression="businessEmailRecipient=${businessEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+      <!-- replaceing  noreplyEmailRecipient  property with local settings  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="noreplyEmailRecipient=(.*)"/>
+            <substitution expression="noreplyEmailRecipient=${noreplyEmailRecipient}"/>
+            <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+   </target> <!--  end of target "apply local properties" -->
 
    
    <target 
