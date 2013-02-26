@@ -87,3 +87,14 @@ businessEmailRecipient=jochen@localhost
 # for messages that are not supposed to be replied
 #
 noreplyEmailRecipient=noreply@localhost
+#
+#
+# URL where terms and conditions are to be found
+#
+termsURL=http://localhost:8080/terms
+#
+# URL where imprint is to be found
+#
+imprintURL=http://localhost:8080/imprint
+
+

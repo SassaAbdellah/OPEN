@@ -80,6 +80,11 @@
 
 
 
+
+        <!-- ****************************  -->
+	<!-- Rewrite operational setting   -->
+        <!-- ****************************  -->
+
 	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
         <!-- replace email target -->
 
@@ -116,6 +121,32 @@
            <regexp pattern="noreplyEmailRecipient=(.*)"/>
             <substitution expression="noreplyEmailRecipient=${noreplyEmailRecipient}"/>
             <fileset file="${opsparamfile}" />
+       </replaceregexp>
+
+
+
+
+        <!-- ****************************  -->
+        <!-- Rewrite navigation settings   -->
+        <!-- ****************************  -->
+
+        <property name="navparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/navigation.properties" />
+       
+
+       <!-- applying url for terms and conditions  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="termsURL=(.*)"/>
+            <substitution expression="termsURL=${termsURL}"/>
+            <fileset file="${navparamfile}" />
+       </replaceregexp>
+
+       <!-- applying url for imprint  -->
+
+      <replaceregexp byline="true">
+           <regexp pattern="imprintURL=(.*)"/>
+            <substitution expression="imprintURL=${imprintURL}"/>
+            <fileset file="${navparamfile}" />
        </replaceregexp>
 
    </target> <!--  end of target "apply local properties" -->
