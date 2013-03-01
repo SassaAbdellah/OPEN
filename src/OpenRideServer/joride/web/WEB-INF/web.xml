@@ -73,14 +73,23 @@
     </welcome-file-list>
     
     
-    
-    
+
+    <!--  Context Params for SUN's Mojarra JSF Engine.  When true a script element with a src attribute                -->
+    <!--  This allows browsers to cache the JS resource instead of having to write it each time the page is accessed.  -->
+   
+    <context-param>
+        <param-name> com.sun.faces.externalizeJavaScript </param-name>
+        <param-value> true </param-value>  	
+    </context-param>
+
+
+
     
     <!-- TODO: change this when it comes to productive USE ! -->
     
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
     
     
