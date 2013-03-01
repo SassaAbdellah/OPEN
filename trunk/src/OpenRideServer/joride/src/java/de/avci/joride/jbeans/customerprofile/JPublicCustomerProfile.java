@@ -75,6 +75,11 @@ public class JPublicCustomerProfile implements Serializable {
      */
     public void updateFromCustomerEntity(CustomerEntity ce) {
 
+        if(ce==null){
+            throw new Error("Cannot retrieve public customer data, customer is null");
+        }
+        
+        
         this.custId = ce.getCustId();
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
