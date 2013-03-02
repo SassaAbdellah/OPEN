@@ -64,9 +64,9 @@ public class JPublicCustomerProfile implements Serializable {
      * allowed during rides.
      *
      */
-    boolean custIssmoker;
+    Boolean custIssmoker;
 
-    public boolean getCustIssmoker() {
+    public Boolean getCustIssmoker() {
         return custIssmoker;
     }
 
@@ -84,7 +84,9 @@ public class JPublicCustomerProfile implements Serializable {
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
         this.custNickname = ce.getCustNickname();
+        
         this.custIssmoker = ce.getCustIssmoker();
+         
     }
     
     
