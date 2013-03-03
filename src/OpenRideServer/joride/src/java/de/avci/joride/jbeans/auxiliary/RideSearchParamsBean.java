@@ -5,6 +5,7 @@
 package de.avci.joride.jbeans.auxiliary;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.utils.BeanRetriever;
 import de.avci.joride.utils.HTTPUtil;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -242,15 +243,8 @@ public class RideSearchParamsBean implements Serializable {
     public RideSearchParamsBean retrieveCurrentTimeInterval(String beanName) {
 
          log.log(Level.FINE,"" + this.getClass() + " retrieveCurrentTimeInterval(" + beanName + ")");
-
-        try {
-            FacesContext context = FacesContext.getCurrentInstance();
-            Object o = context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", this.getClass());
-            RideSearchParamsBean res = (RideSearchParamsBean) o;
-            return res;
-        } catch (Exception exc) {
-            throw new Error("Unexpected Error while retrieving time interval named " + beanName, exc);
-        }
+         return (RideSearchParamsBean) new BeanRetriever().retrieveBean(beanName, this.getClass());
+         
     } // 
 } // class
 
