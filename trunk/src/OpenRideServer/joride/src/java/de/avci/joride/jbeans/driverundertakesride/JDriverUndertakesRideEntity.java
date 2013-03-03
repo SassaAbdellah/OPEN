@@ -37,7 +37,6 @@ import org.postgis.Point;
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
-    
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
      * Frontends.
@@ -442,20 +441,35 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     }
 
     /**
-     * Initialize the RideStarttime property if it is not yet initialized.
+     * Initialize a JDriverUndertakeRide Entity to be created as a new Drive
      *
      */
-    public void initialize() {
+    public void initializeNewDrive() {
+
+
+        this.setRideId(null);
 
         if (this.getRideStarttime() == null) {
             this.setRideStarttime(new Date(System.currentTimeMillis()));
         }
 
-        this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
-        this.setRideAcceptableDetourInMin(ACCEPTABLE_DETOUR_MIN_DEFAULT);
-        this.setRideAcceptableDetourInPercent(ACCEPTABLE_DETOUR_PERCENT_DEFAULT);
+        if (this.getRideAcceptableDetourInKm() == null) {
+            this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
+        }
 
-        this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
+        if (this.getRideAcceptableDetourInMin() == null) {
+            this.setRideAcceptableDetourInMin(ACCEPTABLE_DETOUR_MIN_DEFAULT);
+        }
+
+
+        if (this.getRideAcceptableDetourInPercent() == null) {
+            this.setRideAcceptableDetourInPercent(ACCEPTABLE_DETOUR_PERCENT_DEFAULT);
+        }
+
+        if (this.getRideOfferedseatsNo() == null) {
+            this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
+        }
+        
     }
 
     /**
@@ -494,11 +508,12 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         JDriverUndertakesRideEntityService jdures = new JDriverUndertakesRideEntityService();
 
-        int my_id = jdures.addDriveSafely(this);
+        int newId = jdures.addDriveSafely(this);
 
-        this.setRideId(new Integer(my_id));
 
-        return this.getRideId();
+        this.setRideId(newId);
+
+        return newId;
 
     }
 
@@ -506,13 +521,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         HTTPUtil hru = new HTTPUtil();
 
-        log.log(Level.FINE,"doCrudAction Event : " + evt.toString());
+        log.log(Level.FINE, "doCrudAction Event : " + evt.toString());
 
         String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
-        log.log(Level.FINE,"Param Action : " + action);
+        log.log(Level.FINE, "Param Action : " + action);
 
         String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
-        log.log(Level.FINE,"Param ID     : " + id);
+        log.log(Level.FINE, "Param ID     : " + id);
 
 
         // Deleting is not yet implemented,  
@@ -536,7 +551,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public List<JMatchingEntity> getMatches() {
 
         if (this.getRideId() == null) {
-            log.log(Level.SEVERE,"Cannot return matches, My rideId is null!!, returning empty list.");
+            log.log(Level.SEVERE, "Cannot return matches, My rideId is null!!, returning empty list.");
             return new LinkedList<JMatchingEntity>();
         }
 
@@ -677,9 +692,9 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         String beanName = rspb0.getBeanNameRidesearchparam();
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
-        
+
         if (rspb == null) {
-            log.log(Level.SEVERE,this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            log.log(Level.SEVERE, this.getClass() + "RideSearchParamsBean is null, returning empty list");
             return new LinkedList<JDriverUndertakesRideEntity>();
         }
 
