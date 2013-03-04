@@ -81,7 +81,7 @@
                                 value="#{msgs.nav1_logout}"       
                                 icon="ui-icon-power"
                                 /> 
-                            
+
 
                         </p:splitButton>
 
@@ -103,6 +103,7 @@
                             <f:param name="#{webflow.paramFinish}"  value="rider" /> 
                             <f:param name="#{webflow.paramCancel}"  value="rider" /> 
                         </p:menuitem>
+                        <p:menuitem outcome="search.requests"   value="#{msgs.rideSearchRequests}" />    
                     </p:submenu>
 
                     <!-- Driver Submenu -->
@@ -113,6 +114,7 @@
                             <f:param name="#{webflow.paramFinish}"   value="driver" /> 
                             <f:param name="#{webflow.paramCancel}"   value="driver" /> 
                         </p:menuitem>
+                         <p:menuitem outcome="search.drives"  value="#{msgs.rideSearchDrives}"  />  
                     </p:submenu>
 
                     <p:submenu  label="#{msgs.searchSubMenu}" icon="ui-icon-search">
