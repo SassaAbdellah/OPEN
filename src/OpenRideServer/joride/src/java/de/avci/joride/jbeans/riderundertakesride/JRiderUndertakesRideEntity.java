@@ -254,11 +254,15 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     }
 
     /**
-     * Initialize the RideStarttime property if it is not yet initialized.
+     * Initialize a *new* RiderUntertakesRideEntity, which is not yet in the
+     * database
      *
      */
-    public void initialize() {
+    public void initializeNewRide() {
 
+
+
+        this.setRiderrouteId(null);
 
         // naturally, we cannot start earlier then now
         if (this.getStarttimeEarliest() == null) {
@@ -482,13 +486,13 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         HTTPUtil hru = new HTTPUtil();
 
-        log.log(Level.FINE,"doCrudAction Event : " + evt.toString());
+        log.log(Level.FINE, "doCrudAction Event : " + evt.toString());
 
         String action = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudAction());
-        log.log(Level.FINE,"Param Action : " + action);
+        log.log(Level.FINE, "Param Action : " + action);
 
         String id = hru.getParameterSingleValue((new CRUDConstants()).getParamNameCrudId());
-        log.log(Level.FINE,"Param ID     : " + id);
+        log.log(Level.FINE, "Param ID     : " + id);
 
 
         // Deleting is not yet implemented,  
@@ -512,7 +516,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     public List<JMatchingEntity> getMatches() {
 
         if (this.getRiderrouteId() == null) {
-            log.log(Level.SEVERE,"riderRouteId is null, returning empty list");
+            log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
             return new LinkedList<JMatchingEntity>();
         }
 
@@ -872,7 +876,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         RideSearchParamsBean rspb = new RideSearchParamsBean().retrieveCurrentTimeInterval(beanName);
 
         if (rspb == null) {
-            log.log(Level.FINE,this.getClass() + "RideSearchParamsBean is null, returning empty list");
+            log.log(Level.FINE, this.getClass() + "RideSearchParamsBean is null, returning empty list");
             return new LinkedList<JRiderUndertakesRideEntity>();
         }
 
@@ -923,3 +927,4 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
     }
 } // class
+
