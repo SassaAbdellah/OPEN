@@ -20,7 +20,7 @@ import javax.inject.Named;
  *
  * @author jochen
  */
-@Named
+@Named("publicProfile")
 @RequestScoped
 public class JPublicCustomerProfile implements Serializable {
 
@@ -90,6 +90,28 @@ public class JPublicCustomerProfile implements Serializable {
     }
     
     
+    
+    /** Update this profile from the caller's CustomerEntity.
+     * 
+     */
+    public void updateFromProfile(){
+    
+        JPublicCustomerProfileService jpcps=new JPublicCustomerProfileService();    
+        jpcps.updateFromCallerPublicProfile(this);
+    }
       
+    
+    /** Update this profile from the CustomerEntity given by Id.
+     * 
+     * @param custId 
+     */
+   
+    public void updateFromProfile(Integer custId){
+    
+        JPublicCustomerProfileService jpcps=new JPublicCustomerProfileService();    
+        jpcps.updatePublicCustomerProfileFromID(this, custId);
+    }
+      
+    
     
 } // class

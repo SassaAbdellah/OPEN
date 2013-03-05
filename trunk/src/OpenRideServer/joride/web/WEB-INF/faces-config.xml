@@ -504,11 +504,15 @@
     </navigation-rule>
   
         
-           
-
-    
+    <!-- *** Navigation cases for displaying public profile data **** -->
         
-        
+    <!-- go to public profile data display  -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>displayPublicProfile</from-outcome>
+            <to-view-id>/faces/public/publicProfile/publicProfileDisplay.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
         
         
         
