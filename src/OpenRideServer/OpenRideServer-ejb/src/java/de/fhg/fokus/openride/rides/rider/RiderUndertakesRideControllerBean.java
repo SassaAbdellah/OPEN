@@ -761,6 +761,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             return null;
         }
     }
+    
+     
 
     public int getRatingsTotalByCustomer(CustomerEntity customer) {
         int ratingsTotal = 0;
@@ -1361,4 +1363,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByDriversRidesBetween").setParameter("custId", ce).setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
         return res;
     }
+
+    
+    
+    
+    @Override
+    public Integer getRatingsCountByCustomer(CustomerEntity customer) {
+        return new Integer(666);
+    }
 }
+

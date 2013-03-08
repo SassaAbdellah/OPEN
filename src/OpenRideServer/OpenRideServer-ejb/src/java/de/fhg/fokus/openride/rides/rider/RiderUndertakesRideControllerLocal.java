@@ -88,6 +88,13 @@ public interface RiderUndertakesRideControllerLocal {
 
     List<RiderUndertakesRideEntity> getRatedRidesByDriver(CustomerEntity driver);
 
+    /** Count Ratings for Customer
+     * 
+     * @param customer customer Entity to count number of ratings
+     * @return Overall Number of all Ratings for this user
+     */
+    Integer getRatingsCountByCustomer(CustomerEntity customer);
+    
     int getRatingsTotalByCustomer(CustomerEntity customer);
 
     float getRatingsRatioByCustomerAndDate(CustomerEntity customer, Date fromDate);
