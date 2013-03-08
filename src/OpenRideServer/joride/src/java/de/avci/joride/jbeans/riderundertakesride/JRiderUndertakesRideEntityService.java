@@ -40,7 +40,7 @@ public class JRiderUndertakesRideEntityService {
      *
      * @return
      */
-    protected RiderUndertakesRideControllerLocal lookupRiderUndertakesRideControllerBeanLocal() {
+    public RiderUndertakesRideControllerLocal lookupRiderUndertakesRideControllerBeanLocal() {
         try {
 
             javax.naming.Context c = new InitialContext();
