@@ -58,7 +58,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
     /*
      * Driver rates rider.
      */
-    @Deprecated
+    
     public void rateRider(int riderRouteId, Integer rating, String ratingComment) {
         startUserTransaction();
         RiderUndertakesRideEntity entity = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderRouteId);
@@ -74,7 +74,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
     /*
      * Rider rates driver.
      */
-    @Deprecated
+ 
     public void rateDriver(int riderRouteId, Integer rating, String ratingComment) {
         startUserTransaction();
         RiderUndertakesRideEntity entity = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderRouteId);
@@ -87,8 +87,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
         commitUserTransaction();
     }
 
-// TOFIX: a driver can have many ratings, because there are perhaps several riders!
-    @Deprecated
+   
     public Rating getRatingForDriver(int riderRouteId) {
         startUserTransaction();
         RiderUndertakesRideEntity entity = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderRouteId);
@@ -99,7 +98,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
         return rating;
     }
 
-    @Deprecated
+
     public Rating getRatingForRider(int riderRouteId) {
         startUserTransaction();
         RiderUndertakesRideEntity entity = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderRouteId);
@@ -117,7 +116,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
      * @param cust_id
      * @return List of rides that the customer has undertaken as driver.
      */
-    @Deprecated
+
     public List<Rating> getRatingsAsDriver(int cust_id) {
         startUserTransaction();
         CustomerEntity e = customerControllerBean.getCustomer(cust_id);
@@ -139,7 +138,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
      * @param cust_id
      * @return List of rides that the customer has undertaken as rider.
      */
-    @Deprecated
+ 
     public List<Rating> getRatingsAsRider(int cust_id) {
         startUserTransaction();
         CustomerEntity e = customerControllerBean.getCustomer(cust_id);
@@ -154,7 +153,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
         return ratings;
     }
 
-    @Deprecated
+  
     public List<OpenRatingInfo> getOpenRatingsAsDriver(int cust_id) {
         startUserTransaction();
         CustomerEntity e = customerControllerBean.getCustomer(cust_id);
@@ -170,7 +169,7 @@ public class RatingBean extends ControllerBean implements RatingLocal {
         return ratings;
     }
 
-    @Deprecated
+   
     public List<OpenRatingInfo> getOpenRatingsAsRider(int cust_id) {
         startUserTransaction();
         CustomerEntity e = customerControllerBean.getCustomer(cust_id);
