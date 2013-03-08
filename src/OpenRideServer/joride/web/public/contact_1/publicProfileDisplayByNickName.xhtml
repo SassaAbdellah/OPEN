@@ -6,8 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-
-      xmlns:cc="http://java.sun.com/jsf/composite">
+      >
 
     <body>
 
@@ -22,7 +21,7 @@
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-
+         
 
 
             <ui:define name="windowTitle">
@@ -31,9 +30,11 @@
 
 
             <ui:define name="content">
+                
 
-                #{publicProfile.updateFromIdByHTTPParam()}
-
+               
+                #{publicProfile.updateFromNickName()}
+                     
                 <ui:include src="/public/publicProfile/publicProfileDisplaySection.xhtml" />
 
 

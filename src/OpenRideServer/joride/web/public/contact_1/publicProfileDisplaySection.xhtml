@@ -12,8 +12,30 @@
 
 
         <!-- section to display the conent of the current publicProfile bean -->
-   
-            <ui:composition>
+
+        <ui:composition>
+
+
+
+
+
+
+            <!-- if the profile does not seem to exist, then do not show it-->
+
+            <p:panel rendered="#{!publicProfile.seemsToExists()}">
+                #{msgs.publicProfileDoesNotExist}
+            </p:panel>
+
+
+
+            <!-- display data only if the publicProfile exists -->
+
+
+
+            <p:panel 
+                rendered="#{publicProfile.seemsToExists()}"
+                header="#{publicProfile.custNickname}"
+                >
 
                 <table>
                     <tr>
@@ -45,7 +67,9 @@
                     </tr>
                 </table>
 
-            </ui:composition>
+            </p:panel>
+
+        </ui:composition>
 
 
     </body>
