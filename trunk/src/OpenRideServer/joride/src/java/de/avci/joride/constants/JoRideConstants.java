@@ -5,6 +5,7 @@ package de.avci.joride.constants;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
@@ -63,8 +64,11 @@ public class JoRideConstants implements Serializable{
         return new SimpleDateFormat(JORIDE_TIMESTAMP_FORMAT_STR);
     }
     
-    
-    
+    /** Decimal Format for displaying ratings 
+     */
+    public DecimalFormat createRatingAverageFormat(){
+        return new DecimalFormat("#0.000");
+    }
     
             
     /** JSON Parameter describing the name of the JSON object describing the update count.

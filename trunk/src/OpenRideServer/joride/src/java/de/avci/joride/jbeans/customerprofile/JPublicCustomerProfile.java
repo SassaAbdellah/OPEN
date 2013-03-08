@@ -7,9 +7,9 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.util.logging.Logger;
 
 /**
  * **Public** Customer Profile.
@@ -186,17 +186,58 @@ public class JPublicCustomerProfile implements Serializable {
         this.updateFromProfile(this.getCustNickname());
     }
 
-    /** Coarse method to determine if a customerprofile really exists.
-     * 
-     * @return Return true, if both customerId  and nickname of this user are not null, else
-     * false
+    /**
+     * Coarse method to determine if a customerprofile really exists.
+     *
+     * @return Return true, if both customerId and nickname of this user are not
+     * null, else false
      *
      */
     public boolean seemsToExists() {
-        
-        if(this.getCustId()       == null) {return false;}
-        if(this.getCustNickname() == null) {return false;}
-        
+
+        if (this.getCustId() == null) {
+            return false;
+        }
+        if (this.getCustNickname() == null) {
+            return false;
+        }
+
         return true;
     }
+
+    /**
+     * @return Total number of Ratings for this customer, or null, if there was
+     * an Error
+     */
+    public Integer getRatingsTotal() {
+        return new JPublicCustomerProfileService().getRatingsTotal(this.getCustId());
+    }
+
+    /**
+     * @return Average of Ratings for this customer, or null, if there was
+     * an Error
+     */
+    public Integer getRatingsCount() {
+        return new JPublicCustomerProfileService().getRatingsCount(this.getCustId());
+    }
+    
+    /** Return a formatted version of getRatingsTotal/getRatingsCount
+     * 
+     * @return 
+     */
+    public String getRatingsRatioFormatted(){
+    
+        if(getRatingsCount()==null){return "--";} 
+        if(getRatingsTotal()==null){return "--";}
+        
+        
+        float totalF=getRatingsTotal().floatValue();
+        float countF=getRatingsCount().floatValue();
+        
+        return new JoRideConstants().createRatingAverageFormat().format(totalF/countF);
+    }
+    
+    
+    
+    
 } // class
