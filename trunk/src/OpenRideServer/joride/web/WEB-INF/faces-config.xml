@@ -506,14 +506,22 @@
         
     <!-- *** Navigation cases for displaying public profile data **** -->
         
-    <!-- go to public profile data display  -->
+    <!-- go to public profile data display for Caller's profile  -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>displayPublicProfileMine</from-outcome>
+            <to-view-id>/faces/public/publicProfile/publicProfileDisplayMine.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        
+              
+    <!-- go to public profile data display for Other people's profile  -->
     <navigation-rule>
         <navigation-case>
             <from-outcome>displayPublicProfile</from-outcome>
             <to-view-id>/faces/public/publicProfile/publicProfileDisplay.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-        
         
         
 	

@@ -1,10 +1,15 @@
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.utils.CRUDConstants;
+import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.util.logging.Logger;
+
 
 /**
  * **Public** Customer Profile.
@@ -23,7 +28,11 @@ import javax.inject.Named;
 @Named("publicProfile")
 @RequestScoped
 public class JPublicCustomerProfile implements Serializable {
-
+    
+    
+    transient Logger log= Logger.getLogger(""+this.getClass());
+    
+   
     /**
      * CustomerId
      */
@@ -75,43 +84,69 @@ public class JPublicCustomerProfile implements Serializable {
      */
     public void updateFromCustomerEntity(CustomerEntity ce) {
 
-        if(ce==null){
+        if (ce == null) {
             throw new Error("Cannot retrieve public customer data, customer is null");
         }
-        
-        
+
+
         this.custId = ce.getCustId();
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
         this.custNickname = ce.getCustNickname();
-        
+
         this.custIssmoker = ce.getCustIssmoker();
-         
+
     }
-    
-    
-    
-    /** Update this profile from the caller's CustomerEntity.
-     * 
+
+    /**
+     * Update this profile from the caller's CustomerEntity.
+     *
      */
-    public void updateFromProfile(){
-    
-        JPublicCustomerProfileService jpcps=new JPublicCustomerProfileService();    
+    public void updateFromCallerPublicProfile() {
+
+        JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
         jpcps.updateFromCallerPublicProfile(this);
     }
-      
-    
-    /** Update this profile from the CustomerEntity given by Id.
-     * 
-     * @param custId 
+
+    /**
+     * Update this profile from the CustomerEntity given by Id.
+     *
+     * @param custId
      */
-   
-    public void updateFromProfile(Integer custId){
-    
-        JPublicCustomerProfileService jpcps=new JPublicCustomerProfileService();    
+    public void updateFromProfile(Integer custId) {
+
+        JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
+        
+        if(custId==null){throw new Error("Cannot update profile, numerical custId is null");}
+        
+        
         jpcps.updatePublicCustomerProfileFromID(this, custId);
     }
+
+    
+    
+    /** Extract value for id from HTTPRequest,
+     *  then retrieve CustomerId for id,
+     *  then update data for this object from values thus retrieved.
+     * 
+     */
+    
+    public void updateFromIdByHTTPParam() {
+        
+        HTTPUtil hu=new HTTPUtil();
+        String idStr=hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
+        
+        Integer id=null;
+        
+        try{  id=Integer.parseInt(idStr);
+        } catch(Exception exc){
+            // return prematurely
+            log.log(Level.WARNING, "Error while retrieving Id, cannot update PublicProfile",exc);
+            return;
+        }
+ 
+        this.updateFromProfile(id);       
+    }
+    
       
-    
-    
 } // class

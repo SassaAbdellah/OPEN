@@ -57,7 +57,16 @@
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchRidersNickname}         </span> </td> 
                         <td> <span class="formLabel"> &nbsp;:&nbsp;                          </span> </td>
-                        <td> <span class="formInput"> #{match.ride.custId.custNickname}  </span> </td> 
+                        <td> 
+                            <span class="formInput">      
+                                <h:form>
+                                    <h:commandLink action="displayPublicProfile"  >
+                                        #{match.ride.custId.custNickname} 
+                                        <f:param name="#{crud.paramNameCrudId}" value="#{match.ride.custId.custId}" />
+                                    </h:commandLink>
+                                </h:form>
+                            </span> 
+                        </td> 
                     </tr>
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchDriveID}      </span> </td> 
