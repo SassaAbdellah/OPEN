@@ -22,12 +22,11 @@
  */
 package de.fhg.fokus.openride.rating;
 
-import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.rating.helperclasses.OpenRatingInfo;
 import de.fhg.fokus.openride.rating.helperclasses.Rating;
-import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ import javax.transaction.UserTransaction;
  * @author pab
  */
 @Stateless
-@Deprecated
+
 public class RatingBean extends ControllerBean implements RatingLocal {
 
     @EJB
