@@ -21,7 +21,8 @@
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-         
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexHome}" />
 
 
             <ui:define name="windowTitle">
@@ -30,13 +31,9 @@
 
 
             <ui:define name="content">
-                
 
-               
-                #{publicProfile.updateFromIdByHTTPParam()}
-                
-                <h1>#{publicProfile.custNickname}</h1>
-                
+                <h1>#{msgs.publicProfileMyProfile}</h1>
+                #{publicProfile.updateFromCallerPublicProfile()}
                 <ui:include src="/public/publicProfile/publicProfileDisplaySection.xhtml" />
 
 
