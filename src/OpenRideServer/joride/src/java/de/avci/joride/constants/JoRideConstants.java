@@ -3,8 +3,11 @@
  */
 package de.avci.joride.constants;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.faces.bean.ApplicationScoped;
+import javax.inject.Named;
 
 /** This class centrally defines a number of Constants for joride Frontend
  *  some of these may eventually be made configurable,
@@ -13,9 +16,11 @@ import java.text.SimpleDateFormat;
  *
  * @author jochen
  */
-public class JoRideConstants {
-    
-    
+
+@ApplicationScoped
+@Named
+
+public class JoRideConstants implements Serializable{
     
     
        
@@ -112,8 +117,16 @@ public class JoRideConstants {
     
     
     
+    /** HTTP Parameter transporting Customer's Nickname
+     * 
+     */
+    protected static final String PARAM_NAME_NICKNAME="nickname";
     
-    
+    /** Make Nickname parameter available to JSF Beans
+     */
+    public String getParamNameNickname(){
+        return PARAM_NAME_NICKNAME;
+    }
     
     
      

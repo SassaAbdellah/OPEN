@@ -1,5 +1,6 @@
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -9,7 +10,6 @@ import java.util.logging.Level;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.logging.Logger;
-
 
 /**
  * **Public** Customer Profile.
@@ -28,11 +28,8 @@ import java.util.logging.Logger;
 @Named("publicProfile")
 @RequestScoped
 public class JPublicCustomerProfile implements Serializable {
-    
-    
-    transient Logger log= Logger.getLogger(""+this.getClass());
-    
-   
+
+    transient Logger log = Logger.getLogger("" + this.getClass());
     /**
      * CustomerId
      */
@@ -48,6 +45,10 @@ public class JPublicCustomerProfile implements Serializable {
 
     public String getCustNickname() {
         return this.custNickname;
+    }
+
+    public void setCustNickname(String arg) {
+        this.custNickname = arg;
     }
     /**
      * Gender should be known to Riders a priori, since it may effect accept
@@ -116,37 +117,86 @@ public class JPublicCustomerProfile implements Serializable {
     public void updateFromProfile(Integer custId) {
 
         JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
-        
-        if(custId==null){throw new Error("Cannot update profile, numerical custId is null");}
-        
-        
+
+        if (custId == null) {
+            throw new Error("Cannot update profile, numerical custId is null");
+        }
+
         jpcps.updatePublicCustomerProfileFromID(this, custId);
     }
 
-    
-    
-    /** Extract value for id from HTTPRequest,
-     *  then retrieve CustomerId for id,
-     *  then update data for this object from values thus retrieved.
-     * 
+    /**
+     * Update this profile from the CustomerEntity given by Nickname.
+     *
+     * @param custId
      */
-    
+    public void updateFromProfile(String nickName) {
+
+        JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
+
+        if (nickName == null) {
+            throw new Error("Cannot update profile, nickname is null");
+        }
+
+        jpcps.updatePublicCustomerProfileFromNickname(this, nickName);
+    }
+
+    /**
+     * Extract value for id from HTTPRequest, then retrieve CustomerId for id,
+     * then update data for this object from values thus retrieved.
+     *
+     */
     public void updateFromIdByHTTPParam() {
-        
-        HTTPUtil hu=new HTTPUtil();
-        String idStr=hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
-        
-        Integer id=null;
-        
-        try{  id=Integer.parseInt(idStr);
-        } catch(Exception exc){
+
+        HTTPUtil hu = new HTTPUtil();
+        String idStr = hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
+
+        Integer id = null;
+
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (Exception exc) {
             // return prematurely
-            log.log(Level.WARNING, "Error while retrieving Id, cannot update PublicProfile",exc);
+            log.log(Level.WARNING, "Error while retrieving Id, cannot update PublicProfile", exc);
             return;
         }
- 
-        this.updateFromProfile(id);       
+
+        this.updateFromProfile(id);
     }
-    
-      
+
+    /**
+     * Extract value for nick from HTTPRequest, then retrieve Customer for
+     * nickName then update data for this object from values thus retrieved.
+     *
+     */
+    public void updateFromNickNameByHTTPParam() {
+
+        HTTPUtil hu = new HTTPUtil();
+        String nickNameArg = hu.getParameterSingleValue(new JoRideConstants().getParamNameNickname());
+
+
+        this.updateFromProfile(nickNameArg);
+    }
+
+    /**
+     * Update *all* data for a profile of which only the nickname is set. This
+     * is used to retrieve user information given the nickname
+     */
+    public void updateFromNickName() {
+        this.updateFromProfile(this.getCustNickname());
+    }
+
+    /** Coarse method to determine if a customerprofile really exists.
+     * 
+     * @return Return true, if both customerId  and nickname of this user are not null, else
+     * false
+     *
+     */
+    public boolean seemsToExists() {
+        
+        if(this.getCustId()       == null) {return false;}
+        if(this.getCustNickname() == null) {return false;}
+        
+        return true;
+    }
 } // class

@@ -56,6 +56,28 @@ public class JPublicCustomerProfileService {
     }
 
  
+    
+    /** Update given PublicCustomerProfile from CustomerProfile given by custId
+     * 
+     * @param jcpp     PublicCustomerProfile to be updated
+     * @param nickName of customer for which data should be updated.
+     */
+    public void updatePublicCustomerProfileFromNickname(JPublicCustomerProfile jcpp, String nickName) {
+
+        CustomerControllerLocal ccl = this.lookupCustomerControllerBeanLocal();
+        CustomerEntity ce = ccl.getCustomerByNickname(nickName);
+
+        if (ce == null) {
+            return ;
+        }
+ 
+        jcpp.updateFromCustomerEntity(ce);
+    }
+
+    
+    
+    
+    
  
     /** Determine caller from http request, then update given public profile
      *  from data so obtained
