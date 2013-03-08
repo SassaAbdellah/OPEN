@@ -38,7 +38,7 @@
 
             <ui:define name="content">
 
-                
+
 
                 <!-- due to problems with commandlinks inside h:dataTable and ui:repeat -->
                 <!-- we have to use request scoped bean for rides here!                 -->
@@ -62,7 +62,16 @@
                             <tr>
                                 <td> <span class="formLabel"> #{msgs.matchDriversName}  </span> </td> 
                                 <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                <td> <span class="formInput"> #{matching.drive.custId.custNickname}    </span> </td> 
+                                <td> 
+                                    <span class="formInput"> 
+                                        <h:form>
+                                            <h:commandLink action="displayPublicProfile"  >
+                                                #{matching.drive.custId.custNickname} 
+                                                <f:param name="#{crud.paramNameCrudId}" value="#{matching.drive.custId.custId}" />
+                                            </h:commandLink>
+                                        </h:form>
+                                    </span> 
+                                </td> 
                             </tr>
                             <tr>
                                 <td> <span class="formLabel"> #{msgs.matchDriversGender}            </span> </td> 

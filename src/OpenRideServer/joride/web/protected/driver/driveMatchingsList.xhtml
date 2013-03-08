@@ -37,8 +37,8 @@
 
 
             <ui:define name="content">
-                
-         
+
+
 
                 <!-- we have to use session scoped drive here to                          -->
                 <!-- circumvent problems with commandlinks insid ui:repeat or h:datatable -->
@@ -60,7 +60,20 @@
                             <tr>
                                 <td> <span class="formLabel"> #{msgs.matchRiderName} </span> </td> 
                                 <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                <td> <span class="formInput"> #{matching.ride.custId.custNickname} </span> </td> 
+                                <td> 
+                                    <span class="formInput">      
+                                        <h:form>
+                                            <h:commandLink action="displayPublicProfile"  >
+                                                #{matching.ride.custId.custNickname} 
+                                                <f:param name="#{crud.paramNameCrudId}" value="#{matching.ride.custId.custId}" />
+                                            </h:commandLink>
+                                        </h:form>
+                                    </span> 
+                                </td> 
+
+
+
+
                             </tr>
 
                             <tr>

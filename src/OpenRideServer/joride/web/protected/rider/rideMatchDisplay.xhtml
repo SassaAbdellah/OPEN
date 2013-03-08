@@ -31,8 +31,8 @@
         <ui:composition template="/templates/simpleLayout.xhtml">
 
 
-         
-            
+
+
             <!-- highlight "preferences" tab -->
             <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
 
@@ -60,7 +60,17 @@
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchDriversNickname}         </span> </td> 
                         <td> <span class="formLabel"> &nbsp;:&nbsp;                          </span> </td>
-                        <td> <span class="formInput"> #{match.drive.custId.custNickname}  </span> </td> 
+                        <td> 
+                            <span class="formInput">
+                   
+                                <h:form>
+                                    <h:commandLink action="displayPublicProfile" >
+                                        #{match.drive.custId.custNickname}
+                                        <f:param name="#{crud.paramNameCrudId}" value="#{match.drive.custId.custId}" />
+                                    </h:commandLink>
+                                </h:form>
+                            </span> 
+                        </td> 
                     </tr>
                     <tr>
                         <td> <span class="formLabel"> #{msgs.matchDriveID}      </span> </td> 
