@@ -66,38 +66,101 @@
                         </td>
                     </tr>
 
-                    <!-- Ratings   -->
+                    <!-- Rider Ratings   -->
                     <tr>
                         <td class="formLabel">
-                            TODO: TotalNumRatings
+                            TODO: TotalNumRiderRatings
                         </td>
                         <td> : </td>
                         <td class="formInput">
-                            #{publicProfile.ratingsTotal}
+                            #{publicProfile.riderRatingsTotal}
                         </td>
                     </tr>
                     <tr>
                         <td class="formLabel">
-                            TODO: RatingsCount
+                            TODO: RiderRatingsCount
                         </td>
                         <td> : </td>
                         <td class="formInput">
-                            #{publicProfile.ratingsCount}
+                            #{publicProfile.riderRatingsCount}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="formLabel">
-                            TODO: RatingsAverage
+                            TODO: RiderRatingsAverage
                         </td>
                         <td> : </td>
                         <td class="formInput">
-                            #{publicProfile.ratingsRatioFormatted}
+                            #{publicProfile.riderRatingsRatioFormatted}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formLabel">
+                            TODO: RiderStarRatings
+                        </td>
+                        <td> : </td>
+                        <td class="formInput">
+                            <p:rating
+                                value="#{publicProfile.riderStarRating}" 
+                                rendered="#{publicProfile.riderRated}"
+                                readonly="true" 
+                                />
                         </td>
                     </tr>
 
 
 
+
+
+
+
+
+
+                    <!-- Driver Ratings   -->
+                    <tr>
+                        <td class="formLabel">
+                            TODO: TotalNumDriverRatings
+                        </td>
+                        <td> : </td>
+                        <td class="formInput">
+                            #{publicProfile.driverRatingsTotal}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formLabel">
+                            TODO: DriverRatingsCount
+                        </td>
+                        <td> : </td>
+                        <td class="formInput">
+                            #{publicProfile.driverRatingsCount}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formLabel">
+                            TODO: DriverRatingsAverage
+                        </td>
+                        <td> : </td>
+                        <td class="formInput">
+                            #{publicProfile.driverRatingsRatioFormatted}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formLabel">
+                            TODO: DriverStarRatings
+                        </td>
+                        <td> : </td>
+                        <td class="formInput">
+                            <p:rating 
+                                value="#{publicProfile.driverStarRating}"  
+                                rendered="#{publicProfile.driverRated}"
+                                readonly="true"
+                                />
+                        </td>
+                    </tr>
 
                 </table>
 
