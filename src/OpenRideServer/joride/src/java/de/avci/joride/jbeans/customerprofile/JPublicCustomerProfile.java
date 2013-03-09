@@ -209,35 +209,178 @@ public class JPublicCustomerProfile implements Serializable {
      * @return Total number of Ratings for this customer, or null, if there was
      * an Error
      */
-    public Integer getRatingsTotal() {
-        return new JPublicCustomerProfileService().getRatingsTotal(this.getCustId());
+    public Integer getDriverRatingsTotal() {
+        return new JPublicCustomerProfileService().getRatingsTotalAsDriver(this.getCustId());
     }
 
     /**
-     * @return Average of Ratings for this customer, or null, if there was
+     * @return Average of Ratings for this customer, or null, if there was an
+     * Error
+     */
+    public Integer getDriverRatingsCount() {
+        return new JPublicCustomerProfileService().getRatingsCountAsDriver(this.getCustId());
+    }
+
+    /**
+     * @return Total number of Ratings for this customer, or null, if there was
      * an Error
      */
-    public Integer getRatingsCount() {
-        return new JPublicCustomerProfileService().getRatingsCount(this.getCustId());
+    public Integer getRiderRatingsTotal() {
+        return new JPublicCustomerProfileService().getRatingsTotalAsRider(this.getCustId());
     }
-    
-    /** Return a formatted version of getRatingsTotal/getRatingsCount
-     * 
-     * @return 
+
+    /**
+     * @return Average of Ratings for this customer, or null, if there was an
+     * Error
      */
-    public String getRatingsRatioFormatted(){
-    
-        if(getRatingsCount()==null){return "--";} 
-        if(getRatingsTotal()==null){return "--";}
-        
-        
-        float totalF=getRatingsTotal().floatValue();
-        float countF=getRatingsCount().floatValue();
-        
-        return new JoRideConstants().createRatingAverageFormat().format(totalF/countF);
+    public Integer getRiderRatingsCount() {
+        return new JPublicCustomerProfileService().getRatingsCountAsRider(this.getCustId());
     }
-    
-    
+
+    /**
+     * @return a formatted version of getRiderRatingsTotalA/getRiderRatingsCount
+     *
+     */
+    public String getRiderRatingsRatioFormatted() {
+
+        Integer riderRatingsCountI = getRiderRatingsCount();
+        Integer riderRatingsTotalI = getRiderRatingsTotal();
+
+        if (riderRatingsTotalI == null) {
+            return "--";
+        }
+        if (riderRatingsCountI == null) {
+            return "--";
+        }
+        // do not divide by zero!
+        if (riderRatingsTotalI == 0) {
+            return "--";
+        }
+
+
+        float totalF = riderRatingsTotalI.floatValue();
+        float countF = riderRatingsCountI.floatValue();
+
+        return new JoRideConstants().createRatingAverageFormat().format(totalF / countF);
+    }
+
+    /**
+     * @return a formatted version of
+     * getDriverRatingsTotalA/getDriverRatingsCount
+     *
+     */
+    public String getDriverRatingsRatioFormatted() {
+
+        Integer driverRatingsCountI = getDriverRatingsCount();
+        Integer driverRatingsTotalI = getDriverRatingsTotal();
+
+        if (driverRatingsTotalI == null) {
+            return "--";
+        }
+        if (driverRatingsCountI == null) {
+            return "--";
+        }
+        // do not divide by zero!
+        if (driverRatingsTotalI == 0) {
+            return "--";
+        }
+
+
+        float totalF = driverRatingsTotalI.floatValue();
+        float countF = driverRatingsCountI.floatValue();
+
+        return new JoRideConstants().createRatingAverageFormat().format(totalF / countF);
+    }
+
+    /**
+     * Driver Rating ration rounded to Integer, so it can be displayed with a
+     * Star Rating widget
+     *
+     * @return Math.round(getDriverRatingsTotal/getDriverRatingsCount), or null
+     * if the ratio cannot be computed
+     *
+     */
+    public Integer getDriverStarRating() {
+
+        Integer driverRatingsCountI = getDriverRatingsCount();
+        Integer driverRatingsTotalI = getDriverRatingsTotal();
+
+        if (driverRatingsTotalI == null) {
+            return null;
+        }
+        if (driverRatingsCountI == null) {
+            return null;
+        }
+        // do not divide by zero!
+        if (driverRatingsTotalI == 0) {
+            return null;
+        }
+
+        float totalF = driverRatingsTotalI.floatValue();
+        float countF = driverRatingsCountI.floatValue();
+
+        return new Integer(Math.round(totalF / countF));
+    }
+
+    /**
+     * Rider Rating ration rounded to Integer, so it can be displayed with a
+     * Star Rating widget
+     *
+     * @return Math.round(getRiderRatingsTotal/getRiderRatingsCount), or null if
+     * the ratio cannot be computed
+     *
+     */
+    public Integer getRiderStarRating() {
+
+        Integer riderRatingsCountI = getRiderRatingsCount();
+        Integer riderRatingsTotalI = getRiderRatingsTotal();
+
+        if (riderRatingsTotalI == null) {
+            return null;
+        }
+        if (riderRatingsCountI == null) {
+            return null;
+        }
+        // do not divide by zero!
+        if (riderRatingsTotalI == 0) {
+            return null;
+        }
+
+        float totalF = riderRatingsTotalI.floatValue();
+        float countF = riderRatingsCountI.floatValue();
+
+        return new Integer(Math.round(totalF / countF));
+    }
+
+    /**
+     * @return true, if this customer is driver rated, else false
+     */
+    public boolean getDriverRated() {
+
+        Integer count = this.getDriverRatingsCount();
+        if (count == null) {
+            return false;
+        }
+        if (count < 1) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return true, if this customer is rider rated, else false
+     */
+    public boolean getRiderRated() {
+
+        Integer count = this.getRiderRatingsCount();
+        if (count == null) {
+            return false;
+        }
+        if (count <= 1) {
+            return false;
+        }
+        return true;
+    }
     
     
 } // class

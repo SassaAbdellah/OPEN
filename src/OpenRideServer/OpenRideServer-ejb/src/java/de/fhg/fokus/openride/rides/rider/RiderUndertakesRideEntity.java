@@ -93,21 +93,34 @@ import org.postgis.Point;
     @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 1 AND r.receivedratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 0 AND r.receivedratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = -1 AND r.receivedratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider", query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 1 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 0 AND r.givenratingDate > :fromDate"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = -1 AND r.givenratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
+    //
     // ride searches used by joride reporting
     // get all rides for rider, regardless wether realized or not
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween",          query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest  > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
+    //
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest  > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
     // get all rides for rider that have been realized
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween",  query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId "),
     // get all rides for rider which have not yet been realized
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween",   query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId  AND r.givenrating is NULL"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId  AND r.givenrating is NULL"),
     // find all rides for driver in this interval
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween",         query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate ")
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate "),
+    //    
+    // Queries for rating statistics in jORide   
+    //     
+    // Count all ratings where customer given by custId acted as driver
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d "),
+    // Sum up all ratings where customer given by custId acted as driver
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
+    // Count all ratings where customer given by custId acted as rider
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsRider",  query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
+    // Sum up all ratings where customer given by custId acted as rider
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider",  query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId")
 })
+
+
 
 @Converter(name = "convert", converterClass = PointConverter.class)
 public class RiderUndertakesRideEntity implements Serializable {
