@@ -27,7 +27,6 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
-import de.fhg.fokus.openride.rating.RatingBean;
 import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
@@ -43,6 +42,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,18 +55,12 @@ import org.postgis.Point;
 /**
  *
  * @author pab
+ * @author jochen
+ *
  */
 @Stateless
 public class RiderUndertakesRideControllerBean extends ControllerBean implements RiderUndertakesRideControllerLocal {
 
-    /*  
-     *  Rating bean is currently disabled
-     * 
-     * 
-     @EJB
-     private RatingBean ratingBean;
-    
-     */
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
     @EJB
@@ -75,6 +69,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     private CustomerControllerLocal customerControllerBean;
     @PersistenceContext
     private EntityManager em;
+    /**
+     * All purpose logger
+     */
+    Logger log = Logger.getLogger("" + this.getClass());
 
     /**
      * This method returns the
@@ -761,8 +759,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             return null;
         }
     }
-    
-     
 
     public int getRatingsTotalByCustomer(CustomerEntity customer) {
         int ratingsTotal = 0;
@@ -1364,12 +1360,74 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         return res;
     }
 
-    
-    
-    
+    @Override
+    public Integer getTotalOfRatingsForDriver(CustomerEntity customer) {
+
+        Integer res = 0;
+        try {
+            Object ratingsAsDriver = em.createNamedQuery("RiderUndertakesRideEntity.sumUpRatingsAsDriver").setParameter("custId", customer).getSingleResult();
+            if (ratingsAsDriver != null) {
+                res = Integer.parseInt(ratingsAsDriver.toString());
+            }
+        } catch (Exception exc) {
+            log.log(Level.SEVERE, "Error while summing up driverratings", exc);
+        }
+
+        return res;
+    }
+
+    @Override
+    public Integer getCountOfRatingsForDriver(CustomerEntity customer) {
+
+        Integer res = 0;
+        try {
+            Object ratingsAsDriver = em.createNamedQuery("RiderUndertakesRideEntity.countRatingsAsDriver").setParameter("custId", customer).getSingleResult();
+            if (ratingsAsDriver != null) {
+                res = Integer.parseInt(ratingsAsDriver.toString());
+            }
+        } catch (Exception exc) {
+            log.log(Level.SEVERE, "Error while counting driverratings", exc);
+        }
+
+        return res;
+    }
+
+    @Override
+    public Integer getTotalOfRatingsForRider(CustomerEntity customer) {
+
+        Integer res = 0;
+        try {
+            Object ratingsAsRider = em.createNamedQuery("RiderUndertakesRideEntity.sumUpRatingsAsRider").setParameter("custId", customer).getSingleResult();
+            if (ratingsAsRider != null) {
+                res = Integer.parseInt(ratingsAsRider.toString());
+            }
+        } catch (Exception exc) {
+            log.log(Level.SEVERE, "Error while summing up riderratings", exc);
+        }
+
+        return res;
+    }
+
+    @Override
+    public Integer getCountOfRatingsForRider(CustomerEntity customer) {
+
+        Integer res = 0;
+        try {
+            Object ratingsAsRider = em.createNamedQuery("RiderUndertakesRideEntity.countRatingsAsRider").setParameter("custId", customer).getSingleResult();
+            if (ratingsAsRider != null) {
+                res = Integer.parseInt(ratingsAsRider.toString());
+            }
+        } catch (Exception exc) {
+            log.log(Level.SEVERE, "Error while counting riderratings", exc);
+        }
+
+        return res;
+    }
+
     @Override
     public Integer getRatingsCountByCustomer(CustomerEntity customer) {
-        return new Integer(666);
+
+        return this.getCountOfRatingsForDriver(customer)
+                + this.getCountOfRatingsForRider(customer);
     }
 }
-

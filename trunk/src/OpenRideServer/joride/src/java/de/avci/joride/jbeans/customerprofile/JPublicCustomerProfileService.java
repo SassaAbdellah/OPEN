@@ -93,52 +93,103 @@ public class JPublicCustomerProfileService {
     }
 
     /**
-     * Get Number of ratings for customer
+     * Get Number of rider ratings for customer
      *
      * @param customerId customerId for customer to be rated
      * @return Average Rating, or null if something ugly happened
      */
-    public Integer getRatingsCount(Integer customerId) {
+    public Integer getRatingsCountAsRider(Integer customerId) {
 
         CustomerEntity ce = this.lookupCustomerControllerBeanLocal().getCustomer(customerId);
 
         if (ce == null) {
-            log.log(Level.WARNING, "Tryed to get ratings for non existing customer " + customerId);
+            log.log(Level.WARNING, "looking up customer for id " + customerId + " failed for getRatingsCountAsRider");
             return null;
         }
 
         try {
             RiderUndertakesRideControllerLocal rurcl = new JRiderUndertakesRideEntityService().lookupRiderUndertakesRideControllerBeanLocal();
-            return rurcl.getRatingsCountByCustomer(ce);
+            return rurcl.getCountOfRatingsForRider(ce);
         } catch (Exception exc) {
-            log.log(Level.WARNING, "Unexpected Exception while retrieving Rating count for customer " + customerId, exc);
+            log.log(Level.WARNING, "Unexpected Exception while retrieving driverRatingCount for customer " + customerId, exc);
             return null;
         }
 
-    } // getRatingRatio 
+    } // getRatingsCountAsRider 
 
     /**
-     * Get Total Sum of all Ratings for this customer
+     * Get Number of driver ratings for customer
      *
      * @param customerId customerId for customer to be rated
-     * @return Total number of Ratings, or null if something ugly happened
+     * @return Average Rating, or null if something ugly happened
      */
-    public Integer getRatingsTotal(Integer customerId) {
+    public Integer getRatingsCountAsDriver(Integer customerId) {
 
         CustomerEntity ce = this.lookupCustomerControllerBeanLocal().getCustomer(customerId);
 
         if (ce == null) {
-            log.log(Level.WARNING, "Tryed to get ratings for non existing customer " + customerId);
+            log.log(Level.WARNING, "looking up customer for id " + customerId + " failed for getRatingsCountAsDriver");
             return null;
         }
 
         try {
             RiderUndertakesRideControllerLocal rurcl = new JRiderUndertakesRideEntityService().lookupRiderUndertakesRideControllerBeanLocal();
-            return rurcl.getRatingsTotalByCustomer(ce);
+            return rurcl.getCountOfRatingsForDriver(ce);
         } catch (Exception exc) {
-            log.log(Level.WARNING, "Unexpected Exception while retrieving Rating total for customer " + customerId, exc);
+            log.log(Level.WARNING, "Unexpected Exception while retrieving driverRatingCount for customer " + customerId, exc);
             return null;
         }
 
-    } // getRatingTotal
+    } // getRatingsCountAsDriver 
+
+    /**
+     * Get sum of all driver ratings for customer
+     *
+     * @param customerId customerId for customer to be rated
+     * @return Average Rating, or null if something ugly happened
+     */
+    public Integer getRatingsTotalAsDriver(Integer customerId) {
+
+        CustomerEntity ce = this.lookupCustomerControllerBeanLocal().getCustomer(customerId);
+
+        if (ce == null) {
+            log.log(Level.WARNING, "looking up customer for id " + customerId + " failed for getRatingsToralAsDriver");
+            return null;
+        }
+
+        try {
+            RiderUndertakesRideControllerLocal rurcl = new JRiderUndertakesRideEntityService().lookupRiderUndertakesRideControllerBeanLocal();
+            return rurcl.getTotalOfRatingsForDriver(ce);
+        } catch (Exception exc) {
+            log.log(Level.WARNING, "Unexpected Exception while retrieving driverRatingTotal for customer " + customerId, exc);
+            return null;
+        }
+
+    } // getRatingsTotalAsDriver 
+
+    /**
+     * Get sum of all rider ratings for customer
+     *
+     * @param customerId customerId for customer to be rated
+     * @return Average Rating, or null if something ugly happened
+     */
+    public Integer getRatingsTotalAsRider(Integer customerId) {
+
+        CustomerEntity ce = this.lookupCustomerControllerBeanLocal().getCustomer(customerId);
+
+
+        if (ce == null) {
+            log.log(Level.WARNING, "looking up customer for id " + customerId + " failed for getRatingsTotalAsRider");
+            return null;
+        }
+
+        try {
+            RiderUndertakesRideControllerLocal rurcl = new JRiderUndertakesRideEntityService().lookupRiderUndertakesRideControllerBeanLocal();
+            return rurcl.getTotalOfRatingsForRider(ce);
+        } catch (Exception exc) {
+            log.log(Level.WARNING, "Unexpected Exception while retrieving driverRatingCount for customer " + customerId, exc);
+            return null;
+        }
+
+    } // getRatingsTotalAsRider
 } // class
