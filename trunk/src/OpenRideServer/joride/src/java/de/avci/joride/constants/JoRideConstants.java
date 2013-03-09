@@ -67,7 +67,7 @@ public class JoRideConstants implements Serializable{
     /** Decimal Format for displaying ratings 
      */
     public DecimalFormat createRatingAverageFormat(){
-        return new DecimalFormat("#0.000");
+        return new DecimalFormat("#0.00");
     }
     
             
