@@ -124,6 +124,49 @@ public class JPublicCustomerProfile implements Serializable {
 
         jpcps.updatePublicCustomerProfileFromID(this, custId);
     }
+    
+    
+    
+    /**
+     * 
+     */
+    public void smartUpdate(){
+    
+      
+        
+        // case 1: this method is called from customer search page,
+        // in which case the nickname should have been already set
+        if(this.getCustNickname()!=null){
+            this.updateFromNickName();
+            return;
+        }
+        
+        HTTPUtil hu=new HTTPUtil();
+        
+        // case 2: 
+        // update has been called  with nickname in http parameter
+        //
+        if(hu.getParameterSingleValue(new JoRideConstants().getParamNameNickname())!=null){
+            this.updateFromNickNameByHTTPParam();
+            return;
+        }
+        
+        // 
+        // case 3:
+        // update has been called with id as http parameter
+        if(hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId())!=null){
+            this.updateFromIdByHTTPParam();
+            return;
+        }
+        
+        
+        // last exit:
+        // user wants to see his own profile 
+        //
+        this.updateFromCallerPublicProfile();
+        
+    }
+    
 
     /**
      * Update this profile from the CustomerEntity given by Nickname.
