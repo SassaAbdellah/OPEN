@@ -32,85 +32,125 @@
 
 
 
-            <p:panel 
+            <p:accordionPanel
                 rendered="#{publicProfile.seemsToExists()}"
-                header="#{publicProfile.custNickname}"
                 >
 
-                <table>
-                    <tr>
-                        <td class="formLabel">
-                            #{msgs.custNickname}
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.custNickname}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel">
-                            #{msgs.custIssmoker}
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.custIssmoker}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel">
-                            #{msgs.custLicensedate}
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.custLicensedate}
-                        </td>
-                    </tr>
+                <p:tab title="#{publicProfile.custNickname}">
 
-                    <!-- Rider Ratings   -->
-                    <tr>
-                        <td class="formLabel">
-                            TODO: TotalNumRiderRatings
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.riderRatingsTotal}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel">
-                            TODO: RiderRatingsCount
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.riderRatingsCount}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formLabel">
-                            TODO: RiderRatingsAverage
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.riderRatingsRatioFormatted}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formLabel">
-                            TODO: RiderStarRatings
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            <p:rating
-                                value="#{publicProfile.riderStarRating}" 
-                                rendered="#{publicProfile.riderRated}"
-                                readonly="true" 
-                                />
-                        </td>
-                    </tr>
+                    <table>
+                        <tr>
+                            <td class="formLabel">
+                                #{msgs.custNickname}
+                            </td>
+                            <td> : </td>
+                            <td class="formInput">
+                                #{publicProfile.custNickname}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="formLabel">
+                                #{msgs.custIssmoker}
+                            </td>
+                            <td> : </td>
+                            <td class="formInput">
+                                #{publicProfile.custIssmoker}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="formLabel">
+                                #{msgs.custLicensedate}
+                            </td>
+                            <td> : </td>
+                            <td class="formInput">
+                                #{publicProfile.custLicensedate}
+                            </td>
+                        </tr>
+                    </table>
+                </p:tab>
 
 
+                <!-- Driver Ratings Tab   -->
+
+                <p:tab title="#{msgs.ratingsDriverRatings}">
+                    <table>
+                        <tr>
+                            <td class="formLabel" width="45%">
+                                #{msgs.ratingsDriverRatingsAvg}
+                            </td>
+                            <td width="10%"> : </td>
+                            <td class="formInput" width="45%">
+                                <p:rating 
+                                    value="#{publicProfile.driverStarRating}"  
+                                    rendered="#{publicProfile.driverRated}"
+                                    readonly="true"
+                                    /> 
+                                <br/>
+                                #{publicProfile.driverRatingsRatioFormatted}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="formLabel" width="45%">
+                                #{msgs.ratingsNumberOfDriverRatings}
+                            </td>
+                            <td width="10%"> : </td>
+                            <td class="formInput" width="45%">
+                                #{publicProfile.driverRatingsCount}
+                            </td>
+                        </tr>
+
+                        <tr> 
+                            <td colspan="3"> 
+                                TODO: link
+                                #{msgs.ratingsViewDriverRatings}
+                            </td>
+                        </tr>
+
+                    </table>
+                </p:tab>
+
+
+                <!-- Rider Ratings Tab   -->
+
+                <p:tab title="#{msgs.ratingsRiderRatings}">
+                    <table>
+
+                        <tr>
+                            <td class="formLabel" width="45%">
+                                #{msgs.ratingsRiderRatingsAvg}
+                            </td>
+                            <td width="10%"> : </td>
+                            <td class="formInput" width="45%">
+                                <p:rating 
+                                    value="#{publicProfile.riderStarRating}"  
+                                    rendered="#{publicProfile.riderRated}"
+                                    readonly="true"
+                                    /> 
+                                <br/>
+                                #{publicProfile.riderRatingsRatioFormatted}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="formLabel" width="45%">
+                                #{msgs.ratingsNumberOfRiderRatings}
+                            </td>
+                            <td width="10%"> : </td>
+                            <td class="formInput" width="45%">
+                                #{publicProfile.riderRatingsCount}
+                            </td>
+                        </tr>
+
+                        <tr> 
+                            <td colspan="3"> 
+                                TODO: link
+                                #{msgs.ratingsViewRiderRatings}
+                            </td>
+                        </tr>
+
+                    </table>
+                </p:tab>
 
 
 
@@ -118,53 +158,7 @@
 
 
 
-                    <!-- Driver Ratings   -->
-                    <tr>
-                        <td class="formLabel">
-                            TODO: TotalNumDriverRatings
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.driverRatingsTotal}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel">
-                            TODO: DriverRatingsCount
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.driverRatingsCount}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formLabel">
-                            TODO: DriverRatingsAverage
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            #{publicProfile.driverRatingsRatioFormatted}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formLabel">
-                            TODO: DriverStarRatings
-                        </td>
-                        <td> : </td>
-                        <td class="formInput">
-                            <p:rating 
-                                value="#{publicProfile.driverStarRating}"  
-                                rendered="#{publicProfile.driverRated}"
-                                readonly="true"
-                                />
-                        </td>
-                    </tr>
-
-                </table>
-
-            </p:panel>
+            </p:accordionPanel>
 
         </ui:composition>
 
