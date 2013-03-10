@@ -149,7 +149,6 @@
     </navigation-rule>
     
     
-  
     
     <!-- page to display rides in the paast -->
     <navigation-rule>
@@ -506,13 +505,7 @@
         
     <!-- *** Navigation cases for displaying public profile data **** -->
         
-    <!-- go to public profile data display for Caller's profile  -->
-    <navigation-rule>
-        <navigation-case>
-            <from-outcome>displayPublicProfileMine</from-outcome>
-            <to-view-id>/faces/public/publicProfile/publicProfileDisplayMine.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+  
         
               
     <!-- go to public profile data display for Other people's profile  -->
@@ -532,15 +525,21 @@
         </navigation-case>
     </navigation-rule>
     
-      <!-- Start Searching a public profile by nickname  -->
+
+        
+    
+        
+    <!-- show ratings for driver -->
+                
     <navigation-rule>
         <navigation-case>
-            <from-outcome>displayPublicProfileByNickName</from-outcome>
-            <to-view-id>/faces/public/publicProfile/publicProfileDisplayByNickName.xhtml</to-view-id>
+            <from-outcome>driverRatingsDisplay</from-outcome>
+            <to-view-id>/faces/public/publicProfile/driverRatingsDisplay.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
         
-        
+      
+                            
 	
     <!-- ***********************************************************  -->	
     <!-- *****  Application Section ********************************  -->
