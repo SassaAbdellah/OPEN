@@ -61,6 +61,54 @@ public class JCustomerEntityService {
 
     } // getCustomerEntity
 
+    
+    
+    
+    /**
+     * Initialize the data of an (possibly empty) JCustomerProfile,
+     * with the data given by nickname.
+     *
+     * Note that this is not public, as it could be misused to 
+     * retrieve personal data for a non-authorized user.
+     * This is intended for providing *public* profiles.
+     * 
+     */
+     CustomerEntity getCustomerEntityByNickname(String nick) {
+
+       
+        CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(nick);
+
+        // TODO: do something more sane than just cast
+        return customerEntity;
+
+    } // getCustomerEntity
+    
+    
+    
+      /**
+     * Initialize the data of an (possibly empty) JCustomerProfile,
+     * with the data given by customerID.
+     *
+     * Note that this is not public, as it could be misused to 
+     * retrieve personal data for a non-authorized user.
+     * This is intended for providing *public* profiles.
+     * 
+     */
+     CustomerEntity getCustomerEntityByCustId(Integer custId) {
+
+       
+        CustomerEntity customerEntity = customerControllerBean.getCustomer(custId);
+        return customerEntity;
+
+    } // getCustomerEntity
+    
+    
+    
+     
+     
+    
+    
+    
     /**
      * Determine a CustomerEntity from a HTTPServletRequest. The user is
      * determined from the request's remoteUser property, and can thus be

@@ -534,11 +534,19 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>driverRatingsDisplay</from-outcome>
-            <to-view-id>/faces/public/publicProfile/driverRatingsDisplay.xhtml</to-view-id>
+            <to-view-id>/faces/public/publicProfile/publicProfileDriverRatingsDisplay.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
         
-      
+         <!-- show ratings for rider -->
+                
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>riderRatingsDisplay</from-outcome>
+            <to-view-id>/faces/public/publicProfile/publicProfileRiderRatingsDisplay.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        
                             
 	
     <!-- ***********************************************************  -->	
