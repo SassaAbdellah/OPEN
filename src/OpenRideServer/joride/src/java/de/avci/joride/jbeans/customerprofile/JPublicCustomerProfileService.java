@@ -7,7 +7,6 @@ package de.avci.joride.jbeans.customerprofile;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,12 +42,13 @@ public class JPublicCustomerProfileService {
      * @param jcpp PublicCustomerProfile to be updated
      * @param custId CustomerId from which data should be updated.
      */
-    public void updatePublicCustomerProfileFromID(JPublicCustomerProfile jcpp, int custId) {
+    public void updatePublicCustomerProfileFromID(JPublicCustomerProfile jcpp, int custIdArg) {
 
         CustomerControllerLocal ccl = this.lookupCustomerControllerBeanLocal();
-        CustomerEntity ce = ccl.getCustomer(custId);
+        CustomerEntity ce = ccl.getCustomer(custIdArg);
 
         if (ce == null) {
+            log.log(Level.WARNING, "Got empty customer profile when updating from id " + custIdArg);
             return;
         }
 
@@ -86,6 +86,7 @@ public class JPublicCustomerProfileService {
         Integer custId = new JCustomerEntityService().getCustIDSafely();
 
         if (custId == null) {
+            log.log(Level.WARNING, "Got empty customer profile when updating");
             return;
         }
 

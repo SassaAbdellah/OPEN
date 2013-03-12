@@ -1,14 +1,11 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -26,9 +23,12 @@ import javax.inject.Named;
  * @author jochen
  */
 @Named("publicProfile")
-@RequestScoped
+@SessionScoped
 public class JPublicCustomerProfile implements Serializable {
 
+    protected static String PUBLIC_PROFILE_DISPLAY_PAGE = "displayPublicProfile";
+    
+    
     transient Logger log = Logger.getLogger("" + this.getClass());
     /**
      * CustomerId
@@ -114,119 +114,47 @@ public class JPublicCustomerProfile implements Serializable {
      *
      * @param custId
      */
-    public void updateFromProfile(Integer custId) {
+    public void updateFromCustId() {
+
+        // erase all properties, this may be reusing a session scoped bean
+        this.blankProperties();
 
         JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
 
-        if (custId == null) {
-            throw new Error("Cannot update profile, numerical custId is null");
+        if (this.getCustId() == null) {
+            throw new Error("Cannot update profile,  custId is null");
         }
 
-        jpcps.updatePublicCustomerProfileFromID(this, custId);
+
+        JCustomerEntityService jces = new JCustomerEntityService();
+        CustomerEntity ce = jces.getCustomerEntityByCustId(custId);
+        JPublicCustomerProfile jpcp = new JPublicCustomerProfile();
+        jpcp.updateFromCustomerEntity(ce);
+
     }
-    
-    
-    
-    /**
-     * 
-     */
-    public void smartUpdate(){
-    
-      
-        
-        // case 1: this method is called from customer search page,
-        // in which case the nickname should have been already set
-        if(this.getCustNickname()!=null){
-            this.updateFromNickName();
-            return;
-        }
-        
-        HTTPUtil hu=new HTTPUtil();
-        
-        // case 2: 
-        // update has been called  with nickname in http parameter
-        //
-        if(hu.getParameterSingleValue(new JoRideConstants().getParamNameNickname())!=null){
-            this.updateFromNickNameByHTTPParam();
-            return;
-        }
-        
-        // 
-        // case 3:
-        // update has been called with id as http parameter
-        if(hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId())!=null){
-            this.updateFromIdByHTTPParam();
-            return;
-        }
-        
-        
-        // last exit:
-        // user wants to see his own profile 
-        //
-        this.updateFromCallerPublicProfile();
-        
-    }
-    
 
     /**
-     * Update this profile from the CustomerEntity given by Nickname.
      *
-     * @param custId
-     */
-    public void updateFromProfile(String nickName) {
-
-        JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
-
-        if (nickName == null) {
-            throw new Error("Cannot update profile, nickname is null");
-        }
-
-        jpcps.updatePublicCustomerProfileFromNickname(this, nickName);
-    }
-
-    /**
-     * Extract value for id from HTTPRequest, then retrieve CustomerId for id,
-     * then update data for this object from values thus retrieved.
-     *
-     */
-    public void updateFromIdByHTTPParam() {
-
-        HTTPUtil hu = new HTTPUtil();
-        String idStr = hu.getParameterSingleValue(new CRUDConstants().getParamNameCrudId());
-
-        Integer id = null;
-
-        try {
-            id = Integer.parseInt(idStr);
-        } catch (Exception exc) {
-            // return prematurely
-            log.log(Level.WARNING, "Error while retrieving Id, cannot update PublicProfile", exc);
-            return;
-        }
-
-        this.updateFromProfile(id);
-    }
-
-    /**
-     * Extract value for nick from HTTPRequest, then retrieve Customer for
-     * nickName then update data for this object from values thus retrieved.
-     *
-     */
-    public void updateFromNickNameByHTTPParam() {
-
-        HTTPUtil hu = new HTTPUtil();
-        String nickNameArg = hu.getParameterSingleValue(new JoRideConstants().getParamNameNickname());
-
-
-        this.updateFromProfile(nickNameArg);
-    }
-
-    /**
+     * /**
      * Update *all* data for a profile of which only the nickname is set. This
      * is used to retrieve user information given the nickname
      */
-    public void updateFromNickName() {
-        this.updateFromProfile(this.getCustNickname());
+    public void updateFromCustNickname() {
+
+        String nick = this.getCustNickname();
+        // erase all properties, this may be reusing a session scoped bean
+        this.blankProperties();
+        this.setCustNickname(nick);
+
+        if (nick == null) {
+            throw new Error("Cannot update from nickname, nickname is null");
+        }
+
+        JCustomerEntityService jces = new JCustomerEntityService();
+        CustomerEntity ce = jces.getCustomerEntityByNickname(this.getCustNickname());
+
+        JPublicCustomerProfile jpcp = new JPublicCustomerProfile();
+        jpcp.updateFromCustomerEntity(ce);
     }
 
     /**
@@ -424,6 +352,47 @@ public class JPublicCustomerProfile implements Serializable {
         }
         return true;
     }
+
+    /**
+     * Load caller's profile, then move to displayPublicProfile page
+     *
+     * @return
+     */
+    public String displayMyPublicProfile() {
+        this.blankProperties();
+        this.updateFromCallerPublicProfile();
+        return PUBLIC_PROFILE_DISPLAY_PAGE;
+    }
+    
+    /**
+     * Load profile given by nickname, then move to displayPublicProfile page
+     *
+     * @return
+     */
+    public String displayProfileForNickname() {
+        String nick=this.getCustNickname();
+        this.blankProperties();
+        this.setCustNickname(nick);
+        this.updateFromCustNickname();
+        return PUBLIC_PROFILE_DISPLAY_PAGE;
+    }
     
     
+    
+    
+    
+    
+
+    /**
+     * Blank out public profile, usually before updating
+     *
+     */
+    protected void blankProperties() {
+
+        this.custGender = (char) 0;
+        this.custId = null;
+        this.custIssmoker = null;
+        this.custLicensedate = null;
+        this.custNickname = null;
+    }
 } // class

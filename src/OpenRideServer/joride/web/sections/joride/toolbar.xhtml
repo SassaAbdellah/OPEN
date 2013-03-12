@@ -125,12 +125,12 @@
 
                     <!-- preferences submenu  -->
                     <p:submenu  label="#{msgs.nav1_preferences_label}" icon="ui-icon-wrench">
-                        <p:menuitem outcome="password_change"               value="#{msgs.changePassword}"                     /> 
-                        <p:menuitem outcome="preferences.personalData"      value="#{msgs.nav1_pref_personalData_label}"       /> 
-                        <p:menuitem outcome="preferences.riderPreferences"  value="#{msgs.nav1_pref_riderPreferences_label}"   /> 
-                        <p:menuitem outcome="preferences.driverPreferences" value="#{msgs.nav1_pref_driverPreferences_label}"  /> 
-                        <p:menuitem outcome="preferences.favoritePlaces"    value="#{msgs.nav1_pref_favoritePlaces_label}"     />
-                        <p:menuitem outcome="displayPublicProfile"          value="#{msgs.publicProfileMyProfile}"  />
+                        <p:menuitem outcome="password_change"                            value="#{msgs.changePassword}"                     /> 
+                        <p:menuitem outcome="preferences.personalData"                   value="#{msgs.nav1_pref_personalData_label}"       /> 
+                        <p:menuitem outcome="preferences.riderPreferences"               value="#{msgs.nav1_pref_riderPreferences_label}"   /> 
+                        <p:menuitem outcome="preferences.driverPreferences"              value="#{msgs.nav1_pref_driverPreferences_label}"  /> 
+                        <p:menuitem outcome="preferences.favoritePlaces"                 value="#{msgs.nav1_pref_favoritePlaces_label}"     />
+                        <p:menuitem outcome="#{publicProfile.displayMyPublicProfile()}"  value="#{msgs.publicProfileMyProfile}"  />
                     </p:submenu>
 
 
