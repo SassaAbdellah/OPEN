@@ -1,6 +1,8 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.utils.CRUDConstants;
+import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -27,8 +29,6 @@ import javax.inject.Named;
 public class JPublicCustomerProfile implements Serializable {
 
     protected static String PUBLIC_PROFILE_DISPLAY_PAGE = "displayPublicProfile";
-    
-    
     transient Logger log = Logger.getLogger("" + this.getClass());
     /**
      * CustomerId
@@ -81,15 +81,23 @@ public class JPublicCustomerProfile implements Serializable {
     }
 
     /**
-     * Fill with Data from givenCustomerId
+     * Fill with Data from givenCustomerId.
+     * 
+     * 
      */
     public void updateFromCustomerEntity(CustomerEntity ce) {
 
+        this.blankProperties();
+        
         if (ce == null) {
-            throw new Error("Cannot retrieve public customer data, customer is null");
+            
+            // a nonexisting ce will result in a PublicCustomer Entity
+            // which has both ID and Nickname blanked,
+            // and thus fails the "seems to exist" test
+            return;
         }
 
-
+        
         this.custId = ce.getCustId();
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
@@ -103,7 +111,7 @@ public class JPublicCustomerProfile implements Serializable {
      * Update this profile from the caller's CustomerEntity.
      *
      */
-    public void updateFromCallerPublicProfile() {
+    private void updateFromCallerPublicProfile() {
 
         JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
         jpcps.updateFromCallerPublicProfile(this);
@@ -115,9 +123,13 @@ public class JPublicCustomerProfile implements Serializable {
      * @param custId
      */
     public void updateFromCustId() {
-
+        
+        // save until after blanking
+        Integer myCustId=this.getCustId(); 
+        
         // erase all properties, this may be reusing a session scoped bean
         this.blankProperties();
+        this.custId=myCustId;
 
         JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
 
@@ -128,8 +140,7 @@ public class JPublicCustomerProfile implements Serializable {
 
         JCustomerEntityService jces = new JCustomerEntityService();
         CustomerEntity ce = jces.getCustomerEntityByCustId(custId);
-        JPublicCustomerProfile jpcp = new JPublicCustomerProfile();
-        jpcp.updateFromCustomerEntity(ce);
+        this.updateFromCustomerEntity(ce);
 
     }
 
@@ -153,8 +164,7 @@ public class JPublicCustomerProfile implements Serializable {
         JCustomerEntityService jces = new JCustomerEntityService();
         CustomerEntity ce = jces.getCustomerEntityByNickname(this.getCustNickname());
 
-        JPublicCustomerProfile jpcp = new JPublicCustomerProfile();
-        jpcp.updateFromCustomerEntity(ce);
+        this.updateFromCustomerEntity(ce);
     }
 
     /**
@@ -359,29 +369,57 @@ public class JPublicCustomerProfile implements Serializable {
      * @return
      */
     public String displayMyPublicProfile() {
+
         this.blankProperties();
         this.updateFromCallerPublicProfile();
         return PUBLIC_PROFILE_DISPLAY_PAGE;
+
     }
-    
+
     /**
      * Load profile given by nickname, then move to displayPublicProfile page
      *
      * @return
      */
     public String displayProfileForNickname() {
-        String nick=this.getCustNickname();
+        String nick = this.getCustNickname();
         this.blankProperties();
         this.setCustNickname(nick);
         this.updateFromCustNickname();
         return PUBLIC_PROFILE_DISPLAY_PAGE;
     }
     
+     /**
+     * Load profile given by id, then move to displayPublicProfile page.
+     * 
+     * If (Crud)
+     * 
+     * 
+     *
+     * @return
+     */
+    public String displayProfileForCustId() {
+        
+        // check for presence of Id Parameter,
+        // and if present, set custId property to 
+        // value given in Parameter
+        String custIdArgStr=(new HTTPUtil().getParameterSingleValue(new CRUDConstants().getParamNameCrudId()));
+       
+        Integer custIdArg=null;
+        try{ custIdArg=Integer.parseInt(custIdArgStr);
+        }catch(Exception exc){
+            throw new Error("Error while parsing potential custId "+custIdArgStr+" is non numeric");
+        }
+        
+        if(custIdArg!=null) {this.custId=custIdArg;}
+        
+        
+        this.updateFromCustId();
+        return PUBLIC_PROFILE_DISPLAY_PAGE;
+    }
     
     
-    
-    
-    
+   
 
     /**
      * Blank out public profile, usually before updating

@@ -65,7 +65,7 @@
                                 <td> 
                                     <span class="formInput"> 
                                         <h:form>
-                                            <h:commandLink action="displayPublicProfile"  >
+                                            <h:commandLink action="#{publicProfile.displayProfileForCustId()}"   >
                                                 #{matching.drive.custId.custNickname} 
                                                 <f:param name="#{crud.paramNameCrudId}" value="#{matching.drive.custId.custId}" />
                                             </h:commandLink>
