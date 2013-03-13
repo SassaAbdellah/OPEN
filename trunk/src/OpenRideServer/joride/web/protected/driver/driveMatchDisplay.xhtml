@@ -60,7 +60,7 @@
                         <td> 
                             <span class="formInput">      
                                 <h:form>
-                                    <h:commandLink action="displayPublicProfile"  >
+                                    <h:commandLink action="#{publicProfile.displayProfileForCustId()}" >
                                         #{match.ride.custId.custNickname} 
                                         <f:param name="#{crud.paramNameCrudId}" value="#{match.ride.custId.custId}" />
                                     </h:commandLink>

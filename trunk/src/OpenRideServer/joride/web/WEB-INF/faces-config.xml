@@ -516,18 +516,14 @@
         </navigation-case>
     </navigation-rule>
         
-        
-    <!-- Start Searching a public profile by nickname  -->
+         <!-- go to public profile data display for Other people's profile  -->
     <navigation-rule>
         <navigation-case>
             <from-outcome>searchPublicProfileByNickName</from-outcome>
             <to-view-id>/faces/public/publicProfile/searchPublicProfileByNickName.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    
-
-        
-    
+    </navigation-rule>   
+   
         
     <!-- show ratings for driver -->
                 

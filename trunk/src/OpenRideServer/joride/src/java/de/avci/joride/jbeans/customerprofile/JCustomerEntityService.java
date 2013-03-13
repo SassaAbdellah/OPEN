@@ -78,7 +78,7 @@ public class JCustomerEntityService {
        
         CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(nick);
 
-        // TODO: do something more sane than just cast
+       
         return customerEntity;
 
     } // getCustomerEntity
