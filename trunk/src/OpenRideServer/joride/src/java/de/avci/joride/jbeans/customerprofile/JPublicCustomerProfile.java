@@ -1,11 +1,16 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.auxiliary.JRatingBean;
+import de.avci.joride.jbeans.auxiliary.JRatingService;
+import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -82,22 +87,22 @@ public class JPublicCustomerProfile implements Serializable {
 
     /**
      * Fill with Data from givenCustomerId.
-     * 
-     * 
+     *
+     *
      */
     public void updateFromCustomerEntity(CustomerEntity ce) {
 
         this.blankProperties();
-        
+
         if (ce == null) {
-            
+
             // a nonexisting ce will result in a PublicCustomer Entity
             // which has both ID and Nickname blanked,
             // and thus fails the "seems to exist" test
             return;
         }
 
-        
+
         this.custId = ce.getCustId();
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
@@ -123,13 +128,13 @@ public class JPublicCustomerProfile implements Serializable {
      * @param custId
      */
     public void updateFromCustId() {
-        
+
         // save until after blanking
-        Integer myCustId=this.getCustId(); 
-        
+        Integer myCustId = this.getCustId();
+
         // erase all properties, this may be reusing a session scoped bean
         this.blankProperties();
-        this.custId=myCustId;
+        this.custId = myCustId;
 
         JPublicCustomerProfileService jpcps = new JPublicCustomerProfileService();
 
@@ -388,38 +393,38 @@ public class JPublicCustomerProfile implements Serializable {
         this.updateFromCustNickname();
         return PUBLIC_PROFILE_DISPLAY_PAGE;
     }
-    
-     /**
+
+    /**
      * Load profile given by id, then move to displayPublicProfile page.
-     * 
+     *
      * If (Crud)
-     * 
-     * 
+     *
+     *
      *
      * @return
      */
     public String displayProfileForCustId() {
-        
+
         // check for presence of Id Parameter,
         // and if present, set custId property to 
         // value given in Parameter
-        String custIdArgStr=(new HTTPUtil().getParameterSingleValue(new CRUDConstants().getParamNameCrudId()));
-       
-        Integer custIdArg=null;
-        try{ custIdArg=Integer.parseInt(custIdArgStr);
-        }catch(Exception exc){
-            throw new Error("Error while parsing potential custId "+custIdArgStr+" is non numeric");
+        String custIdArgStr = (new HTTPUtil().getParameterSingleValue(new CRUDConstants().getParamNameCrudId()));
+
+        Integer custIdArg = null;
+        try {
+            custIdArg = Integer.parseInt(custIdArgStr);
+        } catch (Exception exc) {
+            throw new Error("Error while parsing potential custId " + custIdArgStr + " is non numeric");
         }
-        
-        if(custIdArg!=null) {this.custId=custIdArg;}
-        
-        
+
+        if (custIdArg != null) {
+            this.custId = custIdArg;
+        }
+
+
         this.updateFromCustId();
         return PUBLIC_PROFILE_DISPLAY_PAGE;
     }
-    
-    
-   
 
     /**
      * Blank out public profile, usually before updating
@@ -432,5 +437,20 @@ public class JPublicCustomerProfile implements Serializable {
         this.custIssmoker = null;
         this.custLicensedate = null;
         this.custNickname = null;
+    }
+
+    
+    
+    
+    public List<JRatingBean> getRatingsAsDriverInInterval() {
+
+        String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+        log.log(Level.FINE, "Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
+
+        JRatingService jrs = new JRatingService();
+        return jrs.getRatingsAsDriver(this.getCustId(),tb.getStartDate(),tb.getEndDate());
+
     }
 } // class

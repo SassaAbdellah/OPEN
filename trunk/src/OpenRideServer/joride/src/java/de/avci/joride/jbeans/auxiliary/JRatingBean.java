@@ -4,12 +4,13 @@
  */
 package de.avci.joride.jbeans.auxiliary;
 
-import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 import javax.inject.Named;
 
@@ -66,10 +67,29 @@ public class JRatingBean implements Serializable {
         return ratingDate;
     }
 
+   
     public void setRatingDate(Date arg) {
         this.ratingDate = arg;
     }
 
+    
+     /** Nicely formatted version of the rating date
+     * 
+     * @param arg 
+     */
+    public String getRatingDateFormatted(){
+    
+        DateFormat df=new JoRideConstants().createDateFormat();
+    
+        if(this.getRatingDate()!=null){
+            return df.format(ratingDate);
+        }
+        
+        return "";
+    }
+    
+    
+    
     public JRatingBean extractRiderRating(JRiderUndertakesRideEntity jrure) {
 
 
@@ -92,4 +112,60 @@ public class JRatingBean implements Serializable {
 
         return res;
     }
-}
+    
+    /** Create a rating bean from ride's driver rating (=receivedRating)
+     * 
+     * @param rue
+     * @return 
+     */
+    public static JRatingBean createRatingFromDriverRating(RiderUndertakesRideEntity ride){
+    
+        JRatingBean res=new JRatingBean();
+        
+        // rater
+        JPublicCustomerProfile jpcp=new JPublicCustomerProfile();
+        jpcp.updateFromCustomerEntity(ride.getRideId().getCustId());
+        res.setRater(jpcp);
+        
+        // rating
+        res.setRating(ride.getReceivedrating());
+        // date
+        res.setRatingDate(ride.getReceivedratingDate());
+        // comment
+        res.setComment(ride.getReceivedratingComment());
+    
+        return res;
+    }
+    
+    
+    
+    
+    /** Create a rating bean from ride's driver rating
+     * 
+     * @param rue
+     * @return 
+     */
+    public static JRatingBean createRatingFromRiderRating(RiderUndertakesRideEntity ride){
+    
+        JRatingBean res=new JRatingBean();
+        
+        // rater
+        JPublicCustomerProfile jpcp=new JPublicCustomerProfile();
+        jpcp.updateFromCustomerEntity(ride.getCustId());
+        res.setRater(jpcp);
+        
+        // rating
+        res.setRating(ride.getGivenrating());
+        // date
+        res.setRatingDate(ride.getGivenratingDate());
+        // comment
+        res.setComment(ride.getGivenratingComment());
+    
+        return res;
+    }
+    
+    
+  
+    
+    
+} // class

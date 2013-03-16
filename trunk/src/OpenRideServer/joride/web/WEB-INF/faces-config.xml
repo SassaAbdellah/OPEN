@@ -516,7 +516,7 @@
         </navigation-case>
     </navigation-rule>
         
-         <!-- go to public profile data display for Other people's profile  -->
+    <!-- go to public profile data display for Other people's profile  -->
     <navigation-rule>
         <navigation-case>
             <from-outcome>searchPublicProfileByNickName</from-outcome>
@@ -534,7 +534,7 @@
         </navigation-case>
     </navigation-rule>
         
-         <!-- show ratings for rider -->
+    <!-- show ratings for rider -->
                 
     <navigation-rule>
         <navigation-case>
@@ -542,6 +542,14 @@
             <to-view-id>/faces/public/publicProfile/publicProfileRiderRatingsDisplay.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+        
+        
+      
+        
+        
+        
+        
+        
         
                             
 	
@@ -650,5 +658,26 @@
         <managed-bean-class>de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean> 
+    
+    
+    
+    
+    <!-- Set of parameters to define searches inside rides and drives -->
+    
+    <managed-bean> 
+        <managed-bean-name>ridesearchparams</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.auxiliary.RideSearchParamsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
+    <!-- Set of parameters to define searches for ratings inside rides and drives -->
+    
+    <managed-bean> 
+        <managed-bean-name>ratingsearchparams</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.auxiliary.RideSearchParamsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+
+    
             
 </faces-config>

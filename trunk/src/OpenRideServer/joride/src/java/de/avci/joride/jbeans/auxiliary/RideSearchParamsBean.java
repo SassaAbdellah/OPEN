@@ -23,7 +23,7 @@ import javax.inject.Named;
  *
  * @author jochen
  */
-@Named("ridesearchparams")
+@Named
 @SessionScoped
 public class RideSearchParamsBean implements Serializable {
 
@@ -44,6 +44,24 @@ public class RideSearchParamsBean implements Serializable {
     public String getBeanNameRidesearchparam(){
         return this.BEAN_NAME_RIDESEARPARAM;
     }
+    
+    
+    
+        
+    /**
+     * Bean Name under which parameters for searching ratings are known to the JSF
+     * Apparatus.
+     *
+     */
+    private static final String BEAN_NAME_RATINGSEARCHPARAM = "ratingsearchparams";
+    
+    /**
+     *  make BEAN_NAME_RATINGSEARPARAM  availlable as a JSF Bean property
+     */
+    public String getBeanNameRatingsearchparam(){
+        return this.BEAN_NAME_RATINGSEARCHPARAM;
+    }
+    
     
     
     
