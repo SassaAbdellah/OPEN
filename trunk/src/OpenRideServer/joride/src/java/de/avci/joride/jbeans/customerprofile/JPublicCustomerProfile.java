@@ -1,6 +1,7 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.constants.NavigationKeys;
 import de.avci.joride.jbeans.auxiliary.JRatingBean;
 import de.avci.joride.jbeans.auxiliary.JRatingService;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.NavigationCase;
 import javax.inject.Named;
 
 /**
@@ -439,9 +441,49 @@ public class JPublicCustomerProfile implements Serializable {
         this.custNickname = null;
     }
 
-    
-    
-    
+    /**
+     * Intialize Time Interval with 3Months, then return navigation key to
+     * Driver ratings page
+     *
+     * @return
+     */
+    public String gotoRatingsAsDriver() {
+
+        String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+
+        tb.setEndDate(new Date(System.currentTimeMillis()));
+
+        // number of milliseconds in ninety days from 
+        long ninetyDays = 90l * 24l * 60l * 60l * 1000l;
+        long startTime=System.currentTimeMillis()-ninetyDays;        
+        tb.setStartDate(new Date(startTime));
+
+        
+        return NavigationKeys.driverRatingsDisplay;
+    }
+
+    /**
+     * Intialize Time Interval with 3Months, then return navigation key to rider
+     * ratings page
+     *
+     * @return
+     */
+    public String gotoRatingsAsRider() {
+
+        String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+
+        tb.setEndDate(new Date(System.currentTimeMillis()));
+
+        // number of milliseconds in ninety days 
+        long ninetyDays = 90l * 24l * 60l * 60l * 1000l;
+
+        tb.setStartDate(new Date(tb.getEndDate().getTime() - ninetyDays));
+
+        return NavigationKeys.riderRatingsDisplay;
+    }
+
     public List<JRatingBean> getRatingsAsDriverInInterval() {
 
         String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
@@ -450,7 +492,6 @@ public class JPublicCustomerProfile implements Serializable {
 
 
         JRatingService jrs = new JRatingService();
-        return jrs.getRatingsAsDriver(this.getCustId(),tb.getStartDate(),tb.getEndDate());
-
+        return jrs.getRatingsAsDriver(this.getCustId(), tb.getStartDate(), tb.getEndDate());
     }
 } // class
