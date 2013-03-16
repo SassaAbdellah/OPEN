@@ -66,8 +66,16 @@ public class JCustomerEntity extends CustomerEntity {
      */
     public void updateFromDB() {
 
-
         CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntitySafely();
+        this.updateFromCustomerEntity(ce);
+    }
+    
+    
+    /** Update data from a customerEntity
+     * 
+     * @param ce 
+     */
+    public void updateFromCustomerEntity(CustomerEntity ce){
 
         this.setCustAccountBalance(ce.getCustAccountBalance());
         this.setCustAddrCity(ce.getCustAddrCity());
