@@ -484,6 +484,8 @@ public class JPublicCustomerProfile implements Serializable {
         return NavigationKeys.riderRatingsDisplay;
     }
 
+    
+    
     public List<JRatingBean> getRatingsAsDriverInInterval() {
 
         String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
@@ -494,4 +496,26 @@ public class JPublicCustomerProfile implements Serializable {
         JRatingService jrs = new JRatingService();
         return jrs.getRatingsAsDriver(this.getCustId(), tb.getStartDate(), tb.getEndDate());
     }
+    
+    
+    
+      
+    public List<JRatingBean> getRatingsAsRiderInInterval() {
+
+        String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+        log.log(Level.FINE, "Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
+
+        JRatingService jrs = new JRatingService();
+        return jrs.getRatingsAsRider(this.getCustId(), tb.getStartDate(), tb.getEndDate());
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 } // class

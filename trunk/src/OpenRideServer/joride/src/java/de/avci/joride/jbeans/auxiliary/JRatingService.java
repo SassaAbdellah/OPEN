@@ -61,9 +61,8 @@ public class JRatingService {
             throw new RuntimeException(ne);
         }
     }
-    
-    
-     /**
+
+    /**
      * Lookup DriverUndertakesRideControllerLocal Bean that controls my offers.
      *
      * @return
@@ -79,7 +78,6 @@ public class JRatingService {
 
     }
 
-
     /**
      * Get a list of all ride request for customer in between startdate and an
      * enddate. StartDate and EndDate are read in from http parameters using
@@ -92,6 +90,7 @@ public class JRatingService {
      *
      *
      * @return
+     * 
      */
     private List<JRiderUndertakesRideEntity> getRidesForRiderInInterval(CustomerEntity ce) {
 
@@ -209,16 +208,16 @@ public class JRatingService {
      * timespan transported seperately by TimeIntervalBean.
      *
      * @param custId customerId of customer to get Ratings for
-     * @param startDate  beginning of interval
-     * @param endData    end of interval
+     * @param startDate beginning of interval
+     * @param endData end of interval
      * @return
      */
     public List<JRatingBean> getRatingsAsDriver(Integer custId, Date startDate, Date endDate) {
 
 
-        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
-        
-        
+        CustomerControllerLocal ccl = this.lookupCustomerControllerBeanLocal();
+
+
         CustomerEntity ce = ccl.getCustomer(custId);
 
         if (ce == null) {
@@ -232,14 +231,13 @@ public class JRatingService {
                 rurcl.getRidesForDriver(
                 ce,
                 startDate,
-                endDate
-                );
+                endDate);
 
         // cast rideinfo to ratings and return list of ratings
         List<JRatingBean> res = new LinkedList<JRatingBean>();
 
         for (RiderUndertakesRideEntity rue : res1) {
-            JRatingBean jrb = JRatingBean.createRatingFromRiderRating(rue);
+            JRatingBean jrb = JRatingBean.extractRating(rue);
             res.add(jrb);
         }
 
@@ -247,8 +245,46 @@ public class JRatingService {
 
     } // getRatings as Driver
 
-   
-    
-    
+    /**
+     * Return a list of all ratings the user given by custId has received in
+     * timespan transported seperately by TimeIntervalBean.
+     *
+     * @param custId customerId of customer to get Ratings for
+     * @param startDate beginning of interval
+     * @param endData end of interval
+     * @return
+     */
+    public List<JRatingBean> getRatingsAsRider(Integer custId, Date startDate, Date endDate) {
+
+
+        CustomerControllerLocal ccl = this.lookupCustomerControllerBeanLocal();
+
+
+        CustomerEntity ce = ccl.getCustomer(custId);
+
+        if (ce == null) {
+            throw new Error("Cannot determine Identity for customerId " + custId);
+        }
+
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        // get all rides related to this customer
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getRidesForCustomer(
+                ce,
+                startDate,
+                endDate);
+
+        // cast rideinfo to ratings and return list of ratings
+        List<JRatingBean> res = new LinkedList<JRatingBean>();
+
+        for (RiderUndertakesRideEntity rue : res1) {
+            JRatingBean jrb = JRatingBean.extractRating(rue);
+            res.add(jrb);
+        }
+
+        return res;
+
+    } // getRatings as Rider
 } // class
 
