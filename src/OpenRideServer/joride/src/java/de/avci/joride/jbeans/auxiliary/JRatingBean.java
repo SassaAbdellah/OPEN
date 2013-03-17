@@ -6,7 +6,6 @@ package de.avci.joride.jbeans.auxiliary;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
-import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
@@ -22,150 +21,202 @@ import javax.inject.Named;
 @Named("rating")
 public class JRatingBean implements Serializable {
 
+    /// GIVEN Rating Stuff (where rider has rated)
     /**
-     * Public data of the person that rated me.
+     * Public data of the rider that rated this ride.
      */
-    protected JPublicCustomerProfile rater;
+    protected JPublicCustomerProfile rider;
 
-    public JPublicCustomerProfile getRater() {
-        return this.rater;
+    public JPublicCustomerProfile getRider() {
+        return this.rider;
     }
 
-    protected void setRater(JPublicCustomerProfile arg) {
-        this.rater = arg;
+    protected void setRider(JPublicCustomerProfile arg) {
+        this.rider = arg;
     }
     /**
-     * Rating (may be null if ride is not yet rated!)
+     * "GivenRating" for this ride (may be null if ride is not yet rated!)
      */
-    protected Integer rating = null;
+    protected Integer givenRating = null;
 
-    public Integer getRating() {
-        return this.rating;
+    public Integer getGivenRating() {
+        return this.givenRating;
     }
 
-    public void setRating(Integer ratingArg) {
-        this.rating = ratingArg;
+    public void setGivenRating(Integer ratingArg) {
+        this.givenRating = ratingArg;
     }
     /**
      * Ratings Comment
      */
-    protected String comment = null;
+    protected String givenComment = null;
 
-    public String getComment() {
-        return this.comment;
+    public String getGivenComment() {
+        return this.givenComment;
     }
 
-    public void setComment(String commentArg) {
-        this.comment = commentArg;
+    public void setGivenComment(String commentArg) {
+        this.givenComment = commentArg;
     }
     /**
-     * Date of Rating, May be null, if there was no rating
+     * Date of GivenRating, May be null, if there was no rating
      */
-    protected Date ratingDate = null;
+    protected Date givenRatingDate = null;
 
-    public Date getRatingDate() {
-        return ratingDate;
+    public Date getGivenRatingDate() {
+        return givenRatingDate;
     }
 
-   
-    public void setRatingDate(Date arg) {
-        this.ratingDate = arg;
+    public void setGivenRatingDate(Date arg) {
+        this.givenRatingDate = arg;
     }
-
     
-     /** Nicely formatted version of the rating date
-     * 
-     * @param arg 
+    /** True if there is a rider rating date, else false
      */
-    public String getRatingDateFormatted(){
+    public boolean getIsRiderRated(){
+        return this.getGivenRating()!=null;
+    }
     
-        DateFormat df=new JoRideConstants().createDateFormat();
     
-        if(this.getRatingDate()!=null){
-            return df.format(ratingDate);
+
+    /**
+     * Nicely formatted version of the given rating date
+     *
+     * @param arg
+     */
+    public String getGivenRatingDateFormatted() {
+
+        DateFormat df = new JoRideConstants().createDateFormat();
+
+        if (this.getGivenRatingDate() != null) {
+            return df.format(givenRatingDate);
         }
-        
+
+        return "";
+    }
+    /// GIVEN Rating Stuff (where rider has rated)
+    /**
+     * Public data of the rider that rated this ride.
+     */
+    protected JPublicCustomerProfile driver;
+
+    public JPublicCustomerProfile getDriver() {
+        return this.driver;
+    }
+
+    protected void setDriver(JPublicCustomerProfile arg) {
+        this.driver = arg;
+    }
+    /**
+     * "ReceivedRating" for this ride (may be null if ride is not yet rated!)
+     */
+    protected Integer receivedRating = null;
+
+    public Integer getReceivedRating() {
+        return this.receivedRating;
+    }
+
+    public void setReceivedRating(Integer ratingArg) {
+        this.receivedRating = ratingArg;
+    }
+    /**
+     * Ratings Comment
+     */
+    protected String receivedComment = null;
+
+    public String getReceivedComment() {
+        return this.receivedComment;
+    }
+
+    public void setReceivedComment(String commentArg) {
+        this.receivedComment = commentArg;
+    }
+    /**
+     * Date of ReceivedRating, May be null, if there was no rating
+     */
+    protected Date receivedRatingDate = null;
+
+    public Date getReceivedRatingDate() {
+        return receivedRatingDate;
+    }
+
+    public void setReceivedRatingDate(Date arg) {
+        this.receivedRatingDate = arg;
+    }
+
+    /**
+     * Nicely formatted version of the received rating date
+     *
+     * @param arg
+     */
+    public String getReceivedRatingDateFormatted() {
+
+        DateFormat df = new JoRideConstants().createDateFormat();
+
+        if (this.getReceivedRatingDate() != null) {
+            return df.format(receivedRatingDate);
+        }
+
         return "";
     }
     
     
+    /** True if there is a rider rating date, else false
+     */
+    public boolean getIsDriverRated(){
+        return this.getReceivedRating()!=null;
+    }
     
-    public JRatingBean extractRiderRating(JRiderUndertakesRideEntity jrure) {
+    
+    
+    
 
+    ///// end of properties
+    
+    
+    /** Extract RatingData from JRiderUndertakesRideEntity
+     * 
+     * @param jrure
+     * @return 
+     */
+    
+    public static JRatingBean extractRating(RiderUndertakesRideEntity rure) {
 
         JRatingBean res = new JRatingBean();
 
-        CustomerEntity ce = jrure.getCustId();
 
-        // Rater 
-        res.setRater(new JPublicCustomerProfile()); 
-        res.getRater().updateFromCustomerEntity(ce);
-        
+
+        // rider stuff
+
+        CustomerEntity riderCe = rure.getCustId();
+
+        res.setRider(new JPublicCustomerProfile());
+        res.getRider().updateFromCustomerEntity(riderCe);
+
         // Rating
-        res.setRating(jrure.getReceivedrating());
-        
+        res.setGivenRating(rure.getGivenrating());
         // Comment
-        res.setComment(jrure.getReceivedratingComment());
-        
+        res.setGivenComment(rure.getGivenratingComment());
         // Rating Date
-        res.setRatingDate(jrure.getReceivedratingDate());
+        res.setGivenRatingDate(rure.getGivenratingDate());
+
+
+        // Driver stuff 
+        CustomerEntity driverCe = rure.getRideId().getCustId();
+
+
+        res.setDriver(new JPublicCustomerProfile());
+        res.getDriver().updateFromCustomerEntity(driverCe);
+
+        // Rating
+        res.setGivenRating(rure.getGivenrating());
+        // Comment
+        res.setGivenComment(rure.getGivenratingComment());
+        // Rating Date
+        res.setGivenRatingDate(rure.getGivenratingDate());
 
         return res;
     }
-    
-    /** Create a rating bean from ride's driver rating (=receivedRating)
-     * 
-     * @param rue
-     * @return 
-     */
-    public static JRatingBean createRatingFromDriverRating(RiderUndertakesRideEntity ride){
-    
-        JRatingBean res=new JRatingBean();
-        
-        // rater
-        JPublicCustomerProfile jpcp=new JPublicCustomerProfile();
-        jpcp.updateFromCustomerEntity(ride.getRideId().getCustId());
-        res.setRater(jpcp);
-        
-        // rating
-        res.setRating(ride.getReceivedrating());
-        // date
-        res.setRatingDate(ride.getReceivedratingDate());
-        // comment
-        res.setComment(ride.getReceivedratingComment());
-    
-        return res;
-    }
-    
-    
-    
-    
-    /** Create a rating bean from ride's driver rating
-     * 
-     * @param rue
-     * @return 
-     */
-    public static JRatingBean createRatingFromRiderRating(RiderUndertakesRideEntity ride){
-    
-        JRatingBean res=new JRatingBean();
-        
-        // rater
-        JPublicCustomerProfile jpcp=new JPublicCustomerProfile();
-        jpcp.updateFromCustomerEntity(ride.getCustId());
-        res.setRater(jpcp);
-        
-        // rating
-        res.setRating(ride.getGivenrating());
-        // date
-        res.setRatingDate(ride.getGivenratingDate());
-        // comment
-        res.setComment(ride.getGivenratingComment());
-    
-        return res;
-    }
-    
-    
-  
-    
-    
+
+ 
 } // class
