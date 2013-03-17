@@ -364,7 +364,7 @@ public class JPublicCustomerProfile implements Serializable {
         if (count == null) {
             return false;
         }
-        if (count <= 1) {
+        if (count < 1) {
             return false;
         }
         return true;
