@@ -33,11 +33,29 @@
             <ui:define name="content">
 
 
+                
+                <h:form> <!-- update poll  -->
+
+                    TODO: UpdateInterval :  #{updatemsg.updateIntervalSec}
+
+                    <h:commandLink 
+                        id="updateDisplay"
+                        value=" #{updatemsg.updateNotification}" 
+                        action="updates"
+                        />
+
+                    <p:poll 
+                        autoStart="true" 
+                        interval="3"
+                        listener="#{updatemsg.getUpdateNotification}"
+                        update="updateDisplay"
+                        />
+                    
+                </h:form> <!-- end of update poll section -->
 
 
 
                 <h:form>
-
                     <p>
                         <h:commandLink action="rider">    #{msgs.nav1_rider_label}      </h:commandLink> 
                         <br/> 
@@ -58,7 +76,6 @@
 
 
                 </h:form>
-
 
 
 

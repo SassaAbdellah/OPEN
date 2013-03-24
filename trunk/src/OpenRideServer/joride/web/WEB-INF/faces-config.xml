@@ -544,13 +544,17 @@
     </navigation-rule>
         
         
+    <!-- show updates rides and drives for user -->
+                
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>updates</from-outcome>
+            <to-view-id>/faces/protected/updates/updates.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        
+        
       
-        
-        
-        
-        
-        
-        
                             
 	
     <!-- ***********************************************************  -->	
