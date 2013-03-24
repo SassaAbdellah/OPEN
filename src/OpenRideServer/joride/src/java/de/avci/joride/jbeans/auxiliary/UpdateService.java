@@ -5,7 +5,9 @@
 package de.avci.joride.jbeans.auxiliary;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -54,7 +56,7 @@ public class UpdateService {
      * Return a list of all updated rides for given customer
      *
      */
-    public List<DriverUndertakesRideEntity> getUpdatedDrives() {
+    public List<JDriverUndertakesRideEntity> getUpdatedDrives() {
 
 
         HttpServletRequest request = new HTTPUtil().getHTTPServletRequest();
@@ -62,7 +64,7 @@ public class UpdateService {
         CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
 
 
-        LinkedList<DriverUndertakesRideEntity> updatedDrives = new LinkedList<DriverUndertakesRideEntity>();
+        LinkedList<JDriverUndertakesRideEntity> updatedDrives = new LinkedList<JDriverUndertakesRideEntity>();
 
         // return empty list if customer cannot be determined 
         // e.g during login phase
@@ -80,7 +82,10 @@ public class UpdateService {
 
         for (DriverUndertakesRideEntity drive : openoffers) {
             if (driverUndertakesRideEntityService.isDriveUpdated(drive.getRideId())) {
-                updatedDrives.add(drive);
+                
+                JDriverUndertakesRideEntity jdrive=new JDriverUndertakesRideEntity();
+                jdrive.updateFromDriverUndertakesRideEntity(drive);
+                updatedDrives.add(jdrive);
             }
         }
 
@@ -92,7 +97,7 @@ public class UpdateService {
      *
      * @return
      */
-    public List<RiderUndertakesRideEntity> getUpdatedRides() {
+    public List<JRiderUndertakesRideEntity> getUpdatedRides() {
 
 
         HttpServletRequest request = new HTTPUtil().getHTTPServletRequest();
@@ -100,7 +105,7 @@ public class UpdateService {
   
         CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
 
-        LinkedList<RiderUndertakesRideEntity> res = new LinkedList<RiderUndertakesRideEntity>();
+        LinkedList<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
 
         // return empty list if calling user cannot be determined
         if (ce == null) { return res; }
@@ -120,11 +125,38 @@ public class UpdateService {
 
         for (RiderUndertakesRideEntity ride : opensearches) {
             if (jRiderUndertakesRideEntityService.isRideUpdated(ride.getRiderrouteId())) {
-                res.add(ride);
+                
+                JRiderUndertakesRideEntity jride=new JRiderUndertakesRideEntity();
+                jride.updateFromRiderUndertakesRideEntity(ride);
+                res.add(jride);
             }
         }
 
         return res;
-
+        
+    } // getUpdatedRides
+    
+    
+     
+    /** Check, if calling user has updated rides
+     *
+     *   @return  true, if the user has updated rides, else false
+     */
+    public boolean hasUpdatedRides(){
+        return 0<this.getUpdatedRides().size();
     }
+    
+    
+    /** Check, if calling user has updated drives
+     *
+     *   @return  true, if the user has updated drives, else false
+     */
+    public boolean hasUpdatedDrives(){
+        return 0<this.getUpdatedDrives().size();
+    }
+    
+    
+    
+    
+    
 } // class 

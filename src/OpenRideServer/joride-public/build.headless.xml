@@ -94,12 +94,10 @@
 	</copy>
 
 
-	<!-- synchronize header and footer, but not navigation bar -->	
-	<delete file="${sections.dir}/header.xhtml"/>
+	<!-- synchronize footer, but not header and navigation bar -->
 	<delete file="${sections.dir}/footer.xhtml"/>
 
 	<copy todir="${sections.dir}">
-		<fileset file="${joride.web.dir}/sections/joride/header.xhtml"/>
 		<fileset file="${joride.web.dir}/sections/joride/footer.xhtml"/>
 	</copy>
 	
@@ -348,8 +346,8 @@
 	<!-- completely synchronize web/templates directory with joride -->	
 	<delete dir="${templates.dir}"/>
 
-	<!-- synchronize  header and footer sections with joride -->	
-	<delete file="${sections.dir}/header.xhtml"/>
+	<!-- synchronize footer sections with joride -->	
+
 	<delete file="${sections.dir}/footer.xhtml"/>
 
 	 <!-- completely synchronize web/public  directory with joride -->
