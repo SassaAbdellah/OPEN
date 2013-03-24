@@ -71,8 +71,6 @@ public class PropertiesLoader {
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
-    
-    
     /**
      * Where the navigation.properties file is located in the code
      */
@@ -85,6 +83,21 @@ public class PropertiesLoader {
     public Properties getOperationalProps() {
 
         ResourceBundle rb = loadResourceBundleByName(OPERATIONAL_URL);
+        Properties props = getPropertiesFromRessourceBundle(rb);
+        return props;
+    }
+    /**
+     * Where the update.properties file is located in the code
+     */
+    public static final String UPDATES_URL = "de.avci.joride.update";
+
+    /**
+     * Load the Update Properties
+     *
+     */
+    public Properties getUpdateProps() {
+
+        ResourceBundle rb = loadResourceBundleByName(UPDATES_URL);
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }

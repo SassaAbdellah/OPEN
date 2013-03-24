@@ -73,6 +73,15 @@
                                 icon="ui-icon-newwin"
                                 />  
 
+                            <p:spacer/>
+                            <p:menuitem 
+                                action="updates"  
+                                value="#{msgs.updates}"
+                                ajax="false"
+                                icon="ui-icon-lightbulb" 
+                                /> 
+
+
                             <p:spacer />    
 
 
@@ -130,8 +139,12 @@
                         <p:menuitem outcome="preferences.riderPreferences"               value="#{msgs.nav1_pref_riderPreferences_label}"   /> 
                         <p:menuitem outcome="preferences.driverPreferences"              value="#{msgs.nav1_pref_driverPreferences_label}"  /> 
                         <p:menuitem outcome="preferences.favoritePlaces"                 value="#{msgs.nav1_pref_favoritePlaces_label}"     />
-                        
+
                     </p:submenu>
+
+
+                    <p:spacer/>
+                    <p:menuitem outcome="updates"  value="#{msgs.updates}" icon="ui-icon-lightbulb" /> 
 
 
                     <p:spacer/>
@@ -146,6 +159,11 @@
                 </p:slideMenu>
 
             </h:form> <!--  end of slidemenu stanza -->
+
+
+
+
+
 
         </ui:composition>
 
