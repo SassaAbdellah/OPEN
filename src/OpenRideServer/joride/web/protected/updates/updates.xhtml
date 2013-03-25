@@ -38,16 +38,25 @@
 
 
                 <div class="formLabel"> 
-                    <h:outputFormat value="#{msgs.updatesUpdatePageTitle}" >
+                    <h:outputFormat value="#{msgs.updatesUpdatePageTitle}"  >
                         <f:param value="#{updatemsg.timestampFormatted}" />
                     </h:outputFormat>
                 </div>
-
                 <p>
-                 
-
+                    <div class="formInput">
+                        <h:outputFormat value="#{msgs.updatesIntervalLength}" >
+                            <f:param value="#{updatemsg.updateIntervalSec}" />
+                        </h:outputFormat>
+                    </div>
+                    
+                </p>
+                
+                
+                
+                
+                
+                <p>
                     <p:panel rendered="#{updatemsg.hasUpdatedRides()}" >
-
                         <!-- primefaces dynamic accordion COOL!  -->
                         <p:accordionPanel  activeIndex="-1" value="#{updatemsg.updatedRides()}" var="ride">
 
@@ -143,7 +152,7 @@
 
 
                 <p>
-                
+
                     <p:panel 
                         header="#{msgs.updateUpdatedDrivesMessage}"
                         rendered="#{updatemsg.hasUpdatedDrives()}" 
@@ -221,6 +230,26 @@
                         </p:accordionPanel>
                     </p:panel>
                 </p>
+
+
+
+                <!-- short message that there are no updated offers, if that is the case -->
+
+                <h:panelGroup class="formInput" rendered="#{!updatemsg.hasUpdatedDrives()}"> 
+                    <p>
+                        <h:outputText  value="(#{msgs.updateDriveNoUpdateMessage})"/>
+                    </p>
+                </h:panelGroup>
+
+                <!-- short message that there are no updated requests, if that is the case -->
+                <h:panelGroup class="formInput"  rendered="#{!updatemsg.hasUpdatedRides()}" >  
+                    <p>
+                        <h:outputText 
+                            value="(#{msgs.updateRideNoUpdateMessage})"
+                            />
+                    </p>
+                </h:panelGroup>
+
 
 
 

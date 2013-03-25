@@ -33,23 +33,24 @@
 
                     <h:form> <!-- update poll stanza -->
 
-                     <p> 
-                         TODO: UpdateInterval :  #{updatemsg.updateIntervalSec}
-                     </p>
-                     <p>   
-                        <h:commandLink 
-                            id="updateDisplay"
-                            value=" #{updatemsg.updateNotification}" 
-                            action="updates"
-                            />
-                     </p>
 
-                        <p:poll 
-                            autoStart="true" 
-                            interval="3"
-                            listener="#{updatemsg.getUpdateNotification}"
-                            update="updateDisplay"
-                            />
+                        <p>   
+                            <h:commandLink 
+                                id="updateDisplay"
+                                value=" #{updatemsg.updateNotification}" 
+                                action="updates"
+                                />
+                            
+                            <p:poll 
+                                autoStart="true" 
+                                interval="#{updatemsg.updateIntervalSec}"
+                                listener="#{updatemsg.getUpdateNotification}"
+                                update="updateDisplay"
+                                />
+
+                        </p>
+
+
 
                     </h:form> <!-- end of update poll section stanza -->
 
