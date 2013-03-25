@@ -4,9 +4,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.utils.PropertiesLoader;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,7 +42,7 @@ public class UpdateBean {
     /**
      * Number of milliseconds between
      */
-    protected Long updateInterval = updateIntervalDefault;
+    protected Long updateInterval = null;
 
     /**
      * Initialize update period from properties
@@ -57,29 +55,31 @@ public class UpdateBean {
 
     } // static initialization
 
+    
+    /** Accessor with lazy instantiation
+     * 
+     * @return 
+     */
     public Long getUpdateInterval() {
 
 
         if (this.updateInterval == null) {
-
             this.updateInterval = new Long(updateIntervalDefault);
-
             try {
                 PropertiesLoader loader = new PropertiesLoader();
                 String updateStr = "" + loader.getUpdateProps().get(ParamNameUpdateInterval);
                 this.updateInterval = new Long(updateStr);
-
+                log.info("loaded update Interval : "+updateStr);
             } catch (Exception exc) {
                 log.log(
                         Level.SEVERE,
                         "Unable to load updateInterval from Properties, using default " + updateIntervalDefault,
                         exc);
             }
-
         } // if (this.updateInterval == null) 
 
 
-        return updateInterval;
+        return this.updateInterval;
     }
 
     /**
@@ -90,6 +90,8 @@ public class UpdateBean {
         double d = (getUpdateInterval());
         return Math.round((d / 1000d));
     }
+    
+    
     private UpdateService updateService = new UpdateService();
 
     /**
@@ -123,7 +125,6 @@ public class UpdateBean {
      * @return  a formatted String for current datetime
      */
     public String getTimestampFormatted(){
-    
         DateFormat sdf=new JoRideConstants().createDateTimeFormat();
         return sdf.format(new Date());
     }
