@@ -100,7 +100,7 @@ public class UpdateBean {
      *
      * @return
      */
-    public String getUpdateNotification() {
+    public String getUpdateNotification() { 
         return updateService.getUpdateMessage();
     }
 
