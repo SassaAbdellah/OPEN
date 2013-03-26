@@ -47,7 +47,7 @@ public class UpdateService {
 
 
         } else {
-            return "---"; // if there are no updates, then return an empty String
+            return ""; // if there are no updates, then return an empty String
         }
 
     }
