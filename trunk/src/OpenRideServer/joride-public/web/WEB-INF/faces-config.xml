@@ -88,7 +88,7 @@
 
 
 
-   <!-- *** Registration and account maintenance *** -->
+    <!-- *** Registration and account maintenance *** -->
     <navigation-rule>
         <navigation-case>
             <from-outcome> myAccount </from-outcome>
@@ -104,7 +104,7 @@
         </navigation-case>
     </navigation-rule>
     
-      <!-- *** Create a new account *** -->
+    <!-- *** Create a new account *** -->
     <navigation-rule>
         <navigation-case>
             <from-outcome> resetPassword</from-outcome>
@@ -166,6 +166,20 @@
         </navigation-case>
     </navigation-rule>
  
+	
+    <!-- ***********************************************************  -->	
+    <!-- *****  Application Section ********************************  -->
+    <!-- ***********************************************************  -->		
+    <!-- *****  Beans Section **************************************  -->
+
+    <!-- ****** HTTPUser Bean ****** -->
+    <managed-bean> 
+        <managed-bean-name>HTTPUser</managed-bean-name>
+        <managed-bean-class>de.avci.joride.session.HTTPUser</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
+
 
 
 

@@ -104,10 +104,13 @@
 
 
 	<!-- completely synchronize src directory with joride -->
+        
+ 	<!-- TODO: we have cancelled this step as we want to include joride.jar instead
         <delete dir="${src.dir}"/>
         <copy todir="${src.dir}">
                 <fileset dir="${joride.src.dir}"/>
         </copy>
+	-->
 
 
 	<!-- completely synchronize lib directory with joride -->
@@ -115,6 +118,12 @@
         <copy todir="${lib.dir}">
                 <fileset dir="${joride.lib.dir}"/>
         </copy>
+
+ 	<!-- copy joride.jar from joride main project -->
+ 	<copy todir="${lib.dir}">
+                <fileset file="${joride.dir}/dist/joride.jar"/>
+        </copy>
+
 
 
 	<!-- completely synchronize web/public/  directory with joride -->
@@ -147,17 +156,7 @@
       </copy>
 
 
-      <copy todir="${build.dir}/WEB-INF/classes" 
-           failonerror="false" verbose="true">
-         <fileset dir="${appdir}/src/java">
-            <exclude name="**/*.java"/>
-         </fileset>
-      </copy>
-
-
-
-
-
+   
       <copy todir="${build.dir}/WEB-INF" failonerror="false" verbose="true">
          <fileset dir="${appdir}">
             <include name="lib/**"/>
@@ -168,117 +167,6 @@
   
 
 
-   <target name="apply-local-properties" depends="prepare" description="rewrite properties files with local properties">
- 	
-           <!-- check, that user has a local.properties file in place in master project -->     
-	
-
-        <property file="../local.properties" />
-
-	    <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
-            <condition>
-                <not>
-                        <resourcecount count="1">
-                                <fileset id="fs" dir=".." includes="local.properties"/>
-                        </resourcecount>
-                </not>
-           </condition>
-        </fail>
-
-
-
-
-        <!-- ****************************  -->
-	<!-- Rewrite operational setting   -->
-        <!-- ****************************  -->
-
-	<property name="opsparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/operational.properties" /> 
-        <!-- replace email target -->
-
-
-        <!-- replaceing mailServiceJNDI property with local settings  -->   
- 
-       <replaceregexp byline="true">
-           <regexp pattern="mailServiceJNDI=(.*)"/>
-            <substitution expression="mailServiceJNDI=${mailServiceJNDI}"/>
-            <fileset file="${opsparamfile}" />
-       </replaceregexp>
-
-
-     <!-- replaceing   webmasterEmailRecipient property with local settings  -->
-        
-      <replaceregexp byline="true">
-           <regexp pattern="webmasterEmailRecipient=(.*)"/>
-            <substitution expression="webmasterEmailRecipient=${webmasterEmailRecipient}"/>
-            <fileset file="${opsparamfile}" />
-       </replaceregexp>
-
-
-      <!-- replaceing  businessEmailRecipient  property with local settings  -->
-        
-      <replaceregexp byline="true">
-           <regexp pattern="businessEmailRecipient=(.*)"/>
-            <substitution expression="businessEmailRecipient=${businessEmailRecipient}"/>
-            <fileset file="${opsparamfile}" />
-       </replaceregexp>
-
-      <!-- replaceing  noreplyEmailRecipient  property with local settings  -->
-
-      <replaceregexp byline="true">
-           <regexp pattern="noreplyEmailRecipient=(.*)"/>
-            <substitution expression="noreplyEmailRecipient=${noreplyEmailRecipient}"/>
-            <fileset file="${opsparamfile}" />
-       </replaceregexp>
-
-
-
-
-        <!-- ****************************  -->
-        <!-- Rewrite navigation settings   -->
-        <!-- ****************************  -->
-
-        <property name="navparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/navigation.properties" />
-       
-
-       <!-- applying url for terms and conditions  -->
-
-      <replaceregexp byline="true">
-           <regexp pattern="termsURL=(.*)"/>
-            <substitution expression="termsURL=${termsURL}"/>
-            <fileset file="${navparamfile}" />
-       </replaceregexp>
-
-       <!-- applying url for imprint  -->
-
-      <replaceregexp byline="true">
-           <regexp pattern="imprintURL=(.*)"/>
-            <substitution expression="imprintURL=${imprintURL}"/>
-            <fileset file="${navparamfile}" />
-       </replaceregexp>
-
-   </target> <!--  end of target "apply local properties" -->
-
-
-
-
- 
-   <target 
-	name="compile" 
-	depends="prepare,apply-local-properties" 
-	description="Compile source files."
-	>
-
-      <javac 
-         srcdir="${appdir}/src/java" 
-         destdir="${build.dir}/WEB-INF/classes"
-         debug="true"
-	 includeantruntime="false"
-         deprecation="true">
-         <compilerarg value="-Xlint:unchecked"/>
-         <include name="**/*.java"/>
-         <classpath refid="classpath"/>
-      </javac>
-   </target>
    
    <target name="jsf-libs" if="use-jsf-libs" unless="glassfish">
       <mkdir dir="${build.dir}/WEB-INF/lib"/>
@@ -310,7 +198,7 @@
    
    <target name="tomcat-libs" depends="jsf-libs, el-libs, bean-validation-libs, cdi-libs"/>
 
-   <target name="war" depends="clean, compile, tomcat-libs"
+   <target name="war" depends="clean,prepare, tomcat-libs"
          description="Build WAR file.">
       <delete file="${warfile}"/>
       <jar jarfile="${warfile}" basedir="${build.dir}"/>
