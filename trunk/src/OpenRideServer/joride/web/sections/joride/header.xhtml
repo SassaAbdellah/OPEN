@@ -31,21 +31,25 @@
 
                 <div id="updateAlert">
 
+
                     <h:form> <!-- update poll stanza -->
 
+                        <!-- growl to display a message if there are updates -->
+                        <p:growl id="updateGrowl" for="#{updatemsg.updateMessageKey}"/>
 
                         <p>   
+                            <!--  link is shown if and only if there are updates -->
                             <h:commandLink 
                                 id="updateDisplay"
                                 value=" #{updatemsg.updateNotification}" 
                                 action="updates"
                                 />
-                            
+
                             <p:poll 
                                 autoStart="true" 
                                 interval="#{updatemsg.updateIntervalSec}"
                                 listener="#{updatemsg.getUpdateNotification}"
-                                update="updateDisplay"
+                                update="updateDisplay updateGrowl"
                                 />
 
                         </p>

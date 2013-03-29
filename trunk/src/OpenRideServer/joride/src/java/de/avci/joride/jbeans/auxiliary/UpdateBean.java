@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -29,6 +31,21 @@ public class UpdateBean {
      * Standard nonstatic log
      */
     Logger log = Logger.getLogger("" + this.getClass());
+    
+    
+    /**  Key for messages targeted at update growl
+     */
+    protected static final String UpdateMessageKey="UpdateMessageKey";
+    
+    /** Make update message key availlable as JSF Bean
+     * 
+     * @return 
+     */
+    public String getUpdateMessageKey(){
+        return UpdateMessageKey;
+    }
+    
+    
     /**
      * Parameter Name for the parameter describing the number of miliseconds
      *
@@ -55,10 +72,10 @@ public class UpdateBean {
 
     } // static initialization
 
-    
-    /** Accessor with lazy instantiation
-     * 
-     * @return 
+    /**
+     * Accessor with lazy instantiation
+     *
+     * @return
      */
     public Long getUpdateInterval() {
 
@@ -69,7 +86,7 @@ public class UpdateBean {
                 PropertiesLoader loader = new PropertiesLoader();
                 String updateStr = "" + loader.getUpdateProps().get(ParamNameUpdateInterval);
                 this.updateInterval = new Long(updateStr);
-                log.info("loaded update Interval : "+updateStr);
+                log.info("loaded update Interval : " + updateStr);
             } catch (Exception exc) {
                 log.log(
                         Level.SEVERE,
@@ -90,8 +107,6 @@ public class UpdateBean {
         double d = (getUpdateInterval());
         return Math.round((d / 1000d));
     }
-    
-    
     private UpdateService updateService = new UpdateService();
 
     /**
@@ -100,8 +115,24 @@ public class UpdateBean {
      *
      * @return
      */
-    public String getUpdateNotification() { 
-        return updateService.getUpdateMessage();
+    public String getUpdateNotification() {
+
+
+        String updateMessage = updateService.getUpdateMessage();
+
+        // if the update message is not empty, add it to message queue,
+        // so it can be displayed inside of a queue
+
+       if (!("".equals(updateMessage))) {
+
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesMessage fmsg=new FacesMessage(updateMessage);
+            
+            context.addMessage(this.getUpdateMessageKey(), fmsg);
+        }
+
+        return updateMessage;
     }
 
     public List<JDriverUndertakesRideEntity> updatedDrives() {
@@ -119,15 +150,12 @@ public class UpdateBean {
     public boolean hasUpdatedRides() {
         return updateService.hasUpdatedRides();
     }
-    
-    
+
     /**
-     * @return  a formatted String for current datetime
+     * @return a formatted String for current datetime
      */
-    public String getTimestampFormatted(){
-        DateFormat sdf=new JoRideConstants().createDateTimeFormat();
+    public String getTimestampFormatted() {
+        DateFormat sdf = new JoRideConstants().createDateTimeFormat();
         return sdf.format(new Date());
     }
-    
-    
 } // class
