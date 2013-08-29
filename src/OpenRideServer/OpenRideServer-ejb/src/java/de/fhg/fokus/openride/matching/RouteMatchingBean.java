@@ -85,8 +85,11 @@ import javax.sql.DataSource;
 @Stateless
 public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
-    // CONFIG - DB
-    private static final String JDBC_RESOURCE_OPENRIDE = "jdbc/openride";
+    // CONFIG - DB: 
+    //
+    // TODO: get rid of using JDBC in favour or standard JPA 
+    //
+    private static final String JDBC_RESOURCE_OPENRIDE = "jdbc/openride-rm";
     // CONFIG - MATCH FILTER
     private static final boolean FILTER_CHECK_GENDER = false;
     private static final boolean FILTER_CHECK_SMOKER = false;

@@ -62,8 +62,8 @@ final class DriverSearchAlgorithm
              + "l.drive_id,  "
              + "l.route_idx AS lift_idx, "
              + "d.route_idx AS drop_idx, "
-             + "AsText(transform(l.coordinate_c, 4326)) AS on_route_lift_point, "
-             + "AsText(transform(d.coordinate_c, 4326)) AS on_route_drop_point, "
+             + "st_AsText(st_transform(l.coordinate_c, 4326)) AS on_route_lift_point, "
+             + "st_AsText(st_transform(d.coordinate_c, 4326)) AS on_route_drop_point, "
              + "l.expected_arrival AS time_at_on_route_lift_point, "
              + "d.distance_to_source - l.distance_to_source AS shared_distance "
          + "FROM  "
@@ -72,18 +72,18 @@ final class DriverSearchAlgorithm
              + "( "
              + "SELECT  "
                  + "drive_id,  "
-                 + "min(st_distance(l.coordinate_c, transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) AS  lift_point_distance "
+                 + "min(st_distance(l.coordinate_c, st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) AS  lift_point_distance "
              + "FROM  "
                  + "drive_route_point l "
              + "WHERE  "
-                 + "l.coordinate_c && expand "
+                 + "l.coordinate_c && st_expand "
                  + "(  "
-                     + "transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
+                     + "st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
                      + "? /* [" + (debug_i++) + "] d */  "
                  + ")  "
                  + "AND st_distance "
                  + "(  "
-                     + "transform(setsrid(makepoint(? /*  [" + (debug_i++) + "]rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
+                     + "st_transform(st_setsrid(st_makepoint(? /*  [" + (debug_i++) + "]rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
                      + "l.coordinate_c  "
                  + ") <= ? /* [" + (debug_i++) + "] d */ "
                  + "AND l.expected_arrival >= ? /* [" + (debug_i++) + "] startTimeEarliest */ "
@@ -93,18 +93,18 @@ final class DriverSearchAlgorithm
              + "( "
                  + "SELECT  "
                      + "drive_id,  "
-                     + "min(st_distance(d.coordinate_c, transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) as drop_point_distance "
+                     + "min(st_distance(d.coordinate_c, st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) as drop_point_distance "
                  + "FROM   "
                      + "drive_route_point d "
                  + "WHERE  "
-                     + "d.coordinate_c && expand "
+                     + "d.coordinate_c && st_expand "
                      + "( "
-                         + "transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
+                         + "st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
                          + "? /* [" + (debug_i++) + "] d */ "
                      + ")  "
                      + "AND st_distance "
                      + "(  "
-                         + "	transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
+                         + "	st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  "
                          + "	d.coordinate_c  "
                      + ")  <= ? /* [" + (debug_i++) + "] d */ "
                  + "GROUP BY  "
@@ -118,8 +118,8 @@ final class DriverSearchAlgorithm
          + "and l.expected_arrival <= ? /* [" + (debug_i++) + "] startTimeLatest */ "
          + "and d.expected_arrival >= ? /* [" + (debug_i++) + "] startTimeEarliest */ "
          + "and d.route_idx > l.route_idx "
-         + "and st_distance(l.coordinate_c, transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = x.lift_point_distance "
-         + "and st_distance(d.coordinate_c, transform(setsrid(makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = y.drop_point_distance "
+         + "and st_distance(l.coordinate_c, st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideStartPt.x */, ? /* [" + (debug_i++) + "] rideStartPt.y */), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = x.lift_point_distance "
+         + "and st_distance(d.coordinate_c, st_transform(st_setsrid(st_makepoint(? /* [" + (debug_i++) + "] rideEndPt.x */, ? /* [" + (debug_i++) + "] rideEndPt.y */ ), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = y.drop_point_distance "
          + "ORDER BY shared_distance DESC;";
 
     private final PreparedStatement pstmtSelectMatches;
@@ -228,8 +228,8 @@ final class DriverSearchAlgorithm
 //            sb.append("l.drive_id,  ");
 //            sb.append("l.route_idx AS lift_idx, ");
 //            sb.append("d.route_idx AS drop_idx, ");
-//            sb.append("AsText(transform(l.coordinate_c, 4326)) AS on_route_lift_point, ");
-//            sb.append("AsText(transform(d.coordinate_c, 4326)) AS on_route_drop_point, ");
+//            sb.append("st_AsText(st_transform(l.coordinate_c, 4326)) AS on_route_lift_point, ");
+//            sb.append("st_AsText(st_transform(d.coordinate_c, 4326)) AS on_route_drop_point, ");
 //            sb.append("l.expected_arrival AS time_at_on_route_lift_point, ");
 //            sb.append("d.distance_to_source - l.distance_to_source AS shared_distance ");
 //        sb.append("FROM  ");
@@ -238,18 +238,18 @@ final class DriverSearchAlgorithm
 //            sb.append("( ");
 //            sb.append("SELECT  ");
 //                sb.append("drive_id,  ");
-//                sb.append("min(st_distance(l.coordinate_c, transform(setsrid(makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) AS  lift_point_distance ");
+//                sb.append("min(st_distance(l.coordinate_c, st_transform(st_setsrid(st_makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) AS  lift_point_distance ");
 //            sb.append("FROM  ");
 //                sb.append("drive_route_point l ");
 //            sb.append("WHERE  ");
-//                sb.append("l.coordinate_c && expand ");
+//                sb.append("l.coordinate_c && st_expand ");
 //                sb.append("(  ");
-//                    sb.append("transform(setsrid(makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
+//                    sb.append("st_transform(st_setsrid(st_makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
 //                    sb.append(" " + d + "  ");
 //                sb.append(")  ");
 //                sb.append("AND st_distance ");
 //                sb.append("(  ");
-//                    sb.append("transform(setsrid(makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
+//                    sb.append("st_transform(st_setsrid(st_makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
 //                    sb.append("l.coordinate_c  ");
 //                sb.append(") <= " + d + "  ");
 //                sb.append("AND l.expected_arrival >= '" + startTimeEarliest.toString() + "'  ");
@@ -259,18 +259,18 @@ final class DriverSearchAlgorithm
 //            sb.append("( ");
 //                sb.append("SELECT  ");
 //                    sb.append("drive_id,  ");
-//                    sb.append("min(st_distance(d.coordinate_c, transform(setsrid(makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) as drop_point_distance ");
+//                    sb.append("min(st_distance(d.coordinate_c, st_transform(st_setsrid(st_makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) as drop_point_distance ");
 //                sb.append("FROM   ");
 //                    sb.append("drive_route_point d ");
 //                sb.append("WHERE  ");
-//                    sb.append("d.coordinate_c && expand ");
+//                    sb.append("d.coordinate_c && st_expand ");
 //                    sb.append("(  ");
-//                        sb.append("	transform(setsrid(makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
+//                        sb.append("	st_transform(st_setsrid(st_makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
 //                        sb.append("	" + d + "  ");
 //                    sb.append(")  ");
 //                    sb.append("AND st_distance ");
 //                    sb.append("(  ");
-//                        sb.append("	transform(setsrid(makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
+//                        sb.append("	st_transform(st_setsrid(st_makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "),  ");
 //                        sb.append("	d.coordinate_c  ");
 //                    sb.append(")  <= " + d + "  ");
 //                sb.append("GROUP BY  ");
@@ -284,8 +284,8 @@ final class DriverSearchAlgorithm
 //        sb.append("and l.expected_arrival <= '" + startTimeLatest.toString() + "' ");
 //        sb.append("and d.expected_arrival >= '" + startTimeEarliest.toString() + "' ");
 //        sb.append("and d.route_idx > l.route_idx ");
-//        sb.append("and st_distance(l.coordinate_c, transform(setsrid(makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = x.lift_point_distance ");
-//        sb.append("and st_distance(d.coordinate_c, transform(setsrid(makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = y.drop_point_distance ");
+//        sb.append("and st_distance(l.coordinate_c, st_transform(st_setsrid(st_makepoint(" + rideStartPt.x + ", " + rideStartPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = x.lift_point_distance ");
+//        sb.append("and st_distance(d.coordinate_c, st_transform(st_setsrid(st_makepoint(" + rideEndPt.x + ", " + rideEndPt.y + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) = y.drop_point_distance ");
 //        sb.append("ORDER BY shared_distance DESC;");
 //        return sb.toString();
 //    }

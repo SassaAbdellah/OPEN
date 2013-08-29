@@ -83,7 +83,7 @@ final class RiderSearchAlgorithm {
         + "VALUES "
         + "( "
             + "?, "  //routeIdx             //lon       //lat
-            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
+            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
             + "?, " //timestamp at passpoint
             + "? " //distance to source
         + ");";
@@ -105,10 +105,10 @@ final class RiderSearchAlgorithm {
             + "d.time_at as time_at_on_route_drop_point, "
             + "l.time_at as time_at_on_route_lift_point, "
             + "s.starttime_earliest as time_at_lift_point, "
-            + "AsText(transform(s.startpt_c, " + SRID_POLAR + ")) as lift_point, "
-            + "AsText(transform(s.endpt_c, " + SRID_POLAR + ")) as drop_point, "
-            + "AsText(transform(l.coordinate, " + SRID_POLAR + ")) as on_route_lift_point, "
-            + "AsText(transform(d.coordinate, " + SRID_POLAR + ")) as on_route_drop_point, "
+            + "st_AsText(st_transform(s.startpt_c, " + SRID_POLAR + ")) as lift_point, "
+            + "st_AsText(st_transform(s.endpt_c, " + SRID_POLAR + ")) as drop_point, "
+            + "st_AsText(st_transform(l.coordinate, " + SRID_POLAR + ")) as on_route_lift_point, "
+            + "st_AsText(st_transform(d.coordinate, " + SRID_POLAR + ")) as on_route_drop_point, "
             + "(d.distance_to_source - l.distance_to_source) AS shared_distance "
         + "FROM  "
             + "riderundertakesride s, "
@@ -118,28 +118,28 @@ final class RiderSearchAlgorithm {
                 + "( "
                      /* big circle around center of source and destination */
                      + "( "
-                        + "s.startpt_c && expand "
+                        + "s.startpt_c && st_expand "
                         + "( "                              //center.getLongitude()           //center.getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
                             + "? " //radius
                         + ") "
                         + "AND st_distance "
                         + "( "                             //center.getLongitude()           //center.getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
                             + "s.startpt_c "
                         + ") <= ? " //radius
                     + ") "
                     + "OR "
                     /* small circle arround source */
                     + "( "
-                        + "s.startpt_c && expand "
+                        + "s.startpt_c && st_expand "
                         + "( "                                  //source.getCoordinate().getLongitude()         //source.getCoordinate().getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
                             + "? " //d
                         + ") "
                          + "AND st_distance "
                         + "( "                                  //source.getCoordinate().getLongitude()         //source.getCoordinate().getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
                             + "s.startpt_c "
                         + ") <= ? " //d
                     + ") "
@@ -154,38 +154,38 @@ final class RiderSearchAlgorithm {
                 + "( "
                     /* big circle through center of liftpoint and route destination overlay with drop points */
                     + "( "
-                        + "s.endpt_c && expand"
+                        + "s.endpt_c && st_expand"
                         + "( "                                                                 //destination.getCoordinate().getLongitude() destination.getCoordinate().getLatititude()
-                            + "Centroid(st_makeline(s.startpt_c, transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))),   "
+                            + "st_Centroid(st_makeline(s.startpt_c, st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))),   "
                                                                                        //destination.getCoordinate().getLongitude() destination.getCoordinate().getLatititude()
-                            + "st_distance(s.startpt_c, transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
+                            + "st_distance(s.startpt_c, st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
                         + ")  "
                         + "AND st_distance "
                         + "( "
                             + "s.endpt_c,  "                                                      //destination.getCoordinate().getLongitude()    destination.getCoordinate().getLatititude()
-                            + "Centroid(st_makeline(s.startpt_c, transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) "
+                            + "st_Centroid(st_makeline(s.startpt_c, st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) "
                                                                                     //destination.getCoordinate().getLongitude() destination.getCoordinate().getLatititude()
-                        + ") <= st_distance(s.startpt_c, transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
+                        + ") <= st_distance(s.startpt_c, st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
                     + ") "
                     + "OR "
                     /* small circle around route destination */
                     + "( "
-                        + "s.endpt_c && expand "
+                        + "s.endpt_c && st_expand "
                         + "( "                              //destination.getCoordinate().getLongitude() destination.getCoordinate().getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
                             + "? " //d
                         + ") "
                          + "AND st_distance "
                         + "( "                                  //destination.getCoordinate().getLongitude()  destination.getCoordinate().getLatititude()
-                            + "transform(setsrid(makepoint(?, ?), " + SRID_POLAR + "),  "  + SRID_CARTHESIAN + "), "
+                            + "st_transform(st_setsrid(st_makepoint(?, ?), " + SRID_POLAR + "),  "  + SRID_CARTHESIAN + "), "
                             + "s.endpt_c "
                         + ") <= ? " //d
                     + ") "
                 + ") "
                 /* choose on route lift point from all passpoints having minimal distance to s.lift_point */
-                + "AND l.coordinate && expand(s.startpt_c, ?) " // d
+                + "AND l.coordinate && st_expand(s.startpt_c, ?) " // d
                 + "AND st_distance(l.coordinate, s.startpt_c) <= ? " //d
-                + "AND d.coordinate && expand(s.endpt_c, ?) " //d
+                + "AND d.coordinate && st_expand(s.endpt_c, ?) " //d
                 + "AND st_distance(d.coordinate, s.endpt_c) <= ? " //d
                 + "AND st_distance(l.coordinate, s.startpt_c) = "
                 + "( "
@@ -194,7 +194,7 @@ final class RiderSearchAlgorithm {
                 + "FROM  "
                     + TEMP_TABLE_NAME + " pp  "
                 + "WHERE  "
-                    + "pp.coordinate && expand(s.startpt_c, ?)  " //d
+                    + "pp.coordinate && st_expand(s.startpt_c, ?)  " //d
                     //CHANGE
                     + "AND pp.time_at <= s.starttime_latest "
                     + "AND pp.time_at >= s.starttime_earliest "
@@ -208,7 +208,7 @@ final class RiderSearchAlgorithm {
                     + "FROM  "
                         + TEMP_TABLE_NAME + " pp  "
                     + "WHERE  "
-                        + "pp.coordinate && expand(s.endpt_c, ?)  " //d
+                        + "pp.coordinate && st_expand(s.endpt_c, ?)  " //d
                 + ") "
                 + "ORDER BY l.route_idx - d.route_idx; ";
 
@@ -224,6 +224,7 @@ final class RiderSearchAlgorithm {
      */
     public RiderSearchAlgorithm(Connection conn) throws SQLException {
         this.conn = conn;
+        this.conn.setAutoCommit(true);
         this.pstmtCreateTempPasspointTable = conn.prepareStatement(SQL_CREATE_TEMP_PASSPOINT_TABLE);
         this.pstmtDropTempPasspointTable = conn.prepareStatement(SQL_DROP_TEMP_PASSPOINT_TABLE);
         this.pstmtInsertTempPasspoint = conn.prepareStatement(SQL_INSERT_TEMP_PASSPOINTS);
@@ -349,7 +350,9 @@ final class RiderSearchAlgorithm {
         pstmtDropTempPasspointTable.executeUpdate();
         result.close();
         conn.commit();
-        conn.setAutoCommit(true);
+        
+        // don't release Autocommit status!
+        // conn.setAutoCommit(true);
 
         return matches;
     }
@@ -402,10 +405,10 @@ final class RiderSearchAlgorithm {
 //            + "d.time_at as time_at_on_route_drop_point, "
 //            + "l.time_at as time_at_on_route_lift_point, "
 //            + "s.starttime_earliest as time_at_lift_point, "
-//            + "AsText(transform(s.startpt, " + SRID_POLAR + ")) as lift_point, "
-//            + "AsText(transform(s.endpt, " + SRID_POLAR + ")) as drop_point, "
-//            + "AsText(transform(l.coordinate, " + SRID_POLAR + ")) as on_route_lift_point, "
-//            + "AsText(transform(d.coordinate, " + SRID_POLAR + ")) as on_route_drop_point, "
+//            + "st_AsText(st_transform(s.startpt, " + SRID_POLAR + ")) as lift_point, "
+//            + "st_AsText(st_transform(s.endpt, " + SRID_POLAR + ")) as drop_point, "
+//            + "st_AsText(st_transform(l.coordinate, " + SRID_POLAR + ")) as on_route_lift_point, "
+//            + "st_AsText(st_transform(d.coordinate, " + SRID_POLAR + ")) as on_route_drop_point, "
 //            + "(d.distance_to_source - l.distance_to_source) AS shared_distance "
 //        + "FROM  "
 //            + "rider_search s, "
@@ -415,28 +418,28 @@ final class RiderSearchAlgorithm {
 //                + "( "
 //                     /* big circle around center of source and destination */
 //                     + "( "
-//                        + "s.startpt && expand "
+//                        + "s.startpt && st_expand "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + center.getLongitude() + ", " + center.getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+//                            + "st_transform(st_setsrid(st_makepoint(" + center.getLongitude() + ", " + center.getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
 //                            + radius + " "
 //                        + ") "
 //                        + "AND st_distance "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + center.getLongitude() + ", " + center.getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+//                            + "st_transform(st_setsrid(st_makepoint(" + center.getLongitude() + ", " + center.getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
 //                            + "s.startpt "
 //                        + ") <= " + radius + " "
 //                    + ") "
 //                    + "OR "
 //                    /* small circle arround source */
 //                    + "( "
-//                        + "s.startpt && expand "
+//                        + "s.startpt && st_expand "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + source.getCoordinate().getLongitude() + ", " + source.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+//                            + "st_transform(st_setsrid(st_makepoint(" + source.getCoordinate().getLongitude() + ", " + source.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
 //                            + d + " "
 //                        + ") "
 //                         + "AND st_distance "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + source.getCoordinate().getLongitude() + ", " + source.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
+//                            + "st_transform(st_setsrid(st_makepoint(" + source.getCoordinate().getLongitude() + ", " + source.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), "+SRID_CARTHESIAN + "),  "
 //                            + "s.startpt "
 //                        + ") <= " + d + " "
 //                    + ") "
@@ -448,36 +451,36 @@ final class RiderSearchAlgorithm {
 //                + "( "
 //                    /* big circle through center of liftpoint and route destination overlay with drop points */
 //                    + "( "
-//                        + "s.endpt && expand"
+//                        + "s.endpt && st_expand"
 //                        + "( "
-//                            + "Centroid(st_makeline(s.startpt, transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))),   "
-//                            + "st_distance(s.startpt, transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
+//                            + "st_Centroid(st_makeline(s.startpt, st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))),   "
+//                            + "st_distance(s.startpt, st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
 //                        + ")  "
 //                        + "AND st_distance "
 //                        + "( "
 //                            + "s.endpt,  "
-//                            + "Centroid(st_makeline(s.startpt, transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) "
-//                        + ") <= st_distance(s.startpt, transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
+//                            + "st_Centroid(st_makeline(s.startpt, st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "))) "
+//                        + ") <= st_distance(s.startpt, st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + ")) / 2  "
 //                    + ") "
 //                    + "OR "
 //                    /* small circle around route destination */
 //                    + "( "
-//                        + "s.endpt && expand "
+//                        + "s.endpt && st_expand "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
+//                            + "st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "), " + SRID_CARTHESIAN + "), "
 //                            + d + " "
 //                        + ") "
 //                         + "AND st_distance "
 //                        + "( "
-//                            + "transform(setsrid(makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "),  "  + SRID_CARTHESIAN + "), "
+//                            + "st_transform(st_setsrid(st_makepoint(" + destination.getCoordinate().getLongitude() + ", " + destination.getCoordinate().getLatititude() + "), " + SRID_POLAR + "),  "  + SRID_CARTHESIAN + "), "
 //                            + "s.endpt "
 //                        + ") <= " + d + " "
 //                    + ") "
 //                + ") "
 //                /* choose on route lift point from all passpoints having minimal distance to s.lift_point */
-//                + "AND l.coordinate && expand(s.startpt, " + d + ") "
+//                + "AND l.coordinate && st_expand(s.startpt, " + d + ") "
 //                + "AND st_distance(l.coordinate, s.startpt) <= " + d + " "
-//                + "AND d.coordinate && expand(s.endpt, " + d + ") "
+//                + "AND d.coordinate && st_expand(s.endpt, " + d + ") "
 //                + "AND st_distance(d.coordinate, s.endpt) <= " + d + " "
 //                + "AND st_distance(l.coordinate, s.startpt) = "
 //                + "( "
@@ -486,7 +489,7 @@ final class RiderSearchAlgorithm {
 //                + "FROM  "
 //                    + passPointTempTableName + " pp  "
 //                + "WHERE  "
-//                    + "pp.coordinate && expand(s.startpt, " + d + ")  "
+//                    + "pp.coordinate && st_expand(s.startpt, " + d + ")  "
 //                    //CHANGE
 //                    + "AND pp.time_at <= s.starttime_latest "
 //                    + "AND pp.time_at >= s.starttime_earliest "
@@ -500,7 +503,7 @@ final class RiderSearchAlgorithm {
 //                    + "FROM  "
 //                        + passPointTempTableName + " pp  "
 //                    + "WHERE  "
-//                        + "pp.coordinate && expand(s.endpt, " + d + ")  "
+//                        + "pp.coordinate && st_expand(s.endpt, " + d + ")  "
 //                + ") "
 //                + "ORDER BY l.route_idx - d.route_idx; ";
 //

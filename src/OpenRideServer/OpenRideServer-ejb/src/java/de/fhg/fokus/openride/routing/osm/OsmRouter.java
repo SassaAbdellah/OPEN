@@ -79,7 +79,7 @@ public class OsmRouter implements Router
                 + "w.length * 1000 as length, "
                 + "w.name as name, "
                 + "w.source as source, "
-                + "AsText(sp.the_geom) as geom "
+                + "st_AsText(sp.the_geom) as geom "
             + "FROM "
                 + "dijkstra_sp_directed_modified"
                 + "("
@@ -102,9 +102,9 @@ public class OsmRouter implements Router
         + "FROM "
             + "vertices_tmp v "
         + "WHERE "
-            + "expand(transform(setsrid(makepoint(?,?), 4326), " + SRID + "), ?) && v.the_geom_3068 "
-        + "AND st_distance(v.the_geom_3068, transform(setsrid(makepoint(?,?), 4326), " + SRID + ")) <= ? "
-        + "ORDER BY st_distance(v.the_geom_3068, transform(setsrid(makepoint(?, ?), 4326), " + SRID + ")) "
+            + "st_expand(st_transform(st_setsrid(st_makepoint(?,?), 4326), " + SRID + "), ?) && v.the_geom_3068 "
+        + "AND st_distance(v.the_geom_3068, st_transform(st_setsrid(st_makepoint(?,?), 4326), " + SRID + ")) <= ? "
+        + "ORDER BY st_distance(v.the_geom_3068, st_transform(st_setsrid(st_makepoint(?, ?), 4326), " + SRID + ")) "
         + "LIMIT 1;";
 
    
