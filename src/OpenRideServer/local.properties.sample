@@ -7,9 +7,6 @@
 ##########################################################################  
 #
 #
-# the google maps api key to be used 
-#
-google.maps.api.key=AIzaSyAbWF7Q8EsGvY0smdb44GrVlK2NXrsM11Y
 #
 #
 # directory with jee libs to be used during the build
@@ -40,14 +37,6 @@ contact.jsp.base=build.headless.support/branding/contact/contact.jsp
 #
 #
 #
-# uncomment the following, to build "old" OpenRideWeb/OpenRideAdmin/OpenRideServer-RS frontends.
-# (these should be build by default)
-#build.OpenRideWeb=true
-#build.OpenRideAdmin=true
-#build.OpenRideServer-RS=true
-#
-#
-#
 #
 # uncomment this to build "joride" frontend (still under development)
 build.joride=true
@@ -56,15 +45,6 @@ build.joride=true
 build.joride-public=true
 #
 #
-# the language into which the Frontend should  be translated into
-# if this parameter is not set, then no translation will be done (default)
-# 
-#
-#lang=EN
-#
-# This file defines global settings for operating joride 
-#
-# jndi name of the mailservice
 #
 mailServiceJNDI=jorideMail
 #
