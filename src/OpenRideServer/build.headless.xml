@@ -37,59 +37,6 @@
    </target> <!-- joride -->
 
 
-   <!-- ************************************************************************ -->
-   <!-- **** OpenRideWeb Project is to be build only if "build.OpenRideWeb" **** -->
-   <!-- **** Parameter is set                                               **** -->
-   <!-- ************************************************************************ -->
-   <target name="OpenRideWeb" description="build the OpenRideWeb subproject"  if="build.OpenRideWeb" >
-
-    <echo> *** building OpenRideWeb subproject  *** </echo>
-
-
-    <!--build OpenRideWeb     subproject  ************************************************ -->
-    <ant  dir="OpenRideWeb"  antfile="build.headless.xml"                                   />
-    <copy file="OpenRideWeb/dist/OpenRideWeb.war" todir="${build.dir}"                      /> 
-
-    </target>
-
-
-   <!-- **************************************************************************** -->
-   <!-- **** OpenRideAdmin Project is to be build only if "build.OpenRideAdmin" **** -->
-   <!-- **** Parameter is set                                                   **** -->
-   <!-- **************************************************************************** -->
-   <target name="OpenRideAdmin" description="build the OpenRideAdmin subproject"  if="build.OpenRideAdmin" >
-
-    <echo> *** building OpenRideAdmin subproject  *** </echo>
-    <!--build OpenRideAdmin     subproject  ************************************************ -->
-
-    <ant  dir="OpenRideAdmin"  antfile="build.headless.xml"                                   />
-    <copy file="OpenRideAdmin/dist/OpenRideAdmin.war" todir="${build.dir}"                    />
-
-    </target>
-
-
-
-   <!-- ************************************************************************************ -->
-   <!-- **** OpenRideServer-RS Project is to be build only if "build.OpenRideServer-RS" **** -->
-   <!-- **** Parameter is set                                                           **** -->
-   <!-- ************************************************************************************ -->
-
-   <target name="OpenRideServer-RS" description="build the OpenRideServer-RS subproject"  if="build.OpenRideServer-RS" >
-
-    <echo> *** building OpenRideServer-RS subproject  *** </echo>
-    <!--build OpenRideServer-RS     subproject  ************************************************ -->
-
-    <ant  dir="OpenRideServer-RS"  antfile="build.headless.xml"                                   />
-    <copy file="OpenRideServer-RS/dist/OpenRideServer-RS.war" todir="${build.dir}"                    />
-
-    </target>
-
-
-
-
-
-
-
 
 
 
@@ -110,20 +57,6 @@
 
 
 
-
-    <!--build OpenRideWeb         subproject  ************************************************ -->
-    <antcall target="OpenRideWeb" inheritAll="true" inheritRefs="true" />
-
-
-
-
-
-
-    <!--build OpenRideServer-RS subproject       ************************************************* -->
-    <antcall target="OpenRideServer-RS" inheritAll="true" inheritRefs="true" />
-
-    <!--build OpenRideAdmin subproject           ************************************************* -->
-    <antcall target="OpenRideAdmin" inheritAll="true" inheritRefs="true" />
 
 
     <!--build joride subproject                  ************************************************* -->
@@ -172,9 +105,6 @@
 
        <!--clean  subprojects  ***************************************************** -->
        <ant  dir="OpenRideServer-ejb"   antfile="build.headless.xml"   target="clean" />
-       <ant  dir="OpenRideWeb"          antfile="build.headless.xml"   target="clean" />
-       <ant  dir="OpenRideServer-RS"    antfile="build.headless.xml"   target="clean" />
-       <ant  dir="OpenRideAdmin"        antfile="build.headless.xml"   target="clean" />
        <ant  dir="joride"               antfile="build.headless.xml"   target="clean" />
        <ant  dir="joride-public"        antfile="build.headless.xml"   target="clean" />
 
