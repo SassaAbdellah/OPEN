@@ -159,6 +159,7 @@ public class JPublicCustomerProfile implements Serializable {
      */
     public void updateFromCustNickname() {
 
+  
         String nick = this.getCustNickname();
         // erase all properties, this may be reusing a session scoped bean
         this.blankProperties();
@@ -171,26 +172,25 @@ public class JPublicCustomerProfile implements Serializable {
         JCustomerEntityService jces = new JCustomerEntityService();
         CustomerEntity ce = jces.getCustomerEntityByNickname(this.getCustNickname());
 
+
+
         this.updateFromCustomerEntity(ce);
     }
 
     /**
      * Coarse method to determine if a customerprofile really exists.
+     * customerprofile is said to exist, if both custName and custId are not
+     * null.
      *
-     * @return Return true, if both customerId and nickname of this user are not
-     * null, else false
      *
      */
     public boolean seemsToExists() {
 
-        if (this.getCustId() == null) {
-            return false;
-        }
-        if (this.getCustNickname() == null) {
-            return false;
+        if ((this.getCustId() != null) && (this.getCustNickname() != null)) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -456,10 +456,10 @@ public class JPublicCustomerProfile implements Serializable {
 
         // number of milliseconds in ninety days from 
         long ninetyDays = 90l * 24l * 60l * 60l * 1000l;
-        long startTime=System.currentTimeMillis()-ninetyDays;        
+        long startTime = System.currentTimeMillis() - ninetyDays;
         tb.setStartDate(new Date(startTime));
 
-        
+
         return NavigationKeys.driverRatingsDisplay;
     }
 
@@ -484,8 +484,6 @@ public class JPublicCustomerProfile implements Serializable {
         return NavigationKeys.riderRatingsDisplay;
     }
 
-    
-    
     public List<JRatingBean> getRatingsAsDriverInInterval() {
 
         String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
@@ -496,10 +494,7 @@ public class JPublicCustomerProfile implements Serializable {
         JRatingService jrs = new JRatingService();
         return jrs.getRatingsAsDriver(this.getCustId(), tb.getStartDate(), tb.getEndDate());
     }
-    
-    
-    
-      
+
     public List<JRatingBean> getRatingsAsRiderInInterval() {
 
         String param = new RideSearchParamsBean().getBeanNameRatingsearchparam();
@@ -510,12 +505,20 @@ public class JPublicCustomerProfile implements Serializable {
         JRatingService jrs = new JRatingService();
         return jrs.getRatingsAsRider(this.getCustId(), tb.getStartDate(), tb.getEndDate());
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    /**
+     * Do a "smart" update depending what we have.
+     * If we have a nickname!= null, then update from nickname,
+     * else, if we have a custId, update from Id
+     *
+     */
+    public void smartUpdate() {
+
+        if (this.getCustNickname() != null) {
+            this.updateFromCustNickname();
+        } else if (this.getCustId() != null) {
+            this.updateFromCustId();
+        }
+
+    }
 } // class
