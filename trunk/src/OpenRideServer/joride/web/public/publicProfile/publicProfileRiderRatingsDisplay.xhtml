@@ -25,6 +25,7 @@
             </ui:define>
 
 
+
             <ui:define name="content">
 
                 <p>
@@ -83,7 +84,7 @@
                                                 </p:calendar>
                                             </p:column>
                                         </p:row>
-                                    </p:panelGrid> <!-- End of inner 2-column panel grid -->
+                                    </p:panelGrid> <!-- End of inner 2-column panel grid  -->
                                 </p:row>
 
                                 <f:facet name="footer">
@@ -121,7 +122,6 @@
                         </p:panel>
                     </h:form>
                 </p>
-
 
 
                 <p>
@@ -168,7 +168,7 @@
 
                                         <p>
                                             <p:rating  value="#{myrating.receivedRating}" readonly="true" />
-                                            &nbsp;--&nbsp;
+                                            &nbsp; &nbsp;
                                             #{myrating.receivedComment}
                                         </p>
                                     </p:panel>
@@ -209,7 +209,7 @@
 
                                         <p>
                                             <p:rating  value="#{myrating.givenRating}" readonly="true" />
-                                            &nbsp;--&nbsp;
+                                            &nbsp; &nbsp;
                                             #{myrating.givenComment}
                                         </p>
                                     </p:panel> <!-- End of rider ratings -->
@@ -222,7 +222,6 @@
                         </p:dataTable>
                     </p:panel>
                 </p>
-
             </ui:define>
 
         </ui:composition>
