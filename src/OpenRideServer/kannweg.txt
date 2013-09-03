@@ -1,8 +1,0 @@
-=== ./OpenRideServer-RS/web/img/.svn/entries ===
-=== ./OpenRideServer-RS/web/img/.svn/all-wcprops ===
-=== ./OpenRideServer-RS/web/view/test/index.html ===
-=== ./OpenRideServer-RS/web/view/test/.svn/text-base/index_independent.html.svn-base ===
-=== ./OpenRideServer-RS/web/view/test/.svn/text-base/index.html.svn-base ===
-=== ./OpenRideServer-RS/web/view/test/index_independent.html ===
-=== ./OpenRideServer-RS/web/WEB-INF/jspf/.svn/text-base/view_body.jsp.svn-base ===
-=== ./OpenRideServer-RS/web/WEB-INF/jspf/view_body.jsp ===
