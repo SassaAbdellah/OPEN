@@ -98,6 +98,11 @@ public class RatingBean extends ControllerBean implements RatingLocal {
     }
 
 
+    /** Get rider rating for a single ride
+     * 
+     * @param riderRouteId
+     * @return 
+     */
     public Rating getRatingForRider(int riderRouteId) {
         startUserTransaction();
         RiderUndertakesRideEntity entity = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderRouteId);

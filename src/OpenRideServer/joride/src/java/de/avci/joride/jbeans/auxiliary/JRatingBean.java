@@ -70,14 +70,13 @@ public class JRatingBean implements Serializable {
     public void setGivenRatingDate(Date arg) {
         this.givenRatingDate = arg;
     }
-    
-    /** True if there is a rider rating date, else false
+
+    /**
+     * True if there is a rider rating date, else false
      */
-    public boolean getIsRiderRated(){
-        return this.getGivenRating()!=null;
+    public boolean getIsRiderRated() {
+        return this.getGivenRating() != null;
     }
-    
-    
 
     /**
      * Nicely formatted version of the given rating date
@@ -159,31 +158,24 @@ public class JRatingBean implements Serializable {
 
         return "";
     }
-    
-    
-    /** True if there is a rider rating date, else false
+
+    /**
+     * True if there is a rider rating date, else false
      */
-    public boolean getIsDriverRated(){
-        return this.getReceivedRating()!=null;
+    public boolean getIsDriverRated() {
+        return this.getReceivedRating() != null;
     }
-    
-    
-    
-    
 
     ///// end of properties
-    
-    
-    /** Extract RatingData from JRiderUndertakesRideEntity
-     * 
+    /**
+     * Extract RatingData from JRiderUndertakesRideEntity
+     *
      * @param jrure
-     * @return 
+     * @return
      */
-    
     public static JRatingBean extractRating(RiderUndertakesRideEntity rure) {
 
         JRatingBean res = new JRatingBean();
-
 
 
         // rider stuff
@@ -202,21 +194,25 @@ public class JRatingBean implements Serializable {
 
 
         // Driver stuff 
-        CustomerEntity driverCe = rure.getRideId().getCustId();
+        // note, that there may not be a driver if the ride has not been realized!
+
+        if (rure.getRideId() != null) {
 
 
-        res.setDriver(new JPublicCustomerProfile());
-        res.getDriver().updateFromCustomerEntity(driverCe);
+            CustomerEntity driverCe = rure.getRideId().getCustId();
 
-        // Rating
-        res.setGivenRating(rure.getGivenrating());
-        // Comment
-        res.setGivenComment(rure.getGivenratingComment());
-        // Rating Date
-        res.setGivenRatingDate(rure.getGivenratingDate());
+            res.setDriver(new JPublicCustomerProfile());
+            res.getDriver().updateFromCustomerEntity(driverCe);
+
+            // Rating
+            res.setGivenRating(rure.getGivenrating());
+            // Comment
+            res.setGivenComment(rure.getGivenratingComment());
+            // Rating Date
+            res.setGivenRatingDate(rure.getGivenratingDate());
+
+        }
 
         return res;
     }
-
- 
 } // class
