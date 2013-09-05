@@ -102,7 +102,7 @@ public class CustomerEntity implements Serializable {
     @Column(name = "cust_id")
     private Integer custId;
     @Column(name = "cust_addr_zipcode")
-    private Integer custAddrZipcode;
+    private String custAddrZipcode;
     @Column(name = "cust_addr_city")
     private String custAddrCity;
     @Column(name = "cust_nickname")
@@ -195,7 +195,7 @@ public class CustomerEntity implements Serializable {
     public CustomerEntity() {
     }
 
-    public CustomerEntity(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, int custAddrZipcode, String custAddrCity) {
+    public CustomerEntity(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity) {
         this.custAddrZipcode = custAddrZipcode;
         this.custAddrCity = custAddrCity;
         this.custNickname = custNickname;
@@ -251,11 +251,11 @@ public class CustomerEntity implements Serializable {
         this.custId = custId;
     }
 
-    public Integer getCustAddrZipcode() {
+    public String getCustAddrZipcode() {
         return custAddrZipcode;
     }
 
-    public void setCustAddrZipcode(Integer custAddrZipcode) {
+    public void setCustAddrZipcode(String custAddrZipcode) {
         this.custAddrZipcode = custAddrZipcode;
     }
 

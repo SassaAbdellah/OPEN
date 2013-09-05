@@ -34,7 +34,7 @@ import javax.ejb.Local;
 @Local
 public interface CustomerControllerLocal {
 
-    int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, int custAddrZipcode, String custAddrCity);
+    int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity);
 
     public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, char custGender, String custEmail, String custMobilephoneno);
 
@@ -52,7 +52,7 @@ public interface CustomerControllerLocal {
 
     CustomerEntity getCustomerByEmail(String email);
 
-    void setPersonalData(int custId, Date custDateofbirth, String custEmail, String custMobilePhoneNo, String custFixedPhoneNo, String custAddrStreet, int custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate);
+    void setPersonalData(int custId, Date custDateofbirth, String custEmail, String custMobilePhoneNo, String custFixedPhoneNo, String custAddrStreet, String custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate);
 
     public void setBasePersonalData(int custId, java.lang.String custFirstName, java.lang.String custLastName, char custGender);
 

@@ -149,7 +149,7 @@ public class RandomInfo {
             randomArrayItem(custGender),                                            //gender
             randomBoolean(0.33),                                                    //is smoker
             randomBoolean(0.2),                                                     //has post identified
-            randomArrayItem(custZipCode),
+            "dummyZipcode",
             randomArrayItem(custEmail),
             randomArrayItem(custRiderPrefGender),
             randomArrayItem(custRiderPrefSmoker),
@@ -452,11 +452,10 @@ public class RandomInfo {
     }
 
     public class RandomCustomer {
-        private final String nickName, password, firstName, lastName, mobilPhoneNumber, street, city, email;
+        private final String nickName, password, firstName, lastName, mobilPhoneNumber, street, city, zipCode, email;
         private final java.util.Date dateOfBirth;
         private final char gender;
         private final boolean isSmoker, postIdent;
-        private final int zipCode;
         private final char riderPrefGender, riderPrefSmoker, driverPrefGender, driverPrefSmoker;
         private final int riderPrefAge, driverPrefAge;
         private final int bankAccount, bankCode;
@@ -464,7 +463,7 @@ public class RandomInfo {
         public RandomCustomer(String nickName, String password, String firstName, 
                 String lastName, String mobilPhoneNumber, String street, String city,
                 Date dateOfBirth, char gender, boolean isSmoker,
-                boolean postIdent, int zipCode, String email, char riderPrefGender,
+                boolean postIdent, String zipCode, String email, char riderPrefGender,
                 char riderPrefSmoker, char driverPrefGender, char driverPrefSmoker,
                 int riderPrefAge, int driverPrefAge, int bankAccout, int bankCode) {
             this.nickName = nickName;
@@ -530,7 +529,7 @@ public class RandomInfo {
             return street;
         }
 
-        public int getZipCode() {
+        public String getZipCode() {
             return zipCode;
         }
 
