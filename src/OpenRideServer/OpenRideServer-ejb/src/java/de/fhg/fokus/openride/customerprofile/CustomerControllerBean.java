@@ -137,7 +137,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     /**
      * This method adds a customer to the database
      */
-    public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, int custAddrZipcode, String custAddrCity) {
+    public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity) {
         logger.info("addCustomer");
         startUserTransaction();
         System.out.println("Username " + custNickname);
@@ -267,7 +267,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
                 seed, // mock mobile phone
                 seed, // mock landline
                 seed, // mock cust_addr street
-                custId, // mock zipcode
+                seed, // mock zipcode
                 seed, // mock City
                 'n', // mock smokerprefs
                 null // mock licensedate
@@ -449,7 +449,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         commitUserTransaction();
     }
 
-    public void setPersonalData(int custId, Date custDateofbirth, String custEmail, String custMobilePhoneNo, String custFixedPhoneNo, String custAddrStreet, int custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate) {
+    public void setPersonalData(int custId, Date custDateofbirth, String custEmail, String custMobilePhoneNo, String custFixedPhoneNo, String custAddrStreet, String custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate) {
         startUserTransaction();
         logger.info("setPersonalData");
         CustomerEntity c = getCustomer(custId);
