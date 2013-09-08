@@ -51,18 +51,19 @@ public class JRoutePointsEntity implements Serializable {
          Iterator <RoutePointEntity> it=routePoints.iterator();
          
          
-         String res="[\n";
+         StringBuffer  buf=new StringBuffer();
+         buf.append("[\n");
              
          while (it.hasNext()){
          
              RoutePointEntity rp=it.next();
-             res+="\n["+rp.getLongitude()+","+rp.getLatitude()+"]";
-             if(it.hasNext()){ res+=",";}
+             buf.append("\n["+rp.getLongitude()+","+rp.getLatitude()+"]");
+             if(it.hasNext()){ buf.append(",");}
          } // while it.hasNext()
      
-         res+="\n]";       
+         buf.append("\n]");       
      
-         return res;
+         return buf.toString();
      }
      
      
