@@ -179,6 +179,13 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
     
+ <!-- ****** PasswordResetRequest Bean ****** -->
+    <managed-bean> 
+        <managed-bean-name>passwordResetRequest</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.customerprofile.JPasswordResetRequest        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
 
 
 
