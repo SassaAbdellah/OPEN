@@ -187,6 +187,13 @@
     </managed-bean> 
     
 
+<!-- ******  Bean for registering new Customers ****** -->
+    <managed-bean> 
+        <managed-bean-name>registrationRequest</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.customerprofile.JRegistrationRequest        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+    
 
 
 
