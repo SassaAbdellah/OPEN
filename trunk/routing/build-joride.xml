@@ -12,7 +12,8 @@
         <target name="build">
 
         
-
+	    <!-- create the bin directory if it does not exist -->	
+            <mkdir dir="bin" />
 
 
 
