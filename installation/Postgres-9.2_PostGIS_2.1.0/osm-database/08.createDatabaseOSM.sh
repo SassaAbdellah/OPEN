@@ -8,7 +8,7 @@
 #
 #
 #
-echo drop database osm | psql 
+echo drop database osm | psql -d openride 
 #
 createdb -O osm osm 'Database for OSM rendering' 
 
