@@ -10,5 +10,5 @@
 #
 echo enabline psql for osm database
 #
-create extension postgis | psql -d osm
+echo create extension postgis | psql -d osm
 #
