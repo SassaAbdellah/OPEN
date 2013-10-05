@@ -10,5 +10,5 @@
 #
 echo drop database osm | psql 
 #
-createdb -O osm osm 'Database for OSM rendering'
+createdb -O osm osm 'Database for OSM rendering' 
 
