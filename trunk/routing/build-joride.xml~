@@ -37,25 +37,10 @@
                    <fileset dir="lib">
                      <include name="*.jar" />
                    </fileset>
+
       	   	</classpath>
+
             </javac> 
-
-
-	<!-- place integrated sql resources into binary tree, so they can be found by the classloader -->
-
-	<copy file="src/org/mapsforge/routing/preprocessing/hh/osmosis/hh-dml.sql"
-              tofile="bin/org/mapsforge/routing/preprocessing/hh/osmosis/hh-dml.sql" 
-	/>
-        <copy file="src/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/createTables.sql" 
-              tofile="bin/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/createTables.sql" 
-	/>
-	<copy 
-		file="src/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/arrayLengthPatchPostgresql8.3x.sql"
-        	tofile="bin/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/arrayLengthPatchPostgresql8.3x.sql"
-	/>
-
-
-
 
         </target>
 
@@ -205,4 +190,7 @@
 
 
 </project>
-
+./src/org/mapsforge/routing/preprocessing/hh/osmosis/hh-dml.sql
+./src/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/createTables.sql
+./src/org/mapsforge/routing/preprocessing/hh/hierarchycomputation/arrayLengthPatchPostgresql8.3x.sql
+./data/temp/baden-wuerttemberg.sql
