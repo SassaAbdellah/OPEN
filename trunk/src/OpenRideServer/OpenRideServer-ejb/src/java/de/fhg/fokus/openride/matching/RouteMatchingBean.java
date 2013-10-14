@@ -89,7 +89,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     //
     // TODO: get rid of using JDBC in favour or standard JPA 
     //
-    private static final String JDBC_RESOURCE_OPENRIDE = "jdbc/openride-rm";
+    private static final String JDBC_RESOURCE_OPENRIDE = "jdbc/openride";
     // CONFIG - MATCH FILTER
     private static final boolean FILTER_CHECK_GENDER = false;
     private static final boolean FILTER_CHECK_SMOKER = false;
@@ -246,7 +246,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, null, ex);
-            return null;
+            return new LinkedList<MatchEntity> () ;
         }
     }
 
