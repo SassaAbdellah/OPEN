@@ -36,7 +36,6 @@ asadmin  delete-jdbc-resource ${JNDI_NAME_RM}
 #
 #
 asadmin create-jdbc-resource --connectionpoolid openride  ${JNDI_NAME}
-asadmin create-jdbc-resource --connectionpoolid openride-rm  ${JNDI_NAME_RM}
 #
 #
 #
