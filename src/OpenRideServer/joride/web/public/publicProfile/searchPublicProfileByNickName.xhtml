@@ -55,27 +55,27 @@
                             </p:row>
 
 
-                        <f:facet name="footer">
+                            <f:facet name="footer">
 
-                            <h:commandButton  
-                                value="#{msgs.formSearch}"
-                                action="displayPublicProfile"
-                                icon="ui-icon-search"
-                                >
+                                <h:commandButton  
+                                    value="#{msgs.formSearch}"
+                                    action="displayPublicProfile"
+                                    >
+                             
 
-                                <f:param 
-                                    name="#{joRideConstants.paramNameNickname}" 
-                                    value="#{publicProfile.custNickname}"
-                                    />
+                                    <f:param 
+                                        name="#{joRideConstants.paramNameNickname}" 
+                                        value="#{publicProfile.custNickname}"
+                                        />
 
-                           
-                                <f:param 
-                                    name="#{webflow.paramBack}" 
-                                    value="search.drives"
-                                    />
 
-                            </h:commandButton>
-                        </f:facet>
+                                    <f:param 
+                                        name="#{webflow.paramBack}" 
+                                        value="search.drives"
+                                        />
+
+                                </h:commandButton>
+                            </f:facet>
 
                         </p:panelGrid>
 
