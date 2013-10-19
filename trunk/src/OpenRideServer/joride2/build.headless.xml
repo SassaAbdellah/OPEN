@@ -1,4 +1,4 @@
-<project name="joride" default="build"> 
+<project name="joride2" default="build"> 
    <property environment="env"/>
    <property file="build.properties"/> 
    <property file="${app}/tomcat.properties"/> 
