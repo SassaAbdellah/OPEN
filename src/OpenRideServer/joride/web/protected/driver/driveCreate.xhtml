@@ -103,7 +103,7 @@
                         <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
 
                             <!-- point parameters -->
-                            <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/driver/driveCreate.xhtml"/>
+                            <f:param name="#{point.paramTargetURL}" value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml"/>
                             <!-- set the target parameters, so we know which point to update -->
                             <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetStartpoint}"/>
 
@@ -150,7 +150,7 @@
 
 
                             <!-- point parameters -->
-                            <f:param name="#{point.paramTargetURL}" value="/joride/faces/protected/driver/driveCreate.xhtml"/>
+                            <f:param name="#{point.paramTargetURL}" value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml"/>
                             <!-- set the target parameters, so we know which point to update -->
                             <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetEndpoint}"/>
 
