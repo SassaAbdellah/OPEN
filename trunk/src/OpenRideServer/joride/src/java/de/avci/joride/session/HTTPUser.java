@@ -69,14 +69,36 @@ public class HTTPUser implements Serializable {
         return null;
     }
     
+    
+    /**  URLBase is the base of the webapplication,
+     *   i,e "/joride" for joride webapp,
+     *   "/joride-public/" for joride-public webapp, etc
+     *   It is defined in navigation.properties file.
+     * 
+     * 
+     * @return 
+     */
+    public String getURLBase(){
+    
+           PropertiesLoader pl=new PropertiesLoader();
+           return pl.getNavigationProps().getProperty("urlBase");
+    }
+    
+    
+    /**  LoginURL is the URL where Users should be sent to log in.
+     * 
+     *   It is defined in navigation.properties file.
+     * 
+     * 
+     * @return 
+     */
+    
     public String getLoginURL() {
      
             PropertiesLoader pl=new PropertiesLoader();
          
-            String urlBase=pl.getNavigationProps().getProperty("urlBase");
             String urlLogin=pl.getNavigationProps().getProperty("urlLogin");
-            
-            return urlBase+urlLogin;
+            return getURLBase()+urlLogin;
             
     }
     
