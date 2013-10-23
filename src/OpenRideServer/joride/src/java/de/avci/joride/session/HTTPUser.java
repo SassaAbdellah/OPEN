@@ -129,10 +129,9 @@ public class HTTPUser implements Serializable {
         
             PropertiesLoader pl=new PropertiesLoader();
             
-            String urlBase=pl.getNavigationProps().getProperty("urlBaseJoridePublic");
             String urlLogout=pl.getNavigationProps().getProperty("urlLoggedOut");
             
-            return urlBase+urlLogout;
+            return urlLogout;
     } 
      
       
