@@ -153,6 +153,18 @@
             <fileset file="${navparamfile}" />
        </replaceregexp>
 
+       <replaceregexp byline="true">
+           <regexp pattern="urlLoggedOut=(.*)"/>
+            <substitution expression="urlLoggedOut=${urlLoggedOut}"/>
+            <fileset file="${navparamfile}" />
+       </replaceregexp>
+  
+
+
+
+
+
+
    </target> <!--  end of target "apply local properties" -->
 
    

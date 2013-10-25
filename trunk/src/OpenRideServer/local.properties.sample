@@ -94,5 +94,18 @@ termsURL=joride-public/faces/uninitialized.xhtml
 # default setting points to a warning message.
 #
 imprintURL=/joride-public/faces/uninitialized.xhtml
+#
+#
+# base URL for "relogin" section (without base url, since base-url is joride-public)
+# this is where users are sent after logging out
+#
+#
+urlLoggedOut=http://localhost:8080/joride-public/faces/public/loggedout.xhtml
+
+
+
+
+
+
 
 
