@@ -32,7 +32,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/joride/logout/*</url-pattern>
+        <url-pattern>/*/logout/*</url-pattern>
     </servlet-mapping>
 
 

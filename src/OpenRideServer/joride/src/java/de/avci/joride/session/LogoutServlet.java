@@ -33,7 +33,9 @@ public class LogoutServlet extends HttpServlet {
     }
 
     protected String getLoggedOutURL() {
-        return new HTTPUser().getLoggedOutURL();
+        
+        String loggedOutURL=new HTTPUser().getLoggedOutURL();
+        return loggedOutURL;
     }
 
     /**

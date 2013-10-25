@@ -6,12 +6,9 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.security.Principal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -115,11 +112,9 @@ public class HTTPUser implements Serializable {
     public String getLogoutURL() {
         
             PropertiesLoader pl=new PropertiesLoader();
-            
-            String urlBase=pl.getNavigationProps().getProperty("urlBase");
             String urlLogout=pl.getNavigationProps().getProperty("urlLogout");
             
-            return urlBase+urlLogout;
+            return urlLogout;
     } 
      
      
@@ -129,9 +124,10 @@ public class HTTPUser implements Serializable {
         
             PropertiesLoader pl=new PropertiesLoader();
             
-            String urlLogout=pl.getNavigationProps().getProperty("urlLoggedOut");
+            System.err.println("TODO: navigation props: "+pl.getNavigationProps());
             
-            return urlLogout;
+            String urlLoggedOut=pl.getNavigationProps().getProperty("urlLoggedOut");
+            return urlLoggedOut;
     } 
      
       
