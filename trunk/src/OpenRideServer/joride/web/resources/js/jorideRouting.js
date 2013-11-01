@@ -100,9 +100,28 @@ function createMap(divId, routepoints) {
 
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
+    
+     // //////////////////////////////////////////////	
+     //  marker to mark the start of the coordiates
+     // //////////////////////////////////////////////
+     markersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});           
+     
+     markersLayer.clearMarkers();    
+     map.addLayer(markersLayer);
+     
+     // console log should normally disabled because it blocks braindamaged IE
+     //
+     // console.log("longitude : "+routepoints[0][0]);
+     // console.log("latitude  : "+routepoints[0][1]);
+     
+                                                
+     startMarker=new OpenLayers.Marker(getScaledPoint(routepoints[0][0],routepoints[0][1],map));
+     markersLayer.addMarker(startMarker);
+    
+    
+    
 
     // add vector layer for drawing lines	
- 
     lineLayer = new OpenLayers.Layer.Vector("Line Layer"); 
     map.addLayer(lineLayer);                    
     map.addControl(new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path));   
@@ -115,15 +134,50 @@ function createMap(divId, routepoints) {
     //  console.log("linestring : "+line);
 
     style = { 
-        strokeColor: '#000000', 
-        strokeOpacity: 0.5,
+        strokeColor: '#0000FF', 
+        strokeOpacity: 1,
         strokeWidth: 5
     };
 
     lineFeature = new OpenLayers.Feature.Vector(line, null, style);
     lineLayer.addFeatures([lineFeature]);
 
-    
+   
+    jorideMarkersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});      
+    map.addLayer(jorideMarkersLayer);
+
+    var pLongitudeEnd = routepoints[routepoints.length-1][0]; 
+    var pLatitudeEnd  = routepoints[routepoints.length-1][1];
+
+    llEnd=new OpenLayers.LonLat(pLongitudeEnd,pLatitudeEnd).transform(
+                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                        map.getProjectionObject() // to current map's projection
+                                        );
+
+
+               
+    markerEnd=new OpenLayers.Marker(llEnd);
+    jorideMarkersLayer.addMarker(markerEnd);
+
+
+   
+    var pLongitudeStart = routepoints[0][0]; 
+    var pLatitudeStart  = routepoints[0][1];
+
+    llStart=new OpenLayers.LonLat(pLongitudeStart,pLatitudeStart).transform(
+                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                        map.getProjectionObject() // to current map's projection
+                                        );
+
+
+               
+    markerStart=new OpenLayers.Marker(llStart);
+    jorideMarkersLayer.addMarker(markerStart);
+
+
+
+
+
     autocenterMap(routepoints,map);
    
 } // map
