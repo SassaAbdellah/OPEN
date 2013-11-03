@@ -134,8 +134,8 @@ function createMap(divId, routepoints) {
     //  console.log("linestring : "+line);
 
     style = { 
-        strokeColor: '#0000FF', 
-        strokeOpacity: 1,
+        strokeColor: '#000000', 
+        strokeOpacity: 0.5,
         strokeWidth: 5
     };
 
