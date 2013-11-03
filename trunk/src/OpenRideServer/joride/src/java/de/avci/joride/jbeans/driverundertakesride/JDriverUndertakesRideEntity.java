@@ -227,6 +227,20 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
 
     }
+    
+    
+    /** Get the *required*  route points for this drive wrapped up in a JRoutePointsEntityObject
+     * 
+     */
+    public JRoutePointsEntity getRequiredRoutePoints(){
+        
+        int rideID=this.getRideId();
+        return new JDriverUndertakesRideEntityService().getRequiredRoutePointsForDrive(rideID);
+
+    
+    }
+    
+    
 
     /**
      * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
@@ -236,12 +250,10 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public JRoutePointsEntity findRoutePoints() {
 
         return new JDriverUndertakesRideEntityService().findRoute(this);
-
     }
 
     /**
      * Get the RoutePoints for this Drive encoded in a JSONString
-     *
      *
      * @return
      *
@@ -249,6 +261,17 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
+    
+    
+    /** 
+     * Get the *required* Routepoints for this Drive encoded as a JSONString
+     * 
+     */
+     public String getRequiredRoutePointsAsJSON() {
+        return this.getRequiredRoutePoints().getRoutePointsAsJSON();
+    }
+    
+    
 
     /**
      * Get the RoutePoints for this Drive encoded in a JSONString
