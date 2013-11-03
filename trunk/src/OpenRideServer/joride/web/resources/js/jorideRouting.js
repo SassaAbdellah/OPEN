@@ -89,6 +89,9 @@ function autocenterMap( coords , map ){
 //  routepoints : list of waypoint coordinates, i.e two dimensional numerical matrix of the form
 //                [[longitude_1,latitude_1],[longitude_2,latitude_2],...[longitude_n, latitude_n]]
 //  
+//
+// waypoints : list of waypoints, in the same format as routepoints
+//
 //  divID       :  id of the html div object where the map is to be displayed
 //  
 
@@ -96,7 +99,7 @@ function autocenterMap( coords , map ){
 
 
 
-function createMap(divId, routepoints) { 
+function createMap(divId, routepoints, waypoints) { 
 
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
@@ -142,39 +145,23 @@ function createMap(divId, routepoints) {
     lineFeature = new OpenLayers.Feature.Vector(line, null, style);
     lineLayer.addFeatures([lineFeature]);
 
-   
+
     jorideMarkersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});      
     map.addLayer(jorideMarkersLayer);
 
-    var pLongitudeEnd = routepoints[routepoints.length-1][0]; 
-    var pLatitudeEnd  = routepoints[routepoints.length-1][1];
-
-    llEnd=new OpenLayers.LonLat(pLongitudeEnd,pLatitudeEnd).transform(
-                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                        map.getProjectionObject() // to current map's projection
-                                        );
-
-
-               
-    markerEnd=new OpenLayers.Marker(llEnd);
-    jorideMarkersLayer.addMarker(markerEnd);
-
-
+    
+   // add markers for waypoints
    
-    var pLongitudeStart = routepoints[0][0]; 
-    var pLatitudeStart  = routepoints[0][1];
-
-    llStart=new OpenLayers.LonLat(pLongitudeStart,pLatitudeStart).transform(
+    
+   for (i=0;  i < waypoints.length; i++){
+ 
+        llWaypoint=new OpenLayers.LonLat(waypoints[i][0],waypoints[i][1]).transform(
                                         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                         map.getProjectionObject() // to current map's projection
                                         );
-
-
-               
-    markerStart=new OpenLayers.Marker(llStart);
-    jorideMarkersLayer.addMarker(markerStart);
-
-
+ 	markerWaypoint=new OpenLayers.Marker(llWaypoint);
+    	jorideMarkersLayer.addMarker(markerWaypoint);
+   }
 
 
 
