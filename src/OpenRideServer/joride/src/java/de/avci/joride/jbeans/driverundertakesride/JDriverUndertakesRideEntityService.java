@@ -295,10 +295,8 @@ public class JDriverUndertakesRideEntityService {
         //
         // Check, if drive does really belong to the calling user
         //
-
         CustomerEntity ce = this.getCustomerEntity();
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-
 
         if (ce == null) {
             throw new Error("Cannot determine Drives, customerEntity is null");
@@ -310,8 +308,6 @@ public class JDriverUndertakesRideEntityService {
 
 
         DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(driveId);
-
-
 
         if (dure.getCustId().getCustId() != ce.getCustId()) {
             throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
@@ -330,6 +326,55 @@ public class JDriverUndertakesRideEntityService {
         return res;
 
     }
+    
+    
+    /** getRequiredRoutePoints for drive with given driveID
+     * 
+     * @param rideID
+     * @return 
+     */
+    JRoutePointsEntity getRequiredRoutePointsForDrive(int driveId) {
+ 
+               //
+        // Check, if drive does really belong to the calling user
+        //
+        CustomerEntity ce = this.getCustomerEntity();
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Drives, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Drives, customerNickname is null");
+        }
+
+
+        DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(driveId);
+
+        if (dure.getCustId().getCustId() != ce.getCustId()) {
+            throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
+        }
+
+
+        // 
+        // done with checking for user
+        //
+
+        List<RoutePointEntity> routePoints = durcl.getRequiredRoutePoints(driveId);
+
+        JRoutePointsEntity res = new JRoutePointsEntity();
+        res.setRoutePoints(routePoints);
+
+        return res;
+       
+        
+    }
+    
+    
+    
+    
+    
 
     public JRoutePointsEntity findRoute(DriverUndertakesRideEntity dure) {
 
@@ -602,4 +647,6 @@ public class JDriverUndertakesRideEntityService {
 
         return true;
     }
+
+  
 } // class

@@ -139,6 +139,9 @@
                 <script>
                
                     myroutepoints=#{newdriverride.findRoutePointsAsJSON()};
+                    
+                    myWaypoints=#{driverride.requiredRoutePointsAsJSON};
+                    
                     createMap("mapdiv", myroutepoints);
                              
                 </script>
