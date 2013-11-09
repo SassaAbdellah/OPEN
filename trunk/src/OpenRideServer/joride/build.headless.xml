@@ -153,11 +153,21 @@
             <fileset file="${navparamfile}" />
        </replaceregexp>
 
+       <!-- applying url for screen being shown after logging out -->
        <replaceregexp byline="true">
            <regexp pattern="urlLoggedOut=(.*)"/>
             <substitution expression="urlLoggedOut=${urlLoggedOut}"/>
             <fileset file="${navparamfile}" />
        </replaceregexp>
+  
+ 
+      <!--  applying url of OpenLayers library --> 
+      <replaceregexp byline="true">
+           <regexp pattern="urlOpenLayers=(.*)"/>
+            <substitution expression=" urlOpenLayers=${urlOpenLayers}"/>
+            <fileset file="${navparamfile}" />
+       </replaceregexp>
+  
   
 
 

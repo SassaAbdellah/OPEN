@@ -101,6 +101,15 @@ imprintURL=/joride-public/faces/uninitialized.xhtml
 #
 #
 urlLoggedOut=http://localhost:8080/joride-public/faces/public/loggedout.xhtml
+#
+# url where the openlayers library should be included.
+# by default, the standard URL for Openlayers:
+# http://www.openlayers.org/api/OpenLayers.js"
+#
+# If You are not a developer trying out other versions of OL, there 
+# should probably be no reason to change this value
+#
+urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 
 
 

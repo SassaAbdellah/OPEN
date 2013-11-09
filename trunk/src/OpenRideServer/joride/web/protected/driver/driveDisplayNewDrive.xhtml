@@ -154,8 +154,11 @@
                 <!-- we may deliver a local OpenLayers version 2.12              -->
                 <!-- alternatively, it can be included from OpenLayers.org   -->
 
+
                 <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-                <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+                <script src="#{HTTPUser.openLayersURL}"></script>
+
+
 
                 <!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
@@ -175,13 +178,13 @@
 
 
                 <script>
-               
-                    myroutepoints=#{newdriverride.routePointsAsJSON};
-                    
-                    myWaypoints=#{driverride.requiredRoutePointsAsJSON};
-                    
+
+                    myroutepoints =#{newdriverride.routePointsAsJSON};
+
+                    myWaypoints =#{driverride.requiredRoutePointsAsJSON};
+
                     createMap("mapdiv", myroutepoints, myWaypoints);
-               
+
                 </script>
 
                 <p>

@@ -151,6 +151,23 @@ public class HTTPUser implements Serializable {
        
     }
     
+    
+        /** URL from which the OpenLayers library should be included
+     *  this is now configurable via the urlOpenLayers property
+     *  in navigation.properties
+     *  
+     */
+    public String getOpenLayersURL() {
+
+
+        PropertiesLoader pl = new PropertiesLoader();
+
+        System.err.println("TODO: navigation props: " + pl.getNavigationProps());
+
+        String urlLoggedOut = pl.getNavigationProps().getProperty("urlOpenLayers");
+        return urlLoggedOut;
+    }
+    
      
     
 } // class
