@@ -268,7 +268,14 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      * 
      */
      public String getRequiredRoutePointsAsJSON() {
-        return this.getRequiredRoutePoints().getRoutePointsAsJSON();
+         
+         
+         if(this.getRequiredRoutePoints()!=null){
+            return this.getRequiredRoutePoints().getRoutePointsAsJSON();
+         } 
+         
+         // return empty array by default;
+         return "[]";
     }
     
     
