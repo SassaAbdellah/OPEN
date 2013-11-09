@@ -495,9 +495,13 @@ public class JMatchingEntity implements Serializable {
      */
     public String getRiderGenderLabel(){
     
+        try{
              JCustomerEntity jce=new JCustomerEntity();
              jce.setCustGender(this.getRide().getCustId().getCustGender());
              return jce.getGenderLabel();
+        } catch(Exception exc){
+            return null;
+        }
     }
     
     
