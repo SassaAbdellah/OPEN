@@ -159,7 +159,10 @@ function createMap(divId, routepoints, waypoints) {
                                         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                         map.getProjectionObject() // to current map's projection
                                         );
- 	markerWaypoint=new OpenLayers.Marker(llWaypoint);
+
+	iconMarkerBlueURL="/joride/resources/images/marker-blue.png";
+ 	icon = new OpenLayers.Icon(iconMarkerBlueURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+ 	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
 
