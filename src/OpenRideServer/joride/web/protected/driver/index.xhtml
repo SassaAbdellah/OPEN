@@ -39,8 +39,10 @@
                     <!-- primefaces dynamic accordion COOL!  -->
                     <p:accordionPanel  activeIndex="-1" value="#{driverride.futureDrives}" var="drive">                  
 
-                        <p:tab title="#{msgs.rideOffer} #{drive.rideId} #{drive.updatedShortcut}">
+                        <p:tab title=" #{drive.updatedShortcut} #{drive.startDateFormatted} #{drive.endptAddressShort}">
 
+                            <div class="formLabel"> #{msgs.rideOffer} #{drive.rideId} </div>
+                            
                             <!-- show message if ride is updated -->
                             <ui:fragment rendered="#{drive.driveUpdated}">
                                 <div class="formLabel">
