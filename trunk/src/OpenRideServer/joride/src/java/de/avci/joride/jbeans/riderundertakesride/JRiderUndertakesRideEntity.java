@@ -912,6 +912,35 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         throw new Error("Parameter " + reportType + " is  not supported in getRideReport()");
 
     }
+    
+    
+
+    
+    /** Length to which the lengty addresses should be shortened
+     *  when displayed in title tags
+     * 
+     *  TODO: make this configurable.
+     * 
+     */
+    final int ShortStringLength=45;
+    
+    public String getEndptAddressShort(){
+        
+        String endpointAddress=this.getEndptAddress();
+    
+        if(endpointAddress==null){
+            return "";
+        }
+        
+        if(endpointAddress.length()<=ShortStringLength){
+            return endpointAddress;
+        }
+        
+        return ((endpointAddress.substring(0,(ShortStringLength-1)))+"...");
+ 
+    }
+    
+    
 
     /**
      * Overwrite RiderUndertakesRideEntity() to start out with negative ratings,
