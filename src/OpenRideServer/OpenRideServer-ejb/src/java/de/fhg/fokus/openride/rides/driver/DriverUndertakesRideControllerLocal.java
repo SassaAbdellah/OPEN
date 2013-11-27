@@ -203,7 +203,45 @@ public interface DriverUndertakesRideControllerLocal {
      * @return  true, if countermanding was successful, else false.
      */
     public boolean invalidateRide(Integer rideId);
+    
+    
+    
+    /** Get waypoints for this ride.
+     *  List returned should be expected to be sorted by routeIdx.
+     *  (this is usually archieved by underlying JPA Query)
+     * 
+     * @param rideId rideId for ride we want to get the waypoints for
+     * @return 
+     */
+    public List<WaypointEntity> getWaypoints(int rideId);
+    
+        
+    /** Get waypoints for this ride.
+     * 
+     *   List returned should be expected to be sorted by routeIdx.
+     *  (this is usually archieved by underlying JPA Query)
+     * 
+     * @param drive
+     * @return 
+     */
+    public List<WaypointEntity> getWaypoints(DriverUndertakesRideEntity drive);
 
   
+     /** Add Waypoint for given drive
+      * add before the smalles position being larger then position parameter
+     * 
+     * @param drive
+     * @param position  position where to add to list 
+     * @return 
+     */
+    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position);
+    
+    
+     /** Remove waypoint given by routeIdx from Ride given by rideId
+     * 
+     * @param rideID
+     * @param routeIdx 
+     */
+    public void removeWaypoint(int rideID, int routeIdx);
 
 }

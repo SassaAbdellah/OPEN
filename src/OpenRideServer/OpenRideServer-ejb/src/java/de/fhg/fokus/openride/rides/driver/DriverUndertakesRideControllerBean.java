@@ -336,6 +336,30 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         commitUserTransaction();
         return routePoints;
     }
+    
+    
+    
+     /** Get Waypoints for a given rideId
+      * 
+      * @param  rideId
+      * @return list of userdefined waypoints for this ride
+      */
+    
+    @Override
+    
+     public List<WaypointEntity> getWaypoints(int rideId) {
+        startUserTransaction();
+        Query q = em.createNamedQuery("WaypointEntity.findByRideId");
+        q.setParameter("rideId", rideId);
+        List<WaypointEntity> waypoints = q.getResultList();
+        commitUserTransaction();
+        return waypoints;
+    }
+    
+    
+    
+    
+    
 
     /**
      *
@@ -1150,9 +1174,117 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @Override
     public List<DriverUndertakesRideEntity> getDrivesInInterval(CustomerEntity custId, Date startDate, Date endDate) {
 
+        // note that result is sorted by virtue of the JPA Query
         List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findByCustIdBetweenDates").setParameter("custId", custId).setParameter("startdate", startDate).setParameter("enddate", endDate).getResultList();
-
         return res;
     }
+
+    @Override
+    public List<WaypointEntity> getWaypoints(DriverUndertakesRideEntity drive) {
+  
+        // note that result is sorted by virtue of the JPA Query
+        return this.getWaypoints(drive.getRideId());
+    }
+
+    @Override
+    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position) {
+  
+        this.addWaypoint(drive, waypoint, position, true);
+    }
+        
+  
+    /** Add a waypoint to a given drive.
+     *  As this is not intended to be called from outside, 
+     *  it can be called with or without an explicite enclosing 
+     *  transaction
+     * 
+     * @param drive
+     * @param waypoint
+     * @param position
+     * @param transaction turn on transaction explicitely 
+     */
+    protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position, boolean transaction) {
+       
+        if(transaction) startUserTransaction();
+       // set waypoint.rideId to match drive.rideId  </li>
+        waypoint.setRideId(drive.getRideId());
+       // get sorted List of waypoints </li>
+        List <WaypointEntity> waypoints=this.getWaypoints(drive);
+       // add waypoint to position given by position parameter </li>
+        
+        int size=waypoints.size();
+        
+        // if list is empty, just add
+        if(size==0){
+               waypoints.add(waypoint);
+               waypoint.setRouteIdx(0);
+               return; // done
+        }
+       
+        if(position> size-1){
+               waypoints.add(size, waypoint);
+               waypoint.setRouteIdx(size);
+               return;
+        }
+       
+       for (int pos=0; pos<size; pos++){
+           if(position<=pos){
+               waypoints.add(pos, waypoint);
+           }
+       }
+       // rearrange routeIndices
+       for(int i=0; i<waypoints.size(); i++){
+           WaypointEntity wpe=waypoints.get(i);
+           wpe.setRouteIdx(i);
+           em.persist(wpe);
+       }
+       
+       if(transaction) commitUserTransaction();
+    }
+    
+    /** Remove single waypoint. As this is intended to be called from 
+     *  outside, user transactions are set explicitely.
+     * 
+     * @param rideID
+     * @param routeIdx 
+     */
+    @Override
+    public void removeWaypoint(int rideID, int routeIdx){
+        this.removeWaypoint(rideID, routeIdx, true);
+    }
+   
+    /** Internal method for removing. Can be called with or without 
+     *  an eclosing transaction.
+     * 
+     * @param rideID
+     * @param routeIdx
+     * @param transaction  if true, method is called with enclosing transaction
+     */
+    private void removeWaypoint(int rideID, int routeIdx ,boolean transaction ){
+        
+        if(transaction) startUserTransaction();
+        
+        DriverUndertakesRideEntity drive=this.getDriveByDriveId(rideID);
+        
+        if (drive==null) return;
+        List <WaypointEntity> waypoints=this.getWaypoints(drive);
+        
+        if(waypoints.size()>=routeIdx) return;
+         
+        
+        WaypointEntity toRemove=waypoints.get(routeIdx);
+      
+        waypoints.remove(toRemove);
+          
+        for(int i=0; i< waypoints.size(); i++){
+            waypoints.get(i).setRideId(i);
+            em.persist(i);
+        }
+        em.remove(toRemove);
+       
+        if(transaction) commitUserTransaction();
+    }
+    
+    
     
 } // class
