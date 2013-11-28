@@ -9,6 +9,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
+import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
@@ -365,15 +366,52 @@ public class JDriverUndertakesRideEntityService {
 
         JRoutePointsEntity res = new JRoutePointsEntity();
         res.setRoutePoints(routePoints);
-
         return res;
-       
         
     }
     
     
-    
-    
+     /** getWaypoints for given drive in a JWaypointsContainer.
+     * 
+     * @param rideID
+     * @return 
+     */
+    JWaypointsEntity getWaypointsForDrive(int driveId) {
+ 
+               //
+        // Check, if drive does really belong to the calling user
+        //
+        CustomerEntity ce = this.getCustomerEntity();
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Drives, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Drives, customerNickname is null");
+        }
+
+
+        DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(driveId);
+
+        if (dure.getCustId().getCustId() != ce.getCustId()) {
+            throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
+        }
+
+        // done with checking for user
+
+        List<WaypointEntity> waypoints = durcl.getWaypoints(driveId);
+        JWaypointsEntity res = new JWaypointsEntity();
+       
+        for(WaypointEntity w: waypoints){
+            if(w!=null){
+                res.add(new JWaypointEntity(w));
+            }
+        }
+        return res;
+    }
+        
     
 
     public JRoutePointsEntity findRoute(DriverUndertakesRideEntity dure) {
