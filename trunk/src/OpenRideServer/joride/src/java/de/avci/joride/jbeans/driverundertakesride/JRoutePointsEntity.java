@@ -44,10 +44,6 @@ public class JRoutePointsEntity implements Serializable {
      public String getRoutePointsAsJSON(){
          
          
-         // TODO: this is imperformant!
-         // do something with Stringbuffer instead!
-         
-     
          Iterator <RoutePointEntity> it=routePoints.iterator();
          
          

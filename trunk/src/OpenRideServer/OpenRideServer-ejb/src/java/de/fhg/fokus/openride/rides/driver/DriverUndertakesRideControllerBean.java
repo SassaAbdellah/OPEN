@@ -258,6 +258,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return deletable;
     }
 
+    
+    @Override
+  
+    
     public boolean removeRide(int rideId) {
         startUserTransaction();
 
@@ -268,8 +272,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         if (deletable) {
             // entity can be changed
-
-
             //TODO (03/09/10): Matches & Ride need to be removed in one transaction....!
 
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
@@ -278,11 +280,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 //it.remove();
             }
 
-            setDriveRoutePoints(rideId, new LinkedList());
-
-            // remove related RoutePointEntities
-            setRoutePoints(rideId, new LinkedList<RoutePointEntity>());
-
+            // all routing data can now savely be deleted
+            removeAllDriveRoutepoints(rideId); 
+            removeAllRoutepoints(rideId);
+            removeAllWaypoints(rideId);
+            
+            
             List<DriverUndertakesRideEntity> entity = em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
             System.out.println("size entity: " + entity.size());
             for (DriverUndertakesRideEntity ente : entity) {
@@ -1121,6 +1124,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return returnList;
     }
 
+    
     @Override
     public boolean invalidateRide(Integer rideId) {
 
@@ -1128,14 +1132,20 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
         // TODO: check if we really want user transactions
         startUserTransaction();
+       
+        
         boolean deletable = this.isDeletable(rideId);
-
+        // if this can be removed, then do so
         if (deletable) {
             this.removeRide(rideId);
             commitUserTransaction();
             logger.info("deleting drive with rideId : " + rideId + " the hard way by removing it");
             return true;
         }
+        
+        // there is no further need for waypoints, since 
+        // this ride is going to be invalidated
+        this.removeAllWaypoints(rideId);
 
         // all related states have to be adapted
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
@@ -1285,6 +1295,58 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if(transaction) commitUserTransaction();
     }
     
+    /** Remove all Waypoints for driverUndertakesRideEntity
+     *  given by param rideID.
+     * 
+     *  This does not care about transactions, since it is 
+     *  supposed to be called when deleting or invalidating 
+     *  drives, and hence be enclosed in a transaction
+     * 
+     * @param rideID 
+     */
+    private void removeAllWaypoints(int rideId){
+       
+        List <WaypointEntity> waypoints=this.getWaypoints(rideId);
+        for(WaypointEntity w : waypoints){
+            em.remove(w);
+        }
+    }
+    
+     
+    /** Remove all routepoints for driverUndertakesRideEntity
+     *  given by param rideID.
+     * 
+     *  This does not care about transactions, since it is 
+     *  supposed to be called when deleting or invalidating 
+     *  drives, and hence be enclosed in a transaction
+     * 
+     * @param rideID 
+     */
+    private void removeAllRoutepoints(int rideId){
+       
+        List <RoutePointEntity> routepoints=this.getRoutePoints(rideId);
+        for(RoutePointEntity r : routepoints){
+            em.remove(r);
+        }
+    }
     
     
+    
+     /** Remove all Driveroutepoints for driverUndertakesRideEntity
+     *  given by param rideID.
+     * 
+     *  This does not care about transactions, since it is 
+     *  supposed to be called when deleting or invalidating 
+     *  drives, and hence be enclosed in a transaction
+     * 
+     * @param rideID 
+     */
+    private void removeAllDriveRoutepoints(int rideId){
+       
+        List <DriveRoutepointEntity> drpts=this.getDriveRoutePoints(rideId);
+        for(DriveRoutepointEntity drpt : drpts){
+            em.remove(drpt);
+        }
+    }
+   
 } // class
