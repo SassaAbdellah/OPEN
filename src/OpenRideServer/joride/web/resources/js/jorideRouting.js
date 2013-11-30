@@ -86,20 +86,30 @@ function autocenterMap( coords , map ){
 //
 //  Parameters:
 //
-//  routepoints : list of waypoint coordinates, i.e two dimensional numerical matrix of the form
-//                [[longitude_1,latitude_1],[longitude_2,latitude_2],...[longitude_n, latitude_n]]
-//  
-//
-// waypoints : list of waypoints, in the same format as routepoints
-//
 //  divID       :  id of the html div object where the map is to be displayed
 //  
+//  routepoints : list of waypoint coordinates, i.e two dimensional numerical matrix of the form
+//                [[longitude_1,latitude_1],[longitude_2,latitude_2],...[longitude_n, latitude_n]]
+//   
+//  startpoint   : single coordinate for starting point, format as above
+//  endpoind     : single coordinate for endpoint, format as above
+//  pickuppoints : list of points where riders get picked up, same format as routepoints
+//  droppoints   : list of points where riders get dropped, same format as routepoints
+//  waypoints    : list of waypoints, in the same format as routepoints
+//  
 
 
 
 
-
-function createMap(divId,startpoint, endpoint, routepoints, pickupPoints, dropPoints) { 
+function createMap(
+        divId,        
+        startpoint, 
+        endpoint, 
+        routepoints, 
+        pickupPoints, 
+        dropPoints,
+        wayPoints
+        ) { 
 
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
