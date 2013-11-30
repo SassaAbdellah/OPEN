@@ -104,12 +104,7 @@ function createMap(divId,startpoint, endpoint, routepoints, pickupPoints, dropPo
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
     
-     // //////////////////////////////////////////////	
-     //  markerlayer for start/end/waypoint/pickup/drop
-     // //////////////////////////////////////////////
-     markersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});           
-     markersLayer.clearMarkers();    
-     map.addLayer(markersLayer);
+   
      
      // console log should normally disabled because it blocks braindamaged IE
      //
