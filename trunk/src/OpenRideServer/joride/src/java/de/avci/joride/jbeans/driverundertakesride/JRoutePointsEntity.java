@@ -126,6 +126,18 @@ public class JRoutePointsEntity implements Serializable {
     public String getPickupRiderPointsAsJSON() {
         return this.getListOfRoutePointsAsJSON(this.getPickupRiderPoints()).toString();
     }
+    
+    
+    public String getStartPointAsJSON(){
+        return this.getRoutePointAsJSON(this.getStartPoint()).toString();
+    }
+    
+    public String getEndPointAsJSON(){
+        return this.getRoutePointAsJSON(this.getEndPoint()).toString();
+    }
+    
+    
+    
 
     public RoutePointEntity getStartPoint() {
         return startPoint;

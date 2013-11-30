@@ -208,15 +208,16 @@
 
                 <script>
                
-                    myroutepoints=#{driverride.routePointsAsJSON};
-                    myWaypoints=#{driverride.requiredRoutePointsAsJSON};
+                    myRoutePoints=#{driverride.routePointsAsJSON};
+                    myStartPoint=#{driverride.routePoints.startPointAsJSON};
+                    myEndPoint  =#{driverride.routePoints.endPointAsJSON};
+                    myWayPoints=#{driverride.requiredRoutePointsAsJSON};
                     myPickupPoints=#{driverride.routePoints.pickupRiderPointsAsJSON};
                     myDropPoints=#{driverride.routePoints.dropRiderPointsAsJSON};
                    
                     
-                    createMap("mapdiv", myroutepoints, myPickupPoints, myDropPoints);
-               
-               
+                    createMap("mapdiv",myStartPoint,myEndPoint, myRoutePoints, myPickupPoints, myDropPoints);
+                        
                
                 </script>
 
