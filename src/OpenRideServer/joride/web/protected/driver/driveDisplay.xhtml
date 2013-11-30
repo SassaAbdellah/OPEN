@@ -203,19 +203,18 @@
                 <!-- **************************************************************************** -->
 
                 <div id="mapdiv" style="width:300px; height:300px;" > </div>
-
-
-
+                
 
 
                 <script>
                
                     myroutepoints=#{driverride.routePointsAsJSON};
-                    
                     myWaypoints=#{driverride.requiredRoutePointsAsJSON};
+                    myPickupPoints=#{driverride.routePoints.pickupRiderPointsAsJSON};
+                    myDropPoints=#{driverride.routePoints.dropRiderPointsAsJSON};
+                   
                     
-                    
-                    createMap("mapdiv", myroutepoints, myWaypoints);
+                    createMap("mapdiv", myroutepoints, myPickupPoints, myDropPoints);
                
                
                

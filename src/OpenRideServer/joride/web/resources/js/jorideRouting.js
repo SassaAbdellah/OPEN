@@ -99,7 +99,7 @@ function autocenterMap( coords , map ){
 
 
 
-function createMap(divId, routepoints, waypoints) { 
+function createMap(divId, routepoints, pickupPoints, dropPoints) { 
 
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
@@ -150,12 +150,27 @@ function createMap(divId, routepoints, waypoints) {
     map.addLayer(jorideMarkersLayer);
 
     
-   // add markers for waypoints
-   
-    
-   for (i=0;  i < waypoints.length; i++){
+   // add markers for pickupPoints
+   for (i=0;  i < pickupPoints.length; i++){
  
-        llWaypoint=new OpenLayers.LonLat(waypoints[i][0],waypoints[i][1]).transform(
+        llWaypoint=new OpenLayers.LonLat(pickupPoints[i][0],pickupPoints[i][1]).transform(
+                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                        map.getProjectionObject() // to current map's projection
+                                        );
+
+	iconMarkerGreenURL="/joride/resources/images/marker-green.png";
+ 	icon = new OpenLayers.Icon(iconMarkerGreenURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+ 	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
+    	jorideMarkersLayer.addMarker(markerWaypoint);
+   }
+
+  
+
+
+ // add markers for dropPoints
+   for (i=0;  i < dropPoints.length; i++){
+ 
+        llWaypoint=new OpenLayers.LonLat(dropPoints[i][0],dropPoints[i][1]).transform(
                                         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                         map.getProjectionObject() // to current map's projection
                                         );
@@ -165,6 +180,7 @@ function createMap(divId, routepoints, waypoints) {
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
+
 
 
 
