@@ -138,27 +138,27 @@ function createMap(divId,startpoint, endpoint, routepoints, pickupPoints, dropPo
     jorideMarkersLayer = new OpenLayers.Layer.Markers("markers", {'calculateInRange': function() { return true; }});      
     map.addLayer(jorideMarkersLayer);
 
-   // add markers startpoint
+   // add marker for startpoint
     llWaypoint=new OpenLayers.LonLat(startpoint[0],startpoint[1]).transform(
                                         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                         map.getProjectionObject() // to current map's projection
                                         );
 
-     iconMarkerWhiteURL="/joride/resources/images/marker-white.png";
-     icon = new OpenLayers.Icon(iconMarkerWhiteURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+     iconMarkerGreenURL="/joride/resources/images/marker-green.png";
+     icon = new OpenLayers.Icon(iconMarkerGreenURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
      markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
      jorideMarkersLayer.addMarker(markerWaypoint);
   
 
   
-     // add markers endpoint
+     // add marker for endpoint
     llWaypoint=new OpenLayers.LonLat(endpoint[0],endpoint[1]).transform(
                                         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                         map.getProjectionObject() // to current map's projection
                                         );
 
-     iconMarkerWhiteURL="/joride/resources/images/marker-white.png";
-     icon = new OpenLayers.Icon(iconMarkerWhiteURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+     iconMarkerRedURL="/joride/resources/images/marker-red.png";
+     icon = new OpenLayers.Icon(iconMarkerRedURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
      markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
      jorideMarkersLayer.addMarker(markerWaypoint);
     
