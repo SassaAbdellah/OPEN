@@ -32,6 +32,13 @@ public class JRoutePointsEntity implements Serializable {
      * List of points where riders get picked up
      */
     private List<RoutePointEntity> pickupRiderPoints;
+    
+    /** rider defined points which should be called during the trip
+     *  (aka: waypoints, aka intermediate points)
+     */
+     private List<RoutePointEntity> wayPoints;
+    
+    
     /**
      * List of points where riders get dropped
      */
@@ -128,6 +135,15 @@ public class JRoutePointsEntity implements Serializable {
     }
     
     
+    /**
+     *
+     * @return {@link getWayPoints} converted to json
+     */
+    public String getWayPointsAsJSON() {
+        return this.getListOfRoutePointsAsJSON(this.getWayPoints()).toString();
+    }
+    
+    
     public String getStartPointAsJSON(){
         return this.getRoutePointAsJSON(this.getStartPoint()).toString();
     }
@@ -154,6 +170,12 @@ public class JRoutePointsEntity implements Serializable {
     public List<RoutePointEntity> getPickupRiderPoints() {
         return this.pickupRiderPoints;
     }
+    
+     public List<RoutePointEntity> getWayPoints() {
+        return this.wayPoints;
+    }
+    
+    
 
     /**
      * Initialize/Classify the list of route points into startPoint, endPoint,
@@ -169,12 +191,14 @@ public class JRoutePointsEntity implements Serializable {
 
         this.pickupRiderPoints = new ArrayList<RoutePointEntity>();
         this.dropRiderPoints = new ArrayList<RoutePointEntity>();
-
+        this.wayPoints=new ArrayList<RoutePointEntity>();
 
         HashSet<Integer> rides = new HashSet<Integer>();
 
-        for (RoutePointEntity rpe : rpes) {
-
+        for (int i=0; i<rpes.size(); i++ ) {
+            
+                RoutePointEntity rpe=rpes.get(i);
+            
                 boolean isRequired=rpe.isRequired();
                 Integer riderRouteId = rpe.getRiderrouteId();
                              
@@ -188,7 +212,12 @@ public class JRoutePointsEntity implements Serializable {
 
                     rides.add(riderRouteId);
                 }
-         
-        }
+                  
+                // look for waypoints
+                if(isRequired && riderRouteId==null && i!=0 && (i!=(rpes.size()-1))){
+                    wayPoints.add(rpe);
+                }
+              
+        } // for (RoutePointEntity rpe : rpes)
     } // initializePoints
 }

@@ -213,7 +213,7 @@
                     myEndPoint  =#{driverride.routePoints.endPointAsJSON};
                     myPickupPoints=#{driverride.routePoints.pickupRiderPointsAsJSON};
                     myDropPoints=#{driverride.routePoints.dropRiderPointsAsJSON};
-                    myWayPoints=#{driverride.requiredRoutePointsAsJSON};
+                    myWayPoints=#{driverride.routePoints.wayPointsAsJSON};
                     
                     createMap("mapdiv",myStartPoint,myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
                         
