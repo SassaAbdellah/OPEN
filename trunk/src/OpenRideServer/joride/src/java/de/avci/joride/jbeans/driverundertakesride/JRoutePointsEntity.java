@@ -66,10 +66,13 @@ public class JRoutePointsEntity implements Serializable {
     }
 
     /**
-     * Get a string representation of this
+     * Get a  representation of a routepoint as JSON Array 
+     * I.e:
+     * "["+longitude+","+latitude+","+rideId+","+riderRouteId+","+isRequired+"]"
+     * 
      *
      * @param rpe routepoint to be encoded
-     * @return
+     * @return  "["+longitude+","+latitude+","+rideId+","+riderRouteId+","+isRequired+"]"
      */
     private StringBuffer getRoutePointAsJSON(RoutePointEntity rp) {
 
@@ -79,6 +82,12 @@ public class JRoutePointsEntity implements Serializable {
         buf.append(rp.getLongitude());
         buf.append(",");
         buf.append(rp.getLatitude());
+        buf.append(",");
+        buf.append(rp.getRideId());
+        buf.append(",");
+        buf.append(rp.getRiderrouteId());
+        buf.append(",");
+        buf.append(rp.isRequired());
         buf.append("]");
 
         return buf;
@@ -178,8 +187,13 @@ public class JRoutePointsEntity implements Serializable {
     
 
     /**
-     * Initialize/Classify the list of route points into startPoint, endPoint,
-     * pickupPoints and dropPoints
+     * Initialize/Classify the list of route points into 
+     * 
+     * startPoint  
+     * endPoint
+     * pickupPoints 
+     * dropPoints
+     * waypoints
      *
      */
     private void initializePoints() {
@@ -202,22 +216,20 @@ public class JRoutePointsEntity implements Serializable {
                 boolean isRequired=rpe.isRequired();
                 Integer riderRouteId = rpe.getRiderrouteId();
                              
-
+                // pickupPoints/dropPoints have a reference to a rideRequest
                 if (isRequired && riderRouteId!= null) {
                     if (!(rides.contains(riderRouteId))) {
                         this.pickupRiderPoints.add(rpe);
                     } else {
                         this.dropRiderPoints.add(rpe);
                     }
-
                     rides.add(riderRouteId);
                 }
-                  
-                // look for waypoints
+                // waypoints have no reference to RideRequest and are different
+                // from startpoint and endpoint
                 if(isRequired && riderRouteId==null && i!=0 && (i!=(rpes.size()-1))){
                     wayPoints.add(rpe);
                 }
-              
         } // for (RoutePointEntity rpe : rpes)
     } // initializePoints
 }
