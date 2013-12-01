@@ -665,7 +665,6 @@ public class JDriverUndertakesRideEntityService {
 
         CustomerEntity ce = this.getCustomerEntity();
 
-
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
         DriverUndertakesRideEntity due = durcl.getDriveByDriveId(rideId);
 
@@ -685,6 +684,40 @@ public class JDriverUndertakesRideEntityService {
 
         return true;
     }
+    
+    
+    /** Add a waypoint to Drive *safely*.
+     *  Safely means that it gets checked wether the 
+     * 
+     * 
+     */
+    public void addWaypointToDriveSafely(JWaypointEntity waypoint){
+        
+       
+        
+        CustomerEntity ce = this.getCustomerEntity();
+
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+        DriverUndertakesRideEntity due = durcl.getDriveByDriveId(waypoint.getRideId());
+        
+        // Sanity check, caller of this method must be owner of this offer
+
+        if (ce.getCustId() != due.getCustId().getCustId()) {
+            throw new Error("Attempt to change Offer that is not owned by User");
+        }
+        
+    
+        // TODO: implementation missing, 
+        // call DriverUndertakesRideControllerLocal to do the real job
+        
+        
+        
+    }
+    
+    
+    
+    
+    
 
   
 } // class
