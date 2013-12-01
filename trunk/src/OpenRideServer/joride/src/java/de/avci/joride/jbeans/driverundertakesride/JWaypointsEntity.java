@@ -6,12 +6,18 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.util.ArrayList;
+import javax.faces.bean.RequestScoped;
+import javax.inject.Named;
 
 /** Class making a list of {@link WaypointEntity} s availlable
  *  to the frontend as a java bean.
  *  (notice the plural in the classname!)
  * @author jochen
  */
+
+@Named("waypoints")
+@RequestScoped
+
 public class JWaypointsEntity extends ArrayList<JWaypointEntity> {
     
     /** Encode this as a JSON Array
