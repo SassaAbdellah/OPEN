@@ -121,7 +121,9 @@
                     #{webflow.smartUpdate()}
 
                     <h:form>
-                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
+                            <f:param  name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                        </h:commandLink>
                     </h:form>
                 </p>
 
