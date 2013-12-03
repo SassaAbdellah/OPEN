@@ -171,7 +171,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         try {
             id = new Integer(idStr).intValue();
         } catch (java.lang.NumberFormatException exc) {
-            throw new Error("ID Parameter does not contain Numeric Value " + idStr);
+            throw new Error("ID Parameter does not contain Numeric Value, value was : " + idStr);
         }
 
 

@@ -35,7 +35,6 @@
 
                 #{driverride.update()}
 
-
                 <h1> #{msgs.rideOffer} #{driverride.rideId} </h1>
 
 
@@ -68,7 +67,7 @@
                                     <h:form>
                                         <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
                                             <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
-                                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay"              />
+                                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                                         </h:commandLink>
                                     </h:form>
                                 </span>
@@ -150,6 +149,20 @@
                 </table>
 
 
+                <p>
+                    <h:form>
+                        <h:commandLink action="drive.createWaypoint"> 
+                            TODO: create waypoint        
+                            <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
+                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                        </h:commandLink>
+
+
+
+
+                    </h:form>
+                </p>
+
 
                 <!-- property rideSeriesId seems to be always null -->
 
@@ -203,21 +216,21 @@
                 <!-- **************************************************************************** -->
 
                 <div id="mapdiv" style="width:300px; height:300px;" > </div>
-                
+
 
 
                 <script>
-               
-                    myRoutePoints=#{driverride.routePointsAsJSON};
-                    myStartPoint=#{driverride.routePoints.startPointAsJSON};
-                    myEndPoint  =#{driverride.routePoints.endPointAsJSON};
-                    myPickupPoints=#{driverride.routePoints.pickupRiderPointsAsJSON};
-                    myDropPoints=#{driverride.routePoints.dropRiderPointsAsJSON};
-                    myWayPoints=#{driverride.routePoints.wayPointsAsJSON};
-                    
-                    createMap("mapdiv",myStartPoint,myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
-                        
-               
+
+                    myRoutePoints =#{driverride.routePointsAsJSON};
+                    myStartPoint =#{driverride.routePoints.startPointAsJSON};
+                    myEndPoint =#{driverride.routePoints.endPointAsJSON};
+                    myPickupPoints =#{driverride.routePoints.pickupRiderPointsAsJSON};
+                    myDropPoints =#{driverride.routePoints.dropRiderPointsAsJSON};
+                    myWayPoints =#{driverride.routePoints.wayPointsAsJSON};
+
+                    createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
+
+
                 </script>
 
                 <p>

@@ -4,26 +4,86 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import de.fhg.fokus.openride.routing.RoutePoint;
+import java.util.logging.Level;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
 /** Java Class making Waypoints accessible
  *  to frontend as a JSFBean
  * 
- * 
- * 
+ *  This is session scoped, since it is supposed to model 
+ *  a newly created waypoint, which live over several pages.
+ *
  *  @author jochen
  */
 
 @Named("waypoint")
-@RequestScoped
+@SessionScoped
 
 /** Frontend to Waypoint Entity as a JSF Bean.
  * 
  */
 public class JWaypointEntity extends WaypointEntity{
+    
+    /** Parametername for rideId. Used when doing a smart update.
+     */
+    public static final String PARAM_NAME_RIDEID="rideId";
+    
+    /**
+     * @return  parameter name for rideId Parameter
+     */
+    public String getParamNameRideId(){return PARAM_NAME_RIDEID;}
+    
+    /** Parametername for position. Used when doing a smart update.
+     */
+    public static final String PARAM_NAME_POSITION="position";
+    
+    
+    /**
+     * @return parameter name position
+     */
+    public String getParamNamePosition(){return PARAM_NAME_POSITION;}
+    
+    
+    /**
+     *  Clear all fields, set parameters
+     *  longitude, latitude, description,
+     *  position and rideId from parameters.
+     */
+    
+    public void smartUpdate(){
+    
+        //
+        // retrieve point coordinates and descriptions
+        // via webflow Point
+        //
+        WebflowPoint webflowPoint = new WebflowPoint();
+        webflowPoint.smartUpdate();
+        
+        this.setLongitude(webflowPoint.getLon());
+        this.setLatitude(webflowPoint.getLat());
+        this.setDescription(webflowPoint.getDisplaystring());
+        //
+        // set position parameter and rideIDs 
+        // 
+        HTTPUtil hru = new HTTPUtil();
+        String positionS = hru.getParameterSingleValue(getParamNamePosition());
+        try{ this.setPosition(new Float(positionS));
+        } catch(Exception exc){
+            exc.printStackTrace(System.err);
+        }
+        String  rideIdS=hru.getParameterSingleValue(getParamNameRideId());
+        try{ this.setRideId(new Integer(rideIdS));
+        } catch(Exception exc){
+            exc.printStackTrace(System.err);
+        }
+        
+    } // smartUpdate
     
     
     /** JWaypoint Entity adds a volatile position parameter to WaypointEntity,
@@ -39,13 +99,13 @@ public class JWaypointEntity extends WaypointEntity{
      *  end of the ridepoints list.
      * 
      */
-    private Double position=new Double(Integer.MAX_VALUE);
+    private Float position=new Float(Integer.MAX_VALUE);
     
-    public Double getPosition(){
+    public Float getPosition(){
         return this.getPosition();
     }
     
-    public void setPosition(double position){
+    public void setPosition(float position){
         this.position=position;
     }
     
