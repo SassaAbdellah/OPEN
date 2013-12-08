@@ -49,27 +49,26 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
     public String getParamNamePosition() {
         return PARAM_NAME_POSITION;
     }
-    
     /**
      * Parametername for description. Used when doing a smart update.
      */
     public static final String PARAM_NAME_DESCRIPTION = "description";
 
-     /**
+    /**
      * @return parameter name position
      */
     public String getParamNameDescription() {
         return PARAM_NAME_DESCRIPTION;
     }
-    
-   
+
     /**
      * Clear all fields, set parameters longitude, latitude, description,
      * position and rideId from parameters.
-     */  
+     */
     public void smartUpdate() {
 
         try {
+
 
             this.setDescription("smartUpdat has been called on this");
             this.position = 1f;
@@ -77,20 +76,21 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
             HTTPUtil hru = new HTTPUtil();
             String positionS = hru.getParameterSingleValue(getParamNamePosition());
 
-            try {
-                this.setPosition(new Float(positionS));
-            } catch (Exception exc) {
-                System.err.println(exc);
+            if (positionS != null) {
+                try { this.setPosition(new Float(positionS));
+                } catch (Exception exc) {
+                    System.err.println(exc);
+                }
             }
-
 
             String rideIdS = hru.getParameterSingleValue(getParamNameRideId());
-            try {
-                this.setRideId(new Integer(rideIdS));
-            } catch (Exception exc) {
+            
+            if(rideIdS!=null){
+                try { this.setRideId(new Integer(rideIdS));
+                } catch (Exception exc) {
                 System.err.println(exc);
+                }
             }
-
 
             // retrieve point coordinates and descriptions
             // via webflow Point
@@ -100,14 +100,15 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
 
             this.setLongitude(webflowPoint.getLon());
             this.setLatitude(webflowPoint.getLat());
+            this.setDescription(webflowPoint.getDisplaystring());
 
             // set position parameter and rideIDs 
-       
+
         } catch (Exception exc) {
             System.err.println(exc);
         }
 
-      
+
     } // smartUpdate
     /**
      * JWaypoint Entity adds a volatile position parameter to WaypointEntity,
