@@ -33,10 +33,10 @@
             <ui:define name="content">
 
 
-                #{waypoint.smartupdate()}
+                #{waypoint.smartUpdate()}
 
 
-                <h1> #{msgs.createWaypoint} #{waypoint.rideId} </h1>
+                <h1> #{msgs.createWaypoint} #{waypoint.JSON} </h1>
 
 
                 <table>
@@ -51,12 +51,7 @@
                             Way out: do not update driveDisplay if rideId parameter is null
                         </td>
                     </tr>
-                    <tr> 
-                    <td colspan="3">
-                        #{waypoint.smartUpdate()}                        
-                    </td>
-                    
-                    </tr>
+                 
 
                     <tr> <!--  -->
                         <td class="formInput" colspan="3">

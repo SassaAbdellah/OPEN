@@ -663,6 +663,15 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
 
-    
+      <!-- Waypoint to be added or removed from DriverUndertakeRide Entities         -->    
+      <!-- This looks like a bug in Glassfish JSF implementation                     -->
+      <!-- For whatever reason, when waypoint gets defined via Annotation            -->
+      <!-- waypoint initialisation is broken, so it is defined here as a workarount  -->
+    <managed-bean> 
+        <managed-bean-name>waypoint</managed-bean-name>
+        <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JWaypointEntity</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean> 
+
             
 </faces-config>
