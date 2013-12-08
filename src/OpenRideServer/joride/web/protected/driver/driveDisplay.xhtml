@@ -151,8 +151,13 @@
 
                 <p>
                     <h:form>
-                        <h:commandLink action="drive.createWaypoint"> 
-                            TODO: create waypoint        
+                        <h:commandLink action="drive.createWaypoint">
+                            waypoint parameters
+                            <f:param name="#{waypoint.paramNameRideId}" value="#{driverride.rideId}" />
+                            <f:param name="#{waypoint.paramNamePosition}" value="5555.5" />
+                           
+                            
+                            Webflow parameters
                             <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
                             <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                         </h:commandLink>
