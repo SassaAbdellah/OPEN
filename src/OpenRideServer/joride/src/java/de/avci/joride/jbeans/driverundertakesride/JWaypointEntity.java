@@ -77,18 +77,20 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
             String positionS = hru.getParameterSingleValue(getParamNamePosition());
 
             if (positionS != null) {
-                try { this.setPosition(new Float(positionS));
+                try {
+                    this.setPosition(new Float(positionS));
                 } catch (Exception exc) {
                     System.err.println(exc);
                 }
             }
 
             String rideIdS = hru.getParameterSingleValue(getParamNameRideId());
-            
-            if(rideIdS!=null){
-                try { this.setRideId(new Integer(rideIdS));
+
+            if (rideIdS != null) {
+                try {
+                    this.setRideId(new Integer(rideIdS));
                 } catch (Exception exc) {
-                System.err.println(exc);
+                    System.err.println(exc);
                 }
             }
 
@@ -185,4 +187,41 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
         super();
         this.setDescription("uninitialized");
     }
+
+    /**
+     * True, if location is set for this waypoint. This is "step one" of the
+     * waypoint initialisation
+     *
+     * @return true, if longitude,latitude and description are !=null each
+     */
+    public boolean getLocationSet() {
+
+        return (this.getLatitude() != null
+                && this.getLongitude() != null
+                && this.getDescription() != null);
+
+    }
+
+    /**
+     * This is step 2 of waypoint initialisation.
+     *
+     * @return true, iff both rideId and routeIdx are !=null
+     */
+    public boolean getRideAttached() {
+
+        return (this.getRideId() != null)
+                && (this.getRouteIdx() != null);
+    }
+
+    
+    /** returns true, iff the initialisation is ready for persisting.
+     *
+     * 
+     * @return this.isRideIdAttached() && this.isLocationSet()
+     */
+    public boolean getReadyForPersisting() {
+        return (this.getRideAttached() && this.getLocationSet());
+    }
+    
+    
 }
