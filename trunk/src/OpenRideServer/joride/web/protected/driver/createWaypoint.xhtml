@@ -32,105 +32,110 @@
 
             <ui:define name="content">
 
+                <h:form> <!-- have a single form enclose the whole content area -->
 
-                #{waypoint.smartUpdate()}
-
-
-                <h1> #{msgs.createWaypoint} </h1>
+                    #{waypoint.smartUpdate()}
 
 
-                <table>
+                    <h1> #{msgs.createWaypoint} </h1>
+
+
+                    <table>
 
 
 
-                    <tr> 
-                        <td class="formLabel"> TODO: rideId </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.rideId} </td>
-                    </tr>
-                    <tr> 
-                        <td class="formLabel"> TODO: position </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.position} </td>
-                    </tr>
-                    <tr> 
-                        <td class="formLabel"> TODO: route Index </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.routeIdx} </td>
-                    </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: rideId </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.rideId} </td>
+                        </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: position </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.position} </td>
+                        </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: route Index </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.routeIdx} </td>
+                        </tr>
 
-                    <tr> 
-                        <td class="formLabel"> TODO: description </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.description} </td>
-                    </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: description </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.description} </td>
+                        </tr>
 
-                    <tr> 
-                        <td class="formLabel"> TODO: lon </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.longitude} </td>
-                    </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: lon </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.longitude} </td>
+                        </tr>
 
-                    <tr> 
-                        <td class="formLabel"> TODO: lat </td>
-                        <td class="formLabel"> : </td>
-                        <td class="formInput"> #{waypoint.latitude} </td>
-                    </tr>
+                        <tr> 
+                            <td class="formLabel"> TODO: lat </td>
+                            <td class="formLabel"> : </td>
+                            <td class="formInput"> #{waypoint.latitude} </td>
+                        </tr>
 
-                    <tr>
-                        <td class="formInput" colspan="3">
+                        <tr>
+                            <td class="formInput" colspan="3">
 
-                            <h:form>
+
+
+
+
                                 <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
 
+
                                     <!-- point parameters -->
-                                    <f:param name="#{point.paramTargetURL}" value="#{HTTPUser.URLBase}/faces/protected/driver/createWaypoint.xhtml"/>
+                                    <f:param name="#{point.paramTargetURL}" value="#{HTTPUser.URLBase}/faces/protected/driver/waypointCreate.xhtml"/>
                                     <!-- set the target parameters, so we know which point to update -->
-                                    <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetStartpoint}"/>
+                                    <f:param name="#{point.paramTarget}"    value="#{newdriverride.paramValueTargetEndpoint}"/>
+
                                     <!-- webflow parameters -->
+
                                     <f:param name="#{webflow.paramBack}"    value="driver.createWaypoint" /> 
                                     <f:param name="#{webflow.paramFinish}"  value="driver.createWaypoint" /> 
                                     <f:param name="#{webflow.paramCancel}"  value="driver.createWaypoint" /> 
 
+
                                 </h:commandLink>
-                            </h:form>
 
 
-
-                        </td>
-
-
-                    </tr>
+                            </td>
 
 
-                    <tr>
-                        <td class="formInput" colspan="3">
-
-                            Waypoint auswählen
-
-                            TODO: currently getting back from pickpoint to drive display 
-                            does not work, as drive display will update drive with given
-                            rideId parameter.
-                            Way out: do not update driveDisplay if rideId parameter is null
-                        </td>
-                    </tr>
+                        </tr>
 
 
-                    <tr> <!--  -->
-                        <td class="formInput" colspan="3">
-                            <!-- rscdriverride bean is needed here -->
-                            #{rscdriverride.update()}
-                            #{webflow.smartUpdate()}
-                            <h:form>  
+                        <tr>
+                            <td class="formInput" colspan="3">
+
+                                Waypoint auswählen
+
+                                TODO: currently getting back from pickpoint to drive display 
+                                does not work, as drive display will update drive with given
+                                rideId parameter.
+                                Way out: do not update driveDisplay if rideId parameter is null
+                            </td>
+                        </tr>
+
+
+                        <tr> <!--  -->
+                            <td class="formInput" colspan="3">
+                                
+                                #{webflow.smartUpdate()}
+
                                 <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
-                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
                                 </h:commandLink>
-                            </h:form>
-                        </td> 
-                    </tr>
-                </table>
 
+                            </td> 
+                        </tr>
+                    </table>
 
+                </h:form>
 
             </ui:define>
 

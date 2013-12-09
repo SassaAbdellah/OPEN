@@ -532,7 +532,7 @@
       <!-- show updates rides and drives for user -->
     <navigation-rule>
         <navigation-case>
-            <from-outcome>drive.createWaypoint</from-outcome>
+            <from-outcome>driver.createWaypoint</from-outcome>
             <to-view-id>/faces/protected/driver/createWaypoint.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
