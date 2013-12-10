@@ -39,6 +39,10 @@
 
                     <h1> #{msgs.createWaypoint} </h1>
 
+                    <p> 
+                        TODO: this page should dissapear once 
+                        waypoints are fully implemented
+                    </p>
 
                     <table>
 
@@ -120,30 +124,14 @@
 
 
                             </td>
-
-
                         </tr>
-
-
-                        <tr>
-                            <td class="formInput" colspan="3">
-
-                                Waypoint auswählen
-
-                                TODO: currently getting back from pickpoint to drive display 
-                                does not work, as drive display will update drive with given
-                                rideId parameter.
-                                Way out: do not update driveDisplay if rideId parameter is null
-                            </td>
-                        </tr>
-
 
                         <tr> <!--  -->
                             <td class="formInput" colspan="3">
                                 
                                 #{webflow.smartUpdate()}
 
-                                <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
+                                <h:commandLink value="Back to driveDisplay" action="driver.driveDisplay">
                                     <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
                                 </h:commandLink>
 

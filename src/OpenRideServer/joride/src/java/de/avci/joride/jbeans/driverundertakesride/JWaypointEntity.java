@@ -6,6 +6,7 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.io.Serializable;
 import javax.faces.bean.SessionScoped;
@@ -222,6 +223,15 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
     public boolean getReadyForPersisting() {
         return (this.getRideAttached() && this.getLocationSet());
     }
+    
+    
+    /** Call driverUndertakesRideService to add this waypoint 
+     *  to it's drive
+     */
+    public void addToDrive(){
+        new JDriverUndertakesRideEntityService().addWaypointToDriveSafely(this);
+    }
+    
     
     
 }

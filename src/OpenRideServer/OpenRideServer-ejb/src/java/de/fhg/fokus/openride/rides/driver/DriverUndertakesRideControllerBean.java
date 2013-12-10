@@ -1246,7 +1246,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
        for(int i=0; i<waypoints.size(); i++){
            WaypointEntity wpe=waypoints.get(i);
            wpe.setRouteIdx(i);
-           em.persist(wpe);
+           em.merge(wpe);
        }
        
        if(transaction) commitUserTransaction();
