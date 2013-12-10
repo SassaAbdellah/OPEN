@@ -706,12 +706,9 @@ public class JDriverUndertakesRideEntityService {
             throw new Error("Attempt to change Offer that is not owned by User");
         }
         
-    
         // TODO: implementation missing, 
         // call DriverUndertakesRideControllerLocal to do the real job
-        
-        
-        
+        durcl.addWaypoint(due, waypoint, waypoint.getPosition());
     }
     
     
