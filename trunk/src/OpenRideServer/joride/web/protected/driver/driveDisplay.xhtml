@@ -89,8 +89,7 @@
                         <td>  <span class="formInput">  #{driverride.rideComment}  </span> </td>
                     </tr>
 
-                    <!-- property ridecomment currently ommitted -->
-                    <!-- as it -->
+
                     <tr>
                         <td class="formLabel">  #{msgs.rideStartptAddress}     </td>
                         <td> : </td>
@@ -109,6 +108,31 @@
                         <td class="formInput"> #{driverride.longitudeStart} </td>
                     </tr>
 
+                    <!-- list of userdefined waypoints displayed below -->
+                    <tr>
+                        <td colspan="3">
+                            === todo: waypoints start ===
+                        </td>
+                    </tr>
+                    
+
+                    <ui:repeat   value="#{driverride.waypoints}" var="wp" >
+                        <tr> 
+                            <td class="formLabel"> #{wp.routeIdx} </td>
+                            <td> : </td>
+                            <td class="formInput"> 
+                                #{wp.description} 
+                                <br/>
+                                #{wp.JSON}
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    
+                    <tr>
+                        <td colspan="3">
+                            === todo: waypoints end ===
+                        </td>
+                    </tr>
 
                     <tr>
                         <td class="formLabel">  #{msgs.rideDestination}        </td>
@@ -147,23 +171,19 @@
 
 
                 </table>
-                
-                <p> 
-                    <h4> waypoints as json </h4>
-                
-                    #{driverride.waypointsAsJSON}
-                </p>
+
+              
 
 
                 <p>
                     <h:form>
-                        <h:commandLink action="driver.createWaypoint">
-                            waypoint parameters
+                        <h:commandLink action="driver.createWaypoint" value="Manage Waypoints">
+
+                            
                             <f:param name="#{waypoint.paramNameRideId}" value="#{driverride.rideId}" />
                             <f:param name="#{waypoint.paramNamePosition}" value="5555.5" />
-                           
-                            
-                            Webflow parameters
+
+                            <!-- Webflow parameters -->
                             <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
                             <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                         </h:commandLink>
