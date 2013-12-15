@@ -1215,6 +1215,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position, boolean transaction) {
        
+        
+        System.err.println("addWaypoint!");
+        
         if(transaction) startUserTransaction();
        // set waypoint.rideId to match drive.rideId  </li>
         waypoint.setRideId(drive.getRideId());
@@ -1246,7 +1249,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
        for(int i=0; i<waypoints.size(); i++){
            WaypointEntity wpe=waypoints.get(i);
            wpe.setRouteIdx(i);
-           em.merge(wpe);
+           em.persist(wpe);
        }
        
        if(transaction) commitUserTransaction();

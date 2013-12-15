@@ -265,6 +265,16 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
     
+    /** get the Waypoints (user-defined required points) as JSON
+     * 
+     * @return 
+     */
+    public String getWaypointsAsJSON(){
+    
+        JDriverUndertakesRideEntityService jdure=new JDriverUndertakesRideEntityService();
+        return jdure.getWaypointsForDrive(this.getRideId()).getJSON().toString();
+      
+    }
     
     /** 
      * Get the *required* Routepoints for this Drive encoded as a JSONString
