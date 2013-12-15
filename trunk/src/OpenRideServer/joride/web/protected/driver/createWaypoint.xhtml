@@ -81,26 +81,26 @@
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.latitude} </td>
                         </tr>
-                        
-                       <tr> 
+
+                        <tr> 
                             <td class="formLabel"> TODO: isLocationSet </td>
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.locationSet} </td>
                         </tr>
-                        
+
                         <tr> 
                             <td class="formLabel"> TODO: rideAttached </td>
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.rideAttached} </td>
                         </tr>
-                        
-                           <tr> 
+
+                        <tr> 
                             <td class="formLabel"> TODO: ready for persisting </td>
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.readyForPersisting} </td>
                         </tr>
-                        
-                        
+
+
 
                         <tr>
                             <td class="formInput" colspan="3">
@@ -128,7 +128,7 @@
 
                         <tr> <!--  -->
                             <td class="formInput" colspan="3">
-                                
+
                                 #{webflow.smartUpdate()}
 
                                 <h:commandLink value="Back to driveDisplay" action="driver.driveDisplay">
@@ -138,6 +138,23 @@
                             </td> 
                         </tr>
                     </table>
+
+
+                    <!-- Add New Drive to Database, then display it -->
+
+                    <h:commandButton 
+                        value="create new Waypoint" 
+                        actionListener="#{waypoint.addToDrive()}"
+                        action="driver.driveDisplay" 
+                        >
+
+                        <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
+
+                    </h:commandButton>
+
+
+
+
 
                 </h:form>
 

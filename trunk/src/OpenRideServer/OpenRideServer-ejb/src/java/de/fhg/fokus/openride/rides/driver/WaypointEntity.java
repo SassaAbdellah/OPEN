@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "WaypointEntity.findByRideId", query = "SELECT wp FROM WaypointEntity wp WHERE wp.rideId = :rideId ORDER BY wp.routeIdx"),})
 @Entity
-@Table(name = "way_point")
+@Table(name = "waypoint")
 public class WaypointEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
