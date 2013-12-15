@@ -14,6 +14,7 @@ import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -275,6 +276,22 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return jdure.getWaypointsForDrive(this.getRideId()).getJSON().toString();
       
     }
+    
+     /** get the Waypoints (user-defined required points) as JSON
+     * 
+     * @return 
+     */
+    public List <JWaypointEntity> getWaypoints(){
+        try{
+        JDriverUndertakesRideEntityService jdure=new JDriverUndertakesRideEntityService();
+        return jdure.getWaypointsForDrive(this.getRideId());
+        } catch(Exception exc){
+            // sometimes strange exceptions happen when leaving a page
+            exc.printStackTrace(System.err);
+            return new ArrayList<JWaypointEntity>();
+        }
+    }
+    
     
     /** 
      * Get the *required* Routepoints for this Drive encoded as a JSONString
