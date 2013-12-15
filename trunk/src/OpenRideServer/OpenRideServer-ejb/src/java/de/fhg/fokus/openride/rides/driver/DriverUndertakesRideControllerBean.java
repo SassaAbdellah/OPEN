@@ -86,6 +86,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return null;
     }
 
+    /** TODO: dislike
+     * 
+     * @param object 
+     */
     public void persist(Object object) {
         startUserTransaction();
         commitUserTransaction();
@@ -1231,12 +1235,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if(size==0){
                waypoints.add(waypoint);
                waypoint.setRouteIdx(0);
+               em.persist(waypoint);
+                if(transaction) commitUserTransaction();
                return; // done
         }
        
         if(position> size-1){
                waypoints.add(size, waypoint);
                waypoint.setRouteIdx(size);
+               em.persist(waypoint);
+                if(transaction) commitUserTransaction();
                return;
         }
        
