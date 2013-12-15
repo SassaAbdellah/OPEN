@@ -6,7 +6,6 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.WebflowPoint;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.io.Serializable;
 import javax.faces.bean.SessionScoped;
@@ -225,10 +224,34 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
     }
     
     
+    /** Extract a plain WaypointEntity object from this object.
+     *  
+     *  This makes sense when persisting a waypoint,
+     *  since the entity manager does not now JWaypointEntities.
+     * 
+     * 
+     */
+    public WaypointEntity extractWaypoint(){
+    
+        WaypointEntity res=new WaypointEntity();
+        
+        res.setDescription(this.getDescription());
+        res.setLatitude(this.getLatitude());
+        res.setLongitude(this.getLongitude());
+        res.setRideId(this.getRideId());
+        res.setRouteIdx(this.getRouteIdx());
+        
+        return res;
+               
+    }
+    
+    
+    
     /** Call driverUndertakesRideService to add this waypoint 
      *  to it's drive
      */
     public void addToDrive(){
+        
         new JDriverUndertakesRideEntityService().addWaypointToDriveSafely(this);
     }
     
