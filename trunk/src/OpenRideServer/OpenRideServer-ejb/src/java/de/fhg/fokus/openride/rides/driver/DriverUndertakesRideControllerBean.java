@@ -54,9 +54,7 @@ import org.postgis.Point;
 @Stateless
 public class DriverUndertakesRideControllerBean extends ControllerBean implements DriverUndertakesRideControllerLocal {
 
-    
     UserTransaction u;
-    
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
     @EJB
@@ -86,9 +84,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return null;
     }
 
-    /** TODO: dislike
-     * 
-     * @param object 
+    /**
+     * TODO: dislike
+     *
+     * @param object
      */
     public void persist(Object object) {
         startUserTransaction();
@@ -262,10 +261,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return deletable;
     }
 
-    
     @Override
-  
-    
     public boolean removeRide(int rideId) {
         startUserTransaction();
 
@@ -285,11 +281,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
 
             // all routing data can now savely be deleted
-            removeAllDriveRoutepoints(rideId); 
+            removeAllDriveRoutepoints(rideId);
             removeAllRoutepoints(rideId);
             removeAllWaypoints(rideId);
-            
-            
+
+
             List<DriverUndertakesRideEntity> entity = em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
             System.out.println("size entity: " + entity.size());
             for (DriverUndertakesRideEntity ente : entity) {
@@ -343,18 +339,15 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         commitUserTransaction();
         return routePoints;
     }
-    
-    
-    
-     /** Get Waypoints for a given rideId
-      * 
-      * @param  rideId
-      * @return list of userdefined waypoints for this ride
-      */
-    
+
+    /**
+     * Get Waypoints for a given rideId
+     *
+     * @param rideId
+     * @return list of userdefined waypoints for this ride
+     */
     @Override
-    
-     public List<WaypointEntity> getWaypoints(int rideId) {
+    public List<WaypointEntity> getWaypoints(int rideId) {
         startUserTransaction();
         Query q = em.createNamedQuery("WaypointEntity.findByRideId");
         q.setParameter("rideId", rideId);
@@ -362,11 +355,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         commitUserTransaction();
         return waypoints;
     }
-    
-    
-    
-    
-    
 
     /**
      *
@@ -1128,7 +1116,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return returnList;
     }
 
-    
     @Override
     public boolean invalidateRide(Integer rideId) {
 
@@ -1136,8 +1123,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
         // TODO: check if we really want user transactions
         startUserTransaction();
-       
-        
+
+
         boolean deletable = this.isDeletable(rideId);
         // if this can be removed, then do so
         if (deletable) {
@@ -1146,7 +1133,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             logger.info("deleting drive with rideId : " + rideId + " the hard way by removing it");
             return true;
         }
-        
+
         // there is no further need for waypoints, since 
         // this ride is going to be invalidated
         this.removeAllWaypoints(rideId);
@@ -1195,169 +1182,164 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
     @Override
     public List<WaypointEntity> getWaypoints(DriverUndertakesRideEntity drive) {
-  
+
         // note that result is sorted by virtue of the JPA Query
         return this.getWaypoints(drive.getRideId());
     }
 
     @Override
     public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position) {
-  
+
         this.addWaypoint(drive, waypoint, position, true);
     }
-        
-  
-    /** Add a waypoint to a given drive.
-     *  As this is not intended to be called from outside, 
-     *  it can be called with or without an explicite enclosing 
-     *  transaction
-     * 
+
+    /**
+     * Add a waypoint to a given drive. As this is not intended to be called
+     * from outside, it can be called with or without an explicite enclosing
+     * transaction
+     *
      * @param drive
      * @param waypoint
      * @param position
-     * @param transaction turn on transaction explicitely 
+     * @param transaction turn on transaction explicitely
      */
     protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position, boolean transaction) {
-       
+
         
-        System.err.println("addWaypoint!");
-        
-        if(transaction) startUserTransaction();
-       // set waypoint.rideId to match drive.rideId  </li>
+        if (transaction) {
+            startUserTransaction();
+        }
+        // set waypoint.rideId to match drive.rideId  </li>
         waypoint.setRideId(drive.getRideId());
-       // get sorted List of waypoints </li>
-        List <WaypointEntity> waypoints=this.getWaypoints(drive);
-       // add waypoint to position given by position parameter </li>
-        
-        int size=waypoints.size();
-        
-        // if list is empty, just add
-        if(size==0){
-               waypoints.add(waypoint);
-               waypoint.setRouteIdx(0);
-               em.persist(waypoint);
-                if(transaction) commitUserTransaction();
-               return; // done
-        }
-       
-        if(position> size-1){
-               waypoints.add(size, waypoint);
-               waypoint.setRouteIdx(size);
-               em.persist(waypoint);
-                if(transaction) commitUserTransaction();
-               return;
-        }
-       
-       for (int pos=0; pos<size; pos++){
-           if(position<=pos){
-               waypoints.add(pos, waypoint);
-           }
-       }
-       // rearrange routeIndices
-       for(int i=0; i<waypoints.size(); i++){
-           WaypointEntity wpe=waypoints.get(i);
-           wpe.setRouteIdx(i);
-           em.persist(wpe);
-       }
-       
-       if(transaction) commitUserTransaction();
-    }
-    
-    /** Remove single waypoint. As this is intended to be called from 
-     *  outside, user transactions are set explicitely.
-     * 
-     * @param rideID
-     * @param routeIdx 
-     */
-    @Override
-    public void removeWaypoint(int rideID, int routeIdx){
-        this.removeWaypoint(rideID, routeIdx, true);
-    }
+        // get sorted List of waypoints </li>
+        List<WaypointEntity> waypoints = this.getWaypoints(drive);
+        // add waypoint to position given by position parameter </li>
+
+        int size = waypoints.size();
+           
    
-    /** Internal method for removing. Can be called with or without 
-     *  an eclosing transaction.
-     * 
+        // determine the maximal index that is smaller than 
+        // the position parameter
+        float minIndexFloat=Math.min(position, (size-1));
+        int myIndex=new Double(Math.ceil(minIndexFloat)).intValue();
+        waypoints.add(myIndex, waypoint);
+
+        // rearrange positions
+        for (int i = 0; i < waypoints.size(); i++) {
+            WaypointEntity wpe = waypoints.get(i);
+            wpe.setRouteIdx(i);
+            em.persist(wpe);
+        }
+
+        if (transaction) {
+            commitUserTransaction();
+        }
+    }
+
+    /**
+     * Remove single waypoint. As this is intended to be called from outside,
+     * user transactions are set explicitely.
+     *
      * @param rideID
      * @param routeIdx
-     * @param transaction  if true, method is called with enclosing transaction
      */
-    private void removeWaypoint(int rideID, int routeIdx ,boolean transaction ){
-        
-        if(transaction) startUserTransaction();
-        
-        DriverUndertakesRideEntity drive=this.getDriveByDriveId(rideID);
-        
-        if (drive==null) return;
-        List <WaypointEntity> waypoints=this.getWaypoints(drive);
-        
-        if(waypoints.size()>=routeIdx) return;
-         
-        
-        WaypointEntity toRemove=waypoints.get(routeIdx);
-      
+    @Override
+    public void removeWaypoint(int rideID, int routeIdx) {
+        this.removeWaypoint(rideID, routeIdx, true);
+    }
+
+    /**
+     * Internal method for removing. Can be called with or without an eclosing
+     * transaction.
+     *
+     * @param rideID
+     * @param routeIdx
+     * @param transaction if true, method is called with enclosing transaction
+     */
+    private void removeWaypoint(int rideID, int routeIdx, boolean transaction) {
+
+        if (transaction) {
+            startUserTransaction();
+        }
+
+        DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
+
+        if (drive == null) {
+            return;
+        }
+        List<WaypointEntity> waypoints = this.getWaypoints(drive);
+
+        if (waypoints.size() >= routeIdx) {
+            return;
+        }
+
+
+        WaypointEntity toRemove = waypoints.get(routeIdx);
+
         waypoints.remove(toRemove);
-          
-        for(int i=0; i< waypoints.size(); i++){
+
+        for (int i = 0; i < waypoints.size(); i++) {
             waypoints.get(i).setRideId(i);
             em.persist(i);
         }
         em.remove(toRemove);
-       
-        if(transaction) commitUserTransaction();
+
+        if (transaction) {
+            commitUserTransaction();
+        }
     }
-    
-    /** Remove all Waypoints for driverUndertakesRideEntity
-     *  given by param rideID.
-     * 
-     *  This does not care about transactions, since it is 
-     *  supposed to be called when deleting or invalidating 
-     *  drives, and hence be enclosed in a transaction
-     * 
-     * @param rideID 
+
+    /**
+     * Remove all Waypoints for driverUndertakesRideEntity given by param
+     * rideID.
+     *
+     * This does not care about transactions, since it is supposed to be called
+     * when deleting or invalidating drives, and hence be enclosed in a
+     * transaction
+     *
+     * @param rideID
      */
-    private void removeAllWaypoints(int rideId){
-       
-        List <WaypointEntity> waypoints=this.getWaypoints(rideId);
-        for(WaypointEntity w : waypoints){
+    private void removeAllWaypoints(int rideId) {
+
+        List<WaypointEntity> waypoints = this.getWaypoints(rideId);
+        for (WaypointEntity w : waypoints) {
             em.remove(w);
         }
     }
-    
-     
-    /** Remove all routepoints for driverUndertakesRideEntity
-     *  given by param rideID.
-     * 
-     *  This does not care about transactions, since it is 
-     *  supposed to be called when deleting or invalidating 
-     *  drives, and hence be enclosed in a transaction
-     * 
-     * @param rideID 
+
+    /**
+     * Remove all routepoints for driverUndertakesRideEntity given by param
+     * rideID.
+     *
+     * This does not care about transactions, since it is supposed to be called
+     * when deleting or invalidating drives, and hence be enclosed in a
+     * transaction
+     *
+     * @param rideID
      */
-    private void removeAllRoutepoints(int rideId){
-       
-        List <RoutePointEntity> routepoints=this.getRoutePoints(rideId);
-        for(RoutePointEntity r : routepoints){
+    private void removeAllRoutepoints(int rideId) {
+
+        List<RoutePointEntity> routepoints = this.getRoutePoints(rideId);
+        for (RoutePointEntity r : routepoints) {
             em.remove(r);
         }
     }
-    
-    
-    
-     /** Remove all Driveroutepoints for driverUndertakesRideEntity
-     *  given by param rideID.
-     * 
-     *  This does not care about transactions, since it is 
-     *  supposed to be called when deleting or invalidating 
-     *  drives, and hence be enclosed in a transaction
-     * 
-     * @param rideID 
+
+    /**
+     * Remove all Driveroutepoints for driverUndertakesRideEntity given by param
+     * rideID.
+     *
+     * This does not care about transactions, since it is supposed to be called
+     * when deleting or invalidating drives, and hence be enclosed in a
+     * transaction
+     *
+     * @param rideID
      */
-    private void removeAllDriveRoutepoints(int rideId){
-       
-        List <DriveRoutepointEntity> drpts=this.getDriveRoutePoints(rideId);
-        for(DriveRoutepointEntity drpt : drpts){
+    private void removeAllDriveRoutepoints(int rideId) {
+
+        List<DriveRoutepointEntity> drpts = this.getDriveRoutePoints(rideId);
+        for (DriveRoutepointEntity drpt : drpts) {
             em.remove(drpt);
         }
     }
-   
 } // class
