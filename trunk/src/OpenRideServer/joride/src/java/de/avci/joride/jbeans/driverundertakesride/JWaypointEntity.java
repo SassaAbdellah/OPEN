@@ -146,23 +146,23 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
      */
     public StringBuffer getJSON() {
         StringBuffer buf = new StringBuffer();
-        buf.append("[");
+        buf.append("[ ");
         buf.append(this.getLongitude());
-        buf.append(",");
+        buf.append(", ");
         buf.append(this.getLongitude());
-        buf.append(",");
+        buf.append(", ");
         buf.append(this.getId());
-        buf.append(",");
+        buf.append(", ");
         buf.append("'");
         buf.append(this.getDescription());
         buf.append("'");
-        buf.append(',');
+        buf.append(", ");
         buf.append(this.getRideId());
-        buf.append(',');
+        buf.append(", ");
         buf.append(this.getPosition());
-        buf.append(',');
+        buf.append(", ");
         buf.append(this.getRouteIdx());
-        buf.append("]");
+        buf.append(" ]");
         return buf;
     }
 
