@@ -1220,8 +1220,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
    
         // determine the maximal index that is smaller than 
         // the position parameter
-        float minIndexFloat=Math.min(position, (size-1));
-        int myIndex=new Double(Math.ceil(minIndexFloat)).intValue();
+        float minIndexFloat=Math.min(position, (size));
+        int myIndex=new Double(Math.floor(minIndexFloat)).intValue();
         waypoints.add(myIndex, waypoint);
 
         // rearrange positions
