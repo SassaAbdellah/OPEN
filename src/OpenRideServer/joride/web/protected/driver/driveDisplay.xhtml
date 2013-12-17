@@ -118,9 +118,7 @@
 
                     <ui:repeat   value="#{driverride.waypoints}" var="wp" >
                         <tr> 
-                            <td class="formLabel"> #{wp.routeIdx} </td>
-                            <td> : </td>
-                            <td class="formInput"> 
+                            <td class="formInput" colspan="3"> 
                                 #{wp.description} 
                                 <br/>
                                 #{wp.JSON}
