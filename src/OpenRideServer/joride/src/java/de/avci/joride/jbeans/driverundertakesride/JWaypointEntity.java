@@ -71,7 +71,8 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
 
 
             this.setDescription("smartUpdat has been called on this");
-            this.position = 1f;
+            
+            
 
             HTTPUtil hru = new HTTPUtil();
             String positionS = hru.getParameterSingleValue(getParamNamePosition());
@@ -213,48 +214,65 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
                 && (this.getRouteIdx() != null);
     }
 
-    
-    /** returns true, iff the initialisation is ready for persisting.
+    /**
+     * returns true, iff the initialisation is ready for persisting.
      *
-     * 
+     *
      * @return this.isRideIdAttached() && this.isLocationSet()
      */
     public boolean getReadyForPersisting() {
         return (this.getRideAttached() && this.getLocationSet());
     }
-    
-    
-    /** Extract a plain WaypointEntity object from this object.
-     *  
-     *  This makes sense when persisting a waypoint,
-     *  since the entity manager does not now JWaypointEntities.
-     * 
-     * 
+
+    /**
+     * Extract a plain WaypointEntity object from this object.
+     *
+     * This makes sense when persisting a waypoint, since the entity manager
+     * does not now JWaypointEntities.
+     *
+     *
      */
-    public WaypointEntity extractWaypoint(){
-    
-        WaypointEntity res=new WaypointEntity();
-        
+    public WaypointEntity extractWaypoint() {
+
+        WaypointEntity res = new WaypointEntity();
+
         res.setDescription(this.getDescription());
         res.setLatitude(this.getLatitude());
         res.setLongitude(this.getLongitude());
         res.setRideId(this.getRideId());
         res.setRouteIdx(this.getRouteIdx());
-        
+
         return res;
-               
+
     }
-    
-    
-    
-    /** Call driverUndertakesRideService to add this waypoint 
-     *  to it's drive
+
+    /**
+     * Call driverUndertakesRideService to add this waypoint to it's drive
      */
-    public void addToDrive(){
-        
+    public void addToDrive() {
+
         new JDriverUndertakesRideEntityService().addWaypointToDriveSafely(this);
     }
-    
-    
-    
+
+    /**
+     * returns a value for the position parameter to addWaypoint(...) so that a
+     * point added with this parameter is placed immediately *before* this
+     * waypoint;
+     *
+     * @return this.getRouteIdx-0.5
+     */
+    public double getPositionValueBefore() {
+        return this.getRouteIdx() - 0.5;
+    }
+
+    /**
+     * returns a value for the position parameter to addWaypoint(...) so that a
+     * point added with this parameter is placed immediately *after* this
+     * waypoint;
+     *
+     * @return this.getRouteIdx+0.5
+     */
+    public double getPositionValueAfter() {
+        return this.getRouteIdx() + 0.5;
+    }
 }
