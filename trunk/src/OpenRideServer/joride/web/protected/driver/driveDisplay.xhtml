@@ -121,26 +121,44 @@
                         </td>
                     </tr>
 
+                    <tr> 
+                        <td class="formInput" colspan="3"> 
+                        
+
+                            <!-- commandlink to add a waypoint right after the startpoint (position==0) -->
+                            <h:form>
+                                <h:commandLink action="driver.createWaypoint" value="TODO: Add waypoint (at beginning)">
+                                    <f:param name="#{waypoint.paramNameRideId}" value="#{rscdriverride.rideId}" />
+                                    <f:param name="#{waypoint.paramNamePosition}" value="0" />
+
+                                    <!-- Webflow parameters -->
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                </h:commandLink>
+                            </h:form>
+                        </td>
+                    </tr>    
+
 
                     <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
                         <tr> 
                             <td class="formInput" colspan="3"> 
                                 #{wp.description} 
-                                
+
                                 <!-- commandlink to add a waypoint after *this* waypoint -->
 
-                                 <h:form>
-                                        <h:commandLink action="driver.createWaypoint" value="TODO: Add waypoint">
- 
+                                <h:form>
+                                    <h:commandLink action="driver.createWaypoint" value="TODO: Add waypoint (after point)">
 
-                                            <f:param name="#{waypoint.paramNameRideId}" value="#{rscdriverride.rideId}" />
-                                            <f:param name="#{waypoint.paramNamePosition}" value="#{wp.positionValueAfter}" />
 
-                                            <!-- Webflow parameters -->
-                                            <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
-                                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
-                                        </h:commandLink>
-                                    </h:form>
+                                        <f:param name="#{waypoint.paramNameRideId}" value="#{rscdriverride.rideId}" />
+                                        <f:param name="#{waypoint.paramNamePosition}" value="#{wp.positionValueAfter}" />
+
+                                        <!-- Webflow parameters -->
+                                        <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                        <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                    </h:commandLink>
+                                </h:form>
 
 
 
@@ -282,7 +300,7 @@
 
                 <p>
 
-                
+
 
                     <h:form>
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
