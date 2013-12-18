@@ -34,6 +34,12 @@
 
 
                 #{driverride.update()}
+                #{webflow.smartUpdate()}
+                <!-- request scoped driverride is here to circumvent JSF Bug -->
+                <!-- which allows no command links inside repeat elements    -->
+                <!-- unless the object being repeated is session scoped      -->
+                <!-- TODO: remove rscdriverride as soon as Oracle fixes this -->
+                #{rscdriverride.update()}
 
                 <h1> #{msgs.rideOffer} #{driverride.rideId} </h1>
 
@@ -114,18 +120,34 @@
                             === todo: waypoints start ===
                         </td>
                     </tr>
-                    
 
-                    <ui:repeat   value="#{driverride.waypoints}" var="wp" >
+
+                    <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
                         <tr> 
                             <td class="formInput" colspan="3"> 
                                 #{wp.description} 
-                                <br/>
-                                #{wp.JSON}
+                                
+                                <!-- commandlink to add a waypoint after *this* waypoint -->
+
+                                 <h:form>
+                                        <h:commandLink action="driver.createWaypoint" value="TODO: Add waypoint">
+ 
+
+                                            <f:param name="#{waypoint.paramNameRideId}" value="#{rscdriverride.rideId}" />
+                                            <f:param name="#{waypoint.paramNamePosition}" value="#{wp.positionValueAfter}" />
+
+                                            <!-- Webflow parameters -->
+                                            <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                        </h:commandLink>
+                                    </h:form>
+
+
+
                             </td>
                         </tr>
                     </ui:repeat>
-                    
+
                     <tr>
                         <td colspan="3">
                             === todo: waypoints end ===
@@ -170,14 +192,14 @@
 
                 </table>
 
-              
+
 
 
                 <p>
                     <h:form>
                         <h:commandLink action="driver.createWaypoint" value="Manage Waypoints">
 
-                            
+
                             <f:param name="#{waypoint.paramNameRideId}" value="#{driverride.rideId}" />
                             <f:param name="#{waypoint.paramNamePosition}" value="5555.5" />
 
@@ -185,10 +207,6 @@
                             <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
                             <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                         </h:commandLink>
-
-
-
-
                     </h:form>
                 </p>
 
@@ -264,7 +282,7 @@
 
                 <p>
 
-                    #{webflow.smartUpdate()}
+                
 
                     <h:form>
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
