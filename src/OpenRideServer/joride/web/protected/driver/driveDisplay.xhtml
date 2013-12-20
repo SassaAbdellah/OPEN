@@ -144,6 +144,22 @@
                         <tr> 
                             <td class="formInput" colspan="3"> 
                                 #{wp.description} 
+                                
+                                
+                                
+                                   <!-- commandlink to  remove *this* waypoint -->
+
+                                <h:form>
+                                    <h:commandLink actionListener="#{wp.removeFromDrive}" value="TODO: remove this waypoint" >
+                                      
+                                        <!-- Webflow parameters to enable reloading of page -->
+                                        <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                        <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                     
+                                    </h:commandLink>
+                                </h:form>
+
+                                
 
                                 <!-- commandlink to add a waypoint after *this* waypoint -->
 

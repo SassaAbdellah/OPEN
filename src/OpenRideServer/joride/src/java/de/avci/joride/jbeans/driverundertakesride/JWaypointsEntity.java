@@ -13,7 +13,14 @@ import javax.inject.Named;
  *  to the frontend as a java bean.
  *  (notice the plural in the classname!)
  * @author jochen
+ * 
+ * Seems, this does not add much value, so it might be shunned
+ * in the near future.
+ * Therefore, marked as deprecated.
+ * 
  */
+
+@Deprecated 
 
 @Named("waypoints")
 @RequestScoped

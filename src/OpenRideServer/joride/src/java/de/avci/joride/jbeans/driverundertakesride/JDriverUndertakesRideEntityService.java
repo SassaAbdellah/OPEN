@@ -715,6 +715,37 @@ public class JDriverUndertakesRideEntityService {
                 waypoint.getPosition());
     }
     
+     /** remove a waypoint from Drive *safely*.
+     *  Safely means that it gets checked wether the 
+     *  caller is entitled to do this operation or not.
+     * 
+     * 
+     * 
+     * @param rideId
+     * @param routeIdx 
+     */
+    public void removeWaypointFromDriveSafely(int rideId, int routeIdx){
+        
+       
+        
+        CustomerEntity ce = this.getCustomerEntity();
+
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+        DriverUndertakesRideEntity due = 
+                durcl.getDriveByDriveId(rideId);
+        
+        // Sanity check, caller of this method must be owner of this offer
+
+        if (ce.getCustId() != due.getCustId().getCustId()) {
+            throw new Error("Attempt to change Offer that is not owned by User");
+        }
+        
+        // call DriverUndertakesRideControllerLocal to do the real job
+        durcl.removeWaypoint( rideId, routeIdx);
+               
+    }
+    
+    
     
     
     

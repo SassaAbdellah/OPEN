@@ -796,4 +796,17 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
  
     }
     
+    
+    /** Remove Waypoint with given routeIndex from this Ride
+     * 
+     * @param rideIdx routeIndex or the waypoint to be removed
+     */
+    public void removeWaypoint(int routeIdx){
+        
+        new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
+    }
+    
+    
+    
+    
 } // class 

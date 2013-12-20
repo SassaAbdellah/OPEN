@@ -1205,7 +1205,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position, boolean transaction) {
 
-        
+
         if (transaction) {
             startUserTransaction();
         }
@@ -1216,12 +1216,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // add waypoint to position given by position parameter </li>
 
         int size = waypoints.size();
-           
-   
+
+
         // determine the maximal index that is smaller than 
         // the position parameter
-        float minIndexFloat=Math.min(position, (size));
-        int myIndex=new Double(Math.floor(minIndexFloat)).intValue();
+        float minIndexFloat = Math.min(position, (size));
+        int myIndex = new Double(Math.floor(minIndexFloat)).intValue();
         waypoints.add(myIndex, waypoint);
 
         // rearrange positions
@@ -1258,6 +1258,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     private void removeWaypoint(int rideID, int routeIdx, boolean transaction) {
 
+
+        System.err.println("removeWaypoin: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
+         
         if (transaction) {
             startUserTransaction();
         }
@@ -1265,25 +1268,34 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
 
         if (drive == null) {
+            System.err.println("cannot removeWaypoint: drive is null");
             return;
         }
         List<WaypointEntity> waypoints = this.getWaypoints(drive);
 
-        if (waypoints.size() >= routeIdx) {
+        
+        System.err.print("removeWaypoint: waypointIndices: ");
+        for(WaypointEntity w: waypoints){
+            System.err.print(""+w.getRouteIdx()+", ");
+        }
+        System.err.println();
+        
+        if (waypoints.size() <= routeIdx) {
+            System.err.println("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
             return;
         }
 
-
-        WaypointEntity toRemove = waypoints.get(routeIdx);
-
-        waypoints.remove(toRemove);
-
+        em.remove(waypoints.get(routeIdx));
+        waypoints.remove(routeIdx);
+             
+        // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
-            waypoints.get(i).setRideId(i);
-            em.persist(i);
+            
+            WaypointEntity wp=waypoints.get(i);
+            wp.setRouteIdx(i);
+            em.merge(wp);
         }
-        em.remove(toRemove);
-
+        
         if (transaction) {
             commitUserTransaction();
         }
