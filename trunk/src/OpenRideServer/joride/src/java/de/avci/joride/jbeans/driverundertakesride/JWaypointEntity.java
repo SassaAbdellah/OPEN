@@ -275,4 +275,14 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
     public double getPositionValueAfter() {
         return this.getRouteIdx() + 1;
     }
+    
+    
+    /** Remove this waypoint from the driverUndertakesRideEntity it is attached to
+     * 
+     */
+    public void removeFromDrive(){
+        new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), this.getRouteIdx());
+    }
+    
+    
 }
