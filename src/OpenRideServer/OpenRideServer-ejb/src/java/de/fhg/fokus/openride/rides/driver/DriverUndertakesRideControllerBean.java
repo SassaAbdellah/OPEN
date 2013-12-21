@@ -1155,23 +1155,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         logger.info("invalidateRide : mark ride as invalidated");
         
         // mark ride as invalidated
-
-        this.updateRide(dure.getRideId(), //  rideId
-                dure.getCustId().getCustId(), // customerId
-                dure.getRideStartpt(), // ridestartPoint
-                dure.getRideEndpt(), // rideendPoint
-                new Point[0], // intermediatePoints
-                new java.sql.Date(dure.getRideStarttime().getTime()), // ridestartTime
-                "COUNTERMANDED", // rideComment
-                dure.getRideAcceptableDetourInKm(), // acceptableDetourInMin
-                dure.getRideAcceptableDetourInMin(), // acceptableDetourKM
-                dure.getRideAcceptableDetourInPercent(), // acceptableDetourPercent
-                0, // offeredSeatsNo
-                dure.getStartptAddress(), // String startPtAddress
-                dure.getEndptAddress() // String endPtAddress
-                );
-
-
+        dure.setRideComment("COUNTERMANDED");
+        // set Number of offered seats to 0, so that there will be no more matchings
+        dure.setRideOfferedseatsNo(0);
+ 
         em.merge(dure);
         commitUserTransaction();
 
@@ -1364,4 +1351,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.remove(drpt);
         }
     }
+    
+    
+    
+    
 } // class
