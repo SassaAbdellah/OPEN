@@ -284,5 +284,13 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), this.getRouteIdx());
     }
     
+    /** Position of waypoint to be displayed.
+     *  Since rideIdx property is 0-based, we use this to display a 1-based route index.
+     * 
+     * @return getRouteIdx+1
+     */
+    public int getDisplayRouteIndex(){
+        return this.getRouteIdx()+1;
+    }
     
 }
