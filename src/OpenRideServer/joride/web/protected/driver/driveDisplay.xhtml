@@ -44,27 +44,30 @@
                 <h1> #{msgs.rideOffer} #{driverride.rideId} </h1>
 
 
-
-
                 <table>
 
-
                     <tr>
-                        <td colspan="3">
-                            <p>
-                                <span class="formLabel">
-                                    #{canceldriverride.update()}
-
-                                    <h:form>
-                                        <h:commandLink action="#{canceldriverride.invalidate()}" value="#{msgs.rideRemoveThisOffer}">            
-                                        </h:commandLink>
-                                    </h:form>
-                                </span>
-                            </p>
-                        </td>
+                        <td  class="formLabel">   #{msgs.rideStarttime}      </td>
+                        <td> : </td>
+                        <td class="formInput"> #{driverride.rideStarttime}   </td>
                     </tr>
 
+                    <tr>
+                        <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
+                        <td> : </td>
+                        <td>  <span class="formInput">  #{driverride.rideComment}  </span> </td>
+                    </tr>
 
+                    <tr>
+                        <td class="formLabel"> #{msgs.rideAcceptableDetourInKm}       </td>
+                        <td>:</td>
+                        <td class="formInput"> #{driverride.rideAcceptableDetourInKm} </td>
+                    </tr>
+                    <tr>
+                        <td class="formLabel"> #{msgs.rideOfferedseatsNo}              </td>
+                        <td>:</td>
+                        <td class="formInput">  #{driverride.rideOfferedseatsNo}            </td>
+                    </tr>
 
                     <tr>
                         <td colspan="3">
@@ -81,22 +84,42 @@
                         </td>
                     </tr>
 
+                    <tr>
+
+                        <!-- we need a request scope bean to invalidate -->
+                        #{canceldriverride.update()}                
+                        <td colspan="1" class="formLabel">
+
+                            <h:form>
+                                <p:commandButton id="cancelRide" icon="ui-icon-trash" actionListener="#{canceldriverride.invalidate()}" ajax="false">           
+                                    <!-- Webflow parameters -->
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />                
+                                </p:commandButton>
+                                <p:tooltip  value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
+                            </h:form>
+
+
+                        </td>
+
+                        <td colspan="2" class="formLabel">
+
+                            <h:form>
+                                <h:commandLink action="#{canceldriverride.invalidate()}" value="#{msgs.rideRemoveThisOffer}">           
+                                    <!-- Webflow parameters -->
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                </h:commandLink>
+                            </h:form>
+                        </td>
+                    </tr>
+
+                    <!-- ********************************* -->    
+                    <!-- **    ride start section          -->
+                    <!-- ********************************* -->    
+
                     <tr> 
                         <td colspan="3"> <h2>  #{msgs.rideStart}</h2> </td>
-                    </tr>
-
-
-                    <tr>
-                        <td  class="formLabel">   #{msgs.rideStarttime}      </td>
-                        <td> : </td>
-                        <td class="formInput"> #{driverride.rideStarttime}   </td>
-                    </tr>
-
-
-                    <tr>
-                        <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                        <td> : </td>
-                        <td>  <span class="formInput">  #{driverride.rideComment}  </span> </td>
                     </tr>
 
 
@@ -118,7 +141,12 @@
                         <td class="formInput"> #{driverride.longitudeStart} </td>
                     </tr>
 
-                    <!-- list of userdefined waypoints displayed below -->
+
+
+                    <!-- ********************************* -->    
+                    <!-- **    waypoint section            -->
+                    <!-- ********************************* -->    
+
                     <tr>
                         <td colspan="2" class="formLabel">
                             <h2>  #{msgs.waypoints} </h2>
@@ -139,6 +167,11 @@
                             </h:form>
                         </td>
                     </tr>    
+
+
+                    <!-- ********************************* -->    
+                    <!-- **   list of waypoints            -->
+                    <!-- ********************************* -->    
 
 
                     <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
@@ -174,6 +207,10 @@
                         </tr>
                     </ui:repeat>
 
+                    <!-- ********************************* -->    
+                    <!-- **  ride destination section      -->
+                    <!-- ********************************* -->    
+
                     <tr>
                         <td colspan="3">
                             <tr> 
@@ -183,7 +220,7 @@
                     </tr>
 
                     <tr>
-                        <td class="formLabel">  #{msgs.rideDestination}        </td>
+                        <td class="formLabel">  #{msgs.rideDestinationAddress}        </td>
                         <td> : </td>
                         <td class="formInput">  #{driverride.endptAddress}     </td>
                     </tr>
@@ -199,72 +236,11 @@
                         <td>:</td>
                         <td class="formInput"> #{driverride.longitudeEnd}   </td>
                     </tr>
-                    
-
-                    <tr>
-                        <td class="formLabel"> #{msgs.rideAcceptableDetourInKm}       </td>
-                        <td>:</td>
-                        <td class="formInput"> #{driverride.rideAcceptableDetourInKm} </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel"> #{msgs.rideOfferedseatsNo}              </td>
-                        <td>:</td>
-                        <td class="formInput">  #{driverride.rideOfferedseatsNo}            </td>
-                    </tr>
-                    <tr>
-                        <td class="formLabel"> #{msgs.rideRoutePointDistanceMeters}    </td>
-                        <td>:</td>
-                        <td class="formInput">  #{driverride.rideRoutePointDistanceMeters}  </td>
-                    </tr>
-
 
                 </table>
 
 
 
-
-                <p>
-                    <h:form>
-                        <h:commandLink action="driver.createWaypoint" value="Manage Waypoints">
-
-
-                            <f:param name="#{waypoint.paramNameRideId}" value="#{driverride.rideId}" />
-                            <f:param name="#{waypoint.paramNamePosition}" value="5555.5" />
-
-                            <!-- Webflow parameters -->
-                            <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
-                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
-                        </h:commandLink>
-                    </h:form>
-                </p>
-
-
-                <!-- property rideSeriesId seems to be always null -->
-
-
-                <!-- property rideAcceptableDetourInMin ommitted, we use -->
-                <!-- acceptable detour km instead                        -->
-
-                <!-- property rideAcceptableDetourInPercent is currently          -->
-                <!-- ommitted, as we do not know with percent of what we deal here -->
-
-
-                <!-- property rideCurrpos is currently ommitted, as we currently -->
-                <!-- do not have support for real-time tracking                  -->
-
-
-
-
-
-
-
-
-                <!-- Property "rideWeekdays" currently ommitted,        -->
-                <!-- as there currently seems to be no support for this -->
-
-
-                <!-- Property riderUndertakesRideEntityCollection currently ommitted -->
-                <!-- as we could not bring some sense into it *yet*  -->
 
 
 
@@ -325,8 +301,6 @@
 
 
         </ui:composition>
-
-
 
 
 
