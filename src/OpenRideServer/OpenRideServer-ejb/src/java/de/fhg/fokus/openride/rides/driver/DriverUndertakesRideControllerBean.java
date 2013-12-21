@@ -1119,26 +1119,30 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @Override
     public boolean invalidateRide(Integer rideId) {
 
+        logger.info("invalidateRide : rideID " + rideId);
 
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
         // TODO: check if we really want user transactions
         startUserTransaction();
-
+        logger.info("invalidateRide : starting transaction ");
 
         boolean deletable = this.isDeletable(rideId);
         // if this can be removed, then do so
         if (deletable) {
+            logger.info("invalidateRide : ride is deletable ");
             this.removeRide(rideId);
             commitUserTransaction();
-            logger.info("deleting drive with rideId : " + rideId + " the hard way by removing it");
+            logger.info("invalidateRide: deleted rideId : " + rideId + " the hard way by removing it");
             return true;
         }
 
         // there is no further need for waypoints, since 
-        // this ride is going to be invalidated
+        // this ride is going to be invalidated anyway
+        logger.info("invalidateRide : ride removing waypoints ");
         this.removeAllWaypoints(rideId);
 
         // all related states have to be adapted
+        logger.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
             // mark Matches as countermanded
@@ -1147,7 +1151,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             matchEntity.setDriverChange(new java.util.Date());
             em.merge(matchEntity);
         }
-
+         // all related states have to be adapted
+        logger.info("invalidateRide : mark ride as invalidated");
+        
         // mark ride as invalidated
 
         this.updateRide(dure.getRideId(), //  rideId
@@ -1166,7 +1172,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 );
 
 
-        em.merge(this);
+        em.merge(dure);
         commitUserTransaction();
 
         return true;
@@ -1260,7 +1266,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
 
         System.err.println("removeWaypoin: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
-         
+
         if (transaction) {
             startUserTransaction();
         }
@@ -1273,13 +1279,13 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
         List<WaypointEntity> waypoints = this.getWaypoints(drive);
 
-        
+
         System.err.print("removeWaypoint: waypointIndices: ");
-        for(WaypointEntity w: waypoints){
-            System.err.print(""+w.getRouteIdx()+", ");
+        for (WaypointEntity w : waypoints) {
+            System.err.print("" + w.getRouteIdx() + ", ");
         }
         System.err.println();
-        
+
         if (waypoints.size() <= routeIdx) {
             System.err.println("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
             return;
@@ -1287,15 +1293,15 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         em.remove(waypoints.get(routeIdx));
         waypoints.remove(routeIdx);
-             
+
         // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
-            
-            WaypointEntity wp=waypoints.get(i);
+
+            WaypointEntity wp = waypoints.get(i);
             wp.setRouteIdx(i);
             em.merge(wp);
         }
-        
+
         if (transaction) {
             commitUserTransaction();
         }
@@ -1313,10 +1319,14 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     private void removeAllWaypoints(int rideId) {
 
+        System.err.println("removeAllWaypoints : rideId: " + rideId);
+
         List<WaypointEntity> waypoints = this.getWaypoints(rideId);
         for (WaypointEntity w : waypoints) {
             em.remove(w);
         }
+
+        System.err.println("removeAllWaypoints : through");
     }
 
     /**
