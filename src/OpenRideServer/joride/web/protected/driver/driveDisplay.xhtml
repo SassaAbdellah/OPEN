@@ -123,7 +123,7 @@
 
                     <tr> 
                         <td class="formInput" colspan="3"> 
-                        
+
 
                             <!-- commandlink to add a waypoint right after the startpoint (position==0) -->
                             <h:form>
@@ -142,42 +142,33 @@
 
                     <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
                         <tr> 
-                            <td class="formInput" colspan="3"> 
-                                #{wp.description} 
-                                
-                                
-                                
-                                   <!-- commandlink to  remove *this* waypoint -->
-
+                            <td class="formLabel"> 
+                                <h3> #{wp.description} </h3> 
+                            </td>
+                            <td class="formInput">
+                                <!-- commandlink to  remove *this* waypoint -->
                                 <h:form>
-                                    <h:commandLink actionListener="#{wp.removeFromDrive}" value="TODO: remove this waypoint" >
-                                      
+                                    <p:commandButton id="deleteWaypoint"  icon="ui-icon-trash" actionListener="#{wp.removeFromDrive}" ajax="false">
                                         <!-- Webflow parameters to enable reloading of page -->
                                         <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
                                         <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
-                     
-                                    </h:commandLink>
+                                    </p:commandButton>
+                                     <p:tooltip value="#{msgs.waypointRemoveWaypoint}" for="deleteWaypoint" />
                                 </h:form>
-
-                                
-
+                            </td>
+                             <td class="formInput">
                                 <!-- commandlink to add a waypoint after *this* waypoint -->
-
                                 <h:form>
-                                    <h:commandLink action="driver.createWaypoint" value="TODO: Add waypoint (after point)">
-
-
+                                    <p:commandButton  id="addWaypoint" icon="ui-icon-plus" action="driver.createWaypoint" ajax="false" >
                                         <f:param name="#{waypoint.paramNameRideId}" value="#{rscdriverride.rideId}" />
                                         <f:param name="#{waypoint.paramNamePosition}" value="#{wp.positionValueAfter}" />
 
                                         <!-- Webflow parameters -->
                                         <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
                                         <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
-                                    </h:commandLink>
+                                    </p:commandButton>
+                                    <p:tooltip value="#{msgs.waypointAddWaypointAtPosition}" for="addWaypoint"  />
                                 </h:form>
-
-
-
                             </td>
                         </tr>
                     </ui:repeat>
