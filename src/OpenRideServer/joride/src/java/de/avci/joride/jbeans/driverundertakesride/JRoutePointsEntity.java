@@ -32,13 +32,11 @@ public class JRoutePointsEntity implements Serializable {
      * List of points where riders get picked up
      */
     private List<RoutePointEntity> pickupRiderPoints;
-    
-    /** rider defined points which should be called during the trip
-     *  (aka: waypoints, aka intermediate points)
+    /**
+     * rider defined points which should be called during the trip (aka:
+     * waypoints, aka intermediate points)
      */
-     private List<RoutePointEntity> wayPoints;
-    
-    
+    private List<RoutePointEntity> wayPoints;
     /**
      * List of points where riders get dropped
      */
@@ -66,13 +64,13 @@ public class JRoutePointsEntity implements Serializable {
     }
 
     /**
-     * Get a  representation of a routepoint as JSON Array 
-     * I.e:
+     * Get a representation of a routepoint as JSON Array I.e:
      * "["+longitude+","+latitude+","+rideId+","+riderRouteId+","+isRequired+"]"
-     * 
+     *
      *
      * @param rpe routepoint to be encoded
-     * @return  "["+longitude+","+latitude+","+rideId+","+riderRouteId+","+isRequired+"]"
+     * @return
+     * "["+longitude+","+latitude+","+rideId+","+riderRouteId+","+isRequired+"]"
      */
     private StringBuffer getRoutePointAsJSON(RoutePointEntity rp) {
 
@@ -142,8 +140,7 @@ public class JRoutePointsEntity implements Serializable {
     public String getPickupRiderPointsAsJSON() {
         return this.getListOfRoutePointsAsJSON(this.getPickupRiderPoints()).toString();
     }
-    
-    
+
     /**
      *
      * @return {@link getWayPoints} converted to json
@@ -151,18 +148,14 @@ public class JRoutePointsEntity implements Serializable {
     public String getWayPointsAsJSON() {
         return this.getListOfRoutePointsAsJSON(this.getWayPoints()).toString();
     }
-    
-    
-    public String getStartPointAsJSON(){
+
+    public String getStartPointAsJSON() {
         return this.getRoutePointAsJSON(this.getStartPoint()).toString();
     }
-    
-    public String getEndPointAsJSON(){
+
+    public String getEndPointAsJSON() {
         return this.getRoutePointAsJSON(this.getEndPoint()).toString();
     }
-    
-    
-    
 
     public RoutePointEntity getStartPoint() {
         return startPoint;
@@ -179,57 +172,64 @@ public class JRoutePointsEntity implements Serializable {
     public List<RoutePointEntity> getPickupRiderPoints() {
         return this.pickupRiderPoints;
     }
-    
-     public List<RoutePointEntity> getWayPoints() {
+
+    public List<RoutePointEntity> getWayPoints() {
         return this.wayPoints;
     }
-    
-    
 
     /**
-     * Initialize/Classify the list of route points into 
-     * 
-     * startPoint  
-     * endPoint
-     * pickupPoints 
-     * dropPoints
-     * waypoints
+     * Initialize/Classify the list of route points into
+     *
+     * startPoint endPoint pickupPoints dropPoints waypoints
      *
      */
     private void initializePoints() {
 
         List<RoutePointEntity> rpes = this.getRoutePoints();
 
+        if (rpes == null) {
+            // TODO: log  error properly 
+            System.err.println("cannot initialize routePoints, getRoutePoints returns null");
+            return;
+        }
+        if (rpes.size()<=0) {
+            // TODO: log  error  properly
+            System.err.println("cannot initialize routePoints, getRoutePoints has size null");
+            return;
+        }
+
+
+
         this.startPoint = rpes.get(0);
         this.endPoint = rpes.get(rpes.size() - 1);
 
         this.pickupRiderPoints = new ArrayList<RoutePointEntity>();
         this.dropRiderPoints = new ArrayList<RoutePointEntity>();
-        this.wayPoints=new ArrayList<RoutePointEntity>();
+        this.wayPoints = new ArrayList<RoutePointEntity>();
 
         HashSet<Integer> rides = new HashSet<Integer>();
 
-        for (int i=0; i<rpes.size(); i++ ) {
-            
-                RoutePointEntity rpe=rpes.get(i);
-            
-                boolean isRequired=rpe.isRequired();
-                Integer riderRouteId = rpe.getRiderrouteId();
-                             
-                // pickupPoints/dropPoints have a reference to a rideRequest
-                if (isRequired && riderRouteId!= null) {
-                    if (!(rides.contains(riderRouteId))) {
-                        this.pickupRiderPoints.add(rpe);
-                    } else {
-                        this.dropRiderPoints.add(rpe);
-                    }
-                    rides.add(riderRouteId);
+        for (int i = 0; i < rpes.size(); i++) {
+
+            RoutePointEntity rpe = rpes.get(i);
+
+            boolean isRequired = rpe.isRequired();
+            Integer riderRouteId = rpe.getRiderrouteId();
+
+            // pickupPoints/dropPoints have a reference to a rideRequest
+            if (isRequired && riderRouteId != null) {
+                if (!(rides.contains(riderRouteId))) {
+                    this.pickupRiderPoints.add(rpe);
+                } else {
+                    this.dropRiderPoints.add(rpe);
                 }
-                // waypoints have no reference to RideRequest and are different
-                // from startpoint and endpoint
-                if(isRequired && riderRouteId==null && i!=0 && (i!=(rpes.size()-1))){
-                    wayPoints.add(rpe);
-                }
+                rides.add(riderRouteId);
+            }
+            // waypoints have no reference to RideRequest and are different
+            // from startpoint and endpoint
+            if (isRequired && riderRouteId == null && i != 0 && (i != (rpes.size() - 1))) {
+                wayPoints.add(rpe);
+            }
         } // for (RoutePointEntity rpe : rpes)
     } // initializePoints
 }
