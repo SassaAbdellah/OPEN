@@ -188,6 +188,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      */
     public void updateFromDriverUndertakesRideEntity(DriverUndertakesRideEntity dure) {
 
+        if(dure==null){
+            
+            // TODO: do a decent errorhandling here
+            System.err.println("JDriverUndertakesRideEntity updateFromDriverUndertakesRideEntity : cannot update, argument is null ");        
+            return;
+        }
+        
         this.setCustId(dure.getCustId());
         this.setEndptAddress(dure.getEndptAddress());
         this.setRideAcceptableDetourInKm(dure.getRideAcceptableDetourInKm());
