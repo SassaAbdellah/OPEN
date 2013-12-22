@@ -148,11 +148,13 @@
                     <!-- ********************************* -->    
 
                     <tr>
-                        <td colspan="2" class="formLabel">
+                        <td colspan="3" class="formLabel">
                             <h2>  #{msgs.waypoints} </h2>
                         </td>
-                        <td class="formInput" > 
 
+                    </tr>
+                    <tr>
+                        <td class="formInput" > 
                             <!-- commandlink to add a waypoint right before the startpoint (position==0) -->
                             <h:form>
                                 <p:commandButton   id="addWaypoint" icon="ui-icon-plus" action="driver.createWaypoint" ajax="false" >
@@ -166,6 +168,7 @@
                                 <p:tooltip value="#{msgs.waypointAddWaypointAtPosition}" for="addWaypoint"  />
                             </h:form>
                         </td>
+                        <td colspan="2"> &nbsp;</td> <!-- spacer to make add buttom appear in the 1th row -->
                     </tr>    
 
 
@@ -175,10 +178,9 @@
 
 
                     <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
+
                         <tr> 
-                            <td class="formLabel"> 
-                                <h3> #{wp.description} </h3> 
-                            </td>
+
                             <td class="formInput">
                                 <!-- commandlink to  remove *this* waypoint -->
                                 <h:form>
@@ -190,6 +192,11 @@
                                     <p:tooltip value="#{msgs.waypointRemoveWaypoint}" for="deleteWaypoint" />
                                 </h:form>
                             </td>
+                            <td class="formLabel" colspan="2"> 
+                                #{wp.description}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="formInput">
                                 <!-- commandlink to add a waypoint after *this* waypoint -->
                                 <h:form>
@@ -204,6 +211,7 @@
                                     <p:tooltip value="#{msgs.waypointAddWaypointAtPosition}" for="addWaypoint"  />
                                 </h:form>
                             </td>
+                            <td colspan="2"> &nbsp;</td> <!-- spacer to make delete buttom appear in the 1th row -->
                         </tr>
                     </ui:repeat>
 
