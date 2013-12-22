@@ -30,7 +30,6 @@ import de.fhg.fokus.openride.matching.RouteMatchingBean;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import de.fhg.fokus.openride.routing.RoutePoint;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,152 +92,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         startUserTransaction();
         commitUserTransaction();
         em.persist(object);
-    }
-
-    @Override
-    @Deprecated
-    public int addRide(int cust_id, Point ridestartPt, Point rideendPt,
-            Date ridestartTime, String rideComment, Integer acceptableDetourInMin,
-            Integer acceptableDetourKm, Integer acceptableDetourPercent,
-            int offeredSeatsNo, RoutePoint[] routePoints, String startptAddressStreet, String startptAddressZipcode, String startptAddressCity,
-            String endptAddressStreet, String endptAddressZipcode, String endptAddressCity) {
-        logger.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
-                + "offeredSeatsNo: " + offeredSeatsNo + " routePoints: " + routePoints + " routePoints.length: " + (routePoints != null ? routePoints.length : -1)
-                + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourKm + " acceptableDetourPercent: " + acceptableDetourPercent);
-        //check parameters
-        if (ridestartPt == null
-                || rideendPt == null
-                || ridestartTime == null
-                || offeredSeatsNo <= 0
-                || routePoints == null
-                || routePoints.length < 2
-                || (acceptableDetourInMin == null && acceptableDetourKm == null && acceptableDetourPercent == null)) {
-            logger.log(Level.INFO, "could not add drive: invalid params ::\n");
-            return -1;
-        }
-        startUserTransaction();
-        CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
-
-        //add drive
-        DriverUndertakesRideEntity de = new DriverUndertakesRideEntity(
-                ridestartTime,
-                ridestartPt,
-                rideendPt,
-                offeredSeatsNo,
-                acceptableDetourInMin,
-                acceptableDetourKm,
-                acceptableDetourPercent,
-                0d);
-        de.setRideComment(rideComment);
-        de.setRideOfferedseatsNo(offeredSeatsNo);
-        de.setRideAcceptableDetourInMin(acceptableDetourInMin);
-        de.setCustId(customer);
-        de.setEndptAddress(endptAddressStreet);
-        de.setStartptAddress(startptAddressStreet);
-        em.persist(de);
-
-        //add route point entities
-        for (int i = 0; i < routePoints.length; i++) {
-            DriveRoutepointEntity drp = new DriveRoutepointEntity(
-                    de.getRideId(),
-                    i,
-                    new Point(
-                    routePoints[i].getCoordinate().getLongitude(),
-                    routePoints[i].getCoordinate().getLatititude()),
-                    routePoints[i].getTimeAt(),
-                    offeredSeatsNo,
-                    routePoints[i].getDistance());
-            em.persist(drp);
-        }
-        commitUserTransaction();
-
-        return de.getRideId();
-    }
-
-    @Override
-    @Deprecated
-    public int addRide(int cust_id, Point ridestartPt, Point rideendPt,
-            Date ridestartTime, String rideComment, Integer acceptableDetourInMin,
-            Integer acceptableDetourKm, Integer acceptableDetourPercent,
-            int offeredSeatsNo, RoutePoint[] routePoints) {
-        logger.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
-                + "offeredSeatsNo: " + offeredSeatsNo + " routePoints: " + routePoints + " routePoints.length: " + (routePoints != null ? routePoints.length : -1)
-                + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourKm + " acceptableDetourPercent: " + acceptableDetourPercent);
-        //check parameters
-        if (ridestartPt == null
-                || rideendPt == null
-                || ridestartTime == null
-                || offeredSeatsNo <= 0
-                || routePoints == null
-                || routePoints.length < 2
-                || (acceptableDetourInMin == null && acceptableDetourKm == null && acceptableDetourPercent == null)) {
-            logger.log(Level.INFO, "could not add drive: invalid params ::\n");
-            return -1;
-        }
-        startUserTransaction();
-        CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
-        /*if(customer == null || e.size() != 0) {
-         logger.log(Level.INFO, "could not add drive: customer does not exists or drive-name not unique");
-         commitUserTransaction();
-         return -1;
-         }
-         */
-
-
-
-
-        // Only add a DriverUndertakesRideEntity if a Ride with the same name is not(!) in the DB.
-
-        /*List vec = em.createNativeQuery("SELECT d FROM DriverUndertakesRide d WHERE d.ride_id ="+0+";").getResultList();
-         logger.log(Level.INFO, "Vec "+vec.get(0));
-         */
-//             logger.log(Level.INFO, "addRide 4");
-//             String str = "SELECT min(d.ride_id) + 1 FROM driverundertakesride d WHERE (d.ride_id + 1) NOT IN (SELECT ride_id FROM riderundertakesride);";
-//             List l = em.createNativeQuery(str).getResultList();
-//             if(l.size()==1){
-//                 logger.log(Level.INFO, " INDEX "+l.get(0));
-//                 index = (Integer)((Vector)l.get(0)).get(0);
-//             }
-
-        //em.createNativeQuery("SELECT d FROM driverundertakesride d WHERE d.ride_id ="+index+" ;").getResultList() != null){
-        //logger.log(Level.INFO, "addRide 5");
-                /*while ((em.find(DriverUndertakesRideEntity.class, index)) != null) {
-         index++;
-         }
-         */
-
-        //add drive
-        DriverUndertakesRideEntity de = new DriverUndertakesRideEntity(
-                ridestartTime,
-                ridestartPt,
-                rideendPt,
-                offeredSeatsNo,
-                acceptableDetourInMin,
-                acceptableDetourKm,
-                acceptableDetourPercent,
-                0d);
-        de.setRideComment(rideComment);
-        de.setRideOfferedseatsNo(offeredSeatsNo);
-        de.setRideAcceptableDetourInMin(acceptableDetourInMin);
-        de.setCustId(customer);
-        em.persist(de);
-
-        //add route point entities
-        for (int i = 0; i < routePoints.length; i++) {
-            DriveRoutepointEntity drp = new DriveRoutepointEntity(
-                    de.getRideId(),
-                    i,
-                    new Point(
-                    routePoints[i].getCoordinate().getLongitude(),
-                    routePoints[i].getCoordinate().getLatititude()),
-                    routePoints[i].getTimeAt(),
-                    offeredSeatsNo,
-                    routePoints[i].getDistance());
-            em.persist(drp);
-        }
-        commitUserTransaction();
-
-        return de.getRideId();
     }
 
     @Override
@@ -885,7 +738,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * This method is called, when a new search or ride is persisted. It updates
      * the Matches table.
      */
+    @Override
+    
     public void callAlgorithm(int rideId, boolean setDriverAccess) {
+        
+        logger.info("callingAlgorithm for rideId : "+rideId+" driverAccess : "+setDriverAccess);
+        
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForRiders(rideId);
         matches = filter(matches);

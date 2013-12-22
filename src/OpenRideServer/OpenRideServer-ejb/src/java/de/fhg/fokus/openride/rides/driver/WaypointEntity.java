@@ -88,8 +88,6 @@ public class WaypointEntity implements Serializable {
     public String getDescription() {
         return this.description;
     }
-    
-    
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -113,5 +111,31 @@ public class WaypointEntity implements Serializable {
 
     public void setDescription(String arg) {
         this.description = arg;
+    }
+
+    /** Create a route point representing this waypoint,
+     *  i.e having the same coordinates and beeing required for the route.
+     * 
+     *
+     * @return a route point representing this waypoint
+     */
+    public RoutePointEntity toRoutePointEntity() {
+
+        RoutePointEntity res = new RoutePointEntity();
+
+        res.setLatitude(this.getLatitude());
+        res.setLongitude(this.getLongitude());
+        // A routePoint representing a *driver* defined waypoint 
+        // will always be required
+        res.setRequired(Boolean.TRUE);
+        res.setRideId(this.getRideId());
+        // A routePoint representing a *driver* defined waypoint 
+        // does not have a reference to any ride
+        res.setRiderrouteId(null);
+        // Route idx may change over time, but starting with 
+        // the route index associated
+        res.setRouteIdx(this.getRouteIdx());
+        
+        return res;
     }
 }

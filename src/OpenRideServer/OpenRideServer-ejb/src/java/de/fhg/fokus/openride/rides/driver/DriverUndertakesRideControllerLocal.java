@@ -44,7 +44,7 @@ public interface DriverUndertakesRideControllerLocal {
 
     public Point getEndPoint();
 
-    public String viaPoints();
+  
 
     public int addRide(
             int cust_id,
@@ -75,30 +75,7 @@ public interface DriverUndertakesRideControllerLocal {
      * @param routePoints ordered from startpt to endpt. must not be null.
      * @return if successfull : assigned drive id, else -1.
      */
-    @Deprecated
-    public int addRide(int cust_id, Point ridestartPt, Point rideendPt,
-        Date ridestartTime, String rideComment, Integer acceptableDetourInMin,
-        Integer acceptableDetourKm, Integer acceptableDetourPercent,
-        int offeredSeatsNo, RoutePoint[] routePoints);
-
-    @Deprecated
-    public int addRide(int cust_id,
-            Point ridestartPt,
-            Point rideendPt,
-            Date ridestartTime,
-            String rideComment,
-            Integer acceptableDetourInMin,
-            Integer acceptableDetourKm,
-            Integer acceptableDetourPercent,
-            int offeredSeatsNo,
-            RoutePoint[] routePoints,
-            String startptAddressStreet,
-            String startptAddressZipcode,
-            String startptAddressCity,
-            String endptAddressStreet,
-            String endptAddressZipcode,
-            String endptAddressCity);
-
+   
     public boolean removeRide(int rideId);
 
     public void updateDriverPosition();
