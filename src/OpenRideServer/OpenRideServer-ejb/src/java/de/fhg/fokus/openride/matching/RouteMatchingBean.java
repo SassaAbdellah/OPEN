@@ -99,8 +99,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     private static final boolean FILTER_CHECK_DETOUR = true;
     // CONFIG - SEARCH FOR RIDER
     // bounds for distances between route points :
-    private static final double SFR_MIN_ROUTE_POINT_DISTANCE_METERS = 1000d;
-    private static final double SFR_MAX_ROUTE_POINT_DISTANCE_METERS = 6000d;
+    // originally set to 1000d
+    private static final double SFR_MIN_ROUTE_POINT_DISTANCE_METERS = 497d;
+    // originally set to 6000d
+    private static final double SFR_MAX_ROUTE_POINT_DISTANCE_METERS = 2998d;
     // bounds for driver detourMeters :
     private static final double SFR_MIN_DETOUR_METERS = 0d;
     private static final double SFR_MAX_DETOUR_METERS = 25000d;
