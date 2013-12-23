@@ -46,60 +46,38 @@
 
                     <table>
 
+                        <!--  do not display ride id      -->        
+                        <!--  do not display position     --> 
+                        <!--  do not display routeIdx     -->
+                     
 
-
                         <tr> 
-                            <td class="formLabel"> TODO: rideId </td>
+                            <td class="formLabel"> #{msgs.waypointDescription} </td>
                             <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.rideId} </td>
-                        </tr>
-                        <tr> 
-                            <td class="formLabel"> TODO: position </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.position} </td>
-                        </tr>
-                        <tr> 
-                            <td class="formLabel"> TODO: route Index </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.routeIdx} </td>
+                            <td class="formInput">     
+                                <h:inputText value="#{waypoint.description}" />                   
+                            </td>
                         </tr>
 
                         <tr> 
-                            <td class="formLabel"> TODO: description </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.description} </td>
-                        </tr>
-
-                        <tr> 
-                            <td class="formLabel"> TODO: lon </td>
+                            <td class="formLabel"> #{msgs.geolocationLongitude} </td>
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.longitude} </td>
                         </tr>
 
                         <tr> 
-                            <td class="formLabel"> TODO: lat </td>
+                            <td class="formLabel"> #{msgs.geolocationLatitude} </td>
                             <td class="formLabel"> : </td>
                             <td class="formInput"> #{waypoint.latitude} </td>
                         </tr>
 
-                        <tr> 
-                            <td class="formLabel"> TODO: isLocationSet </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.locationSet} </td>
-                        </tr>
+                        <!-- do not display isLocationSet -->
+                        <!-- do not display rideAttached -->
+                        <!-- do not display readyForPersisting -->
 
-                        <tr> 
-                            <td class="formLabel"> TODO: rideAttached </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.rideAttached} </td>
-                        </tr>
+                     
 
-                        <tr> 
-                            <td class="formLabel"> TODO: ready for persisting </td>
-                            <td class="formLabel"> : </td>
-                            <td class="formInput"> #{waypoint.readyForPersisting} </td>
-                        </tr>
-
+                   
 
 
                         <tr>
