@@ -31,7 +31,7 @@ public class JMatchingEntity implements Serializable {
      * HTTPRequest Parameter to tell JMatchingEntity the rider Id (id of offer)
      * of this request.
      */
-    protected static String PARAM_NAME_rideId = "rideid";
+    protected static String PARAM_NAME_rideId = "rideId";
 
     /**
      * Accessor for the PARAM_NAME_riderId parameter
