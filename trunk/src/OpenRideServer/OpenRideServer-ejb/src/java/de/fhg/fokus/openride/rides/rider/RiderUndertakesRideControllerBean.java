@@ -256,7 +256,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      * This method is called, when a new search or ride is persisted. It updates
      * the Matches table.
      */
-    public void callAlgorithm(int riderrouteId, boolean setRiderAccess) {
+    private void callMatchingAlgorithm(int riderrouteId, boolean setRiderAccess) {
+
+        startUserTransaction();
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForDrivers(riderrouteId);
         matches = filter(matches);
@@ -264,6 +266,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             // persist match, so it can be found later on!
             em.persist(m);
         }
+
+        this.commitUserTransaction();
+        em.flush();
     }
 
     public void setReceivedRating(int riderRouteId, int rating, String ratingComment) {
@@ -294,58 +299,16 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
     }
 
+    /**
+     * TODO: remove this
+     *
+     * @deprecated currently, this is void.
+     *
+     * @param rideId
+     */
     public void addPaymentReference(int rideId) {
         startUserTransaction();
         commitUserTransaction();
-    }
-
-    /**
-     * This method creates a new riderequest of a customer.
-     *
-     * @param custId
-     * @param starttime
-     * @param noPassengers
-     * @param startpt
-     * @param endpt
-     * @param price
-     * @return -1, if the Entity could not be persisted; the rideId to indentify
-     * the Ride later on.
-     */
-    public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment) {
-        startUserTransaction();
-
-        CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
-
-        //TODO: could get Problems if different users simultanously add a RideRequest;Transaction? perhaps locks to much?
-        RiderUndertakesRideEntity r = null;
-        logger.info("---------------------------addRideRequest, customer is :" + customer + "----------------------");
-//        List<AccountHistoryEntity> a = (List<AccountHistoryEntity>)em.createNamedQuery("AccountHistoryEntity.findByCustId").setParameter("custId", customer.getCustId()).getResultList();
-        if (customer != null) {
-            /*
-             * new change: primary key
-             */
-            //r = new RiderUndertakesRideEntity(index, starttime,noPassengers,startpt,endpt,price,a.get(0).getAccountHistoryEntityPK().getAccountTimestamp());
-
-            // FIXME: (pab) This index is only valid if a rideId with the same value exists!
-            //r = new RiderUndertakesRideEntity(index, starttimeLatest, startpt, endpt, price, noPassengers, starttime_earliest, customer);
-            r = new RiderUndertakesRideEntity(customer, starttime_earliest, starttimeLatest, noPassengers, startpt, endpt, price);
-            r.setCustId(customer);
-            r.setComment(comment);
-            logger.info("---------------------------addRideRequest 1: " + r.getCustId().getCustId());
-
-            em.persist(r);
-            logger.log(Level.INFO, "riderundertakesride added ");
-        } else {
-
-            logger.log(Level.WARNING, "No Customer with id: " + cust_id);
-        }
-        commitUserTransaction();
-        if (r == null) {
-            return -1;
-        } else {
-            callAlgorithm(r.getRiderrouteId(), false);
-            return r.getRiderrouteId();
-        }
     }
 
     /**
@@ -966,14 +929,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     @Override
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) {
-        startUserTransaction();
 
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
-
         //TODO: could get Problems if different users simultanously add a RideRequest;Transaction? perhaps locks to much?
         RiderUndertakesRideEntity r = null;
-        logger.info("---------------------------addRideRequest, customer is :" + customer + "----------------------");
+        logger.info("addRideRequest, customer is :" + customer + "");
         if (customer != null) {
+            startUserTransaction();
             // FIXME: (pab) This index is only valid if a rideId with the same value exists!
             //r = new RiderUndertakesRideEntity(index, starttimeLatest, startpt, endpt, price, noPassengers, starttime_earliest, customer);
             r = new RiderUndertakesRideEntity(customer, starttime_earliest, starttimeLatest, noPassengers, startpt, endpt, price);
@@ -984,15 +946,18 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             logger.info("---------------------------addRideRequest 1: " + r.getCustId().getCustId());
             em.persist(r);
             logger.log(Level.INFO, "riderundertakesride added ");
+            commitUserTransaction();
+            em.flush();
+
         } else {
 
             logger.log(Level.WARNING, "No Customer with id: " + cust_id);
         }
-        commitUserTransaction();
+
         if (r == null) {
             return -1;
         } else {
-            callAlgorithm(r.getRiderrouteId(), false);
+            callMatchingAlgorithm(r.getRiderrouteId(), false);
             return r.getRiderrouteId();
         }
     }
