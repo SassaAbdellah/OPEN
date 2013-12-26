@@ -227,7 +227,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     }
 
                     //passed through the filter, add new match instance to result list
-                    matches.add(
+                    MatchEntity nextMatch=
                             new MatchEntity(
                             pm.getRidersRouteId(),
                             pm.getRideId(),
@@ -235,7 +235,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                             detourMeters,
                             pm.getTimeAtOnRouteLiftPoint(),
                             decomposedRoute_.get(decomposedRoute_.size() - 1).getDistanceToSourceMeters(),
-                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters,detourMeters)));
+                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters,detourMeters)
+                            );
+                    
+                    nextMatch.setRiderUndertakesRideEntity(ride);
+                    nextMatch.setDriverUndertakesRideEntity(drive);
+             
+                    matches.add(nextMatch);
                 }
             }
             logger.info("matches : " + matches.size() + " / " + potentialMatches.size() + " (passed through filter)");
