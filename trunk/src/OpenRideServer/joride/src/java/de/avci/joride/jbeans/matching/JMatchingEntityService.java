@@ -93,9 +93,9 @@ public class JMatchingEntityService {
      *
      * @return list of matching offers for given request
      */
-    public List<JMatchingEntity> getMatchesForRide(int rideId) {
+    public List<JMatchingEntity> getMatchesForRide(int riderrouteId) {
 
-        List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(rideId);
+        List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
 
 
         Iterator<MatchEntity> it = mel.iterator();
@@ -122,10 +122,10 @@ public class JMatchingEntityService {
     public List<JMatchingEntity> getMatchesForOffer(int rideId) {
 
 
-        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+        RouteMatchingBeanLocal rmbl = this.lookupRouteMatchingBeanLocal();
 
         List<JMatchingEntity> res = new LinkedList<JMatchingEntity>();
-        List<MatchEntity> mel = durcl.getMatches(rideId, true);
+        List<MatchEntity> mel = rmbl.searchForRiders(rideId);
 
         Iterator<MatchEntity> it = mel.iterator();
 
@@ -150,7 +150,7 @@ public class JMatchingEntityService {
     public boolean acceptRiderSafely(JMatchingEntity jme) {
 
 
-        log.log(Level.FINE,"" + this.getClass() + " acceptRiderSafely beeing called");
+        log.log(Level.FINE, "" + this.getClass() + " acceptRiderSafely beeing called");
 
 
         // see who calls us!
@@ -222,7 +222,7 @@ public class JMatchingEntityService {
     public boolean acceptDriverSafely(JMatchingEntity jme) {
 
 
-        log.log(Level.FINE,"" + this.getClass() + " acceptDriverSafely beeing called");
+        log.log(Level.FINE, "" + this.getClass() + " acceptDriverSafely beeing called");
 
         // see who calls us!
         CustomerEntity caller = this.getCustomerEntity();
@@ -271,11 +271,11 @@ public class JMatchingEntityService {
         // bad case may happen, if so return false
         if (me == null) {
 
-            log.log(Level.SEVERE,"" + this.getClass() + " acceptDriver failed ");
+            log.log(Level.SEVERE, "" + this.getClass() + " acceptDriver failed ");
             return false;
         }
 
-        log.log(Level.FINE,"" + this.getClass() + " acceptDriver succeded ");
+        log.log(Level.FINE, "" + this.getClass() + " acceptDriver succeded ");
 
         // update the Match Entity
         jme.setMatchEntitiy(me);
@@ -297,7 +297,7 @@ public class JMatchingEntityService {
     public boolean rejectDriverSafely(JMatchingEntity jme) {
 
 
-        log.log(Level.FINE,"" + this.getClass() + " rejectDriverSafely beeing called");
+        log.log(Level.FINE, "" + this.getClass() + " rejectDriverSafely beeing called");
 
         // see who calls us!
         CustomerEntity caller = this.getCustomerEntity();
@@ -346,11 +346,11 @@ public class JMatchingEntityService {
         // bad case may happen, if so return false
         if (me == null) {
 
-            log.log(Level.SEVERE,"" + this.getClass() + " rejectDriver failed ");
+            log.log(Level.SEVERE, "" + this.getClass() + " rejectDriver failed ");
             return false;
         }
 
-        log.log(Level.FINE,"" + this.getClass() + " rejectDriver succeded ");
+        log.log(Level.FINE, "" + this.getClass() + " rejectDriver succeded ");
 
         // update the Match Entity
         jme.setMatchEntitiy(me);
@@ -392,7 +392,7 @@ public class JMatchingEntityService {
      */
     public boolean rejectRiderSafely(JMatchingEntity jme) {
 
-        log.log(Level.FINE,"" + this.getClass() + " rejectRiderSafely beeing called");
+        log.log(Level.FINE, "" + this.getClass() + " rejectRiderSafely beeing called");
 
 
         // see who calls us!
@@ -466,13 +466,13 @@ public class JMatchingEntityService {
 
         CustomerEntity caller = this.getCustomerEntity();
 
-        log.log(Level.FINE,"" + this.getClass() + " getMatchSavely rideId " + rideId + " riderrouteId : " + riderrouteId);
+        log.log(Level.FINE, "" + this.getClass() + " getMatchSavely rideId " + rideId + " riderrouteId : " + riderrouteId);
 
         MatchEntity me = this.lookupRiderUndertakesRideControllerBeanLocal().getMatch(rideId, riderrouteId);
 
         // there  a r e  no matches... can finish here
         if (me == null) {
-            log.log(Level.FINE,"" + this.getClass() + " returning null prematuralely ");
+            log.log(Level.FINE, "" + this.getClass() + " returning null prematuralely ");
             return null;
         }
 
@@ -487,6 +487,7 @@ public class JMatchingEntityService {
                 callerMatch = true;
             }
         } catch (java.lang.NullPointerException exc) {
+            log.severe("Error while determining rider for MatchEntity "+exc);
         }
 
 
@@ -497,6 +498,7 @@ public class JMatchingEntityService {
                 callerMatch = true;
             }
         } catch (java.lang.NullPointerException exc) {
+             log.severe("Error while determining driver for MatchEntity "+exc);
         }
 
 
