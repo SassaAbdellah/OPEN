@@ -54,9 +54,6 @@ public interface RiderUndertakesRideControllerLocal {
 
     void addPaymentReference(int rideId);
 
-    @Deprecated
-    int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment);
-
     List<RiderUndertakesRideEntity> getRides(String nickname);
 
     List<RiderUndertakesRideEntity> getActiveRideRequests(String nickname);
