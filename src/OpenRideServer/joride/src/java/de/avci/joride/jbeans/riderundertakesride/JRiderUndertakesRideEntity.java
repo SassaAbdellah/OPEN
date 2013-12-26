@@ -115,7 +115,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
             return;
         }
 
-
         // private Integer riderrouteId;
         this.setRiderrouteId(rure.getRiderrouteId());
 

@@ -75,16 +75,7 @@ public class JMatchingEntity implements Serializable {
     public void setMatchEntitiy(MatchEntity arg) {
 
         this.matchEntity = arg;
-        this.drive = null;
-        this.ride = null;
-
     }
-    /**
-     * Representation of the matchEntities riderUndertakesRideEntity prop. This
-     * is created via lazy instantiation.
-     *
-     */
-    private JRiderUndertakesRideEntity ride = null;
 
     /**
      * Accessor with lazy instantiation
@@ -93,19 +84,13 @@ public class JMatchingEntity implements Serializable {
      */
     public JRiderUndertakesRideEntity getRide() {
 
-        if (ride == null) {
-            ride = new JRiderUndertakesRideEntity();
-            ride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());
-        }
+        JRiderUndertakesRideEntity jride = new JRiderUndertakesRideEntity();
+        jride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());
 
-        return ride;
+       
+       
+        return jride;
     }
-    /**
-     * Representation of the matchEntities driverUndertakesRideEntity prop. This
-     * is created via lazy instantiation.
-     *
-     */
-    private JDriverUndertakesRideEntity drive = null;
 
     /**
      * Accessor with lazy instantiation
@@ -114,12 +99,10 @@ public class JMatchingEntity implements Serializable {
      */
     public JDriverUndertakesRideEntity getDrive() {
 
-        if (drive == null) {
-            drive = new JDriverUndertakesRideEntity();
-            drive.updateFromDriverUndertakesRideEntity(matchEntity.getDriverUndertakesRideEntity());
-        }
+        JDriverUndertakesRideEntity jdrive = new JDriverUndertakesRideEntity();
+        jdrive.updateFromDriverUndertakesRideEntity(matchEntity.getDriverUndertakesRideEntity());
 
-        return drive;
+        return jdrive;
     }
 
     /**
@@ -197,139 +180,121 @@ public class JMatchingEntity implements Serializable {
         if (MatchEntity.REJECTED.equals(this.getRiderState())) {
             return true;
         }
-        
+
         return false;
     }
 
-    
-    
-        
-    /** 
+    /**
      * Convenience method
-     * 
+     *
      * @return negated value of {@link enableAcceptOfferLink()}
-     * 
+     *
      */
-    public boolean disableAcceptOfferLink(){
-        return ! enableAcceptOfferLink();
+    public boolean disableAcceptOfferLink() {
+        return !enableAcceptOfferLink();
     }
-    
-    
-    /** 
-     * whether or not to disable the link that allows the 
-     * requester to reject a ride offer.
-     * 
+
+    /**
+     * whether or not to disable the link that allows the requester to reject a
+     * ride offer.
+     *
      * Rules herein follow the document
-     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
-     * from original OR distribution. (Unfortunately availlable in German only)
-     * 
-     * 
-     * @return true if link should be shown, else false 
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11" from original OR
+     * distribution. (Unfortunately availlable in German only)
+     *
+     *
+     * @return true if link should be shown, else false
      */
-    public boolean enableRejectOfferLink(){
-    
-   
+    public boolean enableRejectOfferLink() {
+
+
         //  If rider State is yet undecided,
         //  rider can accept or reject
-        if(this.getRiderState()==null){
-                return true;
+        if (this.getRiderState() == null) {
+            return true;
         }
-        
+
         return false;
     }
-    
-        
-    /** 
+
+    /**
      * Convenience method
-     * 
+     *
      * @return negated value of {@link enableRejectOfferLink()}
-     * 
+     *
      */
-    public boolean disableRejectOfferLink(){
-        return ! enableRejectOfferLink();
+    public boolean disableRejectOfferLink() {
+        return !enableRejectOfferLink();
     }
-    
-    
-     
-    /** 
-     * whether or not to disable the link that allows the 
-     * driver to reject a ride request.
-     * 
+
+    /**
+     * whether or not to disable the link that allows the driver to reject a
+     * ride request.
+     *
      * Rules herein follow the document
-     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
-     * from original OR distribution. (Unfortunately availlable in German only)
-     * 
-     * 
-     * @return true if link should be shown, else false 
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11" from original OR
+     * distribution. (Unfortunately availlable in German only)
+     *
+     *
+     * @return true if link should be shown, else false
      */
-    public boolean enableAcceptRequestLink(){
-    
+    public boolean enableAcceptRequestLink() {
+
         // if Driver State is yet undecided, 
         // driver can both accept or reject
-        if(this.getDriverState()==null){
-                return true;  
+        if (this.getDriverState() == null) {
+            return true;
         }
-         
+
         // if Driver has rejected by Error,  
         // driver he can accept to correct
-        if(MatchEntity.REJECTED.equals(this.getDriverState())){
-                return true;  
+        if (MatchEntity.REJECTED.equals(this.getDriverState())) {
+            return true;
         }
-         
+
         return false;
     }
-    
-        
-    /** 
+
+    /**
      * Convenience method
-     * 
+     *
      * @return negated value of {@link enableRejectOfferLink()}
-     * 
+     *
      */
-    public boolean disableAcceptRequestLink(){
-        return ! enableAcceptRequestLink();
+    public boolean disableAcceptRequestLink() {
+        return !enableAcceptRequestLink();
     }
-      
-   
-    
-            
-    /** 
-     * whether or not to disable the link that allows the 
-     * driver to reject a ride request.
-     *  
+
+    /**
+     * whether or not to disable the link that allows the driver to reject a
+     * ride request.
+     *
      * Rules herein follow the document
-     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11"
-     * from original OR distribution. (Unfortunately availlable in German only)
-     * 
-     * 
-     * @return true if link should be shown, else false 
+     * "OpenRide-Buttons_Stati_Abstimmungsprozess-02-03-11" from original OR
+     * distribution. (Unfortunately availlable in German only)
+     *
+     *
+     * @return true if link should be shown, else false
      */
-    public boolean enableRejectRequestLink(){
-    
-   
-        if(this.getDriverState()==null){
-                return true;  
+    public boolean enableRejectRequestLink() {
+
+
+        if (this.getDriverState() == null) {
+            return true;
         }
-         
+
         return false;
     }
-    
-        
-    /** 
+
+    /**
      * Convenience method
-     * 
+     *
      * @return negated value of {@link enableRejectOfferLink()}
-     * 
+     *
      */
-    public boolean disableRejectRequestLink(){
-        return ! enableRejectRequestLink();
+    public boolean disableRejectRequestLink() {
+        return !enableRejectRequestLink();
     }
-      
-       
-    
-    
-    
-    
 
     /**
      * Create a new JMatchingEntity from a real matchingEntity
@@ -339,7 +304,7 @@ public class JMatchingEntity implements Serializable {
     JMatchingEntity(MatchEntity arg) {
         this.matchEntity = arg;
     }
-    
+
     /**
      * Update from parameters given in HTTPRequest, i.e evaluate riderId and
      * riderrouteId parameter, get match (if possible) and update data from
@@ -387,125 +352,133 @@ public class JMatchingEntity implements Serializable {
      */
     public JMatchingEntity() {
     }
-    
-    
-    
-    /** Mnemonic message describing the rider state.
-     * 
-     * @return 
+
+    /**
+     * Mnemonic message describing the rider state.
+     *
+     * @return
      */
-    public String getRiderStateMessage(){
-    
-    
-       Integer rs=this.getRiderState();
-       
-       PropertiesLoader pl=new PropertiesLoader();
-       
-       if(rs==null){
-           return  pl.getMessagesProps().getProperty("matchRiderStateNoRiderRequest");
-       }
-       
-       if(rs.equals(MatchEntity.ACCEPTED)){
-             return  pl.getMessagesProps().getProperty("matchRiderStateACCEPTED");
-       }
-       
-        if(rs.equals(MatchEntity.COUNTERMANDED)){
-          return  pl.getMessagesProps().getProperty("matchRiderStateCOUNTERMANDED");
-       }
-       
-        if(rs.equals(MatchEntity.NOT_ADAPTED)){
-            return  pl.getMessagesProps().getProperty("matchRiderStateNOT_ADAPTED");
-        
+    public String getRiderStateMessage() {
+
+
+        Integer rs = this.getRiderState();
+
+        PropertiesLoader pl = new PropertiesLoader();
+
+        if (rs == null) {
+            return pl.getMessagesProps().getProperty("matchRiderStateNoRiderRequest");
         }
-        
-       if(rs.equals(MatchEntity.NO_MORE_AVAILABLE)){
-           return  pl.getMessagesProps().getProperty("matchRiderStateNO_MORE_AVAILLABLE");
-       }
-       
-       
-       if(rs.equals(MatchEntity.REJECTED)){
-            return  pl.getMessagesProps().getProperty("matchRiderStateREJECTED");
-       }
-    
-       return"Cannot find state message for riderstate : "+rs;
-       
-    }
-    
-    
-    /** Mnemonic message describing the driver state.
-     * 
-     * @return 
-     */
-    public String getDriverStateMessage(){
-    
-    
-       Integer ds=this.getDriverState();
-       
-       PropertiesLoader pl=new PropertiesLoader();
-       
-       if(ds==null){
-           return  pl.getMessagesProps().getProperty("matchDriverStateNoDriverOffer");
-       }
-       
-       if(ds.equals(MatchEntity.ACCEPTED)){
-             return  pl.getMessagesProps().getProperty("matchDriverStateACCEPTED");
-       }
-       
-        if(ds.equals(MatchEntity.COUNTERMANDED)){
-          return  pl.getMessagesProps().getProperty("matchDriverStateCOUNTERMANDED");
-       }
-       
-        if(ds.equals(MatchEntity.NOT_ADAPTED)){
-            return  pl.getMessagesProps().getProperty("matchDriverStateNOT_ADAPTED");
-        
+
+        if (rs.equals(MatchEntity.ACCEPTED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateACCEPTED");
         }
-        
-       if(ds.equals(MatchEntity.NO_MORE_AVAILABLE)){
-           return  pl.getMessagesProps().getProperty("matchDriverStateNO_MORE_AVAILLABLE");
-       }
-       
-       
-       if(ds.equals(MatchEntity.REJECTED)){
-            return  pl.getMessagesProps().getProperty("matchDriverStateREJECTED");
-       }
-    
-       return"Cannot find state message for driver state : "+ds;
-    
+
+        if (rs.equals(MatchEntity.COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateCOUNTERMANDED");
+        }
+
+        if (rs.equals(MatchEntity.NOT_ADAPTED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateNOT_ADAPTED");
+
+        }
+
+        if (rs.equals(MatchEntity.NO_MORE_AVAILABLE)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateNO_MORE_AVAILLABLE");
+        }
+
+        if (rs.equals(MatchEntity.REJECTED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateREJECTED");
+        }
+
+        return "Cannot find state message for riderstate : " + rs;
     }
-    
-    
-    
-    
-    /** Create label for gender from single shortcut character stored in DB.
-     * 
-     * @param arg
-     * @return 
+
+    /**
+     * Mnemonic message describing the driver state.
+     *
+     * @return
      */
-    public String getDriverGenderLabel(){
-    
-             JCustomerEntity jce=new JCustomerEntity();
-             jce.setCustGender(this.getDrive().getCustId().getCustGender());
-             return jce.getGenderLabel();
+    public String getDriverStateMessage() {
+
+
+        Integer ds = this.getDriverState();
+
+        PropertiesLoader pl = new PropertiesLoader();
+
+        if (ds == null) {
+            return pl.getMessagesProps().getProperty("matchDriverStateNoDriverOffer");
+        }
+
+        if (ds.equals(MatchEntity.ACCEPTED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateACCEPTED");
+        }
+
+        if (ds.equals(MatchEntity.COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateCOUNTERMANDED");
+        }
+
+        if (ds.equals(MatchEntity.NOT_ADAPTED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateNOT_ADAPTED");
+
+        }
+
+        if (ds.equals(MatchEntity.NO_MORE_AVAILABLE)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateNO_MORE_AVAILLABLE");
+        }
+
+
+        if (ds.equals(MatchEntity.REJECTED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateREJECTED");
+        }
+
+        return "Cannot find state message for driver state : " + ds;
+
     }
-    
-     /** Create label for gender from single shortcut character stored in DB.
-     * 
+
+    /**
+     * Create label for gender from single shortcut character stored in DB.
+     *
      * @param arg
-     * @return 
+     * @return
      */
-    public String getRiderGenderLabel(){
-    
-        try{
-             JCustomerEntity jce=new JCustomerEntity();
-             jce.setCustGender(this.getRide().getCustId().getCustGender());
-             return jce.getGenderLabel();
-        } catch(Exception exc){
+    public String getDriverGenderLabel() {
+
+        JCustomerEntity jce = new JCustomerEntity();
+        jce.setCustGender(this.getDrive().getCustId().getCustGender());
+        return jce.getGenderLabel();
+    }
+
+    /**
+     * Create label for gender from single shortcut character stored in DB.
+     *
+     * @param arg
+     * @return
+     */
+    public String getRiderGenderLabel() {
+
+        try {
+            JCustomerEntity jce = new JCustomerEntity();
+            jce.setCustGender(this.getRide().getCustId().getCustGender());
+            return jce.getGenderLabel();
+        } catch (Exception exc) {
             return null;
         }
     }
-    
-    
-    
+
+    public String getDebugPrintout() {
+
+        StringBuffer buf = new StringBuffer();
+        buf.append("\n");
+        buf.append("=== JMatchEntity =====================================================\n");
+        buf.append("RideId from PK        :" + this.getMatchEntity().getMatchEntityPK().getRideId() + "\n");
+        buf.append("RiderouteId from PK   :" + this.getMatchEntity().getMatchEntityPK().getRiderrouteId() + "\n");
+        buf.append("=== Drive ==\n");
+        buf.append("RideId from Drive     : " + this.getDrive().getRideId() + "\n");
+        buf.append("=== Ride ==\n");
+        buf.append("RiderrouteId from Ride: " + this.getRide().getRiderrouteId()+ "\n");
+        buf.append("============\n");
+        return buf.toString();
+    }
     
     
 } // class 
