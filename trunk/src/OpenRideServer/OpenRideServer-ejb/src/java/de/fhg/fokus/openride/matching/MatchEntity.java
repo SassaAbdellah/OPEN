@@ -276,6 +276,10 @@ public class MatchEntity implements Serializable {
         return "de.fhg.fokus.openride.matching.MatchEntity[matchEntityPK=" + matchEntityPK + "]";
     }
 
+    public void reloadAllEntities() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 }
