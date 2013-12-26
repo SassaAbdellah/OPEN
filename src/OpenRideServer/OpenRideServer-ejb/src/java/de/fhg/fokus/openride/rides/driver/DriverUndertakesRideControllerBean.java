@@ -630,13 +630,22 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 rp.setRideId(drive.getRideId());
                 em.persist(rp);
             }
+
             commitUserTransaction();
+            logger.log(Level.INFO, "added drive, committed user transaction::\n");
+            em.flush();
         } else {
             logger.log(Level.INFO, "could not add drive: no route found ::\n");
             commitUserTransaction();
+            em.flush();
             return -1;
         }
-        callAlgorithm(drive.getRideId(), true);
+
+        
+        
+        callMatchingAlgorithm(drive.getRideId(), true);
+
+
         return drive.getRideId();
     }
 
@@ -645,7 +654,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      *
      * @param rideid
      * @param riderrouteid
-     * @return null, if no entity was found; the entity
+     * @ return null, if no entity was found; the entity
      */
     private MatchEntity getMatch(int rideid, int riderrouteid) {
         List<MatchEntity> entities = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideIdRiderrouteId").setParameter("rideId", rideid).setParameter("riderrouteId", riderrouteid).getResultList();
@@ -739,11 +748,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * the Matches table.
      */
     @Override
-    
-    public void callAlgorithm(int rideId, boolean setDriverAccess) {
-        
-        logger.info("callingAlgorithm for rideId : "+rideId+" driverAccess : "+setDriverAccess);
-        
+    public void callMatchingAlgorithm(int rideId, boolean setDriverAccess) {
+
+        startUserTransaction();
+
+        logger.info("callMatchAlgorithm for rideId : " + rideId + " driverAccess : " + setDriverAccess);
+
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForRiders(rideId);
         matches = filter(matches);
@@ -751,6 +761,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             // persist match, so it can be found later on!
             em.persist(m);
         }
+
+        commitUserTransaction();
+        em.flush();
     }
 
     /**
@@ -854,6 +867,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return matches;
     }
 
+    
     private List<MatchEntity> getActiveMatches(int rideId) {
         List<MatchEntity> entities = em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         java.util.Date now = new java.util.Date();
@@ -1009,14 +1023,14 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             matchEntity.setDriverChange(new java.util.Date());
             em.merge(matchEntity);
         }
-         // all related states have to be adapted
+        // all related states have to be adapted
         logger.info("invalidateRide : mark ride as invalidated");
-        
+
         // mark ride as invalidated
         dure.setRideComment("COUNTERMANDED");
         // set Number of offered seats to 0, so that there will be no more matchings
         dure.setRideOfferedseatsNo(0);
- 
+
         em.merge(dure);
         commitUserTransaction();
 
@@ -1209,8 +1223,4 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.remove(drpt);
         }
     }
-    
-    
-    
-    
 } // class

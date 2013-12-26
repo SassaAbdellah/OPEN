@@ -134,7 +134,7 @@ public interface DriverUndertakesRideControllerLocal {
     // update route for matching algorithm - should be called together with setRoutePoints
     void setDriveRoutePoints(int rideId, List<DriveRoutepointEntity> routePoints);
 
-    void callAlgorithm(int rideId, boolean setDriverAccess);
+    void callMatchingAlgorithm(int rideId, boolean setDriverAccess);
 
     List<DriverUndertakesRideEntity> getInactiveDrives(String nickname);
 
