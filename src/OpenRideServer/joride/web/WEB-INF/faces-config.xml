@@ -215,16 +215,6 @@
     </navigation-rule>
     
     
-    <!-- Navigation Case -->
-    <!-- go to page where Routepoints for new Drive get created   -->
-    
-    <navigation-rule>
-        <navigation-case>
-            <from-outcome>driver.driveCreateRoute</from-outcome>
-            <to-view-id>/faces/protected/driver/driveCreateRouteForDrive.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
     
     <!-- Navigation Case                           -->
     <!-- list matchings for drive     -->
