@@ -34,7 +34,7 @@ public interface Router {
      * @param target longitude/latitude.
      * @return the representation of the route, null if no route is found.
      * @throws SQLException may occur if connection to database is lost.
-     * 
+     *  
      * 
      * @deprecated might be removed in favour of the more general
      *             {@see getEquiDistantRoutePoints} method,
@@ -42,10 +42,13 @@ public interface Router {
      *             beeing limited to setting start and endpoint.
      * 
      */
-    public Route findRoute(Coordinate source, Coordinate target,
-            Timestamp startTime, boolean fastestPath, double threshold,
-            boolean includeWaypoints);
-
+    public Route findRoute(
+            Coordinate source, 
+            Coordinate target,
+            Timestamp startTime, 
+            boolean fastestPath, 
+            double threshold
+            );
 
     /**
      * Computes a route form source to target along given waypoints.
