@@ -40,9 +40,7 @@ import org.postgis.Point;
 @Local
 public interface DriverUndertakesRideControllerLocal {
 
-    public Point getStartPoint();
-
-    public Point getEndPoint();
+ 
 
   
 

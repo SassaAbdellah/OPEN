@@ -64,24 +64,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private EntityManager em;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
 
-    // FIXME: these methods are not needed. They should be written in DriverUndertakesRideEntity Class
-    public Point getStartPoint() {
-        startUserTransaction();
-        commitUserTransaction();
-        return null;
-    }
 
-    public Point getEndPoint() {
-        startUserTransaction();
-        commitUserTransaction();
-        return null;
-    }
-
-    public String viaPoints() {
-        startUserTransaction();
-        commitUserTransaction();
-        return null;
-    }
+ 
 
     /**
      * TODO: dislike
@@ -1089,12 +1073,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         int myIndex = new Double(Math.floor(minIndexFloat)).intValue();
         waypoints.add(myIndex, waypoint);
 
-        // rearrange positions
+        // rearrange positions 
         for (int i = 0; i < waypoints.size(); i++) {
             WaypointEntity wpe = waypoints.get(i);
             wpe.setRouteIdx(i);
             em.persist(wpe);
         }
+        
+        
+        // TODO: re-calculate routepoints
+        
 
         if (transaction) {
             commitUserTransaction();
