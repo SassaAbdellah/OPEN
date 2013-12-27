@@ -26,7 +26,6 @@ package de.fhg.fokus.openride.rides.driver;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import de.fhg.fokus.openride.routing.RoutePoint;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,10 +39,24 @@ import org.postgis.Point;
 @Local
 public interface DriverUndertakesRideControllerLocal {
 
- 
-
-  
-
+    /**
+     * 
+     * @param cust_id                  Customer/Driver Id
+     * @param ridestartPt              Coordinates of starting point 
+     * @param rideendPt                Coordinates of endpoint
+     * @param intermediatePoints       currently ignored, using waypoints and addWaypoint instead
+     * @param ridestartTime            Date/Time when ride starts
+     * @param rideComment              Driver's comment
+     * @param acceptableDetourInMin    currently ignored, using acceptable Detour in Km instead
+     * @param acceptableDetourKm       Acceptable Detour for picking up/dropping Riders in KM 
+     * @param acceptableDetourPercent  currently ignored, using acceptable Detour in Km instead
+     * @param offeredSeatsNo           Number of free seats to be offered
+     * @param startptAddress           Human Readable address of starting point
+     * @param endptAddress             Human Readable address of destination
+     * 
+     * @return  id of newly created driverundertakesridentity
+     */
+    
     public int addRide(
             int cust_id,
             Point ridestartPt,
@@ -58,26 +71,21 @@ public interface DriverUndertakesRideControllerLocal {
             String startptAddress,
             String endptAddress);
 
-    /**
-     *
-     * @param cust_id should exists.
-     * @param rideName not null.
-     * @param ridestartPt not null.
-     * @param rideendPt not null.
-     * @param ridestartTime not null.
-     * @param rideComment
-     * @param acceptableDetourInMin At least one of the three detour thresholds must be specified and valid.
-     * @param acceptableDetourKm At least one of the three detour thresholds must be specified and valid.
-     * @param acceptableDetourPercent At least one of the three detour thresholds must be specified and valid.
-     * @param offeredSeatsNo must be > 0.
-     * @param routePoints ordered from startpt to endpt. must not be null.
-     * @return if successfull : assigned drive id, else -1.
-     */
    
+    /** Remove Driverundertakesride with given Id from Database 
+     *  *if possible*
+     * 
+     * @param rideId
+     * @return 
+     */
     public boolean removeRide(int rideId);
 
+    /** Currently ignored. Meant to be implemented with car tracking
+     * 
+     */
     public void updateDriverPosition();
 
+   
     public List<DriverUndertakesRideEntity> getDrives(String nickname);
 
     public LinkedList<DriverUndertakesRideEntity> getAllDrives();

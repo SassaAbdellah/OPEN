@@ -29,12 +29,9 @@
 package de.fhg.fokus.openride.routing;
 
 import de.fhg.fokus.openride.routing.osm.HHRouter;
-import de.fhg.fokus.openride.routing.osm.OsmRouter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -54,10 +51,9 @@ public class RouterBean implements RouterBeanLocal, Router {
     }
 
     public Route findRoute(Coordinate source, Coordinate target,
-            Timestamp startTime, boolean fastestPath, double threshold,
-            boolean includeWaypoints){
+            Timestamp startTime, boolean fastestPath, double threshold){
 
-        return router.findRoute(source, target, startTime, fastestPath, threshold, includeWaypoints);
+        return router.findRoute(source, target, startTime, fastestPath, threshold);
 
         /*
         Route route = null;

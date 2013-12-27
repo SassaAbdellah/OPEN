@@ -26,6 +26,10 @@ import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
+
+// FIXME: Import of Bean Impl is here to access some static constants.
+// this should not happen as such.
+// Outsource these constants to avoid importing implementation!
 import de.fhg.fokus.openride.matching.RouteMatchingBean;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;

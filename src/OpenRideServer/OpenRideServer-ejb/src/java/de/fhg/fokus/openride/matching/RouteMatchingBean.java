@@ -347,6 +347,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
     /**
      * Computes a route for a driver which has no associated ride offers.
+     * 
+     * 
+     *  TODO: this currently ignores the existence of  waypoints.
+     *  TODO: make it adhere to waypoints!
+     * 
      *
      * @param drive driver's offer.
      * @param decomposedRouteBuff route points suitable for the matching algorithm.
@@ -370,8 +375,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                 t,
                 startTime,
                 Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                true);
+                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                );
         if (route == null || route.getLength() == 0d) {
             return Double.MAX_VALUE;
         }
@@ -519,8 +524,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     new Coordinate(t.getLatitude(), t.getLongitude()),
                     startTime,
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                    true);
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                    );
 
             RoutePoint[] rp = route.getRoutePoints();
             logger.info("#routepoints = " + rp.length);
@@ -678,8 +683,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     c,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                    false);
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                    );
             if (r1 == null) {
                 return -1;
             }
@@ -688,8 +693,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     t,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                    false);
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                    );
             if (r2 == null) {
                 return -1;
             }
@@ -698,8 +703,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     t,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                    false);
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                    );
             if (r3 == null) {
                 return -1;
             }

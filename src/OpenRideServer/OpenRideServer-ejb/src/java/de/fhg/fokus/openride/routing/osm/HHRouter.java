@@ -44,7 +44,7 @@ import org.mapsforge.core.GeoCoordinate;
  */
 public class HHRouter implements Router {
 
-    public Route findRoute(Coordinate source, Coordinate target, Timestamp startTime, boolean fastestPath, double threshold, boolean includeWaypoints) {
+    public Route findRoute(Coordinate source, Coordinate target, Timestamp startTime, boolean fastestPath, double threshold) {
         GeoCoordinate s = new GeoCoordinate(source.getLatititude(), source.getLongitude());
         GeoCoordinate t = new GeoCoordinate(target.getLatititude(), target.getLongitude());
 
