@@ -35,11 +35,7 @@ public interface Router {
      * @return the representation of the route, null if no route is found.
      * @throws SQLException may occur if connection to database is lost.
      *  
-     * 
-     * @deprecated might be removed in favour of the more general
-     *             {@see getEquiDistantRoutePoints} method,
-     *             so drivers can enter a set of waypoints instead of
-     *             beeing limited to setting start and endpoint.
+     *
      * 
      */
     public Route findRoute(
