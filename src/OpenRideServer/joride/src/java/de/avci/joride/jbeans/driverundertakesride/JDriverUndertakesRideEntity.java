@@ -37,6 +37,139 @@ import org.postgis.Point;
 @SessionScoped
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
+    
+  
+    /** Initial State of an offer.
+     *  STATE_NEW meanst that the offer is newly 
+     *  created, and that there are no requests
+     *  from potential riders yet.
+     * 
+     *  From STATE_NEW, the ride offer may
+     *  get into state 
+     *  STATE_RIDER_REQUESTED (if a rider requests a ride)
+     *  or
+     *  STATE_DRIVER_ACCEPTED (if Driver accepts a matching request )
+     *  or
+     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     * 
+     *  see also:
+     *  {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED} 
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_COUNTERMANDED}
+     * 
+     */
+    protected static final int STATE_NEW=0;
+    
+    
+    /** 
+     *  STATE_RIDER_REQUESTED is a state into which
+     *  an offer gets if 
+     *  one (or more) riders have requested to be 
+     *  picked up, but the driver has not (yet)
+     *  acceppted any one of those requests.
+     * 
+     *  From STATE_RIDER_REQUESTED the ride offer may
+     *  get into state 
+     * 
+     *  STATE_CONFIRMED (if Driver accepts a matching request )
+     *  or
+     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *  
+     *  see also:
+     *  {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED} 
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_COUNTERMANDED}
+     * 
+     */
+    protected static final int STATE_RIDER_REQUESTED=1;
+    
+    /** 
+     *  STATE_DRIVER_ACCEPTED is a state into which
+     *  an offer gets if 
+     *  one (or more) matchings exists and driver has
+     *  "prematurely" accepted to pick up riders,
+     *  while riders have not (yet) requested to be 
+     *  picked up.
+     * 
+     *  From STATE_DRIVER_ACCEPTED the ride offer may
+     *  get into state 
+     * 
+     *  STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *  
+     *  see also:
+     *  {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED} 
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_COUNTERMANDED}
+     * 
+     */
+    protected static final int STATE_DRIVER_ACCEPTED=2;
+    
+     /** 
+     *  STATE_CONFIRMED is a state into which
+     *  an offer gets if 
+     *  one (or more) matchings exists and driver
+     *  both, driver and rider have agreed to 
+     *  take the lift, rsp pick up the rider.
+     * 
+     *  From STATE_CONFIRMED, the ride offer may
+     *  get into state 
+     * 
+     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *  
+     *  see also:
+     *  {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED} 
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_COUNTERMANDED}
+     * 
+     */
+    
+    protected static final int STATE_CONFIRMED=3;
+    
+    
+     /** 
+     *  STATE_COUTERMANDED is a state into which
+     *  an offer gets if Driver has to cancel the 
+     * ride for whatever reason (Blizzards, Earthquake, ...etc...)
+     * 
+     *  From STATE_COUNTERMANDED the ride offer may
+     *  not get into any other stated.
+     * 
+     *  STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *  
+     *  see also:
+     *  {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED} 
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_COUNTERMANDED}
+     * 
+     */
+    
+    
+    protected static final int STATE_COUNTERMANDED=4;
+    
+    
+    /** State of this ride. Initially: State new
+     * 
+     */
+    private Integer state=STATE_NEW;
+    
+   
+    protected Integer getState(){return this.state;}
+    
+    
+    
+    
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
@@ -175,11 +308,11 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
             throw new Error("ID Parameter does not contain Numeric Value, value was : " + idStr);
         }
 
-
-
         this.updateFromId(id);
-
     }
+    
+   
+    
 
     /**
      * Update from a given DriverUndertakesRideEntity object.

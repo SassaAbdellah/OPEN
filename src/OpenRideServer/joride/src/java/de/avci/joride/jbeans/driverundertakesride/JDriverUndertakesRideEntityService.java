@@ -445,8 +445,8 @@ public class JDriverUndertakesRideEntityService {
                 endC,
                 new java.sql.Timestamp(dure.getRideStarttime().getTime()),
                 true,
-                threshold,
-                true);
+                threshold
+                );
 
 
 
