@@ -344,22 +344,25 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         }
         return null;
     }
-
-    /**
-     * Computes a route for a driver which has no associated ride offers.
-     * 
-     * 
-     *  TODO: this currently ignores the existence of  waypoints.
-     *  TODO: make it adhere to waypoints!
-     * 
-     *
-     * @param drive driver's offer.
-     * @param decomposedRouteBuff route points suitable for the matching algorithm.
-     * @param routeBuff route points suitable for distplaying the route (all map coordinates included).
-     * @return length of the route in meters.
-     */
-    @Override
-    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+    
+    
+   /** Old version of "computeInitialRoute" that does not adhere to 
+    *  waypoints. This has been renamed and left here fore reference,
+    *  until a new version of "computeinitialRoute" is ready
+    * 
+    * @param drive
+    * @param decomposedRouteBuff
+    * @param routeBuff
+    * @return 
+    * 
+    * 
+    * TODO: Deprecated, should go away once the new version is in place
+    * 
+    */
+    
+    @Deprecated
+   
+    public double computeInitialRoutesDeprecated(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
         // the route point interpolation method should be moved out of the routerBean
@@ -415,8 +418,124 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     drive.getRideOfferedseatsNo(),
                     rp.getDistance()));
         }
+        
         return route.getLength();
     }
+
+    /**
+     * Computes a route for a driver which has no associated ride offers.
+     * 
+     * 
+     *  TODO: this currently ignores the existence of  waypoints.
+     *  TODO: make it adhere to waypoints!
+     * 
+     *
+     * @param drive driver's offer.
+     * @param decomposedRouteBuff route points suitable for the matching algorithm.
+     * @param routeBuff route points suitable for distplaying the route (all map coordinates included).
+     * @return length of the route in meters.
+     * 
+     */
+    @Override
+    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+     
+        // This would require just one route computation but 
+        // due to poor design two calls to the routing algorithm are required.
+        // the route point interpolation method should be moved out of the routerBean
+        // to this class.
+
+        Coordinate s = new Coordinate(drive.getRideStartpt());
+        Coordinate t = new Coordinate(drive.getRideEndpt());
+        Timestamp startTime = new Timestamp(drive.getRideStarttime().getTime());
+
+        Route route=this.computeRouteBetweenIntermediatePoints(drive, s, t, startTime, routeBuff);
+        
+        // If the route is pathological, we can end the process here
+      
+        if (route == null || route.getLength() == 0d) {
+            return Double.MAX_VALUE;
+        }
+
+        // TODO: hopefully the implementation of getEquiDistantRoutepoints
+        // supports intermediate points, so we will just have to 
+        // add them here
+        
+        
+        // compute decomposed route (less coordinates, but interpolated)
+        RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
+                new Coordinate[]{s, t},
+                startTime,
+                Constants.ROUTE_FASTEST_PATH_DEFAULT,
+                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
+                getSfrRoutePointDistance(drive.getRideAcceptableDetourInKm() * 1000));
+
+        // add it to buffer
+        // TODO: this won't work
+        int routeIdx = 0;
+        for (RoutePoint rp : decomposedRoute) {
+            decomposedRouteBuff.add(
+                    new DriveRoutepointEntity(
+                    drive.getRideId() == null ? -1 : drive.getRideId(),
+                    routeIdx++,
+                    rp.getCoordinate().toPoint(),
+                    rp.getTimeAt(),
+                    drive.getRideOfferedseatsNo(),
+                    rp.getDistance()));
+        }
+        return route.getLength();
+    }
+    
+    
+    /**
+     * 
+     * @param s
+     * @param t
+     * @param startTime
+     * @param routeBuff
+     * @return 
+     */
+    private Route computeRouteBetweenIntermediatePoints(
+            DriverUndertakesRideEntity drive,
+            Coordinate s,
+            Coordinate t,
+            Timestamp startTime, 
+            LinkedList<RoutePointEntity> routeBuff    
+            ){
+    
+    
+          // compute route containing all map coordinates
+        Route route = routerBean.findRoute(
+                s,
+                t,
+                startTime,
+                Constants.ROUTE_FASTEST_PATH_DEFAULT,
+                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
+                );
+        if (route == null || route.getLength() == 0d) {
+            return route;
+        }
+
+        // add it to the buffer
+        int routeIdx = 0;
+        for (RoutePoint rp : route.getRoutePoints()) {
+            routeBuff.add(
+                    new RoutePointEntity(
+                    drive.getRideId() == null ? -1 : drive.getRideId(),
+                    routeIdx,
+                    rp.getCoordinate().getLongitude(),
+                    rp.getCoordinate().getLatititude(),
+                    null,
+                    routeIdx == 0 || routeIdx == route.getRoutePoints().length - 1));
+            routeIdx++;
+        }
+        
+        return route;
+    }
+    
+    
+    
+    
+    
 
     /**
      * Computes the route, the driver should drive if he'd book
