@@ -33,6 +33,7 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -119,7 +120,7 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Collection<RiderUndertakesRideEntity> riderUndertakesRideEntityCollection;
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ride_id")
-    private Collection<WaypointEntity> wayPoints;  
+    private List<WaypointEntity> wayPoints;  
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
     @ManyToOne
     private CustomerEntity custId;
@@ -305,11 +306,11 @@ public class DriverUndertakesRideEntity implements Serializable {
     }
 
     
-    public Collection<WaypointEntity> getWayPoints(){
+    public List<WaypointEntity> getWayPoints(){
         return this.wayPoints;
     }
     
-    public void setWayPoints(Collection<WaypointEntity> arg){
+    public void setWayPoints(List<WaypointEntity> arg){
         this.wayPoints=arg;
     }
     
