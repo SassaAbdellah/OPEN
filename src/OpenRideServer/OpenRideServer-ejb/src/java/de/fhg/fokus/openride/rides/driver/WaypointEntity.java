@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,7 +39,7 @@ public class WaypointEntity implements Serializable {
     private long id;
     /**
      * References the driverundertakesride Object that this waypoint belongs to
-     *
+     * 
      */
     @Column(name = "ride_id", nullable = false)
     private Integer rideId;
@@ -54,6 +54,7 @@ public class WaypointEntity implements Serializable {
     private Double latitude;
     @Column(name = "description")
     private String description;
+   
 
     public WaypointEntity() {
     }

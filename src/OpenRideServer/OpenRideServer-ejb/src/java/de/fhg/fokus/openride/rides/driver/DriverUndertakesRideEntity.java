@@ -36,6 +36,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -116,6 +117,9 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Integer rideOfferedseatsNo;
     @OneToMany(mappedBy = "rideId")
     private Collection<RiderUndertakesRideEntity> riderUndertakesRideEntityCollection;
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="ride_id")
+    private Collection<WaypointEntity> wayPoints;  
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
     @ManyToOne
     private CustomerEntity custId;
@@ -300,6 +304,17 @@ public class DriverUndertakesRideEntity implements Serializable {
         return true;
     }
 
+    
+    public Collection<WaypointEntity> getWayPoints(){
+        return this.wayPoints;
+    }
+    
+    public void setWayPoints(Collection<WaypointEntity> arg){
+        this.wayPoints=arg;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity[rideId=" + rideId + "]";
