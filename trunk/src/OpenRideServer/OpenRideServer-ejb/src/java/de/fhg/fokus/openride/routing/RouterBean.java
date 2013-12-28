@@ -55,30 +55,7 @@ public class RouterBean implements RouterBeanLocal, Router {
 
         return router.findRoute(source, target, startTime, fastestPath, threshold);
 
-        /*
-        Route route = null;
-        Connection conn = null;
-        try {
-            conn = lookupConnection();
-            Router router = new OsmRouter(conn);
-            route = router.findRoute(source, target, startTime, fastestPath, threshold, includeWaypoints);
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(NamingException ex) {
-            Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if(conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return route;
-        */
-
+      
     }
 
     public RoutePoint[] getEquiDistantRoutePoints(Coordinate[] coordinates,
@@ -86,37 +63,11 @@ public class RouterBean implements RouterBeanLocal, Router {
             double maxDistanceOfPoints){
         return router.getEquiDistantRoutePoints(coordinates, startTime, fastestPath, threshold, maxDistanceOfPoints);
 
-        /*
-        RoutePoint[] rp = null;
-        Connection conn = null;
-        try {
-            conn = lookupConnection();
-            Router router = new OsmRouter(conn);
-            rp = router.getEquiDistantRoutePoints(coordinates, startTime, fastestPath, threshold, maxDistanceOfPoints);
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(NamingException ex) {
-            Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if(conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(RouterBean.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return rp;
-         * */
+      
 
     }
 
-    private Connection lookupConnection() throws NamingException, SQLException {
-         InitialContext ic = new InitialContext();
-         DataSource ds = (DataSource) ic.lookup("jdbc/routing_osm");
-         return ds.getConnection();
-    }
 
+    
 
 }

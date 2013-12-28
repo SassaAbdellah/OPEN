@@ -68,9 +68,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private EntityManager em;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
 
-
- 
-
     /**
      * TODO: dislike
      *
@@ -629,8 +626,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             return -1;
         }
 
-        
-        
+
+
         callMatchingAlgorithm(drive.getRideId(), true);
 
 
@@ -855,7 +852,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         return matches;
     }
 
-    
     private List<MatchEntity> getActiveMatches(int rideId) {
         List<MatchEntity> entities = em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         java.util.Date now = new java.util.Date();
@@ -1083,14 +1079,74 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             wpe.setRouteIdx(i);
             em.persist(wpe);
         }
-        
-        
-        // TODO: re-calculate routepoints
-        
+
+
+
+        // re-lculate routepoints
+        this.recalculateRoute(drive);
 
         if (transaction) {
             commitUserTransaction();
         }
+    } // end of addWaypoint
+
+    /**
+     * Re-calculate routepoints, and driveRoutepoints typically if a driver
+     * defined waypoint is added or removed. This does not care about
+     * transactions, since it is supposed to run enclosed inside external
+     * transaction control.
+     *
+     * @param rideId Id of the drive t
+     *
+     */
+    private void recalculateRoute(DriverUndertakesRideEntity drive) {
+
+       
+
+        this.removeAllDriveRoutepoints(drive.getRideId());
+        this.removeAllRoutepoints(drive.getRideId());
+        em.flush();
+
+        // create *required* routepoint for startpoint
+        RoutePointEntity sp = new RoutePointEntity();
+        sp.setRideId(drive.getRideId());
+        sp.setLatitude(drive.getRideStartpt().getY());
+        sp.setLongitude(drive.getRideStartpt().getX());
+        sp.setRouteIdx(0);
+        sp.setRequired(Boolean.TRUE);
+        // persist
+        em.persist(sp);
+        em.flush();
+        
+
+        List<WaypointEntity> waypoints = this.getWaypoints(drive.getRideId());
+
+        // create required routepoint for every waypoint
+        for (WaypointEntity wp : waypoints) {
+
+            RoutePointEntity rp = new RoutePointEntity();
+            rp.setRideId(drive.getRideId());
+            rp.setLatitude(wp.getLatitude());
+            rp.setLongitude(wp.getLongitude());
+            rp.setRouteIdx(wp.getRouteIdx()+1);
+            rp.setRequired(Boolean.TRUE);
+            // persist
+            em.persist(rp);
+        }
+        
+        em.flush();
+     
+        
+        // create required routepoint for endpoint
+        RoutePointEntity ep = new RoutePointEntity();
+        ep.setRideId(drive.getRideId());
+        ep.setLatitude(drive.getRideStartpt().getY());
+        ep.setLongitude(drive.getRideStartpt().getX());
+        ep.setRouteIdx(1+waypoints.size());
+        ep.setRequired(Boolean.TRUE);
+        // persist
+        em.persist(ep);
+        em.flush();
     }
 
     /**
