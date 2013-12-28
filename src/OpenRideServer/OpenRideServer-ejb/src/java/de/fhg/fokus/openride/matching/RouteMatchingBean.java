@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.matching;
 
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
@@ -29,6 +28,7 @@ import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
+import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import de.fhg.fokus.openride.routing.Coordinate;
@@ -51,31 +51,35 @@ import javax.sql.DataSource;
 
 /**
  * This class serves the complete RouteMatching functionality as Java EEBean.
- * The functionality comprises computing matches for driver and rider side,
- * and recomputing routes at which is required when a drive is booked.
+ * The functionality comprises computing matches for driver and rider side, and
+ * recomputing routes at which is required when a drive is booked.
  *
- * For computing the Matches, the two Matching algorithms, driver side and rider side, are used to
- * obtain potential matches. Potential Matches are candidates which fit to each
- * other with regard to geographic position and time. These two matching algorithms require
- * a circle radius as well as a maximum distance between a pair of route points as parameter.
- * These values are computed based on the max. detour, the driver accepts but a bounded
- * to a certain range. These bounds as well as parameters for computing the circle overlay can be
- * configured within section 'CONFIG - SEARCH FOR RIDER' and 'CONFIG - SEARCH FOR DRIVER'.
+ * For computing the Matches, the two Matching algorithms, driver side and rider
+ * side, are used to obtain potential matches. Potential Matches are candidates
+ * which fit to each other with regard to geographic position and time. These
+ * two matching algorithms require a circle radius as well as a maximum distance
+ * between a pair of route points as parameter. These values are computed based
+ * on the max. detour, the driver accepts but a bounded to a certain range.
+ * These bounds as well as parameters for computing the circle overlay can be
+ * configured within section 'CONFIG - SEARCH FOR RIDER' and 'CONFIG - SEARCH
+ * FOR DRIVER'.
  *
  * These potential Matches are only candidates which have to meet additional
- * requirements to be a Match, that is to say they are filtered against different criteria.
- * Simple checks are implemented within the inner class MatchFilter which can be configured
- * via the static class variables within the 'CONFIG - MATCH FILTER' section. Additionally
- * a detour check is required, which is the most expensive check and thus is applied at the end.
- * To Check the detour, a new route has to be compupted which involves computation of partial
- * routes, which is incredibly slow because of the bad routing algorithm currently in use.
+ * requirements to be a Match, that is to say they are filtered against
+ * different criteria. Simple checks are implemented within the inner class
+ * MatchFilter which can be configured via the static class variables within the
+ * 'CONFIG - MATCH FILTER' section. Additionally a detour check is required,
+ * which is the most expensive check and thus is applied at the end. To Check
+ * the detour, a new route has to be compupted which involves computation of
+ * partial routes, which is incredibly slow because of the bad routing algorithm
+ * currently in use.
  *
- * Candidate Matches having passed through all checks are finally added to the result list
- * together with some additional information. For now this additional information
- * comprises a proposed price as well as the shared distance and required detour.
- * The proposed price is computed within the class 'PriceCalculator' the detour and
- * shared distance computations are based on a RoutingAlgorithm served by 
- * 'de.fhg.openride.routing.RouterBean'.
+ * Candidate Matches having passed through all checks are finally added to the
+ * result list together with some additional information. For now this
+ * additional information comprises a proposed price as well as the shared
+ * distance and required detour. The proposed price is computed within the class
+ * 'PriceCalculator' the detour and shared distance computations are based on a
+ * RoutingAlgorithm served by 'de.fhg.openride.routing.RouterBean'.
  *
  * After the Result (list of matches) has been collected, they are ranked by
  * utilizing the class 'ScoringFunction'.
@@ -109,10 +113,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
     // circle overlay :
     /**
-     * Not all possible values for detour are allowed, thus
-     * a detour is derived which lies within the defined bounds.
+     * Not all possible values for detour are allowed, thus a detour is derived
+     * which lies within the defined bounds.
+     *
      * @param acceptableDetourMeters
-     * @return acceptableDetourMeters if within bounds, else the min. or max. bouondary value.
+     * @return acceptableDetourMeters if within bounds, else the min. or max.
+     * bouondary value.
      */
     private static double getSfrAcceptableDetourMetersBounded(double acceptableDetourMeters) {
         acceptableDetourMeters = Math.max(SFR_MIN_DETOUR_METERS, acceptableDetourMeters);
@@ -121,11 +127,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
-     * Derive distance of route points (for matching) from the acceptable detour.
-     * This was suggested by the Bachlor thesis of Martin, i'm not really shure
-     * if this is a good choice. The choice was done with regard to performance,
-     * but it seems it makes it harder to control the accuracy and maybe degrades
-     * the performance of the searchForDrivers algorithm.
+     * Derive distance of route points (for matching) from the acceptable
+     * detour. This was suggested by the Bachlor thesis of Martin, i'm not
+     * really shure if this is a good choice. The choice was done with regard to
+     * performance, but it seems it makes it harder to control the accuracy and
+     * maybe degrades the performance of the searchForDrivers algorithm.
+     *
      * @param acceptableDetourMeters
      * @return maximum distance the route points may have.
      */
@@ -138,8 +145,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
-     * Derive the circle radius from the acceptable detour.
-     * This is closly coupled with getSfrRoutePointDistance.
+     * Derive the circle radius from the acceptable detour. This is closly
+     * coupled with getSfrRoutePointDistance.
+     *
      * @param acceptableDetourMeters
      * @return
      */
@@ -167,6 +175,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
     /**
      * Computes a set of Matches for the given drive offer.
+     *
      * @param driveId Identifier for a driver's offer.
      * @return list of matches sorted descending by score.
      */
@@ -227,7 +236,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     }
 
                     //passed through the filter, add new match instance to result list
-                    MatchEntity nextMatch=
+                    MatchEntity nextMatch =
                             new MatchEntity(
                             pm.getRidersRouteId(),
                             pm.getRideId(),
@@ -235,12 +244,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                             detourMeters,
                             pm.getTimeAtOnRouteLiftPoint(),
                             decomposedRoute_.get(decomposedRoute_.size() - 1).getDistanceToSourceMeters(),
-                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters,detourMeters)
-                            );
-                    
+                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters, detourMeters));
+
                     nextMatch.setRiderUndertakesRideEntity(ride);
                     nextMatch.setDriverUndertakesRideEntity(drive);
-             
+
                     matches.add(nextMatch);
                 }
             }
@@ -254,12 +262,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, null, ex);
-            return new LinkedList<MatchEntity> () ;
+            return new LinkedList<MatchEntity>();
         }
     }
 
     /**
      * Compute a list of all matches for the given ride offer.
+     *
      * @param rideId identifiers for rider's offer
      * @return All matches sorted descending by score.
      */
@@ -325,7 +334,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                             detourMeters,
                             pm.getTimeAtOnRouteLiftPoint(),
                             decomposedRoute_.get(decomposedRoute_.size() - 1).getDistanceToSourceMeters(), //TODO: remaing distance - depends on driver tracker
-                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters,detourMeters));
+                            PriceCalculator.getInstance().getPriceCents(sharedDistanceMeters, detourMeters));
                     m.setDriverUndertakesRideEntity(drive);
                     m.setRiderUndertakesRideEntity(ride);
                     matches.add(m);
@@ -344,24 +353,22 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         }
         return null;
     }
-    
-    
-   /** Old version of "computeInitialRoute" that does not adhere to 
-    *  waypoints. This has been renamed and left here fore reference,
-    *  until a new version of "computeinitialRoute" is ready
-    * 
-    * @param drive
-    * @param decomposedRouteBuff
-    * @param routeBuff
-    * @return 
-    * 
-    * 
-    * TODO: Deprecated, should go away once the new version is in place
-    * 
-    */
-    
+
+    /**
+     * Old version of "computeInitialRoute" that does not adhere to waypoints.
+     * This has been renamed and left here fore reference, until a new version
+     * of "computeinitialRoute" is ready
+     *
+     * @param drive
+     * @param decomposedRouteBuff
+     * @param routeBuff
+     * @return
+     *
+     *
+     * TODO: Deprecated, should go away once the new version is in place
+     *
+     */
     @Deprecated
-   
     public double computeInitialRoutesDeprecated(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
@@ -378,8 +385,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                 t,
                 startTime,
                 Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                );
+                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
         if (route == null || route.getLength() == 0d) {
             return Double.MAX_VALUE;
         }
@@ -418,40 +424,54 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     drive.getRideOfferedseatsNo(),
                     rp.getDistance()));
         }
-        
+
         return route.getLength();
     }
 
     /**
      * Computes a route for a driver which has no associated ride offers.
-     * 
-     * 
-     *  TODO: this currently ignores the existence of  waypoints.
-     *  TODO: make it adhere to waypoints!
-     * 
+     *
+     *
+     * TODO: this currently ignores the existence of waypoints. TODO: make it
+     * adhere to waypoints!
+     *
      *
      * @param drive driver's offer.
-     * @param decomposedRouteBuff route points suitable for the matching algorithm.
-     * @param routeBuff route points suitable for distplaying the route (all map coordinates included).
+     * @param decomposedRouteBuff route points suitable for the matching
+     * algorithm.
+     * @param routeBuff route points suitable for distplaying the route (all map
+     * coordinates included).
      * @return length of the route in meters.
-     * 
+     *
      */
     @Override
     public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
-     
+
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
         // the route point interpolation method should be moved out of the routerBean
         // to this class.
 
+        // determine the coordinates along which we'll calculate
+        // the initial route
+
+
+
+        // TODO: this seems to create Exceptions as somehow 
+        //       it tries to enforce commit inside of autocommit statements
+        Coordinate[] myWaypoints = this.waypoints4InitialRoute(drive);
+        logger.info("computeInitialRoutes : passed waypoint extraction");
+
         Coordinate s = new Coordinate(drive.getRideStartpt());
         Coordinate t = new Coordinate(drive.getRideEndpt());
         Timestamp startTime = new Timestamp(drive.getRideStarttime().getTime());
 
-        Route route=this.computeRouteBetweenIntermediatePoints(drive, s, t, startTime, routeBuff);
-        
+
+        Route route = this.computeRouteBetweenIntermediatePoints(drive, s, t, startTime, routeBuff);
+
+
         // If the route is pathological, we can end the process here
-      
+
         if (route == null || route.getLength() == 0d) {
             return Double.MAX_VALUE;
         }
@@ -459,8 +479,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         // TODO: hopefully the implementation of getEquiDistantRoutepoints
         // supports intermediate points, so we will just have to 
         // add them here
-        
-        
+
+
         // compute decomposed route (less coordinates, but interpolated)
         RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
                 new Coordinate[]{s, t},
@@ -484,33 +504,30 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         }
         return route.getLength();
     }
-    
-    
+
     /**
-     * 
+     *
      * @param s
      * @param t
      * @param startTime
      * @param routeBuff
-     * @return 
+     * @return
      */
     private Route computeRouteBetweenIntermediatePoints(
             DriverUndertakesRideEntity drive,
             Coordinate s,
             Coordinate t,
-            Timestamp startTime, 
-            LinkedList<RoutePointEntity> routeBuff    
-            ){
-    
-    
-          // compute route containing all map coordinates
+            Timestamp startTime,
+            LinkedList<RoutePointEntity> routeBuff) {
+
+
+        // compute route containing all map coordinates
         Route route = routerBean.findRoute(
                 s,
                 t,
                 startTime,
                 Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                );
+                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
         if (route == null || route.getLength() == 0d) {
             return route;
         }
@@ -528,24 +545,72 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     routeIdx == 0 || routeIdx == route.getRoutePoints().length - 1));
             routeIdx++;
         }
-        
+
         return route;
     }
-    
-    
-    
-    
-    
 
     /**
-     * Computes the route, the driver should drive if he'd book
-     * the given rider offer. Pre: The given rider offer must not be associated with the driver offer!
+     *
+     * @return
+     */
+    private Coordinate[] waypoints4InitialRoute(DriverUndertakesRideEntity drive) {
+
+
+
+        // add waypoints 
+        List<WaypointEntity> waypoints = drive.getWayPoints();
+
+        // coordinates consist of startpoint, waypoints and endpoint
+        Coordinate[] res = null;
+
+
+        // Attention, waypoints may be null!
+        if (waypoints != null) {
+            // if there are waypoints, than we need all waypoints+start and end
+            res = new Coordinate[2 + drive.getWayPoints().size()];
+        } else {
+            // if there are now waypoints, we'll need start and endpoint only
+            res = new Coordinate[2];
+        }
+
+        // define startpoint
+        res[0] = new Coordinate(
+                drive.getRideStartpt().getX(),
+                drive.getRideStartpt().getY());
+        logger.info("waypoints4InitialRoute : 5");
+
+        // add waypoints
+        if (waypoints != null) {
+            for (int i = 0; i < waypoints.size(); i++) {
+                res[i + 1] = new Coordinate(waypoints.get(i).getLongitude(), waypoints.get(i).getLatitude());
+            }
+        }
+
+        // add endpoint
+        res[res.length - 1] =
+                new Coordinate(
+                drive.getRideEndpt().getX(),
+                drive.getRideEndpt().getY());
+
+
+        logger.info("RouteMatchingBean calculated waypoints : " + res);
+
+        return res;
+    }
+
+    /**
+     * Computes the route, the driver should drive if he'd book the given rider
+     * offer. Pre: The given rider offer must not be associated with the driver
+     * offer!
+     *
      * @param rideId identifier of driver's offer.
      * @param riderrouteId identifier of rider's offer.
      * @param decomposedRouteBuff buffer to put the interpolated route points.
-     * @param routeBuff  buffer to put the complete path description, containing all map coordinates.
-     * @return shared distance in meters. -1 if no adapted route could be computed. This could be because of
-     * not enough seats available or if there is no route found between a pair of coordinates.
+     * @param routeBuff buffer to put the complete path description, containing
+     * all map coordinates.
+     * @return shared distance in meters. -1 if no adapted route could be
+     * computed. This could be because of not enough seats available or if there
+     * is no route found between a pair of coordinates.
      */
     public double computeAdaptedRoute(int rideId, int riderrouteId, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
         List<RoutePointEntity> requiredPoints = driverUndertakesRideControllerBean.getRequiredRoutePoints(rideId);
@@ -643,8 +708,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     new Coordinate(t.getLatitude(), t.getLongitude()),
                     startTime,
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                    );
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
 
             RoutePoint[] rp = route.getRoutePoints();
             logger.info("#routepoints = " + rp.length);
@@ -653,8 +717,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                 //these two coordinates are no map coordinates,
                 //so fix this later!
                 rp = new RoutePoint[]{
-                            new RoutePoint(new Coordinate(s.getLatitude(), s.getLongitude()), startTime, 0),
-                            new RoutePoint(new Coordinate(t.getLatitude(), t.getLongitude()), startTime, 0),};
+                    new RoutePoint(new Coordinate(s.getLatitude(), s.getLongitude()), startTime, 0),
+                    new RoutePoint(new Coordinate(t.getLatitude(), t.getLongitude()), startTime, 0),};
             }
 
 
@@ -718,15 +782,15 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
             RoutePoint[] decomposedroute = routerBean.getEquiDistantRoutePoints(
                     new Coordinate[]{
-                        new Coordinate(s.getLatitude(), s.getLongitude()),
-                        new Coordinate(t.getLatitude(), t.getLongitude())
-                    },
+                new Coordinate(s.getLatitude(), s.getLongitude()),
+                new Coordinate(t.getLatitude(), t.getLongitude())
+            },
                     startTime,
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
                     Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
                     getSfrRoutePointDistance(drive.getRideAcceptableDetourInKm() * 1000));
             System.out.print("distances = ");
-            for(int x=0;x<decomposedroute.length;x++) {
+            for (int x = 0; x < decomposedroute.length; x++) {
                 System.out.print(decomposedroute[x].getDistance() + ",");
             }
             System.out.println("\n");
@@ -767,7 +831,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                 System.out.println("t = (" + t.getLatitude() + "," + t.getLongitude() + ") d2=" + d2);
             }
         }
-        
+
         // maybe this check is not necessary
         if (d1 != -1 && d2 != -1) {
             double sharedDistance = d2 - d1;
@@ -777,9 +841,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
-     * Computes the list index where to insert the given coordinate
-     * into the list of points. This is done by computing route lengths
-     * of segments. The computed index minimizes the detour.
+     * Computes the list index where to insert the given coordinate into the
+     * list of points. This is done by computing route lengths of segments. The
+     * computed index minimizes the detour.
+     *
      * @param points list of points the driver route has to pass.
      * @param c coordinate to insert into the list.
      * @param minIdx first insert index to be checked.
@@ -802,8 +867,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     c,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                    );
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
             if (r1 == null) {
                 return -1;
             }
@@ -812,8 +876,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     t,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                    );
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
             if (r2 == null) {
                 return -1;
             }
@@ -822,8 +885,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     t,
                     new Timestamp(0),
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD
-                    );
+                    Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
             if (r3 == null) {
                 return -1;
             }
@@ -839,6 +901,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
     /**
      * Get Array of RoutePoint by list of DriveRoutepointEntity.
+     *
      * @param routePoints
      * @return all route points from given list, same order.
      */
@@ -855,9 +918,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
-     * This class implements all simple, less expensive
-     * checks. It can be configured by the static class variables
-     * within the config section.
+     * This class implements all simple, less expensive checks. It can be
+     * configured by the static class variables within the config section.
      */
     private static class MatchFilter {
 
