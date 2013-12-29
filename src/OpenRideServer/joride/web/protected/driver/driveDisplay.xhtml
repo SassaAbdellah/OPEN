@@ -44,6 +44,10 @@
                 <h1> #{msgs.rideOffer} #{driverride.rideId} </h1>
 
 
+                
+                TODO: #{driverride.toString()}
+                
+                
                 <table>
 
                     <tr>
@@ -177,7 +181,7 @@
                     <!-- ********************************* -->    
 
 
-                    <ui:repeat   value="#{rscdriverride.waypoints}" var="wp" >
+                    <ui:repeat   value="#{rscdriverride.waypointsFromService}" var="wp" >
 
                         <tr> 
 

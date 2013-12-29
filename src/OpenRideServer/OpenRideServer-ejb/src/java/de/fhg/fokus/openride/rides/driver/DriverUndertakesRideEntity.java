@@ -120,7 +120,7 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Collection<RiderUndertakesRideEntity> riderUndertakesRideEntityCollection;
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ride_id")
-    private List<WaypointEntity> wayPoints;  
+    private List<WaypointEntity> waypoints;  
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
     @ManyToOne
     private CustomerEntity custId;
@@ -306,18 +306,25 @@ public class DriverUndertakesRideEntity implements Serializable {
     }
 
     
-    public List<WaypointEntity> getWayPoints(){
-        return this.wayPoints;
+    public List<WaypointEntity> getWaypoints(){
+        return this.waypoints;
     }
     
-    public void setWayPoints(List<WaypointEntity> arg){
-        this.wayPoints=arg;
+    public void setWaypoints(List<WaypointEntity> arg){
+        
+        // TODO: remove this
+        
+        System.err.println("setwaypoints beeing called");
+        
+        this.waypoints=arg;
     }
     
     
     
     @Override
     public String toString() {
-        return "de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity[rideId=" + rideId + "]";
+        return this.getClass().getCanonicalName()
+                +"\n[rideId=" +getRideId() + "]"
+                +"\n[waypoints="+getWaypoints()+"]";
     }
 }

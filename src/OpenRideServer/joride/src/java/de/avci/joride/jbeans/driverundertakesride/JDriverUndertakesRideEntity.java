@@ -345,6 +345,8 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.setRideWeekdays(dure.getRideWeekdays());
         this.setRiderUndertakesRideEntityCollection(dure.getRiderUndertakesRideEntityCollection());
         this.setStartptAddress(dure.getStartptAddress());
+        this.setWaypoints(dure.getWaypoints());
+        
     }
 
     /**
@@ -417,11 +419,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
       
     }
     
-     /** get the Waypoints (user-defined required points) as JSON
+     /** get the Waypoints (user-defined required points) wrapped up
+      *  in JWayPoints querying the service directly 
+      *  (as opposed to accessing the drives wayPoint property)
      * 
      * @return 
      */
-    public List <JWaypointEntity> getWaypoints(){
+    public List <JWaypointEntity> getWaypointsFromService(){
         try{
         JDriverUndertakesRideEntityService jdure=new JDriverUndertakesRideEntityService();
         return jdure.getWaypointsForDrive(this.getRideId());

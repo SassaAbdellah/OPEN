@@ -558,7 +558,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 
         // add waypoints 
-        List<WaypointEntity> waypoints = drive.getWayPoints();
+        List<WaypointEntity> waypoints = drive.getWaypoints();
 
         // coordinates consist of startpoint, waypoints and endpoint
         Coordinate[] res = null;
@@ -567,7 +567,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         // Attention, waypoints may be null!
         if (waypoints != null) {
             // if there are waypoints, than we need all waypoints+start and end
-            res = new Coordinate[2 + drive.getWayPoints().size()];
+            res = new Coordinate[2 + drive.getWaypoints().size()];
         } else {
             // if there are now waypoints, we'll need start and endpoint only
             res = new Coordinate[2];
