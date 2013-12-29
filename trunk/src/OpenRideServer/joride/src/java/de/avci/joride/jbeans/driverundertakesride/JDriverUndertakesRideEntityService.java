@@ -378,7 +378,7 @@ public class JDriverUndertakesRideEntityService {
      */
     JWaypointsEntity getWaypointsForDrive(int driveId) {
  
-               //
+        //
         // Check, if drive does really belong to the calling user
         //
         CustomerEntity ce = this.getCustomerEntity();
@@ -401,7 +401,7 @@ public class JDriverUndertakesRideEntityService {
 
         // done with checking for user
 
-        List<WaypointEntity> waypoints = durcl.getWaypoints(driveId);
+        List<WaypointEntity> waypoints = dure.getWaypoints();
         JWaypointsEntity res = new JWaypointsEntity();
        
         for(WaypointEntity w: waypoints){
