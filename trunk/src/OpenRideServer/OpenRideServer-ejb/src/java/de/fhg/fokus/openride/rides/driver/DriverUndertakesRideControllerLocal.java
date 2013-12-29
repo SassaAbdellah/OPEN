@@ -214,10 +214,10 @@ public interface DriverUndertakesRideControllerLocal {
       * add before the smalles position being larger then position parameter
      * 
      * @param drive
-     * @param position  position where to add to list 
+     * @param position  position where to add to list
      * @return 
      */
-    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position);
+    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, int position);
     
     
      /** Remove waypoint given by routeIdx from Ride given by rideId

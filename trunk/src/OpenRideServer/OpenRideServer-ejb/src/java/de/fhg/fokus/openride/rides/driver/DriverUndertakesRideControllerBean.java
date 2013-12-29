@@ -1037,7 +1037,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     @Override
-    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position) {
+    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, int position) {
 
         this.addWaypoint(drive, waypoint, position, true);
     }
@@ -1052,7 +1052,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param position
      * @param transaction turn on transaction explicitely
      */
-    protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, float position, boolean transaction) {
+    protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, int position, boolean transaction) {
 
 
         if (transaction) {
@@ -1065,13 +1065,19 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // add waypoint to position given by position parameter </li>
 
         int size = waypoints.size();
-
-
-        // determine the maximal index that is smaller than 
-        // the position parameter
-        float minIndexFloat = Math.min(position, (size));
-        int myIndex = new Double(Math.floor(minIndexFloat)).intValue();
-        waypoints.add(myIndex, waypoint);
+        //
+        // add waypoint at "normalized" position
+        //
+        if (position <= 0) {
+            // if position is <=0, add it to the beginning of the list
+            waypoints.add(0, waypoint);
+        } else if (position >= 0) {
+            // if position is >= size of list, add it to the end of the list
+            waypoints.add(size, waypoint);
+        } else {
+        // else, use position parameter unchanged
+            waypoints.add(position,waypoint);
+        }
 
         // rearrange positions 
         for (int i = 0; i < waypoints.size(); i++) {
@@ -1079,15 +1085,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             wpe.setRouteIdx(i);
             em.persist(wpe);
         }
-
-
-
+        // add waypoint to drive
+        drive.getWaypoints().add(waypoint);
         // re-lculate routepoints
         this.recalculateRoute(drive);
-
         if (transaction) {
             commitUserTransaction();
         }
+
+        em.merge(drive);
+
     } // end of addWaypoint
 
     /**
@@ -1101,7 +1108,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     private void recalculateRoute(DriverUndertakesRideEntity drive) {
 
-       
+
 
         this.removeAllDriveRoutepoints(drive.getRideId());
         this.removeAllRoutepoints(drive.getRideId());
@@ -1117,7 +1124,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // persist
         em.persist(sp);
         em.flush();
-        
+
 
         List<WaypointEntity> waypoints = this.getWaypoints(drive.getRideId());
 
@@ -1128,21 +1135,21 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             rp.setRideId(drive.getRideId());
             rp.setLatitude(wp.getLatitude());
             rp.setLongitude(wp.getLongitude());
-            rp.setRouteIdx(wp.getRouteIdx()+1);
+            rp.setRouteIdx(wp.getRouteIdx() + 1);
             rp.setRequired(Boolean.TRUE);
             // persist
             em.persist(rp);
         }
-        
+
         em.flush();
-     
-        
+
+
         // create required routepoint for endpoint
         RoutePointEntity ep = new RoutePointEntity();
         ep.setRideId(drive.getRideId());
         ep.setLatitude(drive.getRideStartpt().getY());
         ep.setLongitude(drive.getRideStartpt().getX());
-        ep.setRouteIdx(1+waypoints.size());
+        ep.setRouteIdx(1 + waypoints.size());
         ep.setRequired(Boolean.TRUE);
         // persist
         em.persist(ep);

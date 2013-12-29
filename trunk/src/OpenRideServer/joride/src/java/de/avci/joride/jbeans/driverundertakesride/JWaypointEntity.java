@@ -79,7 +79,7 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
 
             if (positionS != null) {
                 try {
-                    this.setPosition(new Float(positionS));
+                    this.setPosition(new Integer(positionS));
                 } catch (Exception exc) {
                     System.err.println(exc);
                 }
@@ -126,13 +126,13 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
      * without other information are added to the end of the ridepoints list.
      *
      */
-    private Float position = new Float(Integer.MAX_VALUE);
+    private Integer position = new Integer(Integer.MAX_VALUE);
 
-    public Float getPosition() {
+    public Integer getPosition() {
         return this.position;
     }
 
-    public void setPosition(float position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
