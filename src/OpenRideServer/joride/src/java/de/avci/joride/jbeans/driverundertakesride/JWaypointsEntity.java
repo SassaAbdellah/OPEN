@@ -4,23 +4,19 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
-import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.util.ArrayList;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 
-/** Class making a list of {@link WaypointEntity} s availlable
+/** Class making a list of {@link JWaypointEntity} s availlable
  *  to the frontend as a java bean.
  *  (notice the plural in the classname!)
+ * 
  * @author jochen
  * 
- * Seems, this does not add much value, so it might be shunned
- * in the near future.
- * Therefore, marked as deprecated.
  * 
  */
 
-@Deprecated 
 
 @Named("waypoints")
 @RequestScoped
