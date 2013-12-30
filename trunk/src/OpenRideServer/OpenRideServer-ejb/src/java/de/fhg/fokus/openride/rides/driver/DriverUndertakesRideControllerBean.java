@@ -616,20 +616,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 em.persist(rp);
             }
 
-            commitUserTransaction();
             logger.log(Level.INFO, "added drive, committed user transaction::\n");
             em.flush();
         } else {
             logger.log(Level.INFO, "could not add drive: no route found ::\n");
-            commitUserTransaction();
+
             em.flush();
             return -1;
         }
 
-
-
+        commitUserTransaction();
         callMatchingAlgorithm(drive.getRideId(), true);
-
 
         return drive.getRideId();
     }
@@ -1075,8 +1072,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             // if position is >= size of list, add it to the end of the list
             waypoints.add(size, waypoint);
         } else {
-        // else, use position parameter unchanged
-            waypoints.add(position,waypoint);
+            // else, use position parameter unchanged
+            waypoints.add(position, waypoint);
         }
 
         // rearrange positions 
@@ -1088,7 +1085,13 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // add waypoint to drive
         drive.getWaypoints().add(waypoint);
         // re-lculate routepoints
-        this.recalculateRoute(drive);
+
+        routeMatchingBean.computeInitialRoutes(
+                drive,
+                new LinkedList<DriveRoutepointEntity>(),
+                new LinkedList<RoutePointEntity>());
+
+
         if (transaction) {
             commitUserTransaction();
         }
@@ -1096,65 +1099,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         em.merge(drive);
 
     } // end of addWaypoint
-
-    /**
-     * Re-calculate routepoints, and driveRoutepoints typically if a driver
-     * defined waypoint is added or removed. This does not care about
-     * transactions, since it is supposed to run enclosed inside external
-     * transaction control.
-     *
-     * @param rideId Id of the drive t
-     *
-     */
-    private void recalculateRoute(DriverUndertakesRideEntity drive) {
-
-
-
-        this.removeAllDriveRoutepoints(drive.getRideId());
-        this.removeAllRoutepoints(drive.getRideId());
-        em.flush();
-
-        // create *required* routepoint for startpoint
-        RoutePointEntity sp = new RoutePointEntity();
-        sp.setRideId(drive.getRideId());
-        sp.setLatitude(drive.getRideStartpt().getY());
-        sp.setLongitude(drive.getRideStartpt().getX());
-        sp.setRouteIdx(0);
-        sp.setRequired(Boolean.TRUE);
-        // persist
-        em.persist(sp);
-        em.flush();
-
-
-        List<WaypointEntity> waypoints = this.getWaypoints(drive.getRideId());
-
-        // create required routepoint for every waypoint
-        for (WaypointEntity wp : waypoints) {
-
-            RoutePointEntity rp = new RoutePointEntity();
-            rp.setRideId(drive.getRideId());
-            rp.setLatitude(wp.getLatitude());
-            rp.setLongitude(wp.getLongitude());
-            rp.setRouteIdx(wp.getRouteIdx() + 1);
-            rp.setRequired(Boolean.TRUE);
-            // persist
-            em.persist(rp);
-        }
-
-        em.flush();
-
-
-        // create required routepoint for endpoint
-        RoutePointEntity ep = new RoutePointEntity();
-        ep.setRideId(drive.getRideId());
-        ep.setLatitude(drive.getRideStartpt().getY());
-        ep.setLongitude(drive.getRideStartpt().getX());
-        ep.setRouteIdx(1 + waypoints.size());
-        ep.setRequired(Boolean.TRUE);
-        // persist
-        em.persist(ep);
-        em.flush();
-    }
 
     /**
      * Remove single waypoint. As this is intended to be called from outside,
