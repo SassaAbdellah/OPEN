@@ -505,8 +505,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             }
 
 
-
-            // sum up over all the partial
+            // sum up over all the partial routes
             distance += partialRoute.getLength();
             logger.info("computeInitialRoutes : partial distance at round " + i + " : " + distance);
 
@@ -517,13 +516,16 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
             logger.info("computeInitialRoutes : starting time after round " + i + " : " + startTime);
         }
-
-        // TODO: hopefully the implementation of getEquiDistantRoutepoints
-        // supports intermediate points, so we will just have to 
-        // add them here
-
-
-
+        // 
+        logger.info("computeInitialRoute : debug1 "+this.routePointsDebugOutput(routeBuff));
+        // readjust the routeIdx property
+        for(int i=0; i< routeBuff.size(); i++){ routeBuff.get(i).setRouteIdx(i); }
+        logger.info("computeInitialRoute : debug2 "+this.routePointsDebugOutput(routeBuff));
+     
+       
+        // Luckily the implementation of getEquiDistantRoutepoints
+        // supports intermediate points :))
+        
         // compute decomposed route (less coordinates, but interpolated)
         RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
                 myWaypoints,
@@ -1025,4 +1027,27 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             return ride.getRideId() == null;
         }
     }
+    
+    
+    /** TODO: ad-hoc debug output. Remove once create initial 
+     * 
+     * @deprecated
+     * 
+     */
+    
+    private static String routePointsDebugOutput(List<RoutePointEntity> rps){
+    
+        StringBuilder buf=new StringBuilder();
+        buf.append("[");
+        
+        for(int i=0; i< rps.size();i++){
+            buf.append("<"+(rps.get(i)).getRouteIdx()+"> ");
+        }
+        
+        buf.append("]");
+        
+        return buf.toString();
+    }
+    
+    
 }
