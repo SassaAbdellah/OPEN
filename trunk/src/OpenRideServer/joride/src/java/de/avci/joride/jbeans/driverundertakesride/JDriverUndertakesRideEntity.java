@@ -13,6 +13,7 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,139 +38,103 @@ import org.postgis.Point;
 @SessionScoped
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
-    
-  
-    /** Initial State of an offer.
-     *  STATE_NEW meanst that the offer is newly 
-     *  created, and that there are no requests
-     *  from potential riders yet.
-     * 
-     *  From STATE_NEW, the ride offer may
-     *  get into state 
-     *  STATE_RIDER_REQUESTED (if a rider requests a ride)
-     *  or
-     *  STATE_DRIVER_ACCEPTED (if Driver accepts a matching request )
-     *  or
-     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     * 
-     *  see also:
-     *  {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED} 
+    /**
+     * Initial State of an offer. STATE_NEW meanst that the offer is newly
+     * created, and that there are no requests from potential riders yet.
+     *
+     * From STATE_NEW, the ride offer may get into state STATE_RIDER_REQUESTED
+     * (if a rider requests a ride) or STATE_DRIVER_ACCEPTED (if Driver accepts
+     * a matching request ) or STATE_COUNTERMANDED (if Driver needs to
+     * invalidate offer for some reason)
+     *
+     * see also:      {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED}
      *  {@link  STATE_COUNTERMANDED}
-     * 
+     *
      */
-    protected static final int STATE_NEW=0;
-    
-    
-    /** 
-     *  STATE_RIDER_REQUESTED is a state into which
-     *  an offer gets if 
-     *  one (or more) riders have requested to be 
-     *  picked up, but the driver has not (yet)
-     *  acceppted any one of those requests.
-     * 
-     *  From STATE_RIDER_REQUESTED the ride offer may
-     *  get into state 
-     * 
-     *  STATE_CONFIRMED (if Driver accepts a matching request )
-     *  or
-     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *  
-     *  see also:
-     *  {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED} 
+    protected static final int STATE_NEW = 0;
+    /**
+     * STATE_RIDER_REQUESTED is a state into which an offer gets if one (or
+     * more) riders have requested to be picked up, but the driver has not (yet)
+     * acceppted any one of those requests.
+     *
+     * From STATE_RIDER_REQUESTED the ride offer may get into state
+     *
+     * STATE_CONFIRMED (if Driver accepts a matching request ) or
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * see also:      {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED}
      *  {@link  STATE_COUNTERMANDED}
-     * 
+     *
      */
-    protected static final int STATE_RIDER_REQUESTED=1;
-    
-    /** 
-     *  STATE_DRIVER_ACCEPTED is a state into which
-     *  an offer gets if 
-     *  one (or more) matchings exists and driver has
-     *  "prematurely" accepted to pick up riders,
-     *  while riders have not (yet) requested to be 
-     *  picked up.
-     * 
-     *  From STATE_DRIVER_ACCEPTED the ride offer may
-     *  get into state 
-     * 
-     *  STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
-     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *  
-     *  see also:
-     *  {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED} 
+    protected static final int STATE_RIDER_REQUESTED = 1;
+    /**
+     * STATE_DRIVER_ACCEPTED is a state into which an offer gets if one (or
+     * more) matchings exists and driver has "prematurely" accepted to pick up
+     * riders, while riders have not (yet) requested to be picked up.
+     *
+     * From STATE_DRIVER_ACCEPTED the ride offer may get into state
+     *
+     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * see also:      {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED}
      *  {@link  STATE_COUNTERMANDED}
-     * 
+     *
      */
-    protected static final int STATE_DRIVER_ACCEPTED=2;
-    
-     /** 
-     *  STATE_CONFIRMED is a state into which
-     *  an offer gets if 
-     *  one (or more) matchings exists and driver
-     *  both, driver and rider have agreed to 
-     *  take the lift, rsp pick up the rider.
-     * 
-     *  From STATE_CONFIRMED, the ride offer may
-     *  get into state 
-     * 
-     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *  
-     *  see also:
-     *  {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED} 
+    protected static final int STATE_DRIVER_ACCEPTED = 2;
+    /**
+     * STATE_CONFIRMED is a state into which an offer gets if one (or more)
+     * matchings exists and driver both, driver and rider have agreed to take
+     * the lift, rsp pick up the rider.
+     *
+     * From STATE_CONFIRMED, the ride offer may get into state
+     *
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * see also:      {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED}
      *  {@link  STATE_COUNTERMANDED}
-     * 
+     *
      */
-    
-    protected static final int STATE_CONFIRMED=3;
-    
-    
-     /** 
-     *  STATE_COUTERMANDED is a state into which
-     *  an offer gets if Driver has to cancel the 
-     * ride for whatever reason (Blizzards, Earthquake, ...etc...)
-     * 
-     *  From STATE_COUNTERMANDED the ride offer may
-     *  not get into any other stated.
-     * 
-     *  STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
-     *  STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *  
-     *  see also:
-     *  {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED} 
+    protected static final int STATE_CONFIRMED = 3;
+    /**
+     * STATE_COUTERMANDED is a state into which an offer gets if Driver has to
+     * cancel the ride for whatever reason (Blizzards, Earthquake, ...etc...)
+     *
+     * From STATE_COUNTERMANDED the ride offer may not get into any other
+     * stated.
+     *
+     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * see also:      {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED}
      *  {@link  STATE_COUNTERMANDED}
-     * 
+     *
      */
-    
-    
-    protected static final int STATE_COUNTERMANDED=4;
-    
-    
-    /** State of this ride. Initially: State new
-     * 
+    protected static final int STATE_COUNTERMANDED = 4;
+    /**
+     * State of this ride. Initially: State new
+     *
      */
-    private Integer state=STATE_NEW;
-    
-   
-    protected Integer getState(){return this.state;}
-    
-    
-    
-    
+    private Integer state = STATE_NEW;
+
+    protected Integer getState() {
+        return this.state;
+    }
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
@@ -285,9 +250,6 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public String getStartDateFormatted() {
         return getDateFormat().format(this.getRideStarttime());
     }
-    
-    
-    
 
     /**
      * See, if the CRUDConstants().getParamNameCrudId() parameter is present in
@@ -310,9 +272,6 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         this.updateFromId(id);
     }
-    
-   
-    
 
     /**
      * Update from a given DriverUndertakesRideEntity object.
@@ -321,13 +280,13 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      */
     public void updateFromDriverUndertakesRideEntity(DriverUndertakesRideEntity dure) {
 
-        if(dure==null){
-            
+        if (dure == null) {
+
             // TODO: do a decent errorhandling here
-            System.err.println("JDriverUndertakesRideEntity updateFromDriverUndertakesRideEntity : cannot update, argument is null ");        
+            System.err.println("JDriverUndertakesRideEntity updateFromDriverUndertakesRideEntity : cannot update, argument is null ");
             return;
         }
-        
+
         this.setCustId(dure.getCustId());
         this.setEndptAddress(dure.getEndptAddress());
         this.setRideAcceptableDetourInKm(dure.getRideAcceptableDetourInKm());
@@ -346,7 +305,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.setRiderUndertakesRideEntityCollection(dure.getRiderUndertakesRideEntityCollection());
         this.setStartptAddress(dure.getStartptAddress());
         this.setWaypoints(dure.getWaypoints());
-        
+
     }
 
     /**
@@ -373,20 +332,19 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return new JDriverUndertakesRideEntityService().getRoutePointsForDrive(rideID);
 
     }
-    
-    
-    /** Get the *required*  route points for this drive wrapped up in a JRoutePointsEntityObject
-     * 
+
+    /**
+     * Get the *required* route points for this drive wrapped up in a
+     * JRoutePointsEntityObject
+     *
      */
-    public JRoutePointsEntity getRequiredRoutePoints(){
-        
-        int rideID=this.getRideId();
+    public JRoutePointsEntity getRequiredRoutePoints() {
+
+        int rideID = this.getRideId();
         return new JDriverUndertakesRideEntityService().getRequiredRoutePointsForDrive(rideID);
 
-    
+
     }
-    
-    
 
     /**
      * Get the Route Points for this Drive wrapped in a JRoutPointsEntity Object
@@ -407,52 +365,51 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     public String getRoutePointsAsJSON() {
         return this.getRoutePoints().getRoutePointsAsJSON();
     }
-    
-    /** get the Waypoints (user-defined required points) as JSON
-     * 
-     * @return 
+
+    /**
+     * get the Waypoints (user-defined required points) as JSON
+     *
+     * @return
      */
-    public String getWaypointsAsJSON(){
-    
-        JDriverUndertakesRideEntityService jdure=new JDriverUndertakesRideEntityService();
+    public String getWaypointsAsJSON() {
+
+        JDriverUndertakesRideEntityService jdure = new JDriverUndertakesRideEntityService();
         return jdure.getWaypointsForDrive(this.getRideId()).getJSON().toString();
-      
+
     }
-    
-     /** get the Waypoints (user-defined required points) wrapped up
-      *  in JWayPoints querying the service directly 
-      *  (as opposed to accessing the drives wayPoint property)
-     * 
-     * @return 
+
+    /**
+     * get the Waypoints (user-defined required points) wrapped up in JWayPoints
+     * querying the service directly (as opposed to accessing the drives
+     * wayPoint property)
+     *
+     * @return
      */
-    public List <JWaypointEntity> getWaypointsFromService(){
-        try{
-        JDriverUndertakesRideEntityService jdure=new JDriverUndertakesRideEntityService();
-        return jdure.getWaypointsForDrive(this.getRideId());
-        } catch(Exception exc){
+    public List<JWaypointEntity> getWaypointsFromService() {
+        try {
+            JDriverUndertakesRideEntityService jdure = new JDriverUndertakesRideEntityService();
+            return jdure.getWaypointsForDrive(this.getRideId());
+        } catch (Exception exc) {
             // sometimes strange exceptions happen when leaving a page
             exc.printStackTrace(System.err);
             return new ArrayList<JWaypointEntity>();
         }
     }
-    
-    
-    /** 
+
+    /**
      * Get the *required* Routepoints for this Drive encoded as a JSONString
-     * 
+     *
      */
-     public String getRequiredRoutePointsAsJSON() {
-         
-         
-         if(this.getRequiredRoutePoints()!=null){
+    public String getRequiredRoutePointsAsJSON() {
+
+
+        if (this.getRequiredRoutePoints() != null) {
             return this.getRequiredRoutePoints().getRoutePointsAsJSON();
-         } 
-         
-         // return empty array by default;
-         return "[]";
+        }
+
+        // return empty array by default;
+        return "[]";
     }
-    
-    
 
     /**
      * Get the RoutePoints for this Drive encoded in a JSONString
@@ -673,7 +630,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         if (this.getRideOfferedseatsNo() == null) {
             this.setRideOfferedseatsNo(NUMBER_SEATS_OFFERED_DEFAULT);
         }
-        
+
     }
 
     /**
@@ -914,43 +871,58 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return (new JDriverUndertakesRideEntityService()).getDrivesInInterval(startDate, endDate);
 
     }
-    
-    
-    /** Length to which the lengty addresses should be shortened
-     *  when displayed in title tags
-     * 
-     *  TODO: make this configurable.
-     * 
+    /**
+     * Length to which the lengty addresses should be shortened when displayed
+     * in title tags
+     *
+     * TODO: make this configurable.
+     *
      */
-    final int ShortStringLength=45;
-    
-    public String getEndptAddressShort(){
-        
-        String endpointAddress=this.getEndptAddress();
-    
-        if(endpointAddress==null){
+    final int ShortStringLength = 45;
+
+    public String getEndptAddressShort() {
+
+        String endpointAddress = this.getEndptAddress();
+
+        if (endpointAddress == null) {
             return "";
         }
-        
-        if(endpointAddress.length()<=ShortStringLength){
+
+        if (endpointAddress.length() <= ShortStringLength) {
             return endpointAddress;
         }
-        
-        return ((endpointAddress.substring(0,(ShortStringLength-1)))+"...");
- 
+
+        return ((endpointAddress.substring(0, (ShortStringLength - 1))) + "...");
+
     }
     
     
-    /** Remove Waypoint with given routeIndex from this Ride
+    /** Get the list of waypoints casted to JWaypoints
      * 
+     * @return 
+     */
+    public ArrayList <JWaypointEntity> getJwaypoints(){
+    
+        ArrayList <JWaypointEntity> res= new ArrayList <JWaypointEntity>();
+        
+        for(WaypointEntity wp: this.getWaypoints()){
+            res.add(new JWaypointEntity(wp));
+        }
+        return res;
+    }
+    
+    
+
+    /**
+     * Remove Waypoint with given routeIndex from this Ride
+     *
      * @param rideIdx routeIndex or the waypoint to be removed
      */
-    public void removeWaypoint(int routeIdx){
-        
+    public void removeWaypoint(int routeIdx) {
+        // TODO: decent logging
+        System.err.println("JDriverUndertakesRideEntity : removeWaypoint  rideId " + getRideId() + " routeIdx : " + routeIdx);
+        this.getWaypoints().remove(routeIdx);
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
-    
-    
-    
     
 } // class 

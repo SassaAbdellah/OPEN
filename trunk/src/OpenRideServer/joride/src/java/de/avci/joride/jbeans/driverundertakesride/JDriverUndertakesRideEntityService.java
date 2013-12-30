@@ -401,7 +401,7 @@ public class JDriverUndertakesRideEntityService {
 
         // done with checking for user
 
-        List<WaypointEntity> waypoints = dure.getWaypoints();
+        List<WaypointEntity> waypoints = durcl.getWaypoints(dure);
         JWaypointsEntity res = new JWaypointsEntity();
        
         for(WaypointEntity w: waypoints){
