@@ -68,16 +68,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private EntityManager em;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
 
-    /**
-     * TODO: dislike
-     *
-     * @param object
-     */
-    public void persist(Object object) {
-        startUserTransaction();
-        commitUserTransaction();
-        em.persist(object);
-    }
+ 
 
     @Override
     public boolean isDeletable(int rideId) {
@@ -605,17 +596,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
-            em.persist(drive);
-            for (DriveRoutepointEntity drp : decomposedRoute) {
-                drp.setDriveId(drive.getRideId());
-                em.persist(drp);
-            }
-
-            for (RoutePointEntity rp : route) {
-                rp.setRideId(drive.getRideId());
-                em.persist(rp);
-            }
-
+            this.persistRoutingInformation(drive, decomposedRoute, route);
             logger.log(Level.INFO, "added drive, committed user transaction::\n");
             em.flush();
         } else {
@@ -629,6 +610,44 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         callMatchingAlgorithm(drive.getRideId(), true);
 
         return drive.getRideId();
+    }
+
+    /** persist routing information for this drive.
+     *  This should be called after creating a 
+     *  drive initially, and after adding and routing 
+     *  waypoints. 
+     *  Technically, this fills the route_point and drive_route_point tables.
+     *  with the lists of route_points and drive_route_points 
+     *  created previously in RouteMatchingBean.computeInitialRoute
+     * 
+     * 
+     * @param drive    drive for which           
+     * @param decomposedRoute list of drive_route_points, typically calculated in "RouteMatchingBean.computeInitialRoute"
+     * @param route list of route_points, typically calculated in "RouteMatchingBean.computeInitialRoute"
+     * 
+     */
+    private void persistRoutingInformation(
+            DriverUndertakesRideEntity drive,
+            LinkedList<DriveRoutepointEntity> decomposedRoute,
+            LinkedList<RoutePointEntity> route) {
+
+        // TODO: remove previously created route_points and drive_route_points for this ride
+
+
+        em.persist(drive);
+        
+        // persist new drive_route_points
+        for (DriveRoutepointEntity drp : decomposedRoute) {
+            drp.setDriveId(drive.getRideId());
+            em.persist(drp);
+        }
+
+        // perstist new_route_points
+        for (RoutePointEntity rp : route) {
+            rp.setRideId(drive.getRideId());
+            em.persist(rp);
+        }
+        
     }
 
     /**
@@ -1123,7 +1142,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private void removeWaypoint(int rideID, int routeIdx, boolean transaction) {
 
 
-        System.err.println("removeWaypoin: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
+        System.err.println("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
 
         if (transaction) {
             startUserTransaction();
@@ -1159,6 +1178,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             wp.setRouteIdx(i);
             em.merge(wp);
         }
+        
+        em.flush();
 
         if (transaction) {
             commitUserTransaction();
