@@ -365,11 +365,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * @return
      *
      *
-     * TODO: Deprecated, should go away once the new version is in place
+     * TODO: should go away once the new version is in place
      *
      */
-    @Deprecated
-    public double computeInitialRoutesDeprecated(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+    public double computeInitialRoutesOld(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
         // the route point interpolation method should be moved out of the routerBean
@@ -380,6 +379,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         Timestamp startTime = new Timestamp(drive.getRideStarttime().getTime());
 
         // compute route containing all map coordinates
+        logger.info("RouteMatchingBean calling findRoute (old) s: " + s + " t: " + t + " starttime " + startTime);
+
         Route route = routerBean.findRoute(
                 s,
                 t,
@@ -429,6 +430,24 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
+     * Small wrapper allowing to switch between old and new implementations of
+     * computeInitialRoutes while the first is beeing developed
+     *
+     * @param drive
+     * @param decomposedRouteBuff
+     * @param routeBuff
+     * @return
+     */
+    @Override
+    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+
+        // return this.computeInitialRoutesOld(drive, decomposedRouteBuff, routeBuff);
+        return this.computeInitialRoutesNew(drive, decomposedRouteBuff, routeBuff);
+
+
+    }
+
+    /**
      * Computes a route for a driver which has no associated ride offers.
      *
      *
@@ -444,8 +463,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * @return length of the route in meters.
      *
      */
-    @Override
-    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+    public double computeInitialRoutesNew(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
 
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
@@ -455,25 +473,49 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         // determine the coordinates along which we'll calculate
         // the initial route
 
-
-
-        // TODO: this seems to create Exceptions as somehow 
-        //       it tries to enforce commit inside of autocommit statements
         Coordinate[] myWaypoints = this.waypoints4InitialRoute(drive);
-        logger.info("computeInitialRoutes : passed waypoint extraction");
+        logger.info("computeInitialRoutes : passed myWaypoint extraction");
+        logger.info("computeInitialRoutes : myWaypoints.size " + myWaypoints.length);
 
-        Coordinate s = new Coordinate(drive.getRideStartpt());
-        Coordinate t = new Coordinate(drive.getRideEndpt());
         Timestamp startTime = new Timestamp(drive.getRideStarttime().getTime());
+        Double distance = 0d;
+
+        for (int i = 0; i <= myWaypoints.length - 2; i++) {
+
+            logger.info("computeInitialRoutes : computing partialRoute # " + i);
+
+            Coordinate s = myWaypoints[i];
+            Coordinate t = myWaypoints[i + 1];
+
+            logger.info("computeInitialRoutes : start  : " + s);
+            logger.info("computeInitialRoutes : target : " + t);
 
 
-        Route route = this.computeRouteBetweenIntermediatePoints(drive, s, t, startTime, routeBuff);
+            Route partialRoute = this.computeRouteBetweenIntermediatePoints(drive, s, t, startTime, routeBuff);
+
+            // If the partial route is pathological, we can end the process here
+            if (partialRoute == null || partialRoute.getLength() == 0d) {
+                logger.info("computeInitialRoutes : terminating prematurely, route is null");
+                return Double.MAX_VALUE;
+            }
+
+            if (partialRoute.getLength() == 0d) {
+                logger.info("computeInitialRoutes : terminating prematurely, route has no routepoints");
+                return Double.MAX_VALUE;
+            }
 
 
-        // If the route is pathological, we can end the process here
 
-        if (route == null || route.getLength() == 0d) {
-            return Double.MAX_VALUE;
+            // sum up over all the partial
+            distance += partialRoute.getLength();
+            logger.info("computeInitialRoutes : partial distance at round " + i + " : " + distance);
+
+            // startTime for next partial Route is end time of previous partial route
+            RoutePoint[] rps = partialRoute.getRoutePoints();
+            RoutePoint partialEndpoint = rps[rps.length - 1];
+            startTime = partialEndpoint.getTimeAt();
+
+            logger.info("computeInitialRoutes : starting time after round " + i + " : " + startTime);
         }
 
         // TODO: hopefully the implementation of getEquiDistantRoutepoints
@@ -481,9 +523,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         // add them here
 
 
+
         // compute decomposed route (less coordinates, but interpolated)
         RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
-                new Coordinate[]{s, t},
+                myWaypoints,
                 startTime,
                 Constants.ROUTE_FASTEST_PATH_DEFAULT,
                 Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
@@ -502,7 +545,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     drive.getRideOfferedseatsNo(),
                     rp.getDistance()));
         }
-        return route.getLength();
+
+        logger.info("computeInitialRoutes : terminating :  number of route_points       : " + routeBuff.size());
+        logger.info("computeInitialRoutes : terminating :  number of drive_route_points : " + decomposedRouteBuff);
+        logger.info("computeInitialRoutes : terminating :  distance : " + distance);
+
+
+        return distance;
     }
 
     /**
@@ -520,8 +569,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             Timestamp startTime,
             LinkedList<RoutePointEntity> routeBuff) {
 
-
         // compute route containing all map coordinates
+        logger.info("RouteMatchingBean calling findRoute (new) s: " + s + " t: " + t + " starttime " + startTime);
+
         Route route = routerBean.findRoute(
                 s,
                 t,
@@ -550,6 +600,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
+     * Creates a list of coordinates defining the bounds of the partial routes.
      *
      * @return
      */
@@ -564,34 +615,32 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         Coordinate[] res = null;
 
 
-        // Attention, waypoints may be null!
+        // if there are waypoints, than we need all waypoints+start and end
         if (waypoints != null) {
-            // if there are waypoints, than we need all waypoints+start and end
-            res = new Coordinate[2 + drive.getWaypoints().size()];
+            res = new Coordinate[2 + waypoints.size()];
         } else {
-            // if there are now waypoints, we'll need start and endpoint only
             res = new Coordinate[2];
         }
 
         // define startpoint
         res[0] = new Coordinate(
-                drive.getRideStartpt().getX(),
-                drive.getRideStartpt().getY());
+                drive.getRideStartpt().getY(),
+                drive.getRideStartpt().getX());
         logger.info("waypoints4InitialRoute : 5");
 
         // add waypoints
         if (waypoints != null) {
             for (int i = 0; i < waypoints.size(); i++) {
-                res[i + 1] = new Coordinate(waypoints.get(i).getLongitude(), waypoints.get(i).getLatitude());
+                res[i + 1] = new Coordinate(waypoints.get(i).getLatitude(), waypoints.get(i).getLongitude());
             }
         }
+
 
         // add endpoint
         res[res.length - 1] =
                 new Coordinate(
-                drive.getRideEndpt().getX(),
-                drive.getRideEndpt().getY());
-
+                drive.getRideEndpt().getY(),
+                drive.getRideEndpt().getX());
 
         logger.info("RouteMatchingBean calculated waypoints : " + res);
 
