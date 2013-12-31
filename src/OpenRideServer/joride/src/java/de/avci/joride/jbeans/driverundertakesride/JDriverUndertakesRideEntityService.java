@@ -710,7 +710,7 @@ public class JDriverUndertakesRideEntityService {
     
         // call DriverUndertakesRideControllerLocal to do the real job
         durcl.addWaypoint(
-                due, 
+                due.getRideId(), 
                 waypoint.extractWaypoint(), 
                 waypoint.getPosition());
     }
