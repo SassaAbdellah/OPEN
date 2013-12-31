@@ -16,19 +16,14 @@
 
     <body>
 
-
         <ui:composition template="/templates/navbar1Layout.xhtml">
-
 
             <!-- highlight "preferences" tab -->
             <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
 
-
-
             <ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
-
 
             <ui:define name="content">
 
@@ -37,12 +32,7 @@
                     #{waypoint.smartUpdate()}
 
 
-                    <h1> #{msgs.createWaypoint} </h1>
-
-                    <p> 
-                        TODO: this page should dissapear once 
-                        waypoints are fully implemented
-                    </p>
+                    <h1> #{msgs.waypointAddWaypoint} </h1>
 
                     <table>
 
@@ -117,7 +107,6 @@
                         </tr>
                     </table>
 
-
                     <!-- Add New Drive to Database, then display it -->
 
                     <h:commandButton 
@@ -130,22 +119,12 @@
 
                     </h:commandButton>
 
-
-
-
-
                 </h:form>
 
             </ui:define>
 
-
-
-
         </ui:composition>
-
-
-
-
-
+        
     </body>
+    
 </html>
