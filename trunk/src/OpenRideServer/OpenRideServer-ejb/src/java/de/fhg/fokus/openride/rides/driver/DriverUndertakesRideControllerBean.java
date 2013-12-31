@@ -1066,9 +1066,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     @Override
-    public void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, int position) {
+    public void addWaypoint(int rideId, WaypointEntity waypoint, int position) {
 
-        this.addWaypoint(drive, waypoint, position, true);
+        this.addWaypoint(rideId, waypoint, position, true);
     }
 
     /**
@@ -1076,64 +1076,80 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * from outside, it can be called with or without an explicite enclosing
      * transaction
      *
-     * @param drive
+     * @param rideId
      * @param waypoint
      * @param position
      * @param transaction turn on transaction explicitely
      */
-    protected void addWaypoint(DriverUndertakesRideEntity drive, WaypointEntity waypoint, int position, boolean transaction) {
+    protected void addWaypoint(int rideId, WaypointEntity waypoint, int position, boolean transaction) {
+
+
+        logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " routeIdx : " + waypoint.getRouteIdx() + " transaction : " + transaction);
 
         if (transaction) {
             startUserTransaction();
         }
-        // set waypoint.rideId to match drive.rideId  </li>
-        waypoint.setRideId(drive.getRideId());
-        // get sorted List of waypoints </li>
-        List<WaypointEntity> waypoints = this.getWaypoints(drive);
-        // add waypoint to position given by position parameter </li>
 
+
+        List<WaypointEntity> waypoints = this.getWaypoints(rideId);
+
+
+        //TODO: for a start add  waypoint at the end, change that....
+        waypoint.setRideId(rideId);
+        em.persist(waypoint);
+
+        // find place and add waypoint to list
         int size = waypoints.size();
-        //
-        // add waypoint at "normalized" position
-        //
-        if (position <= 0) {
-            // if position is <=0, add it to the beginning of the list
+
+        if (position <= 0) { // add at beginning of list
             waypoints.add(0, waypoint);
-        } else if (position >= 0) {
-            // if position is >= size of list, add it to the end of the list
+        } else if(position>=size) { // add at end of list
             waypoints.add(size, waypoint);
-        } else {
-            // else, use position parameter unchanged
+        } else { // add exactly at position
             waypoints.add(position, waypoint);
         }
-
-        // rearrange positions 
+                
+        // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
-            WaypointEntity wpe = waypoints.get(i);
-            wpe.setRouteIdx(i);
-            em.persist(wpe);
+            WaypointEntity wp = waypoints.get(i);
+            wp.setRouteIdx(i);
+            em.merge(wp);
         }
-        // add waypoint to drive
-        drive.getWaypoints().add(waypoint);
+
+        em.flush();
+        DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideId);
+
+        if (drive == null) {
+            logger.info("cannot addWaypoint: drive is null");
+            if (transaction) {
+                rollbackUserTransaction();
+            }
+            return;
+        }
+
+        drive.setWaypoints(waypoints);
+        em.persist(drive);
+        em.flush();
 
 
-        // compute routes
         LinkedList<DriveRoutepointEntity> decomposedRoute = new LinkedList<DriveRoutepointEntity>();
         LinkedList<RoutePointEntity> route = new LinkedList<RoutePointEntity>();
         double distance = routeMatchingBean.computeInitialRoutes(drive, decomposedRoute, route);
 
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
+            logger.log(Level.INFO, "removeWaypoint: success, found route :\n");
             this.persistRoutingInformation(drive, decomposedRoute, route);
-            logger.log(Level.INFO, "added waypoint, committed user transaction::\n");
+            logger.log(Level.INFO, "removeWaypoint, committed user transaction::\n");
         } else {
-            logger.log(Level.INFO, "could not add waypoint: no route found ::\n");
+            logger.log(Level.INFO, "could not removeWaypoint: no route found ::\n");
         }
 
         em.flush();
 
         // TODO: enclose callMatchingAlgoritm inside of a thread
         callMatchingAlgorithm(drive.getRideId(), true);
+
 
         if (transaction) {
             commitUserTransaction();
@@ -1170,7 +1186,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             startUserTransaction();
         }
 
-       
+
         List<WaypointEntity> waypoints = this.getWaypoints(rideID);
 
         logger.info("removeWaypoint: waypointIndices: ");
@@ -1191,16 +1207,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         WaypointEntity wpToRemove = (waypoints.get(routeIdx));
         waypoints.remove(wpToRemove);
         em.remove(wpToRemove);
-       
+
         // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
             WaypointEntity wp = waypoints.get(i);
             wp.setRouteIdx(i);
             em.merge(wp);
         }
-      
+
         em.flush();
-        
+
         DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
 
         if (drive == null) {
@@ -1210,7 +1226,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
             return;
         }
-        
+
         drive.setWaypoints(waypoints);
         em.persist(drive);
         em.flush();
