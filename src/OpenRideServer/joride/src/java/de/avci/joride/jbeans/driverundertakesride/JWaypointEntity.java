@@ -261,7 +261,7 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
      *
      * @return this.getRouteIdx-0.5
      */
-    public double getPositionValueBefore() {
+    public int getPositionValueBefore() {
         return this.getRouteIdx();
     }
 
@@ -272,8 +272,8 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
      *
      * @return this.getRouteIdx+0.5
      */
-    public double getPositionValueAfter() {
-        return this.getRouteIdx() + 1;
+    public int getPositionValueAfter() {
+        return this.getRouteIdx()+1;
     }
     
     
