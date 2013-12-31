@@ -39,7 +39,7 @@
                         <!--  do not display ride id      -->        
                         <!--  do not display position     --> 
                         <!--  do not display routeIdx     -->
-                     
+
 
                         <tr> 
                             <td class="formLabel"> #{msgs.waypointDescription} </td>
@@ -65,9 +65,9 @@
                         <!-- do not display rideAttached -->
                         <!-- do not display readyForPersisting -->
 
-                     
 
-                   
+
+
 
 
                         <tr>
@@ -95,36 +95,41 @@
                         </tr>
 
                         <tr> <!--  -->
-                            <td class="formInput" colspan="3">
+                            <td class="formInput">
 
                                 #{webflow.smartUpdate()}
 
-                                <h:commandLink value="Back to driveDisplay" action="driver.driveDisplay">
+                                <h:commandButton value="#{msgs.cancel}" action="driver.driveDisplay">
                                     <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
-                                </h:commandLink>
+                                </h:commandButton>
+                            </td>
+                            <td> 
+                                &nbsp; 
+                            </td>
+                            <td>
+
+                                <!-- Add New Drive to Database, then display it -->
+
+                                <h:commandButton 
+                                    value="#{msgs.waypointCreateWaypoint}" 
+                                    actionListener="#{waypoint.addToDrive()}"
+                                    action="driver.driveDisplay" 
+                                    >
+
+                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
+
+                                </h:commandButton>
 
                             </td> 
                         </tr>
                     </table>
-
-                    <!-- Add New Drive to Database, then display it -->
-
-                    <h:commandButton 
-                        value="create new Waypoint" 
-                        actionListener="#{waypoint.addToDrive()}"
-                        action="driver.driveDisplay" 
-                        >
-
-                        <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
-
-                    </h:commandButton>
 
                 </h:form>
 
             </ui:define>
 
         </ui:composition>
-        
+
     </body>
-    
+
 </html>
