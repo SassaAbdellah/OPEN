@@ -640,7 +640,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         this.removeAllRoutepoints(drive.getRideId());
         this.removeAllDriveRoutepoints(drive.getRideId());
         em.flush();
-        
+
         logger.info("persistRoutingInformation : 2");
 
 
@@ -1170,14 +1170,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             startUserTransaction();
         }
 
-        DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
+       
+        List<WaypointEntity> waypoints = this.getWaypoints(rideID);
 
-        if (drive == null) {
-            logger.info("cannot removeWaypoint: drive is null");
-            return;
-        }
-        List<WaypointEntity> waypoints = drive.getWaypoints();
-        
         logger.info("removeWaypoint: waypointIndices: ");
         for (WaypointEntity w : waypoints) {
             logger.info("" + w.getRouteIdx() + ", ");
@@ -1186,28 +1181,41 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         if (waypoints.size() <= routeIdx) {
             logger.severe("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
+            if (transaction) {
+                rollbackUserTransaction();
+            }
             return;
         }
-        
-        
-        WaypointEntity wpToRemove=(waypoints.get(routeIdx));
+
+
+        WaypointEntity wpToRemove = (waypoints.get(routeIdx));
         waypoints.remove(wpToRemove);
         em.remove(wpToRemove);
-
+       
         // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
             WaypointEntity wp = waypoints.get(i);
             wp.setRouteIdx(i);
             em.merge(wp);
         }
-        // make sure drive is associated to normalized waypoints
+      
+        em.flush();
         
-        for(WaypointEntity wp: drive.getWaypoints()){em.detach(wp);}
+        DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
+
+        if (drive == null) {
+            logger.info("cannot removeWaypoint: drive is null");
+            if (transaction) {
+                rollbackUserTransaction();
+            }
+            return;
+        }
+        
         drive.setWaypoints(waypoints);
-        em.refresh(drive);
+        em.persist(drive);
         em.flush();
 
-        
+
         LinkedList<DriveRoutepointEntity> decomposedRoute = new LinkedList<DriveRoutepointEntity>();
         LinkedList<RoutePointEntity> route = new LinkedList<RoutePointEntity>();
         double distance = routeMatchingBean.computeInitialRoutes(drive, decomposedRoute, route);
@@ -1225,7 +1233,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         // TODO: enclose callMatchingAlgoritm inside of a thread
         callMatchingAlgorithm(drive.getRideId(), true);
-       
+
 
         if (transaction) {
             commitUserTransaction();
