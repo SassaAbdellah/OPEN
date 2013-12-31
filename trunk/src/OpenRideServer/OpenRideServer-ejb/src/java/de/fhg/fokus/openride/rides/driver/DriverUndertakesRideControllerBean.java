@@ -1176,9 +1176,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             logger.info("cannot removeWaypoint: drive is null");
             return;
         }
-        List<WaypointEntity> waypoints = this.getWaypoints(drive);
-
-
+        List<WaypointEntity> waypoints = drive.getWaypoints();
+        
         logger.info("removeWaypoint: waypointIndices: ");
         for (WaypointEntity w : waypoints) {
             logger.info("" + w.getRouteIdx() + ", ");
@@ -1189,21 +1188,26 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             logger.severe("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
             return;
         }
-
-        em.remove(waypoints.get(routeIdx));
-        waypoints.remove(routeIdx);
+        
+        
+        WaypointEntity wpToRemove=(waypoints.get(routeIdx));
+        waypoints.remove(wpToRemove);
+        em.remove(wpToRemove);
 
         // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
-
             WaypointEntity wp = waypoints.get(i);
             wp.setRouteIdx(i);
             em.merge(wp);
         }
         // make sure drive is associated to normalized waypoints
+        
+        for(WaypointEntity wp: drive.getWaypoints()){em.detach(wp);}
         drive.setWaypoints(waypoints);
+        em.refresh(drive);
+        em.flush();
 
-
+        
         LinkedList<DriveRoutepointEntity> decomposedRoute = new LinkedList<DriveRoutepointEntity>();
         LinkedList<RoutePointEntity> route = new LinkedList<RoutePointEntity>();
         double distance = routeMatchingBean.computeInitialRoutes(drive, decomposedRoute, route);
@@ -1221,7 +1225,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         // TODO: enclose callMatchingAlgoritm inside of a thread
         callMatchingAlgorithm(drive.getRideId(), true);
-
+       
 
         if (transaction) {
             commitUserTransaction();
