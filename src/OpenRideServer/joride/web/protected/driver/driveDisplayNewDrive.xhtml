@@ -70,7 +70,7 @@
                         <td colspan="3">
                             <span class="formLabel">
                                 <h:form>
-                                    <h:commandLink action="driver.editRouting" value="TODO: edit routing">
+                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointAddWaypoints}">
                                         <f:param  name="#{crud.paramNameCrudId}" value="#{newdriverride.rideId}"/>
                                         <f:param name="#{webflow.getParamBack()}" value="driver"          />
                                     </h:commandLink>
@@ -104,6 +104,19 @@
                         <td class="formLabel"> #{msgs.rideRoutePointDistanceMeters}    </td>
                         <td>:</td>
                         <td class="formInput">  #{newdriverride.rideRoutePointDistanceMeters}  </td>
+                    </tr>
+                    
+                     <tr>
+                        <td colspan="3">
+                            <span class="formLabel">
+                                <h:form>
+                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointAddWaypoints}">
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{newdriverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </h:commandLink>
+                                </h:form>
+                            </span>
+                        </td>
                     </tr>
 
 
