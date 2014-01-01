@@ -113,13 +113,12 @@
                                 <h:commandButton 
                                     value="#{msgs.waypointCreateWaypoint}" 
                                     actionListener="#{waypoint.addToDrive()}"
-                                    action="driver.driveDisplay" 
+                                    action="driver.editRouting" 
                                     >
 
                                     <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
-
                                 </h:commandButton>
-
+                                
                             </td> 
                         </tr>
                     </table>

@@ -518,8 +518,17 @@
         </navigation-case>
     </navigation-rule>
         
+    <!-- main page for altering the routes of a newly created drive -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.editRouting</from-outcome>
+            <to-view-id>/faces/protected/driver/driveEditRouting.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+               
         
-      <!-- show updates rides and drives for user -->
+        
+    <!-- show create waypoints -->
     <navigation-rule>
         <navigation-case>
             <from-outcome>driver.createWaypoint</from-outcome>
@@ -653,10 +662,10 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean> 
 
-      <!-- Waypoint to be added or removed from DriverUndertakeRide Entities         -->    
-      <!-- This looks like a bug in Glassfish JSF implementation                     -->
-      <!-- For whatever reason, when waypoint gets defined via Annotation            -->
-      <!-- waypoint initialisation is broken, so it is defined here as a workarount  -->
+    <!-- Waypoint to be added or removed from DriverUndertakeRide Entities         -->    
+    <!-- This looks like a bug in Glassfish JSF implementation                     -->
+    <!-- For whatever reason, when waypoint gets defined via Annotation            -->
+    <!-- waypoint initialisation is broken, so it is defined here as a workarount  -->
     <managed-bean> 
         <managed-bean-name>waypoint</managed-bean-name>
         <managed-bean-class>de.avci.joride.jbeans.driverundertakesride.JWaypointEntity</managed-bean-class>
