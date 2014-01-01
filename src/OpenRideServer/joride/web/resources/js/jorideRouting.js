@@ -212,8 +212,8 @@ function createMap(
                                         map.getProjectionObject() // to current map's projection
                                         );
 
-	iconMarkerBlueURL="/joride/resources/images/marker-blue.png";
- 	icon = new OpenLayers.Icon(iconMarkerBlueURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+	waypointURL="/joride/resources/images/waypoint.png";
+ 	icon = new OpenLayers.Icon(waypointURL,new OpenLayers.Size(10,10),new OpenLayers.Pixel(-5,-5));
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
