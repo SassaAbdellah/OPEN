@@ -1146,7 +1146,13 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
         em.flush();
-
+        
+        // remove matchings
+        for(MatchEntity m : this.getMatches(rideId, false) ){
+            em.remove(m);
+        }
+        em.flush();
+        
         // TODO: enclose callMatchingAlgoritm inside of a thread
         callMatchingAlgorithm(drive.getRideId(), true);
 
