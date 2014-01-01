@@ -64,35 +64,29 @@
                         <td class="formInput">  #{newdriverride.startptAddress}   </td>
                     </tr>
 
+
+
                     <tr>
-                        <td class="formLabel"> #{msgs.geolocationLatitude} </td>
-                        <td> : </td>
-                        <td class="formInput"> #{newdriverride.latitudeStart} </td>
+                        <td colspan="3">
+                            <span class="formLabel">
+                                <h:form>
+                                    <h:commandLink action="driver.editRouting" value="TODO: edit routing">
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{newdriverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </h:commandLink>
+                                </h:form>
+                            </span>
+                        </td>
                     </tr>
 
-                    <tr> 
-                        <td class="formLabel">#{msgs.geolocationLongitude} </td>
-                        <td> : </td>
-                        <td class="formInput"> #{newdriverride.longitudeStart} </td>
-                    </tr>
+
+
 
 
                     <tr>
                         <td class="formLabel">  #{msgs.rideDestination}        </td>
                         <td> : </td>
                         <td class="formInput">  #{newdriverride.endptAddress}     </td>
-                    </tr>
-
-                    <tr> 
-                        <td class="formLabel"> #{msgs.geolocationLatitude} </td>
-                        <td>:</td>
-                        <td class="formInput"> #{newdriverride.latitudeEnd}  </td>
-                    </tr>
-
-                    <tr> 
-                        <td class="formLabel">#{msgs.geolocationLongitude}  </td> 
-                        <td>:</td>
-                        <td class="formInput"> #{newdriverride.longitudeEnd}   </td>
                     </tr>
 
 
@@ -178,17 +172,17 @@
 
 
                 <script>
-                    
-                    myRoutePoints=#{newdriverride.routePointsAsJSON};
-                    myStartPoint=#{newdriverride.routePoints.startPointAsJSON};
-                    myEndPoint  =#{newdriverride.routePoints.endPointAsJSON};
-                    myPickupPoints=#{newdriverride.routePoints.pickupRiderPointsAsJSON};
-                    myDropPoints=#{newdriverride.routePoints.dropRiderPointsAsJSON};
-                    myWayPoints=#{newdriverride.routePoints.wayPointsAsJSON};
-                    
-                    createMap("mapdiv",myStartPoint,myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
-                        
-                    
+
+                    myRoutePoints =#{newdriverride.routePointsAsJSON};
+                    myStartPoint =#{newdriverride.routePoints.startPointAsJSON};
+                    myEndPoint =#{newdriverride.routePoints.endPointAsJSON};
+                    myPickupPoints =#{newdriverride.routePoints.pickupRiderPointsAsJSON};
+                    myDropPoints =#{newdriverride.routePoints.dropRiderPointsAsJSON};
+                    myWayPoints =#{newdriverride.routePoints.wayPointsAsJSON};
+
+                    createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
+
+
 
                 </script>
 
