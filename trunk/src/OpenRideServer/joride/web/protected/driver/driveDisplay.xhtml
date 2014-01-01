@@ -178,21 +178,22 @@
                         </td>
                     </tr>
 
-                    <!-- link to edit waypoints -->
-                    
-                    <tr>
-                        <td colspan="3">
-                            <span class="formLabel">
-                                <h:form>
-                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
-                                        <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
-                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                    </h:commandLink>
-                                </h:form>
-                            </span>
-                        </td>
-                    </tr>
+                    <!-- link to edit waypoints, only iff there are no matches -->
 
+                    <ui:fragment rendered="#{driverride.canEditRoute}">
+                        <tr>
+                            <td colspan="3">
+                                <span class="formLabel">
+                                    <h:form>
+                                        <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
+                                            <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
+                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                        </h:commandLink>
+                                    </h:form>
+                                </span>
+                            </td>
+                        </tr>
+                    </ui:fragment>
 
                     <!-- ********************************* -->    
                     <!-- **  ride destination section      -->

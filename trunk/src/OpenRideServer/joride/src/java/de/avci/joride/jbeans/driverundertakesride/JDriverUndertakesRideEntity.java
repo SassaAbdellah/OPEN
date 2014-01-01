@@ -12,6 +12,7 @@ import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.text.DateFormat;
@@ -39,101 +40,88 @@ import org.postgis.Point;
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
     /**
-     * Initial State of an offer. STATE_NEW meanst that the offer is newly
-     * created, and that there are no requests from potential riders yet.
+     * Calculate the state of negotians for this drive. This is done by
+     * evaluating the matches
      *
-     * From STATE_NEW, the ride offer may get into state STATE_RIDER_REQUESTED
-     * (if a rider requests a ride) or STATE_DRIVER_ACCEPTED (if Driver accepts
-     * a matching request ) or STATE_COUNTERMANDED (if Driver needs to
-     * invalidate offer for some reason)
      *
-     * see also:      {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED}
-     *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
-     *  {@link  STATE_COUNTERMANDED}
+     * @return calculated State, see above
+     *
      *
      */
-    protected static final int STATE_NEW = 0;
-    /**
-     * STATE_RIDER_REQUESTED is a state into which an offer gets if one (or
-     * more) riders have requested to be picked up, but the driver has not (yet)
-     * acceppted any one of those requests.
-     *
-     * From STATE_RIDER_REQUESTED the ride offer may get into state
-     *
-     * STATE_CONFIRMED (if Driver accepts a matching request ) or
-     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *
-     * see also:      {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED}
-     *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
-     *  {@link  STATE_COUNTERMANDED}
-     *
-     */
-    protected static final int STATE_RIDER_REQUESTED = 1;
-    /**
-     * STATE_DRIVER_ACCEPTED is a state into which an offer gets if one (or
-     * more) matchings exists and driver has "prematurely" accepted to pick up
-     * riders, while riders have not (yet) requested to be picked up.
-     *
-     * From STATE_DRIVER_ACCEPTED the ride offer may get into state
-     *
-     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
-     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *
-     * see also:      {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED}
-     *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
-     *  {@link  STATE_COUNTERMANDED}
-     *
-     */
-    protected static final int STATE_DRIVER_ACCEPTED = 2;
-    /**
-     * STATE_CONFIRMED is a state into which an offer gets if one (or more)
-     * matchings exists and driver both, driver and rider have agreed to take
-     * the lift, rsp pick up the rider.
-     *
-     * From STATE_CONFIRMED, the ride offer may get into state
-     *
-     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *
-     * see also:      {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED}
-     *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
-     *  {@link  STATE_COUNTERMANDED}
-     *
-     */
-    protected static final int STATE_CONFIRMED = 3;
-    /**
-     * STATE_COUTERMANDED is a state into which an offer gets if Driver has to
-     * cancel the ride for whatever reason (Blizzards, Earthquake, ...etc...)
-     *
-     * From STATE_COUNTERMANDED the ride offer may not get into any other
-     * stated.
-     *
-     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
-     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
-     *
-     * see also:      {@link STATE_NEW} 
-     *  {@link  STATE_RIDER_REQUESTED}
-     *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
-     *  {@link  STATE_COUNTERMANDED}
-     *
-     */
-    protected static final int STATE_COUNTERMANDED = 4;
-    /**
-     * State of this ride. Initially: State new
-     *
-     */
-    private Integer state = STATE_NEW;
+    protected Integer getMatchingState() {
 
-    protected Integer getState() {
-        return this.state;
+        // TODO: introduce a property that marks 
+        // driverundertakesrideentity as invalidated,
+        // and return some kind of "invalidated" State,
+        // iff this is invalidated
+
+        // i.e: if (this.isInvalidated()){return STATE_INVALIDATED}
+
+        if (!(this.getHasMatches())) {
+            return DriverConstants.STATE_NEW;
+        }
+
+        // determine the "best" rider state and driver state from matches
+        Integer riderMaxState = 0;
+        Integer driverMaxState = 0;
+
+        for (JMatchingEntity m : this.getMatches()) {
+
+            // do not take coutermanded or rejected matches into account
+            if (
+                !(null == m.getRiderState())
+                && !(null == m.getDriverState())
+                && !(MatchEntity.COUNTERMANDED.equals(m.getRiderState()))
+                && !(MatchEntity.COUNTERMANDED.equals(m.getDriverState()))
+                && !(MatchEntity.REJECTED.equals(m.getRiderState()))
+                && !(MatchEntity.REJECTED.equals(m.getDriverState()))) {
+                riderMaxState = Math.max(riderMaxState, m.getRiderState());
+                driverMaxState = Math.max(driverMaxState, m.getDriverState());
+            }
+        }
+
+        // if there are 
+        // EITHER no matches, 
+        // OR there are matches, but neither requests, nor premature confirmations
+        // return STATE_NEW
+        if (MatchEntity.NOT_ADAPTED.equals(riderMaxState) && MatchEntity.NOT_ADAPTED.equals(driverMaxState)) {
+            return DriverConstants.STATE_NEW;
+        }
+        // see, if both sides accepted and return STATE_CONFIRMED
+        if (MatchEntity.ACCEPTED.equals(riderMaxState) && MatchEntity.ACCEPTED.equals(driverMaxState)) {
+            return DriverConstants.STATE_CONFIRMED;
+        }
+
+        if (MatchEntity.ACCEPTED.equals(riderMaxState)) {
+            return DriverConstants.STATE_RIDER_REQUESTED;
+        }
+
+        if (MatchEntity.ACCEPTED.equals(driverMaxState)) {
+            return DriverConstants.STATE_DRIVER_ACCEPTED;
+        }
+
+        return DriverConstants.STATE_UNCLEAR;
+    }
+
+    /**
+     * If true, waypoints can be added to the route
+     *
+     * @returns true, if state is one of STATE_NEW, STATE_COUNTERMANDED,
+     * STATE_RIDER_REQUESTED,STATE_DRIVER_ACCEPTED, else false
+     *
+     */
+    public boolean getCanEditRoute() {
+
+        int matchingState = this.getMatchingState();
+
+        if (DriverConstants.STATE_NEW == matchingState
+                || DriverConstants.STATE_COUNTERMANDED == matchingState
+                || DriverConstants.STATE_RIDER_REQUESTED == matchingState
+                || DriverConstants.STATE_DRIVER_ACCEPTED == matchingState) {
+            return true;
+        }
+
+        return false;
     }
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
     /**
@@ -895,23 +883,21 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return ((endpointAddress.substring(0, (ShortStringLength - 1))) + "...");
 
     }
-    
-    
-    /** Get the list of waypoints casted to JWaypoints
-     * 
-     * @return 
+
+    /**
+     * Get the list of waypoints casted to JWaypoints
+     *
+     * @return
      */
-    public ArrayList <JWaypointEntity> getJwaypoints(){
-    
-        ArrayList <JWaypointEntity> res= new ArrayList <JWaypointEntity>();
-        
-        for(WaypointEntity wp: this.getWaypoints()){
+    public ArrayList<JWaypointEntity> getJwaypoints() {
+
+        ArrayList<JWaypointEntity> res = new ArrayList<JWaypointEntity>();
+
+        for (WaypointEntity wp : this.getWaypoints()) {
             res.add(new JWaypointEntity(wp));
         }
         return res;
     }
-    
-    
 
     /**
      * Remove Waypoint with given routeIndex from this Ride
@@ -924,5 +910,4 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.getWaypoints().remove(routeIdx);
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
-    
 } // class 
