@@ -181,8 +181,8 @@ function createMap(
                                         map.getProjectionObject() // to current map's projection
                                         );
 
-	iconMarkerWhiteURL="/joride/resources/images/marker-white.png";
- 	icon = new OpenLayers.Icon(iconMarkerWhiteURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+	riderPickupURL="/joride/resources/images/RiderPickup.png";
+ 	icon = new OpenLayers.Icon(riderPickupURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
@@ -198,8 +198,8 @@ function createMap(
                                         map.getProjectionObject() // to current map's projection
                                         );
 
-	iconMarkerGreyURL="/joride/resources/images/marker-grey.png";
- 	icon = new OpenLayers.Icon(iconMarkerGreyURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+	riderDropURL="/joride/resources/images/RiderDrop.png";
+ 	icon = new OpenLayers.Icon(riderDropURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
