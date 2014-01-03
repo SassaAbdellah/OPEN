@@ -1395,4 +1395,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         return this.getCountOfRatingsForDriver(customer)
                 + this.getCountOfRatingsForRider(customer);
     }
+
+    @Override
+    public List<RiderUndertakesRideEntity> getRidesForRiderAfterDate(CustomerEntity ce, Date startDate) {
+
+        List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findRidesAfterDateforCustId").setParameter("custId", ce).setParameter("startDate", startDate).getResultList();
+        return res;
+    }
 }

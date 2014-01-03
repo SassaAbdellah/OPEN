@@ -911,35 +911,43 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         throw new Error("Parameter " + reportType + " is  not supported in getRideReport()");
 
     }
-    
-    
-
-    
-    /** Length to which the lengty addresses should be shortened
-     *  when displayed in title tags
-     * 
-     *  TODO: make this configurable.
-     * 
+    /**
+     * Length to which the lengty addresses should be shortened when displayed
+     * in title tags
+     *
+     * TODO: make this configurable.
+     *
      */
-    final int ShortStringLength=45;
-    
-    public String getEndptAddressShort(){
-        
-        String endpointAddress=this.getEndptAddress();
-    
-        if(endpointAddress==null){
+    final int ShortStringLength = 45;
+
+    public String getEndptAddressShort() {
+
+        String endpointAddress = this.getEndptAddress();
+
+        if (endpointAddress == null) {
             return "";
         }
-        
-        if(endpointAddress.length()<=ShortStringLength){
+
+        if (endpointAddress.length() <= ShortStringLength) {
             return endpointAddress;
         }
-        
-        return ((endpointAddress.substring(0,(ShortStringLength-1)))+"...");
- 
+
+        return ((endpointAddress.substring(0, (ShortStringLength - 1))) + "...");
+
     }
+
     
     
+    /** Returns a list of future riders, i.e: list of rides for calling rider,
+     *  that have latestStartTime >= now. 
+     * 
+     * @return list of future rides for calling rider. 
+     */
+    public List<JRiderUndertakesRideEntity> getFutureRidesForRider() {
+        
+      return(  new JRiderUndertakesRideEntityService().getFutureRidesForRider());
+        
+    }
 
     /**
      * Overwrite RiderUndertakesRideEntity() to start out with negative ratings,
