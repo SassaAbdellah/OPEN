@@ -182,7 +182,7 @@ function createMap(
                                         );
 
 	riderPickupURL="/joride/resources/images/RiderPickup.png";
- 	icon = new OpenLayers.Icon(riderPickupURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+ 	icon = new OpenLayers.Icon(riderPickupURL,new OpenLayers.Size(20,20),new OpenLayers.Pixel(-10,-10));
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
@@ -199,7 +199,7 @@ function createMap(
                                         );
 
 	riderDropURL="/joride/resources/images/RiderDrop.png";
- 	icon = new OpenLayers.Icon(riderDropURL,new OpenLayers.Size(21,25),new OpenLayers.Pixel(-11,-25));
+ 	icon = new OpenLayers.Icon(riderDropURL,new OpenLayers.Size(20,20),new OpenLayers.Pixel(-10,-10));
  	markerWaypoint=new OpenLayers.Marker(llWaypoint,icon);
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }

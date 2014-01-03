@@ -9,6 +9,7 @@ import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -263,6 +264,53 @@ public class JRiderUndertakesRideEntityService {
         return res;
 
     } // getRealizedRidesForRiderInInterval
+    
+    
+    
+    /**
+     * Get a list of all  rides for the actual Rider in that 
+     * have starttime latest after NOW
+     *
+     *
+     *
+     * @return
+     */
+    public List<JRiderUndertakesRideEntity> getFutureRidesForRider() {
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customerNickname is null");
+        }
+
+        // get all rides related to this customer
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getRidesForRiderAfterDate(ce, new Date());
+                
+
+        // cast them to JRiderUntertakesRideEntity
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+
+            res.add(jrure);
+        }
+
+        return res;
+
+    } // getRidesForRiderAfter
+    
+    
+    
+    
 
     public List<JRiderUndertakesRideEntity> getUnratedRidesForRiderInInterval() {
 

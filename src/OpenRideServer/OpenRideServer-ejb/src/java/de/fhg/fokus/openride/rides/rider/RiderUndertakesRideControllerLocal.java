@@ -85,13 +85,14 @@ public interface RiderUndertakesRideControllerLocal {
 
     List<RiderUndertakesRideEntity> getRatedRidesByDriver(CustomerEntity driver);
 
-    /** Count Ratings for Customer
-     * 
+    /**
+     * Count Ratings for Customer
+     *
      * @param customer customer Entity to count number of ratings
      * @return Overall Number of all Ratings for this user
      */
     Integer getRatingsCountByCustomer(CustomerEntity customer);
-    
+
     int getRatingsTotalByCustomer(CustomerEntity customer);
 
     float getRatingsRatioByCustomerAndDate(CustomerEntity customer, Date fromDate);
@@ -165,39 +166,40 @@ public interface RiderUndertakesRideControllerLocal {
     public List<RiderUndertakesRideEntity> getUnratedRidesForRider(CustomerEntity ce, Date startDate, Date endDate);
 
     public List<RiderUndertakesRideEntity> getRidesForDriver(CustomerEntity ce, Date startDate, Date endDate);
-    
-    
-   /** Get the sum over all Ratings that the customer received when acting as rider.
-    * 
-    * @param custId  id of customer for whom ratings will be summed up
-    * @return  sum over all driver ratings the customer has received
-    */
+
+    public List<RiderUndertakesRideEntity> getRidesForRiderAfterDate(CustomerEntity ce, Date startDate);
+
+    /**
+     * Get the sum over all Ratings that the customer received when acting as
+     * rider.
+     *
+     * @param custId id of customer for whom ratings will be summed up
+     * @return sum over all driver ratings the customer has received
+     */
     public Integer getTotalOfRatingsForDriver(CustomerEntity customer);
-    
-    /** Count all rides where the customer has acted as a driver
-     * 
+
+    /**
+     * Count all rides where the customer has acted as a driver
+     *
      * @param customer customer for whom ratings will be counted
-     * @return  number of rated rides where the customer acted as driver
+     * @return number of rated rides where the customer acted as driver
      */
     public Integer getCountOfRatingsForDriver(CustomerEntity customer);
-    
-      /** Get the sum over all Ratings that the customer received when acting as rider.
-    * 
-    * @param customer customer for whom ratings will be summed up
-    * @return  sum over all rider ratings the customer has received
-    */
+
+    /**
+     * Get the sum over all Ratings that the customer received when acting as
+     * rider.
+     *
+     * @param customer customer for whom ratings will be summed up
+     * @return sum over all rider ratings the customer has received
+     */
     public Integer getTotalOfRatingsForRider(CustomerEntity customer);
-    
-    /** Count all rides where the customer has acted as a rider
-     * 
-     * @param customer  customer for whom ratings will be counted
-     * @return  number of rated rides where the customer acted as rider
+
+    /**
+     * Count all rides where the customer has acted as a rider
+     *
+     * @param customer customer for whom ratings will be counted
+     * @return number of rated rides where the customer acted as rider
      */
     public Integer getCountOfRatingsForRider(CustomerEntity customer);
-    
-    
-    
-    
-    
-    
 }
