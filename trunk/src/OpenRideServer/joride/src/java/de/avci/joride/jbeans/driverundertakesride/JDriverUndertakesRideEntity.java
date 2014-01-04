@@ -57,28 +57,32 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         // i.e: if (this.isInvalidated()){return STATE_INVALIDATED}
 
+     
         if (!(this.getHasMatches())) {
             return DriverConstants.STATE_NEW;
         }
 
+     
         // determine the "best" rider state and driver state from matches
-        Integer riderMaxState = 0;
-        Integer driverMaxState = 0;
+        Integer riderMaxState = new Integer(0);
+        Integer driverMaxState = new Integer(0);
 
+     
         for (JMatchingEntity m : this.getMatches()) {
 
             // do not take coutermanded or rejected matches into account
-            if (
-                !(null == m.getRiderState())
-                && !(null == m.getDriverState())
-                && !(MatchEntity.COUNTERMANDED.equals(m.getRiderState()))
-                && !(MatchEntity.COUNTERMANDED.equals(m.getDriverState()))
-                && !(MatchEntity.REJECTED.equals(m.getRiderState()))
-                && !(MatchEntity.REJECTED.equals(m.getDriverState()))) {
+            if (!(null == m.getRiderState())
+                    && !(null == m.getDriverState())
+                    && !(MatchEntity.COUNTERMANDED.equals(m.getRiderState()))
+                    && !(MatchEntity.COUNTERMANDED.equals(m.getDriverState()))
+                    && !(MatchEntity.REJECTED.equals(m.getRiderState()))
+                    && !(MatchEntity.REJECTED.equals(m.getDriverState()))) {
                 riderMaxState = Math.max(riderMaxState, m.getRiderState());
                 driverMaxState = Math.max(driverMaxState, m.getDriverState());
             }
         }
+
+      
 
         // if there are 
         // EITHER no matches, 
@@ -87,19 +91,26 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         if (MatchEntity.NOT_ADAPTED.equals(riderMaxState) && MatchEntity.NOT_ADAPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_NEW;
         }
+
+     
         // see, if both sides accepted and return STATE_CONFIRMED
         if (MatchEntity.ACCEPTED.equals(riderMaxState) && MatchEntity.ACCEPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_CONFIRMED;
         }
 
+    
+
         if (MatchEntity.ACCEPTED.equals(riderMaxState)) {
             return DriverConstants.STATE_RIDER_REQUESTED;
         }
+
+   
 
         if (MatchEntity.ACCEPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_DRIVER_ACCEPTED;
         }
 
+   
         return DriverConstants.STATE_UNCLEAR;
     }
 
