@@ -71,7 +71,7 @@ import javax.persistence.TemporalType;
  */
 public class MatchEntity implements Serializable {
 
-    public static final Integer NOT_ADAPTED = null;
+    public static final Integer NOT_ADAPTED = 0;
     public static final Integer REJECTED = 1;
     public static final Integer ACCEPTED = 2;
     public static final Integer COUNTERMANDED = 3;
