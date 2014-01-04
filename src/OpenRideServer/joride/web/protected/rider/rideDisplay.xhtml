@@ -51,31 +51,6 @@
                     </ui:fragment>
 
 
-                    <p> <!-- paragraph for action links -->
-                        <!-- *** show matchings list only if there are matchings *** -->
-                        <h:form rendered="#{ride.hasMatches}">
-                            <div class="formLabel">
-                                <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
-                                    <f:param  name="#{webflow.getParamBack()}" value="rider"               />
-                                </h:commandLink>
-                            </div>
-                        </h:form> 
-
-                        <div class="formLabel">
-                            #{cancellingride.update()}
-                            <h:form>
-                                <h:commandLink 
-                                    action="#{cancellingride.invalidate()}" 
-                                    value="#{msgs.rideRemoveThisRequest}" 
-                                    disabled="#{!ride.riderCancellable}"
-                                    />
-                            </h:form>
-                        </div>
-                    </p>
-
-
-
                     <!-- data are presented inside of an accordion with the first  -->
                     <!--  -->
                     <p:accordionPanel  activeIndex="0" multiple="false" > 
@@ -205,19 +180,33 @@
 
                         <p:tab title="#{msgs.rideBooking}">
 
-                            <!-- Matching Offers -->
-
-                            <div class="formLabel">
-                                <h:form>
-                                    <h:commandLink   value="#{msgs.rideMatchesShowOffers}" action="rider.rideMatchingsList">
-                                        <f:param  name="#{crud.paramNameCrudId}"  value="#{ride.riderrouteId}"/>
-                                        <f:param  name="#{webflow.getParamBack()}" value="rider"          />
-                                    </h:commandLink>
-                                </h:form>
-
-                            </div>
-
                             <table>
+
+                                <h:form rendered="#{ride.hasMatches}">
+                                    <tr>
+                                        <td colspan="1" class="formLabel">
+                                            <p:commandButton  id="matchingList" icon="ui-icon-person" action="rider.rideMatchingsList" ajax="false" >
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                            </p:commandButton>
+                                            <p:tooltip for="matchingList" value="#{msgs.rideMatchesShowOffers}" />
+                                        </td>
+
+                                        <td colspan="2" class="formLabel">
+                                            <!-- *** show matchings list only if there are matchings *** -->
+
+
+                                            <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                            </h:commandLink>
+
+                                        </td>
+                                    </tr>
+                                </h:form> 
+
+
+
 
                                 <tr>
                                     <td>   <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
@@ -266,23 +255,27 @@
                                     <td> <span class="formInput">  #{ride.givenratingDate} </span> </td>
                                 </tr>
 
-                                <tr> <!-- link to make this ride rider rateable -->
-                                    <td colspan="3">
-                                        <h:form rendered="#{ride.riderRateable}">
-                                            <div class="formLabel">
+                                <h:form rendered="#{ride.riderRateable}">
+                                    <tr> <!-- link to make this ride rider rateable -->
+                                        <td colspan="1" class="formLabel">
+                                            <p:commandButton id="riderRate" icon="ui-icon-star" action="rider.riderRateRide" ajax="false" >
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                            </p:commandButton>
+                                            <p:tooltip for="riderRate" value="#{msgs.rideRateThisRide}" />
+                                        </td> 
+
+                                        <td colspan="2" class="formLabel">
                                                 <!-- for whatever reason the rendered="#{ride.riderRateable}" clause breaks the -->
-                                                <!-- commandlink, if the attribute is part of the h:commandlink element         -->
-                                                <!-- This is why we apply it to the h:form element instead                      -->
-
-
-                                                <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
-                                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
-                                                    <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
-                                                </h:commandLink>
-                                            </div>
-                                        </h:form>
-                                    </td>
-                                </tr>
+                                            <!-- commandlink, if the attribute is part of the h:commandlink element         -->
+                                            <!-- This is why we apply it to the h:form element instead                      -->
+                                            <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                            </h:commandLink>
+                                        </td> 
+                                    </tr>
+                                </h:form>
 
                                 <tr>
                                     <td> <span class="formLabel">  #{msgs.rideReceivedRating} </span>  </td>
@@ -310,35 +303,70 @@
 
 
                                 <tr> <!-- link to make this ride driver rateable -->
-                                    <td colspan="3">
-                                        <h:form rendered="#{ride.driverRateable}">
-                                            <div class="formLabel">
+
+                                    <h:form rendered="#{ride.driverRateable}">
+
+                                        <td colspan="1" class="formLabel">
+                                          <!-- for whatever reason the rendered="#{ride.driverRateable}" clause breaks the -->
+                                            <!-- commandlink, if the attribute is part of the h:commandlink element         -->
+                                            <!-- This is why we apply it to the h:form element instead                      -->
+
+                                            <p:commandButton icon="ui-icon-start" id="rate" action="rider.riderRateRide"   ajax="false"  >
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                            </p:commandButton>
+
+                                            <p:tooltip for="rate"  value="#{msgs.rideRateThisRide}" /> 
+                                        </td>
+
+
+                                        <td colspan="2" class="formLabel">
                                                 <!-- for whatever reason the rendered="#{ride.driverRateable}" clause breaks the -->
-                                                <!-- commandlink, if the attribute is part of the h:commandlink element         -->
-                                                <!-- This is why we apply it to the h:form element instead                      -->
+                                            <!-- commandlink, if the attribute is part of the h:commandlink element         -->
+                                            <!-- This is why we apply it to the h:form element instead                      -->
 
-
-                                                <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
-                                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
-                                                    <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
-                                                </h:commandLink>
-                                            </div>
-                                        </h:form>
-                                    </td>
+                                            <h:commandLink action="rider.riderRateRide"  value="#{msgs.rideRateThisRide}"    >
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}" />
+                                                <f:param  name="#{webflow.getParamBack()}" value="rider.rideDisplay" />
+                                            </h:commandLink>
+                                        </td>
+                                    </h:form>
                                 </tr>
-
-
-
-
-
 
                             </table>
 
                         </p:tab>
 
 
-                    </p:accordionPanel>
+                        <p:tab  title="#{msgs.rideRemoveThisRequest}"  >
 
+                            <table> <!-- table for deleting -->
+                                <h:form>
+                                    #{cancellingride.update()}
+                                    <tr>
+                                        <td colspan="1" class="formLabel">
+                                            <p:commandButton 
+                                                id="cancelRide"
+                                                icon="ui-icon-trash"
+                                                action="#{cancellingride.invalidate()}" 
+                                                disabled="#{!ride.riderCancellable}"
+                                                ajax="false"
+                                                />
+
+                                            <p:tooltip for="cancelRide" value="#{msgs.rideRemoveThisRequest}" />
+                                        </td>
+                                        <td colspan="2" class="formLabel">
+                                            <h:commandLink 
+                                                action="#{cancellingride.invalidate()}" 
+                                                value="#{msgs.rideRemoveThisRequest}" 
+                                                disabled="#{!ride.riderCancellable}"
+                                                />
+                                        </td>
+                                    </tr>
+                                </h:form>
+                            </table>
+                        </p:tab>
+                    </p:accordionPanel>
                 </p:panel>
 
 
