@@ -70,18 +70,32 @@
                     </tr>
 
                     <tr>
-                        <td colspan="3">
-                            <p>
-                                <span class="formLabel">
-                                    <h:form>
-                                        <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
-                                            <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
-                                            <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
-                                        </h:commandLink>
-                                    </h:form>
-                                </span>
-                            </p>
-                        </td>
+                        <h:form>
+
+
+                            <td colspan="1"  class="formLabel">
+
+                                <p:commandButton  id="showMatches" icon="ui-icon-suitcase" action="driver.driveMatchingsList" ajax="false">
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                </p:commandButton>
+                                <p:tooltip  value="#{msgs.rideMatchesShowRequests}" for="showMatches" />
+
+                            </td>
+
+
+                            <td colspan="2"  class="formLabel">
+
+                                <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
+                                </h:commandLink>
+
+
+                            </td>
+
+                        </h:form>
+
                     </tr>
 
                     <tr>
@@ -181,18 +195,24 @@
                     <!-- link to edit waypoints, only iff there are no matches -->
 
                     <ui:fragment rendered="#{driverride.canEditRoute}">
-                        <tr>
-                            <td colspan="3">
-                                <span class="formLabel">
-                                    <h:form>
-                                        <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                        </h:commandLink>
-                                    </h:form>
-                                </span>
-                            </td>
-                        </tr>
+                        <h:form>
+                            <tr>
+                                <td colspan="1" class="formLabel">
+                                    <p:commandButton id="editRouting" icon="ui-icon-pencil" action="driver.editRouting" ajax="false">
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </p:commandButton> 
+                                    <p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
+                                </td>
+
+                                <td colspan="2" class="formLabel">
+                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </h:commandLink>
+                                </td>
+                            </tr>
+                        </h:form>
                     </ui:fragment>
 
                     <!-- ********************************* -->    
