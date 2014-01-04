@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
@@ -91,26 +88,20 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         if (MatchEntity.NOT_ADAPTED.equals(riderMaxState) && MatchEntity.NOT_ADAPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_NEW;
         }
-
      
         // see, if both sides accepted and return STATE_CONFIRMED
         if (MatchEntity.ACCEPTED.equals(riderMaxState) && MatchEntity.ACCEPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_CONFIRMED;
         }
 
-    
-
         if (MatchEntity.ACCEPTED.equals(riderMaxState)) {
             return DriverConstants.STATE_RIDER_REQUESTED;
         }
-
    
-
         if (MatchEntity.ACCEPTED.equals(driverMaxState)) {
             return DriverConstants.STATE_DRIVER_ACCEPTED;
         }
 
-   
         return DriverConstants.STATE_UNCLEAR;
     }
 
