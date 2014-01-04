@@ -1,4 +1,7 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
