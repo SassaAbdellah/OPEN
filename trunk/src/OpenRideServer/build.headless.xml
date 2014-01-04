@@ -26,24 +26,6 @@
    </target> <!-- joride -->
 
 
-   <!-- ************************************************************************* -->
-   <!-- **** joride2 target is only to be build if build.joride param is set **** -->
-   <!-- **** joride2 is still experimental, targets at adding waypoints to   **** -->
-   <!-- **** driver's offers                                                 **** -->
-   <!-- ************************************************************************* -->
-   <target name="joride2" description="build the joride2 subproject"  if="build.joride2" >
-
-    <echo> *** building joride2 subproject  *** </echo>
-    <echo message="build.joride2 ${build.joride2}" /> 
-
-    <ant  dir="joride2"                       antfile="build.headless.xml"           />
-    <copy file="joride2/dist/joride2.war"     todir="${build.dir}"                   />
-
-
-   </target> <!-- joride2 -->
-
-
-
 
    <!-- ************************************************************************************** -->
    <!-- **** joride-public target is only to be build if build.joride-public param is set **** -->
@@ -86,8 +68,6 @@
     <antcall target="joride-public" inheritAll="true" inheritRefs="true" />
 
 
-    <!--build joride2 subproject                  ************************************************* -->
-    <antcall target="joride2" inheritAll="true" inheritRefs="true" />
 
 
 
@@ -129,7 +109,6 @@
        <!--clean  subprojects  ***************************************************** -->
        <ant  dir="OpenRideServer-ejb"   antfile="build.headless.xml"   target="clean" />
        <ant  dir="joride"               antfile="build.headless.xml"   target="clean" />
-       <ant  dir="joride2"              antfile="build.headless.xml"   target="clean" />
        <ant  dir="joride-public"        antfile="build.headless.xml"   target="clean" />
 
    </target> <!-- end of target clean -->
