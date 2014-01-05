@@ -1021,11 +1021,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             return true;
         }
 
-        // there is no further need for waypoints, since 
-        // this ride is going to be invalidated anyway
-        logger.info("invalidateRide : ride removing waypoints ");
-        this.removeAllWaypoints(rideId);
 
+        /* TODO: removing waypoints is likely to stir trouble,
+         * so waypoints are not removed here (for fear).
+         * Removing waypoints may be desirable because it may save
+         * database space.
+         * 
+         * logger.info("invalidateRide : ride removing waypoints ");
+         * this.removeAllWaypoints(rideId);
+         */
+        
+        
         // all related states have to be adapted
         logger.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
@@ -1103,12 +1109,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         if (position <= 0) { // add at beginning of list
             waypoints.add(0, waypoint);
-        } else if(position>=size) { // add at end of list
+        } else if (position >= size) { // add at end of list
             waypoints.add(size, waypoint);
         } else { // add exactly at position
             waypoints.add(position, waypoint);
         }
-                
+
         // rearrange route indices!
         for (int i = 0; i < waypoints.size(); i++) {
             WaypointEntity wp = waypoints.get(i);
@@ -1146,13 +1152,13 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
         em.flush();
-        
+
         // remove matchings
-        for(MatchEntity m : this.getMatches(rideId, false) ){
+        for (MatchEntity m : this.getMatches(rideId, false)) {
             em.remove(m);
         }
         em.flush();
-        
+
         // TODO: enclose callMatchingAlgoritm inside of a thread
         callMatchingAlgorithm(drive.getRideId(), true);
 
