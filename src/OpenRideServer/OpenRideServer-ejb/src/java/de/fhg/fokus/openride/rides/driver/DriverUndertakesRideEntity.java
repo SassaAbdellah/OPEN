@@ -131,6 +131,11 @@ public class DriverUndertakesRideEntity implements Serializable {
     private String startptAddressStreet;
     @Column(name = "endpt_addr")
     private String endptAddressStreet;
+    @Column(name = "last_matching_state")
+    private Integer lastMatchingState;
+    @Column(name = "is_countermanded")
+    private Boolean countermanded;
+    
 
     public DriverUndertakesRideEntity() {
     }
@@ -318,6 +323,28 @@ public class DriverUndertakesRideEntity implements Serializable {
         
         this.waypoints=arg;
     }
+    
+    
+    public Integer getLastMatchingState(){
+        return this.lastMatchingState;
+    }
+    
+    public void setLastMatchingState(Integer arg){
+        this.lastMatchingState=arg;
+    }
+    
+    
+    public Boolean getCountermanded(){
+        return this.countermanded;
+    }
+    
+    public void setCountermanded(Boolean arg){
+        this.countermanded=arg;
+    }
+    
+    
+    
+    
     
     
     

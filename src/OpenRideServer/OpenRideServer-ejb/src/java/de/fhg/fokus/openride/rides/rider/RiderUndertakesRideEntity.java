@@ -84,10 +84,8 @@ import org.postgis.Point;
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.givenrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutReceivedRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesBetweenDatesforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
-   
     // find all rides for given rider after given date
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesAfterDateforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
-   
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
@@ -119,13 +117,10 @@ import org.postgis.Point;
     // Sum up all ratings where customer given by custId acted as driver
     @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
     // Count all ratings where customer given by custId acted as rider
-    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsRider",  query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
     // Sum up all ratings where customer given by custId acted as rider
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider",  query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId")
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider", query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId")
 })
-
-
-
 @Converter(name = "convert", converterClass = PointConverter.class)
 public class RiderUndertakesRideEntity implements Serializable {
 
@@ -188,6 +183,10 @@ public class RiderUndertakesRideEntity implements Serializable {
     private String endptAddress;
     @Column(name = "comment")
     private String comment;
+    @Column(name = "last_matching_state")
+    private Integer lastMatchingState;
+    @Column(name = "is_countermanded")
+    private Boolean countermanded;
 
     public RiderUndertakesRideEntity() {
     }
@@ -373,6 +372,22 @@ public class RiderUndertakesRideEntity implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Integer getLastMatchingState() {
+        return this.lastMatchingState;
+    }
+
+    public void setLastMatchingState(Integer arg) {
+        this.lastMatchingState = arg;
+    }
+
+    public Boolean getCountermanded() {
+        return this.countermanded;
+    }
+
+    public void setCountermanded(Boolean arg) {
+        this.countermanded = arg;
     }
 
     @Override
