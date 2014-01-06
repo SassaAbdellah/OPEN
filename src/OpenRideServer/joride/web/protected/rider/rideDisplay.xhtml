@@ -348,10 +348,15 @@
                                             <p:commandButton 
                                                 id="cancelRide"
                                                 icon="ui-icon-trash"
-                                                action="#{cancellingride.invalidate()}" 
-                                                disabled="#{!ride.riderCancellable}"
+                                                action="rider"
+                                                actionListener="#{cancellingride.invalidate()}"
                                                 ajax="false"
-                                                />
+                                                >
+                                                <!-- Webflow parameters -->
+                                                <f:param   name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
+                                             
+                                            </p:commandButton>
+                                            
 
                                             <p:tooltip for="cancelRide" value="#{msgs.rideRemoveThisRequest}" />
                                         </td>
@@ -359,7 +364,6 @@
                                             <h:commandLink 
                                                 action="#{cancellingride.invalidate()}" 
                                                 value="#{msgs.rideRemoveThisRequest}" 
-                                                disabled="#{!ride.riderCancellable}"
                                                 />
                                         </td>
                                     </tr>
