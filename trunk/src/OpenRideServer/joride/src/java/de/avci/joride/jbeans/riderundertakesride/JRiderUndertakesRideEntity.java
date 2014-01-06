@@ -572,7 +572,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public String invalidate() {
 
-        boolean result = false;
+      
+        boolean result;
 
         try {
             result = new JRiderUndertakesRideEntityService().removeRideSafely(this);
@@ -590,6 +591,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
             log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed");
             return null;
         }
+       
 
     } // remove ride
 
