@@ -71,5 +71,23 @@ public interface RouteMatchingBeanLocal {
      */
     public double computeAdaptedRoute(int rideId, int riderrouteId, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff);
 
+    
+    /** Get matching statistics for RiderUndertakesRideEntity given by rideId
+     * 
+     * @param rideId
+     * @return 
+     */
+    public MatchingStatistics getStatisticsForRide(int rideId);
+
+ 
+    /** Get matching statistics for DriverUndertakesRideEntity given by driveId
+     * 
+     * @param rideId
+     * @return 
+     */
+    public MatchingStatistics getStatisticsForDrive(int rideId);
+
+
+
 }
 

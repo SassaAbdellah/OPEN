@@ -87,8 +87,8 @@ public class JMatchingEntity implements Serializable {
         JRiderUndertakesRideEntity jride = new JRiderUndertakesRideEntity();
         jride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());
 
-       
-       
+
+
         return jride;
     }
 
@@ -176,6 +176,12 @@ public class JMatchingEntity implements Serializable {
             return true;
         }
 
+        // Rider can always accept if Rider State is yet undecided
+        if (this.getRiderState() == MatchEntity.NOT_ADAPTED) {
+            return true;
+        }
+
+
         // Rider can correct an Erroneous Accept
         if (MatchEntity.REJECTED.equals(this.getRiderState())) {
             return true;
@@ -214,6 +220,10 @@ public class JMatchingEntity implements Serializable {
             return true;
         }
 
+        if (this.getRiderState() == MatchEntity.NOT_ADAPTED) {
+            return true;
+        }
+
         return false;
     }
 
@@ -245,6 +255,11 @@ public class JMatchingEntity implements Serializable {
         if (this.getDriverState() == null) {
             return true;
         }
+
+        if (this.getDriverState() == MatchEntity.NOT_ADAPTED) {
+            return true;
+        }
+
 
         // if Driver has rejected by Error,  
         // driver he can accept to correct
@@ -280,6 +295,10 @@ public class JMatchingEntity implements Serializable {
 
 
         if (this.getDriverState() == null) {
+            return true;
+        }
+
+        if (this.getDriverState() == MatchEntity.NOT_ADAPTED) {
             return true;
         }
 
@@ -475,10 +494,8 @@ public class JMatchingEntity implements Serializable {
         buf.append("=== Drive ==\n");
         buf.append("RideId from Drive     : " + this.getDrive().getRideId() + "\n");
         buf.append("=== Ride ==\n");
-        buf.append("RiderrouteId from Ride: " + this.getRide().getRiderrouteId()+ "\n");
+        buf.append("RiderrouteId from Ride: " + this.getRide().getRiderrouteId() + "\n");
         buf.append("============\n");
         return buf.toString();
     }
-    
-    
 } // class 
