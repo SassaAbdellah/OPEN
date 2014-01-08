@@ -81,9 +81,9 @@ public class MatchEntity implements Serializable {
     @EmbeddedId
     protected MatchEntityPK matchEntityPK;
     @Column(name = "driver_state")
-    private Integer driverState;
+    private Integer driverState=MatchEntity.NOT_ADAPTED;
     @Column(name = "rider_state")
-    private Integer riderState;
+    private Integer riderState=MatchEntity.NOT_ADAPTED;
     @Column(name = "match_shared_distance_meters")
     private Double matchSharedDistancEmeters;
     @Column(name = "match_drive_remaining_distance_meters")

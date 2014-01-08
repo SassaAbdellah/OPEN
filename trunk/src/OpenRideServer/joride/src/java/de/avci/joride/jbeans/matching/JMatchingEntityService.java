@@ -7,6 +7,7 @@ package de.avci.joride.jbeans.matching;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
@@ -110,6 +111,25 @@ public class JMatchingEntityService {
         return res;
 
     } // getMatchesForRide
+
+    /** Return a MatchingStatistics Object for Request given by riderrouteId
+     *
+     *
+     * @param riderrouteId
+     * @return
+     */
+    public MatchingStatistics getMatchingStatisticsForRide(int riderrouteId) {
+        return this.lookupRouteMatchingBeanLocal().getStatisticsForRide(riderrouteId);
+    }
+
+    /** Return a MatchingStatistics Object for Offer given by rideId
+     *
+     * @param rideId
+     * @return
+     */
+    public MatchingStatistics getMatchingStatisticsForOffer(int rideId) {
+        return this.lookupRouteMatchingBeanLocal().getStatisticsForDrive(rideId);
+    }
 
     /**
      * Get All Matches for a given Offer Friendly Frontend for
@@ -487,7 +507,7 @@ public class JMatchingEntityService {
                 callerMatch = true;
             }
         } catch (java.lang.NullPointerException exc) {
-            log.severe("Error while determining rider for MatchEntity "+exc);
+            log.severe("Error while determining rider for MatchEntity " + exc);
         }
 
 
@@ -498,7 +518,7 @@ public class JMatchingEntityService {
                 callerMatch = true;
             }
         } catch (java.lang.NullPointerException exc) {
-             log.severe("Error while determining driver for MatchEntity "+exc);
+            log.severe("Error while determining driver for MatchEntity " + exc);
         }
 
 

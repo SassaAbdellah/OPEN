@@ -14,6 +14,7 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -962,7 +963,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         this.setGivenrating(-1);
         this.setReceivedrating(-1);
-
     }
+    
+    
+      /**
+     * 
+     * @return MatchingStatitstics Object for this ride
+     */
+    public MatchingStatistics getMatchingStatistics(){
+    
+        return new JMatchingEntityService().getMatchingStatisticsForRide(this.getRiderrouteId());
+    }
+    
+    
+    
 } // class
 

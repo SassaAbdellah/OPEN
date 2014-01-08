@@ -13,6 +13,7 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.text.DateFormat;
@@ -915,4 +916,21 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.getWaypoints().remove(routeIdx);
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
+    
+    
+    
+    
+    /**
+     * 
+     * @return MatchingStatitstics Object for this drive
+     */
+    public MatchingStatistics getMatchingStatistics(){
+    
+        return new JMatchingEntityService().getMatchingStatisticsForOffer(this.getRideId());
+    
+    }
+    
+    
+    
+    
 } // class 

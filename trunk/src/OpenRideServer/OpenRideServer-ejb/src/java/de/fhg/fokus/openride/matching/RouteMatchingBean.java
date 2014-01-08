@@ -252,7 +252,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     matches.add(nextMatch);
                 }
             }
-            logger.info("matches : " + matches.size() + " / " + potentialMatches.size() + " (passed through filter)");
+            logger.info("searchForRidematches : " + matches.size() + " / " + potentialMatches.size() + " (passed through filter)");
 
             // sort matches by score
             ScoringFunction.getInstance().sortDescending(matches);
@@ -517,15 +517,17 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             logger.info("computeInitialRoutes : starting time after round " + i + " : " + startTime);
         }
         // 
-        logger.info("computeInitialRoute : debug1 "+this.routePointsDebugOutput(routeBuff));
+        logger.info("computeInitialRoute : debug1 " + this.routePointsDebugOutput(routeBuff));
         // readjust the routeIdx property
-        for(int i=0; i< routeBuff.size(); i++){ routeBuff.get(i).setRouteIdx(i); }
-        logger.info("computeInitialRoute : debug2 "+this.routePointsDebugOutput(routeBuff));
-     
-       
+        for (int i = 0; i < routeBuff.size(); i++) {
+            routeBuff.get(i).setRouteIdx(i);
+        }
+        logger.info("computeInitialRoute : debug2 " + this.routePointsDebugOutput(routeBuff));
+
+
         // Luckily the implementation of getEquiDistantRoutepoints
         // supports intermediate points :))
-        
+
         // compute decomposed route (less coordinates, but interpolated)
         RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
                 myWaypoints,
@@ -968,6 +970,23 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         return result;
     }
 
+    @Override
+    public MatchingStatistics getStatisticsForRide(int rideId) {
+
+        MatchingStatistics res = new MatchingStatistics();
+        res.statisticsFromList(this.searchForDrivers(rideId));
+        return res;
+    }
+
+    
+    @Override
+    public MatchingStatistics getStatisticsForDrive(int rideId) {
+
+        MatchingStatistics res = new MatchingStatistics();
+        res.statisticsFromList(this.searchForRiders(rideId));
+        return res;
+    }
+
     /**
      * This class implements all simple, less expensive checks. It can be
      * configured by the static class variables within the config section.
@@ -1027,27 +1046,24 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             return ride.getRideId() == null;
         }
     }
-    
-    
-    /** TODO: ad-hoc debug output. Remove once create initial 
-     * 
+
+    /**
+     * TODO: ad-hoc debug output. Remove once create initial
+     *
      * @deprecated
-     * 
+     *
      */
-    
-    private static String routePointsDebugOutput(List<RoutePointEntity> rps){
-    
-        StringBuilder buf=new StringBuilder();
+    private static String routePointsDebugOutput(List<RoutePointEntity> rps) {
+
+        StringBuilder buf = new StringBuilder();
         buf.append("[");
-        
-        for(int i=0; i< rps.size();i++){
-            buf.append("<"+(rps.get(i)).getRouteIdx()+"> ");
+
+        for (int i = 0; i < rps.size(); i++) {
+            buf.append("<" + (rps.get(i)).getRouteIdx() + "> ");
         }
-        
+
         buf.append("]");
-        
+
         return buf.toString();
     }
-    
-    
 }
