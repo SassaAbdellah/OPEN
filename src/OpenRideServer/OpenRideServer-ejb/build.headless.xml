@@ -85,7 +85,7 @@
    <!-- get jee libs from master project -->
    <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
 
-   <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" debuglevel="source">
+   <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" >
 	<classpath>
            <fileset dir="${lib.dir}">  
                      <include name="**/*.jar" />  

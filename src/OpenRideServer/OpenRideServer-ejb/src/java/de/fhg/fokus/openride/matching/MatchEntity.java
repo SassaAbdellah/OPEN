@@ -42,6 +42,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "match")
 @NamedQueries({
+    // TODO: find all should possibly be removed, no value added
     @NamedQuery(name = "MatchEntity.findAll", query = "SELECT m FROM MatchEntity m"),
     @NamedQuery(name = "MatchEntity.findByRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.riderrouteId = :riderrouteId"),
     @NamedQuery(name = "MatchEntity.findByRideId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId"),

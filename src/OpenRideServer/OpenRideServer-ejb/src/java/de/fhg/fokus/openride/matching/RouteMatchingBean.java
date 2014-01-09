@@ -47,6 +47,9 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 /**
@@ -89,6 +92,8 @@ import javax.sql.DataSource;
 @Stateless
 public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
+    @PersistenceContext
+    private EntityManager em;
     // CONFIG - DB: 
     //
     // TODO: get rid of using JDBC in favour or standard JPA 
@@ -176,6 +181,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     /**
      * Computes a set of Matches for the given drive offer.
      *
+     * This is issued any time a new drive is created.
+     * Note that this method also applies filtering.
+     * 
+     * If that is not what You want, have a look at {@see computeRawMatchingsForRide}
+     *       
+     * 
      * @param driveId Identifier for a driver's offer.
      * @return list of matches sorted descending by score.
      */
@@ -267,7 +278,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     /**
-     * Compute a list of all matches for the given ride offer.
+     * Compute a list of all availlable matches for the given ride offer.
+     * This is issued any time a new drive is created.
+     * Note that this method also applies filtering.
+     * 
+     * If that is not what You want, have a look at {@see computeRawMatchingsForDrive}
+     * 
      *
      * @param rideId identifiers for rider's offer
      * @return All matches sorted descending by score.
@@ -366,6 +382,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      *
      *
      * TODO: should go away once the new version is in place
+     * 
+     * @deprecated : it can go away now
      *
      */
     public double computeInitialRoutesOld(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
@@ -971,19 +989,18 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     }
 
     @Override
-    public MatchingStatistics getStatisticsForRide(int rideId) {
+    public MatchingStatistics getStatisticsForRide(int riderrouteId) {
 
         MatchingStatistics res = new MatchingStatistics();
-        res.statisticsFromList(this.searchForDrivers(rideId));
+        res.statisticsFromList(this.computeRawMatchingsForRide(riderrouteId));
         return res;
     }
 
-    
     @Override
     public MatchingStatistics getStatisticsForDrive(int rideId) {
 
         MatchingStatistics res = new MatchingStatistics();
-        res.statisticsFromList(this.searchForRiders(rideId));
+        res.statisticsFromList(this.computeRawMatchingsForDrive(rideId));
         return res;
     }
 
@@ -1046,6 +1063,38 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
             return ride.getRideId() == null;
         }
     }
+
+    
+    
+    /** Compute the raw list of matchings that reference 
+     *  the ride via riderrouteId.
+     *  (without attaching any kind of filter!)
+     *
+     * @param riderrouteId
+     * @return
+     */
+    private List<MatchEntity> computeRawMatchingsForRide(int riderrouteId) {
+
+        // @NamedQuery(name = "MatchEntity.findByRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.riderrouteId = :riderrouteId")
+
+        return (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
+    }
+    
+    
+     /** Compute the raw list of matchings that reference 
+     *  the drive via driveId.
+     *  (without attaching any kind of filter!)
+     *
+     * @param driveId
+     * @return
+     */
+    private List<MatchEntity> computeRawMatchingsForDrive(int rideId) {       
+        return (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
+    }
+    
+    
+    
+    
 
     /**
      * TODO: ad-hoc debug output. Remove once create initial
