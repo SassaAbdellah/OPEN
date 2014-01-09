@@ -370,82 +370,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         return null;
     }
 
-    /**
-     * Old version of "computeInitialRoute" that does not adhere to waypoints.
-     * This has been renamed and left here fore reference, until a new version
-     * of "computeinitialRoute" is ready
-     *
-     * @param drive
-     * @param decomposedRouteBuff
-     * @param routeBuff
-     * @return
-     *
-     *
-     * TODO: should go away once the new version is in place
-     * 
-     * @deprecated : it can go away now
-     *
-     */
-    public double computeInitialRoutesOld(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
-        // This would require just one route computation but 
-        // due to poor design two calls to the routing algorithm are required.
-        // the route point interpolation method should be moved out of the routerBean
-        // to this class.
-
-        Coordinate s = new Coordinate(drive.getRideStartpt());
-        Coordinate t = new Coordinate(drive.getRideEndpt());
-        Timestamp startTime = new Timestamp(drive.getRideStarttime().getTime());
-
-        // compute route containing all map coordinates
-        logger.info("RouteMatchingBean calling findRoute (old) s: " + s + " t: " + t + " starttime " + startTime);
-
-        Route route = routerBean.findRoute(
-                s,
-                t,
-                startTime,
-                Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD);
-        if (route == null || route.getLength() == 0d) {
-            return Double.MAX_VALUE;
-        }
-
-        // add it to the buffer
-        int routeIdx = 0;
-        for (RoutePoint rp : route.getRoutePoints()) {
-            routeBuff.add(
-                    new RoutePointEntity(
-                    drive.getRideId() == null ? -1 : drive.getRideId(),
-                    routeIdx,
-                    rp.getCoordinate().getLongitude(),
-                    rp.getCoordinate().getLatititude(),
-                    null,
-                    routeIdx == 0 || routeIdx == route.getRoutePoints().length - 1));
-            routeIdx++;
-        }
-
-        // compute decomposed route (less coordinates, but interpolated)
-        RoutePoint[] decomposedRoute = routerBean.getEquiDistantRoutePoints(
-                new Coordinate[]{s, t},
-                startTime,
-                Constants.ROUTE_FASTEST_PATH_DEFAULT,
-                Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-                getSfrRoutePointDistance(drive.getRideAcceptableDetourInKm() * 1000));
-
-        // add it to buffer
-        routeIdx = 0;
-        for (RoutePoint rp : decomposedRoute) {
-            decomposedRouteBuff.add(
-                    new DriveRoutepointEntity(
-                    drive.getRideId() == null ? -1 : drive.getRideId(),
-                    routeIdx++,
-                    rp.getCoordinate().toPoint(),
-                    rp.getTimeAt(),
-                    drive.getRideOfferedseatsNo(),
-                    rp.getDistance()));
-        }
-
-        return route.getLength();
-    }
+  
 
     /**
      * Small wrapper allowing to switch between old and new implementations of
@@ -458,11 +383,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      */
     @Override
     public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
-
-        // return this.computeInitialRoutesOld(drive, decomposedRouteBuff, routeBuff);
-        return this.computeInitialRoutesNew(drive, decomposedRouteBuff, routeBuff);
-
-
+ 
+        return this.computeInitialRoutesWithWaypoints(drive, decomposedRouteBuff, routeBuff);
     }
 
     /**
@@ -481,7 +403,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * @return length of the route in meters.
      *
      */
-    public double computeInitialRoutesNew(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+    public double computeInitialRoutesWithWaypoints(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
 
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
@@ -572,11 +494,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
         logger.info("computeInitialRoutes : terminating :  number of drive_route_points : " + decomposedRouteBuff);
         logger.info("computeInitialRoutes : terminating :  distance : " + distance);
 
-
         return distance;
     }
 
-    /**
+    /** Compute a route between startpoint s and endpoint t.
+     *  This is called iteratively to compute partial routes between  given waypoints.
+     * 
+     * 
      *
      * @param s
      * @param t
@@ -848,7 +772,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
             if (s.getRiderrouteId() != null && s.getRiderrouteId() == riderrouteId && d1 == -1) {
                 d1 = distanceOffset;
-                System.out.println("s = (" + s.getLatitude() + "," + s.getLongitude() + ")" + " d1=" + d1);
+                logger.info("s = (" + s.getLatitude() + "," + s.getLongitude() + ")" + " d1=" + d1);
             }
 
             RoutePoint[] decomposedroute = routerBean.getEquiDistantRoutePoints(
@@ -860,13 +784,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                     Constants.ROUTE_FASTEST_PATH_DEFAULT,
                     Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
                     getSfrRoutePointDistance(drive.getRideAcceptableDetourInKm() * 1000));
-            System.out.print("distances = ");
-            for (int x = 0; x < decomposedroute.length; x++) {
-                System.out.print(decomposedroute[x].getDistance() + ",");
-            }
-            System.out.println("\n");
-
-
+           
+            
             if (decomposedroute == null) {
                 logger.info("FAILURE decomposedroute is NULL (should not happen)");
                 return -1;
@@ -899,7 +818,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
             if (t.getRiderrouteId() != null && t.getRiderrouteId() == riderrouteId && d1 != -1) {
                 d2 = distanceOffset;
-                System.out.println("t = (" + t.getLatitude() + "," + t.getLongitude() + ") d2=" + d2);
+                logger.info("t = (" + t.getLatitude() + "," + t.getLongitude() + ") d2=" + d2);
             }
         }
 
