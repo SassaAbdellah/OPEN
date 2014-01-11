@@ -142,9 +142,7 @@
 
 
                     <tr>
-                        <td class="formLabel">  #{msgs.rideStartptAddress}     </td>
-                        <td> : </td>
-                        <td class="formInput">  #{driverride.startptAddress}   </td>
+                        <td class="formLabel" colspan="3" >  #{driverride.startptAddress}   </td>
                     </tr>
 
                     <tr>
@@ -164,9 +162,6 @@
                     <!-- ********************************* -->    
                     <!-- **    waypoint section            -->
                     <!-- ********************************* -->    
-
-
-
 
 
 
@@ -192,28 +187,40 @@
                         </td>
                     </tr>
 
-                    <!-- link to edit waypoints, only iff there are no matches -->
+                    <!-- **** Show link to edit waypoints only if route can be edited  **** --> 
 
-                    <ui:fragment rendered="#{driverride.canEditRoute}">
-                        <h:form>
-                            <tr>
-                                <td colspan="1" class="formLabel">
-                                    <p:commandButton id="editRouting" icon="ui-icon-pencil" action="driver.editRouting" ajax="false">
-                                        <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
-                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                    </p:commandButton> 
-                                    <p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
-                                </td>
+                    <!-- Probably because of another rendering bug in jsf                 -->
+                    <!-- the conditional link works only for an request scoped bean       -->
+                    <!-- so this is why we introduce (request scoped) rscdriverride here  -->
 
-                                <td colspan="2" class="formLabel">
-                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
-                                        <f:param  name="#{crud.paramNameCrudId}" value="#{driverride.rideId}"/>
-                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                    </h:commandLink>
-                                </td>
-                            </tr>
-                        </h:form>
+                    #{rscdriverride.update()}
+                    <ui:fragment rendered="#{rscdriverride.canEditRoute}">
+
+                        <tr>
+                            <td colspan="1" class="formLabel">
+                                    <h:form>
+                                        <p:commandButton icon="ui-icon-plus" id="editRouting" action="driver.editRouting" ajax="false" >
+                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
+                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                        </p:commandButton>
+                                        
+                                        <p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
+                                    </h:form>
+                            </td>
+
+                            <td colspan="2" class="formLabel">
+                                    <h:form>
+                                        <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
+                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
+                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                        </h:commandLink>
+                                    </h:form>
+                            </td>
+                        </tr>
+
                     </ui:fragment>
+
+
 
                     <!-- ********************************* -->    
                     <!-- **  ride destination section      -->
@@ -228,9 +235,7 @@
                     </tr>
 
                     <tr>
-                        <td class="formLabel">  #{msgs.rideDestinationAddress}        </td>
-                        <td> : </td>
-                        <td class="formInput">  #{driverride.endptAddress}     </td>
+                        <td class="formLabel" colspan="3">  #{driverride.endptAddress}     </td>
                     </tr>
 
                     <tr> 

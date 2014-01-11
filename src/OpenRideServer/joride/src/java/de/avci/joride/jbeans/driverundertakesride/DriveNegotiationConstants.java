@@ -8,13 +8,13 @@ package de.avci.joride.jbeans.driverundertakesride;
  * A set of constants describing the State of Negotiations for a drive.
  *
  * These constants are defined in a seperate class instead of
- * JDriverUndertakesRideEntity as CDIBeans and public static final constant do
+ * JDriverUndertakesRideEntity as CDIBeans and enums do
  * not go well with each other.
  *
  *
  * @author jochen
  */
-public class DriverConstants {
+public enum DriveNegotiationConstants {
 
     /**
      * Initial State of an offer. STATE_NEW meanst that the offer is newly
@@ -33,7 +33,7 @@ public class DriverConstants {
      *  {@link  STATE_UNCLEAR}
      *
      */
-    protected static final int STATE_NEW = 0;
+    STATE_NEW,
     /**
      * STATE_RIDER_REQUESTED is a state into which an offer gets if one (or
      * more) riders have requested to be picked up, but the driver has not (yet)
@@ -52,7 +52,7 @@ public class DriverConstants {
      *  {@link  STATE_UNCLEAR}
      *
      */
-    protected static final int STATE_RIDER_REQUESTED = 1;
+    STATE_RIDER_REQUESTED,
     /**
      * STATE_DRIVER_ACCEPTED is a state into which an offer gets if one (or
      * more) matchings exists and driver has "prematurely" accepted to pick up
@@ -71,7 +71,7 @@ public class DriverConstants {
      *  {@link  STATE_UNCLEAR}
      *
      */
-    protected static final int STATE_DRIVER_ACCEPTED = 2;
+    STATE_DRIVER_ACCEPTED,
     /**
      * STATE_CONFIRMED is a state into which an offer gets if one (or more)
      * matchings exists and driver both, driver and rider have agreed to take
@@ -89,7 +89,7 @@ public class DriverConstants {
      *  {@link  STATE_UNCLEAR}
      *
      */
-    protected static final int STATE_CONFIRMED = 3;
+    STATE_CONFIRMED,
     /**
      * STATE_COUTERMANDED is a state into which an offer gets if Driver has to
      * cancel the ride for whatever reason (Blizzards, Earthquake, ...etc...)
@@ -108,10 +108,15 @@ public class DriverConstants {
      *  {@link  STATE_UNCLEAR}
      *
      */
-    protected static final int STATE_COUNTERMANDED = 4;
+    STATE_COUNTERMANDED,
     /**
      * STATE_UNCLEAR is a state that gets returned if the negotiations of a
      * drive cannot be determined.
      */
-    protected static final int STATE_UNCLEAR = 5;
+    STATE_UNCLEAR,  
+
+    /** Drive is no more availlable, typically in the past
+     */
+    STATE_UNAVAILLABLE
+
 }

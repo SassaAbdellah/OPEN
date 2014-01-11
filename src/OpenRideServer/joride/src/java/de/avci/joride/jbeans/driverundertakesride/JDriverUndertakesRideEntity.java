@@ -12,7 +12,6 @@ import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
-import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
@@ -49,84 +48,43 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      *
      *
      */
-    protected Integer getMatchingState() {
+    protected DriveNegotiationConstants getMatchingState() {
 
-        // TODO: introduce a property that marks 
-        // driverundertakesrideentity as invalidated,
-        // and return some kind of "invalidated" State,
-        // iff this is invalidated
+        MatchingStatistics stats = this.getMatchingStatistics();
+        
+        if(stats==null) return DriveNegotiationConstants.STATE_UNCLEAR;
 
-        // i.e: if (this.isInvalidated()){return STATE_INVALIDATED}
-
-     
-        if (!(this.getHasMatches())) {
-            return DriverConstants.STATE_NEW;
+        if (stats.getNumberOfMatches() == 0) {
+            return DriveNegotiationConstants.STATE_NEW;
         }
 
-     
-        // determine the "best" rider state and driver state from matches
-        Integer riderMaxState = new Integer(0);
-        Integer driverMaxState = new Integer(0);
-
-     
-        for (JMatchingEntity m : this.getMatches()) {
-
-            // do not take coutermanded or rejected matches into account
-            if (!(null == m.getRiderState())
-                    && !(null == m.getDriverState())
-                    && !(MatchEntity.COUNTERMANDED.equals(m.getRiderState()))
-                    && !(MatchEntity.COUNTERMANDED.equals(m.getDriverState()))
-                    && !(MatchEntity.REJECTED.equals(m.getRiderState()))
-                    && !(MatchEntity.REJECTED.equals(m.getDriverState()))) {
-                riderMaxState = Math.max(riderMaxState, m.getRiderState());
-                driverMaxState = Math.max(driverMaxState, m.getDriverState());
-            }
+        if (stats.getAcceptedBoth() > 0) {
+            return DriveNegotiationConstants.STATE_CONFIRMED;
         }
 
-      
-
-        // if there are 
-        // EITHER no matches, 
-        // OR there are matches, but neither requests, nor premature confirmations
-        // return STATE_NEW
-        if (MatchEntity.NOT_ADAPTED.equals(riderMaxState) && MatchEntity.NOT_ADAPTED.equals(driverMaxState)) {
-            return DriverConstants.STATE_NEW;
-        }
-     
-        // see, if both sides accepted and return STATE_CONFIRMED
-        if (MatchEntity.ACCEPTED.equals(riderMaxState) && MatchEntity.ACCEPTED.equals(driverMaxState)) {
-            return DriverConstants.STATE_CONFIRMED;
+        if (stats.getAcceptedDriver() > 0) {
+            return DriveNegotiationConstants.STATE_DRIVER_ACCEPTED;
         }
 
-        if (MatchEntity.ACCEPTED.equals(riderMaxState)) {
-            return DriverConstants.STATE_RIDER_REQUESTED;
-        }
-   
-        if (MatchEntity.ACCEPTED.equals(driverMaxState)) {
-            return DriverConstants.STATE_DRIVER_ACCEPTED;
+        if (stats.getAcceptedRider() > 0) {
+            return DriveNegotiationConstants.STATE_RIDER_REQUESTED;
         }
 
-        return DriverConstants.STATE_UNCLEAR;
+        return DriveNegotiationConstants.STATE_UNCLEAR;
     }
 
     /**
      * If true, waypoints can be added to the route
      *
-     * @returns true, if state is one of STATE_NEW, STATE_COUNTERMANDED,
-     * STATE_RIDER_REQUESTED,STATE_DRIVER_ACCEPTED, else false
+     * @returns true, if state is one of STATE_NEW, 
+     * STATE_RIDER_REQUESTED, else false
      *
      */
     public boolean getCanEditRoute() {
 
-        int matchingState = this.getMatchingState();
-
-        if (DriverConstants.STATE_NEW == matchingState
-                || DriverConstants.STATE_COUNTERMANDED == matchingState
-                || DriverConstants.STATE_RIDER_REQUESTED == matchingState
-                || DriverConstants.STATE_DRIVER_ACCEPTED == matchingState) {
-            return true;
-        }
-
+        if(this.getMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
+        if(this.getMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        
         return false;
     }
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
@@ -916,21 +874,17 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         this.getWaypoints().remove(routeIdx);
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
-    
-    
-    
-    
+
     /**
-     * 
+     *
      * @return MatchingStatitstics Object for this drive
      */
-    public MatchingStatistics getMatchingStatistics(){
-    
+    public MatchingStatistics getMatchingStatistics() {
+        
+        // just to prevent NullPointerExceptions
+        if(this.getRideId()==null){ return null;}
+
         return new JMatchingEntityService().getMatchingStatisticsForOffer(this.getRideId());
-    
+
     }
-    
-    
-    
-    
 } // class 

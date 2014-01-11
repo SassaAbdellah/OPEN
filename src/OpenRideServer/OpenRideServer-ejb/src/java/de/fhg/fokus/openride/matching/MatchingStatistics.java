@@ -86,7 +86,7 @@ public class MatchingStatistics implements Serializable {
      */
     private int acceptedBoth = 0;
 
-    private int getNumberOfMatches(){
+    public int getNumberOfMatches(){
         return this.numberOfMatches;
     }
   
