@@ -573,7 +573,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      */
     public String invalidate() {
 
-      
+
         boolean result;
 
         try {
@@ -592,7 +592,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
             log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed");
             return null;
         }
-       
+
 
     } // remove ride
 
@@ -939,17 +939,16 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
     }
 
-    
-    
-    /** Returns a list of future riders, i.e: list of rides for calling rider,
-     *  that have latestStartTime >= now. 
-     * 
-     * @return list of future rides for calling rider. 
+    /**
+     * Returns a list of future riders, i.e: list of rides for calling rider,
+     * that have latestStartTime >= now.
+     *
+     * @return list of future rides for calling rider.
      */
     public List<JRiderUndertakesRideEntity> getFutureRidesForRider() {
-        
-      return(  new JRiderUndertakesRideEntityService().getFutureRidesForRider());
-        
+
+        return (new JRiderUndertakesRideEntityService().getFutureRidesForRider());
+
     }
 
     /**
@@ -964,18 +963,43 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         this.setGivenrating(-1);
         this.setReceivedrating(-1);
     }
-    
-    
-      /**
-     * 
+
+    /**
+     *
      * @return MatchingStatitstics Object for this ride
      */
-    public MatchingStatistics getMatchingStatistics(){
-    
+    public MatchingStatistics getMatchingStatistics() {
+
         return new JMatchingEntityService().getMatchingStatisticsForRide(this.getRiderrouteId());
     }
-    
-    
-    
+
+    /**
+     * Accessor with lazy instantiation
+     *
+     * @return nice format for date as defined in joride constants
+     *
+     */
+    protected DateFormat getDateFormat() {
+
+        if (this.dateFormat == null) {
+            dateFormat = (new JoRideConstants()).createDateTimeFormat();
+        }
+
+        return dateFormat;
+    }
+
+    /**
+     * @return nicely formatted version of startTime earliest 
+     */
+    public String getStarttimeEarliestFormatted() {
+        return this.getDateFormat().format(this.getStarttimeEarliest());
+    }
+
+    /**
+     * @return nicely formatted version of startTime latest 
+     */
+    public String getStarttimeLatestFormatted() {
+        return this.getDateFormat().format(this.getStarttimeLatest());
+    }
 } // class
 
