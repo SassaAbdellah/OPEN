@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.avci.joride.constants.JoRideConstants;
@@ -989,17 +986,58 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     }
 
     /**
-     * @return nicely formatted version of startTime earliest 
+     * @return nicely formatted version of startTime earliest
      */
     public String getStarttimeEarliestFormatted() {
         return this.getDateFormat().format(this.getStarttimeEarliest());
     }
 
     /**
-     * @return nicely formatted version of startTime latest 
+     * @return nicely formatted version of startTime latest
      */
     public String getStarttimeLatestFormatted() {
         return this.getDateFormat().format(this.getStarttimeLatest());
     }
+
+    /**
+     * Calculate the state of negotians for this drive. This is done by
+     * evaluating the matches
+     *
+     *
+     * @return calculated State, see above
+     *
+     *
+     */
+    protected RideNegotiationConstants getMatchingState() {
+
+        MatchingStatistics stats = this.getMatchingStatistics();
+
+        if (stats == null) {
+            return RideNegotiationConstants.STATE_UNCLEAR;
+        }
+
+        if (stats.getNumberOfMatches() == 0) {
+            return RideNegotiationConstants.STATE_NEW;
+        }
+
+        if (stats.getAcceptedBoth() > 0) {
+            return RideNegotiationConstants.STATE_CONFIRMED;
+        }
+
+        if (stats.getAcceptedDriver() > 0) {
+            return RideNegotiationConstants.STATE_DRIVER_ACCEPTED;
+        }
+
+        if (stats.getAcceptedRider() > 0) {
+            return RideNegotiationConstants.STATE_RIDER_REQUESTED;
+        }
+
+        return RideNegotiationConstants.STATE_UNCLEAR;
+    }
+    
+     
+    
+    
+    
 } // class
 
