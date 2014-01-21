@@ -51,7 +51,7 @@ public class OsmRoute implements Route
         this.routePoints = routePoints;
     }
 
-    @Override
+  
     public List<Edge> getEdges() {
         return edges;
     }
