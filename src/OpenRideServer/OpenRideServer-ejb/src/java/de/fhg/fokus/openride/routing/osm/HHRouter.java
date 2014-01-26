@@ -57,7 +57,7 @@ public class HHRouter implements Router {
         }
 
         RoutePoint[] rp = toRoutePoint(coords, times, startTime);
-        return new OsmRoute(null, rp);
+        return new OsmRoute(rp);
     }
 
     public RoutePoint[] getEquiDistantRoutePoints(Coordinate[] coordinates, Timestamp startTime, boolean fastestPath, double threshold, double maxDistanceOfPoints) {
