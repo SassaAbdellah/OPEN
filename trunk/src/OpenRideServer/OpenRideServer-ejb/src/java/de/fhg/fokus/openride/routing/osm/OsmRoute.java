@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
-import de.fhg.fokus.openride.routing.Edge;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import java.util.List;
@@ -38,7 +37,7 @@ import java.util.logging.Logger;
 
 public class OsmRoute implements Route
 {
-    private LinkedList<Edge> edges;
+  
     private RoutePoint[] routePoints;
    
     /**
@@ -46,15 +45,13 @@ public class OsmRoute implements Route
      * @param routePoints sorted from route source to route destination.
      * @param computationTime time routing algorithm needed to compute.
      */
-    public OsmRoute(LinkedList<Edge> edges, RoutePoint[] routePoints) {
-        this.edges = edges;
+    public OsmRoute( RoutePoint[] routePoints) {
+       
         this.routePoints = routePoints;
     }
 
   
-    public List<Edge> getEdges() {
-        return edges;
-    }
+ 
 
     @Override
     public RoutePoint[] getRoutePoints() {
