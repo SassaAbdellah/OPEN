@@ -102,10 +102,12 @@ public class GraphhopperRouter implements Router {
 							coordinates[i + 1], nextStartTime, fastestPath,
 							threshold, maxDistanceOfPoints);
 
-			al.addAll(partialResults);
-
+                        // Note that pickUpEquiDistantWaypoints may return empty lists!
+                        if(partialResults.size()>=2){
+                    	al.addAll(partialResults);
 			nextStartTime = partialResults.get(partialResults.size() - 1)
 					.getTimeAt();
+                        }
 		}
 
 		// recreate array of points so that distances are counting from
@@ -115,8 +117,11 @@ public class GraphhopperRouter implements Router {
 		ArrayList<RoutePoint> resultList = new ArrayList<RoutePoint>();
 		double lastIntermediateDistance = 0;
 		double lastIntermediateDistanceCandidate = 0;
-		resultList.add(al.get(0));
-		al.remove(0);
+                
+                if(al.size()>0){ // once again, the list's size may be 0
+                    resultList.add(al.get(0));
+                    al.remove(0);
+                }
 
 		for (RoutePoint rp : al) {
 
@@ -169,9 +174,13 @@ public class GraphhopperRouter implements Router {
 
 		RoutePoint[] rps = route.getRoutePoints();
 
+                // sometimes (typically when calculating matches)
+                // source and target may be close together or identical
+                // in that case a route of length 0 is returned.
+                //
 		if (rps.length <= 2) {
-			throw new Error(
-					"route returned has less than than two routepoints. no chance");
+                      ArrayList <RoutePoint> fakeRes=new ArrayList<RoutePoint>();
+                      return fakeRes;
 		}
 		//
 		// subroute's distance at last point where we picked up last pivot
