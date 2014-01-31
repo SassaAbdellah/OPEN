@@ -116,10 +116,12 @@
 
    
    <!-- add EJB configuration (currently only the persistance configuration) -->
+   <property name="meta-inf.dir" value="META-INF"                                      />
+   <mkdir dir="${build.dir}/${meta-inf.dir}"                                           />
+   <copy file="${conf.dir}/persistence.xml"       todir="${build.dir}/${meta-inf.dir}" />
+   <!--  **** copy graphhopper configuration into the code  **** -->
+   <copy file="${conf.dir}/ghrouter.properties"  todir="${build.dir}/de/fhg/fokus/openride/routing/graphhopper/configuration/" />
 
-   <property name="meta-inf.dir" value="META-INF"   />
-   <mkdir dir="${build.dir}/${meta-inf.dir}"        />
-   <copy file="${conf.dir}/persistence.xml"  todir="${build.dir}/${meta-inf.dir}"        />
 
 
    <!-- create the jar  -->
