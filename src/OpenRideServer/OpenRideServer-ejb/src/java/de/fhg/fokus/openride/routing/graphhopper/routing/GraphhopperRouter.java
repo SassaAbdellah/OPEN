@@ -9,6 +9,7 @@ import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.Router;
+import de.fhg.fokus.openride.routing.graphhopper.configuration.GraphHopperConfiguration;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -49,8 +50,10 @@ public class GraphhopperRouter implements Router {
 		// gh.setEncodingManager(new EncodingManager());
 		// gh.getEncodingManager().register(new CarWayEncoder());
 
-		gh.setGraphHopperLocation(GraphhopperConstants.GRAPH_DIRECTORY).setOSMFile(
-				GraphhopperConstants.OSM_FILE_PATH);
+                String ghdir=(new GraphHopperConfiguration()).getGHRouteBasedirFQN();
+		String pbffqn=(new GraphHopperConfiguration()).getGHRoutePBF();
+		gh.setGraphHopperLocation(ghdir).setOSMFile(pbffqn);
+                
 		gh.importOrLoad();
 	} // end of ghInitialzation
 

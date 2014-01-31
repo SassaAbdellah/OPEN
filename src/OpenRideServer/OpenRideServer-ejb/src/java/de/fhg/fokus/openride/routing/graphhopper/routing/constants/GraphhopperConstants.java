@@ -8,19 +8,6 @@ public class GraphhopperConstants {
 	/** Mnemonic for DIJKSTRA-BIdirectional routing algoritm
 	 */
 	public static final String ALGORITHM_DIJKSTRABI="dijkstrabi";
-
-
-	/** Directory where  ch graph and osm files live
-	 */
-	public static final String GRAPH_DIRECTORY = "/home/jochen/graphhopper/graphhopper-folder/";
-
-	
-	
-	
-	/** The *.osm.pbf  file to be used
-	 */
-	public static final String OSM_FILE_PATH = GRAPH_DIRECTORY
-			+ "mecklenburg-vorpommern.osm.pbf";
 	
 	
 	/** String constant that causes the EncodingManager to load a "CarFlagEncoder"
