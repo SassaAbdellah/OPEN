@@ -68,6 +68,29 @@
 
 
 
+<!-- ****************************************************************************** -->
+<!-- *** Load graphhopper properties file from OpenRideServer project           *** -->
+<!-- ****************************************************************************** -->
+    <target name="loadGraphHopperProperties" >
+
+         <fail message=" ../ghrouter.properties file is missing! -- You will probably have to create one, see included ghrouter.properties.sample file. ">
+            <condition>
+                <not>
+                        <resourcecount count="1">
+                                <fileset id="fs" dir=".." includes="ghrouter.properties"/>
+                        </resourcecount>
+                </not>
+           </condition>
+        </fail>
+
+     <!-- *** for the time beeing, ghrouter is moved to config dir. It will be moved further at build stage  *** -->
+         <copy file="../ghrouter.properties" todir="${conf.dir}/"/>
+        
+
+ </target> <!-- end of target load graphhopperProperties -->
+
+
+
 
 
 
@@ -78,7 +101,7 @@
  <!-- ***** target "compile": compile java classes ***** -->
  <!-- ************************************************** -->
 
- <target name="compile" depends="check,loadLocalProperties" description="Compile java classes">
+ <target name="compile" depends="check,loadLocalProperties,loadGraphHopperProperties" description="Compile java classes">
    
    <mkdir dir="${build.dir}" />
 
