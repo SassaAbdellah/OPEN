@@ -109,9 +109,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
     // CONFIG - SEARCH FOR RIDER
     // bounds for distances between route points :
     // originally set to 1000d
-    private static final double SFR_MIN_ROUTE_POINT_DISTANCE_METERS = 497d;
+    private static final double SFR_MIN_ROUTE_POINT_DISTANCE_METERS = 1000d;
     // originally set to 6000d
-    private static final double SFR_MAX_ROUTE_POINT_DISTANCE_METERS = 2998d;
+    // obviously, this is used a "maxDistancePoints" parameter in the 
+    // getEquiDistantRoutepoints method of the Router interface
+    
+    private static final double SFR_MAX_ROUTE_POINT_DISTANCE_METERS = 6000d;
     // bounds for driver detourMeters :
     private static final double SFR_MIN_DETOUR_METERS = 0d;
     private static final double SFR_MAX_DETOUR_METERS = 25000d;
