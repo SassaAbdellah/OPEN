@@ -29,7 +29,6 @@
 package de.fhg.fokus.openride.routing;
 
 import de.fhg.fokus.openride.routing.graphhopper.routing.GraphhopperRouter;
-import de.fhg.fokus.openride.routing.osm.HHRouter;
 import java.sql.Timestamp;
 import javax.ejb.Stateless;
 
@@ -43,10 +42,8 @@ public class RouterBean implements RouterBeanLocal, Router {
     private Router router;
 
     public RouterBean(){
-        // Use HHRouter to enable mapsforge routing
-        // router = new HHRouter();
-        // Use GrapHopperRouter to enable GraphHopperRouting
-        
+       
+        // Use GrapHopperRouter to enable GraphHopperRouting 
         this.router=new GraphhopperRouter();
     }
 
@@ -54,9 +51,7 @@ public class RouterBean implements RouterBeanLocal, Router {
     public Route findRoute(Coordinate source, Coordinate target,
             Timestamp startTime, boolean fastestPath, double threshold){
 
-        return router.findRoute(source, target, startTime, fastestPath, threshold);
-
-      
+        return router.findRoute(source, target, startTime, fastestPath, threshold); 
     }
 
     @Override
@@ -64,8 +59,5 @@ public class RouterBean implements RouterBeanLocal, Router {
             Timestamp startTime, boolean fastestPath, double threshold,
             double maxDistanceOfPoints){
         return router.getEquiDistantRoutePoints(coordinates, startTime, fastestPath, threshold, maxDistanceOfPoints);
-        
     }
-
-
 }
