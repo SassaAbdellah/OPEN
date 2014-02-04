@@ -17,6 +17,7 @@
  */
 package de.fhg.fokus.openride.matching;
 
+import de.fhg.fokus.openride.rides.driver.DriveNegotiationConstants;
 import java.io.Serializable;
 import java.util.List;
 
@@ -332,4 +333,41 @@ public class MatchingStatistics implements Serializable {
 
         return buf.toString();
     }
+    
+    
+    
+    
+     /**
+     * Calculate the state of negotians for this drive. This is done by
+     * evaluating the matches
+     *
+     *
+     * @return calculated State, see above
+     *
+     *
+     */
+    public DriveNegotiationConstants getDriveMatchingState() {
+
+        if (this.getNumberOfMatches() == 0) {
+            return DriveNegotiationConstants.STATE_NEW;
+        }
+
+        if (this.getAcceptedBoth() > 0) {
+            return DriveNegotiationConstants.STATE_CONFIRMED;
+        }
+
+        if (this.getAcceptedDriver() > 0) {
+            return DriveNegotiationConstants.STATE_DRIVER_ACCEPTED;
+        }
+
+        if (this.getAcceptedRider() > 0) {
+            return DriveNegotiationConstants.STATE_RIDER_REQUESTED;
+        }
+
+        return DriveNegotiationConstants.STATE_UNCLEAR;
+    }
+    
+    
+    
+    
 }
