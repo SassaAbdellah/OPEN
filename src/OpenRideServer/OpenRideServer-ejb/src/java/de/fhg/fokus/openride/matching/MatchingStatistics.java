@@ -187,7 +187,7 @@ public class MatchingStatistics implements Serializable {
     /**
      * Add data from argument to statitstics
      *
-     * @param m
+     * @param ,
      */
     public void addMatchingToStatistics(MatchEntity m) {
 
@@ -203,8 +203,6 @@ public class MatchingStatistics implements Serializable {
 
 
         d = m.getDriverState();
-
-
 
 
         if (MatchEntity.ACCEPTED.equals(d)) {
@@ -337,13 +335,11 @@ public class MatchingStatistics implements Serializable {
     
     
     
-     /**
+    /**
      * Calculate the state of negotians for this drive. This is done by
      * evaluating the matches
      *
-     *
      * @return calculated State, see above
-     *
      *
      */
     public DriveNegotiationConstants getDriveMatchingState() {
@@ -369,5 +365,27 @@ public class MatchingStatistics implements Serializable {
     
     
     
+        
+    /**
+     * Determines wether route for a driverundertakesrideentity can be edited or not.
+     * I.e: wether or not waypoints can be added or removed.
+     * 
+     * Waypoints can be added or removed as long as there are no confirmed requests.
+     * 
+     * 
+     * 
+     * @returns true, if state is one of STATE_NEW, 
+     * STATE_RIDER_REQUESTED, else false
+     *
+     */
+    public boolean getCanEditRoute() {
+
+        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
+        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        
+        return false;
+    }
     
+    
+        
 }
