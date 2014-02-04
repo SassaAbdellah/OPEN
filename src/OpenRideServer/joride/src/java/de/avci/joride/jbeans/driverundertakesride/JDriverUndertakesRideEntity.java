@@ -4,6 +4,7 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
+import de.fhg.fokus.openride.rides.driver.DriveNegotiationConstants;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
@@ -39,54 +40,8 @@ import org.postgis.Point;
 @SessionScoped
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
-    /**
-     * Calculate the state of negotians for this drive. This is done by
-     * evaluating the matches
-     *
-     *
-     * @return calculated State, see above
-     *
-     *
-     */
-    protected DriveNegotiationConstants getMatchingState() {
-
-        MatchingStatistics stats = this.getMatchingStatistics();
-        
-        if(stats==null) return DriveNegotiationConstants.STATE_UNCLEAR;
-
-        if (stats.getNumberOfMatches() == 0) {
-            return DriveNegotiationConstants.STATE_NEW;
-        }
-
-        if (stats.getAcceptedBoth() > 0) {
-            return DriveNegotiationConstants.STATE_CONFIRMED;
-        }
-
-        if (stats.getAcceptedDriver() > 0) {
-            return DriveNegotiationConstants.STATE_DRIVER_ACCEPTED;
-        }
-
-        if (stats.getAcceptedRider() > 0) {
-            return DriveNegotiationConstants.STATE_RIDER_REQUESTED;
-        }
-
-        return DriveNegotiationConstants.STATE_UNCLEAR;
-    }
-
-    /**
-     * If true, waypoints can be added to the route
-     *
-     * @returns true, if state is one of STATE_NEW, 
-     * STATE_RIDER_REQUESTED, else false
-     *
-     */
-    public boolean getCanEditRoute() {
-
-        if(this.getMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
-        if(this.getMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
-        
-        return false;
-    }
+   
+ 
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
@@ -883,8 +838,24 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         
         // just to prevent NullPointerExceptions
         if(this.getRideId()==null){ return null;}
-
         return new JMatchingEntityService().getMatchingStatisticsForOffer(this.getRideId());
-
     }
+    
+    
+       /**
+     * If true, waypoints can be added to the route
+     *
+     * @returns true, if state is one of STATE_NEW, 
+     * STATE_RIDER_REQUESTED, else false
+     *
+     */
+    public boolean getCanEditRoute() {
+
+        if(this.getMatchingStatistics().getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
+        if(this.getMatchingStatistics().getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        
+        return false;
+    }
+    
+    
 } // class 
