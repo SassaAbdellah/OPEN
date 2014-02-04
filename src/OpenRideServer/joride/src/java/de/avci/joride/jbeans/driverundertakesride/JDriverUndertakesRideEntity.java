@@ -842,7 +842,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     }
     
     
-       /**
+    /**
      * If true, waypoints can be added to the route
      *
      * @returns true, if state is one of STATE_NEW, 
@@ -850,11 +850,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      *
      */
     public boolean getCanEditRoute() {
-
-        if(this.getMatchingStatistics().getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
-        if(this.getMatchingStatistics().getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
-        
-        return false;
+        return this.getMatchingStatistics().getCanEditRoute();
     }
     
     
