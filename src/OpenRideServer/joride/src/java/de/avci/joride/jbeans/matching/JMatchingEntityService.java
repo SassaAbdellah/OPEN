@@ -139,7 +139,7 @@ public class JMatchingEntityService {
      * @param rideId Id of the ride for which to detect matches
      * @return lists of matches
      */
-    public List<JMatchingEntity> getMatchesForOffer(int rideId) {
+    public List<JMatchingEntity> getJMatchesForOffer(int rideId) {
 
 
         RouteMatchingBeanLocal rmbl = this.lookupRouteMatchingBeanLocal();
@@ -157,7 +157,25 @@ public class JMatchingEntityService {
         return res;
 
     }
+    
+     /**
+     * Get All Matches for a given Offer Friendly Frontend for
+     * DriverUndertakesRideController.getMatches(rideId, true);
+     *
+     *
+     * @param rideId Id of the ride for which to detect matches
+     * @return lists of matches
+     */
+    public List<MatchEntity> getMatchesForOffer(int rideId) {
 
+
+        RouteMatchingBeanLocal rmbl = this.lookupRouteMatchingBeanLocal();
+        List<MatchEntity> mel = rmbl.searchForRiders(rideId);
+        return mel;
+    }
+
+    
+  
     /**
      * Accept the rider for this match savely.
      *
@@ -520,9 +538,6 @@ public class JMatchingEntityService {
         } catch (java.lang.NullPointerException exc) {
             log.severe("Error while determining driver for MatchEntity " + exc);
         }
-
-
-
 
         if (!(callerMatch)) {
             throw new Error("Caller is neither driver nor rider for this ride, will not return matchEntity");

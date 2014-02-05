@@ -4,7 +4,6 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
-import de.fhg.fokus.openride.rides.driver.DriveNegotiationConstants;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
@@ -13,6 +12,7 @@ import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
@@ -616,14 +616,14 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      *
      * @return Returns a list of Matching Ride Requests for this Offer
      */
-    public List<JMatchingEntity> getMatches() {
+    public List<JMatchingEntity> getJMatches() {
 
         if (this.getRideId() == null) {
             log.log(Level.SEVERE, "Cannot return matches, My rideId is null!!, returning empty list.");
             return new LinkedList<JMatchingEntity>();
         }
 
-        return (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
+        return (new JMatchingEntityService()).getJMatchesForOffer(this.getRideId());
     }
 
     /**
@@ -693,22 +693,38 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return "  ";
     }
 
-    /**
-     * Returns the Number of OpenMatches for this RideRequest
-     *
-     * @return Returns the Number of OpenMatches for this RideRequest
-     */
-    public int getNoMatches() {
-        return this.getMatches().size();
-    }
+   
 
     /**
      * @return Returns true, if the number of Matches is > 0, else false
      *
      */
     public boolean getHasMatches() {
-        return this.getMatches().size() > 0;
+        
+        this.updateMatchings();
+        return this.getMatchings().size()>0;
     }
+    
+    
+    /** Overridden to update the matchings property 
+     *  from database.
+     * 
+     */
+    
+    @Override
+    
+    protected void updateMatchings(){
+    
+        // just to prevent NullPointerExceptions
+        if(this.getRideId()==null){ return;}
+        
+        List <MatchEntity> matches=
+        (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
+       
+        this.setMatchings(matches); 
+    }
+    
+    
 
     /**
      * Return a list of Drive offers starting after given starttime. Returned
@@ -830,7 +846,8 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
 
-    /**
+    /** 
+     * 
      *
      * @return MatchingStatitstics Object for this drive
      */
@@ -850,8 +867,12 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
      *
      */
     public boolean getCanEditRoute() {
-        return this.getMatchingStatistics().getCanEditRoute();
+        return this.getMatchingStatistics().getDriveCanEditRoute();
     }
+    
+    
+    
+  
     
     
 } // class 
