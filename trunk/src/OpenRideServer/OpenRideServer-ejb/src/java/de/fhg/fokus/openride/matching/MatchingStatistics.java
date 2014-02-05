@@ -378,7 +378,7 @@ public class MatchingStatistics implements Serializable {
      * STATE_RIDER_REQUESTED, else false
      *
      */
-    public boolean getCanEditRoute() {
+    public boolean getDriveCanEditRoute() {
 
         if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
         if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
@@ -387,5 +387,23 @@ public class MatchingStatistics implements Serializable {
     }
     
     
-        
+    
+    /** 
+     *  Determine wether a Drive can be removed 
+     *  (Drive can be removed for states STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED)
+     *  Drives will have to be countermanded for all other states.
+     * 
+     * @return true for States STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED
+     */
+    public boolean getDriveCanRemove(){
+    
+        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
+        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_DRIVER_ACCEPTED) return true;
+         
+        return false;
+    }
+    
+      
+         
 }

@@ -29,6 +29,8 @@ package de.fhg.fokus.openride.rides.driver;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
+import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Collection;
@@ -121,6 +123,10 @@ public class DriverUndertakesRideEntity implements Serializable {
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ride_id")
     private List<WaypointEntity> waypoints;  
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="ride_id")
+    private List<MatchEntity> matchings;  
+    
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
     @ManyToOne
     private CustomerEntity custId;
@@ -317,11 +323,24 @@ public class DriverUndertakesRideEntity implements Serializable {
     
     public void setWaypoints(List<WaypointEntity> arg){
         
-        // TODO: remove this
-        
-        System.err.println("setwaypoints beeing called");
-        
         this.waypoints=arg;
+    }
+    
+     /**
+     * Returns the Number of OpenMatches for this RideRequest
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
+     */
+    public int getNoMatches() {
+        return this.getMatchings().size();
+    }
+    
+    public List <MatchEntity> getMatchings(){
+        return this.matchings;
+    }
+    
+    public void setMatchings(List <MatchEntity> matchings){
+         this.matchings=matchings;
     }
     
     
@@ -331,6 +350,19 @@ public class DriverUndertakesRideEntity implements Serializable {
     
     public void setLastMatchingState(Integer arg){
         this.lastMatchingState=arg;
+    }
+    
+    
+     /**
+     *
+     * @return MatchingStatitstics Object for this drive
+     */
+    public MatchingStatistics getMatchingStatistics() {
+        
+        this.updateMatchings();
+        MatchingStatistics res=new MatchingStatistics();
+        res.statisticsFromList(this.getMatchings());
+        return res;
     }
     
     
@@ -353,5 +385,16 @@ public class DriverUndertakesRideEntity implements Serializable {
         return this.getClass().getCanonicalName()
                 +"\n[rideId=" +getRideId() + "]"
                 +"\n[waypoints="+getWaypoints()+"]";
+    }
+
+    
+    /** Update the matching statistics, this should be overriden to  make sense.
+     *  For ex, it can be overridden by calling an external MatchingService
+     *  and update the matchings.
+     *  
+     * 
+     */
+    protected void updateMatchings() {
+       
     }
 }
