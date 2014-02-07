@@ -804,7 +804,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
                         seatsAvailable[i - 1],
                         decomposedroute[j].getDistance() + distanceOffset));
             }
-            if (i == requiredPoints.size() - 1) {
+            
+            if ((decomposedroute.length>0) && (i == requiredPoints.size() - 1)) {
                 decomposedRouteBuff.add(
                         new DriveRoutepointEntity(
                         rideId,
