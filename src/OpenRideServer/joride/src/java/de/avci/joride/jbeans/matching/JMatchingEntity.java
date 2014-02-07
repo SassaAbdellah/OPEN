@@ -86,9 +86,7 @@ public class JMatchingEntity implements Serializable {
 
         JRiderUndertakesRideEntity jride = new JRiderUndertakesRideEntity();
         jride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());
-
-
-
+        
         return jride;
     }
 
