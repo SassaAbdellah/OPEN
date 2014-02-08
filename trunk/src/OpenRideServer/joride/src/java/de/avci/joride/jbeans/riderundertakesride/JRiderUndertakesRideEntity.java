@@ -1001,6 +1001,9 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     }
 
     /**
+     * TODO: move this to superclass
+     * 
+     * 
      * Calculate the state of negotians for this drive. This is done by
      * evaluating the matches
      *
@@ -1022,7 +1025,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         }
 
         if (stats.getAcceptedBoth() > 0) {
-            return RideNegotiationConstants.STATE_CONFIRMED;
+            return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
         }
 
         if (stats.getAcceptedDriver() > 0) {
