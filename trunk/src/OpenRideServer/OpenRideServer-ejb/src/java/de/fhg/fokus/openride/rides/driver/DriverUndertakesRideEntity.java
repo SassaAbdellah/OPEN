@@ -123,6 +123,7 @@ public class DriverUndertakesRideEntity implements Serializable {
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ride_id")
     private List<WaypointEntity> waypoints;  
+   
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="ride_id")
     private List<MatchEntity> matchings;  
