@@ -349,7 +349,7 @@ public class MatchingStatistics implements Serializable {
         }
 
         if (this.getAcceptedBoth() > 0) {
-            return DriveNegotiationConstants.STATE_CONFIRMED;
+            return DriveNegotiationConstants.STATE_CONFIRMED_BOTH;
         }
 
         if (this.getAcceptedDriver() > 0) {

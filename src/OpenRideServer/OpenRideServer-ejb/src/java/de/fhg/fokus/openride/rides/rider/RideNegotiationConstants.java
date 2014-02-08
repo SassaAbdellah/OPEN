@@ -28,7 +28,7 @@ public enum RideNegotiationConstants {
      * see also: null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_CONFIRMED_BOTH}
      *  {@link  STATE_COUNTERMANDED}
      *  {@link  STATE_UNCLEAR}
      *
@@ -41,13 +41,13 @@ public enum RideNegotiationConstants {
      *
      * From STATE_RIDER_REQUESTED the ride offer may get into state
      *
-     * STATE_CONFIRMED (if Driver accepts a matching request ) or
+     * STATE_CONFIRMED_BOTH (if Driver accepts a matching request ) or
      * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
      *
      *  {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_CONFIRMED_BOTH}
      *  {@link  STATE_COUNTERMANDED}
      *  {@link  STATE_UNCLEAR}
      *
@@ -60,36 +60,36 @@ public enum RideNegotiationConstants {
      *
      * From STATE_DRIVER_ACCEPTED the ride offer may get into state
      *
-     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     * STATE_CONFIRMED_BOTH (if one or maore accepted riders acceppt this ride too)
      * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
      *
      * see also: null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_CONFIRMED_BOTH}
      *  {@link  STATE_COUNTERMANDED}
      *  {@link  STATE_UNCLEAR}
      *
      */
     STATE_DRIVER_ACCEPTED,
     /**
-     * STATE_CONFIRMED is a state into which an request gets if 
+     * STATE_CONFIRMED_BOTH is a state into which an request gets if 
      * a matching exists for which was requested by 
      * rider and accepted by driver.
      *
-     * From STATE_CONFIRMED, the ride offer may get into state
+     * From STATE_CONFIRMED_BOTH, the ride offer may get into state
      *
      * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
      *
      * see also: null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_CONFIRMED_BOTH}
      *  {@link  STATE_COUNTERMANDED}
      *  {@link  STATE_UNCLEAR}
      *
      */
-    STATE_CONFIRMED,
+    STATE_CONFIRMED_BOTH,
     /**
      * STATE_COUTERMANDED is a state into which an request gets if rider 
      * has to cancel the ride for whatever reason 
@@ -98,13 +98,13 @@ public enum RideNegotiationConstants {
      * From STATE_COUNTERMANDED the ride offer may not get into any other
      * stated.
      *
-     * STATE_CONFIRMED (if one or maore accepted riders acceppt this ride too)
+     * STATE_CONFIRMED_BOTH (if one or maore accepted riders acceppt this ride too)
      * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
      *
      * see also: null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
-     *  {@link  STATE_CONFIRMED}
+     *  {@link  STATE_CONFIRMED_BOTH}
      *  {@link  STATE_COUNTERMANDED}
      *  {@link  STATE_UNCLEAR}
      *
