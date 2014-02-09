@@ -528,7 +528,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      * @return Returns a list of Matching Drive Offers for this ride
      */
-    public List<MatchEntity> getMatches() {
+    
+    @Override
+    
+    public List<MatchEntity> getMatchings() {
 
         if (this.getRiderrouteId() == null) {
             log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
@@ -570,7 +573,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * @return Returns the Number of OpenMatches for this RideRequest
      */
     public int getNoMatches() {
-        return this.getMatches().size();
+        return this.getMatchings().size();
     }
 
     /**
@@ -578,7 +581,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      */
     public boolean getHasMatches() {
-        return this.getMatches().size() > 0;
+        return this.getMatchings().size() > 0;
     }
 
     /**
@@ -987,6 +990,9 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      * @return MatchingStatitstics Object for this ride
      */
+    
+    @Override
+    
     public MatchingStatistics getMatchingStatistics() {
 
         return new JMatchingEntityService().getMatchingStatisticsForRide(this.getRiderrouteId());
