@@ -427,6 +427,8 @@ public class RiderUndertakesRideEntity implements Serializable {
         return this.getMatchings().size();
     }
 
+    
+    
     public List<MatchEntity> getMatchings() {
         return this.matchings;
     }

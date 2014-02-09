@@ -375,12 +375,7 @@ public class DriverUndertakesRideEntity implements Serializable {
         this.countermanded=arg;
     }
     
-    
-    
-    
-    
-    
-    
+       
     @Override
     public String toString() {
         return this.getClass().getCanonicalName()
