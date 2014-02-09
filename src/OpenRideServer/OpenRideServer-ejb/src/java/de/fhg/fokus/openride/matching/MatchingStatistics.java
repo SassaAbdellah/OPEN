@@ -18,6 +18,7 @@
 package de.fhg.fokus.openride.matching;
 
 import de.fhg.fokus.openride.rides.driver.DriveNegotiationConstants;
+import de.fhg.fokus.openride.rides.rider.RideNegotiationConstants;
 import java.io.Serializable;
 import java.util.List;
 
@@ -336,7 +337,7 @@ public class MatchingStatistics implements Serializable {
     
     
     /**
-     * Calculate the state of negotians for this drive. This is done by
+     * Calculate the state of negotians for a ride. This is done by
      * evaluating the matches
      *
      * @return calculated State, see above
@@ -405,5 +406,52 @@ public class MatchingStatistics implements Serializable {
     }
     
       
+    
+    
+     /**
+     * Calculate the state of negotians for a ride. This is done by
+     * evaluating the matches
+     *
+     * @return calculated State, see above
+     *
+     */
+    public RideNegotiationConstants getRideMatchingState() {
+
+        if (this.getNumberOfMatches() == 0) {
+            return RideNegotiationConstants.STATE_NEW;
+        }
+
+        if (this.getAcceptedBoth() > 0) {
+            return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
+        }
+
+        if (this.getAcceptedDriver() > 0) {
+            return RideNegotiationConstants.STATE_DRIVER_ACCEPTED;
+        }
+
+        if (this.getAcceptedRider() > 0) {
+            return RideNegotiationConstants.STATE_RIDER_REQUESTED;
+        }
+
+        return RideNegotiationConstants.STATE_UNCLEAR;
+    }
+    
+           
+    /** 
+     *  Determine wether a Ride (RiderUndertakesRide) can be asvely removed 
+     *  (Ride can be removed for states STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED)
+     *  Drives will have to be countermanded for all other states.
+     * 
+     * @return true for States STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED
+     */
+    public boolean getRideCanRemove(){
+    
+        if(this.getRideMatchingState()==RideNegotiationConstants.STATE_NEW) return true;
+        if(this.getRideMatchingState()==RideNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        if(this.getRideMatchingState()==RideNegotiationConstants.STATE_DRIVER_ACCEPTED) return true;
+         
+        return false;
+    }
+    
          
 }
