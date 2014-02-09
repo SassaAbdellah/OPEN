@@ -29,12 +29,16 @@ package de.fhg.fokus.openride.rides.rider;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
-import de.fhg.fokus.openride.rides.driver.*;
+import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,6 +47,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -187,6 +192,9 @@ public class RiderUndertakesRideEntity implements Serializable {
     private Integer lastMatchingState;
     @Column(name = "is_countermanded")
     private Boolean countermanded;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "riderroute_id")
+    private List<MatchEntity> matchings;
 
     public RiderUndertakesRideEntity() {
     }
@@ -408,6 +416,45 @@ public class RiderUndertakesRideEntity implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns the Number of OpenMatches for this RideRequest
+     *
+     * @return Returns the Number of OpenMatches for this RideRequest
+     */
+    public int getNoMatches() {
+        return this.getMatchings().size();
+    }
+
+    public List<MatchEntity> getMatchings() {
+        return this.matchings;
+    }
+
+    public void setMatchings(List<MatchEntity> matchings) {
+        this.matchings = matchings;
+    }
+
+    /**
+     *
+     * @return MatchingStatitstics Object for this drive
+     */
+    public MatchingStatistics getMatchingStatistics() {
+
+        this.updateMatchings();
+        MatchingStatistics res = new MatchingStatistics();
+        res.statisticsFromList(this.getMatchings());
+        return res;
+    }
+
+    /**
+     * Update the matching statistics, this should be overriden to make sense.
+     * For ex, it can be overridden by calling an external MatchingService and
+     * update the matchings.
+     *
+     *
+     */
+    protected void updateMatchings() {
     }
 
     @Override
