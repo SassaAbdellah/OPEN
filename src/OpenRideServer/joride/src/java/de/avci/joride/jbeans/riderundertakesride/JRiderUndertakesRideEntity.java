@@ -12,6 +12,7 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
@@ -511,15 +512,35 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      * @return Returns a list of Matching Drive Offers for this ride
      */
-    public List<JMatchingEntity> getMatches() {
+    public List<JMatchingEntity> getJMatches() {
 
         if (this.getRiderrouteId() == null) {
             log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
             return new LinkedList<JMatchingEntity>();
         }
 
+        return (new JMatchingEntityService()).getJMatchesForRide(this.getRiderrouteId());
+    }
+    
+    
+     /**
+     * Returns a list of Matching Drive Offers for this ride
+     *
+     * @return Returns a list of Matching Drive Offers for this ride
+     */
+    public List<MatchEntity> getMatches() {
+
+        if (this.getRiderrouteId() == null) {
+            log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
+            return new LinkedList<MatchEntity>();
+        }
+   
         return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
     }
+    
+    
+    
+    
 
     /**
      * Returns true, if this ride has been updated
@@ -1039,8 +1060,15 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         return RideNegotiationConstants.STATE_UNCLEAR;
     }
     
-     
+    @Override
     
+    protected void updateMatchings(){
+        
+        List <MatchEntity> myMatchings=(new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
+        this.setMatchings(myMatchings);
+        
+        super.updateMatchings();
+    }
     
     
 } // class

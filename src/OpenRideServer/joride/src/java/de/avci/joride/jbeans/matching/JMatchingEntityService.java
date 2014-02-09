@@ -94,7 +94,7 @@ public class JMatchingEntityService {
      *
      * @return list of matching offers for given request
      */
-    public List<JMatchingEntity> getMatchesForRide(int riderrouteId) {
+    public List<JMatchingEntity> getJMatchesForRide(int riderrouteId) {
 
         List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
 
@@ -110,7 +110,30 @@ public class JMatchingEntityService {
 
         return res;
 
+    } // getJMatchesForRide
+    
+    
+        /**
+     * Returns a list of Matches for a rideRequest
+     *
+     * @param rideId Id of the ride request for which we have to find matching
+     * offers
+     *
+     *
+     * @return list of matching offers for given request
+     */
+    public List<MatchEntity> getMatchesForRide(int riderrouteId) {
+
+        List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
+        return mel;
+
+       
+
     } // getMatchesForRide
+    
+    
+    
+    
 
     /** Return a MatchingStatistics Object for Request given by riderrouteId
      *
