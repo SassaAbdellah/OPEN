@@ -114,6 +114,10 @@ public class MatchEntity implements Serializable {
     @Column(name = "rider_access")
     @Temporal(TemporalType.TIMESTAMP)
     private Date riderAccess;
+    @Column(name = "rider_message")
+    private String riderMessage;
+    @Column(name = "driver_message")
+    private String driverMessage;
 
     public MatchEntity() {
     }
@@ -248,7 +252,23 @@ public class MatchEntity implements Serializable {
         this.riderChange = riderChange;
     }
 
+    
+    public String getRiderMessage(){
+        return this.riderMessage;
+    }
 
+    public void setRiderMessage(String arg){
+        this.riderMessage=arg;
+    }
+    
+     public String getDriverMessage(){
+        return this.driverMessage;
+    }
+
+    public void setDriverMessage(String arg){
+        this.driverMessage=arg;
+    }
+    
     
     
 
