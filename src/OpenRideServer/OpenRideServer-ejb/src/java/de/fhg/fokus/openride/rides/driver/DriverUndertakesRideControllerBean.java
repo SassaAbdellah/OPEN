@@ -126,7 +126,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
                 // mark Matches as countermanded
                 MatchEntity matchEntity = it.next();
-                matchEntity.setDriverState(MatchEntity.COUNTERMANDED);
+                matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
                 matchEntity.setDriverChange(new java.util.Date());
                 em.merge(matchEntity);
             }
@@ -864,7 +864,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 // Generally don't remove matches with states 0, 2, 3 (rejected, countermanded, no more available),
                 // or matches accepted by both parties,
                 // or matches accepted by the other party only
-                if (!(m.getRiderState() == MatchEntity.ACCEPTED || m.getRiderState() == MatchEntity.REJECTED || m.getRiderState() == MatchEntity.COUNTERMANDED || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE || m.getDriverState() == MatchEntity.REJECTED || m.getDriverState() == MatchEntity.COUNTERMANDED || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
+                if (!(m.getRiderState() == MatchEntity.ACCEPTED 
+                        || m.getRiderState() == MatchEntity.REJECTED 
+                        || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED 
+                        || m.getRiderState() == MatchEntity.DRIVER_COUNTERMANDED 
+                        || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE 
+                        || m.getDriverState() == MatchEntity.REJECTED
+                        || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED 
+                        || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED 
+                        || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE
+                        ) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
                     if (unrejectedCount < matchCountLimit) {
                         // Keep this match in list
                         unrejectedCount++;
@@ -1038,7 +1047,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
             // mark Matches as countermanded
             MatchEntity matchEntity = it.next();
-            matchEntity.setDriverState(MatchEntity.COUNTERMANDED);
+            matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
             matchEntity.setDriverChange(new java.util.Date());
             em.merge(matchEntity);
         }
