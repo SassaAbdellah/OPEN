@@ -390,8 +390,12 @@ public class JMatchingEntity implements Serializable {
             return pl.getMessagesProps().getProperty("matchRiderStateACCEPTED");
         }
 
-        if (rs.equals(MatchEntity.COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateCOUNTERMANDED");
+        if (rs.equals(MatchEntity.RIDER_COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateRIDERCOUNTERMANDED");
+        }
+        
+        if (rs.equals(MatchEntity.DRIVER_COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchRiderStateDRIVERCOUNTERMANDED");
         }
 
         if (rs.equals(MatchEntity.NOT_ADAPTED)) {
@@ -430,9 +434,14 @@ public class JMatchingEntity implements Serializable {
             return pl.getMessagesProps().getProperty("matchDriverStateACCEPTED");
         }
 
-        if (ds.equals(MatchEntity.COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateCOUNTERMANDED");
+        if (ds.equals(MatchEntity.RIDER_COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateRIDER_COUNTERMANDED");
         }
+        
+        if (ds.equals(MatchEntity.DRIVER_COUNTERMANDED)) {
+            return pl.getMessagesProps().getProperty("matchDriverStateDRIVER_COUNTERMANDED");
+        }
+        
 
         if (ds.equals(MatchEntity.NOT_ADAPTED)) {
             return pl.getMessagesProps().getProperty("matchDriverStateNOT_ADAPTED");
