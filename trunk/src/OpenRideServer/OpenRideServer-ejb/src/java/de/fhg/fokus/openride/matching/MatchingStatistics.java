@@ -212,7 +212,10 @@ public class MatchingStatistics implements Serializable {
 
 
 
-        if (MatchEntity.COUNTERMANDED.equals(d)) {
+        if (MatchEntity.RIDER_COUNTERMANDED.equals(d)
+                 ||
+            MatchEntity.DRIVER_COUNTERMANDED.equals(d)
+          ) {
             this.countermandedDriver++;
         }
 
@@ -249,7 +252,10 @@ public class MatchingStatistics implements Serializable {
             this.acceptedRider++;
         }
 
-        if (MatchEntity.COUNTERMANDED.equals(r)) {
+        if (MatchEntity.RIDER_COUNTERMANDED.equals(r)
+                ||
+            MatchEntity.DRIVER_COUNTERMANDED.equals(d)
+                ) {
             this.countermandedRider++;
         }
 

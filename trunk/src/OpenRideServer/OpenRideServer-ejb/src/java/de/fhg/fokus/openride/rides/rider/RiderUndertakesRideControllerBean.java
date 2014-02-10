@@ -891,7 +891,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
                 MatchEntity matchEntity = it.next();
                 // mark matches as countermanded by rider
-                matchEntity.setRiderState(MatchEntity.COUNTERMANDED);
+                matchEntity.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
                 matchEntity.setRiderChange(new Date());
                 em.merge(matchEntity);
             }
@@ -983,7 +983,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
                 MatchEntity matchEntity = it.next();
                 // mark matches as countermanded by rider
-                matchEntity.setRiderState(MatchEntity.COUNTERMANDED);
+                matchEntity.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
                 matchEntity.setRiderChange(new Date());
                 em.merge(matchEntity);
             }
@@ -1128,10 +1128,19 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 int prevSize = newMatches.size();
                 int unrejectedCount = 0;
                 for (MatchEntity m : newMatches) {
-                    // Generally don't remove matches with states 0, 2, 3 (rejected, countermanded, no more available),
+                    // Generally don't remove matches with states 0, 2, 3, 4 (rejected, countermanded, no more available),
                     // or matches accepted by both parties,
                     // or matches accepted by the other party only
-                    if (!(m.getDriverState() == MatchEntity.ACCEPTED || m.getRiderState() == MatchEntity.REJECTED || m.getRiderState() == MatchEntity.COUNTERMANDED || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE || m.getDriverState() == MatchEntity.REJECTED || m.getDriverState() == MatchEntity.COUNTERMANDED || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
+                    if (!(
+                            m.getDriverState() == MatchEntity.ACCEPTED 
+                            || m.getRiderState() == MatchEntity.REJECTED 
+                            || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED 
+                            || m.getRiderState() == MatchEntity.DRIVER_COUNTERMANDED
+                            || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE 
+                            || m.getDriverState() == MatchEntity.REJECTED 
+                            || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED 
+                            || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED 
+                            || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
                         if (unrejectedCount < matchCountLimit) {
                             // Keep this match in list
                             unrejectedCount++;
@@ -1246,7 +1255,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     public void setMatchCountermand(Integer rideId, Integer riderrouteId) {
         List<MatchEntity> match = em.createNamedQuery("MatchEntity.findByRideIdRiderrouteId").setParameter("rideId", rideId).setParameter("riderrouteId", riderrouteId).getResultList();
         if (match.size() > 0) {
-            match.get(0).setRiderState(MatchEntity.COUNTERMANDED);
+            match.get(0).setRiderState(MatchEntity.RIDER_COUNTERMANDED);
             match.get(0).setRiderChange(new Date());
         }
     }
@@ -1287,7 +1296,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         LinkedList<MatchEntity> matchList = routeMatchingBean.searchForDrivers(riderrouteId);
         Date now = new Date(System.currentTimeMillis());
         for (MatchEntity match : matchList) {
-            match.setRiderState(MatchEntity.COUNTERMANDED);
+            match.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
             match.setRiderChange(now);
             em.merge(match);
         }
