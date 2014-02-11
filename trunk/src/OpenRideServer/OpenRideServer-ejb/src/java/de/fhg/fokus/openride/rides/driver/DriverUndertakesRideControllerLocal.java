@@ -226,5 +226,21 @@ public interface DriverUndertakesRideControllerLocal {
      * @param routeIdx 
      */
     public void removeWaypoint(int rideID, int routeIdx);
+    
+    /** Set the driver message inside a MatchEntity
+     * 
+     * @param rideId          rideId of the MatchEntity
+     * @param riderRouteId    riderRouteId of the MatchEntity
+     * @param message         message to be set
+     */
+    public void setDriverMessage(int rideId, int riderRouteId, String message);
+    
+    /** Set the rider message inside a MatchEntity
+     * 
+     * @param rideId          rideId of the MatchEntity
+     * @param riderRouteId    riderRouteId of the MatchEntity
+     * @param message         message to be set
+     */
+    public void setRiderMessage(int rideId, int riderRouteId, String message);
 
 }
