@@ -111,9 +111,8 @@ public class JMatchingEntityService {
         return res;
 
     } // getJMatchesForRide
-    
-    
-        /**
+
+    /**
      * Returns a list of Matches for a rideRequest
      *
      * @param rideId Id of the ride request for which we have to find matching
@@ -127,15 +126,12 @@ public class JMatchingEntityService {
         List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
         return mel;
 
-       
+
 
     } // getMatchesForRide
-    
-    
-    
-    
 
-    /** Return a MatchingStatistics Object for Request given by riderrouteId
+    /**
+     * Return a MatchingStatistics Object for Request given by riderrouteId
      *
      *
      * @param riderrouteId
@@ -145,7 +141,8 @@ public class JMatchingEntityService {
         return this.lookupRouteMatchingBeanLocal().getStatisticsForRide(riderrouteId);
     }
 
-    /** Return a MatchingStatistics Object for Offer given by rideId
+    /**
+     * Return a MatchingStatistics Object for Offer given by rideId
      *
      * @param rideId
      * @return
@@ -180,8 +177,8 @@ public class JMatchingEntityService {
         return res;
 
     }
-    
-     /**
+
+    /**
      * Get All Matches for a given Offer Friendly Frontend for
      * DriverUndertakesRideController.getMatches(rideId, true);
      *
@@ -197,8 +194,6 @@ public class JMatchingEntityService {
         return mel;
     }
 
-    
-  
     /**
      * Accept the rider for this match savely.
      *
@@ -570,4 +565,37 @@ public class JMatchingEntityService {
         return me;
 
     } // getMatchSafely
+
+    void setDriverMessageSafely(MatchEntity meArg, String message) {
+
+        Integer rideId = meArg.getDriverUndertakesRideEntity().getRideId();
+        Integer riderRouteId = meArg.getRiderUndertakesRideEntity().getRiderrouteId();
+        // retrive a matchEntity safely
+        MatchEntity me = this.getMatchSafely(rideId, riderRouteId);
+        // see, if caller is driver
+        CustomerEntity caller = this.getCustomerEntity();
+        if (!me.getDriverUndertakesRideEntity().getCustId().equals(caller.getCustId())) {
+            throw new Error("Only Driver may change Driver's Message!");
+        }
+
+        // now, set the message savely...
+        this.lookupDriverUndertakesRideControllerBeanLocal().setDriverMessage(rideId, riderRouteId, message);
+    }
+
+    void setRiderMessageSafely(MatchEntity meArg,String message) {
+
+
+        Integer rideId = meArg.getDriverUndertakesRideEntity().getRideId();
+        Integer riderRouteId = meArg.getRiderUndertakesRideEntity().getRiderrouteId();
+        // retrive a matchEntity safely
+        MatchEntity me = this.getMatchSafely(rideId, riderRouteId);
+        // see, if caller is rider
+        CustomerEntity caller = this.getCustomerEntity();
+        if (!me.getRiderUndertakesRideEntity().getCustId().equals(caller.getCustId())) {
+            throw new Error("Only Rider may change Rider's Message!");
+        }
+        // now, set the message safely
+        this.lookupDriverUndertakesRideControllerBeanLocal().setRiderMessage(rideId, riderRouteId, message);
+       
+    }
 } //class
