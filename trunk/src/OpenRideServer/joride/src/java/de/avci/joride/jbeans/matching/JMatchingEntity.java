@@ -490,6 +490,36 @@ public class JMatchingEntity implements Serializable {
             return null;
         }
     }
+    
+    
+    
+    /** 
+     * @return a message that the rider has left 
+     */
+    public String getRiderMessage(){
+        return this.getMatchEntity().getRiderMessage();
+    }
+    
+    public void setRiderMessage(String message){
+        new JMatchingEntityService().setRiderMessageSafely(this.getMatchEntity(), message);
+    }
+    
+    
+    
+    
+    /** 
+     * @return a message that the driver has left 
+     */
+    public String getDriverMessage(){
+        return this.getMatchEntity().getDriverMessage();
+    }
+    
+      public void setDriverMessage(String message){
+        new JMatchingEntityService().setDriverMessageSafely(this.getMatchEntity(), message);
+    }
+    
+    
+    
 
     public String getDebugPrintout() {
 
