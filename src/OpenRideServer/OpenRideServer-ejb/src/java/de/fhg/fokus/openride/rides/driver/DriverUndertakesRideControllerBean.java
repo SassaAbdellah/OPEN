@@ -864,16 +864,15 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 // Generally don't remove matches with states 0, 2, 3 (rejected, countermanded, no more available),
                 // or matches accepted by both parties,
                 // or matches accepted by the other party only
-                if (!(m.getRiderState() == MatchEntity.ACCEPTED 
-                        || m.getRiderState() == MatchEntity.REJECTED 
-                        || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED 
-                        || m.getRiderState() == MatchEntity.DRIVER_COUNTERMANDED 
-                        || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE 
+                if (!(m.getRiderState() == MatchEntity.ACCEPTED
+                        || m.getRiderState() == MatchEntity.REJECTED
+                        || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED
+                        || m.getRiderState() == MatchEntity.DRIVER_COUNTERMANDED
+                        || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE
                         || m.getDriverState() == MatchEntity.REJECTED
-                        || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED 
-                        || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED 
-                        || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE
-                        ) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
+                        || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED
+                        || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED
+                        || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
                     if (unrejectedCount < matchCountLimit) {
                         // Keep this match in list
                         unrejectedCount++;
@@ -1039,8 +1038,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
          * logger.info("invalidateRide : ride removing waypoints ");
          * this.removeAllWaypoints(rideId);
          */
-        
-        
+
+
         // all related states have to be adapted
         logger.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
@@ -1334,6 +1333,34 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         List<DriveRoutepointEntity> drpts = this.getDriveRoutePoints(rideId);
         for (DriveRoutepointEntity drpt : drpts) {
             em.remove(drpt);
+        }
+    }
+
+    /**
+     *
+     * @param rideid
+     * @param riderrouteid
+     */
+    public void setDriverMessage(int rideid, int riderrouteid, String message) {
+        MatchEntity match = getMatch(rideid, riderrouteid);
+        if (match != null) {
+            match.setDriverMessage(message);
+            match.setDriverChange(new java.util.Date());
+            em.merge(match);
+        }
+    }
+
+    /**
+     *
+     * @param rideid
+     * @param riderrouteid
+     */
+    public void setRiderMessage(int rideid, int riderrouteid, String message) {
+        MatchEntity match = getMatch(rideid, riderrouteid);
+        if (match != null) {
+            match.setRiderMessage(message);
+            match.setRiderChange(new java.util.Date());
+            em.merge(match);
         }
     }
 } // class
