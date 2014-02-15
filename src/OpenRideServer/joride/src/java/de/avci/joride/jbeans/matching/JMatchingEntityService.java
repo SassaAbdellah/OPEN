@@ -574,7 +574,9 @@ public class JMatchingEntityService {
         MatchEntity me = this.getMatchSafely(rideId, riderRouteId);
         // see, if caller is driver
         CustomerEntity caller = this.getCustomerEntity();
-        if (!me.getDriverUndertakesRideEntity().getCustId().equals(caller.getCustId())) {
+        Integer matchingDriverId=me.getDriverUndertakesRideEntity().getCustId().getCustId();
+       
+        if (!matchingDriverId.equals(caller.getCustId())) {
             throw new Error("Only Driver may change Driver's Message!");
         }
 
