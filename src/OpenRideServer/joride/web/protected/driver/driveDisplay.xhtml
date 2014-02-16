@@ -68,13 +68,34 @@
                         <td>:</td>
                         <td class="formInput">  #{driverride.rideOfferedseatsNo}            </td>
                     </tr>
-
+                    
+                    <tr> 
+                    
+                        <td class="formLabel"> 
+                            TODO Accepted matches exist?
+                        </td>
+                        <td class="formLabel">
+                            :
+                        </td>
+                        <td class="formInput"> 
+                            #{driverride.acceptedMatchesExists}                      
+                        </td>
+                    </tr>
+                    <tr>
+                         <td class="formLabel"> 
+                            TODO: Number of accepted matches? 
+                         </td>
+                        <td>
+                            : 
+                        </td>
+                        <td> 
+                            #{driverride.acceptedMatchesCount}
+                        </td>
+                    </tr>
+               
                     <tr>
                         <h:form>
-
-
                             <td colspan="1"  class="formLabel">
-
                                 <p:commandButton  id="showMatches" icon="ui-icon-suitcase" action="driver.driveMatchingsList" ajax="false">
                                     <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
