@@ -262,10 +262,17 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForDrivers(riderrouteId);
         matches = filter(matches);
+        if (matches != null) {
+            // catch the case where there is no result
+            // TODO: better, prevent null results beeing returned
+            matches=new ArrayList<MatchEntity>();
+        }
+
         for (MatchEntity m : matches) {
             // persist match, so it can be found later on!
             em.persist(m);
         }
+
 
         this.commitUserTransaction();
         em.flush();
@@ -1131,15 +1138,14 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                     // Generally don't remove matches with states 0, 2, 3, 4 (rejected, countermanded, no more available),
                     // or matches accepted by both parties,
                     // or matches accepted by the other party only
-                    if (!(
-                            m.getDriverState() == MatchEntity.ACCEPTED 
-                            || m.getRiderState() == MatchEntity.REJECTED 
-                            || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED 
+                    if (!(m.getDriverState() == MatchEntity.ACCEPTED
+                            || m.getRiderState() == MatchEntity.REJECTED
+                            || m.getRiderState() == MatchEntity.RIDER_COUNTERMANDED
                             || m.getRiderState() == MatchEntity.DRIVER_COUNTERMANDED
-                            || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE 
-                            || m.getDriverState() == MatchEntity.REJECTED 
-                            || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED 
-                            || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED 
+                            || m.getRiderState() == MatchEntity.NO_MORE_AVAILABLE
+                            || m.getDriverState() == MatchEntity.REJECTED
+                            || m.getDriverState() == MatchEntity.RIDER_COUNTERMANDED
+                            || m.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED
                             || m.getDriverState() == MatchEntity.NO_MORE_AVAILABLE) && !(m.getRiderState() == MatchEntity.ACCEPTED && m.getDriverState() == MatchEntity.ACCEPTED)) {
                         if (unrejectedCount < matchCountLimit) {
                             // Keep this match in list
