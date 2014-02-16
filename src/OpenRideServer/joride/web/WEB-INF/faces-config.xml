@@ -159,7 +159,14 @@
     </navigation-rule>
     
     
-    
+  <!-- set the rider message on a matching -->
+   
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.matchSetMessage</from-outcome>
+            <to-view-id>/faces/protected/rider/rideMatchSetRiderMessage.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>    
     
     
     
