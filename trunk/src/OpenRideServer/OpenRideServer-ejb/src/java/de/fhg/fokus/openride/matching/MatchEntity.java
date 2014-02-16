@@ -46,6 +46,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "MatchEntity.findAll", query = "SELECT m FROM MatchEntity m"),
     @NamedQuery(name = "MatchEntity.findByRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.riderrouteId = :riderrouteId"),
     @NamedQuery(name = "MatchEntity.findByRideId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId"),
+    @NamedQuery(name = "MatchEntity.findByRideIdAndStates", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId AND m.riderState = :riderState AND m.driverState = :driverState"),
     @NamedQuery(name = "MatchEntity.findByRideIdRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId AND m.matchEntityPK.riderrouteId = :riderrouteId"),
     @NamedQuery(name = "MatchEntity.findByDriverState", query = "SELECT m FROM MatchEntity m WHERE m.driverState = :driverState"),
     @NamedQuery(name = "MatchEntity.findByRiderState", query = "SELECT m FROM MatchEntity m WHERE m.riderState = :riderState"),
@@ -298,6 +299,10 @@ public class MatchEntity implements Serializable {
         return "de.fhg.fokus.openride.matching.MatchEntity[matchEntityPK=" + matchEntityPK + "]";
     }
 
+    /** ToDO: what's this (found in original OpenRide)
+     * 
+     *  @deprecated since it it obviously not used, it should go away
+     */
     public void reloadAllEntities() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
