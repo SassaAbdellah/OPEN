@@ -57,6 +57,7 @@ import org.postgis.Point;
 @Stateless
 public class DriverUndertakesRideControllerBean extends ControllerBean implements DriverUndertakesRideControllerLocal {
 
+    // TODO: rename "u" to some kind of sensible Name, or better remove it
     UserTransaction u;
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
@@ -1363,4 +1364,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.merge(match);
         }
     }
+
+    @Override
+    public List<MatchEntity> getMatchesByRideIdAndState(int rideId, int riderState, int driverState) {
+
+
+        Query q = em.createNamedQuery("MatchEntity.findByRideIdAndStates");
+        q.setParameter("rideId", rideId);
+        q.setParameter("riderState", riderState);
+        q.setParameter("driverState", driverState);
+        List<MatchEntity> matches = q.getResultList();
+
+        return matches;
+    }
+
+    @Override
+    public List<MatchEntity> getAcceptedMatches(int rideId) {
+
+        return this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
+    }
+
 } // class

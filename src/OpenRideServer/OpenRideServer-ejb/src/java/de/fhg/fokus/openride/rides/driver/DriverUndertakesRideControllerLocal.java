@@ -127,7 +127,30 @@ public interface DriverUndertakesRideControllerLocal {
     boolean isDriveUpdated(int rideId);
 
     // -------- MATCHING / ROUTES --------
+    /** Get list of matches for given ride with given states
+     *  mainly used to get all confirmed matches for a given ride
+     * 
+     * @param rideId rideId of DriverundertakesrideEntity for which to find matchings
+     * @param riderState  riderState which returned matches should have
+     * @param driverState driverState which returned matches should have
+     * @return 
+     */
+    public List<MatchEntity> getMatchesByRideIdAndState(int rideId, int riderState, int driverState);
+ 
+    
+    /** Fetch list of all Accepted matches. 
+     *  Convenience method, should return the same as
+     *  this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
+     * 
+     * @param rideId id of the DriverUndertakesRideEntity to be checked
+     * 
+     * @return  list of all Matches for this ride upon which a pickup has been agreed.
+     * 
+     */
+    public List<MatchEntity> getAcceptedMatches(int rideId);
 
+    
+    // found in ORS without documentation
     List<MatchEntity> getMatches(int rideId, boolean setDriverAccess);
     //points used for computing matches
     List<DriveRoutepointEntity> getDriveRoutePoints(int driveId);
