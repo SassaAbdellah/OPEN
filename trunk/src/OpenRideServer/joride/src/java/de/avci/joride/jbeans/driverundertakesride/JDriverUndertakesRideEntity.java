@@ -40,8 +40,6 @@ import org.postgis.Point;
 @SessionScoped
 public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity {
 
-   
- 
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
     /**
      * Default Value for Acceptable Detour in Km. May be changed by the user in
@@ -693,38 +691,33 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return "  ";
     }
 
-   
-
     /**
      * @return Returns true, if the number of Matches is > 0, else false
      *
      */
     public boolean getHasMatches() {
-        
+
         this.updateMatchings();
-        return this.getMatchings().size()>0;
+        return this.getMatchings().size() > 0;
     }
-    
-    
-    /** Overridden to update the matchings property 
-     *  from database.
-     * 
+
+    /**
+     * Overridden to update the matchings property from database.
+     *
      */
-    
     @Override
-    
-    protected void updateMatchings(){
-    
+    protected void updateMatchings() {
+
         // just to prevent NullPointerExceptions
-        if(this.getRideId()==null){ return;}
-        
-        List <MatchEntity> matches=
-        (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
-       
-        this.setMatchings(matches); 
+        if (this.getRideId() == null) {
+            return;
+        }
+
+        List<MatchEntity> matches =
+                (new JMatchingEntityService()).getMatchesForOffer(this.getRideId());
+
+        this.setMatchings(matches);
     }
-    
-    
 
     /**
      * Return a list of Drive offers starting after given starttime. Returned
@@ -846,33 +839,53 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), routeIdx);
     }
 
-    /** 
-     * 
+    /**
+     *
      *
      * @return MatchingStatitstics Object for this drive
      */
     public MatchingStatistics getMatchingStatistics() {
-        
+
         // just to prevent NullPointerExceptions
-        if(this.getRideId()==null){ return null;}
+        if (this.getRideId() == null) {
+            return null;
+        }
         return new JMatchingEntityService().getMatchingStatisticsForOffer(this.getRideId());
     }
+
+    /**
+     *
+     * @return list of mutually accepted matchings for this drive
+     */
+    public List<JMatchingEntity> getAcceptedMatchings() {
+        return new JDriverUndertakesRideEntityService().getAcceptedMatches(this.getRideId());
+    }
+    
+   /**
+    * 
+    * @return  number of (mutually) accepted matches for this ride
+    */
+    public Integer getAcceptedMatchesCount(){
+        return getAcceptedMatchings().size();
+    }
+    
+   /**
+    * 
+    * @return  true, if accepted matches for this ride exist, else false
+    */
+    public boolean getAcceptedMatchesExists(){
+        return getAcceptedMatchings().size()>0;
+    } 
     
     
     /**
      * If true, waypoints can be added to the route
      *
-     * @returns true, if state is one of STATE_NEW, 
-     * STATE_RIDER_REQUESTED, else false
+     * @returns true, if state is one of STATE_NEW, STATE_RIDER_REQUESTED, else
+     * false
      *
      */
     public boolean getCanEditRoute() {
         return this.getMatchingStatistics().getDriveCanEditRoute();
     }
-    
-    
-    
-  
-    
-    
 } // class 

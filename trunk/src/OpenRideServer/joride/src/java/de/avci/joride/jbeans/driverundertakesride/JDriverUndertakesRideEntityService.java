@@ -5,7 +5,9 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
@@ -15,6 +17,7 @@ import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.RouterBeanLocal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -152,16 +155,14 @@ public class JDriverUndertakesRideEntityService {
         return durcl.getDrivesForDriver(ce.getCustNickname());
 
     }
-    
-    
-    
+
     /**
      * Get a list all Drives of this driver. Current user/customer is determined
      * from HTTPRequest's AuthPrincipal.
      *
      * @return
      */
-    public List<JDriverUndertakesRideEntity> getDrivesInInterval( Date startDate, Date endDate) {
+    public List<JDriverUndertakesRideEntity> getDrivesInInterval(Date startDate, Date endDate) {
 
 
         CustomerEntity ce = this.getCustomerEntity();
@@ -176,11 +177,11 @@ public class JDriverUndertakesRideEntityService {
             throw new Error("Cannot determine Drives, customerId is null");
         }
 
-        List <DriverUndertakesRideEntity> preres=durcl.getDrivesInInterval(ce, startDate, endDate);
-  
-    
-    
-      // cast results from DriverUndertakesRideEntity to JDriverUndertakesRideEntity
+        List<DriverUndertakesRideEntity> preres = durcl.getDrivesInInterval(ce, startDate, endDate);
+
+
+
+        // cast results from DriverUndertakesRideEntity to JDriverUndertakesRideEntity
 
         List<JDriverUndertakesRideEntity> res = new LinkedList<JDriverUndertakesRideEntity>();
         Iterator<DriverUndertakesRideEntity> it = preres.iterator();
@@ -193,11 +194,6 @@ public class JDriverUndertakesRideEntityService {
 
         return res;
     } //getDrivesInInterval
-
-    
-    
-    
-    
 
     /**
      * Safely get the Drive with given ID.
@@ -327,16 +323,16 @@ public class JDriverUndertakesRideEntityService {
         return res;
 
     }
-    
-    
-    /** getRequiredRoutePoints for drive with given driveID
-     * 
+
+    /**
+     * getRequiredRoutePoints for drive with given driveID
+     *
      * @param rideID
-     * @return 
+     * @return
      */
     JRoutePointsEntity getRequiredRoutePointsForDrive(int driveId) {
- 
-               //
+
+        //
         // Check, if drive does really belong to the calling user
         //
         CustomerEntity ce = this.getCustomerEntity();
@@ -367,17 +363,17 @@ public class JDriverUndertakesRideEntityService {
         JRoutePointsEntity res = new JRoutePointsEntity();
         res.setRoutePoints(routePoints);
         return res;
-        
+
     }
-    
-    
-     /** getWaypoints for given drive in a JWaypointsContainer.
-     * 
+
+    /**
+     * getWaypoints for given drive in a JWaypointsContainer.
+     *
      * @param rideID
-     * @return 
+     * @return
      */
     JWaypointsEntity getWaypointsForDrive(int driveId) {
- 
+
         //
         // Check, if drive does really belong to the calling user
         //
@@ -403,16 +399,14 @@ public class JDriverUndertakesRideEntityService {
 
         List<WaypointEntity> waypoints = durcl.getWaypoints(dure);
         JWaypointsEntity res = new JWaypointsEntity();
-       
-        for(WaypointEntity w: waypoints){
-            if(w!=null){
+
+        for (WaypointEntity w : waypoints) {
+            if (w != null) {
                 res.add(new JWaypointEntity(w));
             }
         }
         return res;
     }
-        
-    
 
     public JRoutePointsEntity findRoute(DriverUndertakesRideEntity dure) {
 
@@ -445,8 +439,7 @@ public class JDriverUndertakesRideEntityService {
                 endC,
                 new java.sql.Timestamp(dure.getRideStarttime().getTime()),
                 true,
-                threshold
-                );
+                threshold);
 
 
 
@@ -647,10 +640,6 @@ public class JDriverUndertakesRideEntityService {
         return res;
     }
 
-    
-    
-    
-    
     /**
      * Invalidate/cancel/countermand the ride with given Rideid. The identity is
      * checked from http request. Invalidation is
@@ -684,72 +673,118 @@ public class JDriverUndertakesRideEntityService {
 
         return true;
     }
-    
-    
-    /** Add a waypoint to Drive *safely*.
-     *  Safely means that it gets checked wether the 
-     * 
-     * 
+
+    /**
+     * Add a waypoint to Drive *safely*. Safely means that it gets checked
+     * wether the
+     *
+     *
      */
-    public void addWaypointToDriveSafely(JWaypointEntity waypoint){
-        
-       
-        
+    public void addWaypointToDriveSafely(JWaypointEntity waypoint) {
+
+
+
         CustomerEntity ce = this.getCustomerEntity();
 
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-        DriverUndertakesRideEntity due = 
+        DriverUndertakesRideEntity due =
                 durcl.getDriveByDriveId(waypoint.getRideId());
-        
+
         // Sanity check, caller of this method must be owner of this offer
 
         if (ce.getCustId() != due.getCustId().getCustId()) {
             throw new Error("Attempt to change Offer that is not owned by User");
         }
-        
-    
+
+
         // call DriverUndertakesRideControllerLocal to do the real job
         durcl.addWaypoint(
-                due.getRideId(), 
-                waypoint.extractWaypoint(), 
+                due.getRideId(),
+                waypoint.extractWaypoint(),
                 waypoint.getPosition());
     }
-    
-     /** remove a waypoint from Drive *safely*.
-     *  Safely means that it gets checked wether the 
-     *  caller is entitled to do this operation or not.
-     * 
-     * 
-     * 
+
+    /**
+     * remove a waypoint from Drive *safely*. Safely means that it gets checked
+     * wether the caller is entitled to do this operation or not.
+     *
+     *
+     *
      * @param rideId
-     * @param routeIdx 
+     * @param routeIdx
      */
-    public void removeWaypointFromDriveSafely(int rideId, int routeIdx){
-        
-       
-        
+    public void removeWaypointFromDriveSafely(int rideId, int routeIdx) {
+
+
+
         CustomerEntity ce = this.getCustomerEntity();
 
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-        DriverUndertakesRideEntity due = 
+        DriverUndertakesRideEntity due =
                 durcl.getDriveByDriveId(rideId);
-        
+
         // Sanity check, caller of this method must be owner of this offer
 
         if (ce.getCustId() != due.getCustId().getCustId()) {
             throw new Error("Attempt to change Offer that is not owned by User");
         }
-        
+
         // call DriverUndertakesRideControllerLocal to do the real job
-        durcl.removeWaypoint( rideId, routeIdx);
-               
+        durcl.removeWaypoint(rideId, routeIdx);
+
+    }
+
+    /**
+     * fetch a list of mutually accepted pickups for Drive given by
+     * riderundertakesrideentity
+     *
+     *
+     * @param  rideId  rideId of the DriverUndertakesRideEntity to be checked
+     * @return 
+     */
+    public List<JMatchingEntity> getAcceptedMatches(Integer rideId) {
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+
+        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+        DriverUndertakesRideEntity due = durcl.getDriveByDriveId(rideId);
+
+        // Sanity check, caller of this method must be owner of this offer
+
+        if (ce.getCustId() != due.getCustId().getCustId()) {
+            throw new Error("Attempt to se matches, but caller is not driver!");
+        }
+
+        // call DriverUndertakesRideControllerLocal to do the real job
+        ArrayList<JMatchingEntity> result = new ArrayList<JMatchingEntity>();
+
+        for (MatchEntity me : durcl.getAcceptedMatches(rideId)) {
+            result.add(new JMatchingEntity(me));
+        }
+
+        return result;
     }
     
     
+     /** true, if some accepted Matches exist for the ride given by rideId
+     * 
+     * @param rideId of given DriverUndertakesRideEntity .
+     * @return 
+     */
+    public boolean getAcceptedMatchesExist(int rideId){
+        return this.getAcceptedMatches(rideId).size()>0;
+    }
+    
+      
+    /** Count the number of accepted rides for given drive.
+     * 
+     * @param rideId of given DriverUndertakesRideEntity .
+     * @return number of accepted rides for this drive.
+     */
+    public Integer getAcceptedMatchesCount(int rideId){
+        return this.getAcceptedMatches(rideId).size();
+    }
     
     
-    
-    
-
-  
 } // class

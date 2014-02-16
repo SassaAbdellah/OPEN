@@ -318,7 +318,7 @@ public class JMatchingEntity implements Serializable {
      *
      * @param arg
      */
-    JMatchingEntity(MatchEntity arg) {
+    public JMatchingEntity(MatchEntity arg) {
         this.matchEntity = arg;
     }
 
