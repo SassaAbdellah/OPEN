@@ -591,9 +591,11 @@ public class JMatchingEntityService {
         Integer riderRouteId = meArg.getRiderUndertakesRideEntity().getRiderrouteId();
         // retrive a matchEntity safely
         MatchEntity me = this.getMatchSafely(rideId, riderRouteId);
+        Integer matchingRiderId=me.getRiderUndertakesRideEntity().getCustId().getCustId();
+       
         // see, if caller is rider
         CustomerEntity caller = this.getCustomerEntity();
-        if (!me.getRiderUndertakesRideEntity().getCustId().equals(caller.getCustId())) {
+        if (! (matchingRiderId.equals(caller.getCustId()))) {
             throw new Error("Only Rider may change Rider's Message!");
         }
         // now, set the message safely

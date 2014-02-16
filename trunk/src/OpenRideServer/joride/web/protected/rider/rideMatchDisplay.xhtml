@@ -165,6 +165,24 @@
                         </td>
                     </tr>
 
+                    
+                    
+                                        
+                    <tr>
+                       <td colspan="3">
+                            <h:form>
+                                <span class="commandlink" >
+                                    <h:commandLink action="rider.matchSetMessage" >
+                                        #{msgs.matchSetRiderMessage}
+
+                                        <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
+                                        <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
+                                        <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
+                                    </h:commandLink>
+                                </span>
+                            </h:form>
+                        </td>
+                    </tr>
                 </table>
 
 
@@ -177,13 +195,7 @@
                     </h:form>
                 </p>
 
-
-
-
             </ui:define>
-
-
-
 
         </ui:composition>
 
