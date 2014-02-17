@@ -45,10 +45,10 @@
                 #{rscdriverride.update()}
 
                 
-                <h1>  #{msgs.matchMatchingRequestsForOffer}  #{rscdriverride.rideId}</h1>
+                <h1>  #{msgs.matchAcceptedRequestsForOffer}  #{rscdriverride.rideId}</h1>
 
 
-                <ui:repeat   value="#{rscdriverride.JMatches}" var="matching" >
+                <ui:repeat   value="#{rscdriverride.acceptedMatchings}" var="matching" >
 
                     <table>
                         <tr>
@@ -86,23 +86,7 @@
                         </tr>
 
 
-                        <tr> <!--  Match, accept or reject -->
-                            <td colspan="3">
-                                <span class="formLabel">
-                                    <h:form>
-                                        <h:commandLink action="driver.matchDisplay" value="#{msgs.matchMatchingRideAcceptOrReject}">
-                                            <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
-                                            <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
-
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                        </h:commandLink>
-                                    </h:form>
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr> <!--  Match, show details -->
+                        <tr>
                             <td colspan="3">
                                 <span class="formLabel">
                                     <h:form>
@@ -117,6 +101,7 @@
                                 </span>
                             </td>
                         </tr>
+
 
                     </table>
 
