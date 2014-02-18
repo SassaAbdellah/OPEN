@@ -196,21 +196,22 @@ public class MatchingStatistics implements Serializable {
         this.numberOfMatches++;
         
 
-        /**
-         * driver...
+        /** driver...
          */
-        // TODO: better set 0 as a decent default value
+       
         int d = MatchEntity.NOT_ADAPTED;
-
-
         d = m.getDriverState();
-
+        
+                
+        int r = MatchEntity.NOT_ADAPTED;
+        r = m.getRiderState();
+        
+        
+        
 
         if (MatchEntity.ACCEPTED.equals(d)) {
             this.acceptedDriver++;
         }
-
-
 
         if (MatchEntity.RIDER_COUNTERMANDED.equals(d)
                  ||
@@ -219,17 +220,13 @@ public class MatchingStatistics implements Serializable {
             this.countermandedDriver++;
         }
 
-
         if (MatchEntity.NOT_ADAPTED.equals(d)) {
             this.notAdaptedDriver++;
         }
 
-
-
         if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
             this.noMoreAvaillableDriver++;
         }
-
 
         if (MatchEntity.REJECTED.equals(d)) {
             this.rejectedDriver++;
@@ -239,14 +236,6 @@ public class MatchingStatistics implements Serializable {
         /**
          * rider
          */
-        int r = MatchEntity.NOT_ADAPTED;
-
-        r = m.getRiderState();
-
-
-
-
-
 
         if (MatchEntity.ACCEPTED.equals(r)) {
             this.acceptedRider++;
@@ -274,7 +263,7 @@ public class MatchingStatistics implements Serializable {
         /**
          * Both..
          */
-        if (MatchEntity.REJECTED.equals(r) && MatchEntity.REJECTED.equals(d)) {
+        if (MatchEntity.ACCEPTED.equals(r) && MatchEntity.ACCEPTED.equals(d)) {
             this.acceptedBoth++;
         }
     }
