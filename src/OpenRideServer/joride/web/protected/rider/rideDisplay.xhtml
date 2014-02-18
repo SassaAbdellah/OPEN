@@ -49,12 +49,12 @@
                             </div>
                         </p>
                     </ui:fragment>
-                    
-                    
+
+
                     TODO: remove matching statistics
-                    
+
                     #{ride.getMatchingStatistics().toString()}
-                    
+
 
 
                     <!-- data are presented inside of an accordion with the first  -->
@@ -346,9 +346,21 @@
 
                         <p:tab  title="#{msgs.rideRemoveThisRequest}"  >
 
-                            <table> <!-- table for deleting -->
-                                <h:form>
-                                    #{cancellingride.update()}
+
+                            #{ride.getMatchingState().toString()}
+                            
+                            #{cancellingride.update()}
+                            
+                             <h:form rendered="#{ride.countermandingRequired}">
+                                 
+                                 TODO: countermanding is required
+                            
+                             </h:form>
+                            
+
+
+                            <h:form rendered="#{ride.countermandingNotRequired}">
+                                <table> <!-- table for deleting -->
                                     <tr>
                                         <td colspan="1" class="formLabel">
                                             <p:commandButton 
@@ -360,9 +372,9 @@
                                                 >
                                                 <!-- Webflow parameters -->
                                                 <f:param   name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
-                                             
+
                                             </p:commandButton>
-                                            
+
 
                                             <p:tooltip for="cancelRide" value="#{msgs.rideRemoveThisRequest}" />
                                         </td>
@@ -372,9 +384,9 @@
                                                 value="#{msgs.rideRemoveThisRequest}" 
                                                 />
                                         </td>
-                                    </tr>
-                                </h:form>
-                            </table>
+                                    </tr>                     
+                                </table>
+                            </h:form>
                         </p:tab>
                     </p:accordionPanel>
                 </p:panel>

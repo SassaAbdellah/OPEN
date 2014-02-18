@@ -1,4 +1,3 @@
-
 package de.avci.joride.jbeans.riderundertakesride;
 
 import de.fhg.fokus.openride.rides.rider.RideNegotiationConstants;
@@ -9,6 +8,7 @@ import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.JorideNavigation;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -521,29 +521,22 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         return (new JMatchingEntityService()).getJMatchesForRide(this.getRiderrouteId());
     }
-    
-    
-     /**
+
+    /**
      * Returns a list of Matching Drive Offers for this ride
      *
      * @return Returns a list of Matching Drive Offers for this ride
      */
-    
     @Override
-    
     public List<MatchEntity> getMatchings() {
 
         if (this.getRiderrouteId() == null) {
             log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
             return new LinkedList<MatchEntity>();
         }
-   
+
         return (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
     }
-    
-    
-    
-    
 
     /**
      * Returns true, if this ride has been updated
@@ -607,8 +600,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         }
 
 
+        PropertiesLoader loader = new PropertiesLoader();
+
         if (result) {
-            return "rider";
+            return loader.getNavigationProps().getProperty("action.rideInvalidate.Success");
         } else {
             // TODO: add a JSF message why this failed
             log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed");
@@ -990,9 +985,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      * @return MatchingStatitstics Object for this ride
      */
-    
     @Override
-    
     public MatchingStatistics getMatchingStatistics() {
 
         return new JMatchingEntityService().getMatchingStatisticsForRide(this.getRiderrouteId());
@@ -1029,8 +1022,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
     /**
      * TODO: move this to superclass
-     * 
-     * 
+     *
+     *
      * Calculate the state of negotians for this drive. This is done by
      * evaluating the matches
      *
@@ -1039,7 +1032,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      *
      */
-    protected RideNegotiationConstants getMatchingState() {
+    public RideNegotiationConstants getMatchingState() {
 
         MatchingStatistics stats = this.getMatchingStatistics();
 
@@ -1065,17 +1058,42 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         return RideNegotiationConstants.STATE_UNCLEAR;
     }
-    
+
+    /**
+     * Determines wether a match must be countermanded before this ride can be
+     * invalidated
+     *
+     * @return true, if the ride has to be countermanded before it can be
+     * invalidated, else false
+     */
+    public boolean isCountermandingRequired() {
+
+        RideNegotiationConstants state = this.getMatchingState();
+        if (state.equals(RideNegotiationConstants.STATE_CONFIRMED_BOTH)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determines wether a match must be countermanded before this ride can be
+     * invalidated
+     *
+     * @return false, if the ride has to be countermanded before it can be
+     * invalidated, else true
+     */
+    public boolean isCountermandingNotRequired() {
+
+        return !this.isCountermandingRequired();
+    }
+
     @Override
-    
-    protected void updateMatchings(){
-        
-        List <MatchEntity> myMatchings=(new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
+    protected void updateMatchings() {
+
+        List<MatchEntity> myMatchings = (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
         this.setMatchings(myMatchings);
-        
+
         super.updateMatchings();
     }
-    
-    
 } // class
 
