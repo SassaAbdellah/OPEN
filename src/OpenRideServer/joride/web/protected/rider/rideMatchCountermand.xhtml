@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!-- ***************************************************** -->
+<!--    Display a list of Matchings for given ride         -->
+<!-- ***************************************************** -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+
+
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
+
+
+    <body>
+
+
+        <!-- ***** Displays matching's data for rider                    **** -->
+        <!-- ***** i.e driver's public data,                             **** -->
+        <!-- ***** control to accept upon hitch from rider's perspective **** -->
+
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+            
+            
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
+
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+                <h1> TODO: countermand matching </h1>
+            </ui:define>
+
+            #{match.smartUpdate()}
+            
+            <table>
+                <tr> 
+                    <td>RideId        </td> 
+                    <td>  #{match.drive.rideId} </td>
+                </tr>
+                <tr> 
+                    <td> RiderrouteId </td> 
+                    <td>  #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}</td> 
+                </tr>
+            </table>
+                <p> <!-- webflow stanza -->
+
+                    #{webflow.smartUpdate()}
+
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                    </h:form>
+                </p>
+
+            
+            
+            
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>

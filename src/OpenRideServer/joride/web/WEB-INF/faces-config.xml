@@ -140,16 +140,22 @@
     
     <!-- Navigation Case                                    -->
     <!-- show display for single matching for given *ride*  -->
-
-    <navigation-rule>
+    <navigation-rule>    
         <navigation-case>
             <from-outcome>rider.matchDisplay</from-outcome>
             <to-view-id>/faces/protected/rider/rideMatchDisplay.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
     
-  
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.rideCountermand</from-outcome>
+            <to-view-id>/faces/protected/rider/rideMatchCountermand.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+   
+     
     <!-- page to display rides in the paast -->
     <navigation-rule>
         <navigation-case>
