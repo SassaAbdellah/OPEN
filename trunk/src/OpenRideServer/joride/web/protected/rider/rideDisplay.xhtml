@@ -346,18 +346,24 @@
 
                         <p:tab  title="#{msgs.rideRemoveThisRequest}"  >
 
-
-                            #{ride.getMatchingState().toString()}
-                            
+                            #{rscride.update()}
                             #{cancellingride.update()}
-                            
-                             <h:form rendered="#{ride.countermandingRequired}">
-                                 
-                                 TODO: countermanding is required
-                            
-                             </h:form>
-                            
 
+                            <h:form rendered="#{ride.countermandingRequired}">
+                                <p>
+                                    #{msgs.rideCannotBeCountermandedBecauseOfMatch}
+                                </p>
+                                <p>
+                                    <h:commandLink action="rider.rideCountermand"   value="#{msgs.rideClickHereToCountermand}" >
+
+                                        <f:param name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
+                                        <f:param name="#{match.paramRiderrouteId}"        value="#{ride.rideId.rideId}" />
+                                        <f:param name="#{crud.paramNameCrudId}"           value="#{ride.riderrouteId}"  />
+                                        <f:param name="#{webflow.getParamBack()}"         value="rider.rideDisplay"     />
+                                    </h:commandLink>
+                                </p>
+
+                            </h:form>
 
                             <h:form rendered="#{ride.countermandingNotRequired}">
                                 <table> <!-- table for deleting -->
