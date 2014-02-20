@@ -46,6 +46,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -1417,4 +1418,45 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findRidesAfterDateforCustId").setParameter("custId", ce).setParameter("startDate", startDate).getResultList();
         return res;
     }
+    
+    
+   
+    
+    /** Fetch Entity with given rideId and riderrouteId from db
+     * 
+     * @param rideId              rideId of associated riderundertakesrideEntity
+     * @param riderrouteId  riderrouteId of associated driverundertakesrideEntity
+     * @return 
+     */
+    private MatchEntity fetchMatchEntity(Integer rideId, Integer riderrouteId) {
+
+        MatchEntity me = (MatchEntity) em.createNamedQuery("MatchEntity.findByRiderIdAndRiderrouteId").setParameter("rideId", rideId).setParameter("riderrouteId", riderrouteId).getSingleResult();
+
+        return me;
+    }
+    
+    
+    @Override
+    public void countermandDriver(Integer rideId, Integer riderrouteId) {
+
+        startUserTransaction();
+        MatchEntity me = this.fetchMatchEntity(rideId, riderrouteId);
+
+        me.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
+        em.merge(me);
+        commitUserTransaction();
+    }
+
+    @Override
+    public void countermandRider(Integer rideId, Integer riderrouteId) {
+        
+        startUserTransaction();
+        MatchEntity me = this.fetchMatchEntity(rideId, riderrouteId);
+        me.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
+        em.merge(me);
+        commitUserTransaction();
+    }
+    
+    
+    
 }

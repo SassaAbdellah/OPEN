@@ -202,4 +202,25 @@ public interface RiderUndertakesRideControllerLocal {
      * @return number of rated rides where the customer acted as rider
      */
     public Integer getCountOfRatingsForRider(CustomerEntity customer);
+    
+    
+   /** Countermand a Match given by rideId and riderrouteId , acting as Driver.
+    * 
+    * @param rideId         rideId of the driverUndertakesRideId for which the matching exists
+    * @param riderrouteId   riderrouteId of the riderUndertakesRideId for which the matching exists
+    */
+    public void countermandDriver(Integer rideId, Integer riderrouteId) ;
+
+    
+    /** Countermand a Match given by rideId and riderrouteId , acting as Rider.
+    * 
+    * @param rideId         rideId of the driverUndertakesRideId for which the matching exists
+    * @param riderrouteId   riderrouteId of the riderUndertakesRideId for which the matching exists
+    */
+    public void countermandRider(Integer rideId, Integer riderrouteId) ;
+
+    
+    
+    
+    
 }
