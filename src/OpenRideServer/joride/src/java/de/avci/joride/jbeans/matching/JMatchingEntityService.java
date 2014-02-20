@@ -602,4 +602,50 @@ public class JMatchingEntityService {
         this.lookupDriverUndertakesRideControllerBeanLocal().setRiderMessage(rideId, riderRouteId, message);
        
     }
+    
+    
+    
+    
+      void countermandSafely(MatchEntity meArg) {
+
+
+        Integer rideId = meArg.getDriverUndertakesRideEntity().getRideId();
+        Integer riderRouteId = meArg.getRiderUndertakesRideEntity().getRiderrouteId();
+        // retrive a matchEntity safely
+        MatchEntity me = this.getMatchSafely(rideId, riderRouteId);
+        Integer matchingRiderId=me.getRiderUndertakesRideEntity().getCustId().getCustId();
+      
+        Integer matchingDriverId=me.getDriverUndertakesRideEntity().getCustId().getCustId();
+        
+        RiderUndertakesRideControllerLocal rurcl=this.lookupRiderUndertakesRideControllerBeanLocal();
+      
+         // see, if caller is rider, and if so, countermand as rider
+        CustomerEntity caller = this.getCustomerEntity();
+        if (matchingRiderId.equals(caller.getCustId())) {
+            rurcl.countermandRider(
+                    me.getRiderUndertakesRideEntity().getRideId().getRideId(),
+                    me.getRiderUndertakesRideEntity().getRiderrouteId()
+                    );
+            return;
+        }
+        
+        
+          // see, if caller is rider, and if so, countermand as rider
+        if (matchingDriverId.equals(caller.getCustId())) {
+            rurcl.countermandDriver(
+                    me.getRiderUndertakesRideEntity().getRideId().getRideId(),
+                    me.getRiderUndertakesRideEntity().getRiderrouteId()
+                    );
+            return;
+        }
+        
+      }
+        
+        
+        
+    
+    
+    
+    
+    
 } //class

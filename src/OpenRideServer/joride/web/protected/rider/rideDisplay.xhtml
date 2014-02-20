@@ -357,7 +357,7 @@
                                     <h:commandLink action="rider.rideCountermand"   value="#{msgs.rideClickHereToCountermand}" >
 
                                         <f:param name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
-                                        <f:param name="#{match.paramRiderrouteId}"        value="#{ride.rideId.rideId}" />
+                                        <f:param name="#{match.paramRideID}"              value="#{ride.rideId.rideId}" />
                                         <f:param name="#{crud.paramNameCrudId}"           value="#{ride.riderrouteId}"  />
                                         <f:param name="#{webflow.getParamBack()}"         value="rider.rideDisplay"     />
                                     </h:commandLink>

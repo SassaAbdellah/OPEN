@@ -8,6 +8,7 @@ import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
@@ -518,6 +519,60 @@ public class JMatchingEntity implements Serializable {
         new JMatchingEntityService().setDriverMessageSafely(this.getMatchEntity(), message);
     }
     
+    
+      /** return true, if either rider or driver countermanded this ride, else false 
+       * 
+       * @return true, if either rider or driver countermanded this ride, else false
+       */
+    public boolean getCountermanded(){
+    
+        if(this.getRiderState()==MatchEntity.RIDER_COUNTERMANDED){
+            return true;
+        }
+        
+        if(this.getRiderState()==MatchEntity.DRIVER_COUNTERMANDED){
+            return true;
+        }
+        
+         if(this.getDriverState()==MatchEntity.RIDER_COUNTERMANDED){
+            return true;
+        }
+        
+        if(this.getDriverState()==MatchEntity.DRIVER_COUNTERMANDED){
+            return true;
+        }
+           
+        return false;
+    }
+    
+       
+      /** return true, if neither rider nor driver countermanded this ride, else false 
+       * 
+       * @return true, if neither rider mor driver countermanded this ride, else false
+       */
+    public boolean getNotCountermanded(){
+    
+      return ! getCountermanded();
+    }
+    
+    
+       /**
+     * Update Rider's rating and comment for this ride
+     *
+     */
+    public void doCountermand(javax.faces.event.ActionEvent evt) {
+
+       new JMatchingEntityService().countermandSafely(this.getMatchEntity());
+    }
+
+    
+    
+    
+    
+       /** return false, if neither rider or driver countermanded this ride, else false 
+       * 
+       * @return true, if either rider or driver countermanded this ride, else false
+       */
     
     
 
