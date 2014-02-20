@@ -30,8 +30,8 @@
 
         <ui:composition template="/templates/simpleLayout.xhtml">
 
-            
-            
+
+
             <!-- highlight "preferences" tab -->
             <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
 
@@ -42,20 +42,20 @@
 
             <ui:define name="content">
                 <h1> TODO: countermand matching </h1>
-            </ui:define>
 
-            #{match.smartUpdate()}
-            
-            <table>
-                <tr> 
-                    <td>RideId        </td> 
-                    <td>  #{match.drive.rideId} </td>
-                </tr>
-                <tr> 
-                    <td> RiderrouteId </td> 
-                    <td>  #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}</td> 
-                </tr>
-            </table>
+
+                #{match.smartUpdate()}
+
+                <table>
+                    <tr> 
+                        <td>RideId        </td> 
+                        <td>  #{match.drive.rideId} </td>
+                    </tr>
+                    <tr> 
+                        <td> RiderrouteId </td> 
+                        <td>  #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}</td> 
+                    </tr>
+                </table>
                 <p> <!-- webflow stanza -->
 
                     #{webflow.smartUpdate()}
@@ -65,9 +65,55 @@
                     </h:form>
                 </p>
 
-            
-            
-            
+                <h:outputLabel rendered="#{match.countermanded}">
+
+                    TODO: ride has been countermanded
+
+                    TODO: Your message to the driver:
+
+                    #{match.riderMessage}
+                </h:outputLabel>
+
+
+                <h:form> 
+
+                    <h:form rendered="#{match.notCountermanded}">
+
+                        <table>
+                            <tr>
+                                <td class="formLabel">
+                                    TODO: not countermanded
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formInput">
+                                    <h:inputTextarea value="#{match.riderMessage}">
+                                    </h:inputTextarea>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <p:commandButton action="rider.rideCountermand" value="TODO: buttontext" actionListener="#{match.doCountermand(evt)}" > 
+                            
+                            <f:param name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
+                            <f:param name="#{match.paramRideID}"              value="#{ride.rideId.rideId}" />
+                            <f:param name="#{crud.paramNameCrudId}"           value="#{ride.riderrouteId}"  />
+                          
+                        </p:commandButton>
+
+                    </h:form>
+
+
+                </h:form>
+
+
+
+            </ui:define>            
+
+
+
+
         </ui:composition>
 
 
