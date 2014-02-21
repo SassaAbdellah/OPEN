@@ -988,7 +988,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     @Override
     public MatchingStatistics getMatchingStatistics() {
 
-        return new JMatchingEntityService().getMatchingStatisticsForRide(this.getRiderrouteId());
+        Integer riderrouteId=this.getRiderrouteId();
+        return new JMatchingEntityService().getMatchingStatisticsForRide(riderrouteId);
     }
 
     /**
