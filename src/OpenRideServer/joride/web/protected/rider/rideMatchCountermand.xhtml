@@ -41,36 +41,14 @@
             </ui:define>
 
             <ui:define name="content">
-                <h1> TODO: countermand matching </h1>
+                <h1> #{msgs.rideCountermand} </h1>
 
 
                 #{match.smartUpdate()}
-               
-                <table>
-                    <tr> 
-                        <td>RideId        </td> 
-                        <td>  #{match.drive.rideId} </td>
-                    </tr>
-                    <tr> 
-                        <td> RiderrouteId </td> 
-                        <td>  #{match.matchEntity.riderUndertakesRideEntity.riderrouteId}</td> 
-                    </tr>
-                </table>
-                <p> <!-- webflow stanza -->
 
-                    #{webflow.smartUpdate()}
+ 
 
-                 
-                </p>
-
-                <h:outputLabel rendered="#{match.countermanded}">
-
-                    TODO: ride has been countermanded
-
-                    TODO: Your message to the driver:
-
-                    #{match.riderMessage}
-                </h:outputLabel>
+                #{webflow.smartUpdate()}
 
 
 
@@ -78,9 +56,19 @@
                 <h:form rendered="#{match.notCountermanded}">
 
                     <table>
+
+                        <tr>
+                            <td class="formInput">
+                                <p>
+                                #{msgs.rideClickHereToCountermand}
+                                </p>
+                            </td>
+                        </tr>
+                     
+
                         <tr>
                             <td class="formLabel">
-                                TODO: not countermanded
+                                #{msgs.rideSetCountermandMessage}
                             </td>
                         </tr>
                         <tr>
@@ -92,27 +80,25 @@
                     </table>
 
 
-                    <p:commandButton action="rider.rideDisplay" value="TODO: buttontext" actionListener="#{match.doCountermand(evt)}" > 
+                    <p:commandButton action="rider.rideDisplay" value="#{msgs.rideCountermand}" actionListener="#{match.doCountermand(evt)}" > 
 
                         <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}"  />
                         <f:param name="#{match.paramRideID}"        value="#{match.ride.rideId.rideId}" />
                         <f:param name="#{crud.paramNameCrudId}"     value="#{match.ride.riderrouteId}"  />
-                        
+
 
                     </p:commandButton>
 
                 </h:form>
-                
-                
-                
 
-                     <h:form>
+
+                <p>
+                    <h:form>
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
                             <f:param   name="#{crud.paramNameCrudId}"   value="#{match.ride.riderrouteId}"/>
                         </h:commandLink>
                     </h:form>
-
-
+                </p>
 
 
             </ui:define>            

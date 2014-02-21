@@ -354,7 +354,7 @@
                                     #{msgs.rideCannotBeCountermandedBecauseOfMatch}
                                 </p>
                                 <p>
-                                    <h:commandLink action="rider.rideCountermand"   value="#{msgs.rideClickHereToCountermand}" >
+                                    <h:commandLink action="rider.rideCountermand"   value="#{msgs.rideCountermand}" >
 
                                         <f:param name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
                                         <f:param name="#{match.paramRideID}"              value="#{ride.rideId.rideId}" />
@@ -409,15 +409,6 @@
 
 
             </ui:define>
-
-
-
-
         </ui:composition>
-
-
-
-
-
     </body>
 </html>
