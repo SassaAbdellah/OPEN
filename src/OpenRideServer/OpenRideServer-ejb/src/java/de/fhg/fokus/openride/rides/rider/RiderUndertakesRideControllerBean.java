@@ -64,7 +64,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
-    @EJB
     private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
     @EJB
     private CustomerControllerLocal customerControllerBean;
@@ -263,7 +262,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForDrivers(riderrouteId);
         matches = filter(matches);
-        if (matches != null) {
+        if (matches == null) {
             // catch the case where there is no result
             // TODO: better, prevent null results beeing returned
             matches=new ArrayList<MatchEntity>();
@@ -966,7 +965,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             return -1;
         } else {
             callMatchingAlgorithm(r.getRiderrouteId(), false);
-            return r.getRiderrouteId();
+                return r.getRiderrouteId();
         }
     }
 
