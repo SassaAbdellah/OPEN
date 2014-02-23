@@ -221,7 +221,7 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
 
         for (RiderUndertakesRideEntity re : allRides) {
 
-            if (riderUndertakesRideControllerBean.isDeletable(re.getRiderrouteId())) {
+            if (riderUndertakesRideControllerBean.isRemovable(re.getRiderrouteId())) {
                 // delete all rides that can be deleted
                 logger.info("Deleting Ride " + re.getRiderrouteId());
                 riderUndertakesRideControllerBean.removeRide(re.getRiderrouteId());

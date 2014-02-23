@@ -853,7 +853,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
-    public boolean isDeletable(int riderrouteId) {
+    public boolean isRemovable(int riderrouteId) {
 
 
 
