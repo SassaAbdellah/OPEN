@@ -51,7 +51,7 @@
                     </ui:fragment>
 
 
-                 
+
 
                     <!-- data are presented inside of an accordion with the first  -->
                     <!--  -->
@@ -370,11 +370,12 @@
                                                 id="cancelRide"
                                                 icon="ui-icon-trash"
                                                 action="rider"
-                                                actionListener="#{cancellingride.invalidate()}"
+                                                actionListener="#{cancellingride.invalidate(evt)}"
                                                 ajax="false"
                                                 >
-                                                <!-- Webflow parameters -->
-                                                <f:param   name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
+
+                                                <f:param  name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
 
                                             </p:commandButton>
 
@@ -382,10 +383,23 @@
                                             <p:tooltip for="cancelRide" value="#{msgs.rideRemoveThisRequest}" />
                                         </td>
                                         <td colspan="2" class="formLabel">
-                                            <h:commandLink 
-                                                action="#{cancellingride.invalidate()}" 
-                                                value="#{msgs.rideRemoveThisRequest}" 
-                                                />
+
+                                            <p:commandLink
+                                                action="rider"
+                                                actionListener="#{cancellingride.invalidate(evt)}"
+                                                value="#{msgs.rideRemoveThisRequest}"
+                                                ajax="false"
+                                                >
+                                                
+                                              
+                                                
+                                                <f:param  name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
+                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
+
+                                            </p:commandLink>
+
+
+
                                         </td>
                                     </tr>                     
                                 </table>
