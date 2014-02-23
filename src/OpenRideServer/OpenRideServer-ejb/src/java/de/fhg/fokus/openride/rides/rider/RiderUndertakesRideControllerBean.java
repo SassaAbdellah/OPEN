@@ -64,6 +64,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
     @EJB
     private RouteMatchingBeanLocal routeMatchingBean;
+    @EJB
     private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
     @EJB
     private CustomerControllerLocal customerControllerBean;
@@ -138,6 +139,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
      */
     public int addRiderToRide(int riderRouteId, int rideId) {
         startUserTransaction();
+        
         RiderUndertakesRideEntity ride = getRideByRiderRouteId(riderRouteId);
         em.lock(ride, LockModeType.PESSIMISTIC_WRITE);
 
@@ -173,6 +175,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             ride.setTimestampbooked(new Date());
             ride.setRideId(drive);
             em.merge(drive);
+            em.merge(ride);
             MatchEntity match = getMatch(rideId, riderRouteId);
             match.setRiderChange(new Date());
             em.merge(match);

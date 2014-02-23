@@ -307,7 +307,6 @@ public class MatchEntity implements Serializable {
     public void reloadAllEntities() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
+    
+    
 }
