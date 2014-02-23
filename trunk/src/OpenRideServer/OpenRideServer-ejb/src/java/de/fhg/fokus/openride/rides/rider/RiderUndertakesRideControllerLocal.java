@@ -127,13 +127,13 @@ public interface RiderUndertakesRideControllerLocal {
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress);
 
     /**
-     * True, if RiderUndertakesRide Entity with given riderrouteId is deletable,
+     * True, if RiderUndertakesRide Entity with given riderrouteId is removable,
      * else false.
      *
      * @param riderrouteId
      * @return
      */
-    public boolean isDeletable(int riderrouteId);
+    public boolean isRemovable(int riderrouteId);
 
     void removeRiderFromRide(int riderrouteid, int rideid);
 
