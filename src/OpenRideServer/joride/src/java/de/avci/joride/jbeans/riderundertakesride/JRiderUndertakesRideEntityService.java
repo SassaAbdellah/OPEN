@@ -690,7 +690,7 @@ public class JRiderUndertakesRideEntityService {
             throw new Error("Attempt to invalidate request that is not owned by User");
         }
 
-        if (rurcl.isDeletable(riderrouteId)) {
+        if (rurcl.isRemovable(riderrouteId)) {
             log.info("Offer " + riderrouteId + " is deleteable, removing it");
             rurcl.removeRide(riderrouteId);
         } else {
