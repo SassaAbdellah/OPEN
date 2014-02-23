@@ -8,7 +8,6 @@ import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
-import de.avci.joride.utils.JorideNavigation;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -47,22 +46,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * @deprecated should be done centrally in utils* class
      *
      */
-    protected DateFormat dateFormat;
-
-    /**
-     * Accessor with lazy instantiation
-     *
-     *
-     *
-     * @return
-     */
+    protected DateFormat dateTimeFormat = (new JoRideConstants()).createDateTimeFormat();
+    
     protected DateFormat getDateTimeFormat() {
-
-        if (this.dateFormat == null) {
-            dateFormat = (new JoRideConstants()).createDateTimeFormat();
-        }
-
-        return dateFormat;
+        return dateTimeFormat;
     }
 
     /**
@@ -993,32 +980,17 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     }
 
     /**
-     * Accessor with lazy instantiation
-     *
-     * @return nice format for date as defined in joride constants
-     *
-     */
-    protected DateFormat getDateFormat() {
-
-        if (this.dateFormat == null) {
-            dateFormat = (new JoRideConstants()).createDateTimeFormat();
-        }
-
-        return dateFormat;
-    }
-
-    /**
      * @return nicely formatted version of startTime earliest
      */
     public String getStarttimeEarliestFormatted() {
-        return this.getDateFormat().format(this.getStarttimeEarliest());
+        return this.getDateTimeFormat().format(this.getStarttimeEarliest());
     }
-
+    
     /**
      * @return nicely formatted version of startTime latest
      */
     public String getStarttimeLatestFormatted() {
-        return this.getDateFormat().format(this.getStarttimeLatest());
+        return this.getDateTimeFormat().format(this.getStarttimeLatest());
     }
 
     /**
