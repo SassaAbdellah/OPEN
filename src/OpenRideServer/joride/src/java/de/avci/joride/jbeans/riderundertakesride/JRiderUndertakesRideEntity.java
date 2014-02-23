@@ -573,28 +573,27 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * this ride.
      *
      */
-    public String invalidate() {
+   public void  invalidate(ActionEvent evt) {
 
 
-        boolean result;
+        Integer idToRemove=this.getRiderrouteId();
+        boolean result=false;
 
         try {
             result = new JRiderUndertakesRideEntityService().removeRideSafely(this);
         } catch (Exception exc) {
             // TODO: add a message why this failed
-            log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed with unknown exception", exc);
-            return null;
+            log.log(Level.SEVERE, "invalidating ride " + this.getCustId() + " failed with unknown exception", exc);
         }
 
 
         PropertiesLoader loader = new PropertiesLoader();
 
         if (result) {
-            return loader.getNavigationProps().getProperty("action.rideInvalidate.Success");
+             log.info("invalidating ride request with id "+idToRemove);
         } else {
             // TODO: add a JSF message why this failed
-            log.log(Level.SEVERE, "removing user " + this.getCustId() + " failed");
-            return null;
+            log.log(Level.SEVERE, "removing ride request " + idToRemove + " failed");
         }
 
 
