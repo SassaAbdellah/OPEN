@@ -209,9 +209,10 @@ public class JMatchingEntityService {
         log.log(Level.FINE, "" + this.getClass() + " acceptRiderSafely beeing called");
 
 
-        // see who calls us!
+        // see who calls us!      
         CustomerEntity caller = this.getCustomerEntity();
 
+        
         if (caller == null) {
             throw new Error("Cannot proceed to accept rider, Caller is null");
         }
@@ -224,8 +225,8 @@ public class JMatchingEntityService {
         // determine the driver of the match entity's trip
 
         Integer driverId = jme.getMatchEntity().getDriverUndertakesRideEntity().getCustId().getCustId();
-
-
+        // see who calls us!
+     
         if (!(caller.getCustId().equals(driverId))) {
             throw new Error("Cannot proceed to accept rider, driver Id " + driverId + " does not match caller id " + caller.getCustId());
         }
@@ -261,7 +262,7 @@ public class JMatchingEntityService {
         jme.setMatchEntitiy(me);
 
         // add drive to ride if both parties have agreed
-        this.addRiderToRideSavely(me);
+        this.addRiderToRideSafely(me);
 
         return true;
     }
@@ -336,7 +337,7 @@ public class JMatchingEntityService {
         // update the Match Entity
         jme.setMatchEntitiy(me);
         // add drive to ride if both parties have agreed
-        this.addRiderToRideSavely(me);
+        this.addRiderToRideSafely(me);
 
         return true;
     }
@@ -421,7 +422,7 @@ public class JMatchingEntityService {
      *
      * @param me MatchEntity linking drive to ride
      */
-    protected void addRiderToRideSavely(MatchEntity me) {
+    protected void addRiderToRideSafely(MatchEntity me) {
 
 
         if (MatchEntity.ACCEPTED.equals(me.getRiderState())
