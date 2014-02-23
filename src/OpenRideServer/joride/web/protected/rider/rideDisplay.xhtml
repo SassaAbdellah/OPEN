@@ -383,23 +383,9 @@
                                             <p:tooltip for="cancelRide" value="#{msgs.rideRemoveThisRequest}" />
                                         </td>
                                         <td colspan="2" class="formLabel">
-
-                                            <p:commandLink
-                                                action="rider"
-                                                actionListener="#{cancellingride.invalidate(evt)}"
-                                                value="#{msgs.rideRemoveThisRequest}"
-                                                ajax="false"
-                                                >
-                                                
-                                              
-                                                
-                                                <f:param  name="#{match.paramRiderrouteId}"        value="#{ride.riderrouteId}"  />
-                                                <f:param  name="#{crud.paramNameCrudId}"   value="#{cancellingride.rideId}"/>
-
-                                            </p:commandLink>
-
-
-
+                                            <h:commandLink action="rider"   actionListener="#{cancellingride.invalidate(evt)}" >
+                                                #{msgs.rideRemoveThisRequest}
+                                            </h:commandLink>
                                         </td>
                                     </tr>                     
                                 </table>
