@@ -882,7 +882,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
     }
 
-    /**
+    /** Remove ride completely from database. 
+     *  This should be done only if ride does not contain confirmed matches.
+     * 
+     * 
+     * 
      * 
      * @param riderrouteId
      * @return 
