@@ -308,6 +308,14 @@ public class JRiderUndertakesRideEntityService {
 
     } // getRidesForRiderAfter
     
+    /** Create a filtered ride list of all future rides for this rider
+     * 
+     * @param jrfl typically empty object to be initiallized by this method
+     */
+    public void updateJFilteredRideList(JRideFilteredLists jrfl){
+        jrfl.setAllRides(this.getFutureRidesForRider());
+    }
+   
     
     
     
