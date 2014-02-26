@@ -1,6 +1,6 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
-import de.fhg.fokus.openride.rides.rider.RideNegotiationConstants;
+import de.fhg.fokus.openride.matching.RideNegotiationConstants;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
@@ -1067,5 +1067,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         super.updateMatchings();
     }
+    
 } // class
 
