@@ -1325,6 +1325,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
+    
+    // TODO: obsolete as remove does is better
     public boolean invalidateRide(Integer riderrouteId) {
 
         startUserTransaction();

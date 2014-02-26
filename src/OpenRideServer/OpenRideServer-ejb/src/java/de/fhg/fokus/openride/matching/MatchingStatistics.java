@@ -17,8 +17,6 @@
  */
 package de.fhg.fokus.openride.matching;
 
-import de.fhg.fokus.openride.rides.driver.DriveNegotiationConstants;
-import de.fhg.fokus.openride.rides.rider.RideNegotiationConstants;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,9 +24,7 @@ import java.util.List;
  * Portmanteau class to contain statistics concerning the matches for a given
  *
  * riderundetakesrideentity
- *
  * or
- *
  * driverundertakesrideentity
  *
  *
@@ -338,25 +334,34 @@ public class MatchingStatistics implements Serializable {
      * @return calculated State, see above
      *
      */
-    public DriveNegotiationConstants getDriveMatchingState() {
+    public RideNegotiationConstants getDriveMatchingState() {
 
         if (this.getNumberOfMatches() == 0) {
-            return DriveNegotiationConstants.STATE_NEW;
+            return RideNegotiationConstants.STATE_NEW;
         }
 
         if (this.getAcceptedBoth() > 0) {
-            return DriveNegotiationConstants.STATE_CONFIRMED_BOTH;
+            return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
         }
 
         if (this.getAcceptedDriver() > 0) {
-            return DriveNegotiationConstants.STATE_DRIVER_ACCEPTED;
+            return RideNegotiationConstants.STATE_DRIVER_ACCEPTED;
         }
 
         if (this.getAcceptedRider() > 0) {
-            return DriveNegotiationConstants.STATE_RIDER_REQUESTED;
+            return RideNegotiationConstants.STATE_RIDER_REQUESTED;
         }
+        
+        if(this.getRejectedDriver()>0){
+            return RideNegotiationConstants.STATE_COUNTERMANDED_DRIVER;
+        }
+        
+         if(this.getRejectedRider()>0){
+            return RideNegotiationConstants.STATE_COUNTERMANDED_RIDER;
+        }
+        
 
-        return DriveNegotiationConstants.STATE_UNCLEAR;
+        return RideNegotiationConstants.STATE_UNCLEAR;
     }
     
     
@@ -376,8 +381,8 @@ public class MatchingStatistics implements Serializable {
      */
     public boolean getDriveCanEditRoute() {
 
-        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
-        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        if(this.getDriveMatchingState()==RideNegotiationConstants.STATE_NEW) return true;
+        if(this.getDriveMatchingState()==RideNegotiationConstants.STATE_RIDER_REQUESTED) return true;
         
         return false;
     }
@@ -393,9 +398,9 @@ public class MatchingStatistics implements Serializable {
      */
     public boolean getDriveCanRemove(){
     
-        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_NEW) return true;
-        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_RIDER_REQUESTED) return true;
-        if(this.getDriveMatchingState()==DriveNegotiationConstants.STATE_DRIVER_ACCEPTED) return true;
+        if(this.getDriveMatchingState()==RideNegotiationConstants.STATE_NEW) return true;
+        if(this.getDriveMatchingState()==RideNegotiationConstants.STATE_RIDER_REQUESTED) return true;
+        if(this.getDriveMatchingState()==RideNegotiationConstants.STATE_DRIVER_ACCEPTED) return true;
          
         return false;
     }
