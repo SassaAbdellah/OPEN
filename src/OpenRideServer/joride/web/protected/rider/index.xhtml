@@ -32,118 +32,226 @@
 
             <ui:define name="content">
 
-                
-                TODO: remove after decent debugging phase
+
+
                 #{filteredList.updateFutureRides()}
-                
+
+                <pre>TODO: ALL Rides</pre>
+
+                <h:panelGroup  id="allRides" rendered="#{filteredList.hasRides()}" >
+                    <p>
+                        <p:panel header="#{msgs.rideActiveRequests}">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.allRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre>TODO: NEW Rides </pre>
+
+                <h:panelGroup  id="newRides" rendered="#{filteredList.hasNewRides()}" >
+                    <p>
+                        <p:panel header="TODO: NEW Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.newRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> TODO: RIDER REQUESTED </pre>
+
+                <h:panelGroup  id="riderRequestedRides" rendered="#{filteredList.hasRiderRequestedRides()}" >
+                    <p>
+                        <p:panel header="TODO: RiderRequested">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.riderRequestedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> DRIVER ACCEPTED</pre>
+
+                <h:panelGroup  id="driverAcceptedRides" rendered="#{filteredList.hasDriverAcceptedRides()}" >
+                    <p>
+                        <p:panel header="TODO: DRIVER ACCEPTED">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.driverAcceptedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> BOTH ACCEPTED Rides </pre>
+
+                <h:panelGroup  id="bothAcceptedRides" rendered="#{filteredList.hasBothAcceptedRides()}" >
+                    <p>
+                        <p:panel header="TODO: BOTH ACCEPTED Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.bothAcceptedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> RIDER REJECTED Rides </pre>
+
+                <h:panelGroup  id="riderRejectedRides" rendered="#{filteredList.hasRiderRejectedRides()}" >
+                    <p>
+                        <p:panel header="TODO: RIDER REJECTED Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.riderRejectedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> DRIVER REJECTED Rides  </pre>
+
+                <h:panelGroup  id="driverRejectedRides" rendered="#{filteredList.hasDriverRejectedRides()}" >
+                    <p>
+                        <p:panel header="TODO:  DRIVER REJECTED">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.driverRejectedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> BOTH REJECTED Rides </pre>
+
+                <h:panelGroup  id="bothRejectedRides" rendered="#{filteredList.hasBothRejectedRides()}" >
+                    <p>
+                        <p:panel header="TODO: BOTH ACCEPTED">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.bothAcceptedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre>  RIDER COUNTERMANDED Rides </pre>
+
+                <h:panelGroup  id="riderCountermandedRides" rendered="#{filteredList.hasRiderCountermandedRides()}" >
+                    <p>
+                        <p:panel header="TODO:  RIDER COUNTERMANDED Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.riderCountermandedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> DRIVER COUNTERMANDED Rides </pre>
+
+                <h:panelGroup  id="driverCountermandedRides" rendered="#{filteredList.hasDriverCountermandedRides()}" >
+                    <p>
+                        <p:panel header="TODO: DRIVER COUNTERMANDED Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.driverCountermandedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> BOTH COUNTERMANDED Rides </pre>
+
+                <h:panelGroup  id="bothCountermandedRides" rendered="#{filteredList.hasBothCountermandedRides()}" >
+                    <p>
+                        <p:panel header="TODO: DRIVER COUNTERMANDED Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.bothCountermandedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> UNAVAILLABLE Rides TODO: remove </pre>
+
+                <h:panelGroup  id="unavaillableRides" rendered="#{filteredList.hasUnavaillableRides()}" >
+                    <p>
+                        <p:panel header="TODO: UNAVAILLABLE Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.unavaillableRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> UPDATED Rides </pre>
+
+                <h:panelGroup  id="updatesRides" rendered="#{filteredList.hasUpdatedRides()}" >
+                    <p>
+
+                        <p:panel header="TODO: UPDATED RIDES">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.updatedRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+                <pre> UNCLEAR Rides TODO: remove </pre>
+
+                <h:panelGroup  id="unclearRides" rendered="#{filteredList.hasUnclearRides()}" >
+                    <p>
+                        <p:panel header="TODO: UNCLEAR Rides">
+                            <!-- primefaces dynamic accordion COOL!  -->
+                            <p:accordionPanel  activeIndex="-1" value="#{filteredList.unclearRides}" var="ride">
+                                <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                    <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </p>
+                </h:panelGroup>
+
+
+                <pre> TODO: remove after decent debugging phase </pre>
                 <pre>
-                #{filteredList.debugPrintout}
+                    #{filteredList.debugPrintout}
                 </pre>
-
-                <p:panel header="#{msgs.rideActiveRequests}">
-
-                    <!-- primefaces dynamic accordion COOL!  -->
-                    <p:accordionPanel  activeIndex="-1" value="#{ride.futureRidesForRider}" var="ride">
-
-
-
-
-                        <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
-                            
-                            <div class="formLabel"> #{msgs.rideRequest} #{ride.riderrouteId} </div>
-
-                            <!-- show message if ride is updated -->
-                            <ui:fragment rendered="#{ride.rideUpdated}">
-                                <h:graphicImage library="images" name="updated.gif" width="20" height="20" />
-                                #{msgs.updatedRide}
-                            </ui:fragment>
-
-
-
-                            <h:form>
-                                <p>
-                                    <table> <!-- nested table #1 -->                         
-                                        <tr>
-                                            <td colspan="3">
-                                                <span class="formLabel">
-                                                    <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
-                                                        <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
-                                                        <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                                    </h:commandLink>
-                                                </span>
-                                            </td>
-                                        </tr>
-
-                                        <!-- *** show matchings list only if there are matchings *** -->
-                                        <ui:fragment rendered="#{ride.hasMatches}">
-                                            <tr>
-                                                <td colspan="3">
-                                                    <span class="formLabel">
-                                                        <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                                            <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
-                                                            <f:param  name="#{webflow.getParamBack()}" value="rider"               />
-                                                        </h:commandLink>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </ui:fragment> 
-
-
-                                        <tr> 
-                                            <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
-                                            <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                            <td>  <span class="formInput"> #{ride.starttimeEarliestFormatted} </span> </td>
-                                        </tr>
-
-                                        <tr> 
-                                            <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
-                                            <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                            <td> <span class="formInput"> #{ride.starttimeLatestFormatted} </span> </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                                            <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                            <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
-                                            <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                            <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
-                                        </tr>
-
-                                        <tr>
-                                            <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
-                                            <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                            <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                                            <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
-                                            <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
-                                        </tr>
-
-                                        <!-- *** show matchings list only if there are matchings *** -->
-                                        <ui:fragment rendered="#{ride.hasMatches}">
-                                            <tr>
-                                                <td colspan="3">
-                                                    <span class="formLabel">
-                                                        <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
-                                                            <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
-                                                            <f:param  name="#{webflow.getParamBack()}" value="rider"               />
-                                                        </h:commandLink>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </ui:fragment> 
-
-                                    </table> <!-- nested table #1 -->  
-                                </p>
-                            </h:form>
-                        </p:tab>
-                    </p:accordionPanel>
-                </p:panel>
 
 
             </ui:define>
