@@ -83,12 +83,24 @@ public class JRideFilteredLists implements Serializable {
         this.riderRequestedRides       = new ArrayList<JRiderUndertakesRideEntity>();
         this.driverAcceptedRides       = new ArrayList<JRiderUndertakesRideEntity>();
         this.bothAcceptedRides         = new ArrayList<JRiderUndertakesRideEntity>();
+      
+        this.riderRejectedRides       = new ArrayList<JRiderUndertakesRideEntity>();
+        this.driverRejectedRides       = new ArrayList<JRiderUndertakesRideEntity>();
+        this.bothRejectedRides         = new ArrayList<JRiderUndertakesRideEntity>();
+        
         this.riderCountermandedRides   = new ArrayList<JRiderUndertakesRideEntity>();
         this.driverCountermandedRides  = new ArrayList<JRiderUndertakesRideEntity>();
+        this.bothCountermandedRides  = new ArrayList<JRiderUndertakesRideEntity>();
+   
+        
+        
         this.unavaillableRides         = new ArrayList<JRiderUndertakesRideEntity>();
         this.unclearRides              = new ArrayList<JRiderUndertakesRideEntity>();
         this.updatedRides              = new ArrayList<JRiderUndertakesRideEntity>();
 
+        
+        
+        
         //sorting list here means that all the sublists will be sorted too
         Collections.sort(this.getAllRides(), sorter);
 
@@ -96,6 +108,7 @@ public class JRideFilteredLists implements Serializable {
 
             MatchingStatistics ms = ride.getMatchingStatistics();
 
+        
             RideNegotiationConstants state = ms.getRideMatchingState();
 
 
@@ -103,6 +116,8 @@ public class JRideFilteredLists implements Serializable {
                 newRides.add(ride);
             }
 
+            // *********** Requested/Accepted/Confirmed
+            
             if (state == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
                 riderRequestedRides.add(ride);
             }
@@ -114,7 +129,25 @@ public class JRideFilteredLists implements Serializable {
             if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
                 bothAcceptedRides.add(ride);
             }
+            
+            
+             // *********** Rejected rides *******
+            
+            if (state == RideNegotiationConstants.STATE_RIDER_REJECTED) {
+                riderRequestedRides.add(ride);
+            }
 
+            if (state == RideNegotiationConstants.STATE_DRIVER_REJECTED) {
+                driverRejectedRides.add(ride);
+            }
+
+            if (state == RideNegotiationConstants.STATE_REJECTED_BOTH) {
+                bothRejectedRides.add(ride);
+            }
+            
+            
+            // ********* Countermanded Rides  ******
+            
             if (state == RideNegotiationConstants.STATE_COUNTERMANDED_RIDER) {
                 riderCountermandedRides.add(ride);
             }
@@ -123,6 +156,9 @@ public class JRideFilteredLists implements Serializable {
                 driverCountermandedRides.add(ride);
             }
 
+            
+            //********** ugly states ******************
+            
             if (state == RideNegotiationConstants.STATE_UNAVAILLABLE) {
                 unavaillableRides.add(ride);
             }
@@ -229,6 +265,83 @@ public class JRideFilteredLists implements Serializable {
     public boolean hasBothAcceptedRides() {
         return this.getBothAcceptedRides().size() > 0;
     }
+    
+    
+        /**
+     * all rider-accepted rides, i.e those that have been accepted by rider, but
+     * not by driver
+     */
+    private List riderRejectedRides = null;
+
+    public List<JRiderUndertakesRideEntity> getRiderRejectedRides() {
+        return this.riderRejectedRides;
+    }
+
+    /**
+     * @return size of the acceptedRides list
+     */
+    public int getNumberOfRiderRejectedRides() {
+        return this.getRiderRejectedRides().size();
+    }
+
+    /**
+     * @return true, if there are rides of state "rider requested" else false
+     */
+    public boolean hasRiderRejectedRides() {
+        return this.getRiderRejectedRides().size() > 0;
+    }
+    /**
+     * all driver-accepted rides, i.e those that have been accepted by driver,
+     * but not by rider
+     */
+    private List driverRejectedRides = null;
+
+    public List<JRiderUndertakesRideEntity> getDriverRejectedRides() {
+        return this.driverRejectedRides;
+    }
+
+    /**
+     * @return size of the acceptedRides list
+     */
+    public int getNumberOfDriverRejectedRides() {
+        return this.getDriverRejectedRides().size();
+    }
+
+    /**
+     * @return true, if there are rides of state unclear, else false
+     */
+    public boolean hasDriverRejectedRides() {
+        return this.getDriverRejectedRides().size() > 0;
+    }
+    /**
+     * all Rides accepted by both, rider and driver
+     */
+    private List bothRejectedRides = null;
+
+    public List<JRiderUndertakesRideEntity> getBothRejectedRides() {
+        return this.bothRejectedRides;
+    }
+
+    /**
+     * @return size of the bothAcceptedRides list
+     */
+    public int getNumberOfBothRejectedRides() {
+        return this.getBothRejectedRides().size();
+    }
+
+    /**
+     * @return true, if there are rides of state "accepted both", else false
+     */
+    public boolean hasBothRejectedRides() {
+        return this.getBothRejectedRides().size() > 0;
+    }
+    
+    
+    
+    
+    
+    
+    
     /**
      * all Rides countermanded by rider.
      */
@@ -252,8 +365,8 @@ public class JRideFilteredLists implements Serializable {
         return this.getRiderCountermandedRides().size() > 0;
     }
     
-        /**
-     * all Rides countermanded by rider.
+    /**
+     * all Rides countermanded by driver.
      */
     private List driverCountermandedRides = null;
 
@@ -273,6 +386,29 @@ public class JRideFilteredLists implements Serializable {
      */
     public boolean hasDriverCountermandedRides() {
         return this.getDriverCountermandedRides().size() > 0;
+    }
+    
+     /**
+     * all Rides countermanded by both, rider and driver.
+     */
+    private List bothCountermandedRides = null;
+
+    public List<JRiderUndertakesRideEntity> getBothCountermandedRides() {
+        return this.bothCountermandedRides;
+    }
+
+    /**
+     * @return size of the acceptedRides list
+     */
+    private int getNumberOfBothCountermandedRides() {
+        return this.getBothCountermandedRides().size();
+    }
+
+    /**
+     * @return true, if there are rides of state countermanded, else false
+     */
+    public boolean hasBothCountermandedRides() {
+        return this.getBothCountermandedRides().size() > 0;
     }
     
     
@@ -368,6 +504,8 @@ public class JRideFilteredLists implements Serializable {
         buf.append("\nNumber of : "+this.getNumberOfNewRides());
         buf.append("\nExist     : "+this.hasNewRides());
         buf.append("\n");
+        
+        // Requested/Accepted/Confirmed
         buf.append("\n");
         buf.append("\nRIDER REQUESTED Rides: " );
         buf.append("\nNumber of : "+this.getNumberOfRiderRequestedRides());
@@ -383,6 +521,25 @@ public class JRideFilteredLists implements Serializable {
         buf.append("\nNumber of : "+this.getNumberOfBothAcceptedRides());
         buf.append("\nExist     : "+this.hasBothAcceptedRides());
         buf.append("\n");
+        
+        
+        // Rejected
+        buf.append("\n");
+        buf.append("\nRIDER REJECTED Rides: " );
+        buf.append("\nNumber of : "+this.getNumberOfRiderRejectedRides());
+        buf.append("\nExist     : "+this.hasRiderRejectedRides());
+        buf.append("\n");
+        buf.append("\n");
+        buf.append("\nDRIVER REJECTED Rides: " );
+        buf.append("\nNumber of : "+this.getNumberOfDriverRejectedRides());
+        buf.append("\nExist     : "+this.hasDriverRejectedRides());
+        buf.append("\n");
+         buf.append("\n");
+        buf.append("\nBOTH REJECTED Rides: " );
+        buf.append("\nNumber of : "+this.getNumberOfBothRejectedRides());
+        buf.append("\nExist     : "+this.hasBothRejectedRides());
+        buf.append("\n");
+           
         buf.append("\n");
         buf.append("\nRIDER COUNTERMANDED Rides: " );
         buf.append("\nNumber of : "+this.getNumberOfRiderCountermandedRides());
@@ -391,7 +548,12 @@ public class JRideFilteredLists implements Serializable {
         buf.append("\nDRIVER COUNTERMANDED Rides: " );
         buf.append("\nNumber of : "+this.getNumberOfDriverCountermandedRides());
         buf.append("\nExist     : "+this.hasDriverCountermandedRides());
+        buf.append("\n");   buf.append("\n");  
+        buf.append("\nBOTH COUNTERMANDED Rides: " );
+        buf.append("\nNumber of : "+this.getNumberOfBothCountermandedRides());
+        buf.append("\nExist     : "+this.hasBothCountermandedRides());
         buf.append("\n");  
+        
         buf.append("\n");
         buf.append("\nUNAVAILLABLE Rides: " );
         buf.append("\nNumber of : "+this.getNumberOfUnavaillableRides());
