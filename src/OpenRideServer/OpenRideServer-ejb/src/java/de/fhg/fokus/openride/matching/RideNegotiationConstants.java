@@ -14,9 +14,7 @@ package de.fhg.fokus.openride.matching;
  *
  * @author jochen
  */
-
 // TODO: rename this to "NegotiationConstants" to make clear it works on __rides_ and __drives__
-
 public enum RideNegotiationConstants {
 
     /**
@@ -28,10 +26,13 @@ public enum RideNegotiationConstants {
      * a matching request ) or STATE_COUNTERMANDED (if Driver needs to
      * invalidate offer for some reason)
      *
-     * see also: null null null null null null null null null     {@link STATE_NEW} 
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
      *  {@link  STATE_COUNTERMANDED_DRIVER}
      *  {@link  STATE_COUNTERMANDED_RIDER}
      *  {@link  STATE_UNCLEAR}
@@ -69,10 +70,13 @@ public enum RideNegotiationConstants {
      * too) STATE_COUNTERMANDED (if Driver needs to invalidate offer for some
      * reason)
      *
-     * see also: null null null null null null null null null     {@link STATE_NEW} 
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
      *  {@link  STATE_COUNTERMANDED_DRIVER}
      *  {@link  STATE_COUNTERMANDED_RIDER}
      *  {@link  STATE_UNCLEAR}
@@ -83,20 +87,90 @@ public enum RideNegotiationConstants {
      * STATE_CONFIRMED_BOTH is a state into which an request gets if a matching
      * exists for which was requested by rider and accepted by driver.
      *
-     * From STATE_CONFIRMED_BOTH, the ride offer may get into state
+     * From STATE_CONFIRMED_BOTH, th e ride offer may get into state
      *
      * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
      *
-     * see also: null null null null null null null null null     {@link STATE_NEW} 
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
      *  {@link  STATE_COUNTERMANDED_DRIVER}
      *  {@link  STATE_COUNTERMANDED_RIDER}
      *  {@link  STATE_UNCLEAR}
      *
      */
     STATE_CONFIRMED_BOTH,
+    
+    /**
+     * STATE_RIDER_REJECTED is a state into which an request gets if the rider
+     * has rejected to be picked up by a driver, but this driver has not (yet)
+     * acceppted any one of those requests.
+     *
+     * From STATE_RIDER_REQUESTED the ride offer may get into state
+     *
+     * STATE_CONFIRMED_BOTH (if Driver accepts a matching request ) or
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * {@link STATE_NEW}
+     *  {@link  STATE_RIDER_REQUESTED}
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_COUNTERMANDED_DRIVER}
+     *  {@link  STATE_COUNTERMANDED_RIDER}
+     *  {@link  STATE_UNCLEAR}
+     *
+     */
+    STATE_RIDER_REJECTED,
+    
+    /**
+     * STATE_DRIVER_REJECTED is a state into which a request gets if one (or
+     * more) matchings exists and driver has "prematurely" accepted to pick up
+     * the rider, while the rider has not (yet) requested to be picked up.
+     *
+     * From STATE_DRIVER_ACCEPTED the ride offer may get into state
+     *
+     * STATE_CONFIRMED_BOTH (if one or maore accepted riders acceppt this ride
+     * too) STATE_COUNTERMANDED (if Driver needs to invalidate offer for some
+     * reason)
+     *
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
+     *  {@link  STATE_COUNTERMANDED_DRIVER}
+     *  {@link  STATE_COUNTERMANDED_RIDER}
+     *  {@link  STATE_UNCLEAR}
+     *
+     */
+    STATE_DRIVER_REJECTED,
+    /**
+     * STATE_CONFIRMED_BOTH is a state into which an request gets if a matching
+     * exists for which was requested by rider and accepted by driver.
+     *
+     * From STATE_CONFIRMED_BOTH, th e ride offer may get into state
+     *
+     * STATE_COUNTERMANDED (if Driver needs to invalidate offer for some reason)
+     *
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
+     *  {@link  STATE_RIDER_REQUESTED}
+     *  {@link  STATE_DRIVER_ACCEPTED}
+     *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
+     *  {@link  STATE_COUNTERMANDED_DRIVER}
+     *  {@link  STATE_COUNTERMANDED_RIDER}
+     *  {@link  STATE_UNCLEAR}
+     *
+     */
+    STATE_REJECTED_BOTH,
     /**
      * STATE_COUTERMANDED is a state into which an request gets if rider has to
      * cancel the ride for whatever reason (Blizzards, Earthquake, ...etc...)
@@ -108,17 +182,19 @@ public enum RideNegotiationConstants {
      * too) STATE_COUNTERMANDED (if Driver needs to invalidate offer for some
      * reason)
      *
-     * see also: null null null null null null null null null     {@link STATE_NEW} 
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
      *  {@link  STATE_COUNTERMANDED_DRIVER}
      *  {@link  STATE_COUNTERMANDED_RIDER}
      *  {@link  STATE_UNCLEAR}
      *
      */
     STATE_COUNTERMANDED_RIDER,
-    
     /**
      * STATE_COUTERMANDED is a state into which an request gets if rider has to
      * cancel the ride for whatever reason (Blizzards, Earthquake, ...etc...)
@@ -130,27 +206,26 @@ public enum RideNegotiationConstants {
      * too) STATE_COUNTERMANDED (if Driver needs to invalidate offer for some
      * reason)
      *
-     * see also: null null null null null null null null null     {@link STATE_NEW} 
+     * see also: null null null null null null null null null null     {@link STATE_NEW} 
      *  {@link  STATE_RIDER_REQUESTED}
      *  {@link  STATE_DRIVER_ACCEPTED}
      *  {@link  STATE_CONFIRMED_BOTH}
+     *  {@link  STATE_RIDER_REJECTED}
+     *  {@link  STATE_DRIVER_REJECTED}
+     *  {@link  STATE_REJECTED_BOTH}
      *  {@link  STATE_COUNTERMANDED_DRIVER}
      *  {@link  STATE_COUNTERMANDED_RIDER}
      *  {@link  STATE_UNCLEAR}
      *
      */
     STATE_COUNTERMANDED_DRIVER,
-    
-    
     /**
      * STATE_UNCLEAR is a state that gets returned if the negotiations of a
      * drive cannot be determined.
      */
     STATE_UNCLEAR,
-    
     /**
      * Drive/Ride is no more availlable, typically in the past
      */
     STATE_UNAVAILLABLE;
-
 }
