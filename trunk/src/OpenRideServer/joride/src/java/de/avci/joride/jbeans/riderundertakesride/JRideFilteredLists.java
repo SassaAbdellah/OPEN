@@ -354,7 +354,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * @return size of the acceptedRides list
      */
-    private int getNumberOfRiderCountermandedRides() {
+    public int getNumberOfRiderCountermandedRides() {
         return this.getRiderCountermandedRides().size();
     }
 
@@ -377,7 +377,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * @return size of the acceptedRides list
      */
-    private int getNumberOfDriverCountermandedRides() {
+    public int getNumberOfDriverCountermandedRides() {
         return this.getDriverCountermandedRides().size();
     }
 
@@ -400,7 +400,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * @return size of the acceptedRides list
      */
-    private int getNumberOfBothCountermandedRides() {
+    public int getNumberOfBothCountermandedRides() {
         return this.getBothCountermandedRides().size();
     }
 
