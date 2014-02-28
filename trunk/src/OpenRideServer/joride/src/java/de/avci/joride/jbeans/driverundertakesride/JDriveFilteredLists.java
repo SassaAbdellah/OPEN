@@ -26,7 +26,7 @@ import javax.inject.Named;
  *
  * @author jochen
  */
-@Named("filteredDriveList")
+@Named("filteredDriveLists")
 @SessionScoped
 public class JDriveFilteredLists implements Serializable {
 

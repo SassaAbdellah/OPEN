@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+
+    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+
+
+
+    <body>
+
+        <ui:composition template="/templates/simpleLayout.xhtml">
+
+
+
+            <!-- highlight "preferences" tab -->
+            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
+
+
+
+            <ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- page to display lists of ride  -->
+                <!-- filteredRideLists.displayMode property governs what will be displayed -->
+                  
+                #{filteredRideLists.updateDisplayMode()} 
+
+                <p>
+                    <h:panelGroup  id="ridelist" >
+                        <p>
+                            <p:panel header="#{filteredRideLists.headerForDisplayMode}">
+                                <!-- primefaces dynamic accordion COOL!  -->
+                                <p:accordionPanel  activeIndex="-1" value="#{filteredRideLists.listForDisplayMode}" var="ride">
+                                    <p:tab title=" #{ride.updatedShortcut} #{ride.startDateFormatted} #{ride.endptAddressShort} ">
+                                        <ui:include src="/sections/joride/riderlistelement.xhtml" />
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </p:panel>
+                        </p>
+                    </h:panelGroup>
+                </p>
+
+                <p> <!-- webflow stanza, backlink will always point to rider index -->
+                    <h:form>
+                        <h:commandLink value="#{msgs.back}" action="rider"/>
+                    </h:form>
+                </p>
+
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+
+
+
+
+    </body>
+</html>
