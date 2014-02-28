@@ -113,6 +113,20 @@
             <to-view-id>/faces/protected/rider/rideDisplay.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    
+    <!-- Navigation Case      -->
+    <!-- rideListDisplay      -->
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.rideListDisplay</from-outcome>
+            <to-view-id>/faces/protected/rider/rideListDisplay.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
 
     <!-- Navigation Case                           -->
     <!-- go to startpage for the rider section     -->
@@ -165,9 +179,9 @@
     </navigation-rule>
     
     
-  <!-- set the rider message on a matching -->
+    <!-- set the rider message on a matching -->
    
-     <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>rider.matchSetMessage</from-outcome>
             <to-view-id>/faces/protected/rider/rideMatchSetRiderMessage.xhtml </to-view-id>
@@ -258,9 +272,9 @@
         </navigation-case>
     </navigation-rule>
 
-  <!-- set the driver message on a matching -->
+    <!-- set the driver message on a matching -->
    
-     <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>driver.matchSetMessage</from-outcome>
             <to-view-id>/faces/protected/driver/driveMatchSetDriverMessage.xhtml </to-view-id>
