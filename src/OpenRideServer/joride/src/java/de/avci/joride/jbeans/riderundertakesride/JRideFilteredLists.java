@@ -178,7 +178,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * all new rides, i.e those that have both rider and DriverState nonAdapted
      */
-    private List newRides = null;
+    private List<JRiderUndertakesRideEntity>  newRides = null;
 
     public List<JRiderUndertakesRideEntity> getNewRides() {
         return this.newRides;
@@ -201,7 +201,7 @@ public class JRideFilteredLists implements Serializable {
      * all rider-accepted rides, i.e those that have been accepted by rider, but
      * not by driver
      */
-    private List riderRequestedRides = null;
+    private List<JRiderUndertakesRideEntity>  riderRequestedRides = null;
 
     public List<JRiderUndertakesRideEntity> getRiderRequestedRides() {
         return this.riderRequestedRides;
@@ -224,7 +224,7 @@ public class JRideFilteredLists implements Serializable {
      * all driver-accepted rides, i.e those that have been accepted by driver,
      * but not by rider
      */
-    private List driverAcceptedRides = null;
+    private List<JRiderUndertakesRideEntity>  driverAcceptedRides = null;
 
     public List<JRiderUndertakesRideEntity> getDriverAcceptedRides() {
         return this.driverAcceptedRides;
@@ -246,7 +246,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * all Rides accepted by both, rider and driver
      */
-    private List bothAcceptedRides = null;
+    private List <JRiderUndertakesRideEntity>  bothAcceptedRides = null;
 
     public List<JRiderUndertakesRideEntity> getBothAcceptedRides() {
         return this.bothAcceptedRides;
@@ -271,7 +271,7 @@ public class JRideFilteredLists implements Serializable {
      * all rider-accepted rides, i.e those that have been accepted by rider, but
      * not by driver
      */
-    private List riderRejectedRides = null;
+    private List<JRiderUndertakesRideEntity> riderRejectedRides = null;
 
     public List<JRiderUndertakesRideEntity> getRiderRejectedRides() {
         return this.riderRejectedRides;
@@ -294,7 +294,7 @@ public class JRideFilteredLists implements Serializable {
      * all driver-accepted rides, i.e those that have been accepted by driver,
      * but not by rider
      */
-    private List driverRejectedRides = null;
+    private List<JRiderUndertakesRideEntity>  driverRejectedRides = null;
 
     public List<JRiderUndertakesRideEntity> getDriverRejectedRides() {
         return this.driverRejectedRides;
@@ -316,7 +316,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * all Rides accepted by both, rider and driver
      */
-    private List bothRejectedRides = null;
+    private List<JRiderUndertakesRideEntity> bothRejectedRides = null;
 
     public List<JRiderUndertakesRideEntity> getBothRejectedRides() {
         return this.bothRejectedRides;
@@ -345,7 +345,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * all Rides countermanded by rider.
      */
-    private List riderCountermandedRides = null;
+    private List<JRiderUndertakesRideEntity> riderCountermandedRides = null;
 
     public List<JRiderUndertakesRideEntity> getRiderCountermandedRides() {
         return this.riderCountermandedRides;
@@ -368,7 +368,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * all Rides countermanded by driver.
      */
-    private List driverCountermandedRides = null;
+    private List<JRiderUndertakesRideEntity>  driverCountermandedRides = null;
 
     public List<JRiderUndertakesRideEntity> getDriverCountermandedRides() {
         return this.driverCountermandedRides;
@@ -391,7 +391,7 @@ public class JRideFilteredLists implements Serializable {
      /**
      * all Rides countermanded by both, rider and driver.
      */
-    private List bothCountermandedRides = null;
+    private List<JRiderUndertakesRideEntity>  bothCountermandedRides = null;
 
     public List<JRiderUndertakesRideEntity> getBothCountermandedRides() {
         return this.bothCountermandedRides;
