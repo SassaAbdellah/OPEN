@@ -43,13 +43,11 @@ public class MatchingStatistics implements Serializable {
      * Number of matches which have driver state "NOT_ADAPTED"
      */
     private int notAdaptedDriver = 0;
-    
-     /**
+    /**
      * Number of matches which have state "NOT_ADAPTED" for driver and rider,
      * (aka: new states)
      */
     private int notAdaptedBoth = 0;
-    
     /**
      * Number of matches which have rider state "ACCEPTED"
      */
@@ -94,7 +92,6 @@ public class MatchingStatistics implements Serializable {
      * Number of matches which are accepted by both, driver and rider
      */
     private int acceptedBoth = 0;
-   
 
     public int getNumberOfMatches() {
         return this.numberOfMatches;
@@ -115,12 +112,10 @@ public class MatchingStatistics implements Serializable {
     public int getNotAdaptedDriver() {
         return notAdaptedDriver;
     }
-    
-      public int getNotAdaptedBoth() {
+
+    public int getNotAdaptedBoth() {
         return notAdaptedBoth;
     }
-    
-    
 
     public void setNotAdaptedDriver(int notAdaptedDriver) {
         this.notAdaptedDriver = notAdaptedDriver;
@@ -174,6 +169,14 @@ public class MatchingStatistics implements Serializable {
         this.noMoreAvaillableDriver = noMoreAvaillableDriver;
     }
 
+    public int getCountermandedBoth() {
+        return countermandedBoth;
+    }
+
+    public void setCountermandedBoth(int arg) {
+        this.countermandedBoth = arg;
+    }
+
     public int getCountermandedRider() {
         return countermandedRider;
     }
@@ -224,23 +227,31 @@ public class MatchingStatistics implements Serializable {
             this.acceptedDriver++;
         }
 
-        if (MatchEntity.RIDER_COUNTERMANDED.equals(d)
-                || MatchEntity.DRIVER_COUNTERMANDED.equals(d)) {
+        if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)
+                && MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
+            this.countermandedBoth++;
+        }
+
+        if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)) {
             this.countermandedDriver++;
+        }
+
+        if (MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
+            this.countermandedRider++;
         }
 
         if (MatchEntity.NOT_ADAPTED.equals(d)) {
             this.notAdaptedDriver++;
         }
-        
-        if( MatchEntity.NOT_ADAPTED.equals(r)  && MatchEntity.NOT_ADAPTED.equals(d)){
+
+        if (MatchEntity.NOT_ADAPTED.equals(r) && MatchEntity.NOT_ADAPTED.equals(d)) {
             this.notAdaptedBoth++;
         }
-        
-        
-        
-        
-        
+
+
+
+
+
 
         if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
             this.noMoreAvaillableDriver++;
@@ -449,13 +460,13 @@ public class MatchingStatistics implements Serializable {
         if (this.getNumberOfMatches() == 0) {
             return RideNegotiationConstants.STATE_NEW;
         }
-        
+
         // Only new Matches -> New
-        if(this.getNotAdaptedBoth()==this.getNumberOfMatches()){
+        if (this.getNotAdaptedBoth() == this.getNumberOfMatches()) {
             return RideNegotiationConstants.STATE_NEW;
         }
-        
-        
+
+        // determine ACCEPTED rides
 
         if (this.getAcceptedBoth() > 0) {
             return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
@@ -468,14 +479,23 @@ public class MatchingStatistics implements Serializable {
         if (this.getAcceptedRider() > 0) {
             return RideNegotiationConstants.STATE_RIDER_REQUESTED;
         }
-        
-        if(this.getCountermandedRider()>0){
+
+        // determine COUNTERMANDED rides
+        if (this.getCountermandedBoth() > 0) {
+            return RideNegotiationConstants.STATE_COUNTERMANDED_BOTH;
+        }
+
+        if (this.getCountermandedRider() > 0) {
             return RideNegotiationConstants.STATE_COUNTERMANDED_RIDER;
         }
 
-        if(this.getCountermandedDriver()>0){
+        if (this.getCountermandedDriver() > 0) {
             return RideNegotiationConstants.STATE_COUNTERMANDED_DRIVER;
         }
+
+
+
+
 
         return RideNegotiationConstants.STATE_UNCLEAR;
     }
