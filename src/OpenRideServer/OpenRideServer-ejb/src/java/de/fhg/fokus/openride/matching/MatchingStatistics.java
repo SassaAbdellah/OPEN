@@ -43,6 +43,13 @@ public class MatchingStatistics implements Serializable {
      * Number of matches which have driver state "NOT_ADAPTED"
      */
     private int notAdaptedDriver = 0;
+    
+     /**
+     * Number of matches which have state "NOT_ADAPTED" for driver and rider,
+     * (aka: new states)
+     */
+    private int notAdaptedBoth = 0;
+    
     /**
      * Number of matches which have rider state "ACCEPTED"
      */
@@ -108,6 +115,12 @@ public class MatchingStatistics implements Serializable {
     public int getNotAdaptedDriver() {
         return notAdaptedDriver;
     }
+    
+      public int getNotAdaptedBoth() {
+        return notAdaptedBoth;
+    }
+    
+    
 
     public void setNotAdaptedDriver(int notAdaptedDriver) {
         this.notAdaptedDriver = notAdaptedDriver;
@@ -219,6 +232,15 @@ public class MatchingStatistics implements Serializable {
         if (MatchEntity.NOT_ADAPTED.equals(d)) {
             this.notAdaptedDriver++;
         }
+        
+        if( MatchEntity.NOT_ADAPTED.equals(r)  && MatchEntity.NOT_ADAPTED.equals(d)){
+            this.notAdaptedBoth++;
+        }
+        
+        
+        
+        
+        
 
         if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
             this.noMoreAvaillableDriver++;
@@ -423,9 +445,17 @@ public class MatchingStatistics implements Serializable {
      */
     public RideNegotiationConstants getRideMatchingState() {
 
+        // no matchings-> NEW
         if (this.getNumberOfMatches() == 0) {
             return RideNegotiationConstants.STATE_NEW;
         }
+        
+        // Only new Matches -> New
+        if(this.getNotAdaptedBoth()==this.getNumberOfMatches()){
+            return RideNegotiationConstants.STATE_NEW;
+        }
+        
+        
 
         if (this.getAcceptedBoth() > 0) {
             return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
@@ -437,6 +467,14 @@ public class MatchingStatistics implements Serializable {
 
         if (this.getAcceptedRider() > 0) {
             return RideNegotiationConstants.STATE_RIDER_REQUESTED;
+        }
+        
+        if(this.getCountermandedRider()>0){
+            return RideNegotiationConstants.STATE_COUNTERMANDED_RIDER;
+        }
+
+        if(this.getCountermandedDriver()>0){
+            return RideNegotiationConstants.STATE_COUNTERMANDED_DRIVER;
         }
 
         return RideNegotiationConstants.STATE_UNCLEAR;
