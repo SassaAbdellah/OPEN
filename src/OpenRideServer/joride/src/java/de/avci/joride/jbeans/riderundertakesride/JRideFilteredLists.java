@@ -184,7 +184,7 @@ public class JRideFilteredLists implements Serializable {
     /**
      * Name of the http parameter that sets the display mode
      */
-    public static final String paramNameDisplayMode = "DISPLAYMODE";
+    private static final String paramNameDisplayMode = "DISPLAYMODE";
 
     public String getParamNameDisplayMode() {
         return paramNameDisplayMode;
