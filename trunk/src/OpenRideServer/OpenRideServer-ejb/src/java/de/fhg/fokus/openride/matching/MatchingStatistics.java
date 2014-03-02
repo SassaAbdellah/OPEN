@@ -500,27 +500,5 @@ public class MatchingStatistics implements Serializable {
         return RideNegotiationConstants.STATE_UNCLEAR;
     }
 
-    /**
-     * Determine wether a Ride (RiderUndertakesRide) can be asvely removed (Ride
-     * can be removed for states STATE_NEW, STATE_RIDER_REQUESTED,
-     * STATE_DRIVER_ACCEPTED) Drives will have to be countermanded for all other
-     * states.
-     *
-     * @return true for States STATE_NEW, STATE_RIDER_REQUESTED,
-     * STATE_DRIVER_ACCEPTED
-     */
-    public boolean getRideCanRemove() {
 
-        if (this.getRideMatchingState() == RideNegotiationConstants.STATE_NEW) {
-            return true;
-        }
-        if (this.getRideMatchingState() == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
-            return true;
-        }
-        if (this.getRideMatchingState() == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
-            return true;
-        }
-
-        return false;
-    }
 }
