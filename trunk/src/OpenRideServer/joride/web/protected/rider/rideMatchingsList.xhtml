@@ -46,82 +46,86 @@
 
                 <h1>  #{msgs.matchMatchingOffersForRequest}  #{rscride.riderrouteId}</h1>
 
+                <p>
+                    <ui:repeat value="#{rscride.JMatches}"   var="matching" >
 
-                <ui:repeat value="#{rscride.JMatches}"   var="matching" >
-
-                    <p>
-                        <table>
-
-
-
-                            <tr>
-                                <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
-                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
-                            </tr>
-                            <tr>
-                                <td> <span class="formLabel"> #{msgs.matchDriversName}  </span> </td> 
-                                <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
-                                <td> 
-                                    <span class="formInput"> 
-                                        <h:form>
-                                            <h:commandLink action="#{publicProfile.displayProfileForCustId()}"   >
-                                                #{matching.drive.custId.custNickname} 
-                                                <f:param name="#{crud.paramNameCrudId}" value="#{matching.drive.custId.custId}" />
-                                            </h:commandLink>
-                                        </h:form>
-                                    </span> 
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td> <span class="formLabel"> #{msgs.matchDriversGender}            </span> </td> 
-                                <td> <span class="formLabel"> &nbsp;:&nbsp;                         </span> </td>
-                                <td> <span class="formInput"> #{matching.driverGenderLabel}  </span> </td> 
-                            </tr>
-
-                            <tr>
-                                <td> <span class="formLabel"> #{msgs.matchDriveID}   </span> </td> 
-                                <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
-                                <td> <span class="formInput"> #{matching.drive.rideId}  </span> </td> 
-                            </tr>
-
-
-                            <tr>
-                                <td colspan="3">
-                                    <span class="formLabel">
-                                        <h:form>
-                                            <h:commandLink action="rider.matchDisplay" value="#{msgs.matchMatchingDrive}">
-
-                                                <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
-                                                <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
-
-                                                <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
-                                                <f:param name="#{webflow.getParamBack()}" value="rider"          />
-                                            </h:commandLink>
-                                        </h:form>
-                                    </span>
-                                </td>
-                            </tr>
+                        <p>
+                            <table>
 
 
 
+                                <tr>
+                                    <td> <span class="formLabel"> #{msgs.matchExpectedPickupTime} </span> </td> 
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                    <td> <span class="formInput"> #{matching.matchEntity.matchExpectedStartTime}</span> </td> 
+                                </tr>
+                                <tr>
+                                    <td> <span class="formLabel"> #{msgs.matchDriversName}  </span> </td> 
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;</span> </td>
+                                    <td> 
+                                        <span class="formInput"> 
+                                            <h:form>
+                                                <h:commandLink action="#{publicProfile.displayProfileForCustId()}"   >
+                                                    #{matching.drive.custId.custNickname} 
+                                                    <f:param name="#{crud.paramNameCrudId}" value="#{matching.drive.custId.custId}" />
+                                                </h:commandLink>
+                                            </h:form>
+                                        </span> 
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td> <span class="formLabel"> #{msgs.matchDriversGender}            </span> </td> 
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;                         </span> </td>
+                                    <td> <span class="formInput"> #{matching.driverGenderLabel}  </span> </td> 
+                                </tr>
 
-                        </table>
-                    </p>
-                </ui:repeat>
+                                <tr>
+                                    <td> <span class="formLabel"> #{msgs.matchDriveID}   </span> </td> 
+                                    <td> <span class="formLabel"> &nbsp;:&nbsp;          </span> </td>
+                                    <td> <span class="formInput"> #{matching.drive.rideId}  </span> </td> 
+                                </tr>
 
 
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="formLabel">
+                                            <h:form>
+                                                <h:commandLink action="rider.matchDisplay" value="#{msgs.matchMatchingDrive}">
 
+                                                    <f:param name="#{match.paramRideID}"        value="#{matching.drive.rideId}"    />
+                                                    <f:param name="#{match.paramRiderrouteId}"  value="#{matching.ride.riderrouteId}" />
 
-
-                <p> <!-- webflow stanza -->
-
-                    #{webflow.smartUpdate()}
-
-                    <h:form>
-                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
-                    </h:form>
+                                                    <f:param  name="#{crud.paramNameCrudId}" value="#{rscride.riderrouteId}"/>
+                                                    <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                                </h:commandLink>
+                                            </h:form>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
+                    </ui:repeat>
                 </p>
+
+                <!-- webflow stanza -->
+                #{webflow.smartUpdate()}
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}" ajax="false" >
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.ride.riderrouteId}"/>
+                                </p:commandButton>
+                                <p:tooltip for="backlink" value="#{msgs.back}"  />
+                            </td>
+                            <td>
+                                <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.ride.riderrouteId}"/>
+                                </h:commandLink>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
 
 
 

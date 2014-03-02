@@ -30,7 +30,7 @@
             <ui:define name="content">
                 <!-- page to display lists of ride  -->
                 <!-- filteredRideLists.displayMode property governs what will be displayed -->
-                  
+
                 #{filteredRideLists.updateDisplayMode()} 
 
                 <p>
@@ -48,11 +48,23 @@
                     </h:panelGroup>
                 </p>
 
-                <p> <!-- webflow stanza, backlink will always point to rider index -->
-                    <h:form>
-                        <h:commandLink value="#{msgs.back}" action="rider"/>
-                    </h:form>
-                </p>
+                <!-- webflow stanza -->
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="rider" ajax="false" />
+                                <p:tooltip for="backlink" value="#{msgs.back}"  />
+                            </td>
+                            <td>
+                                <h:commandLink value="#{msgs.back}" action="rider"/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+
+
+
 
 
             </ui:define>
