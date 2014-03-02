@@ -20,18 +20,18 @@
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-
-            <!-- highlight "preferences" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
-
-
-
             <ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
             <ui:define name="content">
 
+                
+                <h1> 
+                    #{msgs.nav1_rider_active}
+                </h1>
+                
+                
                 #{filteredRideLists.updateFutureRides()}
 
 
@@ -165,66 +165,6 @@
                             </td>
                             <td class="formLabel"> 
                                 [#{filteredRideLists.numberOfBothAcceptedRides}]
-                            </td>
-                        </tr>
-                    </h:form>
-
-                    <h:form  rendered="#{filteredRideLists.hasRiderRejectedRides()}" >
-                        <tr>  
-                            <td>
-                                <p:commandButton id="riderRejected" action="rider.rideListDisplay" icon="ui-icon-triangle-1-e" ajax="false">
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayRiderRequested}" />
-                                </p:commandButton>
-                                <p:tooltip for="riderRejected" value="#{msgs.rideListRiderRejectedRequests}"/>
-                            </td>
-                            <td class="formLabel">
-                                <h:commandLink action="rider.rideListDisplay" >
-                                    #{msgs.rideListRiderRejectedRequests}  
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayRiderRequested}" />
-                                </h:commandLink>
-                            </td>
-                            <td class="formLabel">
-                                [#{filteredRideLists.numberOfRiderRejectedRides}]
-                            </td>
-                        </tr>
-                    </h:form>
-
-                    <h:form   rendered="#{filteredRideLists.hasDriverRejectedRides()}" >
-                        <tr>  
-                            <td>
-                                <p:commandButton id="driverRejected" action="rider.rideListDisplay" icon="ui-icon-triangle-1-e" ajax="false">
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayDriverRequested}" />
-                                </p:commandButton>
-                                <p:tooltip for="driverRejected" value="#{msgs.rideListDriverRejectedRequests}"/>
-                            </td>
-                            <td class="formLabel">
-                                <h:commandLink action="rider.rideListDisplay" >
-                                    #{msgs.rideListDriverRejectedRequests}  
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayDriverRequested}" />
-                                </h:commandLink>
-                            </td>
-                            <td class="formLabel"> 
-                                [#{filteredRideLists.numberOfDriverRejectedRides}]
-                            </td>
-                        </tr>
-                    </h:form>
-
-                    <h:form   rendered="#{filteredRideLists.hasBothRejectedRides()}" >
-                        <tr>  
-                            <td>
-                                <p:commandButton id="bothRejected" action="rider.rideListDisplay" icon="ui-icon-triangle-1-e" ajax="false">
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayBothRequested}" />
-                                </p:commandButton>
-                                <p:tooltip for="bothRejected" value="#{msgs.rideListBothRejectedRequests}"/>
-                            </td>
-                            <td class="formLabel">
-                                <h:commandLink action="rider.rideListDisplay" >
-                                    #{msgs.rideListBothRejectedRequests} 
-                                    <f:param name="#{filteredRideLists.paramNameDisplayMode}" value="#{filteredRideLists.valueDisplayBothRequested}" />
-                                </h:commandLink>
-                            </td>
-                            <td class="formLabel"> 
-                                [#{filteredRideLists.numberOfBothRejectedRides}]
                             </td>
                         </tr>
                     </h:form>
