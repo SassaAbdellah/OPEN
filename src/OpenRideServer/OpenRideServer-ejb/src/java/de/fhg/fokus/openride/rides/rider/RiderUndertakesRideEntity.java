@@ -31,6 +31,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
+import de.fhg.fokus.openride.matching.RideNegotiationConstants;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -427,8 +428,6 @@ public class RiderUndertakesRideEntity implements Serializable {
         return this.getMatchings().size();
     }
 
-    
-    
     public List<MatchEntity> getMatchings() {
         return this.matchings;
     }
@@ -463,4 +462,172 @@ public class RiderUndertakesRideEntity implements Serializable {
     public String toString() {
         return "de.fhg.fokus.openride.rides.driver.RiderUndertakesRideEntity[riderrouteId=" + riderrouteId + "]";
     }
+
+    /**
+     * Determine wether a Ride can be easyly removed (Ride can be removed for
+     * states STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED) Drives
+     * will have to be countermanded for all other states.
+     *
+     * @return true for States STATE_NEW, STATE_RIDER_REQUESTED,
+     * STATE_DRIVER_ACCEPTED
+     *
+     */
+    public boolean getCanRemove() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+
+        if (ms.getRideMatchingState() == RideNegotiationConstants.STATE_NEW) {
+            return true;
+        }
+        if (ms.getRideMatchingState() == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
+            return true;
+        }
+        if (ms.getRideMatchingState() == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * True, if rider can accept an offer for this ride
+     *
+     * @return true, if ride has matches and has state new or driver_accepted
+     */
+    public boolean getCanAcceptRider() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+        if (ms.getNumberOfMatches() == 0) {
+            return false;
+        }
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_NEW || state == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * True, if driver can accept an request for this ride
+     *
+     * @return true, if ride has matches and has state new or rider_requested
+     */
+    public boolean getCanAcceptDriver() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+        if (ms.getNumberOfMatches() == 0) {
+            return false;
+        }
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_NEW || state == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * True, if rider can reject an offer for this ride
+     *
+     * @return true, if ride has matches and has state new or driver_accepted
+     */
+    public boolean getCanRejectRider() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+        if (ms.getNumberOfMatches() == 0) {
+            return false;
+        }
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_NEW || state == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * True, if driver can reject a request for this ride
+     *
+     * @return true, if ride has matches and has state new or rider_requested
+     */
+    public boolean getCanRejectDriver() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+        if (ms.getNumberOfMatches() == 0) {
+            return false;
+        }
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_NEW || state == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * True, if rider can countermand this ride
+     *
+     * @return true, if ride has state new, rider_accepted or driver_accepted
+     */
+    public boolean getCanCountermandRider() {
+        MatchingStatistics ms = this.getMatchingStatistics();
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_NEW
+                || state == RideNegotiationConstants.STATE_RIDER_REQUESTED
+                || state == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * True, if driver can countermand this ride
+     *
+     * @return true, if ride has state driver_accepted
+     */
+    public boolean getCanCountermandDriver() {
+        MatchingStatistics ms = this.getMatchingStatistics();
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * True, if rider can rate this ride
+     *
+     * @return true, if ride has state confirmed_both
+     */
+    public boolean getCanRiderRateRide() {
+        MatchingStatistics ms = this.getMatchingStatistics();
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * True, if driver can rate this ride
+     *
+     * @return true, if ride has state confirmed_both
+     */
+    public boolean getCanDriverRateRide() {
+        MatchingStatistics ms = this.getMatchingStatistics();
+        RideNegotiationConstants state = ms.getRideMatchingState();
+
+        if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    
 }
