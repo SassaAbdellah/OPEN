@@ -598,34 +598,16 @@ public class RiderUndertakesRideEntity implements Serializable {
     }
     
     /**
-     * True, if rider can rate this ride
+     * True, if there is a ride (DriverundertakesrideEntity)
+     * associated to this entity.
      *
-     * @return true, if ride has state confirmed_both
+     * @return this.getRideId()!=null;
      */
-    public boolean getCanRiderRateRide() {
-        MatchingStatistics ms = this.getMatchingStatistics();
-        RideNegotiationConstants state = ms.getRideMatchingState();
-
-        if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
-            return true;
-        }
-        return false;
+    public boolean getHasDriverUndertakesRideEntity() {
+        return this.getRideId()!=null;
     }
     
-    /**
-     * True, if driver can rate this ride
-     *
-     * @return true, if ride has state confirmed_both
-     */
-    public boolean getCanDriverRateRide() {
-        MatchingStatistics ms = this.getMatchingStatistics();
-        RideNegotiationConstants state = ms.getRideMatchingState();
-
-        if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
-            return true;
-        }
-        return false;
-    }
+ 
     
     
     
