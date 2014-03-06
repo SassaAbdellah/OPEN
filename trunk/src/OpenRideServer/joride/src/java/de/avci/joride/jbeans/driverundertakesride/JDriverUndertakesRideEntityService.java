@@ -785,6 +785,15 @@ public class JDriverUndertakesRideEntityService {
     public Integer getAcceptedMatchesCount(int rideId){
         return this.getAcceptedMatches(rideId).size();
     }
+
+    /** Re-count the filter for future matches
+     * 
+     * @param aThis 
+     */
+    void updateJFilteredDriveList(JDriveFilteredLists myList) { 
+        List <JDriverUndertakesRideEntity> futureDrives=this.getDrivesAfterTimeSafely(new Date(System.currentTimeMillis()));
+        myList.setAllDrives(futureDrives);
+    }
     
     
 } // class
