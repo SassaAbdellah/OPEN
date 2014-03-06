@@ -20,16 +20,20 @@
 
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- highlight "preferences" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
-
-
             <ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
 
             <ui:define name="content">
+
+
+                #{filteredDriveLists.updateFutureDrives()}
+
+                TODO: remove debug printout when appropriate
+                <pre>
+                    #{filteredDriveLists.debugPrintout}
+                </pre>
 
                 <!-- List of future offers for this driver -->
 
@@ -41,7 +45,7 @@
                         <p:tab title=" #{drive.updatedShortcut} #{drive.startDateFormatted} #{drive.endptAddressShort}">
 
                             <div class="formLabel"> #{msgs.rideOffer} #{drive.rideId} </div>
-                            
+
                             <!-- show message if ride is updated -->
                             <ui:fragment rendered="#{drive.driveUpdated}">
                                 <div class="formLabel">
