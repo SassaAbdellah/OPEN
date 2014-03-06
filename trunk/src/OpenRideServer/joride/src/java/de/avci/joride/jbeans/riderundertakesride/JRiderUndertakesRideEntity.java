@@ -603,10 +603,14 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * Determines the caller from http-request, and if caller is stakeholder
      * (either rider or driver) then returns true
      *
-     * @return true, if caller is identical to rider or diver, else false
+     * @return true, if caller is identical to rider or diver, and if there is an associated ride, else false
      */
     public boolean isRateable() {
 
+        if(! this.getHasDriverUndertakesRideEntity()){
+            return false; // nothing to be rated
+        }
+        
         JRiderUndertakesRideEntityService jrureService = new JRiderUndertakesRideEntityService();
 
         Integer id = this.getRiderrouteId();

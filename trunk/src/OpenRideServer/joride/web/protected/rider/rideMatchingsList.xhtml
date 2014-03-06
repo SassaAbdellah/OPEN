@@ -114,13 +114,13 @@
                         <tr>
                             <td>
                                 <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}" ajax="false" >
-                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.ride.riderrouteId}"/>
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.matchEntity.matchEntityPK.riderrouteId}"/>
                                 </p:commandButton>
                                 <p:tooltip for="backlink" value="#{msgs.back}"  />
                             </td>
                             <td>
                                 <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
-                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.ride.riderrouteId}"/>
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{match.matchEntity.matchEntityPK.riderrouteId}"/>
                                 </h:commandLink>
                             </td>
                         </tr>
