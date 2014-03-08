@@ -210,6 +210,19 @@
     </navigation-rule>
     
     
+    <!-- display rides filtered by ride state or other criteria -->
+      <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.driveListDisplay</from-outcome>
+            <to-view-id>/faces/protected/driver/driveListDisplay.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    
+    
+    
+    
     <!-- Navigation Case -->
     <!-- go to page where Drive Entities are displayed     -->
     

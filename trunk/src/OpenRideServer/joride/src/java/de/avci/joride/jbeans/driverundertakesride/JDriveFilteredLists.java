@@ -59,7 +59,7 @@ public class JDriveFilteredLists implements Serializable {
      */
     private static final int DISPLAY_RIDER_REQUESTED = 2;
 
-    public int getValueDisplayDriverRequested() {
+    public int getValueDisplayRiderRequested() {
         return DISPLAY_RIDER_REQUESTED;
     }
     /**
@@ -207,7 +207,7 @@ public class JDriveFilteredLists implements Serializable {
             return this.getNewDrives();
         }
         if (dm == DISPLAY_RIDER_REQUESTED) { // Show rider requested rides
-            return this.getDriverRequestedDrives();
+            return this.getRiderRequestedDrives();
         }
         if (dm == DISPLAY_DRIVER_ACCEPTED) { // Show driver accepted rides
             return this.getDriverAcceptedDrives();
@@ -466,29 +466,33 @@ public class JDriveFilteredLists implements Serializable {
     public boolean hasNewDrives() {
         return this.getNewDrives().size() > 0;
     }
+    
+    
     /**
      * all rider-accepted rides, i.e those that have been accepted by rider, but
      * not by driver
      */
     private List<JDriverUndertakesRideEntity> riderRequestedDrives = null;
 
-    public List<JDriverUndertakesRideEntity> getDriverRequestedDrives() {
+    public List<JDriverUndertakesRideEntity> getRiderRequestedDrives() {
         return this.riderRequestedDrives;
     }
 
     /**
      * @return size of the acceptedDrives list
      */
-    public int getNumberOfDriverRequestedDrives() {
-        return this.getDriverRequestedDrives().size();
+    public int getNumberOfRiderRequestedDrives() {
+        return this.getRiderRequestedDrives().size();
     }
 
     /**
      * @return true, if there are rides of state "rider requested" else false
      */
-    public boolean hasDriverRequestedDrives() {
-        return this.getDriverRequestedDrives().size() > 0;
+    public boolean hasRiderRequestedDrives() {
+        return this.getRiderRequestedDrives().size() > 0;
     }
+    
+    
     /**
      * all driver-accepted rides, i.e those that have been accepted by driver,
      * but not by rider
@@ -761,8 +765,8 @@ public class JDriveFilteredLists implements Serializable {
         // Requested/Accepted/Confirmed
         buf.append("\n");
         buf.append("\nRIDER REQUESTED Drives: ");
-        buf.append("\nNumber of : " + this.getNumberOfDriverRequestedDrives());
-        buf.append("\nExist     : " + this.hasDriverRequestedDrives());
+        buf.append("\nNumber of : " + this.getNumberOfRiderRequestedDrives());
+        buf.append("\nExist     : " + this.hasRiderRequestedDrives());
         buf.append("\n");
         buf.append("\n");
         buf.append("\nDRIVER ACCEPTED Drives: ");
