@@ -17,7 +17,6 @@
 
     <body>
 
-
         <ui:composition template="/templates/navbar1Layout.xhtml">
 
             <ui:define name="windowTitle">
@@ -27,6 +26,7 @@
 
             <ui:define name="content">
 
+                <h1> #{msgs.nav1_driver_active} </h1>
 
                 #{filteredDriveLists.updateFutureDrives()}
 
@@ -35,7 +35,7 @@
 
                 <h:panelGroup  rendered="#{!filteredDriveLists.hasDrives()}">
                     <div class="formLabel">
-                        #{msgs.rideListNoOffersCurrently}
+                        #{msgs.driveListNoOffersCurrently}
                     </div>
                 </h:panelGroup>
 
