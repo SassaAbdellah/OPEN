@@ -152,6 +152,14 @@ public class MatchingStatistics implements Serializable {
     public void setRejectedDriver(int rejectedDriver) {
         this.rejectedDriver = rejectedDriver;
     }
+    
+     public int getRejectedBoth() {
+        return rejectedBoth;
+    }
+
+    public void setRejectedBoth(int rejectedBoth) {
+        this.rejectedBoth = rejectedBoth;
+    }
 
     public int getNoMoreAvaillableRider() {
         return noMoreAvaillableRider;
@@ -248,11 +256,6 @@ public class MatchingStatistics implements Serializable {
             this.notAdaptedBoth++;
         }
 
-
-
-
-
-
         if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
             this.noMoreAvaillableDriver++;
         }
@@ -269,8 +272,7 @@ public class MatchingStatistics implements Serializable {
             this.acceptedRider++;
         }
 
-        if (MatchEntity.RIDER_COUNTERMANDED.equals(r)
-                || MatchEntity.DRIVER_COUNTERMANDED.equals(d)) {
+        if (MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
             this.countermandedRider++;
         }
 
@@ -362,91 +364,9 @@ public class MatchingStatistics implements Serializable {
         return buf.toString();
     }
 
-    /**
-     * Calculate the state of negotians for a ride. This is done by evaluating
-     * the matches
-     *
-     * @return calculated State, see above
-     *
-     */
-    public RideNegotiationConstants getDriveMatchingState() {
-
-        if (this.getNumberOfMatches() == 0) {
-            return RideNegotiationConstants.STATE_NEW;
-        }
-
-        if (this.getAcceptedBoth() > 0) {
-            return RideNegotiationConstants.STATE_CONFIRMED_BOTH;
-        }
-
-        if (this.getAcceptedDriver() > 0) {
-            return RideNegotiationConstants.STATE_DRIVER_ACCEPTED;
-        }
-
-        if (this.getAcceptedRider() > 0) {
-            return RideNegotiationConstants.STATE_RIDER_REQUESTED;
-        }
-
-        if (this.getRejectedDriver() > 0) {
-            return RideNegotiationConstants.STATE_COUNTERMANDED_DRIVER;
-        }
-
-        if (this.getRejectedRider() > 0) {
-            return RideNegotiationConstants.STATE_COUNTERMANDED_RIDER;
-        }
-
-
-        return RideNegotiationConstants.STATE_UNCLEAR;
-    }
-
-    /**
-     * Determines wether route for a driverundertakesrideentity can be edited or
-     * not. I.e: wether or not waypoints can be added or removed.
-     *
-     * Waypoints can be added or removed as long as there are no confirmed
-     * requests.
-     *
-     *
-     *
-     * @returns true, if state is one of STATE_NEW, STATE_RIDER_REQUESTED, else
-     * false
-     *
-     */
-    public boolean getDriveCanEditRoute() {
-
-        if (this.getDriveMatchingState() == RideNegotiationConstants.STATE_NEW) {
-            return true;
-        }
-        if (this.getDriveMatchingState() == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Determine wether a Drive can be removed (Drive can be removed for states
-     * STATE_NEW, STATE_RIDER_REQUESTED, STATE_DRIVER_ACCEPTED) Drives will have
-     * to be countermanded for all other states.
-     *
-     * @return true for States STATE_NEW, STATE_RIDER_REQUESTED,
-     * STATE_DRIVER_ACCEPTED
-     */
-    public boolean getDriveCanRemove() {
-
-        if (this.getDriveMatchingState() == RideNegotiationConstants.STATE_NEW) {
-            return true;
-        }
-        if (this.getDriveMatchingState() == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
-            return true;
-        }
-        if (this.getDriveMatchingState() == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
-            return true;
-        }
-
-        return false;
-    }
-
+  
+  
+   
     /**
      * Calculate the state of negotians for a ride. This is done by evaluating
      * the matches

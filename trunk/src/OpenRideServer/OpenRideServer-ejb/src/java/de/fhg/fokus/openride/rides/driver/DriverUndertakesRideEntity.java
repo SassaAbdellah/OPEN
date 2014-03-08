@@ -31,6 +31,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.converter.PointConverter;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
+import de.fhg.fokus.openride.matching.RideNegotiationConstants;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Collection;
@@ -120,14 +121,12 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Integer rideOfferedseatsNo;
     @OneToMany(mappedBy = "rideId")
     private Collection<RiderUndertakesRideEntity> riderUndertakesRideEntityCollection;
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ride_id")
-    private List<WaypointEntity> waypoints;  
-   
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="ride_id")
-    private List<MatchEntity> matchings;  
-    
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ride_id")
+    private List<WaypointEntity> waypoints;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ride_id")
+    private List<MatchEntity> matchings;
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
     @ManyToOne
     private CustomerEntity custId;
@@ -142,7 +141,6 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Integer lastMatchingState;
     @Column(name = "is_countermanded")
     private Boolean countermanded;
-    
 
     public DriverUndertakesRideEntity() {
     }
@@ -317,17 +315,16 @@ public class DriverUndertakesRideEntity implements Serializable {
         return true;
     }
 
-    
-    public List<WaypointEntity> getWaypoints(){
+    public List<WaypointEntity> getWaypoints() {
         return this.waypoints;
     }
-    
-    public void setWaypoints(List<WaypointEntity> arg){
-        
-        this.waypoints=arg;
+
+    public void setWaypoints(List<WaypointEntity> arg) {
+
+        this.waypoints = arg;
     }
-    
-     /**
+
+    /**
      * Returns the Number of OpenMatches for this RideRequest
      *
      * @return Returns the Number of OpenMatches for this RideRequest
@@ -335,62 +332,85 @@ public class DriverUndertakesRideEntity implements Serializable {
     public int getNoMatches() {
         return this.getMatchings().size();
     }
-    
-    public List <MatchEntity> getMatchings(){
+
+    public List<MatchEntity> getMatchings() {
         return this.matchings;
     }
-    
-    public void setMatchings(List <MatchEntity> matchings){
-         this.matchings=matchings;
+
+    public void setMatchings(List<MatchEntity> matchings) {
+        this.matchings = matchings;
     }
-    
-    
-    public Integer getLastMatchingState(){
+
+    public Integer getLastMatchingState() {
         return this.lastMatchingState;
     }
-    
-    public void setLastMatchingState(Integer arg){
-        this.lastMatchingState=arg;
+
+    public void setLastMatchingState(Integer arg) {
+        this.lastMatchingState = arg;
     }
-    
-    
-     /**
+
+    /**
      *
      * @return MatchingStatitstics Object for this drive
      */
     public MatchingStatistics getMatchingStatistics() {
-        
+
         this.updateMatchings();
-        MatchingStatistics res=new MatchingStatistics();
+        MatchingStatistics res = new MatchingStatistics();
         res.statisticsFromList(this.getMatchings());
         return res;
     }
-    
-    
-    public Boolean getCountermanded(){
+
+    public Boolean getCountermanded() {
         return this.countermanded;
     }
-    
-    public void setCountermanded(Boolean arg){
-        this.countermanded=arg;
+
+    public void setCountermanded(Boolean arg) {
+        this.countermanded = arg;
     }
-    
-       
+
     @Override
     public String toString() {
         return this.getClass().getCanonicalName()
-                +"\n[rideId=" +getRideId() + "]"
-                +"\n[waypoints="+getWaypoints()+"]";
+                + "\n[rideId=" + getRideId() + "]"
+                + "\n[waypoints=" + getWaypoints() + "]";
     }
 
-    
-    /** Update the matching statistics, this should be overriden to  make sense.
-     *  For ex, it can be overridden by calling an external MatchingService
-     *  and update the matchings.
-     *  
-     * 
+    /**
+     * Update the matching statistics, this should be overriden to make sense.
+     * For ex, it can be overridden by calling an external MatchingService and
+     * update the matchings.
+     *
+     *
      */
     protected void updateMatchings() {
-       
+    }
+
+    /**
+     *
+     * Determines wether route for a driverundertakesrideentity can be edited or
+     * not. I.e: wether or not waypoints can be added or removed.
+     *
+     * Waypoints can be added or removed as long as there are no confirmed
+     * requests or as long as driver does not have accepted a request;
+     */
+    public boolean getCanEditRoute() {
+
+        MatchingStatistics ms = this.getMatchingStatistics();
+
+        // if ms==null, then probably something is not initialized
+        if (ms == null) {
+            return false;
+        }
+
+        if (ms.getAcceptedBoth() >0 ) {
+            return false;
+        }
+        
+        if (ms.getAcceptedDriver()>0 ) {
+            return false;
+        }
+
+        return true;
     }
 }
