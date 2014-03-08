@@ -28,27 +28,17 @@
             <ui:define name="content">
 
 
-                #{filteredDriveLists.updateFutureDrives()}
+                   <!-- page to display lists of ride  -->
+                <!-- filteredRideLists.displayMode property governs what will be displayed -->
+
+                #{filteredDriveLists.updateDisplayMode()} 
 
 
-                <!-- message to be displayed if there are no rides -->
-
-                <h:panelGroup  rendered="#{!filteredDriveLists.hasDrives()}">
-                    <div class="formLabel">
-                        #{msgs.rideListNoOffersCurrently}
-                    </div>
-                </h:panelGroup>
-
-
-                TODO: RIDE LIST DISPLAY! Currently shows all drive allways
-        
-
-                <!-- List of future offers for this driver -->
-
-                <p:panel header="#{msgs.rideActiveOffers}">
+       
+                <p:panel header="#{filteredDriveLists.headerForDisplayMode}">
 
                     <!-- primefaces dynamic accordion COOL!  -->
-                    <p:accordionPanel  activeIndex="-1" value="#{driverride.futureDrives}" var="drive">                  
+                    <p:accordionPanel  activeIndex="-1" value="#{filteredDriveLists.listForDisplayMode}" var="drive">                  
 
                         <p:tab title=" #{drive.updatedShortcut} #{drive.startDateFormatted} #{drive.endptAddressShort}">
 
