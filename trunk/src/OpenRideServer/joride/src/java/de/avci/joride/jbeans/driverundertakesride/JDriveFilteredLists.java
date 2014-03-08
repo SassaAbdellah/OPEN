@@ -261,47 +261,47 @@ public class JDriveFilteredLists implements Serializable {
         int dm = this.getDisplayMode();
 
         if (dm == DISPLAY_ALL) {// Show all rides
-            return msgs.getProperty("rideListAllOffers");
+            return msgs.getProperty("driveListAllOffers");
         }
 
         if (dm == DISPLAY_NEW) { // Show new rides   
-            return msgs.getProperty("rideListNewOffers");
+            return msgs.getProperty("driveListNewOffers");
         }
         if (dm == DISPLAY_RIDER_REQUESTED) { // Show rider requested rides
-            return msgs.getProperty("rideListDriverAcceptedOffers");
+            return msgs.getProperty("driveListDriverAcceptedOffers");
         }
         if (dm == DISPLAY_DRIVER_ACCEPTED) { // Show driver accepted rides
-            return msgs.getProperty("rideListDriverAcceptedOffers");
+            return msgs.getProperty("driveListDriverAcceptedOffers");
         }
         if (dm == DISPLAY_BOTH_ACCEPTED) { // Show both accepted rides
-            return msgs.getProperty("rideListBothAcceptedOffers");
+            return msgs.getProperty("driveListBothAcceptedOffers");
         }
         if (dm == DISPLAY_RIDER_REJECTED) { // Show rider rejected rides
-            return msgs.getProperty("rideListDriverRejectedRequests");
+            return msgs.getProperty("driveListRiderRejectedOffers");
         }
         if (dm == DISPLAY_DRIVER_REJECTED) { // Show driver rejected rides
-            return msgs.getProperty("rideListDriverRejectedOffers");
+            return msgs.getProperty("driveListDriverRejectedOffers");
         }
         if (dm == DISPLAY_BOTH_REJECTED) { // Show both rejected rides
-            return msgs.getProperty("rideListBothRejectedOffers");
+            return msgs.getProperty("driveListBothRejectedOffers");
         }
         if (dm == DISPLAY_RIDER_COUNTERMANDED) { // Show rider countermanded rides
-            return msgs.getProperty("rideListDriverCountermandedRequests");
+            return msgs.getProperty("driveListDriverCountermandedOffers");
         }
         if (dm == DISPLAY_DRIVER_COUNTERMANDED) { // Show driver countermanded rides
-            return msgs.getProperty("rideListDriverCountermandedOffers");
+            return msgs.getProperty("driveListDriverCountermandedOffers");
         }
         if (dm == DISPLAY_BOTH_COUNTERMANDED) { // Show both countermanded rides
-            return msgs.getProperty("rideListBothCountermandedOffers");
+            return msgs.getProperty("driveListBothCountermandedOffers");
         }
         if (dm == DISPLAY_NO_MORE_AVAILLABLE) { // Show no more availlable rides
-            return msgs.getProperty("rideListUnavaillableOffers");
+            return msgs.getProperty("driveListUnavaillableOffers");
         }
         if (dm == DISPLAY_UPDATED) { // Show updated rides
-            return msgs.getProperty("rideListUpdatedOffers");
+            return msgs.getProperty("driveListUpdatedOffers");
         }
         if (dm == DISPLAY_UNCLEAR) { // Show rides of uncertain state
-            return msgs.getProperty("rideListUnclearOffers");
+            return msgs.getProperty("driveListUnclearOffers");
         }
 
         throw new Error("Cannot return list for DisplayMode, this should not happen. Display Mode was :" + this.displayMode);
