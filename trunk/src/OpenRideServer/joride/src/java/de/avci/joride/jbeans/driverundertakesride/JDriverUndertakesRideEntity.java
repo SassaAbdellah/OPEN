@@ -710,6 +710,7 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
 
         // just to prevent NullPointerExceptions
         if (this.getRideId() == null) {
+            this.setMatchings(null);
             return;
         }
 
@@ -878,14 +879,5 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
     } 
     
     
-    /**
-     * If true, waypoints can be added to the route
-     *
-     * @returns true, if state is one of STATE_NEW, STATE_RIDER_REQUESTED, else
-     * false
-     *
-     */
-    public boolean getCanEditRoute() {
-        return this.getMatchingStatistics().getDriveCanEditRoute();
-    }
+ 
 } // class 

@@ -376,65 +376,56 @@ public class JDriveFilteredLists implements Serializable {
         for (JDriverUndertakesRideEntity ride : this.getAllDrives()) {
 
             MatchingStatistics ms = ride.getMatchingStatistics();
-
-
-            RideNegotiationConstants state = ms.getDriveMatchingState();
-
-
-            if (state == RideNegotiationConstants.STATE_NEW) {
+            
+            if ( ms.getNotAdaptedBoth() ==  ms.getNumberOfMatches()) {
                 newDrives.add(ride);
             }
 
             // *********** Requested/Accepted/Confirmed
 
-            if (state == RideNegotiationConstants.STATE_RIDER_REQUESTED) {
+            if (ms.getAcceptedRider()>0) {
                 riderRequestedDrives.add(ride);
             }
 
-            if (state == RideNegotiationConstants.STATE_DRIVER_ACCEPTED) {
+            if (ms.getAcceptedDriver()>0) {
                 driverAcceptedDrives.add(ride);
             }
 
-            if (state == RideNegotiationConstants.STATE_CONFIRMED_BOTH) {
+            if (ms.getAcceptedBoth()>0) {
                 bothAcceptedDrives.add(ride);
             }
 
 
             // *********** Rejected rides *******
 
-            if (state == RideNegotiationConstants.STATE_RIDER_REJECTED) {
-                riderRequestedDrives.add(ride);
+            if (ms.getRejectedRider()>0) {
+                riderRejectedDrives.add(ride);
             }
 
-            if (state == RideNegotiationConstants.STATE_DRIVER_REJECTED) {
+            if (ms.getRejectedDriver()>0) {
                 driverRejectedDrives.add(ride);
             }
 
-            if (state == RideNegotiationConstants.STATE_REJECTED_BOTH) {
+            if (ms.getRejectedBoth()>0) {
                 bothRejectedDrives.add(ride);
             }
 
 
             // ********* Countermanded Drives  ******
-
-            if (state == RideNegotiationConstants.STATE_COUNTERMANDED_RIDER) {
+            
+            if (ms.getCountermandedRider()>0) {
                 riderCountermandedDrives.add(ride);
             }
 
-            if (state == RideNegotiationConstants.STATE_COUNTERMANDED_DRIVER) {
+            if (ms.getCountermandedDriver()>0) {
                 driverCountermandedDrives.add(ride);
             }
 
 
             //********** ugly states ******************
 
-            if (state == RideNegotiationConstants.STATE_UNAVAILLABLE) {
-                unavaillableDrives.add(ride);
-            }
-
-            if (state == RideNegotiationConstants.STATE_UNCLEAR) {
-                unclearDrives.add(ride);
-            }
+            // TODO do something to determine unavaillable rides!
+           
 
             if (ride.getDriveUpdated()) {
                 this.updatedDrives.add(ride);
