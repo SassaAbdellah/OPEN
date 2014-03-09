@@ -1,26 +1,25 @@
 /*
-    OpenRide -- Car Sharing 2.0
-    Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
+ OpenRide -- Car Sharing 2.0
+ Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
-    Fraunhofer FOKUS
-    Kaiserin-Augusta-Allee 31
-    10589 Berlin
-    Tel: +49 30 3463-7000
-    info@fokus.fraunhofer.de
+ Fraunhofer FOKUS
+ Kaiserin-Augusta-Allee 31
+ 10589 Berlin
+ Tel: +49 30 3463-7000
+ info@fokus.fraunhofer.de
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License Version 3 as
-    published by the Free Software Foundation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License Version 3 as
+ published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.fhg.fokus.openride.matching;
 
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -37,7 +36,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 
 @Entity
 @Table(name = "match")
@@ -64,30 +62,29 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "MatchEntity.countTotalNoMatchesAfterDate", query = "SELECT COUNT(m.matchSharedDistancEmeters) FROM MatchEntity m WHERE m.matchExpectedStartTime >= :date"),
     @NamedQuery(name = "MatchEntity.countTotalNoMatchesBetweenDates", query = "SELECT COUNT(m.matchSharedDistancEmeters) FROM MatchEntity m WHERE m.matchExpectedStartTime BETWEEN :startDate AND :endDate")
 })
- /**
+/**
  *
  * @author pab
-  * 
-  * This class has information about the match and
-  * the state within the booking process.s
+ *
+ * This class has information about the match and the state within the booking
+ * process.s
  *
  */
 public class MatchEntity implements Serializable {
 
     public static final Integer NOT_ADAPTED = 0;
-    public static final Integer REJECTED    = 1;
-    public static final Integer ACCEPTED    = 2;
-    public static final Integer RIDER_COUNTERMANDED  = 3;
+    public static final Integer REJECTED = 1;
+    public static final Integer ACCEPTED = 2;
+    public static final Integer RIDER_COUNTERMANDED = 3;
     public static final Integer DRIVER_COUNTERMANDED = 4;
-    public static final Integer NO_MORE_AVAILABLE    = 5;
-
+    public static final Integer NO_MORE_AVAILABLE = 5;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MatchEntityPK matchEntityPK;
     @Column(name = "driver_state")
-    private Integer driverState=MatchEntity.NOT_ADAPTED;
+    private Integer driverState = MatchEntity.NOT_ADAPTED;
     @Column(name = "rider_state")
-    private Integer riderState=MatchEntity.NOT_ADAPTED;
+    private Integer riderState = MatchEntity.NOT_ADAPTED;
     @Column(name = "match_shared_distance_meters")
     private Double matchSharedDistancEmeters;
     @Column(name = "match_drive_remaining_distance_meters")
@@ -132,7 +129,7 @@ public class MatchEntity implements Serializable {
         this.matchDetourMeters = matchDetourMeters;
         this.matchExpectedStartTime = matchExpectedStartTime;
         this.matchDriveRemainingDistanceMeters = matchDriveRemainingDistanceMeters;
-        this.matchPriceCents = matchPriceCents; 
+        this.matchPriceCents = matchPriceCents;
     }
 
     public MatchEntity(MatchEntityPK matchEntityPK) {
@@ -255,25 +252,35 @@ public class MatchEntity implements Serializable {
         this.riderChange = riderChange;
     }
 
-    
-    public String getRiderMessage(){
+    public String getRiderMessage() {
         return this.riderMessage;
     }
 
-    public void setRiderMessage(String arg){
-        this.riderMessage=arg;
+    public void setRiderMessage(String arg) {
+        this.riderMessage = arg;
     }
-    
-     public String getDriverMessage(){
+
+    public String getDriverMessage() {
         return this.driverMessage;
     }
 
-    public void setDriverMessage(String arg){
-        this.driverMessage=arg;
+    public void setDriverMessage(String arg) {
+        this.driverMessage = arg;
     }
-    
-    
-    
+
+    /**
+     * @return true, if driver can countermand this request/matching
+     */
+    public boolean getCanDriverCountermand() {
+        return this.getDriverState() == ACCEPTED;
+    }
+
+    /**
+     * @return true, if driver can countermand this request/matching
+     */
+    public boolean getCanRiderCountermand() {
+        return this.getRiderState() == ACCEPTED;
+    }
 
     @Override
     public int hashCode() {
@@ -300,13 +307,12 @@ public class MatchEntity implements Serializable {
         return "de.fhg.fokus.openride.matching.MatchEntity[matchEntityPK=" + matchEntityPK + "]";
     }
 
-    /** ToDO: what's this (found in original OpenRide)
-     * 
-     *  @deprecated since it it obviously not used, it should go away
+    /**
+     * ToDO: what's this (found in original OpenRide)
+     *
+     * @deprecated since it it obviously not used, it should go away
      */
     public void reloadAllEntities() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 }
