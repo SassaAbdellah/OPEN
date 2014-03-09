@@ -77,29 +77,17 @@
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                                 </p:commandButton>
                                 <p:tooltip  value="#{msgs.rideMatchesShowRequests}" for="showMatches" />
-
                             </td>
 
-
                             <td colspan="2"  class="formLabel">
-
                                 <h:commandLink action="driver.driveMatchingsList" value="#{msgs.rideMatchesShowRequests}">
                                     <f:param   name="#{crud.paramNameCrudId}"   value="#{driverride.rideId}"/>
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                                 </h:commandLink>
-
-
                             </td>
-
                         </h:form>
-
                     </tr>
-                    
-                    
-                    
-                    
-                    
-               
+                                   
                     <tr>
                         <h:form rendered="#{driverride.acceptedMatchesExists}">
                             <td colspan="1"  class="formLabel">
@@ -119,8 +107,7 @@
                         </h:form>
                     </tr>
 
-                    <tr>
-
+                    <tr> <!-- Cancelling and countermanding -->
                         <!-- we need a request scope bean to invalidate -->
                         #{canceldriverride.update()}                
                         <td colspan="1" class="formLabel">
@@ -274,12 +261,6 @@
                 </table>
 
 
-
-
-
-
-
-
                 <!-- include standard jquery  -->
                 <h:outputScript library="js" name="jquery-1.4.1.js" />
 
@@ -319,9 +300,6 @@
                 </script>
 
                 <p>
-
-
-
                     <h:form>
                         <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
                     </h:form>
