@@ -7,7 +7,6 @@
 
 
 
-
     <application>
         
         <!-- lists of supported locales -->
@@ -168,8 +167,6 @@
         </navigation-case>
     </navigation-rule>
     
-   
-     
     <!-- page to display rides in the paast -->
     <navigation-rule>
         <navigation-case>
@@ -284,7 +281,7 @@
             <to-view-id>/faces/protected/driver/driveMatchDisplay.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
-
+   
     <!-- set the driver message on a matching -->
    
     <navigation-rule>
@@ -293,7 +290,17 @@
             <to-view-id>/faces/protected/driver/driveMatchSetDriverMessage.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
+ 
+    <!-- countermand message acting as a driver -->
 
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.driveCountermand</from-outcome>
+            <to-view-id>/faces/protected/driver/driveMatchCountermand.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+   
    
    
    
