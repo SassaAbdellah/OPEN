@@ -413,4 +413,22 @@ public class DriverUndertakesRideEntity implements Serializable {
 
         return true;
     }
+    
+    
+     /**
+     * True, if driver can countermand this ride
+     *
+     * @return true, if ride does not have matches of state confirmed both
+     */
+    public boolean getCanCountermandDriver() {
+        MatchingStatistics ms = this.getMatchingStatistics();
+       
+        if (ms.getAcceptedBoth()>0){
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }
