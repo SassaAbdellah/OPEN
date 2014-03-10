@@ -150,18 +150,30 @@
                     <!-- countermand this matching, if both have acceppted -->
                     <h:form rendered="#{match.matchEntity.canDriverCountermand}">
                         <tr>
-                            <td> TODO </td>
-                            <td> : </td>
-                            <td> 
+                            <td colspan="1" class="formLabel">
+                                <p:commandButton 
+                                    id="cancelRide"
+                                    icon="ui-icon-trash"
+                                    action="driver.driveCountermand"
+                                    ajax="false"
+                                    >
 
-                                <h:commandLink action="driver.driveCountermand">
-                                    TODO: countermand ride
                                     <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
                                     <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
                                     <f:param name="#{webflow.getParamBack()}"  value="driver"                      />
+
+                                </p:commandButton>
+
+
+                                <p:tooltip for="cancelRide" value="#{msgs.driveCountermand}" />
+                            </td>
+                            <td colspan="2"> 
+                                <h:commandLink action="driver.driveCountermand">
+                                    #{msgs.driveCountermand}
+                                    <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
+                                    <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
+                                    <f:param name="#{webflow.getParamBack()}"   value="driver"                     />
                                 </h:commandLink>
-
-
                             </td>        
                         </tr>
                     </h:form>
