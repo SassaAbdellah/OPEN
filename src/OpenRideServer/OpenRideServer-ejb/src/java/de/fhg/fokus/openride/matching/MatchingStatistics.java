@@ -240,7 +240,78 @@ public class MatchingStatistics implements Serializable {
         int r = MatchEntity.NOT_ADAPTED;
         r = m.getRiderState();
 
+        
+        // No more availlable : only one of "nma. both", "nma. rider", "nma. driver"
+        // will be counted 
+        // Matches that has gone nma for either side will not be counted
+        // anywhere else
 
+        if (MatchEntity.NO_MORE_AVAILABLE.equals(d) && MatchEntity.NO_MORE_AVAILABLE.equals(r)) {
+            this.noMoreAvaillableBoth++;
+            return;
+        } else {
+
+            // if not nma for both, the following conditions will
+            // be mutually exclusive
+
+            if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
+                this.noMoreAvaillableDriver++;
+                return;
+            }
+
+            if (MatchEntity.NO_MORE_AVAILABLE.equals(r)) {
+                this.noMoreAvaillableRider++;
+                return;
+            }
+        }
+
+        
+        // COUNTERMANDED. only one of "countermanded both", "countermanded rider", countermanded driver
+        // will be counted 
+         // Matches that have been countermanded by one side 
+        // will not be counted anywhere else
+
+        if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)
+                && MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
+            this.countermandedBoth++;
+            return;
+        } else {
+            // if not countermanded by both, the following conditions will
+            // be mutually exclusive
+            if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)) {
+                this.countermandedDriver++;
+                return;
+            }
+            if (MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
+                this.countermandedRider++;
+                return;
+            }
+        }
+
+        
+
+        // REJECTED:  only one of "rej. both", "rej. rider", "rej. driver"
+        // will be counted 
+         // Matches that have been rejected by one side will not be counted
+        // anywhere els
+
+        if (MatchEntity.REJECTED.equals(r) && MatchEntity.REJECTED.equals(d)) {
+            this.rejectedBoth++;
+            return;
+        } else {
+            // if not rejected by both, the following conditions will
+            // be mutually exclusive
+
+            if (MatchEntity.REJECTED.equals(r)) {
+                this.rejectedRider++;
+                return;
+            }
+            if (MatchEntity.REJECTED.equals(d)) {
+                this.rejectedDriver++;
+                return;
+            }
+        }        
+        
 
 
         // ACCEPTED. only one of "accepted both", "accepted rider", accepted driver
@@ -262,25 +333,6 @@ public class MatchingStatistics implements Serializable {
             }
         }
 
-        // COUNTERMANDED. only one of "countermanded both", "countermanded rider", countermanded driver
-        // will be counted 
-
-
-
-        if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)
-                && MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
-            this.countermandedBoth++;
-        } else {
-            // if not countermanded by both, the following conditions will
-            // be mutually exclusive
-            if (MatchEntity.DRIVER_COUNTERMANDED.equals(d)) {
-                this.countermandedDriver++;
-            }
-            if (MatchEntity.RIDER_COUNTERMANDED.equals(r)) {
-                this.countermandedRider++;
-            }
-        }
-
 
         // NOT_ADAPTED. only one of "na both", "na rider", "na driver"
         // will be counted 
@@ -296,44 +348,6 @@ public class MatchingStatistics implements Serializable {
 
             if (MatchEntity.NOT_ADAPTED.equals(r)) {
                 this.notAdaptedRider++;
-            }
-        }
-
-
-        // REJECTED:  only one of "rej. both", "rej. rider", "rej. driver"
-        // will be counted 
-
-        if (MatchEntity.REJECTED.equals(r) && MatchEntity.REJECTED.equals(d)) {
-            this.rejectedBoth++;
-        } else {
-            // if not rejected by both, the following conditions will
-            // be mutually exclusive
-
-            if (MatchEntity.REJECTED.equals(r)) {
-                this.rejectedRider++;
-            }
-            if (MatchEntity.REJECTED.equals(d)) {
-                this.rejectedDriver++;
-            }
-        }
-
-
-        // REJECTED:  only one of "nma. both", "nma. rider", "nma. driver"
-        // will be counted 
-
-        if (MatchEntity.NO_MORE_AVAILABLE.equals(d) && MatchEntity.NO_MORE_AVAILABLE.equals(r)) {
-            this.noMoreAvaillableBoth++;
-        } else {
-
-            // if not nma for both, the following conditions will
-            // be mutually exclusive
-
-            if (MatchEntity.NO_MORE_AVAILABLE.equals(d)) {
-                this.noMoreAvaillableDriver++;
-            }
-
-            if (MatchEntity.NO_MORE_AVAILABLE.equals(r)) {
-                this.noMoreAvaillableRider++;
             }
         }
 
