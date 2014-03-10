@@ -68,8 +68,8 @@
                         <td>:</td>
                         <td class="formInput">  #{driverride.rideOfferedseatsNo}            </td>
                     </tr>
-                         
-                     <tr>
+
+                    <tr>
                         <h:form>
                             <td colspan="1"  class="formLabel">
                                 <p:commandButton  id="showMatches" icon="ui-icon-suitcase" action="driver.driveMatchingsList" ajax="false">
@@ -87,7 +87,7 @@
                             </td>
                         </h:form>
                     </tr>
-                                   
+
                     <tr>
                         <h:form rendered="#{driverride.acceptedMatchesExists}">
                             <td colspan="1"  class="formLabel">
@@ -106,37 +106,50 @@
                             </td>
                         </h:form>
                     </tr>
+                    
+                    <!--  cancelling and invalidating -->
+                    <!-- we need a request scope bean to invalidate -->
+                    #{canceldriverride.update()}    
+                    
+                    
+                    
+                    <h:form rendered="#{!canceldriverride.canCountermandDriver}">
+                        <tr>
+                            <td>
+                                #{msgs.rideRemoveThisOffer}"
+                            </td>
+                            <td> : </td>
+                            <td>  
+                                #{msgs.driveCannotBeCountermandedBecauseOfMatch}
+                            </td>
+                        </tr>    
+                    </h:form>
 
-                    <tr> <!-- Cancelling and countermanding -->
-                        <!-- we need a request scope bean to invalidate -->
-                        #{canceldriverride.update()}                
-                        <td colspan="1" class="formLabel">
-
-                            <h:form>
+                    <h:form rendered="#{canceldriverride.canCountermandDriver}">
+                        <tr> <!-- Cancelling and countermanding -->                  
+                            <td colspan="1" class="formLabel">
                                 <p:commandButton id="cancelRide" icon="ui-icon-trash" actionListener="#{canceldriverride.invalidate()}" ajax="false">           
                                     <!-- Webflow parameters -->
                                     <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />                
                                 </p:commandButton>
                                 <p:tooltip  value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
-                            </h:form>
 
 
-                        </td>
 
-                        <td colspan="2" class="formLabel">
+                            </td>
 
-                            <h:form>
+                            <td colspan="2" class="formLabel">  
                                 <h:commandLink action="#{canceldriverride.invalidate()}" value="#{msgs.rideRemoveThisOffer}">           
                                     <!-- Webflow parameters -->
                                     <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />
                                 </h:commandLink>
-                            </h:form>
-                        </td>
-                    </tr>
-
-
+                            </td>
+                        </tr>
+                    </h:form>
+                    
+                    
 
 
 
@@ -206,23 +219,23 @@
 
                         <tr>
                             <td colspan="1" class="formLabel">
-                                    <h:form>
-                                        <p:commandButton icon="ui-icon-plus" id="editRouting" action="driver.editRouting" ajax="false" >
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                        </p:commandButton>
-                                        
-                                        <p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
-                                    </h:form>
+                                <h:form>
+                                    <p:commandButton icon="ui-icon-plus" id="editRouting" action="driver.editRouting" ajax="false" >
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </p:commandButton>
+
+                                    <p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
+                                </h:form>
                             </td>
 
                             <td colspan="2" class="formLabel">
-                                    <h:form>
-                                        <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
-                                            <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
-                                            <f:param name="#{webflow.getParamBack()}" value="driver"          />
-                                        </h:commandLink>
-                                    </h:form>
+                                <h:form>
+                                    <h:commandLink action="driver.editRouting" value="#{msgs.waypointEditRoute}">
+                                        <f:param  name="#{crud.paramNameCrudId}" value="#{rscdriverride.rideId}"/>
+                                        <f:param name="#{webflow.getParamBack()}" value="driver"          />
+                                    </h:commandLink>
+                                </h:form>
                             </td>
                         </tr>
 
