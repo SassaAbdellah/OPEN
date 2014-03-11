@@ -28,6 +28,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import org.postgis.Point;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Small Wrapper class making Entity Bean CustomerEntity availlable as a CDI
@@ -624,51 +625,20 @@ public class JDriverUndertakesRideEntity extends de.fhg.fokus.openride.rides.dri
         return (new JMatchingEntityService()).getJMatchesForOffer(this.getRideId());
     }
 
-    /**
-     * Remove this Offer
-     *
-     * @return "driver" to jump back to driver's
-     */
-    public String remove() {
-
-
-        boolean res = new JDriverUndertakesRideEntityService().safelyRemoveDrive(this);
-
-        if (res) {
-
-            // jump back to driver's startpage
-            return "driver";
-        } else {
-
-            // Todo: add message why removal was unsuccessful
-
-            return null;
-        }
-
-
-
-    }
-
-    /**
-     * Invalidate this offer
-     *
-     * @return "driver" to jump back to driver's
+  
+    /**   
+     * 
+     * @return 
      */
     public String invalidate() {
-
-
-        boolean res = new JDriverUndertakesRideEntityService().invalidateOfferSavely(this.getRideId());
-
-        if (res) {
-            // jump back to driver's startpage
-            return "driver";
-        } else {
-            // Todo: add message why removal was unsuccessful      
-            return null;
+        
+        try{  new JDriverUndertakesRideEntityService().invalidateOfferSavely(this.getRideId());
+        } catch(Exception exc){
+            throw new Error(exc);
         }
-
+       return "rider";
     }
-
+    
     /**
      * Returns true, if this drive has been updated
      *
