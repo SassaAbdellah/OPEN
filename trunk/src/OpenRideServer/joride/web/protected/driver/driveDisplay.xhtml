@@ -106,13 +106,13 @@
                             </td>
                         </h:form>
                     </tr>
-                    
+
                     <!--  cancelling and invalidating -->
                     <!-- we need a request scope bean to invalidate -->
                     #{canceldriverride.update()}    
-                    
-                    
-                    
+
+
+
                     <h:form rendered="#{!canceldriverride.canCountermandDriver}">
                         <tr>
                             <td>
@@ -148,8 +148,8 @@
                             </td>
                         </tr>
                     </h:form>
-                    
-                    
+
+
 
 
 
@@ -312,23 +312,20 @@
 
                 </script>
 
-                <p>
-                    <h:form>
-                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
-                    </h:form>
-                </p>
-
-
-                #{driverride.getMatchingStatistics().toString()}
-
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}" ajax="false" />
+                                <p:tooltip for="backlink" value="#{msgs.back}"  />
+                            </td>
+                            <td>
+                                <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
             </ui:define>
-
-
-
-
         </ui:composition>
-
-
-
     </body>
 </html>

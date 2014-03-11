@@ -202,27 +202,21 @@
                         </h:form>
                     </span>
                 </p>
-
-                <p>
-                    #{webflow.smartUpdate()}
-
-                    <h:form>
-                        <h:commandLink value="#{msgs.finish}" action="#{webflow.getFinish()}"/>
+                    #{webflow.smartUpdate()}  
+                       <h:form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="#{webflow.getFinish()}" ajax="false" />
+                                    <p:tooltip for="backlink" value="#{msgs.finish}"  />
+                                </td>
+                                <td>
+                                    <h:commandLink value="#{msgs.finish}" action="#{webflow.getFinish()}"/>
+                                </td>
+                            </tr>
+                        </table>
                     </h:form>
-                </p>
-
-
-
             </ui:define>
-
-
-
-
         </ui:composition>
-
-
-
-
-
     </body>
 </html>
