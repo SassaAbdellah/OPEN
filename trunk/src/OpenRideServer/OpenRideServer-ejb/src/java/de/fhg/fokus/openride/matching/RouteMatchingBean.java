@@ -48,7 +48,6 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
@@ -291,6 +290,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * @param rideId identifiers for rider's offer
      * @return All matches sorted descending by score.
      */
+    @Override
     public LinkedList<MatchEntity> searchForDrivers(int rideId) {
         logger.info("searchForDrivers(rideId = " + rideId + ")");
         try {
@@ -406,7 +406,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * @return length of the route in meters.
      *
      */
-    public double computeInitialRoutesWithWaypoints(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
+    private double computeInitialRoutesWithWaypoints(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
 
         // This would require just one route computation but 
         // due to poor design two calls to the routing algorithm are required.
@@ -610,6 +610,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
      * computed. This could be because of not enough seats available or if there
      * is no route found between a pair of coordinates.
      */
+    
+    @Override
+    
     public double computeAdaptedRoute(int rideId, int riderrouteId, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) {
         List<RoutePointEntity> requiredPoints = driverUndertakesRideControllerBean.getRequiredRoutePoints(rideId);
         RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean.getRideByRiderRouteId(riderrouteId);
