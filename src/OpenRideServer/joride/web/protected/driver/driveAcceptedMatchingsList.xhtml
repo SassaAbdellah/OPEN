@@ -44,7 +44,7 @@
                 <!-- circumvent problems with commandlinks insid ui:repeat or h:datatable -->
                 #{rscdriverride.update()}
 
-                
+
                 <h1>  #{msgs.matchAcceptedRequestsForOffer}  #{rscdriverride.rideId}</h1>
 
 
@@ -105,34 +105,30 @@
 
                     </table>
 
-
                 </ui:repeat>
 
 
                 <p> <!-- webflow stanza -->
-
                     #{webflow.smartUpdate()}
-
                     <h:form>
-                        <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
-                            <f:param  name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
-                        </h:commandLink>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:commandButton id="backlink" icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}" ajax="false" >
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    </p:commandButton>
+                                    <p:tooltip for="backlink" value="#{msgs.back}"  />
+                                </td>
+                                <td>
+                                    <h:commandLink value="#{msgs.back}" action="#{webflow.getBack()}">
+                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    </h:commandLink>
+                                </td>
+                            </tr>
+                        </table>
                     </h:form>
                 </p>
-
-
-
-
             </ui:define>
-
-
-
-
         </ui:composition>
-
-
-
-
-
     </body>
 </html>
