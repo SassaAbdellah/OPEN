@@ -72,13 +72,7 @@ public interface DriverUndertakesRideControllerLocal {
             String endptAddress);
 
    
-    /** Remove Driverundertakesride with given Id from Database 
-     *  *if possible*
-     * 
-     * @param rideId
-     * @return 
-     */
-    public boolean removeRide(int rideId);
+ 
 
     /** Currently ignored. Meant to be implemented with car tracking
      * 
@@ -101,6 +95,13 @@ public interface DriverUndertakesRideControllerLocal {
 
     public DriverUndertakesRideEntity getDriveByDriveId(int driveId);
 
+    /**
+     *  Found in fokus code. Hopefully not used. 
+     *  Horrible implementation in DriverUndertakesRideControlerBean.
+     *  Remove unless there is a good reason for having it
+     * 
+     * @deprecated hopefully not used
+     */
     int updateRide(
             int rideId,
             int cust_id,
@@ -204,6 +205,11 @@ public interface DriverUndertakesRideControllerLocal {
 
     /** Invalidate/countermand Ride with given Id.
      *  
+     *  That is: if ride has confirmed or countermanded matches, 
+     *  then invalidate the ride (i.e: leave it in the database).
+     *  If there are no relevant matching, then 
+     *  delete the ride from the database.
+     * 
      * 
      * @param rideId
      * @return  true, if countermanding was successful, else false.
