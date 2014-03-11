@@ -240,8 +240,8 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
 
             if (driverUndertakesRideControllerBean.isDeletable(due.getRideId())) {
                 // delete all drives that can be deleted
-                logger.info("Deleting Ride " + due.getRideId());
-                driverUndertakesRideControllerBean.removeRide(due.getRideId());
+                logger.info("Invalidating Ride " + due.getRideId());
+                driverUndertakesRideControllerBean.invalidateRide(due.getRideId());
             } else {
                 // invalidate all rides that cannot be deleted
                 logger.info("Invalidating Drive " + due.getRideId());

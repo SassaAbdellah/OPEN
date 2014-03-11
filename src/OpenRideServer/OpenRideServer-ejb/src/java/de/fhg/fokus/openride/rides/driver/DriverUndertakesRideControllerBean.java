@@ -26,6 +26,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
 
 // FIXME: Import of Bean Impl is here to access some static constants.
 // this should not happen as such.
@@ -72,68 +73,67 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @Override
     public boolean isDeletable(int rideId) {
 
+        // TODO: check, iff we really want to have transactions here
         startUserTransaction();
 
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         boolean deletable = true;
 
-        if (states.size() > 0) {
-            // state already exists
-            for (MatchEntity entity : states) {
-                if (entity.getDriverState() != null || entity.getRiderState() != null) {
-                    deletable = false;
-                }
-            }
+        // no matches, nothing to do
+        if (states == null || states.size() == 0) {
+            commitUserTransaction();
+            return true;
         }
 
-        return deletable;
+        // if there are matchings however, we will remove 
+        // this offer only if there are no adapted matches
+        MatchingStatistics ms = new MatchingStatistics();
+        ms.statisticsFromList(states);
+
+        if (ms.getNumberOfMatches() == ms.getNotAdaptedBoth()) {
+            commitUserTransaction();
+            return true;
+        }
+
+        commitUserTransaction();
+        return false;
     }
 
-    @Override
-    public boolean removeRide(int rideId) {
+    /**
+     * Completely remove this ride from database. This should only be done, if
+     * there are not matchings which have state other than "new"
+     *
+     * @param rideId
+     * @return
+     */
+    private boolean removeRide(int rideId) {
         startUserTransaction();
 
-        List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
-
-        boolean deletable = this.isDeletable(rideId);
-
-
-        if (deletable) {
-            // entity can be changed
-            //TODO (03/09/10): Matches & Ride need to be removed in one transaction....!
-
-            for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
-                // delete Matches
-                em.remove(it.next());
-                //it.remove();
-            }
-
-            // all routing data can now savely be deleted
-            removeAllDriveRoutepoints(rideId);
-            removeAllRoutepoints(rideId);
-            removeAllWaypoints(rideId);
-
-
-            List<DriverUndertakesRideEntity> entity = em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", rideId).getResultList();
-            System.out.println("size entity: " + entity.size());
-            for (DriverUndertakesRideEntity ente : entity) {
-                // delete ride
-                em.remove(ente);
-            }
-            System.out.println("entity removed: " + rideId);
-
-        } else {
-            // all related states have to be adapted
-            for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
-                // mark Matches as countermanded
-                MatchEntity matchEntity = it.next();
-                matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
-                matchEntity.setDriverChange(new java.util.Date());
-                em.merge(matchEntity);
-            }
+        if (!this.isDeletable(rideId)) {
+            throw new Error("Calling removeRide on ride which is not deletable");
         }
-        commitUserTransaction();
-        return deletable;
+
+        try {
+
+            List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
+
+            for (MatchEntity me : states) {
+                em.remove(me);
+            }
+
+            this.removeAllDriveRoutepoints(rideId);
+            this.removeAllRoutepoints(rideId);
+            this.removeAllWaypoints(rideId);
+
+            DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideId);
+            em.remove(drive);
+            em.flush();
+            commitUserTransaction();
+            return true;
+        } catch (Exception exc) {
+            logger.log(Level.SEVERE, "Error removing (purging) drive", exc);
+            throw new Error("Unexpected Exception while removing drive " + rideId);
+        }
     }
 
     public void updateDriverPosition() {
@@ -515,6 +515,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param startptAddress
      * @param endptAddress
      * @return either new rideId or -1 if update was not possible
+     *
+     * @deprecated currently, it's not clear if this is used at all.
      */
     public int updateRide(
             int rideId,
@@ -1016,8 +1018,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         logger.info("invalidateRide : rideID " + rideId);
 
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
-        // TODO: check if we really want user transactions
-        startUserTransaction();
+      
         logger.info("invalidateRide : starting transaction ");
 
         boolean deletable = this.isDeletable(rideId);
@@ -1025,43 +1026,43 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if (deletable) {
             logger.info("invalidateRide : ride is deletable ");
             this.removeRide(rideId);
-            commitUserTransaction();
             logger.info("invalidateRide: deleted rideId : " + rideId + " the hard way by removing it");
             return true;
         }
 
 
-        /* TODO: removing waypoints is likely to stir trouble,
-         * so waypoints are not removed here (for fear).
-         * Removing waypoints may be desirable because it may save
-         * database space.
-         * 
-         * logger.info("invalidateRide : ride removing waypoints ");
-         * this.removeAllWaypoints(rideId);
-         */
+       
 
-
+        // So, purging from database is no Option, hence we 
+        // must invalidate all Objects
+        
+        startUserTransaction();
+       
+        this.removeAllWaypoints(rideId);
+        this.removeAllDriveRoutepoints(rideId);
+        this.removeAllRoutepoints(rideId);
+    
         // all related states have to be adapted
         logger.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
-        for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
-            // mark Matches as countermanded
-            MatchEntity matchEntity = it.next();
-            matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
-            matchEntity.setDriverChange(new java.util.Date());
+        for ( MatchEntity matchEntity : states){
+            // normally, frontend should have enforced countermanding all
+            // relevant matches automatically
+            if(!(matchEntity.getDriverState()==MatchEntity.DRIVER_COUNTERMANDED)){
+                matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
+                matchEntity.setDriverMessage("System countermanded");
+                matchEntity.setDriverChange(new java.util.Date());
+            }
             em.merge(matchEntity);
         }
         // all related states have to be adapted
         logger.info("invalidateRide : mark ride as invalidated");
-
         // mark ride as invalidated
-        dure.setRideComment("COUNTERMANDED");
+        dure.setRideComment("COUNTERMANDED - "+dure.getRideComment());
         // set Number of offered seats to 0, so that there will be no more matchings
         dure.setRideOfferedseatsNo(0);
-
         em.merge(dure);
         commitUserTransaction();
-
         return true;
     } // invalidateRide
 
@@ -1383,5 +1384,4 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         return this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
     }
-
 } // class
