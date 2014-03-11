@@ -230,32 +230,7 @@ public class JDriverUndertakesRideEntityService {
 
     } //  getDriveByIdSafely(int id)
 
-    /**
-     *
-     */
-    public boolean safelyRemoveDrive(JDriverUndertakesRideEntity jdure) {
-
-
-        CustomerEntity ce = this.getCustomerEntity();
-        DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-
-
-        if (ce == null) {
-            throw new Error("Cannot remove Drive, customerEntity is null");
-        }
-
-
-        DriverUndertakesRideEntity dure = durcl.getDriveByDriveId(jdure.getRideId());
-
-
-
-        if (dure.getCustId().getCustId() != ce.getCustId()) {
-            throw new Error("Cannot retrieve Drive with given ID, object does not belong to user");
-        }
-
-        return durcl.removeRide(jdure.getRideId());
-    }
-
+   
     /**
      * Safely update JDriverUndertakesRideEntity from database
      *
@@ -663,26 +638,16 @@ public class JDriverUndertakesRideEntityService {
             throw new Error("Attempt to invalidate Offer that is not owned by User");
         }
 
-        if (durcl.isDeletable(rideId)) {
-            logger.info("Offer " + rideId + " is deleteable, removing it");
-            durcl.removeRide(rideId);
-        } else {
-            logger.info("Offer " + rideId + " is not deleteable, invalidating");
-            durcl.invalidateRide(rideId);
-        }
-
-        return true;
+        return durcl.invalidateRide(rideId);
     }
 
     /**
      * Add a waypoint to Drive *safely*. Safely means that it gets checked
-     * wether the
+     * wether the caller is owner
      *
      *
      */
     public void addWaypointToDriveSafely(JWaypointEntity waypoint) {
-
-
 
         CustomerEntity ce = this.getCustomerEntity();
 
