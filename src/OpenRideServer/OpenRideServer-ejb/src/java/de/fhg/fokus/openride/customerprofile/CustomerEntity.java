@@ -26,6 +26,7 @@ package de.fhg.fokus.openride.customerprofile;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -153,6 +154,12 @@ public class CustomerEntity implements Serializable {
     private int custSessionId;
     @Column(name = "cust_group")
     private String custGroup;
+    @Column(name = "last_customer_check")
+    private Timestamp custLastCheck;
+    @Column(name = "last_matching_change")
+    private Timestamp custLastMatchingChange;
+    
+    
 
     /* PREFERENCES */
 
@@ -490,7 +497,25 @@ public class CustomerEntity implements Serializable {
     public void setCustGroup(String cust_group) {
         this.custGroup = cust_group;
     }
-
+    
+    
+    public Timestamp getCustLastMatchingChange(){
+        return  this.custLastMatchingChange;
+    }
+    
+    public void setCustLastMatchingChange(Timestamp arg){
+        this.custLastMatchingChange=arg;
+    }
+    
+     public Timestamp getCustLastCheck(){
+        return  this.custLastCheck;
+    }
+    
+    public void setCustLastCheck(Timestamp arg){
+        this.custLastCheck=arg;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
