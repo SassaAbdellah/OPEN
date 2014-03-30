@@ -13,6 +13,7 @@
    
    <path id="classpath">
       <fileset dir="${appdir}">        
+        <include name="lib/*.jar"/>
         <include name="lib/build/*.jar"/>
       </fileset> 
         <!-- include classes from ejb project -->
