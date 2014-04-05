@@ -137,26 +137,11 @@ public class UpdateService {
     } // getUpdatedRides
     
     
-     
-    /** Check, if calling user has updated rides
-     *
-     *   @return  true, if the user has updated rides, else false
+    /** 
+     *   @return  true, if calling customer has updated matches, else false.
      */
-    public boolean hasUpdatedRides(){
-        return 0<this.getUpdatedRides().size();
+    boolean isMatchUpdated(){
+        return new JCustomerEntityService().isMatchUpdated();
     }
-    
-    
-    /** Check, if calling user has updated drives
-     *
-     *   @return  true, if the user has updated drives, else false
-     */
-    public boolean hasUpdatedDrives(){
-        return 0<this.getUpdatedDrives().size();
-    }
-    
-    
-    
-    
     
 } // class 
