@@ -542,7 +542,7 @@ public class JCustomerEntityService {
    
         CustomerEntity ce=this.getCustomerEntitySafely();
         // this may happen before login
-        if(ce==null) {return true;}
+        if(ce==null) {return false;}
         
         CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
        return ccl.isMatchUpdated(ce.getCustId());
