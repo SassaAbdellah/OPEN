@@ -605,4 +605,17 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         }
 
     }
+
+    @Override
+    public void resetLastCustomerCheck(int customerId) {
+
+        CustomerEntity ce = this.getCustomer(customerId);
+        ce.updateCustLastCheck();
+    }
+
+    @Override
+    public boolean isMatchUpdated(int customerId) {
+        CustomerEntity ce = this.getCustomer(customerId);
+        return ce.isMatchUpdated();
+    }
 }
