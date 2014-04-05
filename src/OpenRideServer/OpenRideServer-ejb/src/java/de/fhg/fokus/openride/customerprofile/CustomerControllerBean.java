@@ -29,6 +29,7 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.LinkedList;
@@ -505,17 +506,15 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
         c.setCustPasswd(getMD5Hash(custPasswd));
         commitUserTransaction();
     }
-    
+
     @Override
-     public void setNickname(int custId, String custNicknameArg) {
+    public void setNickname(int custId, String custNicknameArg) {
         startUserTransaction();
         logger.info("setNickname for custId : " + custId);
         CustomerEntity c = getCustomer(custId);
         c.setCustNickname(custNicknameArg);
         commitUserTransaction();
     }
-    
-    
 
     public void setDriverPrefs(int custId, int custDriverprefAge, char custDriverprefGender, char custDriverprefSmoker) {
         startUserTransaction();
@@ -567,5 +566,43 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
             logger.info("invalid smoker pref - set to default (" + custRiderprefSmoker + ")");
         }
         commitUserTransaction();
+    }
+
+    @Override
+    public void setLastMatchingChange(int customerId, boolean transactionRequired) {
+
+        CustomerEntity ce = getCustomer(customerId);
+        if (ce == null) {
+            logger.warning("Attempt to set matching change for nonexistent customer " + customerId);
+        }
+
+        if (transactionRequired) {
+            startUserTransaction();
+        }
+        ce.updateCustLastMatchingChange();
+        em.merge(ce);
+        if (transactionRequired) {
+            commitUserTransaction();
+        }
+
+    }
+
+    @Override
+    public void setLastCustomerCheck(int customerId, boolean transactionRequired) {
+
+        CustomerEntity ce = getCustomer(customerId);
+        if (ce == null) {
+            logger.warning("Attempt to set lastCustomerCheck for nonexistent customer " + customerId);
+        }
+
+        if (transactionRequired) {
+            startUserTransaction();
+        }
+        ce.setCustLastCheck(new Timestamp(System.currentTimeMillis()));
+        em.merge(ce);
+        if (transactionRequired) {
+            commitUserTransaction();
+        }
+
     }
 }

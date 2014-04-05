@@ -507,12 +507,25 @@ public class CustomerEntity implements Serializable {
         this.custLastMatchingChange=arg;
     }
     
+    /** Set the last matching state to current date.
+     */
+    public void updateCustLastMatchingChange(){
+        this.setCustLastMatchingChange(new Timestamp(System.currentTimeMillis()));
+    }
+    
+    
      public Timestamp getCustLastCheck(){
         return  this.custLastCheck;
     }
     
     public void setCustLastCheck(Timestamp arg){
         this.custLastCheck=arg;
+    }
+    
+    /** Set the last matching state to current date.
+     */
+    public void updateCustLastCheck(){
+        this.setCustLastCheck(new Timestamp(System.currentTimeMillis()));
     }
     
     
