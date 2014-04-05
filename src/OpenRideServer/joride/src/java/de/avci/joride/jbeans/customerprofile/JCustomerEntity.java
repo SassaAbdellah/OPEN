@@ -423,5 +423,16 @@ public class JCustomerEntity extends CustomerEntity {
 
    
     }
+    
+    
+    /** Set lastCustomerCheck Property to current date
+     */
+    public void resetLastCustomerCheck(){
+       new JCustomerEntityService().resetLastCustomerCheck();
+    }
+    
+    
+    
+    
 }// class
 

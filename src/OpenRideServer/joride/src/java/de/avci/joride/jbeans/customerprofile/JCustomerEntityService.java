@@ -514,8 +514,40 @@ public class JCustomerEntityService {
     }
     
     
+      
+    /** Invalidate account of the current customer.
+     *  Customer is determined using the 
+     *  http remote uid
+     * 
+     * @return true, if all went well.
+     * 
+     */
+    public void resetLastCustomerCheck(){
     
     
+        CustomerEntity ce=this.getCustomerEntitySafely();
+        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        
+        if(ce!=null){  ccl.resetLastCustomerCheck(ce.getCustId());
+        } else { 
+            throw new Error("Cannot resetLastCustomerCheck, customerID ist null");
+        }
+    }
+    
+   
+    /** 
+     *   @return  true, if calling customer has updated matches, else false.
+     */
+    public boolean isMatchUpdated(){
+   
+        CustomerEntity ce=this.getCustomerEntitySafely();
+        // this may happen before login
+        if(ce==null) {return true;}
+        
+        CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+       return ccl.isMatchUpdated(ce.getCustId());
+    
+    }
     
     
 } // class

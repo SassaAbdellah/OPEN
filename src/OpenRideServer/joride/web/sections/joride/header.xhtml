@@ -28,37 +28,36 @@
                 <!-- ***  stuff inside update alert section is for polling *** -->
                 <!-- **   and displaying  update messages in header        *** -->
 
-
-                <div id="updateAlert">
-
-
-                    <h:form> <!-- update poll stanza -->
-
+                <h:form> <!-- update poll stanza -->
+                    <div id="updateAlert">
                         <!-- growl to display a message if there are updates -->
-                        <p:growl id="updateGrowl" for="#{updatemsg.updateMessageKey}"/>
+                        <p:growl id="updateGrowl" for="TODO: Update Message"/>
 
-                        <p>   
-                            <!--  link is shown if and only if there are updates -->
-                            <h:commandLink 
-                                id="updateDisplay"
-                                value=" #{updatemsg.updateNotification}" 
-                                action="updates"
-                                />
+                        <!--  link is shown if and only if there are updates -->
+                        <h:commandLink 
+                            id="updateDisplay"
+                            value="TODO: Update Message" 
+                            action="updates"
+                            rendered="#{updatemsg.matchUpdated}"
+                            />
 
-                            <p:poll 
-                                autoStart="true" 
-                                interval="#{updatemsg.updateIntervalSec}"
-                                listener="#{updatemsg.getUpdateNotification}"
-                                update="updateDisplay updateGrowl"
-                                />
+                        <p:poll 
+                            autoStart="true" 
+                            interval="#{updatemsg.updateIntervalSec}"
+                            listener="#{updatemsg.getUpdateNotification}"
+                            update="updateDisplay updateGrowl"
+                            />
+                    </div>
+                    <div>  
+                        <h:commandLink 
+                            id="resetMatchingState"
+                            value="TODO: resetMatchingState" 
+                            action="#{jprofile.resetLastCustomerCheck()}"
+                            rendered="#{updatemsg.matchUpdated}"
+                            />
+                    </div>
+                </h:form> <!-- end of update poll section stanza -->
 
-                        </p>
-
-
-
-                    </h:form> <!-- end of update poll section stanza -->
-
-                </div>
 
 
                 <!-- *** end of update alert stuff *** -->

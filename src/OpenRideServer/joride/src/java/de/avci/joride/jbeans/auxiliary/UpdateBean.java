@@ -1,7 +1,9 @@
 package de.avci.joride.jbeans.auxiliary;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
+import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.utils.PropertiesLoader;
 import java.text.DateFormat;
@@ -143,13 +145,30 @@ public class UpdateBean {
         return updateService.getUpdatedRides();
     }
 
-    public boolean hasUpdatedDrives() {
-        return updateService.hasUpdatedDrives();
+    
+    
+    
+    
+    /** Returns true, if update bean is match updated, else false.
+     */
+    public boolean getMatchUpdated(){
+        return (new JCustomerEntityService()).isMatchUpdated();
     }
-
-    public boolean hasUpdatedRides() {
-        return updateService.hasUpdatedRides();
+    
+    /** 
+     * @return true, if number of updated rides > 0, else false
+     */
+    public boolean hasUpdatedRides(){
+       return (new UpdateService()).getUpdatedRides().size()>0;
     }
+    
+     /** 
+     * @return true, if number of updated drives > 0, else false
+     */
+     public boolean hasUpdatedDrives(){
+       return (new UpdateService()).getUpdatedDrives().size()>0;
+    }
+    
 
     /**
      * @return a formatted String for current datetime
