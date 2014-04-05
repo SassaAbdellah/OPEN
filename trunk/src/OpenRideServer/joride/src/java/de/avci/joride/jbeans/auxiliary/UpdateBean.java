@@ -35,17 +35,8 @@ public class UpdateBean {
     Logger log = Logger.getLogger("" + this.getClass());
     
     
-    /**  Key for messages targeted at update growl
-     */
-    protected static final String UpdateMessageKey="UpdateMessageKey";
     
-    /** Make update message key availlable as JSF Bean
-     * 
-     * @return 
-     */
-    public String getUpdateMessageKey(){
-        return UpdateMessageKey;
-    }
+   
     
     
     /**
@@ -111,31 +102,7 @@ public class UpdateBean {
     }
     private UpdateService updateService = new UpdateService();
 
-    /**
-     *
-     * Get a String describing updates
-     *
-     * @return
-     */
-    public String getUpdateNotification() {
-
-
-        String updateMessage = updateService.getUpdateMessage();
-
-        // if the update message is not empty, add it to message queue,
-        // so it can be displayed inside of a queue
-
-       if (!("".equals(updateMessage))) {
-
-
-            FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage fmsg=new FacesMessage(updateMessage);
-            
-            context.addMessage(this.getUpdateMessageKey(), fmsg);
-        }
-
-        return updateMessage;
-    }
+  
 
     public List<JDriverUndertakesRideEntity> updatedDrives() {
         return updateService.getUpdatedDrives();
