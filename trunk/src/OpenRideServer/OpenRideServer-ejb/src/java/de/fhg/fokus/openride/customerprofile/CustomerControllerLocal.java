@@ -92,4 +92,19 @@ public interface CustomerControllerLocal {
      */
     public void setLastCustomerCheck(int customerId, boolean transactionRequired);
     
+    /** Set customer's lastMatchingCheck property to current date/time,
+     *  so that the customer is not notified from  *old* messages any more.
+     *  
+     * @param customerId  id of the customer for which notifications are to be resetted
+     */
+    public void resetLastCustomerCheck(int customerId);
+    
+    /** return true, if there are updates since last customer check
+     * 
+     *
+     * @param customerId  id of the customer to be checked
+     * @return 
+     */
+    public boolean isMatchUpdated(int customerId);
+    
 }
