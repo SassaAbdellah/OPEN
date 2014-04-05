@@ -67,6 +67,29 @@ public interface CustomerControllerLocal {
     public boolean isNicknameAvailable(String custNickname);
 
     public CustomerEntity getCustomerByCredentials(String custNickname, String custPasswd);
-
+    
     public LinkedList<CustomerEntity> getAllCustomers();
+    
+    /** Set the timestamp of last write access of the customer 
+     *  with the given customerId to actual datetime.
+     *  Together with setLastCustomerCheck() 
+     *  this allows for determinating updates *fast*,
+     *  without having to do large (sub) queries.
+     * 
+     * @param customerId Id of the customer to query
+     * @param transactionRequired if true, setting the property will be enclosed in a transaction
+     */
+    public void setLastMatchingChange(int customerId, boolean transactionRequired);
+    
+      /** Set the timestamp of last write access of the customer 
+     *  with the given customerId to actual datetime.
+     *  Together with setLastMatchingChange
+     *  this allows for determinating updates *fast*,
+     *  without having to do large (sub) queries.
+     * 
+     * @param customerId Id of the customer to do the query
+     * @param transactionRequired  if true, setting the property will be enclosed in a transaction
+     */
+    public void setLastCustomerCheck(int customerId, boolean transactionRequired);
+    
 }

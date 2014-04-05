@@ -272,6 +272,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
 
         for (MatchEntity m : matches) {
+            
+            // norify drivers of potential matches
+            CustomerEntity driver=m.getDriverUndertakesRideEntity().getCustId();
+            driver.updateCustLastMatchingChange();
+            em.persist(driver);
             // persist match, so it can be found later on!
             em.persist(m);
         }
@@ -882,14 +887,15 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
     }
 
-    /** Remove ride completely from database. 
-     *  This should be done only if ride does not contain confirmed matches.
-     * 
-     * 
-     * 
-     * 
+    /**
+     * Remove ride completely from database. This should be done only if ride
+     * does not contain confirmed matches.
+     *
+     *
+     *
+     *
      * @param riderrouteId
-     * @return 
+     * @return
      */
     private boolean removeRideCompletely(int riderrouteId) {
 
@@ -910,23 +916,22 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
         // TODO: remove rider from drive, not yet implemented
         commitUserTransaction();
-        
+
         log.info("entity removed: " + riderrouteId);
 
         return true;
     }
-    
- 
-   /**
-    * 
-    * @param riderrouteId
-    * @return 
-    */ 
-   private boolean removeRideCountermandOnly(int riderrouteId) {
 
-       
-       log.info("remove (countermand only) ride request riderrouteId :"+riderrouteId);
-       
+    /**
+     *
+     * @param riderrouteId
+     * @return
+     */
+    private boolean removeRideCountermandOnly(int riderrouteId) {
+
+
+        log.info("remove (countermand only) ride request riderrouteId :" + riderrouteId);
+
         startUserTransaction();
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
 
@@ -935,28 +940,25 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         for (Iterator<MatchEntity> it = states.iterator(); it.hasNext();) {
             MatchEntity matchEntity = it.next();
             // mark matches as countermanded by rider if not already done
-            if(matchEntity.getRiderState()!=MatchEntity.RIDER_COUNTERMANDED){
+            if (matchEntity.getRiderState() != MatchEntity.RIDER_COUNTERMANDED) {
                 matchEntity.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
                 matchEntity.setRiderChange(new Date());
                 em.merge(matchEntity);
             }
         }
-        
-      
+
+
         List<RiderUndertakesRideEntity> rides = em.createNamedQuery("RiderUndertakesRideEntity.findByRiderrouteId").setParameter("riderrouteId", riderrouteId).getResultList();
-       
+
         for (RiderUndertakesRideEntity ride : rides) {
             ride.setCountermanded(Boolean.TRUE);
             em.merge(ride);
         }
 
         commitUserTransaction();
-        log.info("removed (countermand only) ride request riderrouteId :"+riderrouteId);
+        log.info("removed (countermand only) ride request riderrouteId :" + riderrouteId);
         return false;
     }
-    
-    
-    
 
     public int updateRide(
             int riderrouteId,
@@ -1042,6 +1044,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
                 // mark matches as countermanded by rider
                 matchEntity.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
                 matchEntity.setRiderChange(new Date());
+                // Notify the driver:
+                CustomerEntity driver=matchEntity.getDriverUndertakesRideEntity().getCustId();
+                driver.updateCustLastMatchingChange();
+                em.merge(driver);
                 em.merge(matchEntity);
             }
 
@@ -1049,7 +1055,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             riderundertakesride.setRideId(null);
             em.persist(riderundertakesride);
 
-            System.out.println(numOfRiders + " die neue Size: " + driverUndertakesRideControllerBean.getRidersForDrive(rideid).size());
+            
+            logger.log(Level.INFO,numOfRiders + " die neue Size: " + driverUndertakesRideControllerBean.getRidersForDrive(rideid).size());
         } else {
             //TODO: may return something or throw exception!
             System.out.println("no drive was set!");
@@ -1313,6 +1320,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         if (match.size() > 0) {
             match.get(0).setRiderState(MatchEntity.RIDER_COUNTERMANDED);
             match.get(0).setRiderChange(new Date());
+            CustomerEntity driver=match.get(0).getDriverUndertakesRideEntity().getCustId();
+            driver.updateCustLastMatchingChange();
+            em.persist(match.get(0));
+            em.persist(driver);
         }
     }
 
@@ -1325,7 +1336,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
-    
     // TODO: obsolete as remove does is better
     public boolean invalidateRide(Integer riderrouteId) {
 
@@ -1356,6 +1366,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         for (MatchEntity match : matchList) {
             match.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
             match.setRiderChange(now);
+            // notify riders
+            CustomerEntity rider=match.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            
+            em.merge(rider); 
             em.merge(match);
         }
 
@@ -1489,8 +1504,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
         startUserTransaction();
         MatchEntity me = this.fetchMatchEntity(rideId, riderrouteId);
-
         me.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
+        
+        // update rider's notification
+        CustomerEntity rider = me.getRiderUndertakesRideEntity().getCustId();
+        rider.updateCustLastMatchingChange();
+        em.merge(rider);
+        //
         em.merge(me);
         commitUserTransaction();
     }
@@ -1501,9 +1521,13 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         startUserTransaction();
         MatchEntity me = this.fetchMatchEntity(rideId, riderrouteId);
         me.setRiderState(MatchEntity.RIDER_COUNTERMANDED);
+
+        CustomerEntity customer = me.getRiderUndertakesRideEntity().getCustId();
+        customer.updateCustLastMatchingChange();
+        em.merge(customer);
         em.merge(me);
         commitUserTransaction();
     }
-
- 
+   
+    
 }

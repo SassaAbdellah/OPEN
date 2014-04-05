@@ -36,6 +36,7 @@ import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -136,6 +137,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
     }
 
+    /** TODO: Implementation is obviously incomplete!
+     * 
+     */
     public void updateDriverPosition() {
         startUserTransaction();
         commitUserTransaction();
@@ -596,6 +600,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         LinkedList<RoutePointEntity> route = new LinkedList<RoutePointEntity>();
         double distance = routeMatchingBean.computeInitialRoutes(drive, decomposedRoute, route);
 
+    
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
             this.persistRoutingInformation(drive, decomposedRoute, route);
@@ -693,6 +698,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if (match != null) {
             match.setDriverState(MatchEntity.ACCEPTED);
             match.setDriverChange(new java.util.Date());
+            // change last access
+            CustomerEntity rider=match.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            em.merge(rider);
             em.merge(match);
         } else {
             // Match does not exist!
@@ -710,6 +719,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
             match.setDriverState(MatchEntity.REJECTED);
             match.setDriverChange(new java.util.Date());
+            // change last access
+            CustomerEntity rider=match.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            em.merge(rider);
             em.merge(match);
         } else {
             // Match does not exist!
@@ -728,6 +741,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         if (match != null) {
             match.setRiderState(MatchEntity.ACCEPTED);
             match.setRiderChange(new java.util.Date());
+            // change last change
+            CustomerEntity driver=match.getDriverUndertakesRideEntity().getCustId();
+            driver.updateCustLastMatchingChange();
+            em.merge(driver);
             em.merge(match);
         } else {
             // Match does not exist!
@@ -752,6 +769,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
             match.setRiderState(MatchEntity.REJECTED);
             match.setRiderChange(new java.util.Date());
+             CustomerEntity driver=match.getDriverUndertakesRideEntity().getCustId();
+            driver.updateCustLastMatchingChange();
+            em.merge(driver);
+            em.merge(match);
             em.merge(match);
         } else {
             // Match does not exist!
@@ -775,10 +796,15 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         List<MatchEntity> matches = routeMatchingBean.searchForRiders(rideId);
         matches = filter(matches);
         for (MatchEntity m : matches) {
+            
+            // notify rider
+            CustomerEntity rider=m.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            em.persist(rider);
             // persist match, so it can be found later on!
             em.persist(m);
         }
-
+        
         commitUserTransaction();
         em.flush();
     }
@@ -1018,7 +1044,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         logger.info("invalidateRide : rideID " + rideId);
 
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
-      
+
         logger.info("invalidateRide : starting transaction ");
 
         boolean deletable = this.isDeletable(rideId);
@@ -1031,24 +1057,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
 
-       
+
 
         // So, purging from database is no Option, hence we 
         // must invalidate all Objects
-        
+
         startUserTransaction();
-       
+
         this.removeAllWaypoints(rideId);
         this.removeAllDriveRoutepoints(rideId);
         this.removeAllRoutepoints(rideId);
-    
+
         // all related states have to be adapted
         logger.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
-        for ( MatchEntity matchEntity : states){
+        for (MatchEntity matchEntity : states) {
             // normally, frontend should have enforced countermanding all
             // relevant matches automatically
-            if(!(matchEntity.getDriverState()==MatchEntity.DRIVER_COUNTERMANDED)){
+            if (!(matchEntity.getDriverState() == MatchEntity.DRIVER_COUNTERMANDED)) {
                 matchEntity.setDriverState(MatchEntity.DRIVER_COUNTERMANDED);
                 matchEntity.setDriverMessage("System countermanded");
                 matchEntity.setDriverChange(new java.util.Date());
@@ -1058,7 +1084,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // all related states have to be adapted
         logger.info("invalidateRide : mark ride as invalidated");
         // mark ride as invalidated
-        dure.setRideComment("COUNTERMANDED - "+dure.getRideComment());
+        dure.setRideComment("COUNTERMANDED - " + dure.getRideComment());
         // set Number of offered seats to 0, so that there will be no more matchings
         dure.setRideOfferedseatsNo(0);
         em.merge(dure);
@@ -1345,11 +1371,16 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     public void setDriverMessage(int rideid, int riderrouteid, String message) {
         MatchEntity match = getMatch(rideid, riderrouteid);
-        if (match != null) {
-            match.setDriverMessage(message);
-            match.setDriverChange(new java.util.Date());
-            em.merge(match);
+        if (match == null) {
+            logger.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
+            return;
         }
+        match.setDriverMessage(message);
+        match.setDriverChange(new java.util.Date());
+        CustomerEntity rider = match.getRiderUndertakesRideEntity().getCustId();
+        rider.updateCustLastMatchingChange();
+        em.merge(rider);
+        em.merge(match);
     }
 
     /**
@@ -1359,11 +1390,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     public void setRiderMessage(int rideid, int riderrouteid, String message) {
         MatchEntity match = getMatch(rideid, riderrouteid);
-        if (match != null) {
-            match.setRiderMessage(message);
-            match.setRiderChange(new java.util.Date());
-            em.merge(match);
+        if (match == null) {
+            logger.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
+            return;
         }
+
+        match.setRiderMessage(message);
+        match.setRiderChange(new java.util.Date());
+        CustomerEntity driver=match.getRiderUndertakesRideEntity().getCustId();
+        driver.updateCustLastMatchingChange();
+        em.merge(driver);
+        em.merge(match);
     }
 
     @Override
@@ -1384,4 +1421,5 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         return this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
     }
+    
 } // class
