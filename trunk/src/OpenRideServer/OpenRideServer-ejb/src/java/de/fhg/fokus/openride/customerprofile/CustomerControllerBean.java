@@ -616,6 +616,10 @@ public class CustomerControllerBean extends ControllerBean implements CustomerCo
     @Override
     public boolean isMatchUpdated(int customerId) {
         CustomerEntity ce = this.getCustomer(customerId);
-        return ce.isMatchUpdated();
+
+        boolean result = ce.isMatchUpdated();
+        ce.updateCustLastCheck();
+        return result;
+
     }
 }
