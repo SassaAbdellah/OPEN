@@ -16,11 +16,8 @@
 
     </h:head>
     <body>
-
-
-
+        
         <!--  Header Section for all of JoRide -->
-
         <ui:composition>
             <div id="header">
                 <!-- dummy input is there to enforce loading of jquers the primefaces way-->
@@ -29,42 +26,36 @@
                 <!-- **   and displaying  update messages in header        *** -->
 
                 <h:form> <!-- update poll stanza -->
-                    <div id="updateAlert">
+                    <p id="updateAlert">
                         <!-- growl to display a message if there are updates -->
-                        <p:growl id="updateGrowl" for="TODO: Update Message"/>
-
+                        <p:growl id="updateGrowl" for="updateDisplay"/>
                         <!--  link is shown if and only if there are updates -->
                         <h:commandLink 
                             id="updateDisplay"
-                            value="TODO: Update Message" 
+                            value="#{msgs.updates_updateNotification}"
                             action="updates"
                             rendered="#{updatemsg.matchUpdated}"
                             />
-
                         <p:poll 
                             autoStart="true" 
                             interval="#{updatemsg.updateIntervalSec}"
                             listener="#{updatemsg.getMatchUpdated()}"
                             update="updateDisplay updateGrowl"
                             />
-                    </div>
-                    <div>  
-                        <h:commandLink 
+                    </p>
+                    <p>  
+                        <p:commandLink 
                             id="resetMatchingState"
-                            value="TODO: resetMatchingState" 
+                            value="#{msgs.updates_updateNotificationOK}"
                             action="#{jprofile.resetLastCustomerCheck()}"
                             rendered="#{updatemsg.matchUpdated}"
+                            ajax="false"
                             />
-                    </div>
+                        <p:tooltip for="resetMatchingState" value="#{msgs.updates_updateNotificationOKTooltip}" />
+                    </p>
                 </h:form> <!-- end of update poll section stanza -->
 
-
-
                 <!-- *** end of update alert stuff *** -->
-
-
-
-
             </div>
         </ui:composition>
 
