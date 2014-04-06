@@ -44,7 +44,7 @@
                         <p:poll 
                             autoStart="true" 
                             interval="#{updatemsg.updateIntervalSec}"
-                            listener="#{updatemsg.getUpdateNotification}"
+                            listener="#{updatemsg.getMatchUpdated()}"
                             update="updateDisplay updateGrowl"
                             />
                     </div>
