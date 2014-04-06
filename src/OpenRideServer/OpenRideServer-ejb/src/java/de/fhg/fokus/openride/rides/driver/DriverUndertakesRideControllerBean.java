@@ -137,8 +137,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
     }
 
-    /** TODO: Implementation is obviously incomplete!
-     * 
+    /**
+     * TODO: Implementation is obviously incomplete!
+     *
      */
     public void updateDriverPosition() {
         startUserTransaction();
@@ -600,7 +601,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         LinkedList<RoutePointEntity> route = new LinkedList<RoutePointEntity>();
         double distance = routeMatchingBean.computeInitialRoutes(drive, decomposedRoute, route);
 
-    
+
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
             this.persistRoutingInformation(drive, decomposedRoute, route);
@@ -699,7 +700,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             match.setDriverState(MatchEntity.ACCEPTED);
             match.setDriverChange(new java.util.Date());
             // change last access
-            CustomerEntity rider=match.getRiderUndertakesRideEntity().getCustId();
+            CustomerEntity rider = match.getRiderUndertakesRideEntity().getCustId();
             rider.updateCustLastMatchingChange();
             em.merge(rider);
             em.merge(match);
@@ -720,7 +721,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             match.setDriverState(MatchEntity.REJECTED);
             match.setDriverChange(new java.util.Date());
             // change last access
-            CustomerEntity rider=match.getRiderUndertakesRideEntity().getCustId();
+            CustomerEntity rider = match.getRiderUndertakesRideEntity().getCustId();
             rider.updateCustLastMatchingChange();
             em.merge(rider);
             em.merge(match);
@@ -742,7 +743,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             match.setRiderState(MatchEntity.ACCEPTED);
             match.setRiderChange(new java.util.Date());
             // change last change
-            CustomerEntity driver=match.getDriverUndertakesRideEntity().getCustId();
+            CustomerEntity driver = match.getDriverUndertakesRideEntity().getCustId();
             driver.updateCustLastMatchingChange();
             em.merge(driver);
             em.merge(match);
@@ -769,7 +770,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             }
             match.setRiderState(MatchEntity.REJECTED);
             match.setRiderChange(new java.util.Date());
-             CustomerEntity driver=match.getDriverUndertakesRideEntity().getCustId();
+            CustomerEntity driver = match.getDriverUndertakesRideEntity().getCustId();
             driver.updateCustLastMatchingChange();
             em.merge(driver);
             em.merge(match);
@@ -796,15 +797,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         List<MatchEntity> matches = routeMatchingBean.searchForRiders(rideId);
         matches = filter(matches);
         for (MatchEntity m : matches) {
-            
-            // notify rider
-            CustomerEntity rider=m.getRiderUndertakesRideEntity().getCustId();
-            rider.updateCustLastMatchingChange();
-            em.persist(rider);
             // persist match, so it can be found later on!
             em.persist(m);
+            // notify rider and driver
+            CustomerEntity rider = m.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            em.persist(rider);
+            CustomerEntity driver = m.getDriverUndertakesRideEntity().getCustId();
+            driver.updateCustLastMatchingChange();
+            em.persist(driver);
         }
-        
+
         commitUserTransaction();
         em.flush();
     }
@@ -1397,7 +1400,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         match.setRiderMessage(message);
         match.setRiderChange(new java.util.Date());
-        CustomerEntity driver=match.getRiderUndertakesRideEntity().getCustId();
+        CustomerEntity driver = match.getRiderUndertakesRideEntity().getCustId();
         driver.updateCustLastMatchingChange();
         em.merge(driver);
         em.merge(match);
@@ -1421,5 +1424,4 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         return this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
     }
-    
 } // class

@@ -272,13 +272,15 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         }
 
         for (MatchEntity m : matches) {
-            
-            // norify drivers of potential matches
+            // persist match, so it can be found later on!
+            em.persist(m);
+            // norify rider and drivers of potential matches
             CustomerEntity driver=m.getDriverUndertakesRideEntity().getCustId();
             driver.updateCustLastMatchingChange();
             em.persist(driver);
-            // persist match, so it can be found later on!
-            em.persist(m);
+            CustomerEntity rider=m.getRiderUndertakesRideEntity().getCustId();
+            rider.updateCustLastMatchingChange();
+            em.persist(rider);
         }
 
 
