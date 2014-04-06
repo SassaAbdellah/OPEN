@@ -512,6 +512,8 @@ public class CustomerEntity implements Serializable {
     public void updateCustLastCheck() {
         this.setCustLastCheck(new Timestamp(System.currentTimeMillis()));
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -538,14 +540,22 @@ public class CustomerEntity implements Serializable {
      */
     public boolean isMatchUpdated() {
 
-        if ((this.getCustLastCheck() == null) || (this.getCustLastMatchingChange()==null)){
-            return false;}
+       
+        Timestamp lastMatchingChange=this.getCustLastMatchingChange();
+        if (lastMatchingChange==null){ return false;}
+        //
+        //
+        Timestamp lastCustCheck=this.getCustLastCheck();
+        // in view of previous code: there are matchingChanges,
+        // but user has never checked
+        if(lastCustCheck==null){ return true;}
+        // both values !=null, so we can savely compare
+        String lastCustCheckStr=lastCustCheck.toGMTString();
+        String lastMatchStr=lastMatchingChange.toGMTString();
         
-        if(this.getCustLastCheck().getTime() <= this.getCustLastMatchingChange().getTime()){
-            return true;
-        }
-
-        return false;
+        boolean res=lastCustCheck.getTime()<=lastMatchingChange.getTime();
+        return res;
+      
     }
 
     @Override
