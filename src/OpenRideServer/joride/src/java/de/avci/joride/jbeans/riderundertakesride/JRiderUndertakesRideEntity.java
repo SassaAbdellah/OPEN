@@ -47,7 +47,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      */
     protected DateFormat dateTimeFormat = (new JoRideConstants()).createDateTimeFormat();
-    
+
     protected DateFormat getDateTimeFormat() {
         return dateTimeFormat;
     }
@@ -553,6 +553,9 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * @return Returns the Number of OpenMatches for this RideRequest
      */
     public int getNoMatches() {
+        if (this.getMatchings() == null) {
+            return 0;
+        }
         return this.getMatchings().size();
     }
 
@@ -561,6 +564,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      *
      */
     public boolean getHasMatches() {
+
+        if (this.getMatchings() == null) {
+            return false;
+        }
         return this.getMatchings().size() > 0;
     }
 
@@ -573,11 +580,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * this ride.
      *
      */
-   public void  invalidate(ActionEvent evt) {
+    public void invalidate(ActionEvent evt) {
 
 
-        Integer idToRemove=this.getRiderrouteId();
-        boolean result=false;
+        Integer idToRemove = this.getRiderrouteId();
+        boolean result = false;
 
         try {
             result = new JRiderUndertakesRideEntityService().removeRideSafely(this);
@@ -590,7 +597,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         PropertiesLoader loader = new PropertiesLoader();
 
         if (result) {
-             log.info("invalidating ride request with id "+idToRemove);
+            log.info("invalidating ride request with id " + idToRemove);
         } else {
             // TODO: add a JSF message why this failed
             log.log(Level.SEVERE, "removing ride request " + idToRemove + " failed");
@@ -603,14 +610,15 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
      * Determines the caller from http-request, and if caller is stakeholder
      * (either rider or driver) then returns true
      *
-     * @return true, if caller is identical to rider or diver, and if there is an associated ride, else false
+     * @return true, if caller is identical to rider or diver, and if there is
+     * an associated ride, else false
      */
     public boolean isRateable() {
 
-        if(! this.getHasDriverUndertakesRideEntity()){
+        if (!this.getHasDriverUndertakesRideEntity()) {
             return false; // nothing to be rated
         }
-        
+
         JRiderUndertakesRideEntityService jrureService = new JRiderUndertakesRideEntityService();
 
         Integer id = this.getRiderrouteId();
@@ -978,7 +986,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     @Override
     public MatchingStatistics getMatchingStatistics() {
 
-        Integer riderrouteId=this.getRiderrouteId();
+        Integer riderrouteId = this.getRiderrouteId();
         return new JMatchingEntityService().getMatchingStatisticsForRide(riderrouteId);
     }
 
@@ -988,7 +996,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
     public String getStarttimeEarliestFormatted() {
         return this.getDateTimeFormat().format(this.getStarttimeEarliest());
     }
-    
+
     /**
      * @return nicely formatted version of startTime latest
      */
@@ -1071,6 +1079,5 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         super.updateMatchings();
     }
-    
 } // class
 
