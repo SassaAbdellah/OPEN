@@ -49,11 +49,11 @@
 <!-- ************************************************************************ -->
     <target name="loadLocalProperties">
 
-         <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+         <fail message="../OpenRideShareMaster/local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
             <condition>
                 <not>
                         <resourcecount count="1">
-                                <fileset id="fs" dir=".." includes="local.properties"/>
+                                <fileset id="fs" dir="../OpenRideShareMaster/" includes="local.properties"/>
                         </resourcecount>
                 </not>
            </condition>
@@ -61,7 +61,7 @@
 
      <!-- *** So, as localconf is in place, we can happily load the local.properties  *** -->
          <loadproperties>
-                <file file="../local.properties"/>
+                <file file="../OpenRideShareMaster/local.properties"/>
         </loadproperties>
 
  </target> <!-- end of target load local properties -->
@@ -73,18 +73,18 @@
 <!-- ****************************************************************************** -->
     <target name="loadGraphHopperProperties" >
 
-         <fail message=" ../ghrouter.properties file is missing! -- You will probably have to create one, see included ghrouter.properties.sample file. ">
+         <fail message=" ../OpenRideShareMaster/ghrouter.properties file is missing! -- You will probably have to create one, see included ghrouter.properties.sample file. ">
             <condition>
                 <not>
                         <resourcecount count="1">
-                                <fileset id="fs" dir=".." includes="ghrouter.properties"/>
+                                <fileset id="fs" dir="../OpenRideShareMaster" includes="ghrouter.properties"/>
                         </resourcecount>
                 </not>
            </condition>
         </fail>
 
      <!-- *** for the time beeing, ghrouter is moved to config dir. It will be moved further at build stage  *** -->
-         <copy file="../ghrouter.properties" todir="${conf.dir}/"/>
+         <copy file="../OpenRideShareMaster/ghrouter.properties" todir="${conf.dir}/"/>
         
 
  </target> <!-- end of target load graphhopperProperties -->
@@ -106,7 +106,7 @@
    <mkdir dir="${build.dir}" />
 
    <!-- get jee libs from master project -->
-   <property name="jee.lib.dir" value="../${jee.lib.basedir}" />
+   <property name="jee.lib.dir" value="../OpenRideShareMaster/${jee.lib.basedir}" />
 
    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" >
 	<classpath>
