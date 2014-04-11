@@ -4,6 +4,21 @@
  */
 package de.avci.joride.jbeans.driverundertakesride;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
+import javax.inject.Named;
+
+import org.postgis.Point;
+
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
@@ -16,19 +31,6 @@ import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ActionEvent;
-import javax.inject.Named;
-import org.postgis.Point;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Small Wrapper class making Entity Bean CustomerEntity availlable as a CDI
