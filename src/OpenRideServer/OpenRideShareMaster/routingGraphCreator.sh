@@ -2,10 +2,10 @@
 #
 #
 #
-export CLASSPATH="${CLASSPATH}:./OpenRideServer-ejb/build/"
+export CLASSPATH="${CLASSPATH}:../OpenRideServer-ejb/build/"
 #
 #
-for i in $(ls OpenRideServer-ejb/libs/*.jar)
+for i in $(ls ../OpenRideServer-ejb/libs/*.jar)
 do
  export "CLASSPATH=${i}:${CLASSPATH}"
 done
