@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>OpenRideServer-ejb</name>
-	<comment></comment>
+	<comment>OpenRideServer EJB Component</comment>
 	<projects>
 	</projects>
 	<buildSpec>
