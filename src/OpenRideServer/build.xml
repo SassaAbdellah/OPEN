@@ -21,7 +21,7 @@
 
     <echo> *** building joride subproject  *** </echo>
 
-    <ant  dir="joride"                      antfile="build.headless.xml"           />
+    <ant  dir="joride"                      antfile="build.xml"           />
     <copy file="joride/dist/joride.war"     todir="${build.dir}"                   />
    </target> <!-- joride -->
 
@@ -34,7 +34,7 @@
 
     <echo> *** building joride-public subproject  *** </echo>
  
-    <ant  dir="joride-public"                             antfile="build.headless.xml"           />
+    <ant  dir="joride-public"                             antfile="build.xml"           />
     <copy file="joride-public/dist/joride-public.war"     todir="${build.dir}"                   />
    </target> <!-- joride-public  -->
 
@@ -54,7 +54,7 @@
 
 
     <!--build OpenRideServer      subproject  ************************************************ -->
-    <ant  dir="OpenRideServer-ejb"  antfile="build.headless.xml"                                />
+    <ant  dir="OpenRideServer-ejb"  antfile="build.xml"                                />
     <copy file="OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" todir="${build.dir}"            /> 
 
 
@@ -107,9 +107,9 @@
 
 
        <!--clean  subprojects  ***************************************************** -->
-       <ant  dir="OpenRideServer-ejb"   antfile="build.headless.xml"   target="clean" />
-       <ant  dir="joride"               antfile="build.headless.xml"   target="clean" />
-       <ant  dir="joride-public"        antfile="build.headless.xml"   target="clean" />
+       <ant  dir="OpenRideServer-ejb"   antfile="build.xml"   target="clean" />
+       <ant  dir="joride"               antfile="build.xml"   target="clean" />
+       <ant  dir="joride-public"        antfile="build.xml"   target="clean" />
 
    </target> <!-- end of target clean -->
   
