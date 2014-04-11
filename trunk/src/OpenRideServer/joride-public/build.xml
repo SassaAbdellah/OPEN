@@ -31,7 +31,7 @@
 
       <!-- include jee libs from some glassfish -->
 
-      <fileset dir="../build.headless.support/jee/libs.glassfish.3.0.2/">
+      <fileset dir="../OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/">
 	<include name="*.jar"	/>
       </fileset>
 

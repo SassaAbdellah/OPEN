@@ -26,7 +26,7 @@
 
       <!-- include jee libs from some glassfish -->
 
-      <fileset dir="../build.headless.support/jee/libs.glassfish.3.0.2/">
+      <fileset dir="../OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/">
 	<include name="*.jar"	/>
       </fileset>
 
@@ -71,13 +71,13 @@
            <!-- check, that user has a local.properties file in place in master project -->     
 	
 
-        <property file="../local.properties" />
+        <property file="../OpenRideShareMaster/local.properties" />
 
-	    <fail message=" ../local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
+	    <fail message=" ../OpenRideShareMaster/local.properties file is missing! -- You will probably have to create one, see included local.properties.sample file. ">
             <condition>
                 <not>
                         <resourcecount count="1">
-                                <fileset id="fs" dir=".." includes="local.properties"/>
+                                <fileset id="fs" dir="../OpenRideShareMaster/" includes="local.properties"/>
                         </resourcecount>
                 </not>
            </condition>

@@ -21,8 +21,8 @@
 
     <echo> *** building joride subproject  *** </echo>
 
-    <ant  dir="joride"                      antfile="build.xml"           />
-    <copy file="joride/dist/joride.war"     todir="${build.dir}"                   />
+    <ant  dir="../joride"                      antfile="build.xml"           />
+    <copy file="../joride/dist/joride.war"     todir="${build.dir}"                   />
    </target> <!-- joride -->
 
 
@@ -34,8 +34,8 @@
 
     <echo> *** building joride-public subproject  *** </echo>
  
-    <ant  dir="joride-public"                             antfile="build.xml"           />
-    <copy file="joride-public/dist/joride-public.war"     todir="${build.dir}"                   />
+    <ant  dir="../joride-public"                             antfile="build.xml"           />
+    <copy file="../joride-public/dist/joride-public.war"     todir="${build.dir}"                   />
    </target> <!-- joride-public  -->
 
 
@@ -54,8 +54,8 @@
 
 
     <!--build OpenRideServer      subproject  ************************************************ -->
-    <ant  dir="OpenRideServer-ejb"  antfile="build.xml"                                />
-    <copy file="OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" todir="${build.dir}"            /> 
+    <ant  dir="../OpenRideServer-ejb"  antfile="build.xml"                                />
+    <copy file="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" todir="${build.dir}"            /> 
 
 
 
@@ -75,7 +75,7 @@
 
     <!-- Add libraries *********************************************************************** -->
     <copy  todir="${build.dir}/lib"  >       
-      <fileset dir="OpenRideServer-ejb/libs">
+      <fileset dir="../OpenRideServer-ejb/libs">
         <include name="**/*.jar"  />
         <include name="**/*.docx" />
       </fileset>
@@ -107,9 +107,9 @@
 
 
        <!--clean  subprojects  ***************************************************** -->
-       <ant  dir="OpenRideServer-ejb"   antfile="build.xml"   target="clean" />
-       <ant  dir="joride"               antfile="build.xml"   target="clean" />
-       <ant  dir="joride-public"        antfile="build.xml"   target="clean" />
+       <ant  dir="../OpenRideServer-ejb"   antfile="build.xml"   target="clean" />
+       <ant  dir="../joride"               antfile="build.xml"   target="clean" />
+       <ant  dir="../joride-public"        antfile="build.xml"   target="clean" />
 
    </target> <!-- end of target clean -->
   
