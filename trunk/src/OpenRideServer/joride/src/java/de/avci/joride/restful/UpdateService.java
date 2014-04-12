@@ -4,9 +4,14 @@
  */
 package de.avci.joride.restful;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
@@ -14,15 +19,6 @@ import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityServi
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 
 /**
  * Simple Update Service providing information about updated requests and offers
@@ -114,79 +110,6 @@ public class UpdateService {
 
         return result;
 
-    }
-
-    @GET
-    @Path("gson")
-    /**
-     * GSON test harness
-     * 
-     * Returns a list of all **offers** for this user, that have received an
-     * update "List" here means list in JSON format.
-     */
-    public String getUpdatedOffersAsGSON(@Context HttpServletRequest request) {
-
-        if (request.getRemoteUser() == null) {
-            throw new Error("Cannot determine update, request's remoteuser is null");
-        }
-
-        CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
-
-        JDriverUndertakesRideEntityService driverUndertakesRideEntityService = new JDriverUndertakesRideEntityService();
-
-        List<DriverUndertakesRideEntity> openoffers = driverUndertakesRideEntityService.getActiveDrivesForDriver(request);
-
-        // Updated offers for (DriverUndertakesRideEntity drive : openoffers)
-
-        List<DriverUndertakesRideEntity> resultLists = new ArrayList<DriverUndertakesRideEntity>();
-
-
-        for (DriverUndertakesRideEntity drive : openoffers) {
-            if (driverUndertakesRideEntityService.isDriveUpdated(drive.getRideId())) {
-                resultLists.add(drive);
-            }
-        }
-
-        return new Gson().toJson(resultLists);
-    }
-
-    @GET
-    @Path("jackson")
-    /**
-     * GSON test harness
-     * 
-     * Returns a list of all **offers** for this user, that have received an
-     * update "List" here means list in JSON format.
-     */
-    public String getUpdatedOffersAsJACKSON(@Context HttpServletRequest request)  {
-
-        if (request.getRemoteUser() == null) {
-            throw new Error("Cannot determine update, request's remoteuser is null");
-        }
-
-        CustomerEntity ce = (new JCustomerEntityService()).getCustomerEntityFromRequest(request);
-
-        JDriverUndertakesRideEntityService driverUndertakesRideEntityService = new JDriverUndertakesRideEntityService();
-
-        List<DriverUndertakesRideEntity> openoffers = driverUndertakesRideEntityService.getActiveDrivesForDriver(request);
-
-        // Updated offers for (DriverUndertakesRideEntity drive : openoffers)
-
-        List<DriverUndertakesRideEntity> resultLists = new ArrayList<DriverUndertakesRideEntity>();
-
-
-        for (DriverUndertakesRideEntity drive : openoffers) {
-            if (driverUndertakesRideEntityService.isDriveUpdated(drive.getRideId())) {
-                resultLists.add(drive);
-            }
-        }
-        try {
-            return new ObjectMapper().writeValueAsString(resultLists);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(UpdateService.class.getName()).log(Level.SEVERE, null, ex);
-            throw new Error(ex);
-        
-        }
     }
 
    

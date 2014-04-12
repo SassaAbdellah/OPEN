@@ -17,13 +17,13 @@
 	<classpathentry kind="lib" path="/OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/mail.jar"/>
 	<classpathentry kind="src" path="/OpenRideServer-ejb"/>
 	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/postgis-jdbc-2.0.2SVN.jar"/>
-	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-annotations-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-core-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-core-asl.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-databind-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-jaxrs.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-mapper-asl.jar"/>
 	<classpathentry kind="lib" path="/OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/jsr311-api.jar"/>
+	<classpathentry kind="lib" path="lib/all-themes-1.0.9.jar"/>
+	<classpathentry kind="lib" path="lib/asm-all-repackaged.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-gf-server.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-multipart.jar"/>
+	<classpathentry kind="lib" path="lib/jettison.jar"/>
+	<classpathentry kind="lib" path="lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="lib/primefaces-3.4.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
