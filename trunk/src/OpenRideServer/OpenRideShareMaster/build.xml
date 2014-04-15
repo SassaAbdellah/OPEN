@@ -27,6 +27,7 @@
 
 
 
+
    <!-- ************************************************************************************** -->
    <!-- **** joride-public target is only to be build if build.joride-public param is set **** -->
    <!-- ************************************************************************************** -->
@@ -35,11 +36,22 @@
     <echo> *** building joride-public subproject  *** </echo>
  
     <ant  dir="../joride-public"                             antfile="build.xml"           />
-    <copy file="../joride-public/dist/joride-public.war"     todir="${build.dir}"                   />
+    <copy file="../joride-public/dist/joride-public.war"     todir="${build.dir}"          />
    </target> <!-- joride-public  -->
 
 
 
+
+   <!-- ************************************************************************************** -->
+   <!-- **** joride-rest target is only to be build if build.joride-rest param is set     **** -->
+   <!-- ************************************************************************************** -->
+   <target name="joride-rest" description="build the joride-rest subproject"  if="build.joride-rest" >
+
+    <echo> *** building joride-rest subproject  *** </echo>
+
+    <ant  dir="../joride-rest"                           antfile="build.xml"           />
+    <copy file="../joride-rest/dist/joride-rest.war"     todir="${build.dir}"          />
+   </target> <!-- joride-rest  -->
 
 
  
@@ -66,6 +78,10 @@
 
     <!--build joride-public subproject           ************************************************* -->
     <antcall target="joride-public" inheritAll="true" inheritRefs="true" />
+
+
+    <!--build joride-rest subproject            ************************************************* -->
+    <antcall target="joride-rest" inheritAll="true" inheritRefs="true" />
 
 
 
