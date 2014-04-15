@@ -84,13 +84,25 @@ public class GraphhopperRoute implements Route {
 		this.travelTime = response.getMillis();
 
 		InstructionList instructionList = response.getInstructions();
-		List<GPXEntry> gpxList = instructionList.createGPXList();
-		this.routePoints = new RoutePoint[gpxList.size()];
+		
+		
+		List<GPXEntry> gpxList=null;
+		try  { 
+			gpxList = instructionList.createGPXList();
+			this.routePoints = new RoutePoint[gpxList.size()];
+			
+		} catch(java.lang.ArrayIndexOutOfBoundsException exc){
+			// this might happen, if requested startpoints come close to waypoints
+			this.routePoints=new RoutePoint[0];
+		}
+		
+		
+		
 
 		
 		double distance = 0;
 		
-		if(gpxList.isEmpty()){
+		if(gpxList==null || gpxList.isEmpty()){
 			return; // shouldn't normally happen...
 		}
 		
