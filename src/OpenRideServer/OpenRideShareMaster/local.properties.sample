@@ -37,12 +37,31 @@ contact.jsp.base=build.headless.support/branding/contact/contact.jsp
 #
 #
 #
+####################################################
+#                                                  #
+# Options to govern what is build and deployed     #
+#                                                  #
+####################################################
 #
 # uncomment this to build "joride" frontend 
 build.joride=on
 #
 # uncomment this to build "joride-public" frontend 
 build.joride-public=on
+#
+#
+#
+# Note that joride-rest is still under development, and adding
+# joride-rest to an installation may form  a security risk.
+# So, for the time beeing, do not add joride-rest to a productive installation
+#
+#
+# uncomment this to build "joride-rest" frontend
+#
+#build.joride-rest=on
+#
+#
+#
 #
 #
 #
@@ -94,7 +113,11 @@ urlLoggedOut=http://localhost:8080/joride-public/faces/public/loggedout.xhtml
 # should probably be no reason to change this value
 #
 urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
-
+#
+# How ever for developing offline, 
+# you may want to use the Url below:
+#
+#urlOpenLayers=/joride/faces/javax.faces.resource/OpenLayers.js?ln=js
 
 
 
