@@ -22,21 +22,7 @@
  */
 package de.fhg.fokus.openride.rides.driver;
 
-import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
-import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.helperclasses.ControllerBean;
-import de.fhg.fokus.openride.matching.MatchEntity;
-import de.fhg.fokus.openride.matching.MatchingStatistics;
-
-// FIXME: Import of Bean Impl is here to access some static constants.
-// this should not happen as such.
-// Outsource these constants to avoid importing implementation!
-import de.fhg.fokus.openride.matching.RouteMatchingBean;
-import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,13 +30,28 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
+
 import org.postgis.Point;
+
+import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.helperclasses.ControllerBean;
+import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
+import de.fhg.fokus.openride.matching.RouteMatchingBean;
+import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+// FIXME: Import of Bean Impl is here to access some static constants.
+// this should not happen as such.
+// Outsource these constants to avoid importing implementation!
 
 /**
  *
@@ -1424,4 +1425,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         return this.getMatchesByRideIdAndState(rideId, MatchEntity.ACCEPTED, MatchEntity.ACCEPTED);
     }
+
+	@Override
+	public List<MatchEntity> getAllMatches() {
+		
+		Query q = em.createNamedQuery("MatchEntity.findAll");
+        List<MatchEntity> matches = q.getResultList();
+		return matches;
+	}
 } // class
