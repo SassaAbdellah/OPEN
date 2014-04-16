@@ -1,7 +1,6 @@
 package de.avci.joride.restful.services;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -12,9 +11,10 @@ import javax.ws.rs.core.Context;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.avci.joride.restful.converters.RideOfferDTOConverter;
-import de.avci.joride.restful.dto.offers.RideOfferDTO;
+import de.avci.joride.restful.converters.RideRequestDTOConverter;
+import de.avci.joride.restful.dto.requests.RideRequestDTO;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 
 /** Restful Service for manipulating ride offers
@@ -24,16 +24,16 @@ import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
  */
 
 
-@Path("offer")
+@Path("request")
 @Produces("text/json")
 
-public class RideOfferService extends AbstractRestService {
+public class RideRequestService extends AbstractRestService {
 	
 	
 	
 	private ObjectMapper jacksonMapper = new ObjectMapper();
 	
-	private RideOfferDTOConverter offerConverter=new RideOfferDTOConverter();
+	private RideRequestDTOConverter requestConverter=new RideRequestDTOConverter();
 	
 	
 	
@@ -45,17 +45,17 @@ public class RideOfferService extends AbstractRestService {
 	
 	
 	@GET
-	@Path("allRideOffers")
+	@Path("allRideRequests")
 	public String listRideOffers(@Context HttpServletRequest request){
 		
 		
-		List<DriverUndertakesRideEntity> entities=this.lookupDriverUndertakesRideControllerBean().getAllDrives();
+		LinkedList<RiderUndertakesRideEntity> entities=this.lookupRiderUndertakesRideControllerBean().getAllRides();
 		
-		LinkedList<RideOfferDTO>  res =new LinkedList <RideOfferDTO> ();
+		LinkedList<RideRequestDTO>  res =new LinkedList <RideRequestDTO> ();
 		
 		// convert list of entities to list of DTOs
-		for(DriverUndertakesRideEntity entity:entities){
-			res.add(offerConverter.rideOfferDTO(entity));
+		for(RiderUndertakesRideEntity entity:entities){
+			res.add(requestConverter.rideRequestDTO(entity));
 		}
 		
 		// return list as json
@@ -63,8 +63,6 @@ public class RideOfferService extends AbstractRestService {
 		} catch (JsonProcessingException exc) {
 			throw new Error(exc);
 		}
-		
-		
 	}
 	
 

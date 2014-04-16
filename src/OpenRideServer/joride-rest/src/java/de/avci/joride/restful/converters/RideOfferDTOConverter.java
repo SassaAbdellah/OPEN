@@ -37,6 +37,7 @@ public class RideOfferDTOConverter {
 		
 		// header data
 		dto.setId(new Long(entity.getRideId()));
+		dto.setCustomerId( new Long(entity.getCustId().getCustId()));
 		dto.setComment(entity.getRideComment());
 		dto.setStartTime(new Timestamp(entity.getRideStarttime().getTime()));
 		dto.setOfferedSeatsNo(entity.getRideOfferedseatsNo());

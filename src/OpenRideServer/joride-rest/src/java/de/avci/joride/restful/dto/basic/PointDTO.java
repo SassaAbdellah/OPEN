@@ -6,8 +6,10 @@ package de.avci.joride.restful.dto.basic;
  * 
  * @author jochen
  *
+ * (does not extend abstract dto,.... is no entity)
+ *
  */
-public class PointDTO extends AbstractDTO {
+public class PointDTO  {
 
 	
 	/** Longitude of Location
