@@ -27,7 +27,6 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.sql.Date;
-import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Local;
 import org.postgis.Point;
@@ -82,7 +81,7 @@ public interface DriverUndertakesRideControllerLocal {
    
     public List<DriverUndertakesRideEntity> getDrives(String nickname);
 
-    public LinkedList<DriverUndertakesRideEntity> getAllDrives();
+    public List<DriverUndertakesRideEntity> getAllDrives();
 
     public List<DriverUndertakesRideEntity> getActiveDrives(String nickname);
     
@@ -271,5 +270,17 @@ public interface DriverUndertakesRideControllerLocal {
      * @param message         message to be set
      */
     public void setRiderMessage(int rideId, int riderRouteId, String message);
+    
+    
+    
+    
+     
+    /** List of all MatchEntites -- should be handled with CARE only used for automated testing 
+     *  
+     * @return List of all Matches
+     */
+    public List <MatchEntity> getAllMatches();
+    
+    
 
 }
