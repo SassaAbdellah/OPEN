@@ -11,8 +11,9 @@ import de.fhg.fokus.openride.matching.MatchEntity;
  * 
  * @author jochen
  * 
+ * No abstract DTO, since matches do not have a single id, but a composite PK
  */
-public class MatchDTO extends AbstractDTO {
+public class MatchDTO {
 
 	/**
 	 * State of the matching.

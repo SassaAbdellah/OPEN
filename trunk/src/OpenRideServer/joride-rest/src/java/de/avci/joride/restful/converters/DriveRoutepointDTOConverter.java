@@ -21,7 +21,7 @@ public class DriveRoutepointDTOConverter extends RoutepointDTOConverter {
 		
 		DriveRoutepointDTO res=new DriveRoutepointDTO();
 		
-		// waypointDTOs do not have ids!
+		
 		res.setExpectedArrival(entity.getExpectedArrival());
 		res.setLon(entity.getCoordinate().x);
 		res.setLat(entity.getCoordinate().y);

@@ -5,7 +5,6 @@ import java.util.List;
 
 import de.avci.joride.restful.dto.basic.AbstractDTO;
 import de.avci.joride.restful.dto.basic.LocationDTO;
-import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 
 
 /** Ride Offer
@@ -14,6 +13,10 @@ import de.fhg.fokus.openride.rides.driver.WaypointEntity;
  *
  */
 public class RideOfferDTO extends AbstractDTO {
+	
+	/** Id of driver (or )
+	 */
+	private Long customerId;
 	
 
 	/** Time when to start
@@ -124,6 +127,14 @@ public class RideOfferDTO extends AbstractDTO {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	
 }

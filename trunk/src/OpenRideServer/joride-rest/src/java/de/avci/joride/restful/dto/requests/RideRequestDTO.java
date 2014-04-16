@@ -14,6 +14,9 @@ public class RideRequestDTO extends AbstractDTO {
 	
 	
 	
+	/** Customer that requests the ride
+	 */
+	private Long customerId;
 	
 	/** Earlies StartTime defined by Rider
 	 */
@@ -122,6 +125,16 @@ public class RideRequestDTO extends AbstractDTO {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	
 	
