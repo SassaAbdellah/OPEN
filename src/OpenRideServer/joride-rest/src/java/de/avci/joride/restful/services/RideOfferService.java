@@ -49,7 +49,6 @@ public class RideOfferService extends AbstractRestService {
 
 	private RideOfferDTOConverter offerConverter = new RideOfferDTOConverter();
 
-	
 	private LocationDTOConverter locationConverter=new LocationDTOConverter();
 	
 	/**

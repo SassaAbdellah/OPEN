@@ -16,7 +16,7 @@ public class RideRequestDTO extends AbstractDTO {
 	
 	/** Customer that requests the ride
 	 */
-	private Long customerId;
+	private Integer customerId;
 	
 	/** Earlies StartTime defined by Rider
 	 */
@@ -38,7 +38,7 @@ public class RideRequestDTO extends AbstractDTO {
 	
 	/** Number of Passengers
 	 */
-	private long numberOfPassengers;
+	private Integer numberOfPassengers;
 	
 	/** Something the rider wants to tell the driver.
 	 *  Before they accept on the ride.
@@ -90,12 +90,12 @@ public class RideRequestDTO extends AbstractDTO {
 	}
 
 
-	public long getNumberOfPassengers() {
+	public int getNumberOfPassengers() {
 		return numberOfPassengers;
 	}
 
 
-	public void setNumberOfPassengers(long arg) {
+	public void setNumberOfPassengers(int arg) {
 		this.numberOfPassengers=arg;
 	}
 	
@@ -128,12 +128,12 @@ public class RideRequestDTO extends AbstractDTO {
 	}
 
 
-	public Long getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 
 
-	public void setCustomerId(Long customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 	
