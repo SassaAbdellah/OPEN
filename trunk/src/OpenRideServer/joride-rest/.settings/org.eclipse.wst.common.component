@@ -2,7 +2,6 @@
     <wb-module deploy-name="joride-rest">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/testclients"/>
         <property name="context-root" value="joride-rest"/>
         <property name="java-output-path" value="/joride-rest/build/classes"/>
     </wb-module>

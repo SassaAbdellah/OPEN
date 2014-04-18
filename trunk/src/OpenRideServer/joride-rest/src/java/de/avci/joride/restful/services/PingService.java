@@ -2,7 +2,10 @@ package de.avci.joride.restful.services;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
@@ -26,24 +29,35 @@ import javax.ws.rs.core.Context;
 public class PingService {
 
     @GET
-    @Path("text")
-    
-    /** Returning simple JSON text to show that Rest Interface is there.
-     *
+    /** Returning simple JSON text to show that Rest Interface is there,
+     *  and reacting to GET requests
      *
      */
-    public String ping(@Context HttpServletRequest request) {
-
-       
-
+    public String get(@Context HttpServletRequest request) {
+    	
         // For simplicity, we build the JSON Response "byHand" here //
         String result = "{\"PingResponse\": \" hello from : "+this.getClass()+"\"}";
 
         return result;
 
     }
+    
 
-   
+    @POST
+    /** Returning simple JSON text to show that Rest Interface is there,
+     *  and reacting to POST requests.
+     *  
+     *
+     */
+    public String post(String json) {
+
+    
+
+        return "retrieved json: "+json;
+
+    }
+    
+
 
 
     /**

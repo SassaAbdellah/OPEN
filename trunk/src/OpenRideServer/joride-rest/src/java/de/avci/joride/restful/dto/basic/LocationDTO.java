@@ -27,7 +27,7 @@ public class LocationDTO extends PointDTO {
 	 *  Example: "The Tower of London"
 	 * 
 	 */
-	private String description;
+	private String address;
 	
 	
 	
@@ -52,16 +52,16 @@ public class LocationDTO extends PointDTO {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getAddress() {
+		return address;
 	}
 
 
 
 
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAddress(String description) {
+		this.address = description;
 	} 
 
 }

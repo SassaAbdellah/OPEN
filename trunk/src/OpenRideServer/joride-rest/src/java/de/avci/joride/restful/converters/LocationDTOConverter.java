@@ -20,15 +20,27 @@ public class LocationDTOConverter {
 	 * @param description
 	 * @return
 	 */
-	public LocationDTO locationDTO(Point point, String description){
+	public LocationDTO locationDTO(Point point, String address){
 		
 		LocationDTO res=new LocationDTO();
 		res.setLon(point.getX());
 		res.setLat(point.getY());
-		res.setDescription(description);
+		res.setAddress(address);
 		return res;
-	}	
+	}
 	
 	
-
+	/** Extract Postgres Point from Location  
+	 * 
+	 * @return
+	 */
+	public Point point(LocationDTO dto){
+		
+		Point point=new Point();
+		point.setX(dto.getLon());
+		point.setY(dto.getLat());
+		return point;
+	}
+	
+	
 }
