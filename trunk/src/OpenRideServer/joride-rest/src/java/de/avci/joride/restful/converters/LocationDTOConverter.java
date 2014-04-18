@@ -42,5 +42,13 @@ public class LocationDTOConverter {
 		return point;
 	}
 	
+	/** Extract Address from Location  
+	 * 
+	 * @return
+	 */
+	public String address(LocationDTO dto){
+		return dto.getAddress();
+	}
+	
 	
 }

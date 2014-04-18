@@ -20,7 +20,7 @@ public class RideRequestDTOConverter {
 		
 		
 		res.setId(entity.getRiderrouteId());
-		res.setCustomerId(new Long(entity.getCustId().getCustId()));
+		res.setCustomerId(entity.getCustId().getCustId());
 		res.setNumberOfPassengers(entity.getNoPassengers());
 		res.setPrice(entity.getPrice());
 		res.setComment(entity.getComment());
