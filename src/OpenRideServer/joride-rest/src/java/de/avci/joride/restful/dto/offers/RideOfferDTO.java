@@ -14,11 +14,15 @@ import de.avci.joride.restful.dto.basic.LocationDTO;
  */
 public class RideOfferDTO extends AbstractDTO {
 	
-	/** Id of driver (or )
+	/** Id of driver (or ) whoever offers this ride
 	 */
-	private Long customerId;
+	private Integer customerId;
 	
-
+	/** Acceptable Detour in kilometers
+	 */
+	private Integer acceptableDetourKM;
+	
+	
 	/** Time when to start
 	 * 
 	 */
@@ -129,12 +133,20 @@ public class RideOfferDTO extends AbstractDTO {
 		this.comment = comment;
 	}
 
-	public Long getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Long customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public Integer getAcceptableDetourKM() {
+		return acceptableDetourKM;
+	}
+
+	public void setAcceptableDetourKM(Integer acceptableDetourKM) {
+		this.acceptableDetourKM = acceptableDetourKM;
 	}
 	
 }
