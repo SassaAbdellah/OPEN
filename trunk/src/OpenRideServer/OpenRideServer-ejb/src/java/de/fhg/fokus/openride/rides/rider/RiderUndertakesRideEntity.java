@@ -193,7 +193,8 @@ public class RiderUndertakesRideEntity implements Serializable {
     private Integer lastMatchingState;
     @Column(name = "is_countermanded")
     private Boolean countermanded;
-    @OneToMany(fetch = FetchType.LAZY)
+    // Fetch type eager is here, because of a lesson learned. 
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "riderroute_id")
     private List<MatchEntity> matchings;
 
