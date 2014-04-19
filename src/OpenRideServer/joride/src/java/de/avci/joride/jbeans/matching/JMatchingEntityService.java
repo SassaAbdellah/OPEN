@@ -93,14 +93,16 @@ public class JMatchingEntityService {
      *
      *
      * @return list of matching offers for given request
+     * 
+     * 
+     * @deprecated  uses RouteMatchingBean.searchForDrivers, which is costly, and should only be called when creatingRides
+   		*
      */
     public List<JMatchingEntity> getJMatchesForRide(int riderrouteId) {
 
         List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
 
-
         Iterator<MatchEntity> it = mel.iterator();
-
 
         List<JMatchingEntity> res = new LinkedList<JMatchingEntity>();
 
@@ -120,13 +122,15 @@ public class JMatchingEntityService {
      *
      *
      * @return list of matching offers for given request
+     * 
+     * 
+     * @deprecated  uses RouteMatchingBean.searchForDrivers, which is costly, and should only be called when creatingRides
+     * 
      */
     public List<MatchEntity> getMatchesForRide(int riderrouteId) {
 
         List<MatchEntity> mel = this.lookupRouteMatchingBeanLocal().searchForDrivers(riderrouteId);
         return mel;
-
-
 
     } // getMatchesForRide
 
@@ -158,6 +162,12 @@ public class JMatchingEntityService {
      *
      * @param rideId Id of the ride for which to detect matches
      * @return lists of matches
+     * 
+     * 
+     * 
+     * @deprecated  uses RouteMatchingBean.searchForDrivers, which is costly, and should only be called when creatingRides
+     * 
+     * 
      */
     public List<JMatchingEntity> getJMatchesForOffer(int rideId) {
 
@@ -185,6 +195,10 @@ public class JMatchingEntityService {
      *
      * @param rideId Id of the ride for which to detect matches
      * @return lists of matches
+     * 
+     * 
+     * @deprecated  uses RouteMatchingBean.searchForDrivers, which is costly, and should only be called when creatingRides
+     * 
      */
     public List<MatchEntity> getMatchesForOffer(int rideId) {
 
