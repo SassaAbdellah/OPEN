@@ -124,7 +124,9 @@ public class DriverUndertakesRideEntity implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "ride_id")
     private List<WaypointEntity> waypoints;
-    @OneToMany(fetch = FetchType.LAZY)
+    // fetch type eager, because of lesson learned. Better pay for EAGER loading then for
+    // repeatedly calling server for matchings from frontend!
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "ride_id")
     private List<MatchEntity> matchings;
     @JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
