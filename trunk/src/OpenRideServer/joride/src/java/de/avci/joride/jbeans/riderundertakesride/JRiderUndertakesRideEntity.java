@@ -162,6 +162,10 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
         // private String comment;
         this.setComment(rure.getComment());
+        
+        // matchings
+        this.setMatchings(rure.getMatchings());
+        
 
     } //   public void updateFromRiderUndertakesRideEntit
 
@@ -1071,13 +1075,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
         return !this.isCountermandingRequired();
     }
 
-    @Override
-    protected void updateMatchings() {
-
-        List<MatchEntity> myMatchings = (new JMatchingEntityService()).getMatchesForRide(this.getRiderrouteId());
-        this.setMatchings(myMatchings);
-
-        super.updateMatchings();
-    }
+   
 } // class
 
