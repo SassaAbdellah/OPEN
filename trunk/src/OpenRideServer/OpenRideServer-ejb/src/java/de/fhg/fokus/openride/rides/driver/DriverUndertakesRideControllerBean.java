@@ -413,9 +413,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         //return getDrives(nickname);
     }
 
-    /**
-     * Returns all drives for a given driver that have startpoints defined after
-     * a given date.
+    /**  Returns all drives for a given driver that have startpoints defined after a given date.
      *
      *
      * @param customerId CustomerEntity for which to get drives
@@ -427,9 +425,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     public List<DriverUndertakesRideEntity> getDrivesAfterTime(CustomerEntity custId, Date rideStarttime) {
 
-        startUserTransaction();
-
-        List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime").setParameter("custId", custId).setParameter("time", rideStarttime).getResultList();
+    	startUserTransaction();
+    	Query query=em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime");
+    	query.setParameter("custId", custId).setParameter("time", rideStarttime);
+    	List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) query.getResultList();
+    	commitUserTransaction();
+    	
         return res;
     }
 

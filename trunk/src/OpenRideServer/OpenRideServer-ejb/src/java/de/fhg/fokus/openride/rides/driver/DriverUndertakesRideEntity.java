@@ -335,13 +335,8 @@ public class DriverUndertakesRideEntity implements Serializable {
         return this.getMatchings().size();
     }
 
-    public List<MatchEntity> getMatchings() {
-        return this.matchings;
-    }
-
-    public void setMatchings(List<MatchEntity> matchings) {
-        this.matchings = matchings;
-    }
+  
+   
 
     public Integer getLastMatchingState() {
         return this.lastMatchingState;
@@ -421,6 +416,14 @@ public class DriverUndertakesRideEntity implements Serializable {
         }
         return true;
     }
+
+	public List<MatchEntity> getMatchings() {
+		return matchings;
+	}
+
+	public void setMatchings(List<MatchEntity> matchings) {
+		this.matchings = matchings;
+	}
     
     
     
