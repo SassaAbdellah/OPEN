@@ -425,22 +425,19 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     public List<DriverUndertakesRideEntity> getDrivesAfterTime(CustomerEntity custId, Date rideStarttime) {
 
-    	startUserTransaction();
+ 
     	Query query=em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime");
     	query.setParameter("custId", custId).setParameter("time", rideStarttime);
     	List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) query.getResultList();
-    	commitUserTransaction();
-    	
+   	
         return res;
     }
 
     public LinkedList<DriverUndertakesRideEntity> getAllDrives() {
-        startUserTransaction();
-
+    
         List<DriverUndertakesRideEntity> l = em.createNamedQuery("DriverUndertakesRideEntity.findAll").getResultList();
         LinkedList<DriverUndertakesRideEntity> ll = new LinkedList<DriverUndertakesRideEntity>(l);
 
-        commitUserTransaction();
         return ll;
     }
 
