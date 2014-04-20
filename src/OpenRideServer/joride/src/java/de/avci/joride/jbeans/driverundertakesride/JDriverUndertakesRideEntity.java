@@ -67,6 +67,14 @@ public class JDriverUndertakesRideEntity extends
 	private Integer NUMBER_SEATS_OFFERED_DEFAULT = 1;
 	private PropertiesLoader propertiesLoader = new PropertiesLoader();
 
+	
+	/** Matches come in form of MatchEntity. To turn the 
+	 *  matches into JSF compliant, JMatchingEntinties
+	 *  we use this property (to be lazily instantiated)
+	 */
+	private List <JMatchingEntity> jMatches=null;
+	
+	
 	/**
 	 * Get a list of active drives for this driver.
 	 * 
@@ -625,21 +633,21 @@ public class JDriverUndertakesRideEntity extends
 
 	}
 
-	/**
-	 * Returns a list of Matching Ride Request for this drive Offers
+	
+	/** Accessor with lazy instantiation
 	 * 
-	 * @return Returns a list of Matching Ride Requests for this Offer
+	 * @return
 	 */
 	public List<JMatchingEntity> getJMatches() {
-
-		if (this.getRideId() == null) {
-			log.log(Level.SEVERE,
-					"Cannot return matches, My rideId is null!!, returning empty list.");
-			return new LinkedList<JMatchingEntity>();
+		
+		if (this.jMatches==null){
+			this.jMatches=new LinkedList <JMatchingEntity> ();
+			for(MatchEntity m: this.getMatchings()){
+				this.jMatches.add(new JMatchingEntity(m));
+			}
 		}
-
-		return (new JMatchingEntityService()).getJMatchesForOffer(this
-				.getRideId());
+		
+		return this.jMatches;
 	}
 
 	/**
