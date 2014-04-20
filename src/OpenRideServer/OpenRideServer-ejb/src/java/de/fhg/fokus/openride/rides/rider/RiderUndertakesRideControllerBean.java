@@ -1,5 +1,5 @@
 /*
- OpenRide -- Car Sharing 2.0
+ OpenRide -- Car Sharing< 2.0
  Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
  Fraunhofer FOKUS
@@ -1483,7 +1483,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     @Override
     public List<RiderUndertakesRideEntity> getRidesForRiderAfterDate(CustomerEntity ce, Date startDate) {
 
-        List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findRidesAfterDateforCustId").setParameter("custId", ce).setParameter("startDate", startDate).getResultList();
+    	
+    	Query query = em.createNamedQuery("RiderUndertakesRideEntity.findRidesAfterDateforCustId");
+        List<RiderUndertakesRideEntity> res = query.setParameter("custId", ce).setParameter("startDate", startDate).getResultList();
+       
         return res;
     }
 

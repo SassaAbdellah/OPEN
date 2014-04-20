@@ -1,5 +1,5 @@
 /*
- OpenRide -- Car Sharing 2.0
+ OpenRide -- CFar Sharing 2.0
  Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
  Fraunhofer FOKUS
@@ -442,22 +442,13 @@ public class RiderUndertakesRideEntity implements Serializable {
      * @return MatchingStatitstics Object for this drive
      */
     public MatchingStatistics getMatchingStatistics() {
-
-        this.updateMatchings();
+    	
         MatchingStatistics res = new MatchingStatistics();
         res.statisticsFromList(this.getMatchings());
         return res;
     }
 
-    /**
-     * Update the matching statistics, this should be overriden to make sense.
-     * For ex, it can be overridden by calling an external MatchingService and
-     * update the matchings.
-     *
-     *
-     */
-    protected void updateMatchings() {
-    }
+   
 
     @Override
     public String toString() {
