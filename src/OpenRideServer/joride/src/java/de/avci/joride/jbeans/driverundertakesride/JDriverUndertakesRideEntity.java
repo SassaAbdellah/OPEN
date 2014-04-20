@@ -238,7 +238,8 @@ public class JDriverUndertakesRideEntity extends
 		this.setWaypoints(dure.getWaypoints());
 		// matchings
 		this.setMatchings(dure.getMatchings());
-
+		// enforce recalculatine matches next time they are needed
+		this.jMatches=null;
 	}
 
 	/**
