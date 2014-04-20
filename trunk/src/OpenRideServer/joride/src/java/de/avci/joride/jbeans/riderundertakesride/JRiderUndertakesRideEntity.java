@@ -39,6 +39,14 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
     private PropertiesLoader propertiesLoader = new PropertiesLoader();
     private Logger log = Logger.getLogger("" + this.getClass());
+  
+    /** Matches come in form of MatchEntity. To turn the 
+	 *  matches into JSF compliant, JMatchingEntinties
+	 *  we use this property (to be lazily instantiated)
+	 */
+	private List <JMatchingEntity> jMatches=null;
+	
+    
     /**
      * A date format for formatting start and end date. Created via lazy
      * instantiation.
@@ -498,20 +506,26 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity implem
 
     } // doCrudAction()
 
-    /**
-     * Returns a list of Matching Drive Offers for this ride
-     *
-     * @return Returns a list of Matching Drive Offers for this ride
-     */
-    public List<JMatchingEntity> getJMatches() {
-
-        if (this.getRiderrouteId() == null) {
-            log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
-            return new LinkedList<JMatchingEntity>();
-        }
-
-        return (new JMatchingEntityService()).getJMatchesForRide(this.getRiderrouteId());
-    }
+  
+    
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public List<JMatchingEntity> getJMatches() {
+		
+		if (this.jMatches==null){
+			this.jMatches=new LinkedList <JMatchingEntity> ();
+			for(MatchEntity m: this.getMatchings()){
+				this.jMatches.add(new JMatchingEntity(m));
+			}
+		}
+		
+		return this.jMatches;
+	}
+    
+    
+    
 
     /**
      * Returns a list of Matching Drive Offers for this ride
