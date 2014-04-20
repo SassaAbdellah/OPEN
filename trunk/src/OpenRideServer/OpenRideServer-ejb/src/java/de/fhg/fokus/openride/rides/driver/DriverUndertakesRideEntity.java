@@ -356,8 +356,7 @@ public class DriverUndertakesRideEntity implements Serializable {
      * @return MatchingStatitstics Object for this drive
      */
     public MatchingStatistics getMatchingStatistics() {
-
-        this.updateMatchings();
+    	
         MatchingStatistics res = new MatchingStatistics();
         res.statisticsFromList(this.getMatchings());
         return res;
@@ -378,15 +377,7 @@ public class DriverUndertakesRideEntity implements Serializable {
                 + "\n[waypoints=" + getWaypoints() + "]";
     }
 
-    /**
-     * Update the matching statistics, this should be overriden to make sense.
-     * For ex, it can be overridden by calling an external MatchingService and
-     * update the matchings.
-     *
-     *
-     */
-    protected void updateMatchings() {
-    }
+
 
     /**
      *
