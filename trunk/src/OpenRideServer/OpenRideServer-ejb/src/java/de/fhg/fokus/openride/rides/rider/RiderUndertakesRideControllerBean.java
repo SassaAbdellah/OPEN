@@ -47,6 +47,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -282,10 +283,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             rider.updateCustLastMatchingChange();
             em.persist(rider);
         }
-
-
-        this.commitUserTransaction();
+ 
         em.flush();
+        commitUserTransaction();      
     }
 
     public void setReceivedRating(int riderRouteId, int rating, String ratingComment) {
@@ -1483,10 +1483,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     @Override
     public List<RiderUndertakesRideEntity> getRidesForRiderAfterDate(CustomerEntity ce, Date startDate) {
 
-    	
+   
     	Query query = em.createNamedQuery("RiderUndertakesRideEntity.findRidesAfterDateforCustId");
         List<RiderUndertakesRideEntity> res = query.setParameter("custId", ce).setParameter("startDate", startDate).getResultList();
-       
+        this.refreshEntityList(res);
         return res;
     }
 
