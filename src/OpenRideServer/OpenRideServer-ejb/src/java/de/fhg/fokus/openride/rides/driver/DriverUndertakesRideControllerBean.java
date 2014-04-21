@@ -71,6 +71,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @PersistenceContext
     private EntityManager em;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
+    
+    
+   
+    
+    
+    
 
     @Override
     public boolean isDeletable(int rideId) {
@@ -429,7 +435,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     	Query query=em.createNamedQuery("DriverUndertakesRideEntity.findCustomerDrivesAfterTime");
     	query.setParameter("custId", custId).setParameter("time", rideStarttime);
     	List<DriverUndertakesRideEntity> res = (List<DriverUndertakesRideEntity>) query.getResultList();
-   	
+    	this.refreshEntityList(res);
         return res;
     }
 
@@ -807,8 +813,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.persist(driver);
         }
 
-        commitUserTransaction();
         em.flush();
+        commitUserTransaction();   
     }
 
     /**
