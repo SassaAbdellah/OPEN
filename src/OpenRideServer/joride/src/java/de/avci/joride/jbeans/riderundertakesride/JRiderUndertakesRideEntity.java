@@ -506,22 +506,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		return this.jMatches;
 	}
 
-	/**
-	 * Returns a list of Matching Drive Offers for this ride
-	 * 
-	 * @return Returns a list of Matching Drive Offers for this ride
-	 */
-	@Override
-	public List<MatchEntity> getMatchings() {
-
-		if (this.getRiderrouteId() == null) {
-			log.log(Level.SEVERE, "riderRouteId is null, returning empty list");
-			return new LinkedList<MatchEntity>();
-		}
-
-		return (new JMatchingEntityService()).getMatchesForRide(this
-				.getRiderrouteId());
-	}
 
 	/**
 	 * Returns true, if this ride has been updated
