@@ -76,23 +76,27 @@
 									</h:form>
 							</span></td>
 						</tr>
-						<tr>
-							<td><span class="formLabel">
-									#{msgs.matchDriversGender} </span></td>
-							<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-							<td><span class="formInput">
-									#{matching.driverGenderLabel} </span></td>
-						</tr>
 
-						<tr>
-							<td><span class="formLabel"> #{msgs.matchDriveID} </span></td>
-							<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-							<td><span class="formInput"> #{matching.drive.rideId}
-							</span></td>
-						</tr>
+							<tr>
+								<td><span class="formLabel">
+										#{msgs.matchDriverState} </span></td>
+								<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
+								<td><span class="formInput">
+										#{matching.driverStateMessage} </span></td>
+							</tr>
 
 
-						<tr>
+							<tr>
+								<td><span class="formLabel"> #{msgs.matchRiderState}
+								</span></td>
+								<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
+								<td><span class="formInput">
+										#{matching.riderStateMessage} </span></td>
+							</tr>
+
+
+
+							<tr>
 							<td colspan="3"><span class="formLabel"> <h:form>
 										<h:commandLink action="rider.matchDisplay"
 											value="#{msgs.matchMatchingDrive}">

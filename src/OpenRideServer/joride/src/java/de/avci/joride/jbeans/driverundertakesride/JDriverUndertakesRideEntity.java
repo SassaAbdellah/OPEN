@@ -6,6 +6,7 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -23,6 +24,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
+import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -647,7 +649,8 @@ public class JDriverUndertakesRideEntity extends
 				this.jMatches.add(new JMatchingEntity(m));
 			}
 		}
-		
+			
+		Collections.sort(this.jMatches, new JMatchingSorter4Driver());
 		return this.jMatches;
 	}
 

@@ -6,6 +6,8 @@ import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
+import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
+import de.avci.joride.jbeans.matching.JMatchingSorter4Rider;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -16,6 +18,7 @@ import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -502,7 +505,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 				this.jMatches.add(new JMatchingEntity(m));
 			}
 		}
-
+		Collections.sort(this.jMatches, new JMatchingSorter4Rider());
 		return this.jMatches;
 	}
 
