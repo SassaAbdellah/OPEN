@@ -152,7 +152,7 @@ public class JDriverUndertakesRideEntity extends
 	/**
 	 * Accessor with lazy instantiation
 	 * 
-	 * 
+	 *
 	 * 
 	 * @return
 	 */

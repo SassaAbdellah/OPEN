@@ -4,6 +4,7 @@
  */
 package de.avci.joride.jbeans.matching;
 
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
@@ -14,6 +15,9 @@ import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -155,6 +159,7 @@ public class JMatchingEntity implements Serializable {
     public void rejectRider(ActionEvent evt) {
         new JMatchingEntityService().rejectRiderSafely(this);
     }
+    
 
     /**
      * wether or not to disable the link that allows the requester to accept a
@@ -565,6 +570,40 @@ public class JMatchingEntity implements Serializable {
        new JMatchingEntityService().countermandSafely(this.getMatchEntity());
     }
 
+    /** common date format
+     */
+    private DateFormat dateFormat;
+
+	/**
+	 * Accessor with lazy instantiation
+	 * 
+	 * 
+	 * @return
+	 */
+	protected DateFormat getDateFormat() {
+
+		if (this.dateFormat == null) {
+			dateFormat = (new JoRideConstants()).createDateTimeFormat();
+		}
+
+		return dateFormat;
+	}
+    
+    protected String getDatetimeFormatted(Date date){ 
+    		return getDateFormat().format(date);
+    
+    }
+    
+    /**
+     * @return nicely formatted version of expected pickup time
+     */
+    public String getMatchExpectedStartTimeFormatted(){
+    
+    	if(this.getMatchEntity()==null) return "--";
+    	if(this.getMatchEntity().getMatchExpectedStartTime()==null) return "--";
+    	return getDatetimeFormatted(this.getMatchEntity().getMatchExpectedStartTime());
+    }
+    
     
     
     
