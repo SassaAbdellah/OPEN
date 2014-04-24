@@ -36,6 +36,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.swing.JWindow;
 import javax.transaction.UserTransaction;
 
 import org.postgis.Point;
@@ -547,7 +548,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // remove old ride
         if (removeRide(rideId)) {
             // add ride with new informations
-            return addRide(cust_id, ridestartPt, rideendPt, intermediatePoints, ridestartTime, rideComment, acceptableDetourInMin, acceptableDetourKm, acceptableDetourPercent, offeredSeatsNo, startptAddress, endptAddress);
+            return addRide(cust_id, ridestartPt, rideendPt, intermediatePoints,null, ridestartTime, rideComment, acceptableDetourInMin, acceptableDetourKm, acceptableDetourPercent, offeredSeatsNo, startptAddress, endptAddress);
         } else {
             return -1;
         }
@@ -559,6 +560,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             Point ridestartPt,
             Point rideendPt,
             Point[] intermediatePoints,
+            List<WaypointEntity> waypoints,
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
@@ -599,6 +601,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         drive.setCustId(customer);
         drive.setStartptAddress(startptAddress);
         drive.setEndptAddress(endptAddress);
+        drive.setWaypoints(waypoints);
+        //
         // persist the drive, so that there is a (JPA-generated) drive id
         em.persist(drive);
         // compute routes
@@ -1133,6 +1137,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     protected void addWaypoint(int rideId, WaypointEntity waypoint, int position, boolean transaction) {
 
+    	DriverUndertakesRideEntity ride=this.getDriveByDriveId(rideId);
+    	if(ride==null){
+    		logger.severe("Cannot add waypoint to Id : "+rideId+" no such Id");
+    		return; // nothing to do
+    	}
 
         logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " routeIdx : " + waypoint.getRouteIdx() + " transaction : " + transaction);
 
@@ -1145,7 +1154,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
 
         //TODO: for a start add  waypoint at the end, change that....
-        waypoint.setRideId(rideId);
+        waypoint.setRideId(ride);
         em.persist(waypoint);
 
         // find place and add waypoint to list

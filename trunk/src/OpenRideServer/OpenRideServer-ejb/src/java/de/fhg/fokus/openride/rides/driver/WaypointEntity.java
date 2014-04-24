@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
  * @author jochen
  */
 @NamedQueries({
-    @NamedQuery(name = "WaypointEntity.findByRideId", query = "SELECT wp FROM WaypointEntity wp WHERE wp.rideId = :rideId ORDER BY wp.routeIdx"),})
+    @NamedQuery(name = "WaypointEntity.findByRideId", query = "SELECT wp FROM WaypointEntity wp WHERE wp.rideId.rideId = :rideId ORDER BY wp.routeIdx"),})
 @Entity
 @Table(name = "waypoint")
 public class WaypointEntity implements Serializable {
@@ -41,8 +42,9 @@ public class WaypointEntity implements Serializable {
      * References the driverundertakesride Object that this waypoint belongs to
      * 
      */
-    @Column(name = "ride_id", nullable = false)
-    private Integer rideId;
+    @JoinColumn(name = "ride_id", nullable = false)
+    @ManyToOne
+    private DriverUndertakesRideEntity rideId;
     /**
      * Gives the order in which waypoints should be called on the tour.
      */
@@ -59,7 +61,7 @@ public class WaypointEntity implements Serializable {
     public WaypointEntity() {
     }
 
-    public WaypointEntity(Integer rideId, Integer routeIdx, Double longitude, Double latitude, Integer riderrouteId, boolean isRequired) {
+    public WaypointEntity(DriverUndertakesRideEntity rideId, Integer routeIdx, Double longitude, Double latitude, Integer riderrouteId, boolean isRequired) {
         this.rideId = rideId;
         this.routeIdx = routeIdx;
         this.longitude = longitude;
@@ -78,7 +80,7 @@ public class WaypointEntity implements Serializable {
         return longitude;
     }
 
-    public Integer getRideId() {
+    public DriverUndertakesRideEntity getRideId() {
         return rideId;
     }
 
@@ -102,7 +104,7 @@ public class WaypointEntity implements Serializable {
         this.longitude = longitude;
     }
 
-    public void setRideId(Integer rideId) {
+    public void setRideId(DriverUndertakesRideEntity rideId) {
         this.rideId = rideId;
     }
 
@@ -129,7 +131,7 @@ public class WaypointEntity implements Serializable {
         // A routePoint representing a *driver* defined waypoint 
         // will always be required
         res.setRequired(Boolean.TRUE);
-        res.setRideId(this.getRideId());
+        res.setRideId(this.getRideId().getRideId());
         // A routePoint representing a *driver* defined waypoint 
         // does not have a reference to any ride
         res.setRiderrouteId(null);

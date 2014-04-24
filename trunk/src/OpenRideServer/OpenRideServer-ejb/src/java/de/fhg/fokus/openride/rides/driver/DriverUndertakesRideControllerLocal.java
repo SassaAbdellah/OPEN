@@ -44,6 +44,7 @@ public interface DriverUndertakesRideControllerLocal {
      * @param ridestartPt              Coordinates of starting point 
      * @param rideendPt                Coordinates of endpoint
      * @param intermediatePoints       currently ignored, using waypoints and addWaypoint instead
+     * @param WayPoints                Waypoints (driver defined)
      * @param ridestartTime            Date/Time when ride starts
      * @param rideComment              Driver's comment
      * @param acceptableDetourInMin    currently ignored, using acceptable Detour in Km instead
@@ -61,6 +62,7 @@ public interface DriverUndertakesRideControllerLocal {
             Point ridestartPt,
             Point rideendPt,
             Point[] intermediatePoints,
+            List <WaypointEntity>  waypoints,
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
