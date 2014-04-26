@@ -38,6 +38,7 @@ public class RideOfferDTOConverter {
 			dto.setComment(entity.getRideComment());
 			dto.setStartTime(new Timestamp(entity.getRideStarttime().getTime()));
 			dto.setOfferedSeatsNo(entity.getRideOfferedseatsNo());
+			dto.setAcceptableDetourKM(entity.getRideAcceptableDetourInKm());
 			//
 			// Startpoint
 			LocationDTO startLocation = locationConverter.locationDTO(
@@ -52,7 +53,6 @@ public class RideOfferDTOConverter {
 			// waypoints
 			dto.setWayPoints(waypointDTOConverter.waypointDTOList(entity
 					.getWaypoints()));
-			//
 			//
 		} // entity != null
 		return dto;
