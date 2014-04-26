@@ -1134,7 +1134,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param position
      * @param transaction turn on transaction explicitely
      */
-    protected void addWaypoint(int rideId, WaypointEntity waypoint, int position, boolean transaction) {
+    protected void addWaypoint(int rideId, WaypointEntity wpt, int position, boolean transaction) {
 
     		
     	  // cannot add waypoint, if there is no ride...
@@ -1147,56 +1147,29 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
               return;
           }
     	
-        // set routeIdx for waypoint   otherways a non-null violations
-          waypoint.setRouteIdx(position);
-          
-          
-          
-        logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " routeIdx : " + waypoint.getRouteIdx() + " transaction : " + transaction);
+       
+        logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " position : " + position + " transaction : " + transaction);
 
         if (transaction) {
             startUserTransaction();
         }
-
         
-        // temporarily giva all existing waypoints a 
-        // "shifted" route index to avoid
-        // mucking around with duplciate keys
-        int offset=ride.getWaypoints().size()+2;
-        for(int i=0 ; i< ride.getWaypoints().size(); i++){
-        	ride.getWaypoints().get(i).setRouteIdx(offset+i);
+        
+        // increment other route Indices to avoid duplication
+        for(WaypointEntity w: ride.getWaypoints()){
+        	if(w.getRouteIdx()>=position){
+        		w.setRouteIdx(w.getRouteIdx()+1);
+        	}
         }
-        
-        em.flush();
+  
+        // set routeIdx for waypoint   otherways a non-null violations
+        wpt.setRouteIdx(position);
+        wpt.setRideId(ride);
+        // merge in waypoint persist, and done!
+        ride.getWaypoints().add(wpt);
       
-        waypoint.setRideId(ride);
-      
-        // find place and add waypoint to list
-        // note, that position in list reflects the "old" route index of a waypoint
-        int size = ride.getWaypoints().size();
-
-        if (position <= 0) { // add at beginning of list
-            ride.getWaypoints().add(0, waypoint);
-        } else if (position > size) { // add at end of list
-        	ride.getWaypoints().add(size, waypoint);
-        } else { // add exactly at position
-        	ride.getWaypoints().add(position, waypoint);
-        }
-        
-        // TODO: remove, just here to have a breakpoint
-        em.flush();
-        
-        // now, readjust route indices... 
-        
-        for(int i=0 ; i<ride.getWaypoints().size(); i++){
-        		ride.getWaypoints().get(i).setRouteIdx(i);
-        }
-        
-        // TODO: remove, just here to have a breakpoint
-        em.flush();
-        
-        //  ...and synchronize waypoints with database again
-        for(WaypointEntity w: ride.getWaypoints()){ em.merge(w);}
+        //  ...and persist all waypoints
+        for(WaypointEntity w: ride.getWaypoints()){ em.persist(w);}
         
         // TODO: remove, just here to have a breakpoint
         em.flush();
