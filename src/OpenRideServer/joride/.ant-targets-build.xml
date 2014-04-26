@@ -1,0 +1,10 @@
+apply-local-properties
+build
+clean
+compile
+copy
+dist
+install
+jar
+prepare
+war

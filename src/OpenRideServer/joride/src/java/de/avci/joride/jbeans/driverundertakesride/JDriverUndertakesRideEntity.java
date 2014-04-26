@@ -810,6 +810,8 @@ public class JDriverUndertakesRideEntity extends
 		for (WaypointEntity wp : this.getWaypoints()) {
 			res.add(new JWaypointEntity(wp));
 		}
+		
+		Collections.sort(res);
 		return res;
 	}
 

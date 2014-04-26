@@ -26,7 +26,7 @@ import javax.inject.Named;
  * Frontend to Waypoint Entity as a JSF Bean.
  *
  */
-public class JWaypointEntity extends WaypointEntity implements Serializable {
+public class JWaypointEntity extends WaypointEntity implements Serializable, Comparable<JWaypointEntity> {
 
     /**
      * Parametername for rideId. Used when doing a smart update.
@@ -295,5 +295,21 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
     public int getDisplayRouteIndex(){
         return this.getRouteIdx()+1;
     }
+
+    /** Wayponts are naturally compared by comparing the route index.
+     *  Lower Ride Index comes firs.
+     * 
+     * @param o
+     * @return
+     */
+	@Override
+	public int compareTo(JWaypointEntity o) {
+	
+		if(this.getRouteIdx()>o.getRouteIdx()){return 1;}
+		if(this.getRouteIdx()<o.getRouteIdx()){return -1;}
+		return 0;
+	}
+
+	
     
 }
