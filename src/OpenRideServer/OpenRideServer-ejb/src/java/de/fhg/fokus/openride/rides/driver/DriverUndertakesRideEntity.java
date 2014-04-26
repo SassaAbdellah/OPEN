@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -121,7 +122,7 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Integer rideOfferedseatsNo;
     @OneToMany(mappedBy = "rideId")
     private Collection<RiderUndertakesRideEntity> riderUndertakesRideEntityCollection;
-    @OneToMany(mappedBy = "rideId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "rideId", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<WaypointEntity> waypoints;
     // fetch type eager, because of lesson learned. Better pay for EAGER loading then for
     // repeatedly calling server for matchings from frontend!
