@@ -18,6 +18,7 @@ import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.RouterBeanLocal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -380,6 +381,8 @@ public class JDriverUndertakesRideEntityService {
                 res.add(new JWaypointEntity(w));
             }
         }
+        
+        Collections.sort(res);
         return res;
     }
 
