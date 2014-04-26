@@ -6,6 +6,7 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import java.io.Serializable;
 import javax.faces.bean.SessionScoped;
@@ -89,7 +90,9 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
 
             if (rideIdS != null) {
                 try {
-                    this.setRideId(new Integer(rideIdS));
+                	Integer rideId=new Integer(rideIdS);
+                	DriverUndertakesRideEntity drive=new JDriverUndertakesRideEntityService().getDriveByIdSafely(rideId);
+                    this.setRideId(drive);
                 } catch (Exception exc) {
                     System.err.println(exc);
                 }
@@ -281,7 +284,7 @@ public class JWaypointEntity extends WaypointEntity implements Serializable {
      * 
      */
     public void removeFromDrive(){
-        new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId(), this.getRouteIdx());
+        new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(this.getRideId().getRideId(), this.getRouteIdx());
     }
     
     /** Position of waypoint to be displayed.

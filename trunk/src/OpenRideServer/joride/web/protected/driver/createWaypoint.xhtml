@@ -31,7 +31,6 @@
 
                     #{waypoint.smartUpdate()}
 
-
                     <h1> #{msgs.waypointAddWaypoint} </h1>
 
                     <table>
@@ -116,7 +115,7 @@
                                     action="driver.editRouting" 
                                     >
 
-                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId}"/>
+                                    <f:param  name="#{crud.paramNameCrudId}"   value="#{waypoint.rideId.rideId}"/>
                                 </h:commandButton>
                                 
                             </td> 

@@ -543,6 +543,8 @@ public class JDriverUndertakesRideEntityService {
                 jdure.getRideEndpt(),
                 //  Point[] intermediatePoints
                 jdure.getIntermediatePoints(),
+                // waypointds
+                jdure.getWaypoints(),
                 //java.sql.Date ridestartTime
                 new java.sql.Date(jdure.getRideStarttime().getTime()),
                 //String rideComment
@@ -652,8 +654,7 @@ public class JDriverUndertakesRideEntityService {
         CustomerEntity ce = this.getCustomerEntity();
 
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
-        DriverUndertakesRideEntity due =
-                durcl.getDriveByDriveId(waypoint.getRideId());
+        DriverUndertakesRideEntity due = waypoint.getRideId();
 
         // Sanity check, caller of this method must be owner of this offer
 
