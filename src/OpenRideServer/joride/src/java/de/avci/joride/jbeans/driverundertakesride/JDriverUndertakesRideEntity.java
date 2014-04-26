@@ -869,4 +869,5 @@ public class JDriverUndertakesRideEntity extends
 		return getAcceptedMatchings().size() > 0;
 	}
 
+	
 } // class
