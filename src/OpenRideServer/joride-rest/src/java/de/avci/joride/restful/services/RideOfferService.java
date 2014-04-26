@@ -25,9 +25,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.avci.joride.restful.converters.LocationDTOConverter;
 import de.avci.joride.restful.converters.RideOfferDTOConverter;
+import de.avci.joride.restful.converters.WaypointDTOConverter;
 import de.avci.joride.restful.dto.offers.RideOfferDTO;
+import de.avci.joride.restful.dto.offers.WaypointDTO;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
@@ -50,6 +53,7 @@ public class RideOfferService extends AbstractRestService {
 	private RideOfferDTOConverter offerConverter = new RideOfferDTOConverter();
 
 	private LocationDTOConverter locationConverter=new LocationDTOConverter();
+
 	
 	/**
 	 * Get a list of all ride Offers for respective user
@@ -143,6 +147,7 @@ public class RideOfferService extends AbstractRestService {
 				locationConverter.point(dto.getEndLocation()),
 				// intermediate Points currently left out...
 				new Point[0], //Point[] intermediate route
+				null, // Have to know DriveId to add waypoints!
 				new Date(dto.getStartTime().getTime()),
 				dto.getComment(), 
 				null, // no acceptable Detour Minutes
@@ -157,7 +162,19 @@ public class RideOfferService extends AbstractRestService {
 		if (updateResult == -1) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-
+	
+		// to add waypoints, we'll have to get hold of the rideId
+		Integer rideId=updateResult;
+		DriverUndertakesRideEntity ride=durcl.getDriveByDriveId(rideId);
+		WaypointDTOConverter waypointDTOConverter=new WaypointDTOConverter();
+		
+		// add waypoints
+		for(WaypointDTO wDTO:dto.getWayPoints() ){
+			WaypointEntity wEntity=waypointDTOConverter.waypointEntity(wDTO,ride);
+			durcl.addWaypoint(rideId, wEntity,wDTO.getRouteIdx());
+		}
+		
+	
 		return Response.status(Response.Status.ACCEPTED).build();
 
 	}
