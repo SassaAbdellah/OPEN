@@ -55,26 +55,51 @@
                                             <p>
                                                 <table> <!-- nested table #1 -->                         
                                                     <tr>
-                                                        <td colspan="3">
-                                                            <span class="formLabel">
+                                                         <td colspan="1" class="formLabel">
+                                                                <p:commandButton
+                                                                 id="rideDisplayButton"
+                                                                 action="rider.rideDisplay"
+                                                                 icon="ui-icon-circle-zoomin"
+                                                                  ajax="false"
+                                                                 >
+                                                                    <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
+                                                                    <f:param name="#{webflow.getParamBack()}" value="rider"          />
+                                                                </p:commandButton>
+                                                                
+                                                                <p:tooltip for="rideDisplayButton"
+                                                                value="#{msgs.rideDisplayRequest}" />
+                                                        </td>
+                                                    
+                                                        <td colspan="2" class="formLabel">
                                                                 <h:commandLink action="rider.rideDisplay" value="#{msgs.rideDisplayRequest}">
                                                                     <f:param  name="#{crud.paramNameCrudId}" value="#{ride.riderrouteId}"/>
                                                                     <f:param name="#{webflow.getParamBack()}" value="rider"          />
                                                                 </h:commandLink>
-                                                            </span>
                                                         </td>
                                                     </tr>
 
                                                     <!-- *** show matchings list only if there are matchings *** -->
                                                     <ui:fragment rendered="#{ride.hasMatches}">
                                                         <tr>
-                                                            <td colspan="3">
-                                                                <span class="formLabel">
+                                                            <td colspan="1"   class="formLabel">
+                                                                    <p:commandButton 
+                                                                    id="showMatchesButton1"
+                                                                    action="rider.rideMatchingsList"
+                                                                    icon="ui-icon-help"
+                                                                    ajax="false"
+                                                                     >
+                                                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                                        <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                                                    </p:commandButton>
+                                                    
+                                                                    <p:tooltip for="showMatchesButton1" value="#{msgs.rideMatchesShowOffers}" />
+                                                            </td>
+                                                        
+                                                            <td colspan="2"   class="formLabel">
                                                                     <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
                                                                         <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
                                                                         <f:param  name="#{webflow.getParamBack()}" value="rider"               />
                                                                     </h:commandLink>
-                                                                </span>
                                                             </td>
                                                         </tr>
                                                     </ui:fragment> 
@@ -118,13 +143,25 @@
                                                     <!-- *** show matchings list only if there are matchings *** -->
                                                     <ui:fragment rendered="#{ride.hasMatches}">
                                                         <tr>
-                                                            <td colspan="3">
-                                                                <span class="formLabel">
+                                                        
+                                                        <td colspan="1"   class="formLabel">
+                                                                    <p:commandButton 
+                                                                    id="showMatchesButton2"
+                                                                    action="rider.rideMatchingsList"
+                                                                    icon="ui-icon-help"
+                                                                    ajax="false"
+                                                                     >
+                                                                        <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
+                                                                        <f:param  name="#{webflow.getParamBack()}" value="rider"               />
+                                                                    </p:commandButton>
+                                                    
+                                                                    <p:tooltip for="showMatchesButton2" value="#{msgs.rideMatchesShowOffers}" />
+                                                            </td>
+                                                            <td colspan="2" class="formLabel">
                                                                     <h:commandLink action="rider.rideMatchingsList" value="#{msgs.rideMatchesShowOffers}">
                                                                         <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
                                                                         <f:param  name="#{webflow.getParamBack()}" value="rider"               />
                                                                     </h:commandLink>
-                                                                </span>
                                                             </td>
                                                         </tr>
                                                     </ui:fragment> 
