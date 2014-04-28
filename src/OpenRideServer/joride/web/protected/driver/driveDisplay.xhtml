@@ -114,10 +114,22 @@
 
 
                     <h:form rendered="#{!canceldriverride.canCountermandDriver}">
-                        <tr>
-                            <td>
-                                #{msgs.rideRemoveThisOffer}"
+                        <tr>  
+                            <td colspan="1" class="formLabel">
+                                <p:commandButton 
+                                id="cancelRide" 
+                                icon="ui-icon-trash"
+                                 actionListener="#{canceldriverride.invalidate()}" 
+                                 ajax="false"
+                                 disabled="#{!canceldriverride.canCountermandDriver}"
+                                 >           
+                                    <!-- Webflow parameters -->
+                                    <f:param   name="#{crud.paramNameCrudId}"   value="#{rscdriverride.rideId}"/>
+                                    <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />                
+                                </p:commandButton>
+                                <p:tooltip  value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
                             </td>
+                               
                             <td> : </td>
                             <td>  
                                 #{msgs.driveCannotBeCountermandedBecauseOfMatch}
@@ -134,9 +146,6 @@
                                     <f:param   name="#{webflow.getParamBack()}" value="driver.driveDisplay" />                
                                 </p:commandButton>
                                 <p:tooltip  value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
-
-
-
                             </td>
 
                             <td colspan="2" class="formLabel">  
