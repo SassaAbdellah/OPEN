@@ -49,7 +49,7 @@ public class MatchService extends AbstractRestService {
 	
 	
 	@GET
-	@Path("allMatches")
+	@Path("findAll")
 	public String listRideOffers(@Context HttpServletRequest request){
 		
 		

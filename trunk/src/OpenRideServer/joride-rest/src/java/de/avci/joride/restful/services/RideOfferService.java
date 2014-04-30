@@ -63,7 +63,7 @@ public class RideOfferService extends AbstractRestService {
 	 */
 
 	@GET
-	@Path("allRideOffers/")
+	@Path("findAll/")
 	public String listRideOffers(@Context HttpServletRequest request) {
 
 		List<DriverUndertakesRideEntity> entities = this
