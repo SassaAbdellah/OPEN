@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,8 +56,8 @@ public class RideRequestService extends AbstractRestService {
 	
 	
 	@GET
-	@Path("allRideRequests")
-	public String listRideOffers(@Context HttpServletRequest request){
+	@Path("findAll")
+	public String listRideRequests(@Context HttpServletRequest request){
 		
 		
 		LinkedList<RiderUndertakesRideEntity> entities=this.lookupRiderUndertakesRideControllerBean().getAllRides();
@@ -151,6 +152,74 @@ public class RideRequestService extends AbstractRestService {
 
 		return Response.status(Response.Status.ACCEPTED).build();
 	}
+	
+	
+	
+	
+	/** 
+	 *  Create a number of ride requests from list of  DTOs.
+	 *  (Bulkadd)
+	 *  This is used for performance test, when we do not want to
+	 *  measure http overhead when adding multiple requests
+	 *  
+	 * 
+	 * @param request
+	 * @return
+	 * 
+	 * 
+	 */
+	@POST	
+	@Path("bulkadd")
+	public Response addRequests(String json) {
+
+		
+		RideRequestDTO[] dtos;
+		try {
+			dtos = jacksonMapper.readValue(json, RideRequestDTO[].class);
+		} catch ( IOException e) {
+			// TODO: log error!
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		
+		RiderUndertakesRideControllerLocal rurcl = lookupRiderUndertakesRideControllerBean();
+		
+		// add dto's galore
+		for(RideRequestDTO dto : dtos){
+		
+			int updateResult=
+					rurcl.addRideRequest(
+							//cust_id
+				dto.getCustomerId(), 
+				//starttime_earliest
+				new Date(dto.getStartTimeEarliest().getTime()), 
+				//starttimeLatest
+				new Date(dto.getStartTimeLatest().getTime()), 
+				//noPassengers
+				dto.getNumberOfPassengers(), 
+				//startpt
+				locationConverter.point(dto.getStartLocation()), 
+				// endpt
+				locationConverter.point(dto.getEndLocation()), 
+				// price
+				dto.getPrice(),
+				// comment
+				dto.getComment(),
+				// startpt address
+				locationConverter.address(dto.getStartLocation()), 
+				// endpt address
+				locationConverter.address(dto.getEndLocation())
+				);
+		
+		
+			if (updateResult == -1) {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+		}
+		
+		return Response.status(Response.Status.ACCEPTED).build();
+	}
+	
+	
 	
 	
 	
