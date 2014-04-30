@@ -50,51 +50,6 @@ public class Constants {
     public static final double MATCHING_DEFAULT_D = 2000;
     public static final double MATCHING_DEFAULT_MAX_DETOUR_SECONDS = 600;
     public static final double MATCHING_MAX_ROUTE_POINT_DISTANCE = 2000;
-    /*
-     * DATABASE CONNECTIONS
-     */
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String OPEN_RIDE_DB_HOST = "localhost";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final int OPEN_RIDE_DB_PORT = 5432;
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String OPEN_RIDE_DB_NAME = "openride";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String OPEN_RIDE_DB_USER = "postgres";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String OPEN_RIDE_DB_PASS = "admin";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String PGROUTING_DB_HOST = "localhost";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final int PGROUTING_DB_PORT = 5432;
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String PGROUTING_DB_NAME = "routing_osm";
-    //public static final String PGROUTING_DB_NAME = "osm_friedrichshafen";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String PGROUTING_DB_USER = "postgres";
-    /**
-     * @deprecated : found in original Openride, but probably not used any more
-     */
-    public static final String PGROUTING_DB_PASS = "admin";
+   
+   
 }
