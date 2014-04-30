@@ -1,6 +1,5 @@
 package de.avci.joride.restful.services;
 
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.LinkedList;
@@ -43,18 +42,17 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 @Path("offer")
 @Produces("application/json")
 @Consumes("application/json")
-
 public class RideOfferService extends AbstractRestService {
 
-	private Logger logger=Logger.getLogger(this.getClass().getCanonicalName());
-	
+	private Logger logger = Logger
+			.getLogger(this.getClass().getCanonicalName());
+
 	private ObjectMapper jacksonMapper = new ObjectMapper();
 
 	private RideOfferDTOConverter offerConverter = new RideOfferDTOConverter();
 
-	private LocationDTOConverter locationConverter=new LocationDTOConverter();
+	private LocationDTOConverter locationConverter = new LocationDTOConverter();
 
-	
 	/**
 	 * Get a list of all ride Offers for respective user
 	 * 
@@ -83,9 +81,7 @@ public class RideOfferService extends AbstractRestService {
 			throw new Error(exc);
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Get an individual offer with given id
 	 * 
@@ -98,61 +94,57 @@ public class RideOfferService extends AbstractRestService {
 	public String getRideOffer(@PathParam("id") String id) {
 
 		try {
-		Integer idInt=new Integer(id);
-		DriverUndertakesRideEntity entity=this.lookupDriverUndertakesRideControllerBean().getDriveByDriveId(idInt);
-		RideOfferDTO dto=offerConverter.rideOfferDTO(entity);
-		// object as json
-		return jacksonMapper.writeValueAsString(dto);
+			Integer idInt = new Integer(id);
+			DriverUndertakesRideEntity entity = this
+					.lookupDriverUndertakesRideControllerBean()
+					.getDriveByDriveId(idInt);
+			RideOfferDTO dto = offerConverter.rideOfferDTO(entity);
+			// object as json
+			return jacksonMapper.writeValueAsString(dto);
 		} catch (JsonProcessingException exc) {
 			throw new Error(exc);
 		}
 	}
-	
-	
-	
-	
-
-	
-	
 
 	/**
-	 * TODO: insecure! -- only here for doing bulk test!
-	 * TODO: bad impl. Relies on now deprecated DriverUndertakesRideControllerBeanLocal.updateRide method 
-	 *    
-	 * probably, this should be replace with something completel different.   
-	 *    
+	 * TODO: insecure! -- only here for doing bulk test! TODO: bad impl. Relies
+	 * on now deprecated DriverUndertakesRideControllerBeanLocal.updateRide
+	 * method
+	 * 
+	 * probably, this should be replace with something completel different.
+	 * 
 	 * @param json
 	 *            JSON encoding a single RideOfferDTO Object.
 	 * @return
 	 */
 
-	@POST	
+	@POST
 	public Response addOffer(String json) {
 
 		DriverUndertakesRideControllerLocal durcl = lookupDriverUndertakesRideControllerBean();
 		RideOfferDTO dto;
 		try {
 			dto = jacksonMapper.readValue(json, RideOfferDTO.class);
-		} catch ( IOException e) {
-			
+		} catch (IOException e) {
+
 			// TODO: log error!
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-		
-		
+
 		int updateResult = durcl.addRide(
-				
-				dto.getCustomerId().intValue(),
+
+		dto.getCustomerId().intValue(),
 				locationConverter.point(dto.getStartLocation()),
 				locationConverter.point(dto.getEndLocation()),
 				// intermediate Points currently left out...
-				new Point[0], //Point[] intermediate route
+				new Point[0], // Point[] intermediate route
 				null, // Have to know DriveId to add waypoints!
-				new Date(dto.getStartTime().getTime()),
-				dto.getComment(), 
-				null, // no acceptable Detour Minutes
-				dto.getAcceptableDetourKM(),
-				null, // no Acceptable Detour In Percent(),
+				new Date(dto.getStartTime().getTime()), dto.getComment(), null, // no
+																				// acceptable
+																				// Detour
+																				// Minutes
+				dto.getAcceptableDetourKM(), null, // no Acceptable Detour In
+													// Percent(),
 				dto.getOfferedSeatsNo(),
 				// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
 				dto.getStartLocation().getAddress(),
@@ -162,25 +154,90 @@ public class RideOfferService extends AbstractRestService {
 		if (updateResult == -1) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-	
+
 		// to add waypoints, we'll have to get hold of the rideId
-		Integer rideId=updateResult;
-		DriverUndertakesRideEntity ride=durcl.getDriveByDriveId(rideId);
-		WaypointDTOConverter waypointDTOConverter=new WaypointDTOConverter();
-		
+		Integer rideId = updateResult;
+		DriverUndertakesRideEntity ride = durcl.getDriveByDriveId(rideId);
+		WaypointDTOConverter waypointDTOConverter = new WaypointDTOConverter();
+
 		// add waypoints
-		for(WaypointDTO wDTO:dto.getWayPoints() ){
-			WaypointEntity wEntity=waypointDTOConverter.waypointEntity(wDTO,ride);
-			durcl.addWaypoint(rideId, wEntity,wDTO.getRouteIdx());
+		for (WaypointDTO wDTO : dto.getWayPoints()) {
+			WaypointEntity wEntity = waypointDTOConverter.waypointEntity(wDTO,
+					ride);
+			durcl.addWaypoint(rideId, wEntity, wDTO.getRouteIdx());
 		}
-		
-	
+
 		return Response.status(Response.Status.ACCEPTED).build();
 
 	}
-	
-	
-	
 
 	
+	
+	
+	/** 
+	 *  Create a number of ride offers from list of  DTOs.
+	 *  (Bulkadd)
+	 *  This is used for performance test, when we do not want to
+	 *  measure http overhead when adding multiple requests
+	 * 
+	 * 
+	 * @param request
+	 * @return
+	 * 
+	 */
+
+	@POST
+	@Path("bulkadd")
+	public Response addOffers(String json) {
+
+		DriverUndertakesRideControllerLocal durcl = lookupDriverUndertakesRideControllerBean();
+		RideOfferDTO[] dtos;
+		try {
+			dtos = jacksonMapper.readValue(json, RideOfferDTO[].class);
+		} catch (IOException e) {
+
+			// TODO: log error!
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
+		for (RideOfferDTO dto : dtos) {
+
+			int updateResult = durcl.addRide(
+
+					dto.getCustomerId().intValue(),
+					locationConverter.point(dto.getStartLocation()),
+					locationConverter.point(dto.getEndLocation()),
+					// intermediate Points currently left out...
+					new Point[0], // Point[] intermediate route
+					null, // Have to know DriveId to add waypoints!
+					new Date(dto.getStartTime().getTime()), dto.getComment(),
+					null, // no acceptable Detour Minutes
+					dto.getAcceptableDetourKM(), null, // no Acceptable Detour
+														// In Percent(),
+					dto.getOfferedSeatsNo(),
+					// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
+					dto.getStartLocation().getAddress(),
+					// StringEscapeUtils.unescapeHtml(r.getEndptAddress())))
+					dto.getEndLocation().getAddress());
+
+			if (updateResult == -1) {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+
+			// to add waypoints, we'll have to get hold of the rideId
+			Integer rideId = updateResult;
+			DriverUndertakesRideEntity ride = durcl.getDriveByDriveId(rideId);
+			WaypointDTOConverter waypointDTOConverter = new WaypointDTOConverter();
+
+			// add waypoints
+			for (WaypointDTO wDTO : dto.getWayPoints()) {
+				WaypointEntity wEntity = waypointDTOConverter.waypointEntity(
+						wDTO, ride);
+				durcl.addWaypoint(rideId, wEntity, wDTO.getRouteIdx());
+			}
+
+		}
+		return Response.status(Response.Status.ACCEPTED).build();
+	}
+
 }
