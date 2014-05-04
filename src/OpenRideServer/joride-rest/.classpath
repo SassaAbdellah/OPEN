@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="lib/joride.jar" sourcepath="/joride/src/java"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgis-jdbc-2.0.2SVN.jar"/>
 	<classpathentry kind="src" path="/OpenRideServer-ejb"/>
+	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/httpclient-4.3.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
