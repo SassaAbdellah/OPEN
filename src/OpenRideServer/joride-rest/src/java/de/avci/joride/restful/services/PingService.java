@@ -39,26 +39,10 @@ public class PingService {
         String result = "{\"PingResponse\": \" hello from : "+this.getClass()+"\"}";
 
         return result;
-
     }
     
 
-    @POST
-    /** Returning simple JSON text to show that Rest Interface is there,
-     *  and reacting to POST requests.
-     *  
-     *
-     */
-    public String post(String json) {
-
-    
-
-        return "retrieved json: "+json;
-
-    }
-    
-
-
+ 
 
     /**
      * Root webservices must have a default constructor!
