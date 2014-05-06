@@ -317,9 +317,17 @@ public class DriverUndertakesRideEntity implements Serializable {
         return true;
     }
 
+    /**
+     * @return Waypoints for this entity. Maybe not sorted by routeIndex.
+     *         If You want sorted waypoints, call get sortedWaypoints instead!
+     */
     public List<WaypointEntity> getWaypoints() {
         return this.waypoints;
     }
+    
+    
+    
+    
 
     public void setWaypoints(List<WaypointEntity> arg) {
 
