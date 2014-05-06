@@ -46,7 +46,7 @@ public class RouterBean implements RouterBeanLocal, Router {
         // Use GrapHopperRouter to enable GraphHopperRouting 
         this.router=new GraphhopperRouter();
     }
-
+                                                       
     @Override
     public Route findRoute(Coordinate source, Coordinate target,
             Timestamp startTime, boolean fastestPath, double threshold){
