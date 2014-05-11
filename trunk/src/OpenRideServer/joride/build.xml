@@ -94,7 +94,7 @@
         <!-- replace email target -->
 
 
-        <!-- replaceing mailServiceJNDI property with local settings  -->   
+        <!-- replacing mailServiceJNDI property with local settings  -->   
  
        <replaceregexp byline="true">
            <regexp pattern="mailServiceJNDI=(.*)"/>
@@ -103,7 +103,7 @@
        </replaceregexp>
 
 
-     <!-- replaceing   webmasterEmailRecipient property with local settings  -->
+     <!-- replacing   webmasterEmailRecipient property with local settings  -->
         
       <replaceregexp byline="true">
            <regexp pattern="webmasterEmailRecipient=(.*)"/>
@@ -112,7 +112,7 @@
        </replaceregexp>
 
 
-      <!-- replaceing  businessEmailRecipient  property with local settings  -->
+      <!-- replacing  businessEmailRecipient  property with local settings  -->
         
       <replaceregexp byline="true">
            <regexp pattern="businessEmailRecipient=(.*)"/>
@@ -120,7 +120,7 @@
             <fileset file="${opsparamfile}" />
        </replaceregexp>
 
-      <!-- replaceing  noreplyEmailRecipient  property with local settings  -->
+      <!-- replacing  noreplyEmailRecipient  property with local settings  -->
 
       <replaceregexp byline="true">
            <regexp pattern="noreplyEmailRecipient=(.*)"/>
@@ -169,15 +169,22 @@
             <fileset file="${navparamfile}" />
        </replaceregexp>
   
-  
-
-
-
-
-
-
+	 
    </target> <!--  end of target "apply local properties" -->
 
+   <!-- overwriteCSS property should have been set in apply local properties target -->
+   <!-- overwriteCSS is there to signify that a user defined stylesheet is in place -->
+   <target name="overwriteCSS" if="overwriteCSS"  description="overwrite css if user defined css is present">
+
+	<property name="targetCSS" value="${build.dir}/resources/css/styles.css" />
+
+	<echo message="Found individual CSS file, Overwriting ${targetCSS}" />
+	<copy file="resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
+    </target>
+	
+	
+	
+	
    
    <target 
 	name="compile" 
@@ -229,6 +236,13 @@
 
    <target name="war" depends="clean, compile, tomcat-libs"
          description="Build WAR file.">
+
+
+   	  <!--Overwrite default css if localStyle has been defined elsewhere -->
+	  <available file="resources/css/local.styles.css" property="overwriteCSS" />
+	  <antcall target="overwriteCSS" inheritAll="true" inheritRefs="true" />	
+
+
       <delete file="${warfile}"/>
       <jar jarfile="${warfile}" basedir="${build.dir}"/>
    </target>
@@ -244,7 +258,6 @@
 
 	
    <target name="build" depends="war,jar" description="build the deliverables (war and jar files)"> 
-
   </target>
 
   <target name="dist" depends="build" description="create the distributables, but do not deploy"> 
