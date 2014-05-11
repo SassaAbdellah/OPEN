@@ -10,8 +10,8 @@
     
       
     
-    <!-- *** For the time beeing, we start with hardwired "smoothness" theme *** -->
-    <!-- *** TODO: make this configurable for packager                       *** -->
+    <!-- *** For the time beeing, we start with hardwired "smoothness" theme           *** -->
+    <!-- *** this may be overwritten with property jquery.ui.theme in local.properties *** -->
     <context-param>   
         <param-name>primefaces.THEME</param-name>
         <param-value>smoothness</param-value> 
