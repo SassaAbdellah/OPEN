@@ -146,13 +146,30 @@
 
 	<!-- ** Overwrite CSS is called from synchronize targe              ** -->
 	<!-- ** overwrtiteCSS property is also set from synchronize target  ** -->
-
 	<target name="overwriteCSS" if="overwriteCSS" description="overwrite css if user defined css is present">
 
 		<property name="targetCSS" value="web/resources/css/styles.css" />
 
 		<echo message="Found individual CSS file, Overwriting ${targetCSS}" />
 		<copy file="../joride/resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
+	</target>
+
+	<!-- TARGET overwriteTheme -->
+	<!-- overwrite Theme will overwrite the settings for theme in web.xml    -->
+	<!-- this task will be executed only if jquery.ui.theme parameter        -->
+	<!-- in local.properties is set by the user                              -->
+	<target name="overwriteTheme" if="jquery.ui.theme" description="overwrite primefaces theme on user request">
+
+		<echo message="Found individual theme setting, overwriting default theme to ${jquery.ui.theme}" />
+		<property name="webxmlFile" value="${build.dir}/WEB-INF/web.xml" />
+
+		<!--  applying url of OpenLayers library -->
+		<replaceregexp byline="true">
+			<regexp pattern="smoothness" />
+			<substitution expression="${jquery.ui.theme}" />
+			<fileset file="${webxmlFile}" />
+		</replaceregexp>
+
 	</target>
 
 
@@ -213,12 +230,15 @@
 
 	<target name="war" depends="clean,prepare, tomcat-libs" description="Build WAR file.">
 		<delete file="${warfile}" />
+
+		<!--Overwrite default jquery-ui theme  if user preferes non default theme -->
+		<antcall target="overwriteTheme" inheritAll="true" inheritRefs="true" />
+		
 		<jar jarfile="${warfile}" basedir="${build.dir}" />
 	</target>
 
 
 	<target name="build" depends="war" description="build the binaries">
-
 	</target>
 
 	<target name="dist" depends="build" description="create the distributables, but do not deploy">
