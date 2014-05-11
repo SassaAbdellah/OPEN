@@ -118,7 +118,14 @@ urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 # you may want to use the Url below:
 #
 #urlOpenLayers=/joride/faces/javax.faces.resource/OpenLayers.js?ln=js
-
+#
+#
+# primefaces/jquery-ui themes. By default, smoothnes theme is used
+# 
+# You may set this to either one of the themes supported by default,
+# or to custom theme. Read README.THEMES.TXT for more information.
+#
+jquery.ui.theme=vader
 
 
 
