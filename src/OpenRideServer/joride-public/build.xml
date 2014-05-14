@@ -14,6 +14,7 @@
 	<property file="${app}/tomcat.properties" />
 	<property name="appdir" value="${basedir}" />
 	<property name="build.dir" value="${appdir}/build" />
+	<property name="web.inf.dir" value="${build.dir}/WEB-INF/" />
 	<property name="dist.dir" value="${appdir}/dist" />
 	<property name="warfile" value="${dist.dir}/${ant.project.name}.war" />
 
@@ -228,12 +229,22 @@
 
 	<target name="tomcat-libs" depends="jsf-libs, el-libs, bean-validation-libs, cdi-libs" />
 
+
+
 	<target name="war" depends="clean,prepare, tomcat-libs" description="Build WAR file.">
 		<delete file="${warfile}" />
 
 		<!--Overwrite default jquery-ui theme  if user preferes non default theme -->
 		<antcall target="overwriteTheme" inheritAll="true" inheritRefs="true" />
-		
+		<!-- ***************************************************************************************************** -->
+		<!-- include all the jars in OpenRideShareMaster/themes directory, so that custom themes will be supported -->
+		<mkdir dir="${web-inf.dir}/lib" />
+		<copy todir="${web.inf.dir}/lib" verbose="true">
+			<fileset dir="../OpenRideShareMaster/themes/">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+
 		<jar jarfile="${warfile}" basedir="${build.dir}" />
 	</target>
 
