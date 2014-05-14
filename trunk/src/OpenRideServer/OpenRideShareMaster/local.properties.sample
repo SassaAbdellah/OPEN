@@ -120,12 +120,11 @@ urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 #urlOpenLayers=/joride/faces/javax.faces.resource/OpenLayers.js?ln=js
 #
 #
-# primefaces/jquery-ui themes. By default, smoothnes theme is used
-# 
 # You may set this to either one of the themes supported by default,
 # or to custom theme. Read README.THEMES.TXT for more information.
-#
-jquery.ui.theme=vader
+# if this is not set, theme will be set to primefaces default (aristo)
+#  
+#jquery.ui.theme=swm
 
 
 
