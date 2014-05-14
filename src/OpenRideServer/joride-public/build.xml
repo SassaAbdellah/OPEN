@@ -238,7 +238,7 @@
 		<antcall target="overwriteTheme" inheritAll="true" inheritRefs="true" />
 		<!-- ***************************************************************************************************** -->
 		<!-- include all the jars in OpenRideShareMaster/themes directory, so that custom themes will be supported -->
-		<mkdir dir="${web-inf.dir}/lib" />
+		<mkdir dir="${web.inf.dir}/lib" />
 		<copy todir="${web.inf.dir}/lib" verbose="true">
 			<fileset dir="../OpenRideShareMaster/themes/">
 				<include name="*.jar" />
