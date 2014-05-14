@@ -204,8 +204,6 @@
 			<fileset file="${webxmlFile}" />
 		</replaceregexp>
 
-
-
 	</target>
 
 
@@ -258,6 +256,14 @@
 		<available file="resources/css/local.styles.css" property="overwriteCSS" />
 		<antcall target="overwriteCSS" inheritAll="true" inheritRefs="true" />
 
+		<!-- ***************************************************************************************************** -->
+		<!-- include all the jars in OpenRideShareMaster/themes directory, so that custom themes will be supported -->
+		<mkdir dir="${web-inf.dir}/lib" />
+		<copy todir="${web-inf.dir}/lib" verbose="true">
+			<fileset dir="../OpenRideShareMaster/themes/">
+				 <include name="*.jar" />
+			</fileset>
+		</copy>
 
 		<delete file="${warfile}" />
 		<jar jarfile="${warfile}" basedir="${build.dir}" />
