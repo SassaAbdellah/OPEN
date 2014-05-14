@@ -176,14 +176,17 @@
 	</target>
 	<!--  end of target "apply local properties" -->
 
+	
+	
 	<!-- TARGET overwriteCSS -->
 	<!-- overwriteCSS property should have been set in "war" target                  -->
 	<!-- overwriteCSS is there to signify that a user defined stylesheet is in place -->
 	<target name="overwriteCSS" if="overwriteCSS" description="overwrite css if user defined css is present">
 		<property name="targetCSS" value="${build.dir}/resources/css/styles.css" />
 		<echo message="Found individual CSS file, Overwriting ${targetCSS}" />
-		<copy file="resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
+		<copy file="../OpenRideShareMaster/local.resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
 	</target>
+
 
 
 	<!-- TARGET overwriteTheme -->
@@ -253,7 +256,7 @@
 
 
 		<!--Overwrite default css if localStyle has been defined elsewhere -->
-		<available file="resources/css/local.styles.css" property="overwriteCSS" />
+		<available file="../OpenRideShareMaster/local.resources/css/local.styles.css" property="overwriteCSS" />
 		<antcall target="overwriteCSS" inheritAll="true" inheritRefs="true" />
 
 		<!-- ***************************************************************************************************** -->
