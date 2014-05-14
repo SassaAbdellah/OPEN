@@ -40,8 +40,10 @@ public class Constants {
     public static final int SRID_DB = 3068;
     public static final int SRID_LATLON = 4326;
     /*
-     * OSM ROUTING
-     * */
+     *  Routing algoritm, (not specific to route enging)
+     * 
+     */
+    
     public static final double ROUTER_NEAREST_NEIGHBOR_THRESHOLD = 2000d;
     public static final boolean ROUTE_FASTEST_PATH_DEFAULT = true;
     /*
