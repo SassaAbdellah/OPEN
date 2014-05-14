@@ -77,12 +77,12 @@
     
     
     
-    <!-- ***  For the time beeing, we start with hardwired "smoothness" theme  *** -->
+    <!-- ***  For the time beeing, we start with hardwired "aristo" theme  *** -->
     <!-- ***  this will be overwritten by the value of the jquery.ui.theme     *** -->
     <!-- ***  in local.properties                                              *** -->
     <context-param>   
         <param-name>primefaces.THEME</param-name>
-        <param-value>smoothness</param-value> 
+        <param-value>aristo</param-value> 
     </context-param>
    
    
