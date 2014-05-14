@@ -108,7 +108,7 @@
    <!-- get jee libs from master project -->
    <property name="jee.lib.dir" value="../OpenRideShareMaster/${jee.lib.basedir}" />
 
-   <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" >
+   <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true" includeantruntime="false" >
 	<classpath>
            <fileset dir="${lib.dir}">  
                      <include name="**/*.jar" />  
@@ -121,6 +121,7 @@
         </classpath>
 
    </javac>
+ 	
 
 
   </target> <!-- end of target "compile"  -->
