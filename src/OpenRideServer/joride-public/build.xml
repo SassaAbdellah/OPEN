@@ -166,7 +166,7 @@
 
 		<!--  applying url of OpenLayers library -->
 		<replaceregexp byline="true">
-			<regexp pattern="smoothness" />
+			<regexp pattern="aristo" />
 			<substitution expression="${jquery.ui.theme}" />
 			<fileset file="${webxmlFile}" />
 		</replaceregexp>
