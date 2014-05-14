@@ -91,7 +91,7 @@
 		<!-- In addition, if there is an individual css, overwrite defaultCSS -->
 
 		<!--Overwrite default css if localStyle has been defined elsewhere -->
-		<available file="../joride/resources/css/local.styles.css" property="overwriteCSS" />
+		<available file="../OpenRideShareMaster/local.resources/css/local.styles.css" property="overwriteCSS" />
 		<antcall target="overwriteCSS" inheritAll="true" inheritRefs="true" />
 
 
@@ -152,7 +152,7 @@
 		<property name="targetCSS" value="web/resources/css/styles.css" />
 
 		<echo message="Found individual CSS file, Overwriting ${targetCSS}" />
-		<copy file="../joride/resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
+		<copy file="../OpenRideShareMaster/local.resources/css/local.styles.css" tofile="${targetCSS}" overwrite="true" verbose="true" />
 	</target>
 
 	<!-- TARGET overwriteTheme -->
