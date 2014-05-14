@@ -237,10 +237,10 @@
 		<!--Overwrite default jquery-ui theme  if user preferes non default theme -->
 		<antcall target="overwriteTheme" inheritAll="true" inheritRefs="true" />
 		<!-- ***************************************************************************************************** -->
-		<!-- include all the jars in OpenRideShareMaster/themes directory, so that custom themes will be supported -->
+		<!-- include all the jars in OpenRideShareMaster/local.resources/themes directory, so that custom themes will be supported -->
 		<mkdir dir="${web.inf.dir}/lib" />
 		<copy todir="${web.inf.dir}/lib" verbose="true">
-			<fileset dir="../OpenRideShareMaster/themes/">
+			<fileset dir="../OpenRideShareMaster/local.resources/themes/">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
