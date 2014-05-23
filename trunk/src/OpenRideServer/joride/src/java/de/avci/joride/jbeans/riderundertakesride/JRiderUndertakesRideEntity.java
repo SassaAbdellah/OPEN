@@ -684,7 +684,15 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		return (jrureService.callerIsRider(id));
 	}
-
+	
+	
+	/**
+	 * 
+	 * @return ! isNotCallerIsRider()
+	 */
+	public boolean isNotCallerIsRider() {
+		return ! isCallerIsRider();
+	}
 	/**
 	 * Determines the caller from http-request, and if caller is identical to
 	 * rider, then allow for rider cancel
