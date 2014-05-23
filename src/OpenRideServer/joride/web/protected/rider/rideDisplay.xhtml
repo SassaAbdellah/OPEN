@@ -35,7 +35,17 @@
 
 
 
+
+
+
                 #{ride.update()}
+                
+                
+                <ui:fragment rendered="#{ride.isNotCallerIsRider()}" > <!-- Errormessage  -->
+                	Sorry, You are not the rider, request data will not be shown!
+                </ui:fragment>
+                
+                <ui:fragment rendered="#{ride.isCallerIsRider()}" > <!-- Overall Fragment... will only be shown to rider  -->
 
 
                 <p>
@@ -412,7 +422,8 @@
                         </tr>
                     </table>
                 </h:form>
-
+		
+				</ui:fragment> <!--  End of overall fragment -->
             </ui:define>
         </ui:composition>
     </body>
