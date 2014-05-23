@@ -32,48 +32,12 @@
 					<p:commandButton id="dynaButton" value="#{msgs.nav1_navigation}"
 						type="button" icon="ui-icon-transferthick-e-w" />
 				</p:toolbarGroup>
-
-
-
-				<!-- logout button to the very right -->
 				<p:toolbarGroup align="right">
-
-					<p:splitButton value="#{HTTPUser.currentUser}" icon="ui-icon-gear">
-
-
-						<p:menuitem action="rider" value="#{msgs.nav1_rider_active}"
-							ajax="false" icon="ui-icon-suitcase" />
-
-
-						<p:menuitem action="rider.rideCreate"
-							value="#{msgs.rideNewRequest}" ajax="false" icon="ui-icon-newwin" />
-
-						<p:spacer />
-
-						<p:menuitem action="driver" value="#{msgs.nav1_driver_active}"
-							ajax="false" icon="ui-icon-person" />
-
-						<p:menuitem action="driver.driveCreate"
-							value="#{msgs.rideNewDrive}" ajax="false" icon="ui-icon-newwin" />
-
-						<p:spacer />
-						<p:menuitem action="updates" value="#{msgs.updates}" ajax="false"
-							icon="ui-icon-lightbulb" />
-
-
-						<p:spacer />
-
-
-						<p:menuitem url="#{HTTPUser.getLogoutURL()}"
-							value="#{msgs.nav1_logout}" icon="ui-icon-power" />
-
-
-					</p:splitButton>
-
-
+				 [#{HTTPUser.currentUser}]&nbsp;
 				</p:toolbarGroup>
-
 			</p:toolbar>
+
+
 
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
