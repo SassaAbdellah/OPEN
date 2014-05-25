@@ -1402,6 +1402,15 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
+    public List<RiderUndertakesRideEntity> getUnratedRidesForDriver(CustomerEntity ce, Date startDate, Date endDate) {
+
+        List<RiderUndertakesRideEntity> res = em.createNamedQuery("RiderUndertakesRideEntity.findByDriversUnratedRidesBetween").setParameter("custId", ce).setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
+        return res;
+    }
+
+    
+    
+    @Override
     public List<RiderUndertakesRideEntity> getRidesForDriver(CustomerEntity ce, Date startDate, Date endDate) {
 
         // TODO: setting start date, end date currently omitted

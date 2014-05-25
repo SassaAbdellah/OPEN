@@ -136,8 +136,7 @@ import org.postgis.Point;
     				"WHERE r=m.riderUndertakesRideEntity                            " +
     				"AND m.matchExpectedStartTime BETWEEN :startDate AND :endDate   " +
     				"AND r.rideId.custId = :custId                                         " + 
-    				"AND r.receivedrating is NULL                                 "          
-    			                     
+    				"AND r.receivedrating is NULL                                 "                    
     		),
     
     
