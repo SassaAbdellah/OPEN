@@ -319,7 +319,10 @@ public class JRiderUndertakesRideEntityService {
     
     
     
-
+    /** List Rides that are not rated by rider in given interval
+     * 
+     * @return
+     */
     public List<JRiderUndertakesRideEntity> getUnratedRidesForRiderInInterval() {
 
 
@@ -364,6 +367,59 @@ public class JRiderUndertakesRideEntityService {
         return res;
 
     }
+    
+    
+    /** List rides that are not rated by driver in given interval
+     * 
+     * @return
+     */
+    public List<JRiderUndertakesRideEntity> getUnratedRidesForDriverInInterval() {
+
+
+        CustomerEntity ce = this.getCustomerEntity();
+        RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+
+        if (ce == null) {
+            throw new Error("Cannot determine Rides, customerEntity is null");
+        }
+
+        if (ce.getCustNickname() == null) {
+            throw new Error("Cannot determine Rides, customerNickname is null");
+        }
+
+
+        // retrieve startDateAndEndDate
+
+        String param = new RideSearchParamsBean().getBeanNameRidesearchparam();
+        RideSearchParamsBean tb = new RideSearchParamsBean().retrieveCurrentTimeInterval(param);
+
+        log.log(Level.FINE,"Updated Time Interval " + tb.getStartDateFormatted() + " -> " + tb.getEndDateFormatted());
+
+
+        // get all rides related to thisdriver
+        List<RiderUndertakesRideEntity> res1 =
+                rurcl.getUnratedRidesForDriver(
+                ce,
+                tb.getStartDate(),
+                tb.getEndDate());
+
+        // cast them to JRiderUntertakesRideEntity
+        List<JRiderUndertakesRideEntity> res = new LinkedList<JRiderUndertakesRideEntity>();
+
+        for (RiderUndertakesRideEntity rure : res1) {
+
+            JRiderUndertakesRideEntity jrure = new JRiderUndertakesRideEntity();
+            jrure.updateFromRiderUndertakesRideEntity(rure);
+
+            res.add(jrure);
+        }
+
+        return res;
+
+    }
+
+    
+    
 
     /**
      * Savely get the Ride with given riderRouteId.

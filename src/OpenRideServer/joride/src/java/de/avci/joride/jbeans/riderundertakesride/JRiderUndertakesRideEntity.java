@@ -819,6 +819,19 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	 */
 	protected static final String RIDEREPORT_UNRATED_RIDES_FOR_RIDER = "UNRATED_RIDES_FOR_RIDER";
 
+	
+	/**
+	 * Mnemonic Value for
+	 * 
+	 * @see RideSearchParamsBean searchType Property that will make
+	 *      getRideReport return a list of all **unrated** rides for driver in given
+	 *      Timespan
+	 * 
+	 */
+	protected static final String RIDEREPORT_UNRATED_RIDES_FOR_DRIVER = "UNRATED_RIDES_FOR_DRIVER";
+
+	
+	
 	/**
 	 * Make RIDEREPORT_UNRATED_RIDES_FOR_RIDER mnemonic available to outside in
 	 * JSF Bean Fashion.
@@ -828,6 +841,18 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	public String getParamValueRidereportUnratedRidesForRider() {
 		return RIDEREPORT_UNRATED_RIDES_FOR_RIDER;
 	}
+	
+	/**
+	 * Make RIDEREPORT_UNRATED_RIDES_FOR_DRIVER mnemonic available to outside in
+	 * JSF Bean Fashion.
+	 * 
+	 * @return RIDEREPORT_UNRATED_RIDES_FOR_DRIVER
+	 */
+	public String getParamValueRidereportUnratedRidesForDriver() {
+		return RIDEREPORT_UNRATED_RIDES_FOR_DRIVER;
+	} 
+	
+	
 
 	/**
 	 * Mnemonic Value for
@@ -914,13 +939,21 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 					.getRealizedRidesForRiderInInterval();
 		}
 
-		// see if we want to see **unrated** rides only
+		// see if we want to see **unrated** rides for rider only
 		if (this.getParamValueRidereportUnratedRidesForRider().equals(
 				reportType)) {
 			return (new JRiderUndertakesRideEntityService())
 					.getUnratedRidesForRiderInInterval();
 		}
 
+		// see if we want to see **unrated** rides for driver only
+				if (this.getParamValueRidereportUnratedRidesForDriver().equals(
+						reportType)) {
+					return (new JRiderUndertakesRideEntityService())
+							.getUnratedRidesForDriverInInterval();
+				}
+		
+		
 		// see if we want to see **drivers** rides only
 		if (this.getParamValueRidereportAllRidesForDriver().equals(reportType)) {
 			return (new JRiderUndertakesRideEntityService())
