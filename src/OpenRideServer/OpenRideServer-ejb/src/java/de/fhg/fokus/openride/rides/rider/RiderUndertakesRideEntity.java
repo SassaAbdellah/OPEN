@@ -129,6 +129,18 @@ import org.postgis.Point;
     		),
     // find all rides for driver in this interval
     @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween",        query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate "),
+    // find unrated rides for driver in this Interval
+    @NamedQuery(
+    		name = "RiderUndertakesRideEntity.findByDriversUnratedRidesBetween",  
+    		query = "SELECT r FROM RiderUndertakesRideEntity r , MatchEntity m      " +
+    				"WHERE r=m.riderUndertakesRideEntity                            " +
+    				"AND m.matchExpectedStartTime BETWEEN :startDate AND :endDate   " +
+    				"AND r.rideId.custId = :custId                                         " + 
+    				"AND r.receivedrating is NULL                                 "          
+    			                     
+    		),
+    
+    
     //    
     // Queries for rating statistics in jORide   
     //     
