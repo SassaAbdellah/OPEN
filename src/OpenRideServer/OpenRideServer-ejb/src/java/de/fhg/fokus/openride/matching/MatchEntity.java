@@ -315,4 +315,18 @@ public class MatchEntity implements Serializable {
     public void reloadAllEntities() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    /** true, if rider state is in ACCEPTED, RIDER_COUNTERMANDED 
+     */
+    public boolean getRiderRateable(){
+    	return ( this.getRiderState()==ACCEPTED || this.getRiderState()==RIDER_COUNTERMANDED);
+    }
+    
+    /** true, if rider state is in ACCEPTED, DRIVER_COUNTERMANDED 
+     */
+    public boolean getDriverRateable(){
+    	return ( this.getDriverState()==ACCEPTED || this.getDriverState()==DRIVER_COUNTERMANDED);
+    }
+    
 }

@@ -63,69 +63,76 @@ import org.postgis.Point;
 @Entity
 @Table(name = "riderundertakesride")
 @NamedQueries({
-    @NamedQuery(name = "RiderUndertakesRideEntity.findAll", query = "SELECT r FROM RiderUndertakesRideEntity r"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRideId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.rideId = :rideId"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRiderroute_id", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.riderrouteId = :riderrouteId"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByStarttimeEarliest", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeEarliest = :starttimeEarliest"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByTimestampbooked", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestampbooked = :timestampbooked"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByTimestamprealized", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized = :timestamprealized"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByReceivedrating", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.receivedrating = :receivedrating"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findAll",                     query = "SELECT r FROM RiderUndertakesRideEntity r"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByCustId",                query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRideId",                query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.rideId = :rideId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRiderroute_id",         query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.riderrouteId = :riderrouteId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByStarttimeEarliest",     query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeEarliest = :starttimeEarliest"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByTimestampbooked",       query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestampbooked = :timestampbooked"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByTimestamprealized",     query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized = :timestamprealized"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByReceivedrating",        query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.receivedrating = :receivedrating"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findByReceivedratingComment", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.receivedratingComment = :receivedratingComment"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByReceivedratingDate", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.receivedratingDate = :receivedratingDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenrating", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenrating = :givenrating"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenratingComment", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenratingComment = :givenratingComment"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenratingDate", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenratingDate = :givenratingDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByPrice", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.price = :price"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByNoPassengers", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.noPassengers = :noPassengers"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRiderrouteId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.riderrouteId = :riderrouteId"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoRideSearches", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoRideSearchesAfterDate", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.starttimeEarliest >= :date"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByReceivedratingDate",    query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.receivedratingDate = :receivedratingDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenrating",           query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenrating = :givenrating"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenratingComment",    query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenratingComment = :givenratingComment"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByGivenratingDate",       query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.givenratingDate = :givenratingDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByPrice",                 query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.price = :price"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByNoPassengers",          query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.noPassengers = :noPassengers"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRiderrouteId",          query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.riderrouteId = :riderrouteId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoRideSearches",    query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoRideSearchesAfterDate",    query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.starttimeEarliest >= :date"),
     @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoRideSearchesBetweenDates", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.starttimeEarliest BETWEEN :startdate AND :enddate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookings", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsAfterDate", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL AND r.starttimeEarliest >= :startDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsBetweenDates", query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE (r.rideId IS NOT NULL) AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookings",                 query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsAfterDate",        query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE r.rideId IS NOT NULL AND r.starttimeEarliest >= :startDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countTotalNoBookingsBetweenDates",     query = "SELECT COUNT(r.rideId) FROM RiderUndertakesRideEntity r WHERE (r.rideId IS NOT NULL) AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.givenrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByRider",         query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByRider",    query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.givenrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutReceivedRatingByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NULL AND r.rideId IS NOT NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesBetweenDatesforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesBetweenDatesforCustId",        query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeEarliest BETWEEN :startdate AND :enddate)"),
     // find all rides for given rider after given date
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesAfterDateforCustId", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesAfterDateforCustId",           query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByDriver",         query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByDriver",    query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutReceivedRatingByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.receivedrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByRider", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NOT NULL ORDER BY r.receivedratingDate DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByDriver", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NOT NULL ORDER BY r.givenratingDate DESC"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 1 AND r.receivedratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 0 AND r.receivedratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = -1 AND r.receivedratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 1 AND r.givenratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 0 AND r.givenratingDate > :fromDate"),
-    @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = -1 AND r.givenratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByRider",                  query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating IS NOT NULL ORDER BY r.receivedratingDate DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findRatedRidesByDriver",                 query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NOT NULL ORDER BY r.givenratingDate DESC"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsRider",            query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 1 AND r.receivedratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsRider",             query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = 0 AND r.receivedratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsRider",            query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId AND r.receivedrating = -1 AND r.receivedratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countPositiveRatingsAsDriver",           query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 1 AND r.givenratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countNeutralRatingsAsDriver",            query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = 0 AND r.givenratingDate > :fromDate"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countNegativeRatingsAsDriver",           query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating = -1 AND r.givenratingDate > :fromDate"),
     //
     // ride searches used by joride reporting
     // get all rides for rider, regardless wether realized or not
     //
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest  > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRidesBetween",         query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.starttimeLatest  > :startDate AND r.starttimeEarliest < :endDate AND r.custId = :custId "),
     // get all rides for rider that have been realized
     @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersRealizedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId "),
-    // get all rides for rider which have not yet been realized
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween", query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.timestamprealized BETWEEN :startDate AND :endDate AND r.custId = :custId  AND r.givenrating is NULL"),
+    // get all rides for rider which have not yet been rated
+    @NamedQuery(
+    		name = "RiderUndertakesRideEntity.findByRidersUnratedRidesBetween",  
+    		query = "SELECT r FROM RiderUndertakesRideEntity r , MatchEntity m " +
+    				"WHERE r=m.riderUndertakesRideEntity                       " +
+    				"AND r.timestamprealized BETWEEN :startDate AND :endDate   " +
+    				"AND r.custId = :custId                                    " +
+    				"AND r.givenrating is NULL                                 "
+    		),
     // find all rides for driver in this interval
-    @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween", query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.findByDriversRidesBetween",        query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d  AND r.starttimeEarliest > :startDate AND r.starttimeLatest < :endDate "),
     //    
     // Queries for rating statistics in jORide   
     //     
     // Count all ratings where customer given by custId acted as driver
-    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsDriver", query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d "),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsDriver",             query = "SELECT COUNT(r.riderrouteId) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d "),
     // Sum up all ratings where customer given by custId acted as driver
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver", query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsDriver",             query = "SELECT SUM(r.givenrating) FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d"),
     // Count all ratings where customer given by custId acted as rider
-    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsRider", query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRatingsAsRider",              query = "SELECT COUNT(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId"),
     // Sum up all ratings where customer given by custId acted as rider
-    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider", query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId")
+    @NamedQuery(name = "RiderUndertakesRideEntity.sumUpRatingsAsRider",              query = "SELECT SUM(r.receivedrating) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId")
 })
 @Converter(name = "convert", converterClass = PointConverter.class)
 public class RiderUndertakesRideEntity implements Serializable {
