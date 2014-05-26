@@ -15,6 +15,7 @@
 	<classpathentry kind="lib" path="lib/build/javax.transaction.jar"/>
 	<classpathentry kind="lib" path="lib/build/weld-osgi-bundle.jar"/>
 	<classpathentry kind="lib" path="/OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/mail.jar"/>
+	<classpathentry kind="lib" path="lib/primefaces-5.0.jar"/>
 	<classpathentry kind="src" path="/OpenRideServer-ejb"/>
 	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/postgis-jdbc-2.0.2SVN.jar"/>
 	<classpathentry kind="lib" path="/OpenRideShareMaster/build.headless.support/jee/libs.glassfish.3.0.2/jsr311-api.jar"/>
