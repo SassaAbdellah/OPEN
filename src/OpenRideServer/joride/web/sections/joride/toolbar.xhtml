@@ -46,15 +46,29 @@
 			</p:slideMenu>
 		</h:form>
 
-		<div>
-			TODO: remove update statistics from toolbar.xhtml #{unrated.update()}
+
+
+		<!-- fetch data for unrated rides -->
+		#{unrated.update()}
+		<!-- fetch data for unrated rides -->
+
+		<ui:fragment rendered="#{unrated.hasUnratedRidesForDriver()}">
 			<p>
-			Rider unrated rides : #{unrated.getUnratedRidesForRider() }
+				<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
+					<f:param value="#{unrated.getUnratedRidesForDriver()}" />
+				</h:outputFormat>
 			</p>
+		</ui:fragment>
+
+		<ui:fragment rendered="#{unrated.hasUnratedRidesForRider()}">
 			<p>
-			Driver unrated rides : #{unrated.getUnratedRidesForDriver() }
+				<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForRider}">
+					<f:param value="#{unrated.getUnratedRidesForRider()}" />
+				</h:outputFormat>
 			</p>
-		</div>
+		</ui:fragment>
+
+
 
 	</ui:composition>
 
