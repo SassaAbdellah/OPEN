@@ -69,18 +69,6 @@ public interface RiderUndertakesRideControllerLocal {
 
     List<RiderUndertakesRideEntity> getActiveRideRequestsByCustId(String custId);
 
-    List<RiderUndertakesRideEntity> getRidesWithoutRatingByRider(CustomerEntity rider);
-
-    List<RiderUndertakesRideEntity> getRidesWithoutGivenRatingByRider(CustomerEntity rider);
-
-    List<RiderUndertakesRideEntity> getRidesWithoutReceivedRatingByRider(CustomerEntity rider);
-
-    List<RiderUndertakesRideEntity> getRidesWithoutRatingByDriver(CustomerEntity driver);
-
-    List<RiderUndertakesRideEntity> getRidesWithoutGivenRatingByDriver(CustomerEntity driver);
-
-    List<RiderUndertakesRideEntity> getRidesWithoutReceivedRatingByDriver(CustomerEntity driver);
-
     List<RiderUndertakesRideEntity> getRatedRidesByRider(CustomerEntity rider);
 
     List<RiderUndertakesRideEntity> getRatedRidesByDriver(CustomerEntity driver);
