@@ -55,8 +55,8 @@ public class UnratedRideStatistics implements Serializable {
 	public void update(){
 		
 		JRiderUndertakesRideEntityService service=new JRiderUndertakesRideEntityService();
-		this.unratedRidesForRider=service.getUnratedRidesForRiderInInterval().size();	
-		this.unratedRidesForDriver=service.getUnratedRidesForDriverInInterval().size();	
+		this.unratedRidesForRider=service.getUnratedRidesForRider().size();	
+		this.unratedRidesForDriver=service.getUnratedRidesForDriver().size();	
 	}
 	
 
