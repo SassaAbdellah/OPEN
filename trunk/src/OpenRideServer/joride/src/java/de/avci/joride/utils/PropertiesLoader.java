@@ -1,5 +1,6 @@
 package de.avci.joride.utils;
 
+import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Enumeration;
@@ -11,17 +12,51 @@ import java.util.Enumeration;
  */
 public class PropertiesLoader {
 
+	
+	/** A locale to use (may or may not be used)
+	 */
+	Locale locale=null;
+	
+	
+	/** Construct loader without locale
+	 * 
+	 */
+	public PropertiesLoader(){
+		super();
+	}
+	
+	/** Construct loader with special locale.
+	 * 
+	 * @param locale
+	 */
+    public PropertiesLoader(Locale locale) {
+		super();
+		this.locale=locale;
+	}
+
+
+
     /**
      * Load a ressourcebundle from the classpath
      *
-     * @param bundlename
+     * @param bundlename name of the bundle to use
+     * 
      * @return
-     */
+     */ 
     private ResourceBundle loadResourceBundleByName(String bundlename) {
-
-        return ResourceBundle.getBundle(bundlename);
+    	
+    	if(locale!=null){
+    		return ResourceBundle.getBundle(bundlename, locale );
+    	}else{
+    		return ResourceBundle.getBundle(bundlename);
+    	}
     }
 
+    
+    
+    
+    
+    
     /**
      * Create Properties from a given RessourceBundle
      *
