@@ -4,6 +4,12 @@
  */
 package de.avci.joride.utils;
 
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Set;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
@@ -21,6 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author jochen
  */
 public class HTTPUtil {
+	
+	/** Parameter for accepted languages from http request.
+	 * 
+	 */
+	public static final String acceptLanguageParam="Accept-Language";
+	
 
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 
@@ -37,6 +49,55 @@ public class HTTPUtil {
             return null;
         }
     }
+    
+    
+    /** Get the set of supported locales
+     * 
+     * @return set of (JSF) supported locales
+     */
+    public Set <Locale> getSupportedLocales(){
+    	
+    	HashSet <Locale> res=new HashSet<Locale>();
+    	Iterator<Locale> i= FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
+
+    	while (i.hasNext()){res.add(i.next());}
+    	
+    	return res;
+    }
+    
+    
+    
+   
+    /** Ectract best accepted language from Browser request.
+     * 
+     * @param request
+     */
+    
+    public Locale detectBestLocale() {
+    	
+    	
+    	Set <Locale> supportedLocals=this.getSupportedLocales();
+      
+    	HttpServletRequest request=this.getHTTPServletRequest();
+    	if(request==null){
+    		return null;
+    	}
+        Enumeration<Locale> locales = request.getLocales();
+        while (locales.hasMoreElements()) {
+          
+        	Locale locale=locales.nextElement();
+            if (supportedLocals.contains(locale)) {
+                return locale;
+            }
+        }
+        
+        return null;
+    }
+    
+    
+   
+  
+    
 
     /**
      * @return the HTTPServletRequest, or null if it can not be accessed

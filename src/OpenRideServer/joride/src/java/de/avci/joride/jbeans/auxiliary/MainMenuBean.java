@@ -2,6 +2,7 @@ package de.avci.joride.jbeans.auxiliary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -14,6 +15,7 @@ import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuModel;
 
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowBean;
 
@@ -34,11 +36,16 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 	public MainMenuBean() {
 		model = new DefaultMenuModel();
+
+		Locale locale=new HTTPUtil().detectBestLocale();
 		
-		// we are going to load a lot of properties...
-		PropertiesLoader proploader=new PropertiesLoader();
 		
 		
+		
+		// Properties are loaded with locale explicitely specified,
+		// So that dynamic menu can use BrowserLocal (instead of System.local)
+		PropertiesLoader proploader=new PropertiesLoader(locale);
+	
 
 		// Menu HOME
 		// <p:menuitem action="home" value="#{msgs.nav1_home_label}"
