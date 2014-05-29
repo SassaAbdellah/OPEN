@@ -16,26 +16,6 @@ jee.lib.basedir=build.headless.support/jee/libs.glassfish.3.0.2/
 #
 #
 #
-# the base path for the imprint jsp -- change this for your own imprint 
-# to create a branded version of OpenRide
-#
-imprint.jsp.base=build.headless.support/branding/imprint/imprint.jsp
-#
-#
-#
-# the base path for the terms jsp -- change this for your own terms 
-# to create a branded version of OpenRide
-#
-#
-terms.jsp.base=build.headless.support/branding/terms/terms.jsp
-#
-# the base path for the contac jsp -- change this for your own terms 
-# to create a branded version of OpenRide
-#
-#
-contact.jsp.base=build.headless.support/branding/contact/contact.jsp
-#
-#
 #
 ####################################################
 #                                                  #
