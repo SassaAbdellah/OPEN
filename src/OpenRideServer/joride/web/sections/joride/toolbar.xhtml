@@ -58,23 +58,20 @@
 		<ui:fragment rendered="#{unrated.hasUnratedRidesForDriver()}">
 			<p>
 				<h:form>
-				
 					<!--  show button to list unrated rides for driver -->
 					<!--   -->
 					<p:commandButton action="search.requestsDisplay"
-						id="unratedRidesForRiderAlert"
+						id="unratedRidesForDriverAlert"
 						actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
 						icon="ui-icon-search" ajax="false">
 						<f:param name="#{webflow.paramBack}" value="home" />
 					</p:commandButton>
-					<p:tooltip for="unratedRidesForRiderAlert" value="#{msgs.ratingsShowUnrated}" />
+					<p:tooltip for="unratedRidesForDriverAlert" value="#{msgs.ratingsShowUnrated}" />
 					&nbsp;
 					<h:outputFormat
 						value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
 						<f:param value="#{unrated.getUnratedRidesForDriver()}" />
 					</h:outputFormat>
-			
-					
 				</h:form>
 			</p>
 		</ui:fragment>
@@ -86,12 +83,12 @@
 				<h:form>
 					<!--  show button to list unrated rides for driver -->
 					<p:commandButton action="search.requestsDisplay"
-						id="unratedRidesForDriverAlert"
-						actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
-						icon="ui-icon-star" ajax="false">
+						id="unratedRidesForRiderAlert"
+						actionListener="#{ridesearchparams.configureUnratedRidesForRider(evt)}"
+						icon="ui-icon-search" ajax="false">
 						<f:param name="#{webflow.paramBack}" value="home" />
 					</p:commandButton>
-					<p:tooltip for="unratedRidesForDriverAlert" value="#{msgs.ratingsShowUnrated}" />
+					<p:tooltip for="unratedRidesForRiderAlert" value="#{msgs.ratingsShowUnrated}" />
 					&nbsp;
 					<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForRider}">
 						<f:param value="#{unrated.getUnratedRidesForRider()}" />
