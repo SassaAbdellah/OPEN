@@ -46,28 +46,60 @@
 			</p:slideMenu>
 		</h:form>
 
+		<!--  end of slide menu -->
 
+		<!--  Stuff to be displayed *only* if there are unrated rides or drives -->
 
 		<!-- fetch data for unrated rides -->
 		#{unrated.update()}
 		<!-- fetch data for unrated rides -->
 
+		<!--  unrated rides for driver stuff  -->
 		<ui:fragment rendered="#{unrated.hasUnratedRidesForDriver()}">
 			<p>
-				<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
-					<f:param value="#{unrated.getUnratedRidesForDriver()}" />
-				</h:outputFormat>
+				<h:form>
+				
+					<!--  show button to list unrated rides for driver -->
+					<!--   -->
+					<p:commandButton action="search.requestsDisplay"
+						id="unratedRidesForRiderAlert"
+						actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
+						icon="ui-icon-search" ajax="false">
+						<f:param name="#{webflow.paramBack}" value="home" />
+					</p:commandButton>
+					<p:tooltip for="unratedRidesForRiderAlert" value="#{msgs.ratingsShowUnrated}" />
+					&nbsp;
+					<h:outputFormat
+						value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
+						<f:param value="#{unrated.getUnratedRidesForDriver()}" />
+					</h:outputFormat>
+			
+					
+				</h:form>
 			</p>
 		</ui:fragment>
+		<!-- end of unrated rides for driver stuff -->
 
+		<!-- unrated rides for rider stuff  -->
 		<ui:fragment rendered="#{unrated.hasUnratedRidesForRider()}">
 			<p>
-				<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForRider}">
-					<f:param value="#{unrated.getUnratedRidesForRider()}" />
-				</h:outputFormat>
+				<h:form>
+					<!--  show button to list unrated rides for driver -->
+					<p:commandButton action="search.requestsDisplay"
+						id="unratedRidesForDriverAlert"
+						actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
+						icon="ui-icon-star" ajax="false">
+						<f:param name="#{webflow.paramBack}" value="home" />
+					</p:commandButton>
+					<p:tooltip for="unratedRidesForDriverAlert" value="#{msgs.ratingsShowUnrated}" />
+					&nbsp;
+					<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForRider}">
+						<f:param value="#{unrated.getUnratedRidesForRider()}" />
+					</h:outputFormat>
+				</h:form>
 			</p>
 		</ui:fragment>
-
+		<!-- end of unrated rides for rider stuff -->
 
 
 	</ui:composition>
