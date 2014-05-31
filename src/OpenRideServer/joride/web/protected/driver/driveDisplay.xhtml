@@ -71,26 +71,26 @@
 				</tr>
 
 
-				<h:form  rendered="#{driverride.hasMatches}" >
+				<h:form rendered="#{driverride.hasMatches}">
 					<tr>
-							<td colspan="1" class="formLabel"><p:commandButton
-									id="showMatches" icon="ui-icon-link"
-									action="driver.driveMatchingsList" ajax="false">
-									<f:param name="#{crud.paramNameCrudId}"
-										value="#{driverride.rideId}" />
-									<f:param name="#{webflow.getParamBack()}"
-										value="driver.driveDisplay" />
-								</p:commandButton> <p:tooltip value="#{msgs.rideMatchesShowRequests}"
-									for="showMatches" /></td>
+						<td colspan="1" class="formLabel"><p:commandButton
+								id="showMatches" icon="ui-icon-link"
+								action="driver.driveMatchingsList" ajax="false">
+								<f:param name="#{crud.paramNameCrudId}"
+									value="#{driverride.rideId}" />
+								<f:param name="#{webflow.getParamBack()}"
+									value="driver.driveDisplay" />
+							</p:commandButton> <p:tooltip value="#{msgs.rideMatchesShowRequests}"
+								for="showMatches" /></td>
 
-							<td colspan="2" class="formLabel"><h:commandLink
-									action="driver.driveMatchingsList"
-									value="#{msgs.rideMatchesShowRequests}">
-									<f:param name="#{crud.paramNameCrudId}"
-										value="#{driverride.rideId}" />
-									<f:param name="#{webflow.getParamBack()}"
-										value="driver.driveDisplay" />
-								</h:commandLink></td>
+						<td colspan="2" class="formLabel"><h:commandLink
+								action="driver.driveMatchingsList"
+								value="#{msgs.rideMatchesShowRequests}">
+								<f:param name="#{crud.paramNameCrudId}"
+									value="#{driverride.rideId}" />
+								<f:param name="#{webflow.getParamBack()}"
+									value="driver.driveDisplay" />
+							</h:commandLink></td>
 					</tr>
 				</h:form>
 
@@ -296,32 +296,37 @@
 
 			</table>
 
+			<p>
+				<!-- hide map inside accordion until user explicitely wants to se it -->
+				<p:accordionPanel dynamic="false" activeIndex="-1">
 
-			<!-- include standard jquery  -->
-			<h:outputScript library="js" name="jquery-1.4.1.js" />
+					<p:tab title="#{msgs.geocodeShowInMapLabel}">
 
-			<!-- we may deliver a local OpenLayers version 2.12              -->
-			<!-- alternatively, it can be included from OpenLayers.org   -->
+						<!-- include standard jquery  -->
+						<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-			<script src="#{HTTPUser.openLayersURL}"></script>
+						<!-- we may deliver a local OpenLayers version 2.12              -->
+						<!-- alternatively, it can be included from OpenLayers.org   -->
 
-			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+						<script src="#{HTTPUser.openLayersURL}"></script>
 
-			<!-- include functions for displaying the routing -->
-			<h:outputScript library="js" name="jorideRouting.js" />
+						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
-
-			<!-- **************************************************************************** -->
-			<!-- div to show the map  -->
-
-			<!-- **************************************************************************** -->
-
-			<div id="mapdiv" style="width: 300px; height: 300px;"></div>
+						<!-- include functions for displaying the routing -->
+						<h:outputScript library="js" name="jorideRouting.js" />
 
 
+						<!-- **************************************************************************** -->
+						<!-- div to show the map  -->
 
-			<script>
+						<!-- **************************************************************************** -->
+
+						<div id="mapdiv" style="width: 300px; height: 300px;"></div>
+
+
+
+						<script>
 
                     myRoutePoints =#{driverride.routePointsAsJSON};
                     myStartPoint =#{driverride.routePoints.startPointAsJSON};
@@ -331,9 +336,11 @@
                     myWayPoints =#{driverride.routePoints.wayPointsAsJSON};
 
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
-
-
                 </script>
+					</p:tab>
+
+				</p:accordionPanel>
+			</p>
 
 			<h:form>
 				<table>
