@@ -61,14 +61,15 @@
 
 
 
-    <!-- Navigation Case                                  -->
-    <!-- enable new login (for example after loginFailed) -->
-
+    <!-- Navigation Case                                         -->
+    <!-- enable new login (for example after loginFailed)        -->
+	<!-- technically, this redirects to the overall index pages  -->
+	<!-- so user has a valid point to start at                   -->
 
     <navigation-rule>
         <navigation-case>
             <from-outcome>login</from-outcome>
-            <to-view-id>/faces/public/login.xhtml</to-view-id>
+            <to-view-id>/faces/public/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 
