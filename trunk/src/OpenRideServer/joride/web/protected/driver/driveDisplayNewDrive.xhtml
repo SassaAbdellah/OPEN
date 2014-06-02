@@ -44,80 +44,45 @@
 			<h1>#{msgs.rideNewOffer} #{newdriverride.rideId}</h1>
 
 
+			<div class="formLabel">#{msgs.rideStarttime}:</div>
+			<div class="formInput">#{newdriverride.rideStarttime}</div>
+			<div class="formLabel">#{msgs.rideComment}:</div>
+
+			<div class="formInput">#{newdriverride.rideComment}</div>
+
+			<div class="formLabel">#{msgs.rideStartptAddress}:</div>
+
+			<div class="formInput">#{newdriverride.startptAddress}</div>
 
 
-			<table>
-				<tr>
-					<td class="formLabel">#{msgs.rideStarttime}</td>
-					<td>:</td>
-					<td class="formInput">#{newdriverride.rideStarttime}</td>
-				</tr>
-				<tr>
-					<td><span class="formLabel"> #{msgs.rideComment} </span></td>
-					<td>:</td>
-					<td><span class="formInput">
-							#{newdriverride.rideComment} </span></td>
-				</tr>
+			<div class="formLabel">
+				<h:form>
+					<p:commandButton id="editRouting" icon="ui-icon-plus"
+						action="driver.editRouting">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{newdriverride.rideId}" />
+						<f:param name="#{webflow.getParamBack()}" value="driver" />
+					</p:commandButton>
 
-				<tr>
-					<td class="formLabel">#{msgs.rideStartptAddress}</td>
-					<td>:</td>
-					<td class="formInput">#{newdriverride.startptAddress}</td>
-				</tr>
+					<p:tooltip value="#{msgs.waypointAddWaypoints}" for="editRouting" />
+					&nbsp;
+					<h:commandLink action="driver.editRouting"
+						value="#{msgs.waypointAddWaypoints}">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{newdriverride.rideId}" />
+						<f:param name="#{webflow.getParamBack()}" value="driver" />
+					</h:commandLink>
+				</h:form>
+			</div>
 
+			<div class="formLabel">#{msgs.rideDestination}:</div>
+			<div class="formInput">#{newdriverride.endptAddress}</div>
 
+			<div class="formLabel">#{msgs.rideAcceptableDetourInKm}:</div>
+			<div class="formInput">#{newdriverride.rideAcceptableDetourInKm}</div>
 
-				<tr>
-
-					<td colspan="1" class="formLabel"><h:form>
-							<p:commandButton id="editRouting" icon="ui-icon-plus"
-								action="driver.editRouting">
-								<f:param name="#{crud.paramNameCrudId}"
-									value="#{newdriverride.rideId}" />
-								<f:param name="#{webflow.getParamBack()}" value="driver" />
-							</p:commandButton>
-
-							<p:tooltip value="#{msgs.waypointAddWaypoints}" for="editRouting" />
-						</h:form></td>
-
-
-					<td colspan="2" class="formLabel"><h:form>
-							<h:commandLink action="driver.editRouting"
-								value="#{msgs.waypointAddWaypoints}">
-								<f:param name="#{crud.paramNameCrudId}"
-									value="#{newdriverride.rideId}" />
-								<f:param name="#{webflow.getParamBack()}" value="driver" />
-							</h:commandLink>
-						</h:form></td>
-				</tr>
-
-
-
-
-
-				<tr>
-					<td class="formLabel">#{msgs.rideDestination}</td>
-					<td>:</td>
-					<td class="formInput">#{newdriverride.endptAddress}</td>
-				</tr>
-
-
-				<tr>
-					<td class="formLabel">#{msgs.rideAcceptableDetourInKm}</td>
-					<td>:</td>
-					<td class="formInput">
-						#{newdriverride.rideAcceptableDetourInKm}</td>
-				</tr>
-				<tr>
-					<td class="formLabel">#{msgs.rideOfferedseatsNo}</td>
-					<td>:</td>
-					<td class="formInput">#{newdriverride.rideOfferedseatsNo}</td>
-				</tr>
-
-
-			</table>
-
-
+			<div class="formLabel">#{msgs.rideOfferedseatsNo}:</div>
+			<div class="formInput">#{newdriverride.rideOfferedseatsNo}</div>
 
 
 			<p>
@@ -169,29 +134,18 @@
 				</p:accordionPanel>
 			</p>
 
-			<p>
-				<span class="formLabel"> <h:form>
-						<h:commandLink action="driver.editRouting"
-							value="#{msgs.waypointAddWaypoints}">
-							<f:param name="#{crud.paramNameCrudId}"
-								value="#{newdriverride.rideId}" />
-							<f:param name="#{webflow.getParamBack()}" value="driver" />
-						</h:commandLink>
-					</h:form>
-				</span>
-			</p>
+			
                     #{webflow.smartUpdate()}  
                        <h:form>
-				<table>
-					<tr>
-						<td><p:commandButton id="backlink"
-								icon="ui-icon-triangle-1-w" action="#{webflow.getFinish()}"
-								ajax="false" /> <p:tooltip for="backlink"
-								value="#{msgs.finish}" /></td>
-						<td><h:commandLink value="#{msgs.finish}"
-								action="#{webflow.getFinish()}" /></td>
-					</tr>
-				</table>
+
+				<div>
+					<p:commandButton id="backlink" icon="ui-icon-triangle-1-w"
+						action="#{webflow.getFinish()}" ajax="false" />
+					<p:tooltip for="backlink" value="#{msgs.finish}" />
+					&nbsp;
+					<h:commandLink value="#{msgs.finish}"
+						action="#{webflow.getFinish()}" />
+					</div>
 			</h:form>
 		</ui:define>
 	</ui:composition>
