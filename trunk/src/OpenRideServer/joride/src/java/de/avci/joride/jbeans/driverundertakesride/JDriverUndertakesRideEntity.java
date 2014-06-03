@@ -870,6 +870,23 @@ public class JDriverUndertakesRideEntity extends
 	public boolean getAcceptedMatchesExists() {
 		return getAcceptedMatchings().size() > 0;
 	}
-
+	
+	/** return superclasses' rideComment if != null,
+	 *  or something like "-- --"
+	 *  if there is no comment.
+	 * 
+	 */
+	public String getRideComment(){
+		
+		String noCommentExists="-- --";
+		
+		String rideComment=super.getRideComment();
+		
+		if(rideComment==null || rideComment.trim().equals("")){
+			return noCommentExists;
+		}
+		
+		return rideComment;
+	}
 	
 } // class
