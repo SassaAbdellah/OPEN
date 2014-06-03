@@ -191,8 +191,9 @@
 
 			<!-- **************************************************************************** -->
 
-			<div id="mapdiv">&nbsp;</div>
-
+			<p>
+				<div id="mapdiv">&nbsp;</div>
+			</p>
 			<script>
 
                     myRoutePoints =#{driverride.routePointsAsJSON};
@@ -203,8 +204,7 @@
                     myWayPoints =#{driverride.routePoints.wayPointsAsJSON};
 
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
-
-
+                    
                 </script>
 
 			<p>

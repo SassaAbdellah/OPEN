@@ -19,6 +19,7 @@
 		width:200px;
 		height:200px;
 		background-color:#F0F0F0;
+		font-size:0.5em;
 		
 	}
 }
@@ -33,6 +34,7 @@
                 width:300px;
                 height:300px;
                 background-color:#F0F0F0;
+                font-size:0.75em;
           
       }
 
@@ -48,6 +50,7 @@
                 width:500px;
                 height:500px;
                 background-color:#F0F0F0;
+                font-size:0.75em;
         }
 
 
@@ -97,7 +100,6 @@ a:hover {
 
 #footer{
     font-size:0.75em; 
-
     margin-top:15px;
     margin-bottom:15px;
 }
@@ -111,14 +113,15 @@ form{
 .formLabel{
     font-style: normal;
     font-weight: bold;
-
     margin-top: 5px;
     margin-bottom: 5px;
-
 }
 
 .formInput{
-
+	margin-top:5px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:5px;
 }
 
 
@@ -173,7 +176,6 @@ td {
 /* back| cancel | next | finish link at the bottom of a page
 */
 .webflow{
-    font-size:1.0em;
     margin-top:50px;
     padding:0px;
 }
