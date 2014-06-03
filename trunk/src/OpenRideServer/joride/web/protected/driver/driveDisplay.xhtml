@@ -118,7 +118,7 @@
 
 				<h:form rendered="#{!canceldriverride.canCountermandDriver}">
 
-				<div>#{msgs.driveCannotBeCountermandedBecauseOfMatch}</div>
+				<div class="formInput">#{msgs.driveCannotBeCountermandedBecauseOfMatch}</div>
 			</h:form>
 
 			<h:form rendered="#{canceldriverride.canCountermandDriver}">
@@ -159,12 +159,7 @@
 				<h2>#{msgs.rideStart}</h2>
 			</div>
 
-
-
-
-			<div>#{driverride.startptAddress}</div>
-
-
+			<div class="formInput">#{driverride.startptAddress}</div>
 
 			<div class="formLabel">#{msgs.geolocationLatitude}:</div>
 			<div class="formInput">#{driverride.latitudeStart}</div>
@@ -248,7 +243,7 @@
 			</div>
 
 
-			<div>#{driverride.endptAddress}</div>
+			<div class="formInput">#{driverride.endptAddress}</div>
 
 
 
@@ -260,32 +255,32 @@
 
 			<div class="formInput">#{driverride.longitudeEnd}</div>
 
-			
-					<!-- include standard jquery  -->
-					<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-					<!-- we may deliver a local OpenLayers version 2.12              -->
-					<!-- alternatively, it can be included from OpenLayers.org   -->
+			<!-- include standard jquery  -->
+			<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-					<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-					<script src="#{HTTPUser.openLayersURL}"></script>
+			<!-- we may deliver a local OpenLayers version 2.12              -->
+			<!-- alternatively, it can be included from OpenLayers.org   -->
 
-					<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+			<script src="#{HTTPUser.openLayersURL}"></script>
 
-					<!-- include functions for displaying the routing -->
-					<h:outputScript library="js" name="jorideRouting.js" />
+			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
-
-					<!-- **************************************************************************** -->
-					<!-- div to show the map  -->
-
-					<!-- **************************************************************************** -->
-
-					<div id="mapdiv">&nbsp;</div>
+			<!-- include functions for displaying the routing -->
+			<h:outputScript library="js" name="jorideRouting.js" />
 
 
+			<!-- **************************************************************************** -->
+			<!-- div to show the map  -->
 
-					<script>
+			<!-- **************************************************************************** -->
+			<p>
+			<div id="mapdiv">&nbsp;</div>
+			</p>
+
+
+			<script>
 
                     myRoutePoints =#{driverride.routePointsAsJSON};
                     myStartPoint =#{driverride.routePoints.startPointAsJSON};
@@ -296,9 +291,9 @@
 
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
                 </script>
-		
 
-			
+
+
 
 
 
