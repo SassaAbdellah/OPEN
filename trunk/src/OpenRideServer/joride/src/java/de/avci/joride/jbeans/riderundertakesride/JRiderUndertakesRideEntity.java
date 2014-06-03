@@ -1109,6 +1109,26 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		return !this.isCountermandingRequired();
 	}
+	
+	@Override
+	
+	/** return superclasses' Comment if != null,
+	 *  or something like "-- --"
+	 *  if there is no comment.
+	 * 
+	 */
+	public String getComment(){
+		
+		String noCommentExists="-- --";
+		
+		String rideComment=super.getComment();
+		
+		if(rideComment==null || rideComment.trim().equals("")){
+			return noCommentExists;
+		}
+		
+		return rideComment;
+	}
 
 } // class
 

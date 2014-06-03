@@ -876,6 +876,8 @@ public class JDriverUndertakesRideEntity extends
 	 *  if there is no comment.
 	 * 
 	 */
+	@Override
+	
 	public String getRideComment(){
 		
 		String noCommentExists="-- --";
