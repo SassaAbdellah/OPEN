@@ -64,45 +64,48 @@
 
 			<h:form rendered="#{driverride.hasMatches}">
 
-				<div class="formLabel"><p:commandButton id="showMatches"
-						icon="ui-icon-link" action="driver.driveMatchingsList"
-						ajax="false">
+				<div class="formLabel">
+					<p:commandButton id="showMatches" icon="ui-icon-link"
+						action="driver.driveMatchingsList" ajax="false">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
-					</p:commandButton> <p:tooltip value="#{msgs.rideMatchesShowRequests}"
-						for="showMatches" /> <h:commandLink
-						action="driver.driveMatchingsList"
+					</p:commandButton>
+					<p:tooltip value="#{msgs.rideMatchesShowRequests}"
+						for="showMatches" />
+					<h:commandLink action="driver.driveMatchingsList"
 						value="#{msgs.rideMatchesShowRequests}">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
 					</h:commandLink>
-					</div>
+				</div>
 
 			</h:form>
 
 
 			<h:form rendered="#{driverride.acceptedMatchesExists}">
 
-				<div class="formLabel"><p:commandButton id="showAcceptedMatches"
-						icon="ui-icon-suitcase" action="driver.driveAcceptedMatchingsList"
-						ajax="false">
+				<div class="formLabel">
+					<p:commandButton id="showAcceptedMatches" icon="ui-icon-suitcase"
+						action="driver.driveAcceptedMatchingsList" ajax="false">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
-					</p:commandButton> <p:tooltip value="#{msgs.matchAcceptedRequestsForOffer}"
-						for="showAcceptedMatches" /> <h:commandLink
-						action="driver.driveAcceptedMatchingsList"
+					</p:commandButton>
+					<p:tooltip value="#{msgs.matchAcceptedRequestsForOffer}"
+						for="showAcceptedMatches" />
+					<h:commandLink action="driver.driveAcceptedMatchingsList"
 						value="#{msgs.matchAcceptedRequestsForOffer}">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
-					</h:commandLink></div>
+					</h:commandLink>
+				</div>
 
 			</h:form>
 
@@ -115,23 +118,22 @@
 
 				<h:form rendered="#{!canceldriverride.canCountermandDriver}">
 
-				<div>  
-				   #{msgs.driveCannotBeCountermandedBecauseOfMatch}
-				 </div>
-				</h:form>
+				<div>#{msgs.driveCannotBeCountermandedBecauseOfMatch}</div>
+			</h:form>
 
 			<h:form rendered="#{canceldriverride.canCountermandDriver}">
 
 				<!-- Cancelling and countermanding -->
-				<div colspan="1" class="formLabel"><p:commandButton
-						id="cancelRide" icon="ui-icon-trash"
+				<div colspan="1" class="formLabel">
+					<p:commandButton id="cancelRide" icon="ui-icon-trash"
 						actionListener="#{canceldriverride.invalidate()}" ajax="false">
 						<!-- Webflow parameters -->
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{rscdriverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
-					</p:commandButton> <p:tooltip value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
+					</p:commandButton>
+					<p:tooltip value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
 
 					<h:commandLink action="#{canceldriverride.invalidate()}"
 						value="#{msgs.rideRemoveThisOffer}">
@@ -140,7 +142,8 @@
 							value="#{rscdriverride.rideId}" />
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
-					</h:commandLink></div>
+					</h:commandLink>
+				</div>
 			</h:form>
 
 
@@ -207,7 +210,8 @@
 				<ui:fragment rendered="#{rscdriverride.canEditRoute}">
 
 
-				<div class="formLabel"><h:form>
+				<div class="formLabel">
+					<h:form>
 						<p:commandButton icon="ui-icon-plus" id="editRouting"
 							action="driver.editRouting" ajax="false">
 							<f:param name="#{crud.paramNameCrudId}"
@@ -216,14 +220,16 @@
 						</p:commandButton>
 
 						<p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
-					</h:form> <h:form>
+					</h:form>
+					<h:form>
 						<h:commandLink action="driver.editRouting"
 							value="#{msgs.waypointEditRoute}">
 							<f:param name="#{crud.paramNameCrudId}"
 								value="#{rscdriverride.rideId}" />
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 						</h:commandLink>
-					</h:form></div>
+					</h:form>
+				</div>
 
 
 			</ui:fragment>
@@ -241,51 +247,45 @@
 
 			</div>
 
-		
-				<div>#{driverride.endptAddress}</div>
-		
+
+			<div>#{driverride.endptAddress}</div>
+
+
+
+			<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+
+			<div class="formInput">#{driverride.latitudeEnd}</div>
+
+			<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+
+			<div class="formInput">#{driverride.longitudeEnd}</div>
 
 			
-				<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-			
-				<div class="formInput">#{driverride.latitudeEnd}</div>
-			
-				<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-			
-				<div class="formInput">#{driverride.longitudeEnd}</div>
-		
+					<!-- include standard jquery  -->
+					<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-			<p>
-				<!-- hide map inside accordion unless user explicitely wants to see it -->
-				<p:accordionPanel dynamic="false" activeIndex="-1">
+					<!-- we may deliver a local OpenLayers version 2.12              -->
+					<!-- alternatively, it can be included from OpenLayers.org   -->
 
-					<p:tab title="#{msgs.geocodeShowInMapLabel}">
+					<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+					<script src="#{HTTPUser.openLayersURL}"></script>
 
-						<!-- include standard jquery  -->
-						<h:outputScript library="js" name="jquery-1.4.1.js" />
+					<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
-						<!-- we may deliver a local OpenLayers version 2.12              -->
-						<!-- alternatively, it can be included from OpenLayers.org   -->
-
-						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-						<script src="#{HTTPUser.openLayersURL}"></script>
-
-						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-
-						<!-- include functions for displaying the routing -->
-						<h:outputScript library="js" name="jorideRouting.js" />
+					<!-- include functions for displaying the routing -->
+					<h:outputScript library="js" name="jorideRouting.js" />
 
 
-						<!-- **************************************************************************** -->
-						<!-- div to show the map  -->
+					<!-- **************************************************************************** -->
+					<!-- div to show the map  -->
 
-						<!-- **************************************************************************** -->
+					<!-- **************************************************************************** -->
 
-						<div id="mapdiv" style="width: 300px; height: 300px;"></div>
+					<div id="mapdiv">&nbsp;</div>
 
 
 
-						<script>
+					<script>
 
                     myRoutePoints =#{driverride.routePointsAsJSON};
                     myStartPoint =#{driverride.routePoints.startPointAsJSON};
@@ -296,10 +296,13 @@
 
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
                 </script>
-					</p:tab>
+		
 
-				</p:accordionPanel>
-			</p>
+			
+
+
+
+
 
 			<h:form>
 				<table>
@@ -309,8 +312,7 @@
 								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
 						</td>
 						<td><h:commandLink value="#{msgs.back}"
-								action="#{webflow.getBack()}" />
-					  </td>
+								action="#{webflow.getBack()}" /></td>
 					</tr>
 				</table>
 			</h:form>

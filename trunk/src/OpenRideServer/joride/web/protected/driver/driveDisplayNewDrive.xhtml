@@ -85,40 +85,38 @@
 			<div class="formInput">#{newdriverride.rideOfferedseatsNo}</div>
 
 
-			<p>
-				<!-- hide map inside accordion until user explicitely wants to se it -->
-				<p:accordionPanel dynamic="false" activeIndex="-1">
-
-					<p:tab title="#{msgs.geocodeShowInMapLabel}">
-
-
-						<!-- include standard jquery  -->
-						<h:outputScript library="js" name="jquery-1.4.1.js" />
-
-						<!-- we may deliver a local OpenLayers version 2.12              -->
-						<!-- alternatively, it can be included from OpenLayers.org   -->
-
-
-						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-						<script src="#{HTTPUser.openLayersURL}"></script>
 
 
 
-						<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
-						<!-- include functions for displaying the routing -->
-						<h:outputScript library="js" name="jorideRouting.js" />
+			<!-- include standard jquery  -->
+			<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-
-						<!-- **************************************************************************** -->
-						<!-- div to show the map  -->
-
-						<!-- **************************************************************************** -->
-
-						<div id="mapdiv" style="width: 300px; height: 300px;"></div>
+			<!-- we may deliver a local OpenLayers version 2.12              -->
+			<!-- alternatively, it can be included from OpenLayers.org   -->
 
 
-						<script>
+			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+			<script src="#{HTTPUser.openLayersURL}"></script>
+
+
+
+			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+
+			<!-- include functions for displaying the routing -->
+			<h:outputScript library="js" name="jorideRouting.js" />
+
+
+			<!-- **************************************************************************** -->
+			<!-- div to show the map  -->
+
+			<!-- **************************************************************************** -->
+
+
+			<div id="mapdiv">&nbsp;</div>
+
+
+			<script>
 
                     myRoutePoints =#{newdriverride.routePointsAsJSON};
                     myStartPoint =#{newdriverride.routePoints.startPointAsJSON};
@@ -130,9 +128,8 @@
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
 
                 </script>
-					</p:tab>
-				</p:accordionPanel>
-			</p>
+				
+		
 
 			
                     #{webflow.smartUpdate()}  
@@ -145,7 +142,7 @@
 					&nbsp;
 					<h:commandLink value="#{msgs.finish}"
 						action="#{webflow.getFinish()}" />
-					</div>
+				</div>
 			</h:form>
 		</ui:define>
 	</ui:composition>
