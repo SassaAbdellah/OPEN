@@ -45,7 +45,7 @@
 					<p:tab
 						title=" #{drive.updatedShortcut} #{drive.startDateFormatted} #{drive.endptAddressShort}">
 
-						<div class="formLabel">#{msgs.rideOffer} #{drive.rideId}</div>
+						<h2>#{msgs.rideOffer} #{drive.rideId}</h2>
 
 						<!-- show message if ride is updated -->
 						<ui:fragment rendered="#{drive.driveUpdated}">
@@ -60,95 +60,70 @@
 
 
 						<h:form>
-							<table>
-								<!-- nested three column table -->
 
+							<ui:fragment rendered="#{drive.hasMatches}">
 
-								<ui:fragment rendered="#{drive.hasMatches}">
-									<tr>
+								<div class="formLabel">
+								
+									<p:commandButton id="showMatchesButton"
+										action="driver.driveMatchingsList" icon="ui-icon-link"
+										ajax="false">
+										<f:param name="#{crud.paramNameCrudId}"
+											value="#{drive.rideId}" />
+										<f:param name="#{webflow.getParamBack()}" value="driver" />
+									</p:commandButton>
+									<p:tooltip for="showMatchesButton"
+										value="#{msgs.rideMatchesShowRequests}" />
+									&nbsp;
+									<h:commandLink action="driver.driveMatchingsList"
+										value="#{msgs.rideMatchesShowRequests}">
+										<f:param name="#{crud.paramNameCrudId}"
+											value="#{drive.rideId}" />
+										<f:param name="#{webflow.getParamBack()}" value="driver" />
+									</h:commandLink>
 									
-									<td colspan="1" class="formLabel">
-										<p:commandButton
-												id="showMatchesButton"
-												action="driver.driveMatchingsList"
-												icon="ui-icon-link"
-												ajax="false"
-												>
-												<f:param name="#{crud.paramNameCrudId}"
-													value="#{drive.rideId}" />
-												<f:param name="#{webflow.getParamBack()}" value="driver" />
-											</p:commandButton>
-											
-											<p:tooltip for="showMatchesButton" value="#{msgs.rideMatchesShowRequests}" />
-											
-											</td>
-									
-									
-										<td colspan="2" class="formLabel">
-										<h:commandLink
-												action="driver.driveMatchingsList"
-												value="#{msgs.rideMatchesShowRequests}">
-												<f:param name="#{crud.paramNameCrudId}"
-													value="#{drive.rideId}" />
-												<f:param name="#{webflow.getParamBack()}" value="driver" />
-											</h:commandLink>
-											</td>
-									</tr>
-								</ui:fragment>
+								</div>
+
+							</ui:fragment>
 
 
 
+							<div class="formLabel">
+								<p:commandButton id="driveDisplayButton"
+									action="driver.driveDisplay" icon="ui-icon-circle-zoomin"
+									ajax="false">
+									<f:param name="#{crud.paramNameCrudId}" value="#{drive.rideId}" />
+									<f:param name="#{webflow.getParamBack()}" value="driver" />
+								</p:commandButton>
+								<p:tooltip for="driveDisplayButton"
+									value="#{msgs.rideDisplayOffer}" />
+								&nbsp;
+								<h:commandLink action="driver.driveDisplay"
+									value="#{msgs.rideDisplayOffer}">
+									<f:param name="#{crud.paramNameCrudId}" value="#{drive.rideId}" />
+									<f:param name="#{webflow.getParamBack()}" value="driver" />
+								</h:commandLink>
+							</div>
 
-								<tr>
+							<div class="formLabel"> #{msgs.rideStarttime}: </div>
+							<div class="formInput">
+									#{drive.startDateFormatted} </div>
 
-									<td colspan="1" class="formLabel"><p:commandButton
-											id="driveDisplayButton" action="driver.driveDisplay"
-											icon="ui-icon-circle-zoomin" ajax="false">
-											<f:param name="#{crud.paramNameCrudId}"
-												value="#{drive.rideId}" />
-											<f:param name="#{webflow.getParamBack()}" value="driver" />
-										</p:commandButton> <p:tooltip for="driveDisplayButton"
-											value="#{msgs.rideDisplayOffer}" /></td>
+							<div class="formLabel">#{msgs.rideStart}:</div>
+							<div class="formInput">#{drive.startptAddress}</div>
+
+							<div class="formLabel">#{msgs.rideDestination}:</div>
+							<div class="formInput">#{drive.endptAddress}</div>
+
+							<div class="formLabel"> #{msgs.rideComment}: </div>
+							<div class="formInput"> #{drive.rideComment} </div>
+
+							<div class="formLabel">
+									#{msgs.rideNoMatchingRequests}: </div>
+							<div  class="formInput"> #{drive.noMatches} </div>
 
 
-									<td colspan="2" class="formLabel"><h:commandLink
-											action="driver.driveDisplay" value="#{msgs.rideDisplayOffer}">
-											<f:param name="#{crud.paramNameCrudId}"
-												value="#{drive.rideId}" />
-											<f:param name="#{webflow.getParamBack()}" value="driver" />
-										</h:commandLink></td>
-								</tr>
-								<tr>
-									<td><span class="formLabel"> #{msgs.rideStarttime}
-									</span></td>
-									<td class="formLabel">&nbsp;:&nbsp;</td>
-									<td><span class="formInput">
-											#{drive.startDateFormatted} </span></td>
-								</tr>
-								<tr>
-									<td class="formLabel">#{msgs.rideStart}</td>
-									<td class="formLabel">&nbsp;:&nbsp;</td>
-									<td class="formInput">#{drive.startptAddress}</td>
-								</tr>
-								<tr>
-									<td class="formLabel">#{msgs.rideDestination}</td>
-									<td class="formLabel">&nbsp;:&nbsp;</td>
-									<td class="formInput">#{drive.endptAddress}</td>
-								</tr>
-								<tr>
-									<td><span class="formLabel"> #{msgs.rideComment} </span></td>
-									<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-									<td><span class="formInput"> #{drive.rideComment} </span>
-									</td>
-								</tr>
-								<tr>
-									<td><span class="formLabel">
-											#{msgs.rideNoMatchingRequests} </span></td>
-									<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-									<td><span class="formInput"> #{drive.noMatches} </span></td>
-								</tr>
 
-							</table>
 						</h:form>
 					</p:tab>
 				</p:accordionPanel>
