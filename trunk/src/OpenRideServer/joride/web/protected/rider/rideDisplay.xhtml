@@ -70,42 +70,25 @@
                             <!-- Table summing up ride's Properties -->
 
                             <p:tab title="#{msgs.rideOverview}">
-                                <table> 
-                                    <tr> 
-                                        <td>  <span class="formLabel">  #{msgs.rideStarttimeEarliest}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td>  <span class="formInput"> #{ride.starttimeEarliestFormatted} </span> </td>
-                                    </tr>
-
-                                    <tr> 
-                                        <td> <span class="formLabel">  #{msgs.rideStarttimeLatest}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput"> #{ride.starttimeLatestFormatted} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideStart}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput"> #{ride.startptAddress} </span> </td> 
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideDestination} </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;  </span> </td>
-                                        <td> <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp;                 </span> </td>
-                                        <td> <span class="formInput">  #{ride.noMatches}            </span> </td>
-                                    </tr>
-                                </table> <!-- nested table #1 -->  
+                               
+                                        <div  class="formLabel">  #{msgs.rideStarttimeEarliest}:  </div>
+                                        <div  class="formInput"> #{ride.starttimeEarliestFormatted}  </div>
+                                 
+                                        <div   class="formLabel">  #{msgs.rideStarttimeLatest}:  </div>
+                                        <div  class="formInput"> #{ride.starttimeLatestFormatted}  </div>
+                                   
+                                        <div   class="formLabel">  #{msgs.rideComment}:      </div>
+                                        <div  class="formInput">  #{ride.comment}  </div>
+                                 
+                                        <div class="formLabel">  #{msgs.rideStart}: </div>
+                                        <div class="formInput"> #{ride.startptAddress}  </div> 
+                                   
+                                        <div  class="formLabel">  #{msgs.rideDestination}: </div>
+                                        <div  class="formInput">  #{ride.endptAddress}  </div>
+                                   
+                                        <div class="formLabel">  #{msgs.rideNoMatchingOffers}:  </div>
+                                        <div class="formInput">  #{ride.noMatches}           </div>
+                                 
 
                                 <!-- End of summary -->
                             </p:tab>
@@ -116,96 +99,61 @@
 
 
                             <p:tab title="#{msgs.ridePlacesAndTimes}">
-                                <table>
-                                    <tr>
-                                        <td>   <span class="formLabel">  #{msgs.rideStarttimeEarliest} </span> </td>
-                                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>   <span class="formInput">  #{ride.starttimeEarliestFormatted} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.rideStarttimeLatest} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.starttimeLatestFormatted} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.rideNoPassengers} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.noPassengers} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.ridePrice} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.price} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideComment}         </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.comment}  </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="3"> <h2> #{msgs.rideStart} </h2> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.rideStartptAddress} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.startptAddress} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.longitudeStart} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.latitudeStart} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="3">  <h2> #{msgs.rideDestination} </h2> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.rideDestinationAddress} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.endptAddress} </span> </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.geolocationLongitude} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.longitudeEnd} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>  <span class="formLabel">  #{msgs.geolocationLatitude} </span> </td>
-                                        <td>  <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>  <span class="formInput">  #{ride.latitudeEnd} </span> </td>
-                                    </tr>
-                                </table>
+                            
+                                                                     
+                                        <div class="formLabel">  #{msgs.rideStarttimeEarliest}: </div>
+                                        <div class="formInput">  #{ride.starttimeEarliestFormatted} </div>
+                                   
+                                        <div class="formLabel">  #{msgs.rideStarttimeLatest}: </div>
+                                        <div class="formInput">  #{ride.starttimeLatestFormatted}  </div>
+                                
+                                        <div class="formLabel">  #{msgs.rideNoPassengers}: </div>
+                                        <div class="formInput">  #{ride.noPassengers}  </div>
+                               
+                                        <div class="formLabel">  #{msgs.ridePrice}:  </div>
+                                        <div class="formInput">  #{ride.price}  </div>
+                                
+                                        <div class="formLabel">  #{msgs.rideComment}:   </div>
+                                        <div class="formInput">  #{ride.comment}  </div>
+                                 
+                                         <h2> #{msgs.rideStart} </h2> 
+                                 
+                                        <div class="formLabel">  #{msgs.rideStartptAddress}:  </div>
+                                        <div class="formInput">  #{ride.startptAddress}  </div>
+                                  
+                                        <div class="formLabel">  #{msgs.geolocationLongitude}:  </div>
+                                        <div class="formInput">  #{ride.longitudeStart} </div>
+                                
+                                        <div  class="formLabel">  #{msgs.geolocationLatitude}: </div>
+                                        <div  class="formInput">  #{ride.latitudeStart}  </div>
+                                    
+                                        <h2> #{msgs.rideDestination} </h2>                                   
+                                        <div class="formLabel">  #{msgs.rideDestinationAddress}: </div>
+                                        <div class="formInput">  #{ride.endptAddress}  </div>
+                                
+                                        <div class="formLabel">  #{msgs.geolocationLongitude}: </div>
+                                        <div class="formInput">  #{ride.longitudeEnd} </div>
+                                  
+                                        <div class="formLabel">  #{msgs.geolocationLatitude}:</div>
+                                        <div class="formInput">  #{ride.latitudeEnd}  </div>
+                                
                             </p:tab>
 
                             <!-- Accordion to display matching off-->
 
                             <p:tab title="#{msgs.rideBooking}">
 
-                                <table>
+                            
 
                                     <h:form rendered="#{ride.hasMatches}">
-                                        <tr>
-                                            <td colspan="1" class="formLabel">
+                                     
+                                            <div class="formLabel">
                                                 <p:commandButton  id="matchingList" icon="ui-icon-link" action="rider.rideMatchingsList" ajax="false" >
                                                     <f:param  name="#{crud.paramNameCrudId}"   value="#{ride.riderrouteId}"/>
                                                     <f:param  name="#{webflow.getParamBack()}" value="rider"               />
                                                 </p:commandButton>
                                                 <p:tooltip for="matchingList" value="#{msgs.rideMatchesShowOffers}" />
-                                            </td>
-
-                                            <td colspan="2" class="formLabel">
+                                            
                                                 <!-- *** show matchings list only if there are matchings *** -->
 
 
@@ -214,31 +162,24 @@
                                                     <f:param  name="#{webflow.getParamBack()}" value="rider"               />
                                                 </h:commandLink>
 
-                                            </td>
-                                        </tr>
+                                            </div>
+                                      
                                     </h:form> 
 
 
 
 
-                                    <tr>
-                                        <td>   <span class="formLabel">  #{msgs.rideNoMatchingOffers} </span> </td>
-                                        <td>   <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td>   <span class="formInput">  #{ride.noMatches} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideTimestampbooked}  </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td> <span class="formInput">  #{ride.timestampbooked} </span> </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <span class="formLabel">  #{msgs.rideTimestamprealized} </span> </td>
-                                        <td> <span class="formLabel"> &nbsp;:&nbsp; </span> </td>
-                                        <td> <span class="formInput">  #{ride.timestamprealized} </span> </td>   
-                                    </tr>
-                                </table>
+                                   
+                                        <div class="formLabel">  #{msgs.rideNoMatchingOffers}: </div>
+                                        <div class="formInput">  #{ride.noMatches} </div>
+                                   
+                                        <div class="formLabel">  #{msgs.rideTimestampbooked}:  </div>
+                                        <div class="formInput">  #{ride.timestampbooked} </div>
+                                   
+                                        <div class="formLabel">  #{msgs.rideTimestamprealized}:  </div>
+                                        <div class="formInput">  #{ride.timestamprealized}  </div>   
+                                 
+                            
                             </p:tab>
 
 
