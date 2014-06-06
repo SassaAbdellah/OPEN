@@ -49,198 +49,143 @@
 
                 #{match.smartUpdate()}
 
-                <p>
-				<table>
+               
+					
+			<div class="formLabel">#{msgs.matchExpectedPickupTime}:</div>
+			<div class="formInput">#{match.matchExpectedStartTimeFormatted}</div>
 
-					<tr>
-						<td><span class="formLabel">
-								#{msgs.matchExpectedPickupTime} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.matchExpectedStartTimeFormatted} </span></td>
-					</tr>
-					<tr>
-						<td><span class="formLabel">
-								#{msgs.matchDriversNickname} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput"> <h:form>
-									<h:commandLink
-										action="#{publicProfile.displayProfileForCustId()}">
+			<div class="formLabel">#{msgs.matchDriversNickname}:</div>
+
+			<div class="formInput">
+				<h:form>
+					<h:commandLink action="#{publicProfile.displayProfileForCustId()}">
                                             #{match.drive.custId.custNickname}
                                             <f:param
-											name="#{crud.paramNameCrudId}"
-											value="#{match.drive.custId.custId}" />
-									</h:commandLink>
-								</h:form>
-						</span></td>
-					</tr>
-					<tr>
-						<td><span class="formLabel"> #{msgs.matchDriveID} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput"> #{match.drive.rideId} </span></td>
-					</tr>
+							name="#{crud.paramNameCrudId}"
+							value="#{match.drive.custId.custId}" />
+					</h:commandLink>
+				</h:form>
+			</div>
 
-					<tr>
-						<td><span class="formLabel"> #{msgs.matchRiderrouteId}
-						</span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.ride.riderrouteId} </span></td>
-					</tr>
+
+			<div class="formLabel">#{msgs.matchDriveID}:</div>
+			<div class="formInput">#{match.drive.rideId}</div>
+
+			<div class="formLabel">#{msgs.matchRiderrouteId}:</div>
+			<div class="formInput">#{match.ride.riderrouteId}</div>
+
+			<div class="formLabel">#{msgs.matchDriversGender}:</div>
+			<div class="formInput">#{match.driverGenderLabel}</div>
 
 
 
-
-					<tr>
-						<td><span class="formLabel">
-								#{msgs.matchDriversGender} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.driverGenderLabel} </span></td>
-					</tr>
-
-					<tr>
-						<td><span class="formLabel">
-								#{msgs.matchDriverLicenseSince} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.publicDriverData.custLicensedate} </span></td>
-					</tr>
-
-					<tr>
-						<td><span class="formLabel">
-								#{msgs.matchDriverIsSmoker} </span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.publicDriverData.custIssmoker} </span></td>
-					</tr>
+			<div class="formLabel">#{msgs.matchDriverLicenseSince}:</div>
+			<div class="formInput">
+				#{match.publicDriverData.custLicensedate}</div>
 
 
-					<tr>
-						<td><span class="formLabel"> #{msgs.matchDriverState}
-						</span></td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.driverStateMessage} </span></td>
-					</tr>
 
+			<div class="formLabel">#{msgs.matchDriverIsSmoker}:</div>
+			<div class="formInput">#{match.publicDriverData.custIssmoker}</div>
 
-					<tr>
-						<td><span class="formLabel"> #{msgs.matchRiderState} </span>
-						</td>
-						<td><span class="formLabel"> &nbsp;:&nbsp; </span></td>
-						<td><span class="formInput">
-								#{match.riderStateMessage} </span></td>
-					</tr>
+			<div class="formLabel">#{msgs.matchDriverState}:</div>
+			<div class="formInput">#{match.driverStateMessage}</div>
 
+			<div class="formLabel">#{msgs.matchRiderState}:</div>
+			<div class="formInput">#{match.riderStateMessage}</div>
 
-					<tr>
+			<div class="formlabel">
+				<h:form>
+					<p:commandButton id="acceptButton"
+						actionListener="#{match.acceptDriver(evt)}"
+						action="rider.matchDisplay"
+						disabled="#{match.disableAcceptOfferLink()}" icon="ui-icon-check"
+						ajax="false">
 
-						<h:form>
-							<td colspan="1" class="commandlink"><p:commandButton
-									id="acceptButton" actionListener="#{match.acceptDriver(evt)}"
-									action="rider.matchDisplay"
-									disabled="#{match.disableAcceptOfferLink()}"
-									icon="ui-icon-check" ajax="false">
+						<f:param name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
 
-
-									<f:param name="#{match.paramRideID}"
-										value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
-
-								</p:commandButton> <p:tooltip for="acceptButton"
-									value="#{msgs.matchAcceptOfferedRide}" /></td>
-
-							<td colspan="2" class="commandlink"><h:commandLink
-									actionListener="#{match.acceptDriver(evt)}"
-									action="rider.matchDisplay"
-									disabled="#{match.disableAcceptOfferLink()}">
+					</p:commandButton>
+					<p:tooltip for="acceptButton"
+						value="#{msgs.matchAcceptOfferedRide}" />
+					&nbsp;
+					<h:commandLink actionListener="#{match.acceptDriver(evt)}"
+						action="rider.matchDisplay"
+						disabled="#{match.disableAcceptOfferLink()}">
                                             #{msgs.matchAcceptOfferedRide}
 
                                             <f:param
-										name="#{match.paramRideID}" value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
+							name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
+					</h:commandLink>
+				</h:form>
+			</div>
 
-								</h:commandLink></td>
-						</h:form>
+			<div class="formLabel">
+				<h:form>
+					<p:commandButton id="rejectButton"
+						actionListener="#{match.rejectDriver(evt)}"
+						action="rider.matchDisplay"
+						disabled="#{match.disableRejectOfferLink()}" icon="ui-icon-close"
+						ajax="false">
 
-					</tr>
-
-					<tr>
-						<h:form>
-
-							<td colspan="1"><p:commandButton id="rejectButton"
-									actionListener="#{match.rejectDriver(evt)}"
-									action="rider.matchDisplay"
-									disabled="#{match.disableRejectOfferLink()}"
-									icon="ui-icon-close" ajax="false">
-
-									<f:param name="#{match.paramRideID}"
-										value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
-								</p:commandButton> <p:tooltip for="rejectButton"
-									value="#{msgs.matchRejectOfferedRide}" /></td>
-
-							<td colspan="2" class="commandlink"><h:commandLink
-									actionListener="#{match.rejectDriver(evt)}"
-									action="rider.matchDisplay"
-									disabled="#{match.disableRejectOfferLink()}">
+						<f:param name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
+					</p:commandButton>
+					<p:tooltip for="rejectButton"
+						value="#{msgs.matchRejectOfferedRide}" />
+					&nbsp;
+					<h:commandLink actionListener="#{match.rejectDriver(evt)}"
+						action="rider.matchDisplay"
+						disabled="#{match.disableRejectOfferLink()}">
                                             #{msgs.matchRejectOfferedRide}
                                             <f:param
-										name="#{match.paramRideID}" value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
-								</h:commandLink></td>
-						</h:form>
-					</tr>
+							name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
+					</h:commandLink>
+				</h:form>
+			</div>
 
 
+			<div class="formlabel">
+				<h:form>
+					<p:commandButton id="messageButton" action="rider.matchSetMessage"
+						ajax="false" icon="ui-icon-comment">
 
-
-					<tr>
-
-						<h:form>
-							<td colspan="1"><p:commandButton id="messageButton"
-									action="rider.matchSetMessage" ajax="false"
-									icon="ui-icon-comment">
-
-									<f:param name="#{match.paramRideID}"
-										value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
-								</p:commandButton> 
-								<p:tooltip for="messageButton" value="#{msgs.matchSetRiderMessage}" />	
-							</td>
+						<f:param name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
+					</p:commandButton>
+					<p:tooltip for="messageButton" value="#{msgs.matchSetRiderMessage}" />	
+							&nbsp;
 								
-
-							
-
-							<td colspan="2" class="commandlink"><h:commandLink
-									action="rider.matchSetMessage">
+							<h:commandLink action="rider.matchSetMessage">
                                             #{msgs.matchSetRiderMessage}
 
                                             <f:param
-										name="#{match.paramRideID}" value="#{match.drive.rideId}" />
-									<f:param name="#{match.paramRiderrouteId}"
-										value="#{match.ride.riderrouteId}" />
-									<f:param name="#{webflow.getParamBack()}" value="rider" />
-								</h:commandLink></td>
-						</h:form>
-					</tr>
-				</table>
-			</p>
+							name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+						<f:param name="#{webflow.getParamBack()}" value="rider" />
+					</h:commandLink>
+				</h:form>
+			</div>
+
+
+
 
 			<!-- webflow stanza -->
-                #{webflow.smartUpdate()}
-                <h:form>
+				#{webflow.smartUpdate()}
+				<h:form>
 				<table>
 					<tr>
 						<td><p:commandButton id="backlink"
@@ -252,9 +197,6 @@
 					</tr>
 				</table>
 			</h:form>
-
-
-
 		</ui:define>
 
 	</ui:composition>
