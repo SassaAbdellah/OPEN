@@ -113,15 +113,15 @@ form{
 .formLabel{
     font-style: normal;
     font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .formInput{
-	margin-top:5px;
+	margin-top:10px;
 	margin-left:10px;
 	margin-right:10px;
-	margin-bottom:5px;
+	margin-bottom:10px;
 }
 
 
