@@ -69,7 +69,8 @@
 
 				<h:form>
 
-					<div><p:commandButton id="acceptButton"
+					<div class="formInput">
+						<p:commandButton id="acceptButton"
 							actionListener="#{match.acceptRider(evt)}"
 							action="driver.matchDisplay"
 							disabled="#{match.disableAcceptRequestLink()}"
@@ -98,7 +99,8 @@
 
 
 				<h:form>
-					<div><p:commandButton id="rejectButton"
+					<div class="formInput">
+						<p:commandButton id="rejectButton"
 							actionListener="#{match.rejectRider(evt)}"
 							action="driver.matchDisplay"
 							disabled="#{match.disableRejectRequestLink()}"
@@ -125,7 +127,8 @@
 
 
 				<h:form>
-					<div><p:commandButton id="messageButton"
+					<div class="formInput">
+						<p:commandButton id="messageButton"
 							action="driver.matchSetMessage" ajax="false"
 							icon="ui-icon-comment">
 
@@ -152,7 +155,8 @@
 				<!-- countermand this matching, if both have acceppted -->
 				<h:form rendered="#{match.matchEntity.canDriverCountermand}">
 
-					<div class="formLabel"><p:commandButton id="cancelRide"
+					<div class="formInput">
+							<p:commandButton id="cancelRide"
 							icon="ui-icon-trash" action="driver.driveCountermand"
 							ajax="false">
 
