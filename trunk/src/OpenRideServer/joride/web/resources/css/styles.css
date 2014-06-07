@@ -18,7 +18,6 @@
     #mapdiv{
 		width:200px;
 		height:200px;
-		background-color:#F0F0F0;
 		font-size:0.5em;
 		
 	}
@@ -33,7 +32,6 @@
      #mapdiv{
                 width:300px;
                 height:300px;
-                background-color:#F0F0F0;
                 font-size:0.75em;
           
       }
@@ -49,7 +47,6 @@
      #mapdiv{
                 width:500px;
                 height:500px;
-                background-color:#F0F0F0;
                 font-size:0.75em;
         }
 
@@ -60,8 +57,6 @@
 
 
 body {
-    color:#000000;
-    background-color:#F0F0F0;
     font-family:sans-serif;
 }
 
@@ -93,8 +88,6 @@ a:hover {
     padding-bottom:15px;
     padding-right:15px; 
     padding-left:15px; 
-
-    background-color:#FFFFFF;
 }
 
 
