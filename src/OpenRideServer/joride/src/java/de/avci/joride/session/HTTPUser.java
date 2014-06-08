@@ -9,6 +9,7 @@ import java.security.Principal;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -169,5 +170,38 @@ public class HTTPUser implements Serializable {
     }
     
      
+    /** Flag signifying wether or not maps should be shown.
+     *  I.e: Maps are cool and should always be shown, unless there
+     *  is not enough bandwidth.
+     *  
+     *  Since such conditions can be expected to last for
+     *  
+     * 
+     */
+    private boolean showMap=true;
+
+	public boolean isShowMap() {
+		return showMap;
+	}
+
+	public void setShowMap(boolean showMap) {
+		this.showMap = showMap;
+	}
+    
+	
+	public void toggleMapVisibility(ActionEvent evt){
+		this.setShowMap(!this.isShowMap());
+		
+		System.err.println("TODO: toggled showMapsProperty, current property is "+this.isShowMap());
+	}
+    
+    /** return inversion of isShowMap
+     */
+    public boolean isHideMap(){
+    	return !this.isShowMap();
+    }
+    
+    
+    
     
 } // class
