@@ -178,7 +178,7 @@ public class HTTPUser implements Serializable {
      *  
      * 
      */
-    private boolean showMap=true;
+    private boolean showMap=false;
 
 	public boolean isShowMap() {
 		return showMap;
