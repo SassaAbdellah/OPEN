@@ -86,37 +86,68 @@
 
 
 
+			<!-- *************************************************** -->
+			<!--  Mechanism to show/hide map                         -->
+			<!-- *************************************************** -->
+
+			<h:form>
+
+				<div class="formLabel">
+					<p:commandLink value="#{msgs.mapsShowMaps}"
+						rendered="#{HTTPUser.hideMap}" action="driver.driveDisplayNewDrive"
+						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{newdriverride.rideId}" />
+					</p:commandLink>
+				</div>
+
+				<div class="formLabel">
+					<p:commandLink value="#{msgs.mapsHideMaps}"
+						rendered="#{HTTPUser.showMap}" action="driver.driveDisplayNewDrive"
+						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{newdriverride.rideId}" />
+					</p:commandLink>
+				</div>
+
+			</h:form>
+
+			<!-- ************************************** -->
+			<!-- Map Mech below                         -->
+			<!-- ************************************** -->
+
+			<ui:fragment rendered="#{HTTPUser.showMap}">
 
 
 
-			<!-- include standard jquery  -->
-			<h:outputScript library="js" name="jquery-1.4.1.js" />
+				<!-- include standard jquery  -->
+				<h:outputScript library="js" name="jquery-1.4.1.js" />
 
-			<!-- we may deliver a local OpenLayers version 2.12              -->
-			<!-- alternatively, it can be included from OpenLayers.org   -->
-
-
-			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-			<script src="#{HTTPUser.openLayersURL}"></script>
+				<!-- we may deliver a local OpenLayers version 2.12              -->
+				<!-- alternatively, it can be included from OpenLayers.org   -->
 
 
-
-			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-
-			<!-- include functions for displaying the routing -->
-			<h:outputScript library="js" name="jorideRouting.js" />
+				<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+				<script src="#{HTTPUser.openLayersURL}"></script>
 
 
-			<!-- **************************************************************************** -->
-			<!-- div to show the map  -->
 
-			<!-- **************************************************************************** -->
+				<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
 
-			<p>
-			<div id="mapdiv">&nbsp;</div>
-			</p>
+				<!-- include functions for displaying the routing -->
+				<h:outputScript library="js" name="jorideRouting.js" />
 
-			<script>
+
+				<!-- **************************************************************************** -->
+				<!-- div to show the map  -->
+
+				<!-- **************************************************************************** -->
+
+				<p>
+					<div id="mapdiv">&nbsp;</div>
+				</p>
+
+				<script>
 
                     myRoutePoints =#{newdriverride.routePointsAsJSON};
                     myStartPoint =#{newdriverride.routePoints.startPointAsJSON};
@@ -128,6 +159,11 @@
                     createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
 
                 </script>
+
+			</ui:fragment>
+			<!-- ********************************************* -->
+			<!-- End of Maps fragment                          -->
+			<!-- ********************************************* -->
 				
 		
 
