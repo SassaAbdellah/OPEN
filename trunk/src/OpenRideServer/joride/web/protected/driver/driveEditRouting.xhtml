@@ -179,8 +179,7 @@
 
 				<div class="formLabel">
 					<p:commandLink value="#{msgs.mapsShowMaps}"
-						rendered="#{HTTPUser.hideMap}"
-						action="driver.editRouting"
+						rendered="#{HTTPUser.hideMap}" action="driver.editRouting"
 						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
@@ -189,12 +188,15 @@
 
 				<div class="formLabel">
 					<p:commandLink value="#{msgs.mapsHideMaps}"
-						rendered="#{HTTPUser.showMap}"
-						action="driver.editRouting"
+						rendered="#{HTTPUser.showMap}" action="driver.editRouting"
 						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 					</p:commandLink>
+					<p>
+						<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
+							name="OpenStreetmapsLogo.png" width="64" heigth="64" />
+					</p>
 				</div>
 
 			</h:form>

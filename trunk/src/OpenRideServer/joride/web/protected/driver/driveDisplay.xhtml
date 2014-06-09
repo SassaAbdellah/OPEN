@@ -278,9 +278,20 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{rscdriverride.rideId}" />
 					</p:commandLink>
+					<p>
+						<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
+							name="OpenStreetmapsLogo.png" width="64" heigth="64" />
+					</p>
+
 				</div>
 
+
 			</h:form>
+
+			<!-- ***************************************************  -->
+			<!--  when map is hidden, OSMLogo serves as a placeholder -->
+			<!-- ***************************************************  -->
+
 
 			<!-- ************************************** -->
 			<!-- Map Mech below                         -->
