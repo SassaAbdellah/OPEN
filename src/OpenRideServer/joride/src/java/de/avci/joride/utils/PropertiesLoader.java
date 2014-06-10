@@ -136,4 +136,26 @@ public class PropertiesLoader {
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
+    
+    
+    
+    
+    /**
+     * Where the update.properties file is located in the code
+     */
+    public static final String DATETIME_URL = "de.avci.joride.datetime";
+
+    /**
+     * Load the Update Properties
+     *
+     */
+    public Properties getDatetimeProps() {
+
+        ResourceBundle rb = loadResourceBundleByName(DATETIME_URL);
+        Properties props = getPropertiesFromRessourceBundle(rb);
+        return props;
+    }
+    
+    
+    
 }

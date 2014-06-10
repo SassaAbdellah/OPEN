@@ -7,8 +7,12 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
+
+import de.avci.joride.utils.PropertiesLoader;
 
 /** This class centrally defines a number of Constants for joride Frontend
  *  some of these may eventually be made configurable,
@@ -23,37 +27,43 @@ import javax.inject.Named;
 
 public class JoRideConstants implements Serializable{
     
-    
-       
-    /** Format to be used for dates.
-     *  (day in month in year, without time of day)
+    /**
+	 * default serial
+	 */
+	private static final long serialVersionUID = 1L;
+	/** We'll have to load datetime properties
      * 
-     *  FIXME: eventually this must be made confingurable as part 
-     *         of internationalization. Currently this is eurocentric.
      */
-    public static String JORIDE_DATE_FORMAT_STR= "dd.MM.yyyy";
+	private static PropertiesLoader pl=new PropertiesLoader();
+
     
+	
+	/**   @return  timestamp format, defined as "tsformat" property in datetime.properties
+	 */
+	public static String getDateTimeFormatString(){
+		return pl.getDatetimeProps().getProperty("tsformat");
+	}
+	
+	// @return  date format, defined as "dateformat" property in datetime.properties
+	public static String getDateFormatString(){
+		return pl.getDatetimeProps().getProperty("dateformat");
+	}
+	
+	
     
     /** Creates a new DateTimeFormat 
      *  (Datetime=Date+Time of Day)
+     *  using Timezone retrieved with "getTimezone"
+     *  
      * @return  
      */
     public DateFormat createDateFormat(){
-        return new SimpleDateFormat(JORIDE_DATE_FORMAT_STR);
+        DateFormat res=new SimpleDateFormat(getDateFormatString());
+        res.setTimeZone(this.getTimeZone());
+        return res;
     }
     
     
-    
-    
-    
-    
-    
-    /** Format to be used for timestamps.
-     * 
-     *  FIXME: eventually this must be made confingurable as part 
-     *         of internationalization. Currently this is eurocentric.
-     */
-    public static String JORIDE_TIMESTAMP_FORMAT_STR= "dd.MM.yyyy HH:mm";
     
     
     /** Creates a new DateTimeFormat 
@@ -61,10 +71,21 @@ public class JoRideConstants implements Serializable{
      * @return  
      */
     public DateFormat createDateTimeFormat(){
-        return new SimpleDateFormat(JORIDE_TIMESTAMP_FORMAT_STR);
+       DateFormat res=new SimpleDateFormat(getDateTimeFormatString());
+       res.setTimeZone(this.getTimeZone());
+       return res;
     }
     
-    /** Decimal Format for displaying ratings 
+    
+    /** TODO: make Timezone configurable, currently it is default timezone.
+     * 
+     * @return
+     */
+    private TimeZone getTimeZone() {
+		return TimeZone.getTimeZone(pl.getDatetimeProps().getProperty("defaulttimezone"));
+	}
+
+	/** Decimal Format for displaying ratings 
      */
     public DecimalFormat createRatingAverageFormat(){
         return new DecimalFormat("#0.00");
