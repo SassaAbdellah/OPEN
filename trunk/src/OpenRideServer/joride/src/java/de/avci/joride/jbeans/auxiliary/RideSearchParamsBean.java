@@ -85,7 +85,7 @@ public class RideSearchParamsBean implements Serializable {
      * TimeFormat used for retrieving dates in http requests
      *
      */
-    protected String DATE_FORMAT = JoRideConstants.JORIDE_DATE_FORMAT_STR;
+    protected String DATE_FORMAT = JoRideConstants.getDateFormatString();
 
     /**
      * Make Format Strings available in JSF Fashion
