@@ -1,11 +1,13 @@
 package de.avci.joride.session;
 
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.TimeZone;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -201,7 +203,12 @@ public class HTTPUser implements Serializable {
     	return !this.isShowMap();
     }
     
-    
+    /** Return the timezone for this session
+     * 
+     */
+    public TimeZone getTimeZone(){
+    	return JoRideConstants.getTimeZone();
+    }
     
     
 } // class
