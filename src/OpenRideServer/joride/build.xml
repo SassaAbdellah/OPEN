@@ -168,6 +168,21 @@
 			<fileset file="${navparamfile}" />
 		</replaceregexp>
 
+		<!-- ****************************  -->
+		<!-- Rewrite datetime settings   -->
+		<!-- ****************************  -->
+
+		<property name="datetimefile" value="${build.dir}/WEB-INF/classes/de/avci/joride/datetime.properties" />
+
+
+		<!--  apply user proved timezone -->
+		<replaceregexp byline="true">
+			<regexp pattern="defaulttimezone=(.*)" />
+			<substitution expression="defaulttimezone=${defaulttimezone}" />
+			<fileset file="${datetimefile}" />
+		</replaceregexp>
+
+
 
 		<!-- set theme to something different from default theme "aristo"-->
 
@@ -176,8 +191,8 @@
 	</target>
 	<!--  end of target "apply local properties" -->
 
-	
-	
+
+
 	<!-- TARGET overwriteCSS -->
 	<!-- overwriteCSS property should have been set in "war" target                  -->
 	<!-- overwriteCSS is there to signify that a user defined stylesheet is in place -->
@@ -264,7 +279,7 @@
 		<mkdir dir="${web-inf.dir}/lib" />
 		<copy todir="${web-inf.dir}/lib" verbose="true">
 			<fileset dir="../OpenRideShareMaster/local.resources/themes/">
-				 <include name="*.jar" />
+				<include name="*.jar" />
 			</fileset>
 		</copy>
 
