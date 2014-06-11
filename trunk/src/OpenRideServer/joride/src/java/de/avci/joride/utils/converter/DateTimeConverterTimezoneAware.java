@@ -19,12 +19,12 @@ import de.avci.joride.constants.JoRideConstants;
  *
  */
 
-@FacesConverter("de.avci.joride.utils.converter.DateConverterTimezoneAware")
+@FacesConverter("de.avci.joride.utils.converter.DateTimeConverterTimezoneAware")
 
-public class DateConverterTimezoneAware implements Converter {
+public class DateTimeConverterTimezoneAware implements Converter {
 	
 	
-	DateFormat df=JoRideConstants.createDateFormat();
+	DateFormat df=JoRideConstants.createDateTimeFormat();
 	
 
 	@Override
@@ -45,5 +45,5 @@ public class DateConverterTimezoneAware implements Converter {
 			throw new Error("Error while converting date  argument is no date : "+arg2);
 		}
 	}
-	
+		
 }

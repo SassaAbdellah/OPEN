@@ -57,9 +57,9 @@ public class JoRideConstants implements Serializable{
      *  
      * @return  
      */
-    public DateFormat createDateFormat(){
+    public static DateFormat createDateFormat(){
         DateFormat res=new SimpleDateFormat(getDateFormatString());
-        res.setTimeZone(this.getTimeZone());
+        res.setTimeZone(getTimeZone());
         return res;
     }
     
@@ -70,9 +70,9 @@ public class JoRideConstants implements Serializable{
      *  (Datetime=Date+Time of Day)
      * @return  
      */
-    public DateFormat createDateTimeFormat(){
+    public static DateFormat createDateTimeFormat(){
        DateFormat res=new SimpleDateFormat(getDateTimeFormatString());
-       res.setTimeZone(this.getTimeZone());
+       res.setTimeZone(getTimeZone());
        return res;
     }
     
@@ -81,7 +81,7 @@ public class JoRideConstants implements Serializable{
      * 
      * @return
      */
-    private TimeZone getTimeZone() {
+    private static TimeZone getTimeZone() {
 		return TimeZone.getTimeZone(pl.getDatetimeProps().getProperty("defaulttimezone"));
 	}
 
@@ -103,7 +103,7 @@ public class JoRideConstants implements Serializable{
      * 
      * @return  PARAM_NAME_UPDATE_RESPONSE
      */
-    public String getParamNameUpdateResponse(){
+    public static String getParamNameUpdateResponse(){
         return PARAM_NAME_UPDATE_RESPONSE;
     }
     
