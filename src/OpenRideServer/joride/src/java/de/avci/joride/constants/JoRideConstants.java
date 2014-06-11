@@ -81,7 +81,7 @@ public class JoRideConstants implements Serializable{
      * 
      * @return
      */
-    private static TimeZone getTimeZone() {
+    public static TimeZone getTimeZone() {
 		return TimeZone.getTimeZone(pl.getDatetimeProps().getProperty("defaulttimezone"));
 	}
 
