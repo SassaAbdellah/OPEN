@@ -41,11 +41,17 @@ build.joride-public=on
 #build.joride-rest=on
 #
 #
-#
-#
-#
-#
 mailServiceJNDI=jorideMail
+#
+#
+#
+#
+#
+# default timezone 
+# this is the timezone used to calculate the dates displayed in the frontend
+# use ISO Codes (GMT, UTC,...)
+#
+defaulttimezone=GMT
 #
 # 
 # email of the person/entity that gets messages 
