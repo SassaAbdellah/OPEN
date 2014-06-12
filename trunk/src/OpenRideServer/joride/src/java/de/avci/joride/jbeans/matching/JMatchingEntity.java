@@ -273,6 +273,25 @@ public class JMatchingEntity implements Serializable {
 
         return false;
     }
+    
+    
+    /** True, if driver  can either accept or reject this match
+     *  (i.e: wether or not link should be shown in driveMatchingsList)
+     */
+    public boolean enableDriverAcceptOrRejectLink(){
+    	return (enableAcceptRequestLink() || enableRejectRequestLink());	
+    }
+    
+    
+    /** True, if rider  can either accept or reject this match
+     *  (i.e: wether or not link should be shown in rideMatchingsList)
+     */
+    public boolean enableRiderAcceptOrRejectLink(){
+    	return (enableAcceptOfferLink() || enableRejectOfferLink());	
+    }
+    
+    
+    
 
     /**
      * Convenience method

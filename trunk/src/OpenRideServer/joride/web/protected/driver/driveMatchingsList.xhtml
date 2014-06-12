@@ -83,10 +83,10 @@
 								<div class="formInput"> #{matching.driverStateMessage} </div>
 							
 
-						<h:form>
+						<!--  accept or request matchings link will only be shown if these options are still valid -->
+						<h:form   rendered="#{matching.enableDriverAcceptOrRejectLink()}"> 
 						
-								
-									<!--  Match, accept or reject -->
+								<!--  Match, accept or reject -->
 									<div  class="formLabel">
 									<p:commandButton
 										id="matchDisplay" 
@@ -119,9 +119,9 @@
 										</h:commandLink>
 										
 										</div>
-								
+								</h:form>
 
-								
+								<h:form>
 									<!--  Match, showDetails -->
 									<div  class="formLabel">
 									<p:commandButton
