@@ -96,13 +96,9 @@
 
 							<h:form>
 								<tr>
-									<td colspan="1" class="formLabel">
-									
-									<p:commandButton
-											id="matchDisplay" 
-											icon="ui-icon-circle-zoomin"
-											action="rider.matchDisplay" 
-											ajax="false">
+									<td colspan="1" class="formLabel"><p:commandButton
+											id="matchDisplay" icon="ui-icon-circle-zoomin"
+											action="rider.matchDisplay" ajax="false">
 
 											<f:param name="#{match.paramRideID}"
 												value="#{matching.drive.rideId}" />
@@ -112,20 +108,14 @@
 											<f:param name="#{crud.paramNameCrudId}"
 												value="#{rscride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}" value="rider" />
-										</p:commandButton> 
-										
-										<p:tooltip for="matchDisplay"
-											value="#{msgs.matchMatchingDriveShowDetails}" />	
-										</td>
-						
+										</p:commandButton> <p:tooltip for="matchDisplay"
+											value="#{msgs.matchMatchingDriveShowDetails}" /></td>
 
-									<td colspan="2" class="formLabel">
-									
-									<h:commandLink
+
+									<td colspan="2" class="formLabel"><h:commandLink
 											action="rider.matchDisplay"
-											value="#{msgs.matchMatchingDriveShowDetails}"
-											>
-											
+											value="#{msgs.matchMatchingDriveShowDetails}">
+
 											<f:param name="#{match.paramRideID}"
 												value="#{matching.drive.rideId}" />
 											<f:param name="#{match.paramRiderrouteId}"
@@ -136,16 +126,14 @@
 											<f:param name="#{webflow.getParamBack()}" value="rider" />
 										</h:commandLink></td>
 								</tr>
-								
-								
-													<tr>
-									<td colspan="1" class="formLabel">
-									
-									<p:commandButton
-											id="matchAcceptOrReject" 
-											icon="ui-icon-triangle-1-e"
-											action="rider.matchDisplay" 
-											ajax="false">
+							</h:form>
+							<!--  accept or request matchings link will only be shown if these options are still valid -->
+							<h:form rendered="#{matching.enableRiderAcceptOrRejectLink()}">
+
+								<tr>
+									<td colspan="1" class="formLabel"><p:commandButton
+											id="matchAcceptOrReject" icon="ui-icon-triangle-1-e"
+											action="rider.matchDisplay" ajax="false">
 
 											<f:param name="#{match.paramRideID}"
 												value="#{matching.drive.rideId}" />
@@ -155,12 +143,9 @@
 											<f:param name="#{crud.paramNameCrudId}"
 												value="#{rscride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}" value="rider" />
-										</p:commandButton> 
-										
-										<p:tooltip for="matchAcceptOrReject"
-											value="#{msgs.matchMatchingDriveAcceptOrReject}" />	
-										</td>
-						
+										</p:commandButton> <p:tooltip for="matchAcceptOrReject"
+											value="#{msgs.matchMatchingDriveAcceptOrReject}" /></td>
+
 
 									<td colspan="2" class="formLabel"><h:commandLink
 											action="rider.matchDisplay"
@@ -175,11 +160,7 @@
 												value="#{rscride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}" value="rider" />
 										</h:commandLink></td>
-								</tr>			
-								
-								
-								
-								
+								</tr>
 							</h:form>
 						</table>
 					</p>
