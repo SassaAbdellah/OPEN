@@ -54,15 +54,11 @@
 
 					<p>
 						<hr />
-							
-								<div class="formLabel"> #{msgs.matchExpectedPickupTime}:  </div>
-								<div class="formInput"> #{matching.matchExpectedStartTimeFormatted} </div>
-							
-
-							
-								<div class="formLabel"> #{msgs.matchRiderName}: </div>
-								<div class="formInput"> 
-								<h:form>
+						
+							<div> 
+							<h:form>
+							<span class="formLabel"> #{msgs.matchRiderName} : </span>
+								<span class="formInput">
 											<h:commandLink
 												action="#{publicProfile.displayProfileForCustId()}">
                                                 #{matching.ride.custId.custNickname} 
@@ -70,15 +66,27 @@
 													name="#{crud.paramNameCrudId}"
 													value="#{matching.ride.custId.custId}" />
 											</h:commandLink>
-										</h:form>
+										</span>
+									</h:form>
 								</div>
+						
+							
+								<div class="formLabel"> #{msgs.matchExpectedPickupTime}:  </div>
+								<div class="formInput"> #{matching.matchExpectedStartTimeFormatted} </div>
 							
 							
+								<div class="formLabel"> #{msgs.matchFrom} </div>
+								<div class="formInput"> #{matching.ride.getStartptAddress()} </div>
+								
+								<div class="formLabel"> #{msgs.matchTo} </div>
+								<div class="formInput"> #{matching.ride.getEndptAddress()} </div>
+								
+								
+								
+													
 								<div  class="formLabel"> #{msgs.matchRiderState}:       </div>
 								<div class="formInput">  #{matching.riderStateMessage} </div>
-							
-
-							
+						
 								<div class="formLabel"> #{msgs.matchDriverState}: </div>
 								<div class="formInput"> #{matching.driverStateMessage} </div>
 							
