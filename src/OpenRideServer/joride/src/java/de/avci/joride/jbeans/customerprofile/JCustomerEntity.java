@@ -1,8 +1,10 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.session.HTTPUser;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import java.util.Collection;
+import java.util.Locale;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.awt.event.ActionEvent;
@@ -377,7 +379,10 @@ public class JCustomerEntity extends CustomerEntity {
      */
     public String getGenderLabel() {
 
-        PropertiesLoader loader = new PropertiesLoader();
+       
+        
+        Locale locale=new HTTPUtil().detectBestLocale();
+        PropertiesLoader loader = new PropertiesLoader(locale);
 
         if (this.getCustGender() == this.GENDER_MALE) {
             return loader.getMessagesProps().getProperty("custGenderMale");

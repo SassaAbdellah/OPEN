@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -404,8 +405,10 @@ public class JMatchingEntity implements Serializable {
 
 
         Integer rs = this.getRiderState();
+        
+        Locale locale=new HTTPUtil().detectBestLocale();
+        PropertiesLoader pl = new PropertiesLoader(locale);
 
-        PropertiesLoader pl = new PropertiesLoader();
 
         if (rs == null) {
             return pl.getMessagesProps().getProperty("matchRiderStateNoRiderRequest");
@@ -449,7 +452,9 @@ public class JMatchingEntity implements Serializable {
 
         Integer ds = this.getDriverState();
 
-        PropertiesLoader pl = new PropertiesLoader();
+        Locale locale=new HTTPUtil().detectBestLocale();
+        PropertiesLoader pl = new PropertiesLoader(locale);
+       
 
         if (ds == null) {
             return pl.getMessagesProps().getProperty("matchDriverStateNoDriverOffer");
