@@ -124,7 +124,7 @@
 			<h:form rendered="#{canceldriverride.canCountermandDriver}">
 
 				<!-- Cancelling and countermanding -->
-				<div colspan="1" class="formLabel">
+				<div class="formLabel">
 					<p:commandButton id="cancelRide" icon="ui-icon-trash"
 						actionListener="#{canceldriverride.invalidate()}" ajax="false">
 						<!-- Webflow parameters -->
@@ -269,6 +269,22 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{rscdriverride.rideId}" />
 					</p:commandLink>
+
+
+
+					<p>
+						<h:commandLink rendered="#{HTTPUser.hideMap}"
+							action="driver.driveDisplay"
+							actionListener="#{HTTPUser.toggleMapVisibility(evt)}">
+							<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
+								name="OpenStreetmapsLogo.png" width="64" heigth="64" />
+							<f:param name="#{crud.paramNameCrudId}"
+								value="#{rscdriverride.rideId}" />
+						</h:commandLink>
+					</p>
+
+
+
 				</div>
 
 				<div class="formLabel">
@@ -278,10 +294,6 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{rscdriverride.rideId}" />
 					</p:commandLink>
-					<p>
-						<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
-							name="OpenStreetmapsLogo.png" width="64" heigth="64" />
-					</p>
 
 				</div>
 
