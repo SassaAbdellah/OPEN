@@ -184,6 +184,19 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 					</p:commandLink>
+					
+					<p>
+						<h:commandLink rendered="#{HTTPUser.hideMap}"
+							action="driver.driveEditRouting"
+							actionListener="#{HTTPUser.toggleMapVisibility(evt)}">
+							<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
+								name="OpenStreetmapsLogo.png" width="64" heigth="64" />
+							<f:param name="#{crud.paramNameCrudId}"
+								value="#{driverride.rideId}" />
+						</h:commandLink>
+					</p>
+					
+					
 				</div>
 
 				<div class="formLabel">
@@ -193,10 +206,7 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{driverride.rideId}" />
 					</p:commandLink>
-					<p>
-						<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
-							name="OpenStreetmapsLogo.png" width="64" heigth="64" />
-					</p>
+					
 				</div>
 
 			</h:form>
