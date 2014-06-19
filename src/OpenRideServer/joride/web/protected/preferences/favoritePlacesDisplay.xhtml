@@ -51,43 +51,85 @@
 
 			<h:inputHidden value="#{jfavpoint.favptId}" />
 
+			<!-- switches to show map -->
 
+			<h:form>
 
-			<!-- **************************************************************************** -->
-			<!-- div to show the map  -->
+				<div class="formLabel">
+					<p:commandLink value="#{msgs.mapsShowMaps}"
+						rendered="#{HTTPUser.hideMap}"
+						action="preferences.favoritePlacesDisplay"
+						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{jfavpoint.favptId}" />
+					</p:commandLink>
 
-			<!-- **************************************************************************** -->
+					<p>
+						<h:commandLink rendered="#{HTTPUser.hideMap}"
+							action="preferences.favoritePlacesDisplay"
+							actionListener="#{HTTPUser.toggleMapVisibility(evt)}">
+							<p:graphicImage rendered="#{HTTPUser.hideMap}" library="images"
+								name="OpenStreetmapsLogo.png" width="64" heigth="64" />
+							<f:param name="#{crud.paramNameCrudId}"
+								value="#{jfavpoint.favptId}" />
+						</h:commandLink>
+					</p>
 
-			<p>
-			<div id="mapdiv">&nbsp;</div>
-			</p>
+				</div>
 
-
-
-			<!-- we may deliver a local OpenLayers version 2.12              -->
-			<!-- alternatively, it can be included from OpenLayers.org   -->
-			<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
-			<script src="#{HTTPUser.openLayersURL}"></script>
-
-
-			<!-- include standard jquery  -->
-			<h:outputScript library="js" name="jquery-1.4.1.js" />
-
-
-			<!-- include pickpoint script  -->
-			<h:outputScript library="js" name="pickpoint.js" />
-
-
-
-
-			<!-- creation of map and control object ends above -->
-			<!-- code above has to be externalized first       -->
+			</h:form>
 
 
 
-			<!-- Show map with default click handler -->
+			<!-- switch to hide map   -->
+			<div class="formLabel">
+				<h:form>
+					<p:commandLink value="#{msgs.mapsHideMaps}"
+						rendered="#{HTTPUser.showMap}"
+						action="preferences.favoritePlacesDisplay"
+						actionListener="#{HTTPUser.toggleMapVisibility(evt)}" ajax="false">
+						<f:param name="#{crud.paramNameCrudId}"
+							value="#{jfavpoint.favptId}" />
+					</p:commandLink>
+				</h:form>
+			</div>
 
-			<script>
+
+			<!-- ************************************** -->
+			<!-- Map Mech below                         -->
+			<!-- ************************************** -->
+
+			<ui:fragment rendered="#{HTTPUser.showMap}">
+
+				<p>
+					<!-- ***** div to show the map ***** -->
+					<div id="mapdiv">&nbsp;</div>
+				</p>
+
+				<!-- we may deliver a local OpenLayers version 2.12              -->
+				<!-- alternatively, it can be included from OpenLayers.org   -->
+				<!-- h:outputScript library="js" name="OpenLayers.js" /      -->
+				<script src="#{HTTPUser.openLayersURL}"></script>
+
+
+				<!-- include standard jquery  -->
+				<h:outputScript library="js" name="jquery-1.4.1.js" />
+
+
+				<!-- include pickpoint script  -->
+				<h:outputScript library="js" name="pickpoint.js" />
+
+
+
+
+				<!-- creation of map and control object ends above -->
+				<!-- code above has to be externalized first       -->
+
+
+
+				<!-- Show map with default click handler -->
+
+				<script>
                                       
                     var map=createOSMMap();	  
 
@@ -99,19 +141,13 @@
                     // create markers layer, and center at lon/lat of favorite point
                     createMarkersLayer( #{jfavpoint.lon}, #{jfavpoint.lat} , 16, map);
 		
-                
- 
                 </script>
 
+			</ui:fragment>
 
-
-
-
-
-
-
-
-
+			<!-- ********************************** -->
+			<!-- ***** End of map mechanism  ****** -->
+			<!-- ********************************** -->
 
 
 
