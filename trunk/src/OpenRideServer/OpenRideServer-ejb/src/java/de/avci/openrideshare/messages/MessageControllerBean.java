@@ -5,8 +5,15 @@
 package de.avci.openrideshare.messages;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.helperclasses.ControllerBean;
+import de.fhg.fokus.openride.matching.MatchEntity;
+
+import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Controller to finally implement a sending messages 
@@ -17,7 +24,10 @@ import javax.ejb.Stateless;
  * @author jochen
  */
 @Stateless
-public class MessagingController implements MessagingControllerLocal {
+public class MessageControllerBean extends ControllerBean implements MessageControllerLocal {
+	
+	@PersistenceContext
+	private EntityManager em;
 
     /**
      * Message to be sent from sender to recipient if a ride request is to be
@@ -84,6 +94,15 @@ public class MessagingController implements MessagingControllerLocal {
         return true;
      
     }
+
+	@Override
+	public List<Message> findAllMessages() {
+		
+		Query q = em.createNamedQuery("Message.findAll");
+        List<Message> matches = q.getResultList();
+		return matches;
+	
+	}
     
     
     

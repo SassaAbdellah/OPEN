@@ -4,15 +4,21 @@
  */
 package de.avci.openrideshare.messages;
 
+import java.util.List;
+
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import javax.ejb.Local;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author jochen
  */
 @Local
-public interface MessagingControllerLocal {
+public interface MessageControllerLocal {
+	
+
 
     /**
      * Send a message with subject and messageBody from Customer sender to
@@ -43,4 +49,11 @@ public interface MessagingControllerLocal {
             CustomerEntity recipient,
             String subject,
             String message);
+
+
+    /** All messages. This should only be used when debugging.
+     * 
+     * @return List of all messages.
+     */
+	public List<Message> findAllMessages();
 }
