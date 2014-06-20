@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.FavoritePointControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
@@ -38,6 +39,12 @@ public abstract class AbstractRestService {
 	/** JNDI Address where the RiderUndertakesRide controller lives
 	 */
 	private static final String RiderUndertakesRideControllerAdress="java:global/OpenRideServer/OpenRideServer-ejb/RiderUndertakesRideControllerBean!de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal";
+	
+	
+	
+	/** JNDI Address where the Message controller lives
+	 */
+	private static final String MessageControllerAdress="java:global/OpenRideServer/OpenRideServer-ejb/MessageControllerBean!de.avci.openrideshare.messages.MessageControllerLocal";
 	
 	
 	/** Look up Object (typically service) inside of the glassfish
@@ -92,8 +99,14 @@ public abstract class AbstractRestService {
   }
 	
    
-   
-   
+  /** Lookup RiderUndertakesRideControllerLocal Bean.
+  *
+  * @return
+  */
+ protected MessageControllerLocal lookupMessageControllerBean() {    
+ 	return (MessageControllerLocal) this.lookupController(MessageControllerAdress);
+ }
 	
+   
 
 }
