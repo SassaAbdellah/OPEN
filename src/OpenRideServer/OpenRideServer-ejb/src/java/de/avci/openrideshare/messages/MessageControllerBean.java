@@ -57,6 +57,7 @@ public class MessageControllerBean extends ControllerBean implements
 		Message msg = new Message();
 		msg.setSender(sender);
 		msg.setRecipient(recipient);
+		msg.setSubject(subject);
 		msg.setMessage(message);
 		msg.setTimeStampCreated(new Date());
 
