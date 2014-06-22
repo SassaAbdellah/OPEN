@@ -13,13 +13,13 @@ import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityServi
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 /**
@@ -628,6 +628,26 @@ public class JMatchingEntity implements Serializable {
     	return getDatetimeFormatted(this.getMatchEntity().getMatchExpectedStartTime());
     }
     
+    
+    
+    
+    /** Send message from Driver to Rider, where message payload is
+     *  the "message" property.
+     *  
+     * 
+     */
+    public void sendDriverMessage(ActionEvent evt){
+    	new JMatchingEntityService().sendDriverMessage(this);
+    }
+    
+    /** Send message from Rider to Driver, where message payload is
+     *  the "message" property.
+     *  
+     * 
+     */
+    public void sendRiderMessage(ActionEvent evt){
+    	new JMatchingEntityService().sendRiderMessage(this);
+    }
     
     
     
