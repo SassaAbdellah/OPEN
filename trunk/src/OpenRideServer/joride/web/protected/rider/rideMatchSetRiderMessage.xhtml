@@ -38,28 +38,26 @@
                 #{match.smartUpdate()}
 
                 <p>
-                    <table>
-                        <tr>
-                            <td class="formLabel"> #{msgs.matchYourMessageToDriver}  </td> 
-                        </tr>
+                    
+                            <div class="formLabel"> #{msgs.matchYourMessageToDriver}  </div> 
+                  
                         <h:form>
-                            <tr>
-                                <td class="formInput"> 
+                  
+                                <div class="formInput"> 
                                     <h:inputTextarea value="#{match.riderMessage}" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="formInput">
+                                </div>
+                    
+                                <div class="formInput">
                                     <h:commandButton value="#{msgs.matchSetRiderMessage}">
                                         <f:param name="#{match.paramRideID}"        value="#{match.drive.rideId}"      />
                                         <f:param name="#{match.paramRiderrouteId}"  value="#{match.ride.riderrouteId}" />
                                         <f:param name="#{webflow.getParamBack()}"  value="rider"                      />
                                         <f:param  name="#{webflow.getParamFinish()}" value="rider" />
                                     </h:commandButton>
-                                </td>
-                            </tr>
+                                </div>
+                        
                         </h:form>
-                    </table>
+                 
                 </p>
                 <!-- webflow stanza -->
 
