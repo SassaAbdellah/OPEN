@@ -41,6 +41,13 @@ public class Message {
 	@Column(name = "message_id")
 	private Integer messageId;
 
+	
+	
+	@Column(name="subject")
+	private String subject;
+	
+
+
 	/**
 	 * Delivery Type to signify no delivery. This is just here to ensure that
 	 * messages can be savely initialized without beeing sent away at random.
@@ -110,6 +117,7 @@ public class Message {
 
 	@Column(name = "deliverytype")
 	private Long deliveryType = DELIVERY_TYPE_NONE;
+		
 
 	public CustomerEntity getSender() {
 		return sender;
@@ -163,6 +171,38 @@ public class Message {
 	 */
 	public void addDeliveryTypeSMS() {
 		this.setDeliveryType(deliveryType | DELIVERY_TYPE_SMS);
+	}
+
+	public Integer getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(Integer messageId) {
+		this.messageId = messageId;
+	}
+
+	public Date getTimeStampCreated() {
+		return timeStampCreated;
+	}
+
+	public void setTimeStampCreated(Date timeStampCreated) {
+		this.timeStampCreated = timeStampCreated;
+	}
+
+	public Date getTimeStampReceived() {
+		return timeStampReceived;
+	}
+
+	public void setTimeStampReceived(Date timeStampReceived) {
+		this.timeStampReceived = timeStampReceived;
+	}
+	
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 }

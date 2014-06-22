@@ -30,7 +30,7 @@ public interface MessageControllerLocal {
      * @param message
      * @return
      */
-    public boolean sendMessage(
+    public boolean createMessage(
             CustomerEntity sender,
             CustomerEntity recipient,
             String subject,
@@ -45,7 +45,7 @@ public interface MessageControllerLocal {
      * @param message
      * @return  true if message had been sucessfully sent, else false
      */
-    public boolean sendSystemMessage(
+    public boolean createSystemMessage(
             CustomerEntity recipient,
             String subject,
             String message);
