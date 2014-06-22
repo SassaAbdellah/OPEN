@@ -41,4 +41,97 @@ public class MessageDTO extends AbstractDTO {
 	 */
 	private String message;
 
+	/** Subject/Payload
+	 */
+	private String subject;
+
+	
+	
+	public MessageDTO(){
+		
+	}
+
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+
+	public Integer getMessageId() {
+		return messageId;
+	}
+
+
+
+	public void setMessageId(Integer messageId) {
+		this.messageId = messageId;
+	}
+
+
+
+	public Integer getSenderId() {
+		return senderId;
+	}
+
+
+
+	public void setSenderId(Integer senderId) {
+		this.senderId = senderId;
+	}
+
+
+
+	public Integer getRecipientId() {
+		return recipientId;
+	}
+
+
+
+	public void setRecipientId(Integer recipientId) {
+		this.recipientId = recipientId;
+	}
+
+
+
+	public Timestamp getTimeStampCreated() {
+		return timeStampCreated;
+	}
+
+
+
+	public void setTimeStampCreated(Timestamp timeStampCreated) {
+		this.timeStampCreated = timeStampCreated;
+	}
+
+
+
+	public Timestamp getTimeStampReceived() {
+		return timeStampReceived;
+	}
+
+
+
+	public void setTimeStampReceived(Timestamp timeStampReceived) {
+		this.timeStampReceived = timeStampReceived;
+	}
+
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 }
