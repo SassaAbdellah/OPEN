@@ -45,8 +45,11 @@ public class MessageControllerBean extends ControllerBean implements
 	 * @return
 	 */
 	@Override
-	public boolean createMessage(CustomerEntity sender, CustomerEntity recipient,
-			String subject, String message) {
+	public boolean createMessage(
+			CustomerEntity sender, 
+			CustomerEntity recipient,
+			String subject, 
+			String message) {
 
 		Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
 
