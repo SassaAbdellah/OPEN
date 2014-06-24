@@ -187,16 +187,16 @@
         </navigation-case>
     </navigation-rule>    
     
-    
-    
-    
-    
-    
-    
-    
-
+     <!-- display success after setting the rider message on a matching -->
    
-
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rider.matchSetMessageSuccess</from-outcome>
+            <to-view-id>/faces/protected/rider/rideMatchSetRiderMessageSuccess.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
+ 
+    
 
     <!-- Navigation Case                            -->
     <!-- go to startpage for the driver section     -->
@@ -292,8 +292,18 @@
             <to-view-id>/faces/protected/driver/driveMatchSetDriverMessage.xhtml </to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    
+    <!-- display success after setting the driver message on a matching -->
+   
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>driver.matchSetMessageSuccess</from-outcome>
+            <to-view-id>/faces/protected/driver/driveMatchSetDriverMessageSuccess.xhtml </to-view-id>
+        </navigation-case>
+    </navigation-rule>
  
-    <!-- countermand message acting as a driver -->
+    <!-- countermand confirmation acting as a driver -->
 
     <navigation-rule>
         <navigation-case>
