@@ -4,22 +4,22 @@
  */
 package de.avci.joride.jbeans.matching;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.avci.openrideshare.messages.Message;
-import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.matching.RouteMatchingBeanLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 
 
@@ -47,28 +47,6 @@ public class JMatchingEntityService {
             throw new RuntimeException(ne);
         }
     }
-    
-    /** JNDI Address where the Message controller lives
-	 */
-	private static final String MessageControllerAdress="java:global/OpenRideServer/OpenRideServer-ejb/MessageControllerBean!de.avci.openrideshare.messages.MessageControllerLocal";
-	
-    
-    /**
-     * Lookup MessageBeanLocal that controls my requests.
-     *
-     * @return
-     */
-    protected MessageControllerLocal lookupMessageBeanLocal() {
-        try {
-            javax.naming.Context c = new InitialContext();
-            return (MessageControllerLocal) c.lookup(MessageControllerAdress);
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    
     
     
 
@@ -685,56 +663,6 @@ public class JMatchingEntityService {
       }
 
   
-      /** Send the message in match.driverMessage property from
-       *  driver to rider
-       * 
-       * @param jMatchingEntity
-       */
-	public void sendDriverMessage(JMatchingEntity jMatchingEntity) {
-
-		CustomerEntity sender=(jMatchingEntity.getDrive().getCustId());
-		CustomerEntity recipient=(jMatchingEntity.getRide().getCustId());
-		// TODO: subject is still dummy! load some decent subject here
-		String subject=("DUMMY SUBJECT FOR Driver MESSAGE");
-		String message=(jMatchingEntity.getDriverMessage());
-		
-		MessageControllerLocal messageController=this.lookupMessageBeanLocal();
-		
-		messageController.createMessage(
-				sender,
-				recipient,
-				subject, 
-				message);
-	}
-
-	/** Send the message in match.driverMessage property from
-     *  rider to driver
-     * 
-     * @param jMatchingEntity
-     */
-	public void sendRiderMessage(JMatchingEntity jMatchingEntity) {
-		
-		CustomerEntity sender=(jMatchingEntity.getRide().getCustId());
-		CustomerEntity recipient=(jMatchingEntity.getDrive().getCustId());
-	
-		// TODO: subject is still dummy! load some decent subject here
-		String subject=("DUMMY SUBJECT FOR RIDER MESSAGE");
-		String message=(jMatchingEntity.getRiderMessage());
-		
-		MessageControllerLocal messageController=this.lookupMessageBeanLocal();
-		
-		messageController.createMessage(
-				sender,
-				recipient,
-				subject, 
-				message); 	
-	}
-        
-        
-        
-    
-    
-    
-    
-    
+      
+ 
 } //class

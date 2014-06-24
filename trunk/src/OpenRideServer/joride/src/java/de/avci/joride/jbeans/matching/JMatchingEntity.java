@@ -8,6 +8,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
+import de.avci.joride.jbeans.messages.JMessageService;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.HTTPUtil;
@@ -535,7 +536,8 @@ public class JMatchingEntity implements Serializable {
     }
     
     
-    
+   
+   
     
     /** 
      * @return a message that the driver has left 
@@ -636,8 +638,8 @@ public class JMatchingEntity implements Serializable {
      *  
      * 
      */
-    public void sendDriverMessage(ActionEvent evt){
-    	new JMatchingEntityService().sendDriverMessage(this);
+    public void sendDriverMessage(){
+    	new JMessageService().createDriverMessageFromMatch(this);
     }
     
     /** Send message from Rider to Driver, where message payload is
@@ -645,8 +647,8 @@ public class JMatchingEntity implements Serializable {
      *  
      * 
      */
-    public void sendRiderMessage(ActionEvent evt){
-    	new JMatchingEntityService().sendRiderMessage(this);
+    public void sendRiderMessage(){
+    	new JMessageService().createRiderMessageFromMatch(this);
     }
     
     
