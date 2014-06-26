@@ -611,6 +611,17 @@
         </navigation-case>
     </navigation-rule>
            
+           
+           
+    <!-- show messages -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>messages</from-outcome>
+            <to-view-id>/faces/protected/messages/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+           
+	       
 	
     <!-- ***********************************************************  -->	
     <!-- *****  Application Section ********************************  -->
