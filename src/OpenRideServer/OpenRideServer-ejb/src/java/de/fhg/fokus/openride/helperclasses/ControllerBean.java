@@ -28,6 +28,7 @@
 package de.fhg.fokus.openride.helperclasses;
 
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 
 import java.util.List;
@@ -177,7 +178,8 @@ public abstract class ControllerBean {
   	 		em.merge(o);
    	 		em.refresh(o);
     }
-    
-     
+
+	
+ 
     
 }
