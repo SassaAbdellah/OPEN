@@ -101,4 +101,34 @@ public class MessageControllerBean extends ControllerBean implements
 
 	}
 
+
+
+	@Override
+	public List<Message> findUnreadMessages(CustomerEntity ce) {
+		
+		
+		Query q = em.createNamedQuery("Message.findUnread");
+		q.setParameter("ce", ce);
+		List<Message> matches = q.getResultList();
+		return matches;	
+	}
+
+
+
+	@Override
+	public long getNumberOfUnreadMessages(CustomerEntity ce) {
+		Query q = em.createNamedQuery("Message.numberOfUnread");
+		q.setParameter("ce", ce);
+		Long res = (Long) q.getSingleResult();
+		return res;
+	}
+	
+	
+	@Override
+	public boolean hasUnreadMessages(CustomerEntity ce) {
+		return (0< this.getNumberOfUnreadMessages(ce));
+	}
+	
+	
+
 }

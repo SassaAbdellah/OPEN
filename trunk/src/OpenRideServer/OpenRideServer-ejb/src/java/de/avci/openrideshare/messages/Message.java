@@ -31,7 +31,9 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 
 
 @NamedQueries({
-    @NamedQuery(name = "Message.findAll", query = "SELECT c FROM Message c"),
+    @NamedQuery(name = "Message.findAll"        , query = "SELECT c FROM Message c"),
+    @NamedQuery(name = "Message.findUnread"     , query = "SELECT c FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL order by c.timeStampCreated"),
+    @NamedQuery(name = "Message.numberOfUnread" , query = "SELECT count(c) FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL "),
 })
 public class Message {
 
