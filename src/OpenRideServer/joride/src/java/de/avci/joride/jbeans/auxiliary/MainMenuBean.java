@@ -224,6 +224,23 @@ public class MainMenuBean implements Serializable, MenuModel {
 		model.addElement(updateMenuItem);
         
         
+	       
+			//
+			// REMOVE ACCOUNT MenuItem
+			//
+			
+	        // TODO: add spacer
+			//<!--  p:spacer/ -->
+			//<!--  <p:menuitem outcome="preferences"  value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" /> 
+			String messagesMsg=proploader.getMessagesProps().getProperty("msg_messages");
+			
+			DefaultMenuItem messagesMenuItem=new DefaultMenuItem(messagesMsg);
+			messagesMenuItem.setCommand("messages");     
+			messagesMenuItem.setIcon("ui-icon-mail-closed"); 
+			model.addElement(messagesMenuItem);
+			
+			
+		
 		//
 		// REMOVE ACCOUNT MenuItem
 		//
