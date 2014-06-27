@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -44,8 +45,8 @@ public class MessageControllerBean extends ControllerBean implements
 	 * @param message
 	 * @return
 	 */
-	@Override
-	public boolean createMessage(
+	
+	private boolean createMessage(
 			CustomerEntity sender, 
 			CustomerEntity recipient,
 			String subject, 
@@ -101,8 +102,9 @@ public class MessageControllerBean extends ControllerBean implements
 
 	}
 
-
-
+	
+	
+	
 	@Override
 	public List<Message> findUnreadMessages(CustomerEntity ce) {
 		
@@ -127,6 +129,33 @@ public class MessageControllerBean extends ControllerBean implements
 	@Override
 	public boolean hasUnreadMessages(CustomerEntity ce) {
 		return (0< this.getNumberOfUnreadMessages(ce));
+	}
+
+
+
+	@Override
+	public boolean createRiderMessageFromMatch(MatchEntity match,
+			String subject, String message) {
+		
+		return this.createMessage(
+				match.getRiderUndertakesRideEntity().getCustId(),  // sender==rider
+				match.getDriverUndertakesRideEntity().getCustId(), // recipient=driver
+				subject, 
+				message);
+	}
+
+
+
+	@Override
+	public boolean createDriverMessageFromMatch(MatchEntity match,
+			String subject, String message) {
+	
+	
+		return this.createMessage(
+				match.getDriverUndertakesRideEntity().getCustId(),  // sender==driver
+				match.getRiderUndertakesRideEntity().getCustId(), // recipient==rider
+				subject, 
+				message);
 	}
 	
 	

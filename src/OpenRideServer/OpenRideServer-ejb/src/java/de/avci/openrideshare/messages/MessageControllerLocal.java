@@ -7,6 +7,8 @@ package de.avci.openrideshare.messages;
 import java.util.List;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchEntity;
+
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,19 +22,27 @@ public interface MessageControllerLocal {
 	
 
 
-    /**
-     * Send a message with subject and messageBody from Customer sender to
-     * Customer recipient
-     *
-     * @param sender
-     * @param recipient
-     * @param subject
-     * @param message
-     * @return
-     */
-    public boolean createMessage(
-            CustomerEntity sender,
-            CustomerEntity recipient,
+	/** Create a message from Rider to driver of a given match
+	 * 
+	 * @param match
+	 * @param subject
+	 * @param message
+	 * @return
+	 */
+    public boolean createRiderMessageFromMatch(
+            MatchEntity match,
+            String subject,
+            String message);
+    
+	/** Create a message from Driver to Rider of a given match
+	 * 
+	 * @param match
+	 * @param subject
+	 * @param message
+	 * @return
+	 */
+    public boolean createDriverMessageFromMatch(
+            MatchEntity match,
             String subject,
             String message);
 
