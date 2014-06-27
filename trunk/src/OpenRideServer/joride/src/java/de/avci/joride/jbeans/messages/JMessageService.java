@@ -52,18 +52,7 @@ public class JMessageService {
 		return (new JCustomerEntityService()).getCustomerEntitySafely();
 	}
 
-	/**
-	 * Primitive Method for creating a message
-	 * 
-	 * TODO: set more parameters...
-	 * 
-	 * @param arg
-	 */
-	private void createMessage(JMessage arg) {
 
-		this.lookupMessageBeanLocal().createMessage(arg.getSender(),
-				arg.getRecipient(), arg.getSubject(), arg.getMessage());
-	}
 
 	/**
 	 * Create a "Driver Message" send from Driver to Rider of a given agreement.
@@ -80,14 +69,7 @@ public class JMessageService {
 					+ " is not driver when sending driver message");
 		}
 
-		JMessage m = new JMessage();
-		m.setSender(match.getDrive().getCustId());
-		m.setRecipient(match.getRide().getCustId());
-		m.setSubject("DUMMY Subject for Driver Message");
-		m.setMessage(match.getDriverMessage());
-
-		this.lookupMessageBeanLocal().createMessage(m.getSender(),
-				m.getRecipient(), m.getSubject(), m.getMessage());
+		this.lookupMessageBeanLocal().createDriverMessageFromMatch(match.getMatchEntity(), "DUMMY Subject for Driver Message", match.getDriverMessage());
 
 	}
 
@@ -104,14 +86,12 @@ public class JMessageService {
 			throw new Error("Caller " + caller.getCustNickname()
 					+ " is not rider when sending rider message");
 		}
-		JMessage m = new JMessage();
-		m.setSender(match.getRide().getCustId());
-		m.setRecipient(match.getDrive().getCustId());
-		m.setSubject("DUMMY Subject for Rider Message");
-		m.setMessage(match.getRiderMessage());
+		
 
-		this.lookupMessageBeanLocal().createMessage(m.getSender(),
-				m.getRecipient(), m.getSubject(), m.getMessage());
+		this.lookupMessageBeanLocal().createRiderMessageFromMatch(
+				match.getMatchEntity(),
+				"DUMMY Subject for Rider Message", 
+				match.getRiderMessage());
 	}
 
 	/**
