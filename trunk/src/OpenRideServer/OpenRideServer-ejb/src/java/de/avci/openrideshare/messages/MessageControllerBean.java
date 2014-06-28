@@ -7,6 +7,8 @@ package de.avci.openrideshare.messages;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -43,12 +45,16 @@ public class MessageControllerBean extends ControllerBean implements
 	 * @param recipient
 	 * @param subject
 	 * @param message
+	 * @param riderroute_id  The RideRequest referenced in match
+	 * @param ride_id        The RideOffer referenced in match 
 	 * @return
 	 */
 	
 	private boolean createMessage(
 			CustomerEntity sender, 
 			CustomerEntity recipient,
+			RiderUndertakesRideEntity riderroute_id,
+			DriverUndertakesRideEntity ride_id,
 			String subject, 
 			String message) {
 
@@ -61,6 +67,8 @@ public class MessageControllerBean extends ControllerBean implements
 		Message msg = new Message();
 		msg.setSender(sender);
 		msg.setRecipient(recipient);
+		msg.setRequest(riderroute_id);
+		msg.setOffer(ride_id);
 		msg.setSubject(subject);
 		msg.setMessage(message);
 		msg.setTimeStampCreated(new Date());
@@ -90,7 +98,7 @@ public class MessageControllerBean extends ControllerBean implements
 	public boolean createSystemMessage(CustomerEntity recipient, String subject,
 			String message) {
 
-		return this.createMessage(null, recipient, subject, message);
+		return this.createMessage(null, recipient, null, null, subject, message);
 	}
 
 	@Override
@@ -140,8 +148,11 @@ public class MessageControllerBean extends ControllerBean implements
 		return this.createMessage(
 				match.getRiderUndertakesRideEntity().getCustId(),  // sender==rider
 				match.getDriverUndertakesRideEntity().getCustId(), // recipient=driver
+				match.getRiderUndertakesRideEntity(),
+				match.getDriverUndertakesRideEntity(),
 				subject, 
-				message);
+				message
+				);
 	}
 
 
@@ -154,6 +165,8 @@ public class MessageControllerBean extends ControllerBean implements
 		return this.createMessage(
 				match.getDriverUndertakesRideEntity().getCustId(),  // sender==driver
 				match.getRiderUndertakesRideEntity().getCustId(), // recipient==rider
+				match.getRiderUndertakesRideEntity(),
+				match.getDriverUndertakesRideEntity(),
 				subject, 
 				message);
 	}

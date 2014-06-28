@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * Internal message for use in OpenRideshare. This is intended to be sent from
@@ -103,6 +105,29 @@ public class Message {
 	@Column(name = "received")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStampReceived = null;
+	
+	
+	/** Messages which are sent from "normal" customer to another normal customer
+	 *  must reference a match which is referenced by it's primaray key,
+	 *  i.e: riderundertakesrideentity/driverundertakesridentity combination
+	 *  
+	 */
+	@JoinColumn(name = "match_request", referencedColumnName = "riderroute_id", insertable = true, updatable = true)
+	@ManyToOne(optional = false)
+	private RiderUndertakesRideEntity request;
+	
+	/** Messages which are sent from "normal" customer to another normal customer
+	 *  must reference a match which is referenced by it's primaray key,
+	 *  i.e: riderundertakesrideentity/driverundertakesridentity combination
+	 *  
+	 */
+	@JoinColumn(name = "match_offer", referencedColumnName = "ride_id", insertable = true, updatable = true)
+	@ManyToOne(optional = false)
+	private DriverUndertakesRideEntity offer;
+
+	
+	
+	
 
 	/**
 	 * Payload, message that is going to be sent
@@ -205,6 +230,22 @@ public class Message {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public RiderUndertakesRideEntity getRequest() {
+		return request;
+	}
+
+	public void setRequest(RiderUndertakesRideEntity request) {
+		this.request = request;
+	}
+
+	public DriverUndertakesRideEntity getOffer() {
+		return offer;
+	}
+
+	public void setOffer(DriverUndertakesRideEntity offer) {
+		this.offer = offer;
 	}
 
 }
