@@ -134,4 +134,24 @@ public class JMessageService {
 		return lookupMessageBeanLocal().hasUnreadMessages(ce);
 	}
 
+	/** True, if caller is recipient of this message
+	 * 
+	 * @param  message message to be tested
+	 * @return True, if caller is recipient of this message, else false.
+	 */
+	public boolean isIncomingMessage(Message message) {
+		return (this.getCustomerEntity().getCustId() ==  message.getRecipient().getCustId());
+	}
+
+	
+	/** True, if caller is sender of this message
+	 * 
+	 * @param Message message to be tested
+	 * @return True, if caller is sender of this message, else false.
+	 */
+	public boolean isOutgoingMessage(Message message) {
+		return (this.getCustomerEntity().getCustId() ==  message.getSender().getCustId());
+	}
+
+	
 }
