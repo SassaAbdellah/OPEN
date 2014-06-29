@@ -1,11 +1,13 @@
 package de.avci.joride.jbeans.messages;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 
+import de.avci.joride.constants.JoRideConstants;
 import de.avci.openrideshare.messages.Message;
 
 
@@ -61,6 +63,62 @@ public class JMessage extends Message implements Serializable  {
 	public JMessage(){
 		super();
 	}
+	
+	/**
+	 * A date format for formatting "created" and "received" date. 
+	 * Created via lazy instantiation.
+	 * 
+	 * @deprecated should be done centrally in utils* class
+	 * 
+	 */
+	protected DateFormat dateFormat;
+
+	/**
+	 * Accessor with lazy instantiation
+	 * 
+	 *
+	 * 
+	 * @return
+	 */
+	protected DateFormat getDateFormat() {
+
+		if (this.dateFormat == null) {
+			dateFormat = (new JoRideConstants()).createDateTimeFormat();
+		}
+
+		return dateFormat;
+	}
+	
+	/** returns a nicely formatted version of the "created" date property
+	 * 
+	 * @return
+	 */
+	public String getCreatedFormatted(){
+		return getDateFormat().format(this.getTimeStampCreated());
+	}
+	
+	/** returns a nicely formatted version of the "received" date property
+	 * 
+	 * @return
+	 */
+	public String getReceivedFormatted(){
+		return getDateFormat().format(this.getTimeStampReceived());
+	}
+	
+	/** True, if caller is receiver, else false
+	 * 
+	 */
+	public boolean isIncoming(){
+		return new JMessageService().isIncomingMessage(this);
+	}
+	
+	/** True, if caller is receiver, else false
+	 * 
+	 */
+	public boolean isOutgoing(){
+		return new JMessageService().isOutgoingMessage(this);
+	}
+	
 	
 	/** Create message copying data from
 	 * 

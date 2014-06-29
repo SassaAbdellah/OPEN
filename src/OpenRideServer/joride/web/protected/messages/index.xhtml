@@ -28,17 +28,43 @@
 		<ui:define name="content">
 
 			<h1>#{msgs.msg_messages}</h1>
-			
-			<div class="formLabel"> Has unread messages? </div>
-			<div class="formInput">#{message.hasUnreadMessages()}</div>
-			
 
-			<div class="formLabel">Number of unreadMessages comes here:</div>
-			<div class="formInput">#{message.numberOfUnreadMessages}</div>
+			<!-- Table with unread messages on startpage -->
+
+			<p:dataTable var="myMessage" value="#{message.unreadMessages}"
+				paginator="true" rows="30">
+				<f:facet name="header"> #{msgs.msg_unread} </f:facet>
+				
+				<!-- Column 1 : created date -->
+				<p:column>
+					<h:outputText value="#{myMessage.createdFormatted}" />
+				</p:column>
+
+				<!-- Column 2 : Sender or Recipient -->
+				<p:column >
+				
+					<!-- if incoming message, show sender  -->
+					<h:outputFormat value="#{msgs.msg_FromFormat}"
+						rendered="#{myMessage.isIncoming()}">
+						<f:param value="#{myMessage.sender.custNickname}" />
+					</h:outputFormat>
+					
+					<!-- if outgoing message, show recipient  -->
+					<h:outputFormat value="#{msgs.msg_ToFormat}"
+						rendered="#{myMessage.isOutgoing()}">
+						<f:param value="#{myMessage.recipient.custNickname}" />
+						#{myMessage.recipient.custNickname}
+					</h:outputFormat>
+				</p:column>
+
+				<p:column headerText="#{msgs.msg_message}">
+					<h:outputText value="#{myMessage.message}" />
+				</p:column>
+
+			</p:dataTable>
 
 
-			<div class="formLabel">content for messages comes here</div>
-			<div class="formInput">#{message.unreadMessages}</div>
+
 
 
 
