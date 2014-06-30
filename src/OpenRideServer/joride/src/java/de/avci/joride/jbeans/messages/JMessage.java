@@ -134,6 +134,8 @@ public class JMessage extends Message implements Serializable  {
 		this.setSubject(m.getSubject());
 		this.setTimeStampCreated(m.getTimeStampCreated());
 		this.setTimeStampReceived(m.getTimeStampReceived());
+		this.setOffer(m.getOffer());
+		this.setRequest(m.getRequest());
 	}
 	
 	

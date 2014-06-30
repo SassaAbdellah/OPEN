@@ -34,32 +34,55 @@
 			<p:dataTable var="myMessage" value="#{message.unreadMessages}"
 				paginator="true" rows="30">
 				<f:facet name="header"> #{msgs.msg_unread} </f:facet>
-				
-				<!-- Column 1 : created date -->
-				<p:column>
-					<h:outputText value="#{myMessage.createdFormatted}" />
-				</p:column>
 
-				<!-- Column 2 : Sender or Recipient -->
-				<p:column >
-				
-					<!-- if incoming message, show sender  -->
-					<h:outputFormat value="#{msgs.msg_FromFormat}"
-						rendered="#{myMessage.isIncoming()}">
-						<f:param value="#{myMessage.sender.custNickname}" />
-					</h:outputFormat>
-					
-					<!-- if outgoing message, show recipient  -->
-					<h:outputFormat value="#{msgs.msg_ToFormat}"
-						rendered="#{myMessage.isOutgoing()}">
-						<f:param value="#{myMessage.recipient.custNickname}" />
+
+				<!-- Column 1 : created date / sender or recipient /reference  -->
+				<p:column width="25%">
+
+
+					<!-- Sender or Recipient -->
+					<div class="formLabel">
+						<!-- if incoming message, show sender  -->
+						<h:outputFormat value="#{msgs.msg_FromFormat}"
+							rendered="#{myMessage.isIncoming()}">
+							<f:param value="#{myMessage.sender.custNickname}" />
+						</h:outputFormat>
+
+						<!-- if outgoing message, show recipient  -->
+						<h:outputFormat value="#{msgs.msg_ToFormat}"
+							rendered="#{myMessage.isOutgoing()}">
+							<f:param value="#{myMessage.recipient.custNickname}" />
 						#{myMessage.recipient.custNickname}
 					</h:outputFormat>
+					</div>
+
+					<!-- Date/Time -->
+					<div class="formLabel">
+						<h:outputText value="#{myMessage.createdFormatted}" />
+					</div>
+
+					<!-- show reference to match -->
+
+					<div class="formLabel">
+						<h:form>
+								<h:commandLink action="driver.matchDisplay"
+								value="#{msgs.msg_showConservation}">
+
+								<f:param name="#{match.paramRideID}"	value="#{myMessage.offer.rideId}" />
+								<f:param name="#{match.paramRiderrouteId}"  value="#{myMessage.request.riderrouteId}" />
+							    <f:param name="#{webflow.paramBack}"        value="messages" />
+							</h:commandLink>
+						</h:form>
+					</div>
 				</p:column>
 
-				<p:column headerText="#{msgs.msg_message}">
-					<h:outputText value="#{myMessage.message}" />
+				<p:column headerText="#{msgs.msg_message}" width="75%">
+					<div class="formInput">
+						<h:outputText value="#{myMessage.message}" />
+					</div>
 				</p:column>
+
+
 
 			</p:dataTable>
 
