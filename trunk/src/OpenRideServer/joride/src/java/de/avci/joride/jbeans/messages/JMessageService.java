@@ -13,6 +13,8 @@ import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.openrideshare.messages.Message;
 import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * Service for doing stuff with internal messaging
@@ -153,5 +155,29 @@ public class JMessageService {
 		return (this.getCustomerEntity().getCustId() ==  message.getSender().getCustId());
 	}
 
+	
+	/** True, if message references offer, and caller is driver.
+	 * 
+	 * @param Message message to be tested
+	 * @return True, if caller is driver else false.
+	 */
+	public boolean isCallerDriver(Message m) {
+		
+		DriverUndertakesRideEntity offer=m.getOffer();
+		if(offer==null) {return false;}
+		return (this.getCustomerEntity().getCustId() == offer.getCustId().getCustId());
+	}
+	
+	/** True, if message references request, and caller is rider.
+	 * 
+	 * @param Message message to be tested
+	 * @return True, if caller is rider, else false.
+	 */
+	public boolean isCallerRider(Message m) {
+		
+		RiderUndertakesRideEntity request=m.getRequest();
+		if(request==null) {return false;}
+		return (this.getCustomerEntity().getCustId() == request.getCustId().getCustId());
+	}
 	
 }

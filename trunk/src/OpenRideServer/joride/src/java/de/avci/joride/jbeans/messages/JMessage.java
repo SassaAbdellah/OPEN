@@ -9,6 +9,8 @@ import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.openrideshare.messages.Message;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 
 @Named("message")
@@ -119,6 +121,25 @@ public class JMessage extends Message implements Serializable  {
 		return new JMessageService().isOutgoingMessage(this);
 	}
 	
+	
+	/** True, if message references offer, and caller is driver.
+	 *
+	 * @return True, if caller is driver else false.
+	 */
+	public boolean getCallerIsDriver() {
+		return new JMessageService().isCallerDriver(this);
+	}
+	
+	/** True, if message references request, and caller is rider.
+	 *
+	 * @return True, if caller is driver else false.
+	 */
+	public boolean getCallerIsRider() {
+		return new JMessageService().isCallerRider(this);
+	}
+	
+	
+
 	
 	/** Create message copying data from
 	 * 

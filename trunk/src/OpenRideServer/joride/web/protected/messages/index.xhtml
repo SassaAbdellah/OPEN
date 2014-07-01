@@ -36,8 +36,12 @@
 				<f:facet name="header"> #{msgs.msg_unread} </f:facet>
 
 
-				<!-- Column 1 : created date / sender or recipient /reference  -->
-				<p:column width="25%">
+				<!-- ************************************** -->
+				<!-- *** Column for                     *** -->
+				<!-- *** date, sender,reference         *** -->
+				<!-- ************************************** -->
+
+				<p:column width="33%">
 
 
 					<!-- Sender or Recipient -->
@@ -61,22 +65,48 @@
 						<h:outputText value="#{myMessage.createdFormatted}" />
 					</div>
 
-					<!-- show reference to match -->
 
-					<div class="formLabel">
-						<h:form>
-								<h:commandLink action="driver.matchDisplay"
+					<!-- show reference to request from driver's view, if caller is driver  -->
+
+					<h:form rendered="#{myMessage.callerIsDriver}">
+						<div class="formLabel">
+							<h:commandLink action="driver.matchDisplay"
 								value="#{msgs.msg_showConservation}">
-
-								<f:param name="#{match.paramRideID}"	value="#{myMessage.offer.rideId}" />
-								<f:param name="#{match.paramRiderrouteId}"  value="#{myMessage.request.riderrouteId}" />
-							    <f:param name="#{webflow.paramBack}"        value="messages" />
+								<f:param name="#{match.paramRideID}"
+									value="#{myMessage.offer.rideId}" />
+								<f:param name="#{match.paramRiderrouteId}"
+									value="#{myMessage.request.riderrouteId}" />
+								<f:param name="#{webflow.paramBack}" value="messages" />
 							</h:commandLink>
-						</h:form>
-					</div>
+						</div>
+					</h:form>
+
+					<!-- show reference to request from rider's view, if caller is rider  -->
+
+				 <h:form rendered="#{myMessage.callerIsRider}">
+						<div class="formLabel">
+							<h:commandLink action="rider.matchDisplay"
+								value="#{msgs.msg_showConservation}">
+								<f:param name="#{match.paramRideID}"
+									value="#{myMessage.offer.rideId}" />
+								<f:param name="#{match.paramRiderrouteId}"
+									value="#{myMessage.request.riderrouteId}" />
+								<f:param name="#{webflow.paramBack}" value="messages" />
+							</h:commandLink>
+						</div>
+					</h:form>
+
+			
+
 				</p:column>
 
-				<p:column headerText="#{msgs.msg_message}" width="75%">
+
+
+				<!-- ************************************** -->
+				<!-- *** Message Column ******************* -->
+				<!-- ************************************** -->
+
+				<p:column headerText="#{msgs.msg_message}" width="66%">
 					<div class="formInput">
 						<h:outputText value="#{myMessage.message}" />
 					</div>
@@ -85,6 +115,7 @@
 
 
 			</p:dataTable>
+
 
 
 
