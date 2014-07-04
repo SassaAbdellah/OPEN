@@ -180,4 +180,26 @@ public class JMessageService {
 		return (this.getCustomerEntity().getCustId() == request.getCustId().getCustId());
 	}
 	
+	
+	/** Set message read (savely).
+	 *  This may only be called is caller is recipient. 
+	 * 
+	 * @param messageId
+	 */
+	public void setMessageRead(JMessage jmsg){
+		
+		MessageControllerLocal mcl=this.lookupMessageBeanLocal();
+		Message msg=mcl.getMessageById(jmsg.getMessageId());
+		
+		// nothing to do, fail silently
+		if(msg==null) return;
+		
+		// see, if caller is recipient!
+		if(!( this.getCustomerEntity().getCustId()==msg.getRecipient().getCustId())){
+			throw new Error("Attempt to set message read from non-recipient");
+		}
+		
+		mcl.setRead(msg.getMessageId());
+	}
+	
 }

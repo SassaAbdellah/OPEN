@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.util.List;
 
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
@@ -138,8 +139,27 @@ public class JMessage extends Message implements Serializable  {
 		return new JMessageService().isCallerRider(this);
 	}
 	
-	
 
+	
+	
+	
+	/** Change status from unread to read only, no way back!
+	 * 
+	 * @param arg
+	 */
+	public void setRead(boolean arg){
+		if(arg=true){
+			new JMessageService().setMessageRead(this);
+		}
+	}
+
+	// TODO: dummy, think of it...
+	public boolean getRead(){
+		return this.getTimeStampReceived()!=null;
+	}
+	
+	
+	
 	
 	/** Create message copying data from
 	 * 
