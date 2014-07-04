@@ -64,7 +64,18 @@
 					<div class="formLabel">
 						<h:outputText value="#{myMessage.createdFormatted}" />
 					</div>
-
+					
+					<!-- mark as read, if it is not yet read -->
+					<h:form>
+						<div class="formLabel">
+							<p:selectBooleanCheckbox 
+							value="#{myMessage.read}"
+							onchange="submit()"
+							 />
+							#{msgs.msg_markRead}
+						</div>
+					</h:form>
+					
 
 					<!-- show reference to request from driver's view, if caller is driver  -->
 
@@ -83,7 +94,7 @@
 
 					<!-- show reference to request from rider's view, if caller is rider  -->
 
-				 <h:form rendered="#{myMessage.callerIsRider}">
+					<h:form rendered="#{myMessage.callerIsRider}">
 						<div class="formLabel">
 							<h:commandLink action="rider.matchDisplay"
 								value="#{msgs.msg_showConservation}">
@@ -95,8 +106,6 @@
 							</h:commandLink>
 						</div>
 					</h:form>
-
-			
 
 				</p:column>
 
