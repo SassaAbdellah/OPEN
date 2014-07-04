@@ -6,12 +6,10 @@ package de.avci.openrideshare.messages;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
-
-import javax.ejb.Local;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -87,8 +85,24 @@ public interface MessageControllerLocal {
 	public long getNumberOfUnreadMessages(CustomerEntity ce);
 
 
-
 	/** True, if there are unread messages for this user, else false.
 	 */
 	boolean hasUnreadMessages(CustomerEntity ce);
+
+	
+	/** Set message with given id to read (if it exists)
+	 * 
+	 * @param messageId
+	 */
+	public void setRead(Integer messageId);
+
+	
+	/** find single message by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Message getMessageById(Integer id);
+
+
 }
