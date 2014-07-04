@@ -4,21 +4,22 @@
  */
 package de.avci.openrideshare.messages;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  * Controller to finally implement a sending messages currently this is a dummy
@@ -170,6 +171,27 @@ public class MessageControllerBean extends ControllerBean implements
 				subject, 
 				message);
 	}
+
+	
+	
+	@Override
+	public void setRead(Integer messageId) {
+		Message msg=em.find(Message.class, messageId);
+		if(msg!=null){
+			msg.setTimeStampReceived(new Timestamp(System.currentTimeMillis()));
+			em.persist(msg);
+		}
+	}
+
+
+
+	@Override
+	public Message getMessageById(Integer id) {
+		return em.find(Message.class, id);
+	}
+
+
+
 	
 	
 
