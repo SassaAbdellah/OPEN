@@ -192,6 +192,20 @@ public class MessageControllerBean extends ControllerBean implements
 
 
 
+	@Override
+	public List<Message> findMessagesForUserInInterval(CustomerEntity ce,
+			Date startDate, Date endDate) {
+		Query q = em.createNamedQuery("Message.findForUserInIntervall");
+		q.setParameter("ce", ce);
+		q.setParameter("startDate" , startDate);
+		q.setParameter("endDate"   , endDate);
+		//
+		List<Message> matches = q.getResultList();
+		return matches;	
+	}
+
+
+
 	
 	
 
