@@ -33,9 +33,14 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 
 @NamedQueries({
-    @NamedQuery(name = "Message.findAll"        , query = "SELECT c FROM Message c"),
-    @NamedQuery(name = "Message.findUnread"     , query = "SELECT c FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL order by c.timeStampCreated"),
-    @NamedQuery(name = "Message.numberOfUnread" , query = "SELECT count(c) FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL"),
+	// all messages. Don't use, except for testing!
+    @NamedQuery(name = "Message.findAll"               , query = "SELECT c FROM Message c"),
+    // list of unread messages for user
+    @NamedQuery(name = "Message.findUnread"            , query = "SELECT c FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL order by c.timeStampCreated"),
+    // number of unread messages for user
+    @NamedQuery(name = "Message.numberOfUnread"        , query = "SELECT count(c) FROM Message c where c.recipient = :ce AND c.timeStampReceived IS NULL"),
+    // messages for given user between given dates
+    @NamedQuery(name = "Message.findForUserInIntervall"    , query = "SELECT c FROM Message c where (c.recipient = :ce OR c.sender= :ce) AND (c.timeStampCreated <= :endDate AND c.timeStampCreated >= :startDate) order by c.timeStampCreated"),
 })
 public class Message {
 

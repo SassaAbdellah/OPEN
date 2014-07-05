@@ -4,6 +4,7 @@
  */
 package de.avci.openrideshare.messages;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -103,6 +104,15 @@ public interface MessageControllerLocal {
 	 * @return
 	 */
 	public Message getMessageById(Integer id);
-
+	
+	/** Find all messages for given user in given interval.
+	 *  (i.e: all messages for which user is either sender or recipient)
+	 * 
+	 * @param ce          CustomerEntity/User
+	 * @param startDate   Start of Interval
+	 * @param endDate     End of Interval
+	 * @return            
+	 */
+	public List <Message> findMessagesForUserInInterval(CustomerEntity ce, Date startDate, Date endDate); 
 
 }
