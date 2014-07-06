@@ -8,6 +8,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JPublicCustomerProfile;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
+import de.avci.joride.jbeans.messages.JMessage;
 import de.avci.joride.jbeans.messages.JMessageService;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
@@ -17,6 +18,7 @@ import de.fhg.fokus.openride.matching.MatchEntity;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
@@ -652,6 +654,12 @@ public class JMatchingEntity implements Serializable {
     }
     
     
+    /** Get list of messages for this match
+     * 
+     */
+    public List <JMessage> getMessages(){
+    	return new JMessageService().findMessagesForMatch(this);
+    }
     
     
        /** return false, if neither rider or driver countermanded this ride, else false 

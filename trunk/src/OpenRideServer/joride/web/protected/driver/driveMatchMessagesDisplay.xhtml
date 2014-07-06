@@ -23,23 +23,80 @@
 
 	<ui:composition template="/templates/simpleLayout.xhtml">
 
-	
+
 
 		<ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
 		<ui:define name="content">
-			<h1> TODO: messages for Drive Match </h1>
+			<h1>#{msgs.msg_showMessagesForOffer}</h1>
 			<p>
 				#{match.smartUpdate()}
 
 
-			   TODO: display messages for match here!
-			   
+
+				<p:dataTable var="myMessage"
+					value="#{match.messages}" paginator="true"
+					rows="30">
+					<f:facet name="header" />
+
+
+					<!-- ************************************** -->
+					<!-- *** Column for                     *** -->
+					<!-- *** date, sender,reference         *** -->
+					<!-- ************************************** -->
+
+					<p:column width="40%">
+						<div class="formLabel">
+							<!-- if incoming message, show sender  -->
+							<h:outputFormat value="#{msgs.msg_FromFormat}"
+								rendered="#{myMessage.isIncoming()}">
+								<f:param value="#{myMessage.sender.custNickname}" />
+							</h:outputFormat>
+
+							<!-- if outgoing message, show recipient  -->
+							<h:outputFormat value="#{msgs.msg_ToFormat}"
+								rendered="#{myMessage.isOutgoing()}">
+								<f:param value="#{myMessage.recipient.custNickname}" />
+							</h:outputFormat>
+						</div>
+
+
+						<!-- show created/sent information -->
+						<div class="formInput">
+							<h:outputFormat value="#{msgs.msg_sentFormat}">
+								<f:param value="#{myMessage.createdFormatted}" />
+							</h:outputFormat>
+						</div>
+
+						<!-- show read/unread information -->
+						<div class="formInput">
+							<h:outputFormat value="#{msgs.msg_receivedFormat}">
+								<f:param value="#{myMessage.receivedFormatted}" />
+							</h:outputFormat>
+						</div>
+
+					</p:column>
+
+
+
+					<!-- ************************************** -->
+					<!-- *** Message Column ******************* -->
+					<!-- ************************************** -->
+
+					<p:column headerText="#{msgs.msg_message}" width="60%">
+						<div class="formInput">
+							<h:outputText value="#{myMessage.message}" />
+						</div>
+					</p:column>
+
+				</p:dataTable>
 			</p>
-		
-                <h:form>
+
+			<!-- webflow back stanza -->
+
+			<h:form>
 				<table>
 					<tr>
 						<td><p:commandButton id="backlink"
@@ -52,8 +109,8 @@
 									value="#{match.ride.riderrouteId}" />
 
 							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
-						<td>
-						   <h:commandLink value="#{msgs.back}"	action="driver.matchDisplay">
+						<td><h:commandLink value="#{msgs.back}"
+								action="driver.matchDisplay">
 								<f:param name="#{match.paramRideID}"
 									value="#{match.drive.rideId}" />
 								<f:param name="#{match.paramRiderrouteId}"

@@ -227,6 +227,49 @@ public class JMessageService {
 	
 	
 	
+	/**
+	 * List of messages for given match. Safely.
+	 * I.e: to call this method caller must be either 
+	 * rider of driver in match.
+	 * 
+	 * @return
+	 */
+	public List<JMessage> findMessagesForMatch(JMatchingEntity jMatch) {
+
+		CustomerEntity ce = this.getCustomerEntity();
+		Integer customerId=ce.getCustId();
+		
+		boolean safetyTest=false;
+		// customer is driver?
+		if(customerId==jMatch.getMatchEntity().getDriverUndertakesRideEntity().getCustId().getCustId()){
+			safetyTest=true;
+		}
+		// customer is rider?
+		if(customerId==jMatch.getMatchEntity().getRiderUndertakesRideEntity().getCustId().getCustId()){
+			safetyTest=true;
+		}
+		
+		if(!safetyTest){
+			throw new Error("Calling entity was neither driver nor rider when calling messages for match ");
+		}
+		
+		int rideId=jMatch.getMatchEntity().getDriverUndertakesRideEntity().getRideId();
+		int riderrouteId=jMatch.getMatchEntity().getRiderUndertakesRideEntity().getRiderrouteId();
+		
+
+		List<Message> messagesL = lookupMessageBeanLocal().findMessagesForMatch(rideId, riderrouteId);
+		List<JMessage> res = new LinkedList<JMessage>();
+
+		for (Message m : messagesL) {
+			res.add(new JMessage(m));
+		}
+
+		return res;
+	}
+	
+	
+	
+	
 	
 	
 }
