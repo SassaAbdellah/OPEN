@@ -85,7 +85,7 @@
 										value="#{myMessage.offer.rideId}" />
 									<f:param name="#{match.paramRiderrouteId}"
 										value="#{myMessage.request.riderrouteId}" />
-									<f:param name="#{webflow.paramBack}" value="messages" />
+									<f:param name="#{webflow.paramBack}" value="messages.search" />
 								</h:commandLink>
 							</div>
 						</h:form>
@@ -99,7 +99,7 @@
 										value="#{myMessage.offer.rideId}" />
 									<f:param name="#{match.paramRiderrouteId}"
 										value="#{myMessage.request.riderrouteId}" />
-									<f:param name="#{webflow.paramBack}" value="messages" />
+									<f:param name="#{webflow.paramBack}" value="messages.search" />
 								</h:commandLink>
 							</div>
 						</h:form>
@@ -130,12 +130,13 @@
 			<p>
 
 				<h:form>
-					<!-- backlink leading to search Interval start -->
+					<!-- backlink le ading to search Interval start -->
 					<table>
 						<tr>
 							<td><p:commandButton id="backlink"
 									icon="ui-icon-triangle-1-w" action="messages.search"
-									ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
+									ajax="false" />
+									 <p:tooltip for="backlink" value="#{msgs.back}" />
 							</td>
 							<td><h:commandLink value="#{msgs.back}"
 									action="messages.search" /></td>
