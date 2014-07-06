@@ -145,6 +145,38 @@
 				</h:form>
 
 
+				<!-- ***** link to messages ***** -->
+
+				<h:form>
+					<div class="formInput">
+						<p:commandButton id="messagesButton"
+							action="driver.matchDisplayMessages" icon="ui-icon-mail-closed"
+							ajax="false">
+
+							<f:param name="#{match.paramRideID}"
+								value="#{match.drive.rideId}" />
+							<f:param name="#{match.paramRiderrouteId}"
+								value="#{match.ride.riderrouteId}" />
+						</p:commandButton>
+
+						<p:tooltip for="messagesButton"
+							value="#{msgs.msg_showMessagesForOffer}" />
+
+						&nbsp;
+
+						<h:commandLink action="driver.matchDisplayMessages"
+							value="#{msgs.msg_showMessagesForOffer}">
+							<f:param name="#{match.paramRideID}"
+								value="#{match.drive.rideId}" />
+							<f:param name="#{match.paramRiderrouteId}"
+								value="#{match.ride.riderrouteId}" />
+						</h:commandLink>
+					</div>
+				</h:form>
+
+
+
+
 				<h:form>
 					<div class="formInput">
 						<p:commandButton id="messageButton"

@@ -195,6 +195,15 @@
 			<to-view-id>/faces/protected/rider/rideMatchSetRiderMessageSuccess.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- display all messages for a ride Matching -->
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>rider.matchDisplayMessages</from-outcome>
+			<to-view-id>/faces/protected/rider/rideMatchMessagesDisplay.xhtml </to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 
 
@@ -302,6 +311,19 @@
 			<to-view-id>/faces/protected/driver/driveMatchSetDriverMessageSuccess.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<!-- display all messages for a drive Matching -->
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>driver.matchDisplayMessages</from-outcome>
+			<to-view-id>/faces/protected/driver/driveMatchMessagesDisplay.xhtml </to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
 
 	<!-- countermand confirmation acting as a driver -->
 
