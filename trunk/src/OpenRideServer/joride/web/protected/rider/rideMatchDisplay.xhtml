@@ -153,6 +153,34 @@
 					</h:commandLink>
 				</h:form>
 			</div>
+	 
+            <!-- ***** link to messages ***** --> 
+			<div class="formLabel">
+				<h:form>
+				<p:commandButton id="messagesButton"
+						action="rider.matchDisplayMessages"
+						icon="ui-icon-mail-closed"
+						ajax="false">
+
+						<f:param name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+					</p:commandButton>
+					
+					<p:tooltip  for="messagesButton"  value="#{msgs.msg_showMessagesForRequest}" />
+			
+					&nbsp;
+			
+					<h:commandLink action="rider.matchDisplayMessages"
+						value="#{msgs.msg_showMessagesForRequest}">
+						<f:param name="#{match.paramRideID}" value="#{match.drive.rideId}" />
+						<f:param name="#{match.paramRiderrouteId}"
+							value="#{match.ride.riderrouteId}" />
+					</h:commandLink>
+
+				</h:form>
+
+			</div>
 
 
 			<div class="formlabel">
