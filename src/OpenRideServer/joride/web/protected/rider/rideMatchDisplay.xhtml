@@ -190,10 +190,21 @@
 					<tr>
 						<td><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}"
-								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
-						</td>
+								ajax="false">
+
+								<f:param name="#{match.paramRideID}"
+									value="#{match.drive.rideId}" />
+								<f:param name="#{match.paramRiderrouteId}"
+									value="#{match.ride.riderrouteId}" />
+
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
 						<td><h:commandLink value="#{msgs.back}"
-								action="#{webflow.getBack()}" /></td>
+								action="#{webflow.getBack()}">
+								<f:param name="#{match.paramRideID}"
+									value="#{match.drive.rideId}" />
+								<f:param name="#{match.paramRiderrouteId}"
+									value="#{match.ride.riderrouteId}" />
+							</h:commandLink></td>
 					</tr>
 				</table>
 			</h:form>
