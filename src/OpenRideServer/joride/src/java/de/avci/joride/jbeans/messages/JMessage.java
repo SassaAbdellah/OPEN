@@ -2,16 +2,12 @@ package de.avci.joride.jbeans.messages;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.util.List;
 
 import javax.faces.bean.RequestScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.openrideshare.messages.Message;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 
 @Named("message")
@@ -29,25 +25,7 @@ public class JMessage extends Message implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	
-	
-	
-	/** All unread messages
-	 * 
-	 * @return
-	 */
-	public List <JMessage> getUnreadMessages() { return new JMessageService().getUnreadMessages();}
-	
-	
-	
-	/** Number of unread messages.
-	 *  Since this method will be polled, it should be backed up
-	 *  by an ejb method
-	 *  
-	 */
-	public long getNumberOfUnreadMessages(){
-		return new JMessageService().getNumberOfUnreadMessages();
-	}
-	
+
 	
 	/** True, if there are unread messages for calling customer,
 	 *  else false.
@@ -153,13 +131,15 @@ public class JMessage extends Message implements Serializable  {
 		}
 	}
 
-	// TODO: dummy, think of it...
+	/**
+	 * 
+	 * @return true, if message has been read already
+	 */
 	public boolean getRead(){
 		return this.getTimeStampReceived()!=null;
 	}
 	
-	
-	
+
 	
 	/** Create message copying data from
 	 * 
