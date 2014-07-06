@@ -93,7 +93,10 @@ public class RideSearchParamsBean implements Serializable {
     public String getDateformat() {
         return DATE_FORMAT;
     }
+    
+    
     protected DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+    
     /**
      * Date starting the period for which rides/drive should be displayed
      *

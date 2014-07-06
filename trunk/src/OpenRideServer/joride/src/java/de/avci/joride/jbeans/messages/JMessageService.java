@@ -1,5 +1,6 @@
 package de.avci.joride.jbeans.messages;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -142,7 +143,7 @@ public class JMessageService {
 	 * @return True, if caller is recipient of this message, else false.
 	 */
 	public boolean isIncomingMessage(Message message) {
-		return (this.getCustomerEntity().getCustId() ==  message.getRecipient().getCustId());
+		return (this.getCustomerEntity().getCustId().equals( message.getRecipient().getCustId()));
 	}
 
 	
@@ -152,7 +153,7 @@ public class JMessageService {
 	 * @return True, if caller is sender of this message, else false.
 	 */
 	public boolean isOutgoingMessage(Message message) {
-		return (this.getCustomerEntity().getCustId() ==  message.getSender().getCustId());
+		return (this.getCustomerEntity().getCustId().equals(message.getSender().getCustId()));
 	}
 
 	
@@ -201,5 +202,31 @@ public class JMessageService {
 		
 		mcl.setRead(msg.getMessageId());
 	}
+	
+	
+	
+	/**
+	 * List of messages for calling customer in given Interval
+	 * 
+	 * @return
+	 */
+	public List<JMessage> findMessagesInIntervall(Date startDate, Date endDate) {
+
+		CustomerEntity ce = this.getCustomerEntity();
+
+		List<Message> messagesL = lookupMessageBeanLocal().findMessagesForUserInInterval(ce, startDate, endDate);
+
+		List<JMessage> res = new LinkedList<JMessage>();
+
+		for (Message m : messagesL) {
+			res.add(new JMessage(m));
+		}
+
+		return res;
+	}
+	
+	
+	
+	
 	
 }

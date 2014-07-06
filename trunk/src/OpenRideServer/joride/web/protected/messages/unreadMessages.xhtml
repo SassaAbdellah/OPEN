@@ -27,24 +27,44 @@
 
 		<ui:define name="content">
 
-			<h1>#{msgs.msg_messages}</h1>
-
-			<!-- Table with unread messages on startpage -->
-
-			<p:dataTable var="myMessage" value="#{message.unreadMessages}"
-				paginator="true" rows="30">
-				<f:facet name="header"> #{msgs.msg_unread} </f:facet>
+			<h1>#{msgs.msg_unread}</h1>
 
 
-				<!-- ************************************** -->
-				<!-- *** Column for                     *** -->
-				<!-- *** date, sender,reference         *** -->
-				<!-- ************************************** -->
-
-				<p:column width="33%">
 
 
-					<!-- Sender or Recipient -->
+			<!-- Table with **unread** messages on startpage -->
+			<p>
+				<p:dataTable var="myMessage" value="#{messageSearch.unreadMessages}"
+					paginator="true" rows="30">
+
+
+					<!-- ************************************* -->
+					<!-- *** Column to mark message as read        *** -->
+					<!-- ************************************* -->
+
+
+					<p:column headerText="#{msgs.msg_read}" width="10%">
+						<div class="formInput">
+							<!-- mark as read, if it is not yet read -->
+							<h:form>
+								<div class="formInput">
+									<p:selectBooleanCheckbox id="mark_read_select"
+										value="#{myMessage.read}" onchange="submit()" />
+									<p:tooltip for="mark_read_select" value="#{msgs.msg_markRead}" />
+								</div>
+							</h:form>
+						</div>
+					</p:column>
+
+
+
+					<!-- ************************************** -->
+					<!-- *** Column for                     *** -->
+					<!-- *** date, sender,reference         *** -->
+					<!-- ************************************** -->
+
+					<p:column width="30%">
+<!-- Sender or Recipient -->
 					<div class="formLabel">
 						<!-- if incoming message, show sender  -->
 						<h:outputFormat value="#{msgs.msg_FromFormat}"
@@ -56,7 +76,6 @@
 						<h:outputFormat value="#{msgs.msg_ToFormat}"
 							rendered="#{myMessage.isOutgoing()}">
 							<f:param value="#{myMessage.recipient.custNickname}" />
-						#{myMessage.recipient.custNickname}
 					</h:outputFormat>
 					</div>
 
@@ -64,21 +83,11 @@
 					<div class="formLabel">
 						<h:outputText value="#{myMessage.createdFormatted}" />
 					</div>
+				
+					<!--  TODO: show read/unread information -->
 					
-					<!-- mark as read, if it is not yet read -->
-					<h:form>
-						<div class="formLabel">
-							<p:selectBooleanCheckbox 
-							value="#{myMessage.read}"
-							onchange="submit()"
-							 />
-							#{msgs.msg_markRead}
-						</div>
-					</h:form>
 					
-
 					<!-- show reference to request from driver's view, if caller is driver  -->
-
 					<h:form rendered="#{myMessage.callerIsDriver}">
 						<div class="formLabel">
 							<h:commandLink action="driver.matchDisplay"
@@ -93,7 +102,6 @@
 					</h:form>
 
 					<!-- show reference to request from rider's view, if caller is rider  -->
-
 					<h:form rendered="#{myMessage.callerIsRider}">
 						<div class="formLabel">
 							<h:commandLink action="rider.matchDisplay"
@@ -106,25 +114,25 @@
 							</h:commandLink>
 						</div>
 					</h:form>
+					
+					
 
-				</p:column>
-
-
-
-				<!-- ************************************** -->
-				<!-- *** Message Column ******************* -->
-				<!-- ************************************** -->
-
-				<p:column headerText="#{msgs.msg_message}" width="66%">
-					<div class="formInput">
-						<h:outputText value="#{myMessage.message}" />
-					</div>
-				</p:column>
+					</p:column>
 
 
 
-			</p:dataTable>
+					<!-- ************************************** -->
+					<!-- *** Message Column ******************* -->
+					<!-- ************************************** -->
 
+					<p:column headerText="#{msgs.msg_message}" width="60%">
+						<div class="formInput">
+							<h:outputText value="#{myMessage.message}" />
+						</div>
+					</p:column>
+
+				</p:dataTable>
+			</p>
 
 
 
