@@ -78,18 +78,25 @@
 							<f:param value="#{myMessage.recipient.custNickname}" />
 					</h:outputFormat>
 					</div>
+					
+				
+					<!-- show created/sent information -->
+					<div class="formInput">
+						<h:outputFormat value="#{msgs.msg_sentFormat}">
+						<f:param value="#{myMessage.createdFormatted}" />
+						</h:outputFormat>
+					</div>
 
-					<!-- Date/Time -->
-					<div class="formLabel">
-						<h:outputText value="#{myMessage.createdFormatted}" />
+					<!-- show read/unread information -->
+					<div class="formInput">
+						<h:outputFormat value="#{msgs.msg_receivedFormat}">
+						<f:param value="#{myMessage.receivedFormatted}" />
+						</h:outputFormat>
 					</div>
 				
-					<!--  TODO: show read/unread information -->
-					
-					
 					<!-- show reference to request from driver's view, if caller is driver  -->
 					<h:form rendered="#{myMessage.callerIsDriver}">
-						<div class="formLabel">
+						<div class="formInput">
 							<h:commandLink action="driver.matchDisplay"
 								value="#{msgs.msg_showConservation}">
 								<f:param name="#{match.paramRideID}"
@@ -103,7 +110,7 @@
 
 					<!-- show reference to request from rider's view, if caller is rider  -->
 					<h:form rendered="#{myMessage.callerIsRider}">
-						<div class="formLabel">
+						<div class="formInput">
 							<h:commandLink action="rider.matchDisplay"
 								value="#{msgs.msg_showConservation}">
 								<f:param name="#{match.paramRideID}"

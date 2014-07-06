@@ -2,6 +2,7 @@ package de.avci.joride.jbeans.messages;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.Date;
 
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
@@ -75,7 +76,13 @@ public class JMessage extends Message implements Serializable  {
 	 * @return
 	 */
 	public String getCreatedFormatted(){
-		return getDateFormat().format(this.getTimeStampCreated());
+		
+		Date res1=this.getTimeStampCreated();
+		if(res1==null) {
+			return "--";
+		}
+		
+		return getDateFormat().format(res1);
 	}
 	
 	/** returns a nicely formatted version of the "received" date property
@@ -83,7 +90,13 @@ public class JMessage extends Message implements Serializable  {
 	 * @return
 	 */
 	public String getReceivedFormatted(){
-		return getDateFormat().format(this.getTimeStampReceived());
+		
+		Date res1=this.getTimeStampReceived();
+		if(res1==null) {
+			return "--";
+		}
+		
+		return getDateFormat().format(res1);
 	}
 	
 	/** True, if caller is receiver, else false
