@@ -115,4 +115,16 @@ public interface MessageControllerLocal {
 	 */
 	public List <Message> findMessagesForUserInInterval(CustomerEntity ce, Date startDate, Date endDate); 
 
+
+
+	/** Return a list of messsages refering match given by rideId (offer) and riderrouteId (request)
+	 * 
+	 * @param rideId
+	 * @param riderrouteId
+	 * 
+	 * @return list of all messages refering match with given rideId (offer) and riderrouteId (request)
+	 */
+	public List <Message> findMessagesForMatch(Integer rideId, Integer riderrouteId);
+
+
 }
