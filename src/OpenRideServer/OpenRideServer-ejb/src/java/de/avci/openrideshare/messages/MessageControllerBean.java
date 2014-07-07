@@ -206,6 +206,22 @@ public class MessageControllerBean extends ControllerBean implements
 
 
 
+	@Override
+	public List<Message> findMessagesForMatch(Integer rideId,
+			Integer riderrouteId) {
+		
+		
+		Query q = em.createNamedQuery("Message.findForMatch");
+		q.setParameter("rideId"         , rideId       );
+		q.setParameter("riderrouteId"   , riderrouteId );
+		//
+		List<Message> matches = q.getResultList();
+		return matches;	
+		
+	}
+
+
+
 	
 	
 
