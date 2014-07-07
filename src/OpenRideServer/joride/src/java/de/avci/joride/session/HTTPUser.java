@@ -1,10 +1,6 @@
 package de.avci.joride.session;
 
-import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.utils.HTTPUtil;
-import de.avci.joride.utils.PropertiesLoader;
 import java.io.IOException;
-
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.TimeZone;
@@ -14,6 +10,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+
+import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.PropertiesLoader;
 
 /**
  * A simplistic bean allowing access to HTTPAuthData
@@ -64,7 +64,8 @@ public class HTTPUser implements Serializable {
     
     public String getLoginLabel() {
         if (getUserPrincipal() == null) {
-            return (new PropertiesLoader()).getMessagesProps().getProperty("login");
+        	java.util.Locale myLocale=new HTTPUtil().detectBestLocale();
+            return (new PropertiesLoader(myLocale)).getMessagesProps().getProperty("login");
         }
         return null;
     }
