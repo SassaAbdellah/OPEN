@@ -7,6 +7,7 @@ package de.avci.joride.jbeans.auxiliary;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
+import de.avci.joride.jbeans.messages.JMessageService;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.HTTPUtil;
@@ -36,8 +37,6 @@ public class UpdateService {
 
         int updatedoffersCount = this.getUpdatedDrives().size();
         int updatedsearchesCount = this.getUpdatedRides().size();
-
-
 
 
         if (updatedsearchesCount > 0 || updatedoffersCount > 0) {
@@ -137,11 +136,23 @@ public class UpdateService {
     } // getUpdatedRides
     
     
+    
     /** 
      *   @return  true, if calling customer has updated matches, else false.
      */
     boolean isMatchUpdated(){
         return new JCustomerEntityService().isMatchUpdated();
     }
+    
+    
+    /**  @return  true, if there are unread messages for this customer, else false
+     * 
+     */
+    public boolean getHasUnreadMessages(){
+    	return new JMessageService().hasUnreadMessages();
+    }
+    
+    
+    
     
 } // class 
