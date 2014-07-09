@@ -122,6 +122,13 @@ public class UpdateBean {
         return (new JCustomerEntityService()).isMatchUpdated();
     }
     
+    /** Returns true, if there are unread messages, else false.
+     */
+    public boolean getHasUnreadMessages(){
+    	 return new UpdateService().getHasUnreadMessages();
+    }
+    
+    
     /** 
      * @return true, if number of updated rides > 0, else false
      */
@@ -135,7 +142,8 @@ public class UpdateBean {
      public boolean hasUpdatedDrives(){
        return (new UpdateService()).getUpdatedDrives().size()>0;
     }
-    
+     
+     
 
     /**
      * @return a formatted String for current datetime

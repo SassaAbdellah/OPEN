@@ -36,6 +36,16 @@
                             action="updates"
                             rendered="#{updatemsg.matchUpdated}"
                             />
+                            
+                           <!-- Link is shown, exactly iff there are unreadMessages --> 
+                           <h:commandLink 
+                            id="unreadDisplay"
+                            value="#{msgs.msg_hasUnread}"
+                            action="messages.unread"
+                            rendered="#{updatemsg.hasUnreadMessages}"
+                            />   
+                            
+                            
                         <p:poll 
                             autoStart="true" 
                             interval="#{updatemsg.updateIntervalSec}"
