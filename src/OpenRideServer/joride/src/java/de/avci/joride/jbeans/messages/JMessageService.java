@@ -131,10 +131,11 @@ public class JMessageService {
 	/** true if there are unread messages, else false
 	 * 
 	 * @return
-	 */
+	 */ 
 	public boolean hasUnreadMessages() {	
 		CustomerEntity ce=this.getCustomerEntity();
-		return lookupMessageBeanLocal().hasUnreadMessages(ce);
+		boolean result = lookupMessageBeanLocal().hasUnreadMessages(ce);
+		return result;
 	}
 
 	/** True, if caller is recipient of this message
