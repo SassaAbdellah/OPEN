@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
 
 /**
@@ -151,4 +155,36 @@ public class UpdateBean {
         DateFormat sdf = new JoRideConstants().createDateTimeFormat();
         return sdf.format(new Date());
     }
+    
+    
+    /**  Check if there are unread messages, add messages to 
+     *   message queue if there are unread messages.
+     * 
+     * @return
+     */
+    public boolean pollMessages(){
+    	
+    	
+    	
+    	boolean result=this.getHasUnreadMessages();
+    	
+    	System.err.println("Has unread messages : "+result);
+    	
+    	// if there are unread messages, add messages to queue
+    	if(result){
+    	
+    		String messageSubject=new PropertiesLoader().getMessagesProps().getProperty("msg_unread");
+    		String messageText=new PropertiesLoader().getMessagesProps().getProperty("msg_hasUnread");
+    				
+    		FacesContext context = FacesContext.getCurrentInstance();
+    		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, messageSubject, messageText);
+    		context.addMessage(null, facesMessage);
+    	}
+    	
+    	return result;
+    	
+    }
+    
+    
+    
 } // class
