@@ -167,6 +167,32 @@
 			<substitution expression=" urlOpenLayers=${urlOpenLayers}" />
 			<fileset file="${navparamfile}" />
 		</replaceregexp>
+		
+		
+		<!-- ****************************  -->
+	 	<!-- Rewrite update parameters     -->
+		<!-- ****************************  -->
+
+				<property name="updateparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/update.properties" />
+		
+		       <!-- apply update interval  -->
+
+				<replaceregexp byline="true">
+					<regexp pattern="updateInterval=(.*)" />
+					<substitution expression="updateInterval=${updateInterval}" />
+					<fileset file="${updateparamfile}" />
+				</replaceregexp>
+
+		        <!-- apply growl interval  -->
+
+				<replaceregexp byline="true">
+					<regexp pattern="growlInterval=(.*)" />
+					<substitution expression="growlInterval=${growlInterval}" />
+					<fileset file="${updateparamfile}" />
+				</replaceregexp>
+
+		
+		
 
 		<!-- ****************************  -->
 		<!-- Rewrite datetime settings   -->
