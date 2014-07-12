@@ -59,7 +59,7 @@
 
 
 			<!-- growl to display a message if there are updates -->
-			<p:growl id="updateGrowl" showDetail="true" life="10000" />
+			<p:growl id="updateGrowl" showDetail="true" life="#{updatemsg.growlIntervalSec}" />
 				
 			<!-- Poll to poll for updated rides and drives -->
 			<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"
@@ -67,7 +67,7 @@
 				update="updateablePanel updateGrowl" />
 				
 			<!-- growl to display unread messages if there are such things -->
-			<p:growl id="unreadMessagesGrowl" showDetail="true" life="10000" />	
+			<p:growl id="unreadMessagesGrowl" showDetail="true" life="#{updatemsg.growlIntervalSec}" />	
 
 			<!-- Poll to poll for unread messages -->
 			<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"

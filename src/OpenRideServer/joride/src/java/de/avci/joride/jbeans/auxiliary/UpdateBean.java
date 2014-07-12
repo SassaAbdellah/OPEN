@@ -47,16 +47,43 @@ public class UpdateBean {
      *
      */
     protected static final String ParamNameUpdateInterval = "updateInterval";
+    
+    /**
+     * Parameter Name for the parameter describing the number of miliseconds
+     * for which to display the growl notifications
+     *
+     */
+    protected static final String ParamNameGrowlInterval = "growlInterval";
+    
+    
     /**
      * By default, update Interval is 60*1000 Milliseconds = 1 minute.
      *
      */
     private static long updateIntervalDefault = 6 * 1000;
+    
+    
     /**
-     * Number of milliseconds between
+     * By default, growl Interval is 6*1000 Milliseconds = 6 seconds.
+     *
+     */
+    private static long growlIntervalDefault = 6 * 1000;
+    
+    
+    
+    /**
+     * Number of milliseconds between update calls
      */
     protected Long updateInterval = null;
 
+    /**
+     * Number of milliseconds between for which to display
+     * the growl notification
+     */
+    protected Long growlInterval = null;
+    
+    
+    
     /**
      * Initialize update period from properties
      *
@@ -94,6 +121,37 @@ public class UpdateBean {
 
         return this.updateInterval;
     }
+    
+    
+    /**
+     * Accessor with lazy instantiation
+     *
+     * @return
+     */
+    public Long getGrowlInterval() {
+
+
+        if (this.growlInterval == null) {
+            this.growlInterval = new Long(growlIntervalDefault);
+            try {
+                PropertiesLoader loader = new PropertiesLoader();
+                String growlStr = "" + loader.getUpdateProps().get(ParamNameGrowlInterval);
+                this.growlInterval = new Long(growlStr);
+                log.info("loaded growl Interval : " + growlStr);
+            } catch (Exception exc) {
+                log.log(
+                        Level.SEVERE,
+                        "Unable to load growlInterval from Properties, using default " + growlIntervalDefault,
+                        exc);
+            }
+        } // if (this.updateInterval == null) 
+
+
+        return this.growlInterval;
+    }
+    
+    
+    
 
     /**
      * Make updateInterval in seconds availlable as a JSF Prop
@@ -103,6 +161,18 @@ public class UpdateBean {
         double d = (getUpdateInterval());
         return Math.round((d / 1000d));
     }
+    
+    /**
+     * Make growlInterval in seconds availlable as a JSF Prop
+     */
+    public long getGrowlIntervalSec() {
+
+        double d = (getUpdateInterval());
+        return Math.round((d / 1000d));
+    }
+    
+    
+    
     private UpdateService updateService = new UpdateService();
 
   
