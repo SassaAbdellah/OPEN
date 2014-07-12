@@ -30,7 +30,6 @@ build.joride=on
 build.joride-public=on
 #
 #
-#
 # Note that joride-rest is still under development, and adding
 # joride-rest to an installation may form  a security risk.
 # So, for the time beeing, do not add joride-rest to a productive installation
@@ -39,6 +38,30 @@ build.joride-public=on
 # uncomment this to build "joride-rest" frontend
 #
 #build.joride-rest=on
+#
+#
+#
+# Global settings for the update/alert service in joride weblclient. 
+# currently, there is only one property "updateInterval" defining the 
+# interval in which the clients  update themselves.
+#
+#
+# Interval (in milliseconds) in which the client polls for updates.
+# For productive use, it is probably unwise to chose a value below 60.000 (aka 1 Minute)
+#
+updateInterval=60000
+#
+#
+#
+# Interval (in milliseconds) for which the popup notification ("growl")
+# should be visible.  Naturally, the growl should be visible for an amount
+# of time smaller or equal to the update interval
+# 
+growlInterval=3333
+#
+#
+# jndi name of the mail service
+#
 #
 #
 mailServiceJNDI=jorideMail
