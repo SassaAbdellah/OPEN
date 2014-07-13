@@ -127,4 +127,76 @@ public interface MessageControllerLocal {
 	public List <Message> findMessagesForMatch(Integer rideId, Integer riderrouteId);
 
 
+	
+	
+	/** Create a new system message to be sent to the *rider* if 
+	 *  a new match has been found
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageRiderNewMatch(MatchEntity m );
+	
+	/** Create a new system message to be sent to the *driver* if 
+	 *  a new match has been found
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageDriverNewMatch(MatchEntity m, CustomerEntity driver);
+	
+	
+	
+	/** Create a new system message to be sent to the *rider* if 
+	 *  driver accepted a request.
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageDriverAcceptedNotification(MatchEntity m );
+	
+	/** Create a new system message to be sent to the *driver* if 
+	 *  rider accepted an offer
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageRiderAcceptedNotification(MatchEntity m );
+	
+	
+	/** Create a new system message to be sent to the *rider* if 
+	 *  a request has been accepted by both parties.
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageRiderBothAcceptedNotification(MatchEntity m );
+	
+	
+	/** Create a new system message to be sent to the *driver* if 
+	 *  a request has been accepted by both parties.
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageDriverBothAcceptedNotification(MatchEntity m );
+	
+	
+	/** Create a new system message to be sent to the *rider* if 
+	 *  a request has been countermanded by driver.
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageDriverCountermandedNotification(MatchEntity m );
+	
+	/** Create a new system message to be sent to the *driver* if 
+	 *  an offer has been countermanded by rider.
+	 * 
+	 * @param m
+	 * @param rider
+	 */
+	public void createSystemMessageRiderCountermandedNotification(MatchEntity m );
+	
+	
 }

@@ -35,11 +35,7 @@ public class MessageControllerBean extends ControllerBean implements
 	@PersistenceContext
 	private EntityManager em;
 
-	/**
-	 * Message to be sent from sender to recipient if a ride request is to be
-	 * cancelled
-	 * 
-	 * Currently, this is just a dummy.
+	/** Build message with given parameters, then send it.
 	 * 
 	 * 
 	 * @param sender
@@ -74,6 +70,25 @@ public class MessageControllerBean extends ControllerBean implements
 		msg.setMessage(message);
 		msg.setTimeStampCreated(new Date());
 
+		return this.sendMessage(msg);
+	}
+	
+	
+	/** Sent a prebuild message
+	 * 
+	 * @param m
+	 * @return
+	 */
+	private boolean sendMessage(Message msg){
+	
+		Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
+
+		String logstr = 
+				"Message:\n" + "\n" 
+				+ "Recipient: " + msg.getRecipient().getCustNickname() + "\n"
+				+ "\n" + "Subject: " + msg.getSubject() + "\n" 
+				+ "\n" + "Message: " + msg.getMessage();
+		
 		try {
 			
 			em.persist(msg);
@@ -88,6 +103,7 @@ public class MessageControllerBean extends ControllerBean implements
 			return true;
 			
 		}
+		
 	}
 
 	
@@ -222,7 +238,69 @@ public class MessageControllerBean extends ControllerBean implements
 
 
 
-	
-	
+	@Override
+	public void createSystemMessageRiderNewMatch(MatchEntity m ) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");	
+	}
+
+
+
+	@Override
+	public void createSystemMessageDriverNewMatch(MatchEntity m,
+			CustomerEntity driver) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");
+	}
+
+
+
+	@Override
+	public void createSystemMessageDriverAcceptedNotification(MatchEntity m ) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");	
+	}
+
+
+
+	@Override
+	public void createSystemMessageRiderAcceptedNotification(MatchEntity m) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");
+	}
+
+
+
+	@Override
+	public void createSystemMessageRiderBothAcceptedNotification(MatchEntity m) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");
+	}
+
+
+
+	@Override
+	public void createSystemMessageDriverBothAcceptedNotification( MatchEntity m) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");
+	}
+
+
+
+	@Override
+	public void createSystemMessageDriverCountermandedNotification(MatchEntity m) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");
+	}
+
+
+
+	@Override
+	public void createSystemMessageRiderCountermandedNotification( MatchEntity m ) {
+		// TODO: implement this method!
+		throw new Error("Method not yet implemented");		
+	}
+
+
 
 }
