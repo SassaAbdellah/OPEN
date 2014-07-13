@@ -240,67 +240,54 @@ public class MessageControllerBean extends ControllerBean implements
 
 	@Override
 	public void createSystemMessageRiderNewMatch(MatchEntity m ) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");	
+		this.sendMessage(SystemMessageFactory.createSystemMessageRiderNewMatch(m));
 	}
 
 
 
 	@Override
-	public void createSystemMessageDriverNewMatch(MatchEntity m,
-			CustomerEntity driver) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");
+	public void createSystemMessageDriverNewMatch(MatchEntity m) {
+		this.sendMessage(SystemMessageFactory.createSystemMessageDriverNewMatch(m));
 	}
 
 
 
 	@Override
 	public void createSystemMessageDriverAcceptedNotification(MatchEntity m ) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");	
+		this.sendMessage(SystemMessageFactory.createSystemMessageDriverAcceptedNotification(m));
 	}
 
 
 
 	@Override
 	public void createSystemMessageRiderAcceptedNotification(MatchEntity m) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");
+		this.sendMessage(SystemMessageFactory.createSystemMessageRiderAcceptedNotification(m));
 	}
 
 
 
 	@Override
 	public void createSystemMessageRiderBothAcceptedNotification(MatchEntity m) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");
+		this.sendMessage(SystemMessageFactory.createSystemMessageRiderBothAcceptedNotification(m));
 	}
 
 
 
 	@Override
 	public void createSystemMessageDriverBothAcceptedNotification( MatchEntity m) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");
+		this.sendMessage(SystemMessageFactory.createSystemMessageDriverBothAcceptedNotification(m));
 	}
 
 
 
 	@Override
 	public void createSystemMessageDriverCountermandedNotification(MatchEntity m) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");
+		this.sendMessage(SystemMessageFactory.createSystemMessageDriverCountermandedNotification(m));
 	}
-
-
 
 	@Override
 	public void createSystemMessageRiderCountermandedNotification( MatchEntity m ) {
-		// TODO: implement this method!
-		throw new Error("Method not yet implemented");		
+		this.sendMessage(SystemMessageFactory.createSystemMessageRiderCountermandedNotification(m));
 	}
-
-
 
 }

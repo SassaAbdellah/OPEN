@@ -41,6 +41,7 @@ import javax.transaction.UserTransaction;
 
 import org.postgis.Point;
 
+import de.avci.openrideshare.messages.MessageControllerBean;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -69,6 +70,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private RiderUndertakesRideControllerLocal riderUndertakesRideControllerBean;
     @EJB
     private CustomerControllerLocal customerControllerBean;
+    @EJB
+    private MessageControllerBean messageController;
+    
     @PersistenceContext
     private EntityManager em;
     public static final long ACTIVE_DELAY_TIME = 60 * 60 * 1000;
@@ -815,6 +819,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             CustomerEntity driver = m.getDriverUndertakesRideEntity().getCustId();
             driver.updateCustLastMatchingChange();
             em.persist(driver);
+            // send system notifications
+            messageController.createSystemMessageRiderNewMatch(m);
+            messageController.createSystemMessageDriverNewMatch(m);
         }
 
         em.flush();

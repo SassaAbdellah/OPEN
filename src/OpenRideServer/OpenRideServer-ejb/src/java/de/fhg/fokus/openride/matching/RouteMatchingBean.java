@@ -304,8 +304,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// sort matches by score
 			ScoringFunction.getInstance().sortDescending(matches);
 
-			// TODO: (pab) here matches could be add to the DB via:
-			// MatchEntity(drive.getRiderId() ride.getRiderRouteId(),...)
+			// note: matches are not persisted here, but in the calling
+			// RiderUndertakesRideController.callMatchingAlgoritm()  instead!
 			return matches;
 
 		} catch (SQLException ex) {
