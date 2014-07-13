@@ -141,9 +141,9 @@ public interface MessageControllerLocal {
 	 *  a new match has been found
 	 * 
 	 * @param m
-	 * @param rider
+	 * 
 	 */
-	public void createSystemMessageDriverNewMatch(MatchEntity m, CustomerEntity driver);
+	public void createSystemMessageDriverNewMatch(MatchEntity m);
 	
 	
 	

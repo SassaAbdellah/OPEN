@@ -22,6 +22,7 @@
  */
 package de.fhg.fokus.openride.rides.rider;
 
+import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -69,6 +70,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     private DriverUndertakesRideControllerLocal driverUndertakesRideControllerBean;
     @EJB
     private CustomerControllerLocal customerControllerBean;
+    @EJB
+    private  MessageControllerLocal messageController;
+    
     @PersistenceContext
     private EntityManager em;
     /**
@@ -282,6 +286,10 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             CustomerEntity rider=m.getRiderUndertakesRideEntity().getCustId();
             rider.updateCustLastMatchingChange();
             em.persist(rider);
+            // send notifications...
+            messageController.createSystemMessageDriverNewMatch(m);
+            messageController.createSystemMessageRiderNewMatch(m);
+            
         }
  
         em.flush();
