@@ -36,12 +36,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.swing.JWindow;
 import javax.transaction.UserTransaction;
 
 import org.postgis.Point;
 
-import de.avci.openrideshare.messages.MessageControllerBean;
+import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -71,7 +70,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @EJB
     private CustomerControllerLocal customerControllerBean;
     @EJB
-    private MessageControllerBean messageController;
+    private MessageControllerLocal messageController;
     
     @PersistenceContext
     private EntityManager em;
