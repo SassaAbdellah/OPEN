@@ -144,6 +144,10 @@ public class JMessageService {
 	 * @return True, if caller is recipient of this message, else false.
 	 */
 	public boolean isIncomingMessage(Message message) {
+	
+		//if this is a system messages, then it is neither incoming nor outgoing
+		if(message.getSender()==null) {return false;}
+		
 		return (this.getCustomerEntity().getCustId().equals( message.getRecipient().getCustId()));
 	}
 
@@ -154,9 +158,27 @@ public class JMessageService {
 	 * @return True, if caller is sender of this message, else false.
 	 */
 	public boolean isOutgoingMessage(Message message) {
+		
+		//if this is a system messages, then it is neither incoming nor outgoing
+		if(message.getSender()==null) {return false;}
+	
+		// else, determine from real sender
 		return (this.getCustomerEntity().getCustId().equals(message.getSender().getCustId()));
 	}
 
+	
+	/** Return true, if sender is null, else false
+	 * 
+	 * @param message
+	 * @return
+	 */
+	public boolean isSystemMessage(Message message){
+		
+		//if this is a system messages, then it is neither incoming nor outgoing
+		return(message.getSender()==null);
+	}
+	
+	
 	
 	/** True, if message references offer, and caller is driver.
 	 * 

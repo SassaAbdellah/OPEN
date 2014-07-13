@@ -113,6 +113,14 @@ public class JMessage extends Message implements Serializable  {
 		return new JMessageService().isOutgoingMessage(this);
 	}
 	
+	/** True, if sender is null, else false
+	 * 
+	 */
+	public boolean isSystemMessage(){
+		return new JMessageService().isSystemMessage(this);
+	}
+	
+	
 	
 	/** True, if message references offer, and caller is driver.
 	 *

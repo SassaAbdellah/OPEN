@@ -76,7 +76,13 @@
 						<h:outputFormat value="#{msgs.msg_ToFormat}"
 							rendered="#{myMessage.isOutgoing()}">
 							<f:param value="#{myMessage.recipient.custNickname}" />
-					</h:outputFormat>
+					    </h:outputFormat>
+					
+						<!-- if message is System message, show System message label  -->
+						<h:outputFormat value="#{msgs.msg_systemMessageLabel}"
+							rendered="#{myMessage.isSystemMessage()}">
+					    </h:outputFormat>
+					
 					</div>
 					
 				
