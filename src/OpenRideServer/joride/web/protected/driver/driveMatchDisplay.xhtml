@@ -41,10 +41,10 @@
 						<span class="formLabel"> #{msgs.matchRiderName} : </span>
 						<span class="formInput"> <h:commandLink
 								action="#{publicProfile.displayProfileForCustId()}">
-                                                #{matching.ride.custId.custNickname} 
+                                                #{match.ride.custId.custNickname} 
                                                 <f:param
 									name="#{crud.paramNameCrudId}"
-									value="#{matching.ride.custId.custId}" />
+									value="#{match.ride.custId.custId}" />
 							</h:commandLink>
 						</span>
 					</h:form>
@@ -53,14 +53,14 @@
 
 				<div class="formLabel">#{msgs.matchExpectedPickupTime}:</div>
 				<div class="formInput">
-					#{matching.matchExpectedStartTimeFormatted}</div>
+					#{match.matchExpectedStartTimeFormatted}</div>
 
 
 				<div class="formLabel">#{msgs.matchFrom}:</div>
-				<div class="formInput">#{matching.ride.getStartptAddress()}</div>
+				<div class="formInput">#{match.ride.getStartptAddress()}</div>
 
 				<div class="formLabel">#{msgs.matchTo}:</div>
-				<div class="formInput">#{matching.ride.getEndptAddress()}</div>
+				<div class="formInput">#{match.ride.getEndptAddress()}</div>
 
 
 				<div class="formLabel">#{msgs.matchDriveID}:</div>
@@ -205,7 +205,7 @@
 				</h:form>
 
 
-				<!-- countermand this matching, if both have acceppted -->
+				<!-- countermand this match, if both have acceppted -->
 				<h:form rendered="#{match.matchEntity.canDriverCountermand}">
 
 					<div class="formInput">
