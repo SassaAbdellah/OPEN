@@ -214,7 +214,11 @@ public class MessageControllerBean extends ControllerBean implements
 		Query q = em.createNamedQuery("Message.findForUserInIntervall");
 		q.setParameter("ce", ce);
 		q.setParameter("startDate" , startDate);
-		q.setParameter("endDate"   , endDate);
+		
+		// we want to include endDate, so we add 25 hours 
+		Date revisedEndDate=new Date(endDate.getTime()+(25*60*60*1000));
+		
+		q.setParameter("endDate"   , revisedEndDate);
 		//
 		List<Message> matches = q.getResultList();
 		return matches;	
