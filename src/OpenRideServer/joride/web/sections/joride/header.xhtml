@@ -17,9 +17,9 @@
 	<!--  Header Section for all of JoRide -->
 	<ui:composition>
 		<div id="header">
-		
 
-			
+
+
 			<!-- ***  stuff inside update alert section is for polling *** -->
 			<!-- **   and displaying  update messages in header        *** -->
 
@@ -29,24 +29,15 @@
 				<!-- ajax updateable Panel displaying messages and update links -->
 				<p:outputPanel id="updateablePanel">
 
-
-
-
-					<!--  link is shown if and only if there are updates -->
-					<div>
-						<h:commandLink id="updateDisplay"
-							value="#{msgs.updates_updateNotification}" action="updates"
-							rendered="#{updatemsg.matchUpdated}" />
-					</div>
-					<!-- Link is shown, exactly iff there are unreadMessages -->
-					<div>
-						<h:commandLink id="unreadMessagesDisplay"
-							value="#{msgs.msg_hasUnread}" action="messages.unread"
-							rendered="#{updatemsg.hasUnreadMessages}" />
-					</div>
-
-
 					<p>
+
+						<!--  link is shown if and only if there are updates -->
+						<div>
+							<h:commandLink id="updateDisplay"
+								value="#{msgs.updates_updateNotification}" action="updates"
+								rendered="#{updatemsg.matchUpdated}" />
+						</div>
+
 						<p:commandLink id="resetMatchingState"
 							value="#{msgs.updates_updateNotificationOK}"
 							action="#{jprofile.resetLastCustomerCheck()}"
@@ -55,29 +46,40 @@
 							value="#{msgs.updates_updateNotificationOKTooltip}" />
 					</p>
 
+					<!-- Link is shown, exactly iff there are unreadMessages -->
+					<p>
+					<div>
+						<h:commandLink id="unreadMessagesDisplay"
+							value="#{msgs.msg_hasUnread}" action="messages.unread"
+							rendered="#{updatemsg.hasUnreadMessages}" />
+					</div>
+					</p>
+
 				</p:outputPanel>
 
 
-			<!-- growl to display a message if there are updates -->
-			<p:growl id="updateGrowl" showDetail="true" life="#{updatemsg.growlIntervalSec}" />
-				
-			<!-- Poll to poll for updated rides and drives -->
-			<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"
-				listener="#{updatemsg.pollMessages()}"
-				update="updateablePanel updateGrowl" />
-				
-			<!-- growl to display unread messages if there are such things -->
-			<p:growl id="unreadMessagesGrowl" showDetail="true" life="#{updatemsg.growlIntervalSec}" />	
+				<!-- growl to display a message if there are updates -->
+				<p:growl id="updateGrowl" showDetail="true"
+					life="#{updatemsg.growlIntervalSec}" />
 
-			<!-- Poll to poll for unread messages -->
-			<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"
-				listener="#{updatemsg.getHasUnreadMessages()}"
-				update="updateablePanel unreadMessagesGrowl" />
+				<!-- Poll to poll for updated rides and drives -->
+				<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"
+					listener="#{updatemsg.pollMessages()}"
+					update="updateablePanel updateGrowl" />
+
+				<!-- growl to display unread messages if there are such things -->
+				<p:growl id="unreadMessagesGrowl" showDetail="true"
+					life="#{updatemsg.growlIntervalSec}" />
+
+				<!-- Poll to poll for unread messages -->
+				<p:poll autoStart="true" interval="#{updatemsg.updateIntervalSec}"
+					listener="#{updatemsg.getHasUnreadMessages()}"
+					update="updateablePanel unreadMessagesGrowl" />
 
 			</h:form>
 
 
-			
+
 
 
 			<!-- end of update poll section stanza -->
