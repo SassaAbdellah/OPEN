@@ -255,35 +255,6 @@ public class MessageControllerBean extends ControllerBean implements
 	}
 
 
-
-	@Override
-	public void createSystemMessageDriverAcceptedNotification(MatchEntity m ) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageDriverAcceptedNotification(m));
-	}
-
-
-
-	@Override
-	public void createSystemMessageRiderAcceptedNotification(MatchEntity m) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageRiderAcceptedNotification(m));
-	}
-
-
-
-	@Override
-	public void createSystemMessageRiderBothAcceptedNotification(MatchEntity m) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageRiderBothAcceptedNotification(m));
-	}
-
-
-
-	@Override
-	public void createSystemMessageDriverBothAcceptedNotification( MatchEntity m) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageDriverBothAcceptedNotification(m));
-	}
-
-
-
 	@Override
 	public void createSystemMessageDriverCountermandedNotification(MatchEntity m) {
 		this.sendMessage(SystemMessageFactory.createSystemMessageDriverCountermandedNotification(m));
@@ -292,6 +263,16 @@ public class MessageControllerBean extends ControllerBean implements
 	@Override
 	public void createSystemMessageRiderCountermandedNotification( MatchEntity m ) {
 		this.sendMessage(SystemMessageFactory.createSystemMessageRiderCountermandedNotification(m));
+	}
+
+
+	@Override
+	public void createMessagesOnAcceptance(MatchEntity m) {
+		
+		Message[] messages=SystemMessageFactory.createMessagesOnAcceptance(m);
+		for (Message msg: messages){
+			this.sendMessage(msg);
+		}
 	}
 
 }
