@@ -144,43 +144,7 @@ public interface MessageControllerLocal {
 	 * 
 	 */
 	public void createSystemMessageDriverNewMatch(MatchEntity m);
-	
-	
-	
-	/** Create a new system message to be sent to the *rider* if 
-	 *  driver accepted a request.
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageDriverAcceptedNotification(MatchEntity m );
-	
-	/** Create a new system message to be sent to the *driver* if 
-	 *  rider accepted an offer
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageRiderAcceptedNotification(MatchEntity m );
-	
-	
-	/** Create a new system message to be sent to the *rider* if 
-	 *  a request has been accepted by both parties.
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageRiderBothAcceptedNotification(MatchEntity m );
-	
-	
-	/** Create a new system message to be sent to the *driver* if 
-	 *  a request has been accepted by both parties.
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageDriverBothAcceptedNotification(MatchEntity m );
-	
+		
 	
 	/** Create a new system message to be sent to the *rider* if 
 	 *  a request has been countermanded by driver.
@@ -199,4 +163,9 @@ public interface MessageControllerLocal {
 	public void createSystemMessageRiderCountermandedNotification(MatchEntity m );
 	
 	
+	/** React to one party accepting a match with creating 
+	 *  and sending the appropriate messages.
+	 */
+	public void createMessagesOnAcceptance(MatchEntity m);
+
 }

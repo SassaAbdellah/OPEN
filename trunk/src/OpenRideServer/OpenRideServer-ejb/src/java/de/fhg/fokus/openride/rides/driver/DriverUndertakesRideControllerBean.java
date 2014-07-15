@@ -709,6 +709,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     public MatchEntity acceptRider(int rideid, int riderrouteid) {
         MatchEntity match = getMatch(rideid, riderrouteid);
         if (match != null) {
+        	
+        	startUserTransaction();
             match.setDriverState(MatchEntity.ACCEPTED);
             match.setDriverChange(new java.util.Date());
             // change last access
@@ -716,6 +718,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             rider.updateCustLastMatchingChange();
             em.merge(rider);
             em.merge(match);
+            // send system notifications
+            messageController.createMessagesOnAcceptance(match);
+            em.flush();
+            commitUserTransaction();
         } else {
             // Match does not exist!
             return null;
@@ -752,6 +758,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     public MatchEntity acceptDriver(int rideid, int riderrouteid) {
         MatchEntity match = getMatch(rideid, riderrouteid);
         if (match != null) {
+        	
+        	startUserTransaction();
             match.setRiderState(MatchEntity.ACCEPTED);
             match.setRiderChange(new java.util.Date());
             // change last change
@@ -759,6 +767,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             driver.updateCustLastMatchingChange();
             em.merge(driver);
             em.merge(match);
+            messageController.createMessagesOnAcceptance(match);
+            em.flush();
+            commitUserTransaction();
+            
         } else {
             // Match does not exist!
             return null;
