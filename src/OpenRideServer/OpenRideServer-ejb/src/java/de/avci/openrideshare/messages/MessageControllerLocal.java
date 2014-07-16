@@ -128,39 +128,13 @@ public interface MessageControllerLocal {
 
 
 	
-	
-	/** Create a new system message to be sent to the *rider* if 
-	 *  a new match has been found
+	/** Create a set of messages for rider and driver,
+	 *  telling them that a match has been countermanded. 
+	 * 
 	 * 
 	 * @param m
-	 * @param rider
 	 */
-	public void createSystemMessageRiderNewMatch(MatchEntity m );
-	
-	/** Create a new system message to be sent to the *driver* if 
-	 *  a new match has been found
-	 * 
-	 * @param m
-	 * 
-	 */
-	public void createSystemMessageDriverNewMatch(MatchEntity m);
-		
-	
-	/** Create a new system message to be sent to the *rider* if 
-	 *  a request has been countermanded by driver.
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageDriverCountermandedNotification(MatchEntity m );
-	
-	/** Create a new system message to be sent to the *driver* if 
-	 *  an offer has been countermanded by rider.
-	 * 
-	 * @param m
-	 * @param rider
-	 */
-	public void createSystemMessageRiderCountermandedNotification(MatchEntity m );
+	public void createMessageOnCountermand(MatchEntity m );
 	
 	
 	/** React to one party accepting a match with creating 
@@ -168,4 +142,15 @@ public interface MessageControllerLocal {
 	 */
 	public void createMessagesOnAcceptance(MatchEntity m);
 
+	
+	/** React to one party accepting a match with creating 
+	 *  and sending the appropriate messages.
+	 */
+	public void createMessagesOnNewMatch(MatchEntity m);
+
+	
+	
+	
+	
+	
 }

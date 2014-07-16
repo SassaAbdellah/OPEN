@@ -61,6 +61,40 @@ public class SystemMessageFactory {
 		// Default...
 		return new Message[0];
 	}
+	
+	
+	/** Create a set of two messages when a new Match is created.
+	 *  One of these messages will inform the driver,
+	 *  the other of these messages will inform the rider.
+	 * 
+	 * 
+	 * @return
+	 */
+	public static Message[] createMessagesOnNewMatch(MatchEntity m) {
+	
+		Message[] res=new Message[2];
+		res[0]=createSystemMessageDriverNewMatch(m);
+		res[1]=createSystemMessageRiderNewMatch(m);
+		return res;
+	}
+	
+	
+	
+	/** Create a set of two messages when a new Match is countermanded.
+	 *  One of these messages will inform the driver,
+	 *  the other of these messages will inform the rider.
+	 * 
+	 * 
+	 * @return
+	 */
+	public static Message[] createMessagesOnCountermand(MatchEntity m) {
+	
+		Message[] res=new Message[2];
+		res[0]=createSystemMessageDriverCountermandedNotification(m);
+		res[1]=createSystemMessageRiderCountermandedNotification(m);
+		return res;
+	}
+	
 
 	/**
 	 * Message telling the passenger that there is a new Match matching his
@@ -70,7 +104,7 @@ public class SystemMessageFactory {
 	 * 
 	 * @return
 	 */
-	public static Message createSystemMessageRiderNewMatch(MatchEntity m) {
+	private static Message createSystemMessageRiderNewMatch(MatchEntity m) {
 
 		Message res = new Message();
 		res.setSender(null); // System message!
@@ -92,7 +126,7 @@ public class SystemMessageFactory {
 	 * @return
 	 */
 
-	public static Message createSystemMessageDriverNewMatch(MatchEntity m) {
+	private static Message createSystemMessageDriverNewMatch(MatchEntity m) {
 
 		Message res = new Message();
 		res.setSender(null); // System message!
@@ -160,7 +194,7 @@ public class SystemMessageFactory {
 	 * 
 	 * @return
 	 */
-	public static Message createSystemMessageRiderBothAcceptedNotification(
+	private static Message createSystemMessageRiderBothAcceptedNotification(
 			MatchEntity m) {
 
 		Message res = new Message();
@@ -204,7 +238,7 @@ public class SystemMessageFactory {
 	 * 
 	 * @return
 	 */
-	public static Message createSystemMessageDriverCountermandedNotification(
+	private static Message createSystemMessageDriverCountermandedNotification(
 			MatchEntity m) {
 
 		Message res = new Message();
@@ -227,7 +261,7 @@ public class SystemMessageFactory {
 	 * @return
 	 */
 
-	public static Message createSystemMessageRiderCountermandedNotification(
+	private static Message createSystemMessageRiderCountermandedNotification(
 			MatchEntity m) {
 
 		Message res = new Message();
