@@ -232,7 +232,7 @@ public class SystemMessageFactory {
 	}
 
 	/**
-	 * Message telling the passenger that driver countermanded an offer
+	 * Message telling the  driver  a  ride has been countermanded
 	 * 
 	 * @param m
 	 * 
@@ -244,9 +244,9 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  RiderNewMatch");
-		res.setMessage("TODO : Dummy Subject  RiderNewMatch");
-		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
+		res.setSubject("TODO : Dummy Subject  DriverCountermandMatch");
+		res.setMessage("TODO : Dummy Subject  DriverCountermandMatch");
+		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
 
@@ -254,7 +254,7 @@ public class SystemMessageFactory {
 	}
 
 	/**
-	 * Message telling the driver that a rider countermanded a request
+	 * Message telling the rider that a ride has been countermanded
 	 * 
 	 * @param m
 	 * 
@@ -267,8 +267,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  RiderNewMatch");
-		res.setMessage("TODO : Dummy Subject  RiderNewMatch");
+		res.setSubject("TODO : Dummy Subject  RiderCountermandMatch");
+		res.setMessage("TODO : Dummy Subject  RiderCountermandMatch");
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());

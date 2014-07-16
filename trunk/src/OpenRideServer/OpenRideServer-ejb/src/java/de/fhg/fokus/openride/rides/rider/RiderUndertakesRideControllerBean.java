@@ -1436,8 +1436,11 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         em.merge(rider);
         //
         em.merge(me);
+        messageController.createMessageOnCountermand(me);
+        em.flush();
         commitUserTransaction();
     }
+    
 
     @Override
     public void countermandRider(Integer rideId, Integer riderrouteId) {
@@ -1450,6 +1453,8 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         customer.updateCustLastMatchingChange();
         em.merge(customer);
         em.merge(me);
+        messageController.createMessageOnCountermand(me);
+        em.flush();
         commitUserTransaction();
     }
    
