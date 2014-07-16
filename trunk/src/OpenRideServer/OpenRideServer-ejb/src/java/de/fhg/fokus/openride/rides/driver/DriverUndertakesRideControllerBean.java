@@ -831,8 +831,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             driver.updateCustLastMatchingChange();
             em.persist(driver);
             // send system notifications
-            messageController.createSystemMessageRiderNewMatch(m);
-            messageController.createSystemMessageDriverNewMatch(m);
+            messageController.createMessagesOnNewMatch(m);
         }
 
         em.flush();

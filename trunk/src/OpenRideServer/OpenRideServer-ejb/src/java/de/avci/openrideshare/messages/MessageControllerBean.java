@@ -243,33 +243,28 @@ public class MessageControllerBean extends ControllerBean implements
 
 
 	@Override
-	public void createSystemMessageRiderNewMatch(MatchEntity m ) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageRiderNewMatch(m));
-	}
-
-
-
-	@Override
-	public void createSystemMessageDriverNewMatch(MatchEntity m) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageDriverNewMatch(m));
-	}
-
-
-	@Override
-	public void createSystemMessageDriverCountermandedNotification(MatchEntity m) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageDriverCountermandedNotification(m));
-	}
-
-	@Override
-	public void createSystemMessageRiderCountermandedNotification( MatchEntity m ) {
-		this.sendMessage(SystemMessageFactory.createSystemMessageRiderCountermandedNotification(m));
-	}
-
-
-	@Override
 	public void createMessagesOnAcceptance(MatchEntity m) {
 		
 		Message[] messages=SystemMessageFactory.createMessagesOnAcceptance(m);
+		for (Message msg: messages){
+			this.sendMessage(msg);
+		}
+	}
+
+
+	@Override
+	public void createMessageOnCountermand(MatchEntity m) {
+		Message[] messages=SystemMessageFactory.createMessagesOnCountermand(m);
+		for (Message msg: messages){
+			this.sendMessage(msg);
+		}
+		
+	}
+
+
+	@Override
+	public void createMessagesOnNewMatch(MatchEntity m) {
+		Message[] messages=SystemMessageFactory.createMessagesOnNewMatch(m);
 		for (Message msg: messages){
 			this.sendMessage(msg);
 		}
