@@ -65,7 +65,7 @@ public class HTTPUser implements Serializable {
     public String getLoginLabel() {
         if (getUserPrincipal() == null) {
         	java.util.Locale myLocale=new HTTPUtil().detectBestLocale();
-            return (new PropertiesLoader(myLocale)).getMessagesProps().getProperty("login");
+            return (PropertiesLoader.getMessageProperties(myLocale).getProperty("login"));
         }
         return null;
     }
@@ -107,7 +107,8 @@ public class HTTPUser implements Serializable {
    
      public String getLogoutLabel() {
         if (getUserPrincipal() != null) {
-            return (new PropertiesLoader()).getMessagesProps().getProperty("logout");
+        	java.util.Locale myLocale=new HTTPUtil().detectBestLocale();
+            return PropertiesLoader.getMessageProperties(myLocale).getProperty("logout");
         }
         return null;
     }

@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
@@ -525,10 +526,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	 */
 	public String getUpdatedShortcut() {
 
+		
 		if (this.getRideUpdated()) {
+			Locale locale=new HTTPUtil().detectBestLocale();
 			return " "
-					+ propertiesLoader.getMessagesProps().getProperty(
-							"updatedRideShort");
+					+ PropertiesLoader.getMessageProperties(locale).getProperty("updatedRideShort");
 		}
 
 		return "  ";

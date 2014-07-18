@@ -3,6 +3,7 @@ package de.avci.joride.jbeans.auxiliary;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -242,9 +243,10 @@ public class UpdateBean {
     	
     	// if there are unread messages, add messages to queue
     	if(result){
-    	
-    		String messageSubject=new PropertiesLoader().getMessagesProps().getProperty("msg_unread");
-    		String messageText=new PropertiesLoader().getMessagesProps().getProperty("msg_hasUnread");
+    		Locale locale=new HTTPUtil().detectBestLocale();
+    		
+    		String messageSubject=PropertiesLoader.getMessageProperties(locale).getProperty("msg_unread");
+    		String messageText=PropertiesLoader.getMessageProperties(locale).getProperty("msg_hasUnread");
     				
     		FacesContext context = FacesContext.getCurrentInstance();
     		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, messageSubject, messageText);

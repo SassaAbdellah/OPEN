@@ -410,36 +410,35 @@ public class JMatchingEntity implements Serializable {
         Integer rs = this.getRiderState();
         
         Locale locale=new HTTPUtil().detectBestLocale();
-        PropertiesLoader pl = new PropertiesLoader(locale);
-
+    
 
         if (rs == null) {
-            return pl.getMessagesProps().getProperty("matchRiderStateNoRiderRequest");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateNoRiderRequest");
         }
 
         if (rs.equals(MatchEntity.ACCEPTED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateACCEPTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateACCEPTED");
         }
 
         if (rs.equals(MatchEntity.RIDER_COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateRIDERCOUNTERMANDED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateRIDERCOUNTERMANDED");
         }
         
         if (rs.equals(MatchEntity.DRIVER_COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateDRIVERCOUNTERMANDED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateDRIVERCOUNTERMANDED");
         }
 
         if (rs.equals(MatchEntity.NOT_ADAPTED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateNOT_ADAPTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateNOT_ADAPTED");
 
         }
 
         if (rs.equals(MatchEntity.NO_MORE_AVAILABLE)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateNO_MORE_AVAILLABLE");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateNO_MORE_AVAILLABLE");
         }
 
         if (rs.equals(MatchEntity.REJECTED)) {
-            return pl.getMessagesProps().getProperty("matchRiderStateREJECTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchRiderStateREJECTED");
         }
 
         return "Cannot find state message for riderstate : " + rs;
@@ -456,38 +455,38 @@ public class JMatchingEntity implements Serializable {
         Integer ds = this.getDriverState();
 
         Locale locale=new HTTPUtil().detectBestLocale();
-        PropertiesLoader pl = new PropertiesLoader(locale);
+        
        
 
         if (ds == null) {
-            return pl.getMessagesProps().getProperty("matchDriverStateNoDriverOffer");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateNoDriverOffer");
         }
 
         if (ds.equals(MatchEntity.ACCEPTED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateACCEPTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateACCEPTED");
         }
 
         if (ds.equals(MatchEntity.RIDER_COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateRIDER_COUNTERMANDED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateRIDER_COUNTERMANDED");
         }
         
         if (ds.equals(MatchEntity.DRIVER_COUNTERMANDED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateDRIVER_COUNTERMANDED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateDRIVER_COUNTERMANDED");
         }
         
 
         if (ds.equals(MatchEntity.NOT_ADAPTED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateNOT_ADAPTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateNOT_ADAPTED");
 
         }
 
         if (ds.equals(MatchEntity.NO_MORE_AVAILABLE)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateNO_MORE_AVAILLABLE");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateNO_MORE_AVAILLABLE");
         }
 
 
         if (ds.equals(MatchEntity.REJECTED)) {
-            return pl.getMessagesProps().getProperty("matchDriverStateREJECTED");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("matchDriverStateREJECTED");
         }
 
         return "Cannot find state message for driver state : " + ds;
