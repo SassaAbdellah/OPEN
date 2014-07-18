@@ -78,21 +78,8 @@ public class PropertiesLoader {
    
     
     
-    /**
-     * Where the update.properties file is located in the code
-     */
-    private static final String DATETIME_URL = "de.avci.joride.datetime";
 
-    /**
-     * Load the Update Properties
-     *
-     */
-    public Properties getDatetimeProps() {
 
-        ResourceBundle rb = loadResourceBundleByName(DATETIME_URL);
-        Properties props = getPropertiesFromRessourceBundle(rb);
-        return props;
-    }
     
     
     
@@ -281,6 +268,56 @@ public class PropertiesLoader {
     public static Properties getUpdateProperties(){
     	return loadUpdateProperties();
     }
+    
+    
+
+    /**
+     * Where the update.properties file is located in the code
+     */
+    private static final String DATETIME_URL = "de.avci.joride.datetime";
+    
+    
+    
+    
+    /** Properties for Datetimes (indepentend of locale)
+     * 
+     */
+   private static Properties datetimeProperties=null;
+  
+       	
+    /** get operational properties
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadDateTimeProperties(){
+    	
+    	Properties props=datetimeProperties;
+    			
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader();
+    		  ResourceBundle rb =loader.loadResourceBundleByName(DATETIME_URL);
+    		  props=loader.getPropertiesFromRessourceBundle(rb);
+    	      datetimeProperties=props;
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load DatetimeProperties");
+    	      }
+    	}
+    	return props;
+    }
+    
+    /** Return Operational Properties. If no such Properties exist 
+     *  create them.
+     * 
+     * @param locale
+     * @return
+     */
+    public static Properties getDatetimeProperties(){
+    	return loadDateTimeProperties();
+    }
+    
     
     
     

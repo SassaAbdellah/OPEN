@@ -31,22 +31,19 @@ public class JoRideConstants implements Serializable{
 	 * default serial
 	 */
 	private static final long serialVersionUID = 1L;
-	/** We'll have to load datetime properties
-     * 
-     */
-	private static PropertiesLoader pl=new PropertiesLoader();
+
 
     
 	
 	/**   @return  timestamp format, defined as "tsformat" property in datetime.properties
 	 */
 	public static String getDateTimeFormatString(){
-		return pl.getDatetimeProps().getProperty("tsformat");
+		return PropertiesLoader.getDatetimeProperties().getProperty("tsformat");
 	}
 	
 	// @return  date format, defined as "dateformat" property in datetime.properties
 	public static String getDateFormatString(){
-		return pl.getDatetimeProps().getProperty("dateformat");
+		return PropertiesLoader.getDatetimeProperties().getProperty("dateformat");
 	}
 	
 	
@@ -82,7 +79,7 @@ public class JoRideConstants implements Serializable{
      * @return
      */
     public static TimeZone getTimeZone() {
-		return TimeZone.getTimeZone(pl.getDatetimeProps().getProperty("defaulttimezone"));
+		return TimeZone.getTimeZone(PropertiesLoader.getDatetimeProperties().getProperty("defaulttimezone"));
 	}
 
 	/** Decimal Format for displaying ratings 
