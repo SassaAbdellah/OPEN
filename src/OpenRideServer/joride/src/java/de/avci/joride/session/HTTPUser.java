@@ -81,8 +81,8 @@ public class HTTPUser implements Serializable {
      */
     public String getURLBase(){
     
-           PropertiesLoader pl=new PropertiesLoader();
-           return pl.getNavigationProps().getProperty("urlBase");
+         
+           return PropertiesLoader.getNavigationProperties().getProperty("urlBase");
     }
     
     
@@ -98,7 +98,7 @@ public class HTTPUser implements Serializable {
      
             PropertiesLoader pl=new PropertiesLoader();
          
-            String urlLogin=pl.getNavigationProps().getProperty("urlLogin");
+            String urlLogin=PropertiesLoader.getNavigationProperties().getProperty("urlLogin");
             return getURLBase()+urlLogin;
             
     }
@@ -117,7 +117,7 @@ public class HTTPUser implements Serializable {
     public String getLogoutURL() {
         
             PropertiesLoader pl=new PropertiesLoader();
-            String urlLogout=pl.getNavigationProps().getProperty("urlLogout");
+            String urlLogout=PropertiesLoader.getNavigationProperties().getProperty("urlLogout");
             
             return urlLogout;
     } 
@@ -129,9 +129,9 @@ public class HTTPUser implements Serializable {
         
             PropertiesLoader pl=new PropertiesLoader();
             
-            System.err.println("TODO: navigation props: "+pl.getNavigationProps());
+            System.err.println("TODO: navigation props: "+PropertiesLoader.getNavigationProperties());
             
-            String urlLoggedOut=pl.getNavigationProps().getProperty("urlLoggedOut");
+            String urlLoggedOut=PropertiesLoader.getNavigationProperties().getProperty("urlLoggedOut");
             return urlLoggedOut;
     } 
      
@@ -167,9 +167,9 @@ public class HTTPUser implements Serializable {
 
         PropertiesLoader pl = new PropertiesLoader();
 
-        System.err.println("TODO: navigation props: " + pl.getNavigationProps());
+        System.err.println("TODO: navigation props: " + PropertiesLoader.getNavigationProperties());
 
-        String urlLoggedOut = pl.getNavigationProps().getProperty("urlOpenLayers");
+        String urlLoggedOut = PropertiesLoader.getNavigationProperties().getProperty("urlOpenLayers");
         return urlLoggedOut;
     }
     
