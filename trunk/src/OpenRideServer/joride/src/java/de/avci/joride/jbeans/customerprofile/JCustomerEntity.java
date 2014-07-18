@@ -382,17 +382,17 @@ public class JCustomerEntity extends CustomerEntity {
        
         
         Locale locale=new HTTPUtil().detectBestLocale();
-        PropertiesLoader loader = new PropertiesLoader(locale);
+      
 
         if (this.getCustGender() == this.GENDER_MALE) {
-            return loader.getMessagesProps().getProperty("custGenderMale");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("custGenderMale");
         }
 
         if (this.getCustGender() == this.GENDER_FEMALE) {
-            return loader.getMessagesProps().getProperty("custGenderFemale");
+            return PropertiesLoader.getMessageProperties(locale).getProperty("custGenderFemale");
         }
 
-        return loader.getMessagesProps().getProperty("custGenderOther");
+        return PropertiesLoader.getMessageProperties(locale).getProperty("custGenderOther");
     }
 
     

@@ -1,5 +1,6 @@
 package de.avci.joride.utils;
 
+import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -29,7 +30,7 @@ public class PropertiesLoader {
 	 * 
 	 * @param locale
 	 */
-    public PropertiesLoader(Locale locale) {
+    private PropertiesLoader(Locale locale) {
 		super();
 		this.locale=locale;
 	}
@@ -77,7 +78,7 @@ public class PropertiesLoader {
     /**
      * Where the navigation.properties file is located in the code
      */
-    public static final String NAVIGATION_URL = "de.avci.joride.navigation";
+    private static final String NAVIGATION_URL = "de.avci.joride.navigation";
 
     /**
      * Load the Navigation Properties
@@ -90,26 +91,13 @@ public class PropertiesLoader {
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
-    /**
-     * Where the messages.properties file is located in the code
-     */
-    public static final String MESSAGES_URL = "de.avci.joride.messages";
+  
 
-    /**
-     * Load the Messages Properties
-     *
-     * @return the Messages Properties as
-     */
-    public Properties getMessagesProps() {
-
-        ResourceBundle rb = loadResourceBundleByName(MESSAGES_URL);
-        Properties props = getPropertiesFromRessourceBundle(rb);
-        return props;
-    }
+   
     /**
      * Where the navigation.properties file is located in the code
      */
-    public static final String OPERATIONAL_URL = "de.avci.joride.operational";
+    private static final String OPERATIONAL_URL = "de.avci.joride.operational";
 
     /**
      * Load the Operational Properties
@@ -124,7 +112,7 @@ public class PropertiesLoader {
     /**
      * Where the update.properties file is located in the code
      */
-    public static final String UPDATES_URL = "de.avci.joride.update";
+    private static final String UPDATES_URL = "de.avci.joride.update";
 
     /**
      * Load the Update Properties
@@ -143,7 +131,7 @@ public class PropertiesLoader {
     /**
      * Where the update.properties file is located in the code
      */
-    public static final String DATETIME_URL = "de.avci.joride.datetime";
+    private static final String DATETIME_URL = "de.avci.joride.datetime";
 
     /**
      * Load the Update Properties
@@ -157,5 +145,47 @@ public class PropertiesLoader {
     }
     
     
+    
+    /** Hashtable providing Properties for all supported locales
+     * 
+     */
+    private static Hashtable <Locale,Properties> messageCache = new Hashtable <Locale,Properties> ();
+  
+    /**
+     * Where the messages.properties file is located in the code
+     */
+    private static final String MESSAGES_URL = "de.avci.joride.messages";
+    	
+    /** getPro
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadMessageProperties(Locale locale){
+    	
+    	Properties props=messageCache.get(locale);
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader();
+    		  ResourceBundle rb =loader.loadResourceBundleByName(MESSAGES_URL);
+    	      props = loader.getPropertiesFromRessourceBundle(rb);
+    	      messageCache.put(locale, props);
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load Properties to Cache for Locale "+locale);
+    	      }
+    	}
+    	return props;
+    }
+    
+    /** Return Messagess from Cache. If no such Properties are in the cache,
+     *  load Properties to cache.
+     * 
+     * @param locale
+     * @return
+     */
+    public static Properties getMessageProperties(Locale locale){
+    	return loadMessageProperties(locale);
+    }
     
 }

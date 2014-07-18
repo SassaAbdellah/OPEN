@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -685,8 +686,9 @@ public class JDriverUndertakesRideEntity extends
 	public String getUpdatedShortcut() {
 
 		if (this.getDriveUpdated()) {
+			Locale locale=(new HTTPUtil()).detectBestLocale();
 			return " "
-					+ propertiesLoader.getMessagesProps().getProperty(
+					+ propertiesLoader.getMessageProperties(locale).getProperty(
 							"updatedRideShort");
 		}
 

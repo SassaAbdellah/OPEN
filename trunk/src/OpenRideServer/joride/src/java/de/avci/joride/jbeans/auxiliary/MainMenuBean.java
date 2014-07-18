@@ -34,15 +34,14 @@ public class MainMenuBean implements Serializable, MenuModel {
 		model = new DefaultMenuModel();
 
 		Locale locale = new HTTPUtil().detectBestLocale();
+		
+		PropertiesLoader proploader=new PropertiesLoader();
 
-		// Properties are loaded with locale explicitely specified,
-		// So that dynamic menu can use BrowserLocal (instead of System.local)
-		PropertiesLoader proploader = new PropertiesLoader(locale);
 
 		// Menu HOME
 		// <p:menuitem action="home" value="#{msgs.nav1_home_label}"
 		// icon="ui-icon-home" />
-		String homeMsg = proploader.getMessagesProps().getProperty(
+		String homeMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_home_label");
 		DefaultMenuItem homeItem = new DefaultMenuItem(homeMsg);
 		homeItem.setIcon("ui-icon-home");
@@ -55,13 +54,13 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 		// Rider's submenu
 		// <p:submenu label="#{msgs.nav1_rider_label}" icon="ui-icon-suitcase">
-		String riderMSG = proploader.getMessagesProps().getProperty(
+		String riderMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_rider_label");
 		DefaultSubMenu riderSubmenu = new DefaultSubMenu(riderMSG);
 		riderSubmenu.setIcon("ui-icon-suitcase");
 
 		// rider:: home
-		String riderMsg = proploader.getMessagesProps().getProperty(
+		String riderMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_rider_active");
 		DefaultMenuItem riderHomeItem = new DefaultMenuItem(riderMSG);
 		riderHomeItem.setCommand("rider");
@@ -69,7 +68,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		riderSubmenu.addElement(riderHomeItem);
 
 		// rider::newRide
-		String newRideMsg = proploader.getMessagesProps().getProperty(
+		String newRideMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideNewRequest");
 		DefaultMenuItem riderRideCreateItem = new DefaultMenuItem(newRideMsg);
 		riderRideCreateItem.setCommand("#{mainMenu.rideCreateFlow}");
@@ -77,7 +76,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		riderSubmenu.addElement(riderRideCreateItem);
 
 		// rider::Search
-		String rideSearchMsg = proploader.getMessagesProps().getProperty(
+		String rideSearchMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideSearchRequests");
 		DefaultMenuItem riderSearchItem = new DefaultMenuItem(rideSearchMsg);
 		riderSearchItem.setCommand("search.requests");
@@ -91,13 +90,13 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 		//
 
-		String driverMSG = proploader.getMessagesProps().getProperty(
+		String driverMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_driver_label");
 		DefaultSubMenu driverSubmenu = new DefaultSubMenu(driverMSG);
 		driverSubmenu.setIcon("ui-icon-person");
 		// rider:: home
 		// <p:menuitem outcome="driver" value="#{msgs.nav1_driver_active}" />
-		String driverMsg = proploader.getMessagesProps().getProperty(
+		String driverMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_driver_active");
 		DefaultMenuItem driverHomeItem = new DefaultMenuItem(driverMsg);
 		driverHomeItem.setCommand("driver");
@@ -105,7 +104,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		driverSubmenu.addElement(driverHomeItem);
 
 		// TODO: add or configure webflow parameters for drive create new ride
-		String driverNewDriveMsg = proploader.getMessagesProps().getProperty(
+		String driverNewDriveMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideNewDrive");
 		DefaultMenuItem driverRideCreateItem = new DefaultMenuItem(
 				driverNewDriveMsg);
@@ -113,7 +112,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		driverRideCreateItem.setAjax(false);
 		driverSubmenu.addElement(driverRideCreateItem);
 
-		String driveSearchDriveMsg = proploader.getMessagesProps().getProperty(
+		String driveSearchDriveMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideSearchDrives");
 		DefaultMenuItem driverSearchItem = new DefaultMenuItem(
 				driveSearchDriveMsg);
@@ -128,14 +127,14 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 		// <p:submenu label="#{msgs.searchSubMenu}" icon="ui-icon-search">
 		//
-		String searchMSG = proploader.getMessagesProps().getProperty(
+		String searchMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"searchSubMenu");
 		DefaultSubMenu searchSubmenu = new DefaultSubMenu(searchMSG);
 		searchSubmenu.setIcon("ui-icon-search");
 
 		// <p:menuitem outcome="search.requests"
 		// value="#{msgs.rideSearchRequests}" />
-		String searchRequestMSG = proploader.getMessagesProps().getProperty(
+		String searchRequestMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideSearchRequests");
 		DefaultMenuItem rideSearchItemX = new DefaultMenuItem(searchRequestMSG);
 		rideSearchItemX.setCommand("search.requests");
@@ -144,7 +143,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:menuitem outcome="search.drives" value="#{msgs.rideSearchDrives}"
 		// />
-		String searchDriveMSG = proploader.getMessagesProps().getProperty(
+		String searchDriveMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"rideSearchDrives");
 		DefaultMenuItem driveSearchItemX = new DefaultMenuItem(searchDriveMSG);
 		driveSearchItemX.setCommand("search.drives");
@@ -152,7 +151,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:menuitem outcome="searchPublicProfileByNickName"
 		// value="#{msgs.publicProfileSearchProfile}" />
-		String searchProfileMSG = proploader.getMessagesProps().getProperty(
+		String searchProfileMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"publicProfileSearchProfile");
 		DefaultMenuItem searchProfileItem = new DefaultMenuItem(
 				searchProfileMSG);
@@ -170,13 +169,13 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:submenu label="#{msgs.nav1_preferences_label}"
 		// icon="ui-icon-wrench">
-		String preferencesMSG = proploader.getMessagesProps().getProperty(
+		String preferencesMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_preferences_label");
 		DefaultSubMenu preferencesSubmenu = new DefaultSubMenu(preferencesMSG);
 		preferencesSubmenu.setIcon("ui-icon-wrench");
 
 		// <p:menuitem outcome="password_change" value="#{msgs.changePassword}"
-		String changePasswordMSG = proploader.getMessagesProps().getProperty(
+		String changePasswordMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"changePassword");
 		DefaultMenuItem passwordChangeItem = new DefaultMenuItem(
 				changePasswordMSG);
@@ -186,7 +185,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:menuitem outcome="preferences.personalData"
 		// value="#{msgs.nav1_pref_personalData_label}" />
-		String personalDataMSG = proploader.getMessagesProps().getProperty(
+		String personalDataMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_pref_personalData_label");
 		DefaultMenuItem personalDataItem = new DefaultMenuItem(personalDataMSG);
 		personalDataItem.setCommand("preferences.personalData");
@@ -195,7 +194,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:menuitem outcome="preferences.riderPreferences"
 		// value="#{msgs.nav1_pref_riderPreferences_label}" />
-		String riderprefDataMSG = proploader.getMessagesProps().getProperty(
+		String riderprefDataMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_pref_riderPreferences_label");
 		DefaultMenuItem riderprefDataItem = new DefaultMenuItem(
 				riderprefDataMSG);
@@ -205,7 +204,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 
 		// <p:menuitem outcome="preferences.driverPreferences"
 		// value="#{msgs.nav1_pref_driverPreferences_label}" />
-		String driverprefDataMSG = proploader.getMessagesProps().getProperty(
+		String driverprefDataMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_pref_driverPreferences_label");
 
 		DefaultMenuItem driverprefDataItem = new DefaultMenuItem(
@@ -217,7 +216,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <p:menuitem outcome="preferences.favoritePlaces"
 		// value="#{msgs.nav1_pref_favoritePlaces_label}" />
 
-		String favoritePlacesMSG = proploader.getMessagesProps().getProperty(
+		String favoritePlacesMSG = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_pref_favoritePlaces_label");
 
 		DefaultMenuItem preffavplacesDataItem = new DefaultMenuItem(
@@ -236,7 +235,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <!-- p:spacer/ -->
 		// <p:menuitem outcome="updates" value="#{msgs.updates}"
 		// icon="ui-icon-lightbulb" />
-		String updateMsg = proploader.getMessagesProps().getProperty("updates");
+		String updateMsg = PropertiesLoader.getMessageProperties(locale).getProperty("updates");
 
 		DefaultMenuItem updateMenuItem = new DefaultMenuItem(updateMsg);
 		updateMenuItem.setCommand("updates");
@@ -251,19 +250,19 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <!-- p:spacer/ -->
 		// <!-- <p:menuitem outcome="preferences"
 		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" />
-		String messagesMsg = proploader.getMessagesProps().getProperty(
+		String messagesMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"msg_messages");
 		DefaultSubMenu messagesMenu = new DefaultSubMenu(messagesMsg);
 		messagesMenu.setIcon("ui-icon-mail-closed");
 
 		// menu item for unread messages
-		String unreadMsg = proploader.getMessagesProps().getProperty("msg_unread");
+		String unreadMsg = PropertiesLoader.getMessageProperties(locale).getProperty("msg_unread");
 		DefaultMenuItem unreadMenuItem = new DefaultMenuItem(unreadMsg);
 		unreadMenuItem.setCommand("messages.unread");
 		messagesMenu.addElement(unreadMenuItem);
 		
 		// menu item for "all" messages
-		String allMsg = proploader.getMessagesProps().getProperty("msg_all");
+		String allMsg = PropertiesLoader.getMessageProperties(locale).getProperty("msg_all");
 		DefaultMenuItem allMsgMenuItem = new DefaultMenuItem(allMsg);
 		allMsgMenuItem.setCommand("messages.search");
 		messagesMenu.addElement(allMsgMenuItem);
@@ -278,7 +277,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <!-- p:spacer/ -->
 		// <!-- <p:menuitem outcome="preferences"
 		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" />
-		String removeAccMsg = proploader.getMessagesProps().getProperty(
+		String removeAccMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"custRemoveAccountLabel");
 
 		DefaultMenuItem removeAccountMenuItem = new DefaultMenuItem(
@@ -295,7 +294,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <!-- p:spacer/ -->
 		// <p:menuitem url="#{HTTPUser.getLogoutURL()}"
 		// value="#{msgs.nav1_logout}" icon="ui-icon-power" />
-		String logoutMsg = proploader.getMessagesProps().getProperty(
+		String logoutMsg = PropertiesLoader.getMessageProperties(locale).getProperty(
 				"nav1_logout");
 
 		DefaultMenuItem logoutMenuItem = new DefaultMenuItem(logoutMsg);

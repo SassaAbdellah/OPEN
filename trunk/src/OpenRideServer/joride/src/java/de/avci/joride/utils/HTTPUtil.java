@@ -73,7 +73,7 @@ public class HTTPUtil {
      * @param request
      */
     
-    public Locale detectBestLocale() {
+    public  Locale detectBestLocale() {
     	
     	
     	Set <Locale> supportedLocals=this.getSupportedLocales();

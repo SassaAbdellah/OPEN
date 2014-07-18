@@ -1,6 +1,8 @@
 package de.avci.joride.backing.messages;
 
+import de.avci.joride.session.HTTPUser;
 import de.avci.joride.utils.EmailCheck;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
 import java.io.Serializable;
@@ -158,7 +160,8 @@ public class MailMessage implements Serializable {
 
         //
         EmailCheck echeck = new EmailCheck();
-        Properties messages = new PropertiesLoader().getMessagesProps();
+        
+        Properties messages = PropertiesLoader.getMessageProperties(new HTTPUtil().detectBestLocale());
 
         //
         // Checking sender

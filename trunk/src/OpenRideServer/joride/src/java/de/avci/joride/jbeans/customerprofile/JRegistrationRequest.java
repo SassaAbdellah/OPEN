@@ -6,9 +6,11 @@ package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.backing.messages.RegistrationMessage;
 import de.avci.joride.utils.EmailCheck;
+import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Properties;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -126,8 +128,8 @@ public class JRegistrationRequest implements Serializable {
      */
     public boolean checkIntegrity() {
 
-
-        Properties msgs = new PropertiesLoader().getMessagesProps();
+    	Locale locale=new HTTPUtil().detectBestLocale();
+        Properties msgs = PropertiesLoader.getMessageProperties(locale);
 
         if (this.getGivenName() == null || this.getGivenName().trim().equals("")) {
             this.setErrorStatus(msgs.getProperty("registrationGivenNameMissingError"));
@@ -197,15 +199,14 @@ public class JRegistrationRequest implements Serializable {
             String passwd=new JCustomerEntityService().createRandomPasswort();
             boolean result = new JCustomerEntityService().addCustomerEntry(this,passwd);
 
-            (new RegistrationMessage()).sendRegistrationMail(this, passwd);
+            (new RegistrationMessage()).sendRegistrationMail(this, passwd, new HTTPUtil().detectBestLocale());
             
-            
-            
-            
+          
             if (result) {
                 return REQUEST_CREATE;
             } else {
-                Properties msgs = new PropertiesLoader().getMessagesProps();
+            	Locale locale=new HTTPUtil().detectBestLocale();
+                Properties msgs = PropertiesLoader.getMessageProperties(locale);
                 this.setErrorStatus(msgs.getProperty("registrationErrorWhilePersisting"));
             }
         }

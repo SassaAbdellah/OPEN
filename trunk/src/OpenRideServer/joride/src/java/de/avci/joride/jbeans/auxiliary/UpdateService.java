@@ -4,6 +4,11 @@
  */
 package de.avci.joride.jbeans.auxiliary;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntity;
 import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
@@ -15,9 +20,6 @@ import de.avci.joride.utils.PropertiesLoader;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import java.util.LinkedList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Service to provide Information about updated drives and rides for given
@@ -41,8 +43,8 @@ public class UpdateService {
 
         if (updatedsearchesCount > 0 || updatedoffersCount > 0) {
 
-            PropertiesLoader loader = new PropertiesLoader();
-            return loader.getMessagesProps().getProperty("updates.updateNotification");
+        	java.util.Locale locale=new HTTPUtil().detectBestLocale();
+            return PropertiesLoader.getMessageProperties(locale).getProperty("updates.updateNotification");
 
 
         } else {
