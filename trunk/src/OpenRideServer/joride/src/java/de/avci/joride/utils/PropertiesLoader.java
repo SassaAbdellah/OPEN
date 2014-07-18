@@ -75,22 +75,8 @@ public class PropertiesLoader {
         }
         return res;
     }
-    /**
-     * Where the navigation.properties file is located in the code
-     */
-    private static final String NAVIGATION_URL = "de.avci.joride.navigation";
-
-    /**
-     * Load the Navigation Properties
-     *
-     * @return the Navigation Properties as
-     */
-    public Properties getNavigationProps() {
-
-        ResourceBundle rb = loadResourceBundleByName(NAVIGATION_URL);
-        Properties props = getPropertiesFromRessourceBundle(rb);
-        return props;
-    }
+   
+   
   
 
    
@@ -187,5 +173,54 @@ public class PropertiesLoader {
     public static Properties getMessageProperties(Locale locale){
     	return loadMessageProperties(locale);
     }
+    
+    
+    /**
+     * Where the navigation.properties file is located in the code
+     */
+    private static final String NAVIGATION_URL = "de.avci.joride.navigation";
+ 
+    
+    /** Properties for Navigation (indepentend of locale)
+     * 
+     */
+   private static Properties navigationProperties=null;
+  
+       	
+    /** getPro
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadNavigationProperties(){
+    	
+    	Properties props=navigationProperties;
+    			
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader();
+    		  ResourceBundle rb =loader.loadResourceBundleByName(NAVIGATION_URL);
+    		  props=loader.getPropertiesFromRessourceBundle(rb);
+    	      navigationProperties=props;
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load NavigationProperties");
+    	      }
+    	}
+    	return props;
+    }
+    
+    /** Return Navigation Properties from Cache. If no such Properties are in the cache,
+     *  load Properties to cache.
+     * 
+     * @param locale
+     * @return
+     */
+    public static Properties getNavigationProperties(){
+    	return loadNavigationProperties();
+    }
+    
+    
+    
     
 }

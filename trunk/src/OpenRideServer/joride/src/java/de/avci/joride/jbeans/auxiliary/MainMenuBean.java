@@ -298,7 +298,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 				"nav1_logout");
 
 		DefaultMenuItem logoutMenuItem = new DefaultMenuItem(logoutMsg);
-		logoutMenuItem.setUrl(proploader.getNavigationProps().getProperty(
+		logoutMenuItem.setUrl(PropertiesLoader.getNavigationProperties().getProperty(
 				"urlLogout"));
 		logoutMenuItem.setIcon("ui-icon-power");
 		model.addElement(logoutMenuItem);
