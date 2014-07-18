@@ -255,8 +255,7 @@ public class MailMessage implements Serializable {
      */
     private String loadMailServiceJNDI() {
 
-        PropertiesLoader pl = new PropertiesLoader();
-        return pl.getOperationalProps().getProperty(PROPERTY_NAME_MAIL_SERVICE_JNDI);
+    	 return PropertiesLoader.getOperationalProperties().getProperty(PROPERTY_NAME_MAIL_SERVICE_JNDI);
     }
     
     

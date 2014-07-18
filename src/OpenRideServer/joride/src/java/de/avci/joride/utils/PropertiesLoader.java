@@ -64,7 +64,7 @@ public class PropertiesLoader {
      * @param ResourceBundle rb
      * @return a Properties Object generated from RessourceBundl
      */
-    Properties getPropertiesFromRessourceBundle(ResourceBundle rb) {
+    private Properties getPropertiesFromRessourceBundle(ResourceBundle rb) {
 
         Properties res = new Properties();
         Enumeration<String> keys = rb.getKeys();
@@ -80,21 +80,8 @@ public class PropertiesLoader {
   
 
    
-    /**
-     * Where the navigation.properties file is located in the code
-     */
-    private static final String OPERATIONAL_URL = "de.avci.joride.operational";
-
-    /**
-     * Load the Operational Properties
-     *
-     */
-    public Properties getOperationalProps() {
-
-        ResourceBundle rb = loadResourceBundleByName(OPERATIONAL_URL);
-        Properties props = getPropertiesFromRessourceBundle(rb);
-        return props;
-    }
+   
+   
     /**
      * Where the update.properties file is located in the code
      */
@@ -110,6 +97,10 @@ public class PropertiesLoader {
         Properties props = getPropertiesFromRessourceBundle(rb);
         return props;
     }
+    
+    
+    
+    
     
     
     
@@ -219,6 +210,57 @@ public class PropertiesLoader {
     public static Properties getNavigationProperties(){
     	return loadNavigationProperties();
     }
+    
+    
+    
+    
+    
+    /**
+     * Where the navigation.properties file is located in the code
+     */
+    private static final String OPERATIONAL_URL = "de.avci.joride.operational";
+
+    
+    /** Properties for Operations (indepentend of locale)
+     * 
+     */
+   private static Properties operationalProperties=null;
+  
+       	
+    /** get operational properties
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadOperationalProperties(){
+    	
+    	Properties props=operationalProperties;
+    			
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader();
+    		  ResourceBundle rb =loader.loadResourceBundleByName(OPERATIONAL_URL);
+    		  props=loader.getPropertiesFromRessourceBundle(rb);
+    	      operationalProperties=props;
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load OperationalProperties");
+    	      }
+    	}
+    	return props;
+    }
+    
+    /** Return Operational Properties. If no such Properties exist 
+     *  create them.
+     * 
+     * @param locale
+     * @return
+     */
+    public static Properties getOperationalProperties(){
+    	return loadOperationalProperties();
+    }
+    
+    
     
     
     
