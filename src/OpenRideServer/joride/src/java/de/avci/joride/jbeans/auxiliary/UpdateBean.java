@@ -107,8 +107,7 @@ public class UpdateBean {
         if (this.updateInterval == null) {
             this.updateInterval = new Long(updateIntervalDefault);
             try {
-                PropertiesLoader loader = new PropertiesLoader();
-                String updateStr = "" + loader.getUpdateProps().get(ParamNameUpdateInterval);
+                String updateStr = "" + PropertiesLoader.getUpdateProperties().get(ParamNameUpdateInterval);
                 this.updateInterval = new Long(updateStr);
                 log.info("loaded update Interval : " + updateStr);
             } catch (Exception exc) {
@@ -135,8 +134,7 @@ public class UpdateBean {
         if (this.growlInterval == null) {
             this.growlInterval = new Long(growlIntervalDefault);
             try {
-                PropertiesLoader loader = new PropertiesLoader();
-                String growlStr = "" + loader.getUpdateProps().get(ParamNameGrowlInterval);
+                String growlStr = "" + PropertiesLoader.getUpdateProperties().get(ParamNameGrowlInterval);
                 this.growlInterval = new Long(growlStr);
                 log.info("loaded growl Interval : " + growlStr);
             } catch (Exception exc) {

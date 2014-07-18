@@ -76,33 +76,6 @@ public class PropertiesLoader {
         return res;
     }
    
-   
-  
-
-   
-   
-   
-    /**
-     * Where the update.properties file is located in the code
-     */
-    private static final String UPDATES_URL = "de.avci.joride.update";
-
-    /**
-     * Load the Update Properties
-     *
-     */
-    public Properties getUpdateProps() {
-
-        ResourceBundle rb = loadResourceBundleByName(UPDATES_URL);
-        Properties props = getPropertiesFromRessourceBundle(rb);
-        return props;
-    }
-    
-    
-    
-    
-    
-    
     
     
     /**
@@ -261,6 +234,53 @@ public class PropertiesLoader {
     }
     
     
+    
+    
+    /**
+     * Where the update.properties file is located in the code
+     */
+    private static final String UPDATES_URL = "de.avci.joride.update";
+
+    
+    
+    /** Properties for Operations (indepentend of locale)
+     * 
+     */
+   private static Properties updateProperties=null;
+  
+       	
+    /** get operational properties
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadUpdateProperties(){
+    	
+    	Properties props=updateProperties;
+    			
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader();
+    		  ResourceBundle rb =loader.loadResourceBundleByName(UPDATES_URL);
+    		  props=loader.getPropertiesFromRessourceBundle(rb);
+    	      updateProperties=props;
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load UpdateProperties");
+    	      }
+    	}
+    	return props;
+    }
+    
+    /** Return Operational Properties. If no such Properties exist 
+     *  create them.
+     * 
+     * @param locale
+     * @return
+     */
+    public static Properties getUpdateProperties(){
+    	return loadUpdateProperties();
+    }
     
     
     
