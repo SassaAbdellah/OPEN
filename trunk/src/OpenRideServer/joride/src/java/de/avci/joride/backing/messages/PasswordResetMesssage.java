@@ -35,9 +35,9 @@ public class PasswordResetMesssage extends MailMessage implements Serializable{
      */
     public String sendPasswordResetMail(JPasswordResetRequest jprr, String nickname, String password) {
 
-        PropertiesLoader pl = new PropertiesLoader();
+   
 
-        this.setSender(pl.getOperationalProps().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
+        this.setSender(PropertiesLoader.getOperationalProperties().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
         this.setRecipient(jprr.getEmail());
         
         Locale locale=new HTTPUtil().detectBestLocale();

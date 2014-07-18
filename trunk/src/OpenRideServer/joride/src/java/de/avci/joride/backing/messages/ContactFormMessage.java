@@ -37,10 +37,10 @@ public class ContactFormMessage extends MailMessage implements Serializable{
      */
     public String sendContactFormMail() {
 
-        PropertiesLoader pl = new PropertiesLoader();
+     
 
-        this.setSender(pl.getOperationalProps().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
-        this.setRecipient(pl.getOperationalProps().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
+        this.setSender(PropertiesLoader.getOperationalProperties().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
+        this.setRecipient(PropertiesLoader.getOperationalProperties().getProperty(PROPERTY_NAME_WEBMASTER_EMAIL_RECIPIENT));
 
         
         return this.send();
