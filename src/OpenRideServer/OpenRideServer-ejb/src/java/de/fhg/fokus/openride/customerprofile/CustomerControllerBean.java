@@ -22,6 +22,7 @@
  */
 package de.fhg.fokus.openride.customerprofile;
 
+import de.avci.openrideshare.utils.SupportedLanguagesFactory;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -34,6 +35,7 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -672,5 +674,10 @@ public class CustomerControllerBean extends ControllerBean implements
 	public boolean isMatchUpdated(int customerId) {
 		CustomerEntity ce = this.getCustomer(customerId);
 		return ce.isMatchUpdated();
+	}
+
+	@Override
+	public Locale[] getSupportedLocales() {
+		return SupportedLanguagesFactory.getSupportedLanguages();
 	}
 }
