@@ -122,16 +122,28 @@
 
    </javac>
  	
-
-
   </target> <!-- end of target "compile"  -->
+	
+	
+ <!-- copy *.properties files to build directory -->	
+  <target name="copyProperties">	
+  	
+  	<mkdir dir="${build.dir}/de/avci/openrideshare/properties/" />
+  
+    <copy  todir="${build.dir}/de/avci/openrideshare/properties/">
+    	<fileset dir="${src.dir}/de/avci/openrideshare/properties/" /> 	
+    </copy>
+  	
+</target>
+  
+ <!-- end of "copy properties" -->
 
  
  <!-- *******************i***************************** -->
  <!-- ***** targed "dist": package ejb-jar archive **** -->
  <!-- ************************************************* -->
 
- <target name="dist" depends="compile" description="package the dist/OpenRideServer-ejb.jar">
+ <target name="dist" depends="compile,copyProperties" description="package the dist/OpenRideServer-ejb.jar">
 
 
 
