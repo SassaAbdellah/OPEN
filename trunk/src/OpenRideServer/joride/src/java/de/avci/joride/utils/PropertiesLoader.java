@@ -83,13 +83,14 @@ public class PropertiesLoader {
     
     
     
-    /** Hashtable providing Properties for all supported locales
+    /** Hashtable providing messages for all supported locales
      * 
      */
     private static Hashtable <Locale,Properties> messageCache = new Hashtable <Locale,Properties> ();
   
+    
     /**
-     * Where the messages.properties file is located in the code
+     * Place where the messages_xx.properties files are located in the code
      */
     private static final String MESSAGES_URL = "de.avci.joride.messages";
     	
@@ -116,7 +117,7 @@ public class PropertiesLoader {
     }
     
     /** Return Messagess from Cache. If no such Properties are in the cache,
-     *  load Properties to cache.
+     *  load Properties to cache first, then return them.
      * 
      * @param locale
      * @return
@@ -126,19 +127,18 @@ public class PropertiesLoader {
     }
     
     
-    /**
-     * Where the navigation.properties file is located in the code
+    /**  Place where the navigation.properties file is located in the code
      */
     private static final String NAVIGATION_URL = "de.avci.joride.navigation";
  
     
-    /** Properties for Navigation (indepentend of locale)
+    /** Properties for Navigation (independend of locale)
      * 
      */
    private static Properties navigationProperties=null;
   
        	
-    /** getPro
+    /** Get Navigation properties. If necessary, instantiate them first
      * 
      * @param locale
      * @return
@@ -187,7 +187,7 @@ public class PropertiesLoader {
    private static Properties operationalProperties=null;
   
        	
-    /** get operational properties
+    /** get operational properties. If necessary instantiate them first.
      * 
      * @param locale
      * @return
@@ -224,7 +224,7 @@ public class PropertiesLoader {
     
     
     /**
-     * Where the update.properties file is located in the code
+     * Place Where the update.properties file is located in the code
      */
     private static final String UPDATES_URL = "de.avci.joride.update";
 
@@ -236,7 +236,7 @@ public class PropertiesLoader {
    private static Properties updateProperties=null;
   
        	
-    /** get operational properties
+    /** get update properties. If necessary, instantiate them first
      * 
      * @param locale
      * @return
@@ -308,8 +308,7 @@ public class PropertiesLoader {
     	return props;
     }
     
-    /** Return Operational Properties. If no such Properties exist 
-     *  create them.
+    /** Return Date/Time Properties for given locale. If no such Properties exist create them.
      * 
      * @param locale
      * @return
@@ -317,8 +316,6 @@ public class PropertiesLoader {
     public static Properties getDatetimeProperties(){
     	return loadDateTimeProperties();
     }
-    
-    
     
     
     
