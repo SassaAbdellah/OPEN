@@ -8,6 +8,8 @@ import de.avci.joride.utils.HTTPUtil;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -547,6 +549,16 @@ public class JCustomerEntityService {
         CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
        return ccl.isMatchUpdated(ce.getCustId());
     
+    }
+    
+    
+    
+    /** Return the list of locales supported by the server
+     */
+    public Locale[] getSupportedLocales(){
+    	
+    	 CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+         return ccl.getSupportedLocales();
     }
     
     
