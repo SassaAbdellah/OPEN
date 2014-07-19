@@ -25,6 +25,8 @@ package de.fhg.fokus.openride.customerprofile;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
+
 import javax.ejb.Local;
 
 /**
@@ -106,5 +108,11 @@ public interface CustomerControllerLocal {
      * @return 
      */
     public boolean isMatchUpdated(int customerId);
+    
+    
+    /** 
+     * @return  Return the list of supported locales
+     */
+    public Locale[] getSupportedLocales();
     
 }
