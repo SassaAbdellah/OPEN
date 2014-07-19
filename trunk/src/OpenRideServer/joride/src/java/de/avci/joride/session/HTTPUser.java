@@ -3,6 +3,7 @@ package de.avci.joride.session;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +13,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 
@@ -212,5 +214,12 @@ public class HTTPUser implements Serializable {
     	return JoRideConstants.getTimeZone();
     }
     
+    
+    /** Return the list of supported locales
+     */
+    public Locale[] getSupportedLocales(){
+    		
+    	return new JCustomerEntityService().getSupportedLocales();
+    }
     
 } // class
