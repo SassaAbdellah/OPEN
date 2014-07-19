@@ -1,7 +1,9 @@
 package de.avci.openrideshare.messages;
 
 import java.util.Date;
+import java.util.Locale;
 
+import de.avci.openrideshare.utils.PropertiesLoader;
 import de.fhg.fokus.openride.matching.MatchEntity;
 
 /**
@@ -11,6 +13,14 @@ import de.fhg.fokus.openride.matching.MatchEntity;
  * 
  */
 public class SystemMessageFactory {
+	
+	
+	
+	/** TODO: default locale is set to US, remove default locale asap!
+	 */
+	private static Locale defaultLocale=Locale.US;
+	
+	
 
 	/**
 	 * Create a list of matches reacting to either driver or rider accepting a
@@ -109,8 +119,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject RiderNewMatch");
-		res.setMessage("TODO : Dummy Subject RiderNewMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -131,8 +141,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  DriverNewMatch");
-		res.setMessage("TODO : Dummy Subject  DriverNewMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -153,8 +163,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  DriverAcceptedMatch");
-		res.setMessage("TODO : Dummy Subject  DriverAcceptedMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -178,8 +188,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  RiderAcceptedMatch");
-		res.setMessage("TODO : Dummy Subject  RiderAcceptedMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -200,8 +210,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject BothAcceptedMatch");
-		res.setMessage("TODO : Dummy Subject BothAcceptedMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -222,8 +232,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject BothAcceptedMatch");
-		res.setMessage("TODO : Dummy Subject BothAcceptedMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -244,14 +254,19 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  DriverCountermandMatch");
-		res.setMessage("TODO : Dummy Subject  DriverCountermandMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandMessage4Rider"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
 
 		return res;
 	}
+	
+	
+
+	
+	
 
 	/**
 	 * Message telling the rider that a ride has been countermanded
@@ -267,8 +282,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject("TODO : Dummy Subject  RiderCountermandMatch");
-		res.setMessage("TODO : Dummy Subject  RiderCountermandMatch");
+		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
