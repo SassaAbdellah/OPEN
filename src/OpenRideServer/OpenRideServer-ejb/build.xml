@@ -134,6 +134,11 @@
     	<fileset dir="${src.dir}/de/avci/openrideshare/properties/" /> 	
     </copy>
   	
+  	 <copy  todir="${build.dir}/de/avci/openrideshare/utils/"
+  	    	file="${src.dir}/de/avci/openrideshare/utils/supportedLanguages.properties" 
+  	 /> 	
+  	  
+  	
 </target>
   
  <!-- end of "copy properties" -->
