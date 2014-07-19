@@ -117,37 +117,6 @@ public class PropertiesLoader {
     }
     
  
-   
-    
-    
-    
-    /**
-     * Place where the messages_xx.properties files are located in the code
-     */
-    private static final String SUPPORTED_LANGUAGES_URL = "de.avci.openrideshare.properties.supported";
-    	
-    /** getPro
-     * 
-     * @param locale
-     * @return
-     */
-    private static Properties loadSupportedLanguagesProperties(Locale locale){
-    	
-    	Properties props=messageCache.get(locale);
-    	
-    	if(props==null){
-    		  PropertiesLoader loader=new PropertiesLoader();
-    		  ResourceBundle rb =loader.loadResourceBundleByName(SUPPORTED_LANGUAGES_URL);
-    	      props = loader.getPropertiesFromRessourceBundle(rb);
-    	      messageCache.put(locale, props);
-    	      
-    	      if (props==null) {
-    	    	  throw new Error("Cannot load Properties to Cache for Locale "+locale);
-    	      }
-    	}
-    	return props;
-    }
-    
     /** Return Messagess from Cache. If no such Properties are in the cache,
      *  load Properties to cache first, then return them.
      * 
@@ -157,13 +126,7 @@ public class PropertiesLoader {
     public static Properties getMessageProperties(Locale locale){
     	return loadMessageProperties(locale);
     }
-    
-   
-    
- 
- 
-  
-    
-    
+     
+       
     
 }
