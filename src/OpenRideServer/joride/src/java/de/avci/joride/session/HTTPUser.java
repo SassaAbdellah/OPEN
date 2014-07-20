@@ -3,12 +3,15 @@ package de.avci.joride.session;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -221,5 +224,30 @@ public class HTTPUser implements Serializable {
     		
     	return new JCustomerEntityService().getSupportedLocales();
     }
+    
+    
+    /**
+     * 
+     * @return list of supported languages as Select Items
+     */
+    public List <SelectItem> getSupportedLanguages(){
+    	
+    	
+    	Locale[] supportedLocales=new JCustomerEntityService().getSupportedLocales();
+    	
+    	ArrayList <SelectItem> res = new ArrayList<SelectItem> ();
+    	
+    	for (Locale l: supportedLocales){
+    		SelectItem s=new SelectItem(l, l.getDisplayLanguage(l));
+    		res.add(s);    
+    	}
+    	
+    	return res;
+    } 
+    
+    
+    
+    
+    
     
 } // class
