@@ -35,6 +35,11 @@ public class JRegistrationRequest implements Serializable {
      * Email Adress for the account to be created
      */
     protected String emailAddress;
+    
+    /** preferredLanguage, so preferred Langs could be set right away
+     */
+    private String preferredLanguage;
+    
 
     public String getEmailAddress() {
         return emailAddress;
@@ -196,7 +201,7 @@ public class JRegistrationRequest implements Serializable {
             this.setNickName(normalizer.normalizeNickname(this.getNickName()));
             this.setEmailAddress(normalizer.normalizeEmailAddress(this.getEmailAddress()));
             //
-            String passwd=new JCustomerEntityService().createRandomPasswort();
+           String passwd=new JCustomerEntityService().createRandomPasswort();
             boolean result = new JCustomerEntityService().addCustomerEntry(this,passwd);
 
             (new RegistrationMessage()).sendRegistrationMail(this, passwd, new HTTPUtil().detectBestLocale());
@@ -214,4 +219,18 @@ public class JRegistrationRequest implements Serializable {
         this.addErrorMessage();
         return null;
     }
+
+	public String getPreferredLanguage() {
+		return preferredLanguage;
+	}
+
+	public void setPreferredLanguage(String preferredLanguage) {
+		this.preferredLanguage = preferredLanguage;
+	}
+
+    
+    
+    
+
 } // class
+                                                                       
