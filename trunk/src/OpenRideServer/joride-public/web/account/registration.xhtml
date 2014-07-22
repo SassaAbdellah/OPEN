@@ -78,6 +78,19 @@
                     <div class="formInput">
                         <h:inputText value="#{registrationRequest.nickName}" />
                     </div>  
+                    
+                    
+                    <!-- Preferred Language -->
+					<div class="formLabel">
+						<p:outputLabel value="#{msgs.custPreferredLanguage}" />
+					</div>
+					<div class="formInput">
+
+						<p:selectOneMenu id="preferredLangunage" value="#{registrationRequest.preferredLanguage}">
+							<f:selectItems value="#{HTTPUser.getSupportedLanguages()}" />
+						</p:selectOneMenu>
+
+					</div>
 
 
 
