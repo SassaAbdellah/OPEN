@@ -219,8 +219,10 @@ public class JCustomerEntityService {
                 //char custIssmoker
                 jCustomerEntity.getCustSmoker().charAt(0),
                 //Date custLicenseDate);
-                jCustomerEntity.getCustLicensedate()); // end of method call to setCustomerPersonalData
-
+                jCustomerEntity.getCustLicensedate(),
+        		// String preferredLanguage
+                jCustomerEntity.getPreferredLanguage()
+        		); // end of method call to setCustomerPersonalData
     }
 
     /**
@@ -412,7 +414,15 @@ public class JCustomerEntityService {
                     //String custEmail
                     jrr.getEmailAddress(),
                     //String custMobilephoneno mobile phone may be added later
-                    null);
+                    null,
+                    // String preferredLanguage
+                    jrr.getPreferredLanguage()	
+            	);
+            
+            
+            
+            
+            
         } catch (Exception exc) {
             return false;
         }
