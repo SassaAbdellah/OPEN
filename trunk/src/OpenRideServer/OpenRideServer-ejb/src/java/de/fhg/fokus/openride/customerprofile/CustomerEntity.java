@@ -169,7 +169,17 @@ public class CustomerEntity implements Serializable {
     private Integer custRiderprefAge;
     @Column(name = "cust_driverpref_age")
     private Integer custDriverprefAge;
-    @OneToMany(mappedBy = "custId")
+    @Column(name = "preferred_language")
+    private String preferredLanguage; // IETF Language tag f
+    public String getPreferredLanguage() {
+		return preferredLanguage;
+	}
+
+	public void setPreferredLanguage(String preferredLanguage) {
+		this.preferredLanguage = preferredLanguage;
+	}
+
+	@OneToMany(mappedBy = "custId")
     private Collection<CarDetailsEntity> carDetailsEntityCollection;
     @OneToMany(mappedBy = "custId")
     private Collection<DriverUndertakesRideEntity> driverUndertakesRideEntityCollection;

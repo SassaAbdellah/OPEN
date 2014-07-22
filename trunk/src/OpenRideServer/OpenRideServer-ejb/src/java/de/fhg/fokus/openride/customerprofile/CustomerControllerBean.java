@@ -105,7 +105,7 @@ public class CustomerControllerBean extends ControllerBean implements
 
 	public int addCustomer(String custNickname, String custPasswd,
 			String custFirstname, String custLastname, char custGender,
-			String custEmail, String custMobilephoneno) {
+			String custEmail, String custMobilephoneno, String preferredLanguage) {
 		startUserTransaction();
 		logger.info("addCustomer");
 		// Make sure no Customer exists for this same nickname
@@ -130,7 +130,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		c.setCustMobilephoneno(custMobilephoneno);
 		c.setCustRegistrdate(new Date()); // the current date (timestamp)
 		c.setCustGroup("customer");
-
+		c.setPreferredLanguage(preferredLanguage);
 		em.persist(c);
 		commitUserTransaction();
 
@@ -155,7 +155,7 @@ public class CustomerControllerBean extends ControllerBean implements
 			String custFirstname, String custLastname, Date custDateofbirth,
 			char custGender, String custMobilephoneno, String custEmail,
 			boolean custIssmoker, boolean custPostident, String custAddrStreet,
-			String custAddrZipcode, String custAddrCity) {
+			String custAddrZipcode, String custAddrCity, String preferredLanguage) {
 
 		try {
 			logger.info("addCustomer");
@@ -195,7 +195,7 @@ public class CustomerControllerBean extends ControllerBean implements
 				e.setCustDriverprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
 				e.setCustRiderprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
 				e.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
-
+				e.setPreferredLanguage(preferredLanguage);
 				em.persist(e);
 				commitUserTransaction();
 				return e.getCustId();
@@ -298,7 +298,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		String seed = "deleted_user" + random + ":" + ts;
 
 		// set firstname, lastname and gender
-		this.setBasePersonalData(custId, seed, seed, '-');
+		this.setBasePersonalData(custId, seed, seed, '-', null);
 		// invalidate dob, email , cellphone, landline phone
 		// address data, smoker data, licensedate
 		this.setPersonalData(custId, null, // mock date of birth
@@ -309,7 +309,8 @@ public class CustomerControllerBean extends ControllerBean implements
 				seed, // mock zipcode
 				seed, // mock City
 				'n', // mock smokerprefs
-				null // mock licensedate
+				null, // mock licensedate
+				null // mock preferred language
 		);
 
 		// invalidate nickname and password
@@ -493,11 +494,14 @@ public class CustomerControllerBean extends ControllerBean implements
 		commitUserTransaction();
 	}
 
+	@Override
+	
 	public void setPersonalData(int custId, Date custDateofbirth,
 			String custEmail, String custMobilePhoneNo,
 			String custFixedPhoneNo, String custAddrStreet,
 			String custAddrZipcode, String custAddrCity, char custIssmoker,
-			Date custLicenseDate) {
+			Date custLicenseDate,
+			String preferredLanguage ) {
 		startUserTransaction();
 		logger.info("setPersonalData");
 		CustomerEntity c = getCustomer(custId);
@@ -525,23 +529,25 @@ public class CustomerControllerBean extends ControllerBean implements
 		}
 
 		c.setCustLicensedate(custLicenseDate);
+		c.setPreferredLanguage(preferredLanguage);
 
 		em.persist(c);
 		commitUserTransaction();
 	}
 
+	
+	@Override
+	
 	public void setBasePersonalData(int custId, String custFirstName,
-			String custLastName, char custGender) {
+			String custLastName, char custGender, String preferredLanguage) {
 		startUserTransaction();
 		logger.info("setBasePersonalData");
 		CustomerEntity c = getCustomer(custId);
 
 		c.setCustFirstname(custFirstName);
-
 		c.setCustLastname(custLastName);
-
 		c.setCustGender(custGender);
-
+		c.setPreferredLanguage(preferredLanguage);
 		em.persist(c);
 		commitUserTransaction();
 	}
