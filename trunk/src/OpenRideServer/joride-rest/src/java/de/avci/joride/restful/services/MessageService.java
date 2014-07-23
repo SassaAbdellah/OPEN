@@ -1,7 +1,6 @@
 package de.avci.joride.restful.services;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,18 +12,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.avci.joride.restful.converters.MessageDTOConverter;
-import de.avci.joride.restful.dto.matches.MatchDTO;
-import de.avci.joride.restful.dto.requests.RideRequestDTO;
-import de.avci.joride.restful.messages.MessageDTO;
+import de.avci.joride.restful.dto.messages.MessageDTO;
 import de.avci.openrideshare.messages.Message;
 import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.matching.MatchEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 
 /**
  * Restful Service for manipulating messages
@@ -62,6 +56,8 @@ public class MessageService extends AbstractRestService {
 
 	}
 
+
+	
 	/**
 	 * Create a new Message from DTO
 	 * 
@@ -72,6 +68,11 @@ public class MessageService extends AbstractRestService {
 	 * @param request
 	 * @return
 	 */
+	
+	/*
+	 * currently disabled, as we can only create rider or driver messages
+	 * 
+	 * 
 	@POST
 	public Response addMessage(String json) {
 		
@@ -103,10 +104,14 @@ public class MessageService extends AbstractRestService {
 	
 		boolean updateResult = mccl.createMessage(
 				
+				
 				sender, 
 				recipient,
 				dto.getSubject(),
 				dto.getMessage()
+				
+				
+				
 		);
 
 		if (! updateResult ) {
@@ -116,6 +121,7 @@ public class MessageService extends AbstractRestService {
 		return Response.status(Response.Status.ACCEPTED).build();
 				
 	}
+	*/
 
 }
        
