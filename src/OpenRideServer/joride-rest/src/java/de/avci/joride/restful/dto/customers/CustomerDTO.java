@@ -44,6 +44,8 @@ public class CustomerDTO {
     private String custLastname;
   
     private String custPresencemssg;
+    
+    private String custPreferredLanguage;
  
     /** Landline Phone -- for whatever reason
      */
@@ -375,6 +377,16 @@ public class CustomerDTO {
 
 	public void setCustDriverprefAge(Integer custDriverprefAge) {
 		this.custDriverprefAge = custDriverprefAge;
+	}
+
+
+
+	public String getCustPreferredLanguage() {
+		return custPreferredLanguage;
+	}
+
+	public void setCustPreferredLanguage(String custPreferredLanguage) {
+		this.custPreferredLanguage = custPreferredLanguage;
 	}
 
 

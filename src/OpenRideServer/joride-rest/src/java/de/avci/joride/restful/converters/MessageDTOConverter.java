@@ -1,6 +1,6 @@
 package de.avci.joride.restful.converters;
 
-import de.avci.joride.restful.messages.MessageDTO;
+import de.avci.joride.restful.dto.messages.MessageDTO;
 import de.avci.openrideshare.messages.Message;
 
 

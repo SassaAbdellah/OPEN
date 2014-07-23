@@ -1,4 +1,4 @@
-package de.avci.joride.restful.messages;
+package de.avci.joride.restful.dto.messages;
 
 import java.sql.Timestamp;
 
