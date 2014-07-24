@@ -16,9 +16,7 @@ public class SystemMessageFactory {
 	
 	
 	
-	/** TODO: default locale is set to US, remove default locale asap!
-	 */
-	private static Locale defaultLocale=Locale.US;
+
 	
 	
 
@@ -115,12 +113,12 @@ public class SystemMessageFactory {
 	 * @return
 	 */
 	private static Message createSystemMessageRiderNewMatch(MatchEntity m) {
-
+		
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchSubject4Rider"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Rider"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onNewMatchSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onNewMatchMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -141,8 +139,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchSubject4Driver"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Driver"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onNewMatchSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onNewMatchMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -163,8 +161,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceSubject4Rider"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onNewMatchMessage4Rider"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onAcceptanceSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onNewMatchMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -188,8 +186,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceSubject4Driver"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceMessage4Driver"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onAcceptanceSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onAcceptanceMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -210,8 +208,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothSubject4Rider"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothMessage4Rider"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onAcceptanceBothSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onAcceptanceBothMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -232,8 +230,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothSubject4Driver"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onAcceptanceBothMessage4Driver"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onAcceptanceBothSubject4Driver"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onAcceptanceBothMessage4Driver"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -254,8 +252,8 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandSubject4Rider"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandMessage4Rider"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onCountermandSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getDriverPrefLocale(m)).getProperty("message_onCountermandMessage4Rider"));
 		res.setRecipient(m.getDriverUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
@@ -282,13 +280,51 @@ public class SystemMessageFactory {
 		Message res = new Message();
 		res.setSender(null); // System message!
 		res.setTimeStampCreated(new Date(System.currentTimeMillis()));
-		res.setSubject(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandSubject4Rider"));
-		res.setMessage(PropertiesLoader.getMessageProperties(defaultLocale).getProperty("message_onCountermandMessage4Rider"));
+		res.setSubject(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onCountermandSubject4Rider"));
+		res.setMessage(PropertiesLoader.getMessageProperties(getRiderPrefLocale(m)).getProperty("message_onCountermandMessage4Rider"));
 		res.setRecipient(m.getRiderUndertakesRideEntity().getCustId());
 		res.setRequest(m.getRiderUndertakesRideEntity());
 		res.setOffer(m.getDriverUndertakesRideEntity());
 
 		return res;
 	}
+	
+	
+	/** Return the Locale preferred by the matche's rider.
+	 * 
+	 * @param m
+	 * @return
+	 */
+	private static Locale getRiderPrefLocale(MatchEntity m){
+	
+		String preferredRiderLanguageStr=m.getRiderUndertakesRideEntity().getCustId().getPreferredLanguage();
+		if(preferredRiderLanguageStr!=null){	
+			Locale riderPreferredLocale=Locale.forLanguageTag(preferredRiderLanguageStr);
+			if (riderPreferredLocale!=null){
+				return riderPreferredLocale;
+			}
+		}
+		return Locale.getDefault();
+	}
+	
+	/** Return the Locale preferred by the matche's driver.
+	 * 
+	 * @param m
+	 * @return
+	 */
+	private static Locale getDriverPrefLocale(MatchEntity m){
+	
+		String preferredDriverLanguageStr=m.getDriverUndertakesRideEntity().getCustId().getPreferredLanguage();
+		if(preferredDriverLanguageStr!=null){	
+			Locale driverPreferredLocale=Locale.forLanguageTag(preferredDriverLanguageStr);
+			if (driverPreferredLocale!=null){
+				return driverPreferredLocale;
+			}
+		}
+		return Locale.getDefault();
+	}
+	
+	
+	
 
 }
