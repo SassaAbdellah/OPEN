@@ -104,7 +104,7 @@ public class PropertiesLoader {
     	Properties props=messageCache.get(locale);
     	
     	if(props==null){
-    		  PropertiesLoader loader=new PropertiesLoader();
+    		  PropertiesLoader loader=new PropertiesLoader(locale);
     		  ResourceBundle rb =loader.loadResourceBundleByName(MESSAGES_URL);
     	      props = loader.getPropertiesFromRessourceBundle(rb);
     	      messageCache.put(locale, props);
