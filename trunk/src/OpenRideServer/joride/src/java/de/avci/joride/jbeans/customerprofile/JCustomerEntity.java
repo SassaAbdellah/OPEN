@@ -106,6 +106,7 @@ public class JCustomerEntity extends CustomerEntity {
         this.setCustPresencemssg(ce.getCustPresencemssg());
         this.setCustProfilepic(ce.getCustProfilepic());
         this.setCustRegistrdate(ce.getCustRegistrdate());
+        this.setPreferredLanguage(ce.getPreferredLanguage());
         //
         // Rider Preferences
         //
