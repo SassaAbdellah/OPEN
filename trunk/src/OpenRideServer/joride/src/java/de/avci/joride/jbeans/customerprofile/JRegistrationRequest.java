@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Properties;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -31,6 +32,13 @@ public class JRegistrationRequest implements Serializable {
      * Normalizing data is outsourced to dedicated class
      */
     private CustomerDataNormalizer normalizer = new CustomerDataNormalizer();
+    
+    /** Wether or not termsAndConditions are accepted.
+     *  Must be true for registration to take place
+     */
+    protected boolean acceptTerms=false;
+    
+    
     /**
      * Email Adress for the account to be created
      */
@@ -135,7 +143,15 @@ public class JRegistrationRequest implements Serializable {
 
     	Locale locale=new HTTPUtil().detectBestLocale();
         Properties msgs = PropertiesLoader.getMessageProperties(locale);
-
+        
+        this.setErrorStatus(null);
+        
+        if (!this.isAcceptTerms()) {
+            this.setErrorStatus(msgs.getProperty("registrationAcceptTermsError"));
+            return false;
+        }
+        
+       
         if (this.getGivenName() == null || this.getGivenName().trim().equals("")) {
             this.setErrorStatus(msgs.getProperty("registrationGivenNameMissingError"));
             return false;
@@ -226,6 +242,14 @@ public class JRegistrationRequest implements Serializable {
 
 	public void setPreferredLanguage(String preferredLanguage) {
 		this.preferredLanguage = preferredLanguage;
+	}
+
+	public boolean isAcceptTerms() {
+		return acceptTerms;
+	}
+
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
 	}
 
     
