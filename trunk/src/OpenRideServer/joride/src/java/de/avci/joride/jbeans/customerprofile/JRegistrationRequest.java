@@ -4,19 +4,20 @@
  */
 package de.avci.joride.jbeans.customerprofile;
 
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.Properties;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+
 import de.avci.joride.backing.messages.RegistrationMessage;
 import de.avci.joride.utils.EmailCheck;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.Properties;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 /**
  * Models a Request for getting registrated as a user in joride.
