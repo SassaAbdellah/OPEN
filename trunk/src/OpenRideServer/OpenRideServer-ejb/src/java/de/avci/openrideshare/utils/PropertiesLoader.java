@@ -93,7 +93,9 @@ public class PropertiesLoader {
      * Place where the messages_xx.properties files are located in the code
      */
     private static final String MESSAGES_URL = "de.avci.openrideshare.properties.messages";
-    	
+
+
+	private static final String OPERATIONAL_URL = "de.avci.openrideshare.properties.operational";
     /** getPro
      * 
      * @param locale
@@ -126,7 +128,41 @@ public class PropertiesLoader {
     public static Properties getMessageProperties(Locale locale){
     	return loadMessageProperties(locale);
     }
+
+    
+    
+    /** Operational Properties.... jndi location and the like...
+     * 
+     */
+    private static Properties operationalProperties;
+    
+    private static Properties loadOperationalProperties(){
+    	
+    	if(operationalProperties==null){
+    		PropertiesLoader loader = new PropertiesLoader();
+    		ResourceBundle bundle = loader.loadResourceBundleByName(OPERATIONAL_URL);
+    		operationalProperties = loader.getPropertiesFromRessourceBundle(bundle);
+    	      if (operationalProperties==null) {
+    	    	  throw new Error("Cannot load Operational Properties");
+    	      }
+    	}
+    	
+    	return operationalProperties;
+    }
      
+    
+    /** Accessor with lazy instantiation
+     * 
+     * @return
+     */
+    public static Properties getOperationalProperties(){
+    	
+    	if(operationalProperties==null){
+    		loadOperationalProperties();
+    	}
+    	
+    	return operationalProperties;
+    }
        
     
 }
