@@ -295,7 +295,7 @@ public class SystemMessageFactory {
 	 * @param m
 	 * @return
 	 */
-	private static Locale getRiderPrefLocale(MatchEntity m){
+	public static Locale getRiderPrefLocale(MatchEntity m){
 	
 		String preferredRiderLanguageStr=m.getRiderUndertakesRideEntity().getCustId().getPreferredLanguage();
 		if(preferredRiderLanguageStr!=null){	
@@ -312,7 +312,7 @@ public class SystemMessageFactory {
 	 * @param m
 	 * @return
 	 */
-	private static Locale getDriverPrefLocale(MatchEntity m){
+	public static Locale getDriverPrefLocale(MatchEntity m){
 	
 		String preferredDriverLanguageStr=m.getDriverUndertakesRideEntity().getCustId().getPreferredLanguage();
 		if(preferredDriverLanguageStr!=null){	
