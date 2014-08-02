@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import de.avci.openrideshare.mail.MailMessage;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
 import de.fhg.fokus.openride.matching.MatchEntity;
@@ -90,9 +91,20 @@ public class MessageControllerBean extends ControllerBean implements
 				+ "\n" + "Message: " + msg.getMessage();
 		
 		try {
-			
+		
+			// persist message
 			em.persist(msg);
 			em.flush();
+			
+			// send message by email
+			MailMessage.send(
+					msg.getSender().getCustEmail(), 
+					msg.getRecipient().getCustEmail(),
+					msg.getSubject(), 
+					msg.getMessage()
+					);
+			
+			
 			
 			logger.fine("Successfully created message : " + logstr);
 			return true;
