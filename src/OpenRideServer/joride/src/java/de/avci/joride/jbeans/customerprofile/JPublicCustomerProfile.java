@@ -11,6 +11,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
@@ -71,7 +72,7 @@ public class JPublicCustomerProfile implements Serializable {
      * before deciding on whether or not to acceppt a ride offer.
      *
      */
-    Date custLicensedate;
+    private Date custLicensedate;
 
     public Date getCustLicensedate() {
         return custLicensedate;
@@ -81,11 +82,30 @@ public class JPublicCustomerProfile implements Serializable {
      * allowed during rides.
      *
      */
-    Boolean custIssmoker;
+    private Boolean custIssmoker;
 
     public Boolean getCustIssmoker() {
         return custIssmoker;
     }
+    
+    /** preferred language of this customer */
+    
+    private String preferredLanguage;
+    
+    public String getPreferredLanguage(){
+    	return this.preferredLanguage;
+    }
+    
+    /** Human readable version of preferred language to display
+     * 
+     */
+    public String getPreferredLanguageDisplayString(){
+    	Locale locale=new Locale(this.getPreferredLanguage());
+    	return locale.getDisplayName();
+    }
+    
+    
+    
 
     /**
      * Fill with Data from givenCustomerId.
@@ -109,9 +129,8 @@ public class JPublicCustomerProfile implements Serializable {
         this.custGender = ce.getCustGender();
         this.custLicensedate = ce.getCustLicensedate();
         this.custNickname = ce.getCustNickname();
-
         this.custIssmoker = ce.getCustIssmoker();
-
+        this.preferredLanguage=ce.getPreferredLanguage();
     }
 
     /**
