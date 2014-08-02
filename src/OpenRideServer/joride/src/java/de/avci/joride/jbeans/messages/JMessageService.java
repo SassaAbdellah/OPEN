@@ -3,6 +3,7 @@ package de.avci.joride.jbeans.messages;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,8 +12,10 @@ import javax.naming.NamingException;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
+import de.avci.joride.utils.PropertiesLoader;
 import de.avci.openrideshare.messages.Message;
 import de.avci.openrideshare.messages.MessageControllerLocal;
+import de.avci.openrideshare.messages.SystemMessageFactory;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
@@ -71,8 +74,11 @@ public class JMessageService {
 			throw new Error("Caller " + caller.getCustNickname()
 					+ " is not driver when sending driver message");
 		}
-
-		this.lookupMessageBeanLocal().createDriverMessageFromMatch(match.getMatchEntity(), "DUMMY Subject for Driver Message", match.getDriverMessage());
+		
+	
+		Locale preferredLocale=SystemMessageFactory.getDriverPrefLocale(match.getMatchEntity());
+		String subject=PropertiesLoader.getMessageProperties(preferredLocale).getProperty("msg_driverMessageSubject");
+		this.lookupMessageBeanLocal().createDriverMessageFromMatch(match.getMatchEntity(),subject, match.getDriverMessage());
 
 	}
 
@@ -90,10 +96,12 @@ public class JMessageService {
 					+ " is not rider when sending rider message");
 		}
 		
+		Locale preferredLocale=SystemMessageFactory.getRiderPrefLocale(match.getMatchEntity());
+		String subject=PropertiesLoader.getMessageProperties(preferredLocale).getProperty("msg_riderMessageSubject");
 
 		this.lookupMessageBeanLocal().createRiderMessageFromMatch(
 				match.getMatchEntity(),
-				"DUMMY Subject for Rider Message", 
+				subject, 
 				match.getRiderMessage());
 	}
 
