@@ -6,5 +6,7 @@ copy
 dist
 install
 jar
+overwriteCSS
+overwriteTheme
 prepare
 war
