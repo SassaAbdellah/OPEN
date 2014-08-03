@@ -100,9 +100,14 @@ public class JPublicCustomerProfile implements Serializable {
      * 
      */
     public String getPreferredLanguageDisplayString(){
-    	Locale locale=new Locale(this.getPreferredLanguage());
-    	if(locale==null) return("");
-    	return locale.getDisplayName();
+    	
+    	try{
+    		Locale locale=new Locale(this.getPreferredLanguage());
+    		if(locale==null) return("");
+    		return locale.getDisplayName();
+    	} catch (Exception exc){
+    		return("");
+    	}
     }
     
     
