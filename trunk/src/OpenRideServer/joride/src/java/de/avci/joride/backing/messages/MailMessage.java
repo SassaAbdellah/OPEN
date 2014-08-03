@@ -1,15 +1,11 @@
 package de.avci.joride.backing.messages;
 
-import de.avci.joride.session.HTTPUser;
-import de.avci.joride.utils.EmailCheck;
-import de.avci.joride.utils.HTTPUtil;
-import de.avci.joride.utils.Messagekeys;
-import de.avci.joride.utils.PropertiesLoader;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.Message;
@@ -22,6 +18,11 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import de.avci.joride.utils.EmailCheck;
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.Messagekeys;
+import de.avci.joride.utils.PropertiesLoader;
 
 /**
  * Generic class for sending mail messages.
