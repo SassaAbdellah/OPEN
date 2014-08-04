@@ -126,6 +126,10 @@ public class JCustomerEntity extends CustomerEntity {
         // Session ID
         //
         this.setCustSessionId(ce.getCustSessionId());
+        
+        // data protection settings
+        this.setShowEmailToPartners(ce.getShowEmailToPartners());
+        this.setShowMobilePhoneToPartners(ce.getShowMobilePhoneToPartners());
 
     } // update from DB
 

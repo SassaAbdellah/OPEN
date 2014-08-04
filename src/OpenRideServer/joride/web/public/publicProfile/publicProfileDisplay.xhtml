@@ -61,6 +61,19 @@
 					<div class="formInput">#{publicProfile.custLicensedate}</div>
 					<div class="formLabel">#{msgs.custPreferredLanguage}:</div>
 					<div class="formInput">#{publicProfile.getPreferredLanguageDisplayString()}</div>
+					<!-- show email only if user wants us to -->
+					<h:form name="email" rendered="#{publicProfile.showEmail}" >
+						<div class="formLabel">#{msgs.custEmail} </div>
+						<div class="Input"><a href="mailto:#{publicProfile.email}"> #{publicProfile.email} </a></div>
+					</h:form>
+					
+					<!-- show mobile phone only if user wants us to -->
+					<h:form name="mobile" rendered="#{publicProfile.showMobilePhoneno}">
+						<div class="formLabel">#{msgs.custMobilephoneno} </div>
+						<div class="formInput"><a href="tel:#{publicProfile.mobilePhoneno}"> #{publicProfile.mobilePhoneno} </a></div>
+					</h:form>
+					
+					
 				</p>
 
 				<h2>
