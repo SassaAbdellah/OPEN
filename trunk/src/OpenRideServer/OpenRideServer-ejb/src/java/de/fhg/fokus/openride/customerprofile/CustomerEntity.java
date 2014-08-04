@@ -171,6 +171,14 @@ public class CustomerEntity implements Serializable {
     private Integer custDriverprefAge;
     @Column(name = "preferred_language")
     private String preferredLanguage; // IETF Language tag f
+    // wether user wants his email to be exposed ('t'/'f')
+    @Column(name="show_email")        
+    private Boolean showEmailToPartners; 
+    // wether user wants his cellphone number to be exposed ('t'/'f')
+    @Column(name="show_mobile")
+    private Boolean showMobilePhoneToPartners; 
+    
+    
     public String getPreferredLanguage() {
 		return preferredLanguage;
 	}
@@ -572,4 +580,20 @@ public class CustomerEntity implements Serializable {
     public String toString() {
         return "de.fhg.fokus.openride.customerprofile.CustomerEntity[custId=" + custId + "]";
     }
+
+	public Boolean getShowEmailToPartners() {
+		return showEmailToPartners;
+	}
+
+	public void setShowEmailToPartners(Boolean showEmailToPartners) {
+		this.showEmailToPartners = showEmailToPartners;
+	}
+
+	public Boolean getShowMobilePhoneToPartners() {
+		return showMobilePhoneToPartners;
+	}
+
+	public void setShowMobilePhoneToPartners(Boolean showMobilePhoneToPartners) {
+		this.showMobilePhoneToPartners = showMobilePhoneToPartners;
+	}
 }

@@ -303,7 +303,9 @@ public class CustomerControllerBean extends ControllerBean implements
 		// address data, smoker data, licensedate
 		this.setPersonalData(custId, null, // mock date of birth
 				seed, // mock email
+				false,
 				seed, // mock mobile phone
+				false,
 				seed, // mock landline
 				seed, // mock cust_addr street
 				seed, // mock zipcode
@@ -496,10 +498,18 @@ public class CustomerControllerBean extends ControllerBean implements
 
 	@Override
 	
-	public void setPersonalData(int custId, Date custDateofbirth,
-			String custEmail, String custMobilePhoneNo,
-			String custFixedPhoneNo, String custAddrStreet,
-			String custAddrZipcode, String custAddrCity, char custIssmoker,
+	public void setPersonalData(
+			int custId, 
+			Date custDateofbirth,
+			String custEmail, 
+			boolean showEmailToPartners, 
+			String custMobilePhoneNo, 
+			boolean showMobileToPartners, 
+			String custFixedPhoneNo, 
+			String custAddrStreet,
+			String custAddrZipcode, 
+			String custAddrCity, 
+			char custIssmoker,
 			Date custLicenseDate,
 			String preferredLanguage ) {
 		startUserTransaction();
@@ -509,9 +519,9 @@ public class CustomerControllerBean extends ControllerBean implements
 		c.setCustDateofbirth(custDateofbirth);
 
 		c.setCustEmail(custEmail);
-
+		c.setShowEmailToPartners(showEmailToPartners);
 		c.setCustMobilephoneno(custMobilePhoneNo);
-
+		c.setShowMobilePhoneToPartners(showMobileToPartners);
 		c.setCustFixedphoneno(custFixedPhoneNo);
 
 		c.setCustAddrStreet(custAddrStreet);
