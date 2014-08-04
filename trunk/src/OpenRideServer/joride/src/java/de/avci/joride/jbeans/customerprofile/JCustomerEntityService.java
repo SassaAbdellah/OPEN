@@ -206,8 +206,12 @@ public class JCustomerEntityService {
                 jCustomerEntity.getCustDateofbirth(),
                 //String custEmail 
                 jCustomerEntity.getCustEmail(),
+                // data protection for mobile
+                jCustomerEntity.getShowEmailToPartners(),
                 //String custMobilePhoneNo 
                 jCustomerEntity.getCustMobilephoneno(),
+                // data protection for mobile
+                jCustomerEntity.getShowMobilePhoneToPartners(),
                 //String custFixedPhoneNo 
                 jCustomerEntity.getCustFixedphoneno(),
                 //String custAddrStreet
