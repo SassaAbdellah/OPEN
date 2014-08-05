@@ -7,14 +7,15 @@
          version="2.5">
 
   
-    <!-- Login Servlet -->
+    <!-- The SmartLogin Servlet hopefully one day can mangle logins -->
+    <!-- to provide login methods such as OpenID, OAuth,.. etc      -->
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>de.avci.joride.session.LoginServlet</servlet-class>
+        <servlet-name>SmartLoginServlet</servlet-name>
+        <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login/*</url-pattern>
+        <servlet-name>SmartLoginServlet</servlet-name>
+        <url-pattern>/smartlogin/*</url-pattern>
     </servlet-mapping>
  
 
