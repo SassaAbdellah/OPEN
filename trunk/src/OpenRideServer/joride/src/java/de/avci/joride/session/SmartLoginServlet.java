@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  *
  */
-public class LoginServlet extends HttpServlet {
+public class SmartLoginServlet extends HttpServlet {
 	
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 
