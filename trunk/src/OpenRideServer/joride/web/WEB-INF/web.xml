@@ -7,21 +7,7 @@
          version="2.5">
 
   
-    <!-- The SmartLogin Servlet hopefully one day can mangle logins -->
-    <!-- to provide login methods such as OpenID, OAuth,.. etc      -->
-    <servlet>
-        <servlet-name>SmartLoginServlet</servlet-name>
-        <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SmartLoginServlet</servlet-name>
-        <url-pattern>/smartlogin/*</url-pattern>
-    </servlet-mapping>
- 
-
-
-
-
+  
     <!-- Logout Servlet -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -78,9 +64,9 @@
     
     
     
-    <!-- ***  For the time beeing, we start with hardwired "aristo" theme  *** -->
-    <!-- ***  this will be overwritten by the value of the jquery.ui.theme     *** -->
-    <!-- ***  in local.properties                                              *** -->
+  
+    <!-- ***  default theme "aristo" will be overwritten by the value of the jquery.ui.theme     *** -->
+    <!-- ***  in local.properties                                                                *** -->
     <context-param>   
         <param-name>primefaces.THEME</param-name>
         <param-value>aristo</param-value> 
@@ -88,21 +74,8 @@
    
    
    
-   
-    <!-- ** public access will be granted to:  ************** -->
-    <!-- **  * login servlet -->
-    
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>LoginServlet</web-resource-name>
-            <url-pattern>  /login/* </url-pattern>
-            <url-pattern> /faces/javax.faces.resource/* </url-pattern>
-        </web-resource-collection>
-    </security-constraint>
-   
-   
-  
-   
+
+     
     <!--  most of the jsfs and webservices are protected  -->
     <security-constraint>
         <web-resource-collection>
@@ -159,6 +132,36 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    
+     <!-- ******************************************************************** -->
+    <!-- ** Standar all-to-UTF8 encoding filter gets applied to everything ** -->
+    <!-- ******************************************************************** -->
+    
+    <filter>
+
+        <filter-name>SmartLoginFilter</filter-name>
+        <filter-class>
+            de.avci.joride.session.SmartLoginFilter
+        </filter-class>
+
+		<!-- 
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+         -->
+
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SmartLoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
+    
+    
     
     
     
