@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.avci.joride.utils.PropertiesLoader;
+
 public class SmartLoginServlet extends HttpServlet {
 
 	/** Standard j_username parameter for logging in
@@ -55,18 +57,18 @@ public class SmartLoginServlet extends HttpServlet {
 	
 	
 	
+	
+	
 	/** Do stuff with request and response
 	 */
-	public void processRequest(HttpServletRequest request, HttpServletResponse response){
+	private void processRequest(HttpServletRequest request, HttpServletResponse response){
 		
 		
-		
-		
-		
+			
 		String username=request.getParameter(j_username);
 		String password=request.getParameter(j_password);
 		
-		
+		//
 		boolean login_success=false;
 		
 		try{
@@ -81,12 +83,21 @@ public class SmartLoginServlet extends HttpServlet {
 		
 		try {
 			
-			if(login_success){
-				response.sendRedirect("http://localhost:8080/joride/");
-			} else {
 			
-				
-				response.sendRedirect("http://localhost:8080/joride/faces/public/noauth.xhtml");
+			String baseURL=PropertiesLoader.getNavigationProperties().getProperty("urlBase");
+			
+			if(login_success){
+				//
+				// programmatic login successful, 
+				//
+				//
+				response.sendRedirect(baseURL);
+			} else {
+				//
+				// login failed, send response to noauthURL
+				//
+				String noauthURL=this.getInitParameter("noauthPath");
+				response.sendRedirect(baseURL+noauthURL);
 			}
 		} catch (IOException exc) {
 			// TODO: do something more decent here
