@@ -6,6 +6,23 @@
          http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
+
+
+
+	 <!-- Smart Login Servlet -->
+    <servlet>
+        <servlet-name>SmartLoginServlet</servlet-name>
+        <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SmartLoginServlet</servlet-name>
+        <url-pattern>*.smartlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SmartLoginServlet</servlet-name>
+        <url-pattern>/smartlogin/*</url-pattern>
+    </servlet-mapping>
+	
   
   
     <!-- Logout Servlet -->
