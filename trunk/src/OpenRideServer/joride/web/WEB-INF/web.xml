@@ -80,7 +80,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
-            <url-pattern>/faces/*</url-pattern>
+            <url-pattern>*.xhtml</url-pattern>
           
         </web-resource-collection>
         <auth-constraint>
@@ -139,8 +139,6 @@
     
     
     
-    
-    
-    
+   
     
 </web-app>
