@@ -13,10 +13,16 @@
     <servlet>
         <servlet-name>SmartLoginServlet</servlet-name>
         <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>
+        
+         <init-param> <!-- Smart login sends failed logins to ${noauthPath} -->
+            <param-name>noauthPath</param-name>
+            <param-value>/faces/public/noauth.xhtml</param-value>
+        </init-param>
+             
     </servlet>
     <servlet-mapping>
         <servlet-name>SmartLoginServlet</servlet-name>
-        <url-pattern>*.smartlogin</url-pattern>
+        <url-pattern>*.smartlogin</url-pattern> 
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SmartLoginServlet</servlet-name>
@@ -67,8 +73,8 @@
     <!--  This allows browsers to cache the JS resource instead of having to write it each time the page is accessed.  -->
    
     <context-param>
-        <param-name> com.sun.faces.externalizeJavaScript </param-name>
-        <param-value> true </param-value>  	
+        <param-name>com.sun.faces.externalizeJavaScript</param-name>
+        <param-value>true</param-value>  	
     </context-param>
 
 
@@ -101,8 +107,6 @@
           
         </web-resource-collection>
         <auth-constraint>
-            <role-name>registereduser</role-name>
-            <role-name>invitedguest</role-name>
             <role-name>customer</role-name>
         </auth-constraint>
     </security-constraint>
@@ -115,13 +119,6 @@
             <form-error-page>/faces/public/noauth.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-
-    <security-role>
-        <role-name>registereduser</role-name>
-    </security-role>
-    <security-role>
-        <role-name>invitedguest</role-name>
-    </security-role>
     <security-role>
         <role-name>customer</role-name>
     </security-role>
@@ -149,12 +146,6 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
-    
- 
-    
-    
-    
     
    
     
