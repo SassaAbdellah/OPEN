@@ -22,6 +22,20 @@ public class SmartLoginServlet extends HttpServlet {
 	 */
 	public static final String j_password="j_password";
 	
+	
+	
+	/** Base Url  for joride application
+	 */
+	public static final String baseURL=PropertiesLoader.getNavigationProperties().getProperty("urlBase");
+	
+	
+	/** Noauth URL for joride application. This is where failed requests are sent.
+	 */
+	public static  final String urlNoauth=baseURL+PropertiesLoader.getNavigationProperties().getProperty("urlNoauth");
+	
+	
+	
+	
 	/** Initial servlet configuration
 	 * 
 	 */
@@ -101,7 +115,7 @@ public class SmartLoginServlet extends HttpServlet {
 		try {
 			
 			
-			String baseURL=PropertiesLoader.getNavigationProperties().getProperty("urlBase");
+			
 			
 			if(login_success){
 				//
@@ -112,9 +126,8 @@ public class SmartLoginServlet extends HttpServlet {
 			} else {
 				//
 				// login failed, send response to noauthURL
-				//
-				String noauthURL=this.getInitParameter("noauthPath");
-				response.sendRedirect(baseURL+noauthURL);
+				//	
+				response.sendRedirect(urlNoauth);
 			}
 		} catch (IOException exc) {
 			// TODO: do something more decent here
@@ -122,6 +135,9 @@ public class SmartLoginServlet extends HttpServlet {
 		}
 		
 	}
+	
+	
+	
 	
 	
 	

@@ -85,7 +85,6 @@ public class HTTPUser implements Serializable {
      * @return 
      */
     public String getURLBase(){
-    
          
            return PropertiesLoader.getNavigationProperties().getProperty("urlBase");
     }
@@ -100,9 +99,7 @@ public class HTTPUser implements Serializable {
      */
     
     public String getLoginURL() {
-     
-            PropertiesLoader pl=new PropertiesLoader();
-         
+             
             String urlLogin=PropertiesLoader.getNavigationProperties().getProperty("urlLogin");
             return getURLBase()+urlLogin;
             
@@ -121,26 +118,27 @@ public class HTTPUser implements Serializable {
     
     public String getLogoutURL() {
         
-            PropertiesLoader pl=new PropertiesLoader();
-            String urlLogout=PropertiesLoader.getNavigationProperties().getProperty("urlLogout");
-            
+            String urlLogout=PropertiesLoader.getNavigationProperties().getProperty("urlLogout");        
             return urlLogout;
     } 
      
      
-    
-    
-      public String getLoggedOutURL() {
-        
-            PropertiesLoader pl=new PropertiesLoader();
-            
-            System.err.println("TODO: navigation props: "+PropertiesLoader.getNavigationProperties());
+  
+    public String getLoggedOutURL() {
             
             String urlLoggedOut=PropertiesLoader.getNavigationProperties().getProperty("urlLoggedOut");
             return urlLoggedOut;
     } 
-     
-      
+
+    /** URL where the smartLoginServlet lives
+     * 
+     * @return
+     */
+    public String getSmartLoginURL() {
+        
+        String smartLoginUrl1=PropertiesLoader.getNavigationProperties().getProperty("urlSmartLogin");
+        return getURLBase()+smartLoginUrl1;
+} 
       
     
       /** Invalidate Session, then forward to "loggedOutURL"
