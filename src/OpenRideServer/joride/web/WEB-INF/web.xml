@@ -12,14 +12,9 @@
 	 <!-- Smart Login Servlet -->
     <servlet>
         <servlet-name>SmartLoginServlet</servlet-name>
-        <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>
-        
-         <init-param> <!-- Smart login sends failed logins to ${noauthPath} -->
-            <param-name>noauthPath</param-name>
-            <param-value>/faces/public/noauth.xhtml</param-value>
-        </init-param>
-             
+        <servlet-class>de.avci.joride.session.SmartLoginServlet</servlet-class>         
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>SmartLoginServlet</servlet-name>
         <url-pattern>/*/smartlogin/*</url-pattern> 
