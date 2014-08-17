@@ -22,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>SmartLoginServlet</servlet-name>
-        <url-pattern>*.smartlogin</url-pattern> 
+        <url-pattern>/*/smartlogin/*</url-pattern> 
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SmartLoginServlet</servlet-name>
