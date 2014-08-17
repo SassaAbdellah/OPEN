@@ -14,10 +14,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import de.avci.joride.backing.messages.RegistrationMessage;
-import de.avci.joride.utils.EmailCheck;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
+import de.fhg.fokus.openride.customerprofile.CustomerUtils;
 
 /**
  * Models a Request for getting registrated as a user in joride.
@@ -168,7 +168,7 @@ public class JRegistrationRequest implements Serializable {
 
         // check if email is well-formed
 
-        if (!(new EmailCheck().isEmailAdress(this.getEmailAddress()))) {
+        if (!(CustomerUtils.isValidEmailAdress(this.getEmailAddress()))) {
             this.setErrorStatus(msgs.getProperty("registrationEmailInvalid"));
             return false;
         }
@@ -190,15 +190,24 @@ public class JRegistrationRequest implements Serializable {
             this.setErrorStatus(msgs.getProperty("registrationNicknameMissingError"));
             return false;
         }
+        //
+        // check if nickname is valid
+        if (!(CustomerUtils.isValidNickname(this.getNickName()))) {
+            this.setErrorStatus(msgs.getProperty("registrationNicknameInvalidError"));
+            return false;
+        }
+        
+        
 
 
-        // check, if email already exists, or not
+        // check, if nickname already exists, or not
         String normalizedNickname = normalizer.normalizeNickname(this.getNickName());
 
         if (new JCustomerEntityService().nicknameExists(normalizedNickname)) {
             this.setErrorStatus(msgs.getProperty("registrationNicknameExist"));
             return false;
         }
+       
 
         return true;
 

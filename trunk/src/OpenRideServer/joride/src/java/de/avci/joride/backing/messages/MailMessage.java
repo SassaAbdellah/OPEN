@@ -23,6 +23,7 @@ import de.avci.joride.utils.EmailCheck;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;
+import de.fhg.fokus.openride.customerprofile.CustomerUtils;
 
 /**
  * Generic class for sending mail messages.
@@ -167,7 +168,7 @@ public class MailMessage implements Serializable {
         //
         // Checking sender
         //
-        if (!(echeck.isEmailAdress(this.getSender()))) {
+        if (!(CustomerUtils.isValidEmailAdress(this.getSender()))) {
             errorstatus = messages.getProperty("mailEmailAdressInvalid") + " : \n" + sender;
             addErrorMessage();
             return null;
