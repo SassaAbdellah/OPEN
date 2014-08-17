@@ -349,6 +349,34 @@ public class JCustomerEntityService {
         return ce != null;
 
     } // email exists
+    
+    
+    
+    /**
+     * Returns true, if an account with that email address already exists in the
+     * db, else false.
+     *
+     * @param email email adress to be checked
+     *
+     * @return nickname if account exists for given email address, else null
+     */
+    public String getNicknameByEmail(String email) {
+
+        // with security checks beeing done,
+        // we can proceed to adding data to db        
+        CustomerControllerLocal cc = lookupCustomerControllerBeanLocal();
+        CustomerEntity ce = cc.getCustomerByEmail(email);
+
+        if(ce!=null){
+        	return ce.getCustNickname();
+        }
+
+        return null;
+    } // email exists
+    
+    
+    
+    
 
     /**
      * Returns true, if an account with that nickname address already exists in
@@ -404,6 +432,8 @@ public class JCustomerEntityService {
 
 
             // Create a customer Account
+            
+            int result=
             cc.addCustomer(
                     //String custNickname
                     jrr.getNickName(),

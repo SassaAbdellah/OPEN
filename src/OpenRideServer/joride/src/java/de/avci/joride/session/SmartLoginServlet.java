@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.utils.PropertiesLoader;
+import de.fhg.fokus.openride.customerprofile.CustomerUtils;
 
 public class SmartLoginServlet extends HttpServlet {
 
@@ -65,13 +67,28 @@ public class SmartLoginServlet extends HttpServlet {
 		
 		
 			
-		String username=request.getParameter(j_username);
+		String usernameOriginal=request.getParameter(j_username);
 		String password=request.getParameter(j_password);
 		
 		//
 		boolean login_success=false;
 		
+		//
+		//
+		//
 		try{
+			
+			String username=usernameOriginal;
+			
+			// exchange email address to local nickname
+			if(CustomerUtils.isValidEmailAdress(username)){
+				
+				String nickname=(new JCustomerEntityService()).getNicknameByEmail(username);
+				if(nickname!=null){
+					username=nickname;
+				}
+			}
+			
 			request.login(username, password);
 			login_success=true;
 		} catch (ServletException servletExc){
