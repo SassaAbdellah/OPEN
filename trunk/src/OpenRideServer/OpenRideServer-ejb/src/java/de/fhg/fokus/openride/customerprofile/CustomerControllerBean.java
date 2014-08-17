@@ -59,7 +59,7 @@ public class CustomerControllerBean extends ControllerBean implements
 	EntityManager em;
 	@Temporal(TemporalType.TIMESTAMP)
 	UserTransaction u;
-	private static String one = "ich";
+	
 	@EJB
 	private FavoritePointControllerLocal favoritePointControllerBean;
 	// will be needed when savely removing rides
@@ -108,15 +108,22 @@ public class CustomerControllerBean extends ControllerBean implements
 			String custEmail, String custMobilephoneno, String preferredLanguage) {
 		startUserTransaction();
 		logger.info("addCustomer");
-		// Make sure no Customer exists for this same nickname
-		List<CustomerEntity> customers = (List<CustomerEntity>) em
-				.createNamedQuery("CustomerEntity.findByCustNickname")
-				.setParameter("custNickname", custNickname).getResultList();
-		if (customers.size() > 0) {
-			// No duplicates allowed
-			return -1;
+		// make sure that nickname complies with rules set up for nickname
+		if(!(CustomerUtils.isValidNickname(custNickname))){
+			logger.log(Level.SEVERE, "Proposed nickname turned out to be not compliant to rules : "+custNickname);	
 		}
-
+		
+		
+		// Make sure no Customer exists for this same nickname/email
+		// and that nickname/email comply to syntax rules
+	
+		int checkresult=this.customerCheckInternal(custNickname, custEmail);
+		
+		if(checkresult!=0){
+			return checkresult;
+		}
+		
+		
 		// OK - add them, and return their id
 		CustomerEntity c = new CustomerEntity();
 		c.setCustNickname(custNickname);
@@ -148,61 +155,60 @@ public class CustomerControllerBean extends ControllerBean implements
 
 	}
 
-	/**
-	 * This method adds a customer to the database
+
+	
+	/** Add Customer to Database
+	 * 
+	 *  Returns (positive) CustomerId of new Customer if all works out well,
+	 *  or (negative) ErrorCode if it fails.
+	 *  ErrorCodes are defined in CustomerUtils.
+	 *  
+	 * 
 	 */
+	
+	
 	public int addCustomer(String custNickname, String custPasswd,
 			String custFirstname, String custLastname, Date custDateofbirth,
 			char custGender, String custMobilephoneno, String custEmail,
 			boolean custIssmoker, boolean custPostident, String custAddrStreet,
 			String custAddrZipcode, String custAddrCity, String preferredLanguage) {
 
-		try {
-			logger.info("addCustomer");
-			startUserTransaction();
-			System.out.println("Username " + custNickname);
-			boolean exists = false;
-			List<CustomerEntity> entities = (List<CustomerEntity>) em
-					.createNamedQuery("CustomerEntity.findByCustNickname")
-					.setParameter("custNickname", custNickname).getResultList();
-
-			if (entities.size() > 0) {
-				exists = true;
-			} else {
-				logger.log(Level.INFO, "Entity Customer " + custNickname
-						+ "does not exist");
+	
+			
+			int checkresult=this.customerCheckInternal(custNickname, custEmail);
+			
+			if(checkresult!=0){
+				return checkresult;
 			}
+	
+			try {
+		
+		
+			logger.info("addCustomer"); 
+			
+			// we passed all checks, so persist request!
 
-			if (!exists) {
-				logger.log(Level.INFO, "So persist it!");
-				// Query q =
-				// em.createNativeQuery("select * from \"customer\";");
-				// System.out.println("[INFO Philipp]The Query: " +
-				// q.getResultList().size() + " " + dateFrom.toLocaleString());
-				// int index = q.getResultList().size();
-				// int index = 0;
-				// while ((em.find(CustomerEntity.class, index)) != null) {
-				// index++;
-				// }
-				// int customer_Id = index;
-				CustomerEntity e = new CustomerEntity(custNickname,
+			
+			startUserTransaction();
+			
+			logger.log(Level.INFO, "So persist it!");
+	
+			CustomerEntity e = new CustomerEntity(custNickname,
 						getMD5Hash(custPasswd), custFirstname, custLastname,
 						custDateofbirth, custGender, custMobilephoneno,
 						custEmail, custIssmoker, custPostident, custAddrStreet,
 						custAddrZipcode, custAddrCity);
-				e.setCustGroup("customer");
-				e.setCustDriverprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
-				e.setCustDriverprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
-				e.setCustRiderprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
-				e.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
-				e.setPreferredLanguage(preferredLanguage);
-				em.persist(e);
-				commitUserTransaction();
-				return e.getCustId();
-			} else {
-				commitUserTransaction();
-				return -1;
-			}
+			
+			e.setCustGroup("customer");
+			e.setCustDriverprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
+			e.setCustDriverprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
+			e.setCustRiderprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
+			e.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
+			e.setPreferredLanguage(preferredLanguage);
+			em.persist(e);
+			commitUserTransaction();
+			return e.getCustId();
+			
 
 		} catch (Exception exc) {
 			String errormsg = "Unexpected Error while adding customer";
@@ -210,6 +216,63 @@ public class CustomerControllerBean extends ControllerBean implements
 			throw new Error(exc);
 		}
 	}
+	
+	
+	
+	/** Internal Check, checking that cutomer's email and desired nickname
+	 *  are not duplicate and comply to syntaxrules
+	 * 	  
+	 * @param custNickname
+	 * @param custEmail
+	 * 
+	 * 
+	 * @return 0 if all checks where passed, or one of the errorcodes defined in CustomerUtils
+	 */
+	
+	private int customerCheckInternal(String custNickname, String custEmail  ){
+		
+		
+		// check if username is compliant to rules, return error if not
+		if(!(CustomerUtils.isValidNickname(custNickname))){
+			logger.log(Level.SEVERE, "Proposed nickname is not compliant : "+custNickname);
+			return CustomerUtils.CUSTCREATION_NICKNAME_SYNTAX;
+		}
+		
+		
+		List<CustomerEntity> entitiesNick = (List<CustomerEntity>) em
+				.createNamedQuery("CustomerEntity.findByCustNickname")
+				.setParameter("custNickname", custNickname).getResultList();
+
+		if (entitiesNick.size() > 0) {
+			logger.log(Level.SEVERE, "Proposed nickname already exists : "+custNickname);
+			return CustomerUtils.CUSTCREATION_NICKNAME_EXISTS;
+		} 
+		
+		
+		// check if username is compliant to rules, return error if not
+		if(!(CustomerUtils.isValidEmailAdress(custEmail))){
+			logger.log(Level.SEVERE, "Proposed email is not compliant : "+custEmail);
+			return CustomerUtils.CUSTCREATION_EMAIL_SYNTAX;
+		}
+					
+					
+		List<CustomerEntity> entitiesMail = (List<CustomerEntity>) em
+							.createNamedQuery("CustomerEntity.findByCustEmail")
+							.setParameter("custEmail", custEmail).getResultList();
+
+		if (entitiesMail.size() > 0) {
+				logger.log(Level.SEVERE, "Proposed email already exists : "+custEmail);
+				return CustomerUtils.CUSTCREATION_EMAIL_EXISTS;
+		} 
+		
+		
+		// TODO: check, iff terms and conditions are accepted-!!!
+		
+		return 0;
+	}
+	
+	
+	
 
 	public static String getMD5Hash(String input) {
 		StringBuffer stringBuffer = new StringBuffer(1000);
