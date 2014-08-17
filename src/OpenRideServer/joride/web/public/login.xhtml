@@ -29,7 +29,8 @@
 
             <ui:define name="content">
 
-                <form method="post" action="../j_security_check" >  <!-- we use non JSF form to evade JSF Navigation Cases  -->
+				<!-- login is done via SmartLoginServlet -->
+                <form method="post" action="../../smartlogin/" >  <!-- we use non JSF form to evade JSF Navigation Cases  -->
 
                     <!-- label and input for username  *********************************************** -->
                     <div class="formLabel"> #{msgs.loginUsername}                                  </div>
