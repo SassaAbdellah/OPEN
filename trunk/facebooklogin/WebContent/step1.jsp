@@ -30,11 +30,11 @@
 	<textarea name="code" cols="50" rows="5" /><%= request.getParameter("code")%></textarea>
    </p>
   
-   <h2>redirect_uri :</h2>
-   <p>
-   	Redirect URL (Hardcoded, where we will digest TokenResponse) <br/>
-   	<input name="redirect_uri" size="50"  value="<%=oauth2Constants.getFacebookRedirectURL()%>" />
-   <p>
+    <h2>redirect_uri :</h2>
+    <p> 
+    	<input name="redirect_uri"  size="50"  value="${oauth2Constants.getBaseURL()}step1.jsp" />
+    </p>
+ 
   
    <h2>grant_type :</h2> 
    <p>
@@ -51,10 +51,7 @@
      <input name="client_secret"  size="50" value="<%=oauth2Constants.getAppSecret()%>" />
     <p>
     
-    <h2>redirect_uri :</h2>
-    <p> RedirectURI (Hardcoded, same as before) <br/>
-     <input name="redirect_uri"  size="50" value="http://localhost:8080/facebooklogin/step1.jsp" />
-    <p>
+ 
     
    
     <button type="submit"> Submit to facebook for Authorization Token </button>
