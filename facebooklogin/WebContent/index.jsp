@@ -16,22 +16,17 @@
 
 
 <p>
-  		<a href="inspectAccessToken.jsp" > Get Application Access Token </a>
-</p>
-
-
-
-
-<p>
  Get access token  <a href="/facebooklogin/autologin/"> automatically </a>
 </p>
-
-
-
 
 <p>
  Get access token  <a href="interactive.jsp"> interactively </a>
 </p>
+
+<p>
+  	<a href="inspectAccessToken.jsp" > Inspect Access Token </a>
+</p>
+
 
 
 

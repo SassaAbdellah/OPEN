@@ -8,29 +8,28 @@
 </head>
 <body>
 
-<h1> OAuth with facebook, Interactive </h1>
-
-
 
 <jsp:useBean id="oauth2Constants"  class="de.acando.facebooklogin.OAuth2Constants" scope="application"/>
 
 
-   <h1> Interactive  Flow </h1>
+   <h1>Interactive Flow</h1>
 
 	<form action="${oauth2Constants.getOAuth2URL()}" method="get">
   
-   	<p> ClientID (Hardcoded) <br/>
-    	client_id  : <input name="client_id" size="50"  value="${oauth2Constants.getClientId()}" />
-    <p>
+   	<h2>client_id  :</h2>
+   	<p> ClientID (Hardcoded)<br/>
+    	<input name="client_id" size="50"  value="${oauth2Constants.getClientId()}" />
+    </p>
     
-    
+    <h2>redirect_uri :</h2>
     <p> RedirectURI (Hardcoded, same as before) <br/>
-    	redirect_uri : <input name="redirect_uri"   value="http://localhost:8080/facebooklogin/step1.jsp" />
-    <p>
+    	<input name="redirect_uri"  size="50"  value="http://localhost:8080/facebooklogin/step1.jsp" />
+    </p>
     
-    	State  obtained from Authorization Response: <br/>
+    <h2>state :</h2>
+    State  obtained from Authorization Response: <br/>
 	<p>
-    	state :  <%=request.getParameter("state")%>
+     <%=request.getParameter("state")%>
    </p>
     
     <button type="submit"> Submit to facebook for Authorization Token </button>

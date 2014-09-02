@@ -27,7 +27,7 @@
 	 <p>
 	 ( get it <a href="${oauth2Constants.getFacebookAppAccessTokenUri()}" target="_blank"  > here </a> )
 	 </p>
-	  <input name="access_token" />
+	  <input name="access_token" size="50" />
 	 </p>
 	 
 	
