@@ -23,7 +23,7 @@
     
     <h2>redirect_uri :</h2>
     <p> RedirectURI (Hardcoded, same as before) <br/>
-    	<input name="redirect_uri"  size="50"  value="http://localhost:8080/facebooklogin/step1.jsp" />
+    	<input name="redirect_uri"  size="50"  value="${oauth2Constants.getBaseURL()}step1.jsp" />
     </p>
     
     <h2>state :</h2>
