@@ -27,16 +27,16 @@
    <h2>code :</h2> 
    <p>
    	Code obtained from Authorization Response: <br/>
-	<input name="code" size="50" value="<%= request.getParameter("code")%>" />
+	<textarea name="code" cols="50" rows="5" /><%= request.getParameter("code")%></textarea>
    </p>
   
-   <h2>redirect_uri :<h2>
+   <h2>redirect_uri :</h2>
    <p>
    	Redirect URL (Hardcoded, where we will digest TokenResponse) <br/>
    	<input name="redirect_uri" size="50"  value="<%=oauth2Constants.getFacebookRedirectURL()%>" />
    <p>
   
-   <h2>grant_type :<h2/> 
+   <h2>grant_type :</h2> 
    <p>
     <input name="grant_type" size="50"  value="authorization_code" />
    <p>
@@ -44,7 +44,7 @@
    <h2> client_id  :</h2> 
    <p> 
     <input name="client_id" size="50" value="<%=oauth2Constants.getClientId()%>" />
-    <p>
+    </p>
      
      <h2> client_secret :</h2>
     <p> 
