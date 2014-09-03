@@ -29,15 +29,6 @@ public class OAuth2Constants implements Serializable {
 			
 	public String getOAuth2URL(){return FACEBOOK_OAuth2_URL;}
 	
-		
-	
-	/** Redirect URI we send to facebook. This is where our handler servlet lives
-	 * 
-	 */
-    public static final String FACEBOOK_redirect_uri="http://localhost:8080/facebooklogin/login/";
-    
-    public String getFacebookRedirectURL(){ return FACEBOOK_redirect_uri;}
-    
 	
     
 	/** String containing the App Secret. Will be loaded from properties file
@@ -236,6 +227,14 @@ public class OAuth2Constants implements Serializable {
 	public String getParamNameToken(){return PARAM_NAME_token;}
 	
 	
+	
+	/**  base url in OAuth/Facebook. Base URL for GraphAPI on facebook */
+	private static String GRAPH_API_BASE_URL_ME="https://graph.facebook.com/me/";
+	
+	public static String  getGraphApiBaseURLMe(){
+		
+		return GRAPH_API_BASE_URL_ME;
+	}
 	
 	
 	

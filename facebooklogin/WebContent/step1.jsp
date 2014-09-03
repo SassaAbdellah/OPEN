@@ -5,17 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title> Redirected via facebook </title>
+<title> Token Request </title>
 </head>
 <body>
 
 
 <jsp:useBean id="oauth2Constants"  class="de.acando.facebooklogin.OAuth2Constants" scope="application"/>
 
+ <h1>OAuth with facebook, Token Request</h1>
+
+<a href="/facebooklogin"> startpage </a>
 
 <form action="https://graph.facebook.com/oauth/access_token" method="get">
    
-
 
 	State  obtained from Authorization Response: <br/>
 	
