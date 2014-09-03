@@ -15,6 +15,7 @@
 
 <h1> Inspect Access Token </h1>
 
+<a href="/facebooklogin"> startpage </a>
 
 <form  action="${oauth2Constants.getFacebookInspectAccessTokenUri()}" method="GET">
 

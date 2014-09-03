@@ -12,7 +12,9 @@
 <jsp:useBean id="oauth2Constants"  class="de.acando.facebooklogin.OAuth2Constants" scope="application"/>
 
 
-   <h1>Interactive Flow</h1>
+   <h1>OAuth with facebook, Authorization Request</h1>
+   
+   <a href="/facebooklogin"> startpage </a>
 
 	<form action="${oauth2Constants.getOAuth2URL()}" method="get">
   
