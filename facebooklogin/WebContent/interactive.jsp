@@ -26,6 +26,12 @@
     	<input name="redirect_uri"  size="50"  value="${oauth2Constants.getBaseURL()}step1.jsp" />
     </p>
     
+    <h2>scope :</h2>
+    <p>
+    	<input name="scope"  size="50"   />
+    </p>
+    
+    
     <h2>state :</h2>
     State  obtained from Authorization Response: <br/>
 	<p>
