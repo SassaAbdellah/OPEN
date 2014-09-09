@@ -45,11 +45,7 @@
     <button type="submit"> Submit to facebook Graph API for User Object  </button>
  </form>
 
-
-
-
 </p>
-
 
 
 
