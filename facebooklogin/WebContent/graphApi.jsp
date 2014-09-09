@@ -47,7 +47,9 @@
 
 </p>
 
-
+<p>
+ Evil Graph API Explorer is   <a href="https://developers.facebook.com/tools/explorer/"  target="_blank"> here </a>
+</p>
 
 
 
