@@ -101,7 +101,21 @@ public class PropertiesLoader {
      */
     private static Properties loadMessageProperties(Locale locale){
     	
+    	
+    	if(locale==null){
+    		
+    		throw new Error("Cannot load locale in joride's properties loader --  locale is null");
+    	}
+    	
+    		
     	Properties props=messageCache.get(locale);
+    	
+    	
+    	if(locale == null){
+    		
+    		throw new Error("Cannot load localized Message in joride, locale is null");
+    	}
+    	
     	
     	if(props==null){
     		  PropertiesLoader loader=new PropertiesLoader(locale);

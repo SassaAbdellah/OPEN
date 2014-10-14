@@ -5,6 +5,7 @@
 package de.avci.joride.utils;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
@@ -51,24 +52,59 @@ public class HTTPUtil {
     }
     
     
+    
+    
+    /** Set of locales supported by this instance
+     */
+    private static Set <Locale> supportedLocales=null;
+    
+    /** Set of locales supported by this instance by language
+     */
+    private static HashMap <String,Locale> supportedLocalesByLanguage;
+    
+    
     /** Get the set of supported locales
+     *  (accessor with lazy instantiation)
      * 
      * @return set of (JSF) supported locales
      */
-    public Set <Locale> getSupportedLocales(){
+    public static Set <Locale> getSupportedLocales(){
     	
-    	HashSet <Locale> res=new HashSet<Locale>();
-    	Iterator<Locale> i= FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
-
-    	while (i.hasNext()){res.add(i.next());}
+    	if(supportedLocales==null){
+    		HashSet <Locale> res=new HashSet<Locale>();
+    		Iterator<Locale> i= FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
+    		while (i.hasNext()){res.add(i.next());}
+    		supportedLocales=res;
+    	}
     	
-    	return res;
+    	return supportedLocales;
     }
     
     
     
+    /** Accessor for supported locals by language
+     */
+    public static HashMap <String,Locale> getSupportedLocalesByLanguage(){
+    
+    	if(supportedLocalesByLanguage==null){
+    		supportedLocalesByLanguage=new HashMap<String,Locale>();
+    		
+    		Iterator <Locale> locales=getSupportedLocales().iterator();
+    			
+    		while(locales.hasNext()){
+    			Locale locale=locales.next();
+    			supportedLocalesByLanguage.put(locale.getLanguage(), locale);
+    		}	
+    	}
+    	
+    	return supportedLocalesByLanguage;
+    }
+    
+    
    
     /** Ectract best accepted language from Browser request.
+     * 
+     *  If no such locale can be found, return default locale
      * 
      * @param request
      */
@@ -76,7 +112,7 @@ public class HTTPUtil {
     public  Locale detectBestLocale() {
     	
     	
-    	Set <Locale> supportedLocals=this.getSupportedLocales();
+    	Set <Locale> supportedLocals=getSupportedLocales();
       
     	HttpServletRequest request=this.getHTTPServletRequest();
     	if(request==null){
@@ -91,7 +127,23 @@ public class HTTPUtil {
             }
         }
         
-        return null;
+        // if we made it to here, then list of supported locales 
+        // does not contain exact matching locales.
+        // next, we try to return locales matching by language
+    
+        locales = request.getLocales();
+        while (locales.hasMoreElements()) {
+        	String localeLang=locales.nextElement().getLanguage();
+        	Locale myLocale=getSupportedLocalesByLanguage().get(localeLang);
+        	if(myLocale!=null){
+        		return myLocale;
+        	}
+            
+           
+        }
+        
+        log.warning("Cannot determine best locale for request, returning default "+DefaultLocale.getDefaultLocale());
+        return DefaultLocale.getDefaultLocale();
     }
     
     
