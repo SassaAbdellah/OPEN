@@ -177,10 +177,35 @@ public class CustomerEntity implements Serializable {
     // wether user wants his cellphone number to be exposed ('t'/'f')
     @Column(name="show_mobile")
     private Boolean showMobilePhoneToPartners; 
+    // maximum number of matches to be displayed to this user
+    // this should not be changeable by the user
+    @Column(name="matchlimitmax")
+    private Integer maxLimitMax;
+    // maximum number of limits to be displayed to this user
+    // this property can be set by the user within the range of
+    // 1...maxLimitMax
+    @Column(name="matchlimitindividual")
+    private Integer maxLimitIndividual;
     
     
     public String getPreferredLanguage() {
 		return preferredLanguage;
+	}
+
+	public Integer getMaxLimitMax() {
+		return maxLimitMax;
+	}
+
+	public void setMaxLimitMax(Integer maxLimitMax) {
+		this.maxLimitMax = maxLimitMax;
+	}
+
+	public Integer getMaxLimitIndividual() {
+		return maxLimitIndividual;
+	}
+
+	public void setMaxLimitIndividual(Integer maxLimitIndividual) {
+		this.maxLimitIndividual = maxLimitIndividual;
 	}
 
 	public void setPreferredLanguage(String preferredLanguage) {
