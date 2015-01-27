@@ -204,6 +204,13 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- replacing  maxMatchLimit  property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="maxMatchLimit=(.*)" />
+			<substitution expression="maxMatchLimit=${maxMatchLimit}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
 	</target>
 	<!--  end of target "apply local properties" -->
 
