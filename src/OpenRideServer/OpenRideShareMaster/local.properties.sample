@@ -62,11 +62,12 @@ growlInterval=3333
 #
 # jndi name of the mail service
 #
-#
-#
 mailServiceJNDI=jorideMail
 #
 #
+# System default value for maximum number of matches displayed
+#
+maxMatchLimit=55
 #
 #
 #
