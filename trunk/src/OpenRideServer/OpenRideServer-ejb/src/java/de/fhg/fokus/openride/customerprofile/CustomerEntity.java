@@ -22,12 +22,16 @@
  */
 package de.fhg.fokus.openride.customerprofile;
 
+import de.avci.openrideshare.utils.OperationalPropertiesConstants;
+import de.avci.openrideshare.utils.PropertiesLoader;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -228,6 +232,11 @@ public class CustomerEntity implements Serializable {
     }
 
     public CustomerEntity() {
+    	//
+    	// default for maxLimitMax and individualLimit
+    	//
+    	this.maxLimitMax=new Integer(PropertiesLoader.getOperationalProperties().getProperty(OperationalPropertiesConstants.PROPERTY_NAME_maxMatchLimit));
+    	this.maxLimitIndividual=this.maxLimitMax;
     }
 
     public CustomerEntity(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity) {
