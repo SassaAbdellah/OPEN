@@ -28,6 +28,7 @@ import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -759,4 +761,16 @@ public class CustomerControllerBean extends ControllerBean implements
 	public Locale[] getSupportedLocales() {
 		return SupportedLanguagesFactory.getSupportedLanguages();
 	}
+
+	@Override
+	public void setIndividualMatchLimit(int customerId, int newLimit) {
+		
+		CustomerEntity ce = this.getCustomer(customerId);
+		ce.updateIndividualLimitMatch(newLimit);
+	}
+	
+	
+	
+	
+	
 }

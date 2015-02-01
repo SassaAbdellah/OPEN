@@ -114,5 +114,13 @@ public interface CustomerControllerLocal {
      * @return  Return the list of supported locales
      */
     public Locale[] getSupportedLocales();
+
+    
+    /** Set individualMatchLimit for  maximum number of displayed matches
+     * 
+     * @param customerId
+     * @param newLimit
+     */
+	void setIndividualMatchLimit(int customerId, int newLimit);
     
 }
