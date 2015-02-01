@@ -130,6 +130,10 @@ public class JCustomerEntity extends CustomerEntity {
         // data protection settings
         this.setShowEmailToPartners(ce.getShowEmailToPartners());
         this.setShowMobilePhoneToPartners(ce.getShowMobilePhoneToPartners());
+        
+        //limits
+        this.setIndividualLimitMatch(ce.getIndividualLimitMatch());
+        this.setMaxLimitMatch(ce.getMaxLimitMatch());
 
     } // update from DB
 
@@ -431,7 +435,6 @@ public class JCustomerEntity extends CustomerEntity {
                     exc);
         }
 
-   
     }
     
     
@@ -440,7 +443,15 @@ public class JCustomerEntity extends CustomerEntity {
     public void resetLastCustomerCheck(){
        new JCustomerEntityService().resetLastCustomerCheck();
     }
+
+
     
+    
+    /** Set lastCustomerCheck Property to current date
+     */
+    public void updateMatchLimitToDB(){
+    	new JCustomerEntityService().setCustomerMatchLimitIndividualSavely(this.getIndividualLimitMatch());
+    }
     
     
     
