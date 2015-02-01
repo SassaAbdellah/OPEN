@@ -606,4 +606,30 @@ public class JCustomerEntityService {
     }
     
     
+    
+    /**
+     * Set the individual matchLimit 
+     *
+     */
+    public void setCustomerMatchLimitIndividualSavely(int newIndividualMatchLimit) {
+
+        // SecurityMeasure: ensure that the userName is equal to
+        // the AuthPrincipal of the Request
+
+        String userName = (new HTTPUtil()).getUserPrincipalName();
+        CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
+        
+        if(customerEntity!=null){
+        
+        	CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        	ccl.setIndividualMatchLimit(customerEntity.getCustId(), newIndividualMatchLimit);
+        	
+        }
+        
+        else throw new Error("Cannot find CustomerEntity with username "+userName);
+        
+
+    } // getCustomerEntity
+    
+    
 } // class
