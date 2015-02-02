@@ -231,7 +231,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			CustomerEntity driver = drive.getCustId();
+			//
+			//
 			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>();
+			//
+			// TODO: MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
+			//
 			for (Iterator<PotentialMatch> iter = potentialMatches.iterator(); iter
 					.hasNext();) {
 				PotentialMatch pm = iter.next();
@@ -347,12 +352,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			CustomerEntity rider = ride.getCustId();
-			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>(); // all
-																				// accepted
-																				// matches
-																				// are
-																				// put
-																				// here
+			
+			// all accepted matches are put here
+			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>(); 
+			//
+			// TODO: MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
+			//
 			for (Iterator<PotentialMatch> iter = potentialMatches.iterator(); iter
 					.hasNext();) {
 				PotentialMatch pm = iter.next();
@@ -410,12 +415,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 							pm.getRideId(), sharedDistanceMeters, detourMeters,
 							pm.getTimeAtOnRouteLiftPoint(), decomposedRoute_
 									.get(decomposedRoute_.size() - 1)
-									.getDistanceToSourceMeters(), // TODO:
-																	// remaing
-																	// distance
-																	// - depends
-																	// on driver
-																	// tracker
+									.getDistanceToSourceMeters(), 
+					// TODO:
+					// remaing
+					// distance
+					// - depends
+					// on driver
+					// tracker
 							PriceCalculator.getInstance().getPriceCents(
 									sharedDistanceMeters, detourMeters));
 					m.setDriverUndertakesRideEntity(drive);
