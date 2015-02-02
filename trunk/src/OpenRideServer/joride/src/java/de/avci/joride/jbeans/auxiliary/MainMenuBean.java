@@ -185,13 +185,12 @@ public class MainMenuBean implements Serializable, MenuModel {
 		passwordChangeItem.setAjax(false);
 		preferencesSubmenu.addElement(passwordChangeItem);
 		
-		// match Limits submenu
-		//String matchLimitsMSG = messageProps.getProperty("matchLimits");
-		String matchLimitsMSG = "TODO: matchLimits";
-		DefaultMenuItem matchLimitsItem = new DefaultMenuItem(matchLimitsMSG);
-		matchLimitsItem.setCommand("preferences.matchLimits");
-		matchLimitsItem.setAjax(false);
-		preferencesSubmenu.addElement(matchLimitsItem);
+		// Limits submenu
+		String limitsMSG = messageProps.getProperty("limits_label");
+		DefaultMenuItem limitsItem = new DefaultMenuItem(limitsMSG);
+		limitsItem.setCommand("preferences.matchLimits");
+		limitsItem.setAjax(false);
+		preferencesSubmenu.addElement(limitsItem);
 
 		
 		// <p:menuitem outcome="preferences.personalData"

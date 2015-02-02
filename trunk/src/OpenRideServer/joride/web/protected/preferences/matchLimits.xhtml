@@ -36,12 +36,7 @@
 		<ui:define name="content">
 
 
-
-
-
-
-			<p:panel header="TODO label for setLimits" >
-
+			<p:panel header="#{msgs.limits_label}">
 
 
 				<!-- the profile must be filled with data before anything -->
@@ -50,23 +45,25 @@
 
                     <h:form>
 
-					
+
 					<div class="formInput">
-						
-					 	<p:spinner 
-					 		value="#{jprofile.individualLimitMatch}"
-					 		min="1"
-					 		max="#{jprofile.maxLimitMatch}"
-					 	
-					 	/>
+						<h:outputFormat value="#{msgs.limits_message}">
+							<f:param value="#{jprofile.maxLimitMatch}" />
+						</h:outputFormat>
 					</div>
 
-					<p:commandButton
-						action="#{jprofile.updateMatchLimitToDB}"
-						value="#{msgs.formSubmit}" 
-						ajax="false"
-						/>
-							
+
+
+					<div class="formInput">
+
+						<p:spinner value="#{jprofile.individualLimitMatch}" min="1"
+							max="#{jprofile.maxLimitMatch}" />
+					</div>
+
+
+					<p:commandButton action="#{jprofile.updateMatchLimitToDB}"
+						value="#{msgs.formSubmit}" ajax="false" />
+
 				</h:form>
 			</p:panel>
 
