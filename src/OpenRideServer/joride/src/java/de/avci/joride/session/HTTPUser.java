@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.enterprise.context.SessionScoped;
@@ -13,10 +15,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.utils.DefaultLocale;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 
@@ -57,6 +61,8 @@ public class HTTPUser implements Serializable {
         return FacesContext.getCurrentInstance();
     }
 
+   
+    
     
     
     /** 
@@ -244,7 +250,28 @@ public class HTTPUser implements Serializable {
     } 
     
     
-    
+    /** Get Local from http request 
+     * 
+	 * 
+	 * @param request
+	 */
+
+	public Locale getLocale() {
+		
+		
+		Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest httpServletRequest=null;
+		
+		
+		if (request instanceof HttpServletRequest) {
+			httpServletRequest= ((HttpServletRequest) request);
+		} else {
+			return DefaultLocale.getDefaultLocale() ;
+		}
+		
+		return httpServletRequest.getLocale();
+	}
+
     
     
     

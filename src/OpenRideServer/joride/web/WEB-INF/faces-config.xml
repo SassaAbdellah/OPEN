@@ -12,8 +12,12 @@
 		<!-- lists of supported locales -->
 		<locale-config>
 			<default-locale>en</default-locale>
+			<!-- German:Jochen --> 
 			<supported-locale>de</supported-locale>
+			<!-- English:Jochen --> 
 			<supported-locale>en</supported-locale>
+			<!-- Greek:Jochen --> 
+			<supported-locale>el</supported-locale>
 		</locale-config>
 
 
