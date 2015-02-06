@@ -451,6 +451,7 @@ public class RiderUndertakesRideEntity implements Serializable {
      * @return Returns the Number of OpenMatches for this RideRequest
      */
     public int getNoMatches() {
+    
         return this.getMatchings().size();
     }
 
@@ -623,10 +624,5 @@ public class RiderUndertakesRideEntity implements Serializable {
     public boolean getHasDriverUndertakesRideEntity() {
         return this.getRideId()!=null;
     }
-    
- 
-    
-    
-    
     
 }
