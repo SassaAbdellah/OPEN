@@ -106,9 +106,13 @@
 					</div>
 					<div class="formInput">
 
-						<p:calendar value="#{jprofile.custDateofbirth}"
-							id="custDateOfBirthCal" locale="de"
-							pattern="#{datetime.dateformat}" mode="popup" navigator="true"
+						<p:calendar 
+							locale="#{HTTPUser.getLocale()}" 
+							value="#{jprofile.custDateofbirth}"
+							id="custDateOfBirthCal" 
+							pattern="#{datetime.dateformat}" 
+							mode="popup" 
+							navigator="true"
 							showOn="button">
 
 						</p:calendar>
@@ -206,8 +210,12 @@
 					</div>
 					<div class="formInput">
 						<p:calendar value="#{jprofile.custLicensedate}"
-							id="licensedateCal" locale="de" pattern="#{datetime.dateformat}"
-							mode="popup" navigator="true" showOn="button">
+							id="licensedateCal" 
+						    locale="#{HTTPUser.getLocale()}" 
+							pattern="#{datetime.dateformat}"
+							mode="popup" 
+							navigator="true" 
+							showOn="button">
 
 						</p:calendar>
 					</div>
