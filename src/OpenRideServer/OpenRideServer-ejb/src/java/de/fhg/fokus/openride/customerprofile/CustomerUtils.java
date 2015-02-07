@@ -70,7 +70,7 @@ public class CustomerUtils {
 	 *  so that there may at least 5 and at most 12 characters.  
 	 * 
 	 */
-	public static String NICKNAME_PATTERN="[a-z]+[a-z0-9]{4,11}";
+	public static String NICKNAME_PATTERN="[a-z]+[a-z0-9]{3,11}";
 	
 	/** Precompiled pattern for nicknames
 	 */
