@@ -67,7 +67,7 @@
                                             <p:calendar 
                                                 value="#{ridesearchparams.startDate}"  
                                                 id="startDateCal"   
-                                                locale="de" 
+                                                locale="#{HTTPUser.getLocale()}"  
                                                 pattern="#{ridesearchparams.dateformat}" 
                                                 mode="popup"
                                                 navigator="true"
@@ -89,7 +89,7 @@
                                             <p:calendar 
                                                 value="#{ridesearchparams.endDate}"  
                                                 id="endDateCal"   
-                                                locale="de" 
+                                                locale="#{HTTPUser.getLocale()}"  
                                                 pattern="#{ridesearchparams.dateformat}" 
                                                 mode="popup"
                                                 navigator="true"

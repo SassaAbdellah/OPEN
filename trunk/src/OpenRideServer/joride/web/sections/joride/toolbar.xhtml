@@ -39,8 +39,14 @@
 
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
-			<p:slideMenu model="#{mainMenu}" overlay="true" trigger="dynaButton"
-				my="left top" at="left bottom">
+			<p:slideMenu 
+				model="#{mainMenu}" 
+				overlay="true" 
+				trigger="dynaButton"
+				my="left top" 
+				at="left bottom"
+				locale="#{HTTPUser.getLocale()}" 
+				>
 			</p:slideMenu>
 		</h:form>
 

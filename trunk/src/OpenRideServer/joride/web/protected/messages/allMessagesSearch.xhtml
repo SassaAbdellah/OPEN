@@ -52,7 +52,7 @@
 								<p:row>
 									<p:column>
 										<p:calendar value="#{messageSearch.startDate}"
-											id="startDateCal" locale="de"
+											id="startDateCal"  locale="#{HTTPUser.getLocale()}"  
 											pattern="#{messageSearch.dateformat}" mode="popup"
 											navigator="true" showOn="focus" size="10">
 										</p:calendar>
@@ -68,7 +68,7 @@
 								<p:row>
 									<p:column>
 										<p:calendar value="#{messageSearch.endDate}" id="endDateCal"
-											locale="de" pattern="#{messageSearch.dateformat}"
+											 locale="#{HTTPUser.getLocale()}"  pattern="#{messageSearch.dateformat}"
 											mode="popup" navigator="true" showOn="focus" size="10">
 										</p:calendar>
 									</p:column>

@@ -56,7 +56,7 @@
                                                 <p:calendar 
                                                     value="#{ratingsearchparams.startDate}"  
                                                     id="startDateCal"   
-                                                    locale="de" 
+                                                    locale="#{HTTPUser.getLocale()}"  
                                                     pattern="#{ratingsearchparams.dateformat}" 
                                                     mode="popup"
                                                     navigator="true"
@@ -78,7 +78,7 @@
                                                 <p:calendar 
                                                     value="#{ratingsearchparams.endDate}"  
                                                     id="endDateCal"   
-                                                    locale="de" 
+                                                    locale="#{HTTPUser.getLocale()}"  
                                                     pattern="#{ratingsearchparams.dateformat}" 
                                                     mode="popup"
                                                     navigator="true"
