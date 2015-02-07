@@ -46,7 +46,7 @@
 					<div class="formInput">
 
 						<p:calendar value="#{newdriverride.rideStarttime}"
-							id="starttimeCal" locale="de" pattern="#{datetime.tsformat}"
+							id="starttimeCal"  locale="#{HTTPUser.getLocale()}"   pattern="#{datetime.tsformat}"
 							mode="popup" navigator="true" showOn="button"
 							timezone="#{HTTPUser.timeZone}" />
 
