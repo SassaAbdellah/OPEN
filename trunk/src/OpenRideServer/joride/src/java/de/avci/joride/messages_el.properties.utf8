@@ -1,0 +1,689 @@
+#
+# title to display on top of all pages
+#
+title=Βασική σελίδα του OpenRide
+#
+# page title for login page
+#
+loginTitle=Είσοδος
+#
+#
+rider=Συνεπιβάτης
+driver=Οδηγός
+#
+# filtering criteria for driverundertakesrideentity, driver's view
+#
+driveListAllOffers=Όλες οι προσφορές μου
+driveListBothAcceptedOffers=Επιβεβαιωμένες διαδρομές 
+driveListBothCountermandedOffers=Επιβεβαιωμένες διαδρομές που έχουν ακυρωθεί από εμένα και από τον συνεπιβάτη 
+driveListDriverAcceptedOffers=Προσφορές που έχουν γίνει αποδεκτές από εμένα
+driveListDriverCountermandedOffers=Επιβεβαιωμένες διαδρομές που έχουν ακυρωθεί από εμένα
+driveListNewOffers=Νέες προσφορές
+driveListNoOffersCurrently=Δεν υπάρχουν προσφορές προς το παρόν
+driveListRiderAcceptedOffers=Προσφορές που έχουν γίνει αποδεκτές από έναν συνεπιβάτη
+driveListRiderCountermandedOffers=Επιβεβαιωμένες διαδρομές που έχουν ακυρωθεί από έναν συνεπιβάτη
+driveListUnavaillableOffers=Προσφορές μη διαθέσιμες πια
+driveListUnclearOffers=Προσφορές ασαφούς κατάστασης
+driveListUpdatedOffers=Προσφορές που ανανεώθηκαν
+#
+# Generic Errormessage
+#
+error=Παρουσιάστηκε σφάλμα
+#
+#
+#  Label for Username/Passwort and submit input in login screen
+#
+loginUsername=Παρακαλούμε εισάγετε το username σας:
+loginUsernameOrEmailaddress=Παρακαλούμε εισάγετε το username ή τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας:
+loginPassword=Παρακαλούμε εισάγετε το password
+loginSubmit=Σύνδεση
+#
+# messages for failed login
+# 
+#
+loginFailed=Η πιστοποίηση απέτυχε
+loginRetry=Παρακαλούμε, δοκιμάστε ξανά.
+#
+#
+#
+# Top Label for the Navigation slide menu
+#
+nav1_navigation=Πλοήγηση
+#
+# label for "Home" section
+#
+nav1_home_label=Αρχική Σελίδα
+#
+# Label and description for "Rider" section
+#
+nav1_rider_label=Συνεπιβάτης
+nav1_rider_desc=Ζήτηση διαδρομών
+#
+#
+nav1_rider_active=Τα ενεργά αιτήματά μου
+#
+# 
+# 
+# Label and description for "Driver" section
+#
+nav1_driver_label=Οδηγός
+nav1_driver_desc=Ευκαιρίες προσφοράς διαδρομής 
+#
+#
+nav1_driver_active=Οι ενεργές προσφορές μου
+#
+# 
+#
+# Label and description for "Preferences" and profile section
+#
+nav1_preferences_label=Προτιμήσεις
+nav1_preferences_desc=Επεξεργαστείτε το προσωπικό σας προφίλ και τις ρυθμίσεις σας 
+# Label and description for personalData section
+nav1_pref_personalData_label=Προσωπικά Δεδομένα
+nav1_pref_personalData_desc=Επεξεργαστείτε τα προσωπικά σας δεδομένα (π.χ. όνομα, φύλο..)
+# Label and description for riderPreferences section
+nav1_pref_riderPreferences_label=Προτιμήσεις του συνεπιβάτη
+nav1_pref_riderPreferences_desc=Επεξεργαστείτε τις προτιμήσεις σας κατά τη ζήτηση διαδρομών
+# Label and description for riderPreferences section
+nav1_pref_driverPreferences_label=Προτιμήσεις του Οδηγού
+nav1_pref_driverPreferences_desc=Επεξεργαστείτε τις προτιμήσεις σας όταν προσφέρετε διαδρομές και προσθέστε πληροφορίες του οχήματος που χρησιμοποιείτε
+# Label and description for faovourite places section
+nav1_pref_favoritePlaces_label=Αγαπημένες Τοποθεσίες
+nav1_pref_favoritePlaces_desc=Τοποθεσίες από τις οποίες ξεκίνησε πρόσφατα ή κατέληξε το ταξίδι σας.
+#
+nav1_pref_carDetailsLabel=Πληροφορίες του αυτοκινήτου
+#
+#
+nav1_myAccount_label=Λογαριασμοί
+#
+nav1_logout=Αποσύνδεση
+# login and logout labels
+logout=Αποσύνδεση
+login=Σύνδεση
+#
+# Labels to display after successful log out:
+#
+loggedout=Αποσυνδεθήκατε
+loggedOutSuccess=Σας ευχαριστούμε που χρησιμοποιήσατε το OpenRideShare!
+loginAgain=Πατήστε εδώ για να συνδεθείτε ξανά.
+#
+# labels and title for geocoding search
+# 
+# title for geocode searches
+geocodeSearchTitle=Βρείτε μία τοποθεσία
+#
+# labels for geocode searches
+poilabel=Σημείο ενδιαφέροντος (εάν είναι γνωστό)
+citylabel=Πόλη
+streetlabel=Οδός και αριθμός (εάν είναι γνωστά)
+searchlabel=Αναζήτηση!
+#
+# Header to be displayed on top of Search result
+#
+geocodeResultHeader=Αποτελέσματα:
+#
+# Label to be displayed with acceppt url
+geocodeAcceptLabel=Αποδοχή
+#
+# Label to be displayed on the "Show in Map" link
+geocodeShowInMapLabel=Εμφάνιση στο χάρτη
+#
+#
+# Label to call geolocation service
+geolocationServiceLabel=Καθορίστε την τρέχουσα τοποθεσία σας
+# Errormessage when geolocation service is not supported by Your device
+geolocationNotSupportedError=Η υπηρεσία εντοπισμού τοποθεσίας δεν υποστηρίζεται από τη συσκευή σας
+# Errormessage when geolocation service has beeen turned off by user
+geolocationNotAllowedError=Έχετε μπλοκάρει την υπηρεσία εντοπισμού τοποθεσίας
+# Errrmessage when positioning service is not availlable
+geolocationUnavaillableError=Η υπηρεσία εντοπισμού τοποθεσίας δεν είναι διαθέσιμη
+# Errormessage when geolocation service has timed out
+geolocationTimedOutError=Η υπηρεσία εντοπισμού τοποθεσίας έχει λήξει
+# Label for selecting a place
+geolocationSelectPlace=Επιλέξτε μία τοποθεσία
+# Label for picking a place from the list of favorite Places
+geolocationPickFromFavorites=Επιλέξτε από τη λίστα των αγαπημένων τοποθεσιών
+# Label for picking current Position
+geolocationGeolocate=Επιλέξτε την τρέχουσα τοποθεσία σας
+# Label for using Nominatim Service
+geolocationNominatim=Χρησιμοποιήστε την προτεινόμενη υπηρεσία για να επιλέξετε μία τοποθεσία
+# longitude
+geolocationLongitude=Γεωγραφικό Μήκος
+# latitude
+geolocationLatitude=Γεωγραφικό Πλάτος
+
+
+
+#
+# Generic Form terms (accept/submit/clear)
+#
+#
+formAccept=Αποδοχή
+formSubmit=Υποβολή
+formClear=Εκκαθάριση
+formEdit=Επεξεργασία
+formSave=Αποθήκευση
+formDisplay=Εμφάνιση
+formSearch=Αναζήτηση
+formApply=Εφαρμογή
+#
+# generic labels for CRUD Operations
+#
+formCreate=Δημιουργία
+formUpdate=Ανανέωση
+formCancel=Ακύρωση
+formDelete=Διαγραφή
+
+#
+# Labels for customer profiles and preferences
+#
+# Password
+custPassword=Password 
+# Nickname 
+custNickname=Username / Nickname 
+# First Name
+custFirstname=Όνομα
+# Last Name
+custLastname=Επίθετο
+# Date of Birth
+custDateofbirth=Ημερομηνία Γέννησης 
+#
+# Gender
+#
+custGender=Φύλο
+custGenderMale=Άνδρας
+custGenderFemale=Γυναίκα
+custGenderOther=Άλλό ή δεν επιθυμώ να το πω
+#
+# Email
+custEmail=Διεύθυνση ηλεκτρονικού ταχυδρομείου(e-mail) 
+custShowEmail=Να εμφανίζεται το e-mail μου στους άλλους χρήστες
+# mobile phone
+custMobilephoneno=Κινητό
+custShowMobilephoneno=Να εμφανίζεται το κινητό μου στους άλλους χρήστες
+#
+# fixed phone number (?found in OR Code, possibly landline?)
+custFixedphoneno=Σταθερό τηλέφωνο
+# Street and Number in customer's Address
+custAddrStreet=Οδός και αριθμός
+# Zipcode in Cust Address
+custAddrZipcode=Ταχυδρομικός Κώδικας
+# City in customer's Address
+custAddrCity=Πόλη
+# wether customer is smoker
+custIssmoker=Κάπνισμα
+# date when customer got his license
+custLicensedate=Άδεια οδήγησης από το:
+# language preferences
+custPreferredLanguage=Επιθυμητή γλώσσα
+#
+# Smoker / Nonsmoker Marks for rider and driver preferences
+#
+#
+custSmoker=Καπνιστής
+custSmokeInCar=Επιτρέπεται το κάπνισμα στο/α αυτοκίνητό/ά μου
+custNonSmoker=Μη καπνιστής
+custNonSmokeInCar=Δεν επιτρέπεται το κάπνισμα στο/α αυτοκίνητό/ά μου
+custSmokeAcceptSmokingDriver=Αποδέχομαι διαδρομές στις οποίες επιτρέπεται το κάπνισμα
+custSmokeNotAcceptSmokingDriver=Δεν αποδέχομαι διαδρομές στις οποίες επιτρέπεται το κάπνισμα
+#
+# Rider Preferences
+#
+custRiderprefAge=Επιθυμητή ηλικία του επιβάτη
+custRiderprefGender=Επιθυμητό φύλο του επιβάτη
+custRiderprefSmoker=Θα αποδέχεστε αιτήματα με οδηγούς που καπνίζουν;
+#
+# Driver Preferences
+#
+custDriverprefAge=Επιθυμητή ηλικία του οδηγού
+custDriverprefGender=Επιθυμητό φύλο του οδηγού
+custDriverprefSmoker=Επιτρέπεται το κάπνισμα στο αυτοκίνητό σας;
+#
+#  Labels for removing an account 
+#
+custRemoveAccountLabel=Διαγραφή του λογαριασμού σας
+custRemoveAccountQuestion=Είστε σίγουρος/η οτι θέλετε να διαγράψετε τον λογαριασμό σας;\n \
+Aυτό το βήμα είναι μη αναστρέψιμο!
+custRemoveAccountApprove=Ναι, διαγράψτε τον λογαριασμό μου!
+custRemoveAccountDissaprove=Όχι, μην διαγράψετε τον λογαριασμό μου!
+#
+#
+#
+# Labels for cardetail stuff
+#
+cardetails=Λεπτομέρειες του αυτοκινήτου
+cardetBrandLabel=Μάρκα/ Τύπος
+cardetColorLabel=Χρώμα
+cardetBuildyearLabel=Έτος κατασκευής
+cardetLicenseplateLabel=Πινακίδες αυτοκινήτου
+#
+# Add a car to the list
+#
+cardetAddCar=Προσθήκη του αυτοκινήτου στη λίστα
+#
+# Stuff for managing favorite Points
+#
+#
+# Add a favorite point to the personal list
+#
+favpointAddPoint=Προσθέστε αγαπημένες τοποθεσίες στη λίστα
+favpointCreate=Νέα αγαπημένη τοποθεσία
+#
+favptDisplayname=Εμφάνιση ονόματος
+favptAddress=Διεύθυνση
+favptAddressExplanation=(Οδός/Αριθμός, Πόλη, Χώρα)
+favptPoint=Συντεταγμένες( γεωγραφικό μήκος/πλάτος)
+# 
+# pick place from list of favorite places
+favptPointPickFromFavorites=Επιλέξτε μία τοποθεσία από τις αγαπημένες σας τοποθεσίες
+#
+# generic webflow messages
+#
+next=Επόμενη
+back=Προηγούμενη  
+cancel=Ακύρωση
+finish=Τέλος
+#
+#
+# Messages connected with rides and drives
+#
+driversSection=Περιοχή του οδηγού
+ridersSection=Περιοχή του συνεπιβάτη
+rideSearchDrives=Αναζήτηση στις προσφορές και στις αξιολογήσεις
+rideNewDrive=Προσφορά νέας διαδρομής
+rideCreateNewOffer=Δημιουργία νέας διαδρομής
+rideEditRoute=Επεξεργασία της διαδρομής για αυτό το ταξίδι
+rideSearchRequests=Αναζήτηση στα αιτήματα
+rideNewRequest=Νέο αίτημα διαδρομής
+rideNewOffer=Νέα προσφορά
+rideCreateNewRequest=Δημιουργία νέου αιτήματος διαδρομής
+rideDisplayRequest=Εμφάνιση λεπτομερειών για το αίτημα
+rideDisplayOffer=Εμφάνιση λεπτομερειών για την προσφορά
+rideOverview=Επισκόπηση
+ridefrom=Από
+rideto=Προς
+ridePlacesAndTimes=Τοποθεσίες και Ώρες
+rideStarttime=Ώρα Έναρξης
+rideStart=Έναρξη
+rideStartptAddress=Διεύθυνση σημείου έναρξης
+rideDestination=Προορισμός
+rideDestinationAddress=Διεύθυνση Προορισμού
+rideAcceptableDetourInKm=Αποδεκτή απόκλιση σε χιλιόμετρα
+rideOfferedseatsNo=Αριθμός διαθέσιμων θέσεων
+rideSeriesId=Κωδικός Διαδρομής
+rideOffer=Προσφορά Διαδρομής
+rideRequest=Ζήτηση Διαδρομής
+rideStarttimeEarliest=Η νωρίτερη ώρα έναρξης είναι:
+rideStarttimeLatest=H αργότερη ώρα έναρξης είναι:
+rideNoPassengers=Aριθμός επιβατών
+ridePrice=Προτεινόμενη τιμή 
+rideComment=Σχόλια και Μηνύματα
+rideBooking=Αντιστοιχίες και Κρατήσεις
+rideActiveRequests=Ενεργά Αιτήματα
+rideActiveOffers=Ενεργές Προσφορές
+#
+# Matchings
+#             
+rideMatchingOffers=Προσφορές που ταιριάζουν
+rideMatchingRequests=Αιτήματα που ταιριάζουν
+rideMatchingShowAcceptedRequests=Εμφάνιση αιτημάτων που έχουν γίνει αποδεκτά
+rideNoMatchingOffers=Αριθμός προσφορών που ταιριάζουν 
+rideNoMatchingRequests=Αριθμός αιτημάτων που ταιριάζουν
+rideTimestampbooked=Κράτηση στις: 
+rideTimestamprealized=Έγινε αντιληπτό στις:
+rideMatchesShowOffers=Εμφάνιση προσφορών που ταιριάζουν
+rideMatchesShowRequests=Εμφάνιση αιτημάτων που ταιριάζουν
+rideShowRidesInThisInterval=Εμφάνιση των διαδρομών μου σε αυτή τη χρονική περίοδο
+rideCannotBeCountermandedBecauseOfMatch=Έχετε ήδη συμφωνήσει να σας πάρουν μαζί τους και θα πρέπει να ακυρώσετε αυτή τη συμφωνία πριν ακυρώσετε το αίτημά σας!
+rideClickHereToCountermand=Παρακαλούμε, ακυρώστε μία συμφωνία μόνο εάν υπάρχει σημαντικός λόγος. Εάν πρέπει πραγματικά να την ακυρώσετε, παρακαλούμε χρησιμοποιήστε το πεδίο μηνυμάτων που βρίσκεται παρακάτω  για να εξηγήσετε τους λόγους στον οδηγό.
+rideSetCountermandMessage=Το μήνυμά σας προς τον οδηγό:
+rideCountermand=Ακύρωση της συμφωνίας από τον συνεπιβάτη
+driveCountermand=Ακύρωση της συμφωνίας από τον οδηγό
+driveClickHereToCountermand=Παρακαλούμε, ακυρώστε μια συμφωνία μόνο εάν υπάρχει σημαντικός λόγος. Εάν πρέπει πραγματικά να την ακυρώσετε, παρακαλούμε χρησιμοποιήστε το πεδίο μηνυμάτων που βρίσκεται παρακάτω  για να εξηγήσετε τους λόγους στον συνεπιβάτη.
+driveSetCountermandMessage=Το μήνυμά σας προς τον συνεπιβάτη:
+driveCannotBeCountermandedBecauseOfMatch=Έχετε ήδη επιβεβαιώσει κάποια αιτήματα συνεπιβατισμού και θα πρέπει να ακυρώσετε αυτές τις συμφωνίες πριν ακυρώσετε ολοκληρωτικά αυτό το ταξίδι.
+#
+# filters for rides
+#
+rideListAllRequests=Όλα τα αιτήματα
+rideListNoRequestCurrently=Προς το παρόν, δεν έχετε κάποια αιτήματα.
+rideListNewRequests=Νέα αιτήματα
+rideListUpdatedRequests=Αιτήματα που ανανεώθηκαν
+rideListRiderAcceptedRequests=Ζητήθηκαν από εμένα
+rideListDriverAcceptedOffers=Προσφέρθηκαν από τον οδηγό
+rideListBothAcceptedOffers=Επιβεβαιωμένες κρατήσεις
+rideListRiderRejectedRequests=Απορρίφθηκαν από εμένα
+rideListDriverRejectedOffers=Απορρίφθηκαν από τον οδηγό
+rideListBothRejectedOffers=Απορρίφθηκαν από εμένα και από τον οδηγό
+rideListRiderCountermandedRequests=Ακυρώθηκαν από εμένα
+rideListDriverCountermandedOffers=Ακυρώθηκαν από τον οδηγό
+rideListBothCountermandedOffers=Ακυρώθηκαν από εμένα και από τον οδηγό
+rideListUnavaillableRides=Μη διαθέσιμα αιτήματα πια 
+rideListUnclearRides=Αιτήματα σε ασαφή κατάσταση
+#
+# Ratings with Respect to Trip
+#
+rideRatings=Αξιολογήσεις γι’αυτό το ταξίδι
+rideGivenRating=Αξιολογήσεις του συνεπιβάτη
+rideGivenRatingComment=Σχόλια για τον συνεπιβάτη
+rideGivenRatingDate=Ημερομηνία αξιολόγησης του συνεπιβάτη
+rideNoGivenRating=Δεν αξιολογήθηκε από συνεπιβάτες ακόμη  
+rideReceivedRating=Αξιολόγηση του οδηγού
+rideReceivedRatingComment=Σχόλια για τον οδηγό
+rideReceivedRatingDate=Ημερομηνία αξιολόγησης του οδηγού
+rideNoReceivedRating=Δεν αξιολογήθηκε από τον οδηγό ακόμη
+rideRateThisRide=Αξιολογήστε αυτή τη διαδρομή
+#
+#
+#
+rideRemoveThisRequest=Ακυρώστε αυτό το αίτημα
+rideRemoveThisOffer=Ακυρώστε αυτή την προσφορά
+#
+#
+# matches
+#
+matchExpectedPickupTime=Αναμενόμενη ώρα συνάντησης
+matchDriversName=Όνομα του οδηγού
+matchOffer=Προσφορά
+matchMatchingDriveShowDetails=Εμφάνιση λεπτομερειών γι’αυτή την προσφορά
+matchMatchingDriveAcceptOrReject=Αποδοχή ή απόρριψη αυτής της προσφοράς
+matchRequest=Ζήτηση
+matchMatchingRideShowDetails=Εμφάνιση λεπτομερειών αυτού του αιτήματος
+matchMatchingRideAcceptOrReject=Αποδοχή ή απόρριψη αυτού του αιτήματος
+matchDriveID=Κωδικός του αιτήματος που ταιριάζει
+matchRiderName=Όνομα του αιτούντος
+matchRideId=Κωδικός της προσφοράς που ταιριάζει
+matchRiderrouteId=Κωδικός του αιτήματος που ταιριάζει
+matchDriversNickname=Ψευδώνυμο οδηγού
+matchRidersNickname=Ψευδώνυμο συνεπιβάτη
+matchDriversGender=Φύλο οδηγού
+matchRidersGender=Φύλο συνεπιβάτη
+matchDriverLicenseSince=Ο οδηγός έχει άδεια οδήγησης από το
+matchDriverIsSmoker=Το κάπνισμα σε αυτό το αυτοκίνητο επιτρέπεται
+matchAcceptRequestedRide=Αποδοχή αιτήματος διαδρομής
+matchRejectRequestedRide=Απόρριψη αιτήματος διαδρομής
+matchAcceptOfferedRide=Αποδοχή της προσφερόμενης διαδρομής
+matchRejectOfferedRide=Απόρριψη της προσφερόμενης διαδρομής
+matchMatchingOffersForRequest=Διαδρομές που ταιριάζουν προς ζήτηση
+matchMatchingRequestsForOffer=Προσφορές που ταιριάζουν προς ζήτηση
+matchAcceptedRequestsForOffer=Αποδεκτά αιτήματα για αυτή την προσφορά
+matchFrom=Συνάντηση με τον συνεπιβάτη
+matchTo=Αφήνω τον επιβάτη
+#
+# Rider State Messages
+#
+matchRiderState=Κατάσταση της προσφοράς
+matchRiderStateNoRiderRequest=Δεν υπάρχουν κρατήσεις ακόμη
+matchRiderStateACCEPTED=Ο συνεπιβάτης αποδέχτηκε αυτή την προσφορά
+matchRiderStateRIDER_COUNTERMANDED=Ο συνεπιβάτης ακύρωσε αυτό το αίτημα
+matchRiderStateDRIVER_COUNTERMANDED=Ο οδηγός ακύρωσε αυτό το αίτημα
+matchRiderStateNOT_ADAPTED=Ο συνεπιβάτης δεν αποδέχτηκε ακόμη την προσφορά
+matchRiderStateNO_MORE_AVAILLABLE=Η προσφορά δεν είναι πια διαθέσιμη
+matchRiderStateREJECTED=Ο συνεπιβάτης απέρριψε αυτή την προσφορά
+#
+# driver State Messages
+#
+matchDriverState=Κατάσταση αυτού του αιτήματος   
+matchDriverStateNoDriverOffer=Καμία προσφορά ακόμη
+matchDriverStateACCEPTED=Ο οδηγός αποδέχτηκε το αίτημα
+matchDriverStateRIDER_COUNTERMANDED=Ο συνεπιβάτης ακύρωσε αυτή την προσφορά
+matchDriverStateDRIVER_COUNTERMANDED=Ο οδηγός ακύρωσε αυτή την προσφορά
+matchDriverStateRIDER_COUNTERMANDED=Ο συνεπιβάτης ακύρωσε αυτή την προσφορά
+matchDriverStateNOT_ADAPTED=Ο οδηγός δεν αποδέχτηκε ακόμη το αίτημα
+matchDriverStateNO_MORE_AVAILLABLE=Το αίτημα δεν είναι πλέον διαθέσιμο
+matchDriverStateREJECTED=Η προσφορά απορρίφθηκε από τον συνεπιβάτη
+matchMatchingDrive=Διαδρομή που ταιριάζει
+#
+# sending messages to rider and driver
+matchSetDriverMessage=Στείλτε μήνυμα στον συνεπιβάτη
+matchSetRiderMessage=Στείλτε μήνυμα στον οδηγό
+matchYourMessageToDriver=Το μήνυμά σας προς τον οδηγό
+matchYourMessageToRider=Το μήνυμά σας προς τον συνεπιβάτη
+#
+# messages related to updates
+#
+# Mark Drives/Rides that had been updated:
+#
+updates=Ενημερώσεις
+updatedDrive=Αυτή η προσφορά ενημερώθηκε πρόσφατα!
+updatedRide=Αυτό το αίτημα ενημερώθηκε πρόσφατα!
+updatedRideShort=(ενημερωμένο)
+updates_updateNotification=Υπάρχουν ενημερώσεις!
+updates_updateNotificationOK=Εντάξει
+updates_updateNotificationOKTooltip=Κάντε κλικ εδώ για να σταματήσετε τις ειδοποιήσεις για τις τρέχουσες ενημερώσεις
+#
+# Title for the page showing updates
+# Parameter is the timestamp as of when the 
+# updates are counted 
+#
+updatesUpdatePageTitle=Ενημερώσεις
+#
+# update Interval message (0 is length of update interval in  secs)
+updatesIntervalLength=Oι ενημερώσεις θα καταγράφονται κάθε {0} δευτερόλεπτα.
+#
+# Messages to be displayed from update alert services:
+#
+# please note, that these messages get smuggled into javascript code,
+# so when translating, please keep them wrapped in quotes "'" and 
+# also keep the semicolon ";" at the end.
+#
+#
+updateUpdatedDrivesMessage=Ενημερωμένες πορείες
+updateUpdatedRidesMessage=Ενημερωμένες διαδρομές
+#
+updateRideUpdateMessage=Υπάρχουν αιτήματα που ενημερώθηκαν!
+updateRideNoUpdateMessage=Δεν υπάρχουν προς το παρόν ενημερώσεις για τα αιτήματά σας.
+updateDriveUpdateMessage=Υπάρχουν προσφορές που ενημερώθηκαν!
+updateDriveNoUpdateMessage=Δεν υπάρχουν προς το παρόν ενημερώσεις για τις προσφορές σας.
+
+#
+#
+# Messages related to sending emails
+#
+mailSuccess=Το μήνυμά σας έχει αποσταλεί.
+mailFailure=Η αποστολή του μηνύματός σας απέτυχε.
+mailRecipientInvalid=Ο παραλήπτης δεν είναι έγκυρος.
+mailEmailAddressInvalid=Η διεύθυνση ηλεκτρονικού ταχυδρομείου (e-mail) δεν είναι εγκυρη.
+#
+#
+# messages related to contact page and contact form
+#
+contact=Επικοινωνία
+contactSendEmail=Στείλτε μας ένα μήνυμα
+#
+#
+# messages related to imprint
+#
+imprint=Εκτύπωση
+#
+# messges reltated to Terms and Conditions
+#
+terms=Όροι και Προϋποθέσεις
+#
+#
+#
+# messages from registration process
+#
+registrationSubmit=Δημιουργία Λογαριασμού
+#
+# Header for registration Page
+#
+registrationRegisterNewAccount=Δημιουργία νέου λογαριασμού
+#
+registrationAcceptTerms=Αποδέχομαι τους όρους και τις προϋποθέσεις για αυτή την εφαρμογή
+registrationAcceptTermsError=Για να χρησιμοποιήσετε αυτή την εφαρμογή, πρέπει πρώτα να αποδεχτείτε τους όρους και τις προϋποθέσεις. 
+registrationGivenNameMissingError=Δεν δόθηκε όνομα
+registrationSurnameMissingError=Δεν δόθηκε επίθετο
+registrationEmailInvalid=Η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη
+registrationEmailExist=Υπάρχει ήδη λογαριασμός με αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου. \
+\n Μήπως προτιμάτε να επαναφέρετε αυτό τον λογαριασμό \
+\n αντί να δημιουργήσετε έναν καινούριο λογαριασμό.
+registrationNicknameExist=Αυτό το username υπάρχει ήδη. \
+\nΠαρακαλούμε, επιλέξτε ένα διαφορετικό username.
+registrationNicknameMissingError=Δεν δόθηκε Username.
+registrationNicknameInvalidError=Παρακαλούμε, επιλέξτε ένα διαφορετικό username. \n\
+To username σας πρέπει να ξεκινά με έναν χαρακτήρα και να περιέχει τουλάχιστον 4 χαρακτήρες\ 
+και το πολύ 12 αλφαριθμητικούς χαρακτήρες.
+registrationErrorWhilePersisting=Άγνωστο σφάλμα κατά την εισαγωγή των δεδομένων εγγραφής
+#
+# Registration confirmation message
+#
+registrationSuccess=Η εγγραφή σας ήταν επιτυχής.
+#
+#
+registrationConfirmationMessage=Σας ευχαριστούμε για την εγγραφή σας! \
+\n Σας έχει σταλεί e-mail με τoυς κωδικούς σας\ 
+\n στην παρακάτω ηλεκτρονική διεύθυνση:
+#
+#
+registrationMailSubject=Η εγγραφή σας στο OpenRideShare
+registrationMailText=Οι κωδικοί σας:
+registrationMailPasswordHint=Παρακαλούμε, αλλάξτε το password το συντομότερο δυνατόν.
+#
+#
+# Messages used around the "resetPassword" usecase
+# 
+resetPassword=Ανακτήστε το χαμένο σας password
+resetPasswortNoSuchAccountError=Δεν βρέθηκε λογαριασμός για αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου
+resetPasswordSuccess=Το password σας ανακτήθηκε
+resetPasswordConfirmationMessage=Το password σας ανακτήθηκε επιτυχώς.\n\
+Το νέο σας password εστάλη στην ακόλουθη ηλετρονική διεύθυνση: 
+resetPasswordSubmit=Eπαναφορά
+#
+# messages inside password reset confirmation mail
+#
+passwordResetMailSubject=Μήνυμα από τον λογαριασμό σας στο OpenRideShare
+paswordResetMailText=Kάποιος, πιθανόν εσείς, έχει ζητήσει επαναφορά του password.\n\
+Tα νέα σας διαπιστευτήριά παρατίθενται παρακάτω:     
+#
+#
+# changePassword usecase
+#
+#
+changePassword=Aλλαγή του password
+changePasswordPasswordLabel=Εισάγετε το νέο password.
+changePasswordVerificationLabel=Εισάγετε ξανά το νέο password για επαλήθευση.
+#
+changePasswordConfirmationHeader=Το password έχει αλλάξει.
+changePasswordConfirmationMessage=Το password σας έχει αλλάξει επιτυχώς.
+#
+#
+#
+# Labels for displaying time Intervals
+#
+timeintervalStart=Από την ημερομηνία
+timeintervalEnd=Στην ημερομηνία
+#
+# label for toplevel search submenu
+#
+searchSubMenu=Αναζήτηση
+#
+#
+# Sending messages/Contact Form
+#
+messageSubject=Θέμα του μηνύματός σας
+messageContent=Το μήνυμά σας 
+#
+#
+# public profile of the calling user
+#
+publicProfileMyProfile=Τα δεδομένα σας που είναι ορατά στους άλλους χρήστες:
+#
+#
+#
+publicProfileSearchProfile=Αναζήτηση χρήστη
+publicProfileDoesNotExist=Αυτός ο χρήστης δεν υπάρχει.
+#
+#
+#
+# Ratings with Respect to single person/customer
+#
+ratings=Αξιολογήσεις
+ratingsShowUnrated=Εμφάνιση μη αξιολογημένων διαδρομών
+# Driver ratings...
+ratingsDriverRatings=Αξιολογήσεις για τον {0} ως οδηγό
+ratingsDriverRatingsAvg=Μέσος όρος αξιολόγησης ως οδηγό
+ratingsNoDriverRatingsYet=Καμία αξιολόγηση ως οδηγό ακόμη
+ratingsNotDriverRatedYet=Καμία αξιολόγηση από τον οδηγό ακόμη
+ratingsNumberOfDriverRatings=Αριθμός αξιολογήσεων ως οδηγό
+ratingsViewDriverRatings=Εμφάνιση αξιολογήσεων του {0} ως οδηγό  
+# Rider ratings...
+ratingsRiderRatings=Αξιολογήσεις του {0} ως συνεπιβάτη
+ratingsRiderRatingsAvg=Μέσος όρος αξιολογήσεων ως συνεπιβάτη 
+ratingsNoRiderRatingsYet=Καμία αξιολόγηση ως σνεπιβάτη ακόμη
+ratingsNotRiderRatedYet=Καμία αξιολόγηση από τον συνεπιβάτη ακόμη
+ratingsNumberOfRiderRatings=Αριθμός αξιολογήσεων ως συνεπιβάτη
+ratingsViewRiderRatings=Εμφάνιση αξιολογήσεων του {0} ως συνεπιβάτη
+#
+# rating phrase: userX rated userY on 1.2.2012
+#
+ratingsRatingPhrase=Ο {0} αξιολόγησε τον {1} στο {2}
+ratingsNotRatedByUserYet=Δεν αξιολογήθηκε από τον {0} ακόμη
+#
+#
+ratingsNumberOfUnratedRidesForDriver=Υπάρχουν μη αξιολογημένες διαδρομές ({0}) για τον οδηγό
+ratingsNumberOfUnratedRidesForRider=Υπάρχουν μη αξιολογημένες διαδρομές ({0}) για τον συνεπιβάτη 
+# waypoints
+#
+waypoint=Στάση
+waypoints=Στάσεις
+waypointAddWaypoint=Προσθήκη στάσης
+waypointAddWaypointAtPosition=Προσθήκη νέας στάσης σε αυτή την τοποθεσία
+waypointCreateWaypoint=Δημιουργία νέας στάσης
+waypointRemoveWaypoint=Αφαίρεση στάσης
+waypointDescription=Περιγραφή
+waypointEditRoute=Προσθήκη/Αφαίρεση στάσεων
+waypointAddWaypoints=Προσθήκη στάσεων στη διαδρομή
+#
+#
+# labels to be displayed in search mask
+#
+RIDEREPORT_ALL_RIDES_FOR_DRIVER=Οδηγός:Όλες οι διαδρομές
+RIDEREPORT_UNRATED_RIDES_FOR_DRIVER=Οδηγός: Oι μη αξιολογημένες διαδρομές
+RIDEREPORT_ALL_RIDES_FOR_RIDER=Συνεπιβάτης: Όλες οι διαδρομές
+RIDEREPORT_REALIZED_RIDES_FOR_RIDER=Συνεπιβάτης: Πραγματοποιημένες διαδρομές
+RIDEREPORT_UNRATED_RIDES_FOR_RIDER=Συνεπιβάτης: μη αξιολογημένες διαδρομές
+#
+#
+# toggle showing/hiding maps
+mapsShowMaps=Εμφάνιση στον χάρτη
+mapsHideMaps=Απόκρυψη χαρτών
+#
+# messaging items
+#
+msg_messages=Μηνύματα
+msg_unread=Μη αναγνωσμένα μηνύματα
+msg_message=Μήνυμα
+msg_From=Από
+msg_To=Προς
+msg_sent=Απεσταλμένο
+#
+# nicely formatted message showing "from sender" or "to recipient"
+#
+msg_read=Αναγνωσμένο
+msg_unread=Μη αναγνωσμένα μηνύματα
+msg_hasUnread=Έχετε μη αναγνωσμένα μηνύματα!
+msg_all=Όλα τα μηνυματά μου
+msg_ToFormat=Προς: {0} 
+msg_FromFormat=Από {0} 
+msg_sentFormat=Στάλθηκε: {0} 
+msg_systemMessageLabel=Μήνυμα του συστήματος
+msg_receivedFormat=Παραλήφθηκε : {0}
+msg_showConservation=Εμφάνιση αιτήματος
+msg_markRead=Σημείωση ως ΄΄αναγνωσμένο΄΄
+msg_showMessagesForOffer=Μηνύματα σχετικά με αυτή την προσφορά
+msg_showMessagesForRequest=Μηνύματα σχετικά με αυτό το αίτημα
+msg_searchFromTo=Μηνύματα ανάμεσα στην ημερομηνία έναρξης και την ημερομηνία λήξης 
+msg_fromTo=Μήνυμα από τον {0} στον {1}
+#
+# Subject for message from driver/Rider
+#
+msg_riderMessageSubject=Μήνυμα από τον Συνεπιβάτη
+msg_driverMessageSubject=Μήνυμα από τον Οδηγό
+#
+#
+# Match Limits
+#
+limits_label=Όρια
+limits_matchLimit=Ρύθμιση του αριθμού των αντιστοιχίσεων που παρουσιάζονται
+limits_message=Ρυθμίστε τον αριθμό των αντιστοιχίσεων προσφοράς/ζήτησης που θα σας παρουσιάζονται.\n Μπορείτε να επιλέξετε ένα αριθμό από 1 μέχρι {0} 
