@@ -1,4 +1,4 @@
-/*
+/**
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -82,6 +82,7 @@ public class NominatimJSONPQuery  implements Serializable {
      *
      */
     protected static final String PARAM_VALUE_addressdetails = "0";
+    
     /** Value  for the "polygon" parameter.
      *  Wether to return a polygon for boundary or not
      *  We alway chose 0 here, because we cannot process polygons anyway.
@@ -91,6 +92,60 @@ public class NominatimJSONPQuery  implements Serializable {
      *
      */
     protected static final String PARAM_VALUE_polygon = "0";
+    
+    
+    
+    /** Name of the limit http parameter.
+     *
+     */
+    protected static final String PARAM_NAME_limit = "limit";
+    
+    
+    
+    
+    
+    /** Property telling which counrty to search
+     */
+    protected String country=null;
+    
+    public String getCountry(){
+    	return this.country;
+    }
+    
+    public void setCountry(String arg){
+    	this.country=arg;
+    }
+    
+    
+    
+    /** Property telling which state (in a federal system) to search
+     */
+    protected String state=null;
+    
+    public String getState(){
+    	return this.state;
+    }
+    
+    public void setState(String arg){
+    	this.state=arg;
+    }
+    
+    
+    
+    /** Property telling which county to search
+     */
+    protected String county=null;
+    
+    public String getCounty(){
+    	return this.county;
+    }
+    
+    public void setCounty(String arg){
+    	this.county=arg;
+    }
+    
+    
+    
     /** Property telling which City to search for.
      *  Note, that we can use either
      *  street and number,   or  poiName.
@@ -113,28 +168,65 @@ public class NominatimJSONPQuery  implements Serializable {
     }
     
     
-
-    /** Property telling which POI to search for.
+    /** Property telling which Neighborhood(s) to search for.
      *  Note, that we can use either
-     *  street and number,   or  poiName.
-     *  If poiName is given, then this takes precedence over street/and number
+     *  street and number...,   or  freetext search.
+     *  If freetextsearch is given, then this takes precedence over street/and number
      *
      */
-    protected String poi = null;
+    protected String neigborhoods = null;
+       
+    public String getNeigborhoods() {
+		return neigborhoods;
+	}
+
+	public void setNeigborhoods(String neigborhoods) {
+		this.neigborhoods = neigborhoods;
+	}
+
+
+
+	/** Property telling which place to search for in "freeSearch" style.
+     *  Note, that we can use either
+     *  city/street/number,   or  freeSearch.
+     *  If poiName is given, then this takes precedence over city/street/and number
+     *
+     */
+    protected String freeTextSearch = null;
     
     /** Trivial Getter
      */
-    public String getPoi(){ 
-        return this.poi; 
+    public String getFreeTextSearch(){ 
+        return this.freeTextSearch; 
     }
     
      /** Trivial Setter
      */
-    public  void setPoi(String arg){ 
-        this.poi=arg;
+    public  void setFreeTextSearch(String arg){ 
+        this.freeTextSearch=arg;
+    }
+    
+    
+    /** Default for the limit parameter
+     * 
+     */
+    public static final Integer LIMIT_DEFAULT=10;
+    
+    protected int limit=LIMIT_DEFAULT;
+    
+    public int getLimit(){
+    	return this.limit;
     }
    
-    
+    /** Nontrivial setter
+     * 	
+     * Sets limit to maximum of 1 and arg.
+     * 
+     * @param arg
+     */
+    public void setLimit(int arg){
+    	this.limit=Math.max(arg, 1);
+    }
     
     
     
@@ -174,14 +266,27 @@ public class NominatimJSONPQuery  implements Serializable {
         this.street=arg;
     }
 
-  
+    
+    /** Property telling which Streetnumber to search for.
+     *  Note, that we can use either
+     *  street and number or  poiName.
+     *  If poiName is given, then this takes precedence over street/and number
+     *
+     */
+    protected String streetNumber = null;
+    
+       /** Trivial Getter
+     */
+    public String getStreetNumber(){ 
+        return this.streetNumber; 
+    }
+    
+     /** Trivial Setter
+     */
+    public  void setStreetNumber(String arg){ 
+        this.streetNumber=arg;
+    }
 
-    
-   
-   
-    
-    
-    
     
     /**
      * Standard Value for the "format" parameter. Format parameter defines the
@@ -239,17 +344,55 @@ public class NominatimJSONPQuery  implements Serializable {
 
         String res = this.PARAM_NAME_q + "=";
 
-        if (this.getPoi() != null && !("".equals(this.getPoi().trim()))) {
-            res += this.getPoi();
+        
+        // if freeform search is used, then structured search is turned of
+        if (this.getFreeTextSearch() != null && !("".equals(this.getFreeTextSearch().trim()))) {
+            String freeText = this.getFreeTextSearch();
+            freeText.replace('\n', ',');
+            return res+freeText;
+        }
+    
+        
+        
+        
+        
+        // else, for structured search, use country/city/street/number...
+        
+        if (this.getCountry() != null && !("".equals(this.getCountry()))) {
+            res += "," + this.getCountry();
+        }
+        
+        // else, for structured search, use country/state/county/city/neighborhood/street/number...
+        
+        if (this.getState() != null && !("".equals(this.getState()))) {
+            res += "," + this.getState();
+        }
+        
+        
+        if (this.getCounty() != null && !("".equals(this.getCounty()))) {
+            res += "," + this.getCounty();
         }
 
+     
         if (this.getCity() != null && !("".equals(this.getCity()))) {
             res += "," + this.getCity();
         }
+        
+        if (this.getNeigborhoods() != null && !("".equals(this.getNeigborhoods()))) {
+            res += "," + this.getNeigborhoods();
+        }
+
 
         if (this.getStreet() != null && !("".equals(this.getStreet()))) {
             res += "," + this.getStreet();
         }
+        
+        if (this.getStreetNumber() != null && !("".equals(this.getStreetNumber()))) {
+            res += "," + this.getStreetNumber();
+        }
+        
+        
+        
 
         return res;
     }
@@ -269,11 +412,11 @@ public class NominatimJSONPQuery  implements Serializable {
 
 
         res += "?" + this.getQString();
-        res += "&" + PARAM_NAME_format + "=" + PARAM_VALUE_json;
-        res += "&" + PARAM_NAME_polygon + "=" + PARAM_VALUE_polygon;
+        res += "&" + PARAM_NAME_limit          + "=" + getLimit(); 
+        res += "&" + PARAM_NAME_format         + "=" + PARAM_VALUE_json;
+        res += "&" + PARAM_NAME_polygon        + "=" + PARAM_VALUE_polygon;
         res += "&" + PARAM_NAME_addressdetails + "=" + PARAM_VALUE_addressdetails;
         res += "&" + PARAM__NAME_json_callback + "=" + PARAM_VALUE_json_callback;
-
 
         return res;
 
