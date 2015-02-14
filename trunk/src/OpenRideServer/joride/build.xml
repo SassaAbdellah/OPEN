@@ -330,9 +330,12 @@
 
 	<!-- TARGET dist -->
 	<target name="dist" depends="build" description="create the distributables, but do not deploy">
-
 	</target>
-
+	
+	<!-- target i18n -->
+	<target name="i18n" depends="dist" description="create internationalisation tools">
+		
+	</target>
 
 
 	<!-- TARGET install -->
