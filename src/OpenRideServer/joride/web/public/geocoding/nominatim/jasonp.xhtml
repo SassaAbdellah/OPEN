@@ -47,11 +47,12 @@
             	
 				<p:accordionPanel activeIndex="#{nominatimq.activeIndex}" >
 				<!-- Search form for POI / unstructured search -->
-				<p:tab title="TODO: search for poi" >
+				<p:tab title="#{msgs.freetextSearchLabel}" titletip="#{msgs.freetextSearchDescription}">
 					<h:form>
-
+						#{msgs.freetextSearchDescription}
+			
 						<!-- label and input for poi  *********************************************** -->
-						<div class="formLabel">#{msgs.poilabel}</div>
+						<div class="formLabel">#{msgs.freetextSearchLabel}</div>
 						<div class="formInput">
 							<h:inputTextarea rows="5" value="#{nominatimq.freeTextSearch}" />
 						</div>
@@ -72,47 +73,46 @@
 
 
 
-				<p:tab title="TODO: structured search">
-				
+				<p:tab title="#{msgs.structuredSearchLabel}"   titletip="#{msgs.structuredSerchDescription}" >
 						<h:form>
+							#{msgs.structuredSearchDescription}
 							<!-- Search using unstructured search -->
 
 							<!-- label and input for country *********************************************** -->
-							<div class="formLabel">#{msgs.countrylabel}</div>
+							<div class="formLabel">#{msgs.countryLabel}</div>
 							<div class="formInput">
 								<h:inputText value="#{nominatimq.country}" />
 							</div>
 
 							<!-- label and input for state *********************************************** -->
-							<div class="formLabel">#{msgs.statelabel}</div>
+							<div class="formLabel">#{msgs.stateLabel}</div>
+							#{msgs.stateDescription}
 							<div class="formInput">
 								<h:inputText value="#{nominatimq.state}" />
 							</div>
 
-
-
-
 							<!-- label and input for county *********************************************** -->
-							<div class="formLabel">#{msgs.countylabel}</div>
+							<div class="formLabel">#{msgs.countyLabel}</div>
 							<div class="formInput">
 								<h:inputText value="#{nominatimq.county}" />
 							</div>
 
 
 							<!-- label and input for city  *********************************************** -->
-							<div class="formLabel">#{msgs.citylabel}</div>
+							<div class="formLabel">#{msgs.cityLabel}</div>
 							<div class="formInput">
 								<h:inputText value="#{nominatimq.city}" />
 							</div>
 
 							<!-- label and input for city  *********************************************** -->
 							<div class="formLabel">#{msgs.neighborhoodsLabel}</div>
+							#{msgs.neighborhoodsDescription}
 							<div class="formInput">
 								<h:inputTextarea rows="3" value="#{nominatimq.neigborhoods}" />
 							</div>
 
 							<!-- label and input for street  *********************************************** -->
-							<div class="formLabel">#{msgs.streetlabel}</div>
+							<div class="formLabel">#{msgs.streetLabel}</div>
 							<div class="formInput">
 								<h:inputText value="#{nominatimq.street}" />
 							</div>
@@ -134,7 +134,7 @@
 									actionListener="#{nominatimq.switchStructuredMode}" />
 							</div>
 						</h:form>
-
+						
 					</p:tab>
 			</p:accordionPanel>
 
