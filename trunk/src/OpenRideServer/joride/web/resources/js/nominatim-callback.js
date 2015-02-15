@@ -45,7 +45,6 @@
      var numberOfResults=response.length;
     
    // make a nice header 
-   $('#geosearch_out').append('serial: 13');
    
    $('#geosearch_out').append('\<h3\>'+geocodeResultHeader+' '+numberOfResults+'\<\/h3\>');   
    
