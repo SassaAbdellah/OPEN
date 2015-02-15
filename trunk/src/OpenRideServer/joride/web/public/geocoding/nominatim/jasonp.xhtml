@@ -45,7 +45,7 @@
                 
                 
             	
-				<p:accordionPanel activeIndex="-1" >
+				<p:accordionPanel activeIndex="#{nominatimq.activeIndex}" >
 				<!-- Search form for POI / unstructured search -->
 				<p:tab title="TODO: search for poi" >
 					<h:form>
@@ -64,7 +64,7 @@
 						<!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
 						<div class="submitbutton">
 							<h:commandButton value="#{msgs.searchlabel}"
-								actionListener="#{nominatimq.blankStructuredSearch}" />
+								actionListener="#{nominatimq.switchFreetextMode}" />
 						</div>
 
 					</h:form>
@@ -131,7 +131,7 @@
 							<!-- we use non JSF html button for submit to eval JSF Navigation Cases *********** -->
 							<div class="submitbutton">
 								<h:commandButton value="#{msgs.searchlabel}"
-									actionListener="#{nominatimq.blankFreetextSearch}" />
+									actionListener="#{nominatimq.switchStructuredMode}" />
 							</div>
 						</h:form>
 
