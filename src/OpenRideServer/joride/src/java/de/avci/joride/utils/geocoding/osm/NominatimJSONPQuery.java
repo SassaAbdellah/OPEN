@@ -346,15 +346,13 @@ public class NominatimJSONPQuery  implements Serializable {
 
         
         // if freeform search is used, then structured search is turned of
-        if (this.getFreeTextSearch() != null && !("".equals(this.getFreeTextSearch().trim()))) {
+        if (this.getFreetextMode()) {
             String freeText = this.getFreeTextSearch();
             freeText.replace('\n', ',');
             return res+freeText;
         }
     
-        
-        
-        
+       
         
         // else, for structured search, use country/city/street/number...
         
@@ -395,6 +393,30 @@ public class NominatimJSONPQuery  implements Serializable {
     }
     
     
+    /** Active index determinig which panel of accordion should be shown in frontend
+     */
+    public int getActiveIndex(){
+    	
+    	// open up first panel if we are in freetext mode
+    	if(this.getFreetextMode()) {
+    		return 0;
+    	}
+    	
+    	// open up second panel if we are in structured mode
+    	if(this.getStructuredMode()) {
+    		return 1;
+    	}
+    	
+    	return -1;
+    }
+    
+    /** Dummy, simulates a writable property for JSF, but doesn't do anything
+     * 
+     */
+    public void setActiveIndex(int arg){}
+    
+    
+    
     /** Flag signifying that user triggered structured search.
      *  This may govern visibility of the structured search fields in 
      *  the frontend.
@@ -428,25 +450,16 @@ public class NominatimJSONPQuery  implements Serializable {
 	/** set Freetext value to null, so that it does not interfere with structured search.
      * 
      */
-    public void setStructuredMode(){
-    	this.setFreeTextSearch(null);
-    	//
+    public void switchStructuredMode(){
+    	
     	this.setFreetextMode(false);
     	this.setStructuredMode(true);
     }
     
     /** Set values for structured search == null, so it does not interfere with freetext search.
      */
-    public void setFreetextMode(){
+    public void switchFreetextMode(){
     
-    	this.setCounty(null);
-    	this.setState(null);
-    	this.setCounty(null);
-    	this.setCity(null);
-    	this.setNeigborhoods(null);
-    	this.setStreet(null);
-    	this.setStreetNumber(null);
-    	//
     	this.setFreetextMode(true);
     	this.setStructuredMode(false);
     }
