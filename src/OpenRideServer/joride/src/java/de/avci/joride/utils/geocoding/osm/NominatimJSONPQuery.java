@@ -391,11 +391,67 @@ public class NominatimJSONPQuery  implements Serializable {
             res += "," + this.getStreetNumber();
         }
         
-        
-        
-
         return res;
     }
+    
+    
+    /** Flag signifying that user triggered structured search.
+     *  This may govern visibility of the structured search fields in 
+     *  the frontend.
+     */
+    private boolean structuredMode=false;
+    
+    
+    public boolean getStructuredMode() {
+		return structuredMode;
+	}
+
+	public void setStructuredMode(boolean structuredMode) {
+		this.structuredMode = structuredMode;
+	}
+	
+	/** Flag signifying that user triggered freetext search.
+     *  This may govern visibility of the freetext search fields in 
+     *  the frontend.
+     */
+    private boolean freetextMode=false;
+    
+   
+    public boolean getFreetextMode() {
+		return freetextMode;
+	}
+
+	public void setFreetextMode(boolean freetextMode) {
+		this.freetextMode = freetextMode;
+	}
+
+	/** set Freetext value to null, so that it does not interfere with structured search.
+     * 
+     */
+    public void setStructuredMode(){
+    	this.setFreeTextSearch(null);
+    	//
+    	this.setFreetextMode(false);
+    	this.setStructuredMode(true);
+    }
+    
+    /** Set values for structured search == null, so it does not interfere with freetext search.
+     */
+    public void setFreetextMode(){
+    
+    	this.setCounty(null);
+    	this.setState(null);
+    	this.setCounty(null);
+    	this.setCity(null);
+    	this.setNeigborhoods(null);
+    	this.setStreet(null);
+    	this.setStreetNumber(null);
+    	//
+    	this.setFreetextMode(true);
+    	this.setStructuredMode(false);
+    }
+    
+    
 
     /**
      * Create the query string to be sent against nominatim service

@@ -42,77 +42,104 @@
 
                 #{webflow.smartUpdate()}
                 #{point.smartUpdate()}
+                
+                
+            	
+				<p:accordionPanel activeIndex="-1" >
+				<!-- Search form for POI / unstructured search -->
+				<p:tab title="TODO: search for poi" >
+					<h:form>
 
-				<!-- Search form -->
-			<h:form>
+						<!-- label and input for poi  *********************************************** -->
+						<div class="formLabel">#{msgs.poilabel}</div>
+						<div class="formInput">
+							<h:inputTextarea rows="5" value="#{nominatimq.freeTextSearch}" />
+						</div>
 
-				<!-- label and input for poi  *********************************************** -->
-				<div class="formLabel">#{msgs.poilabel}</div>
-				<div class="formInput">
-					<h:inputTextarea rows="5" value="#{nominatimq.freeTextSearch}" />
-				</div>
+						<div class="formLabel">#{msgs.searchLimitLabel}</div>
+						<div class="formInput">
+							<p:spinner min="1" stepFactor="5" value="#{nominatimq.limit}" />
+						</div>
 
-				<!-- label and input for country *********************************************** -->
-				<div class="formLabel">#{msgs.countrylabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.country}" />
-				</div>
+						<!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
+						<div class="submitbutton">
+							<h:commandButton value="#{msgs.searchlabel}"
+								actionListener="#{nominatimq.blankStructuredSearch}" />
+						</div>
 
-				<!-- label and input for state *********************************************** -->
-				<div class="formLabel">#{msgs.statelabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.state}" />
-				</div>
+					</h:form>
+				</p:tab>
 
+
+
+				<p:tab title="TODO: structured search">
 				
+						<h:form>
+							<!-- Search using unstructured search -->
 
+							<!-- label and input for country *********************************************** -->
+							<div class="formLabel">#{msgs.countrylabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.country}" />
+							</div>
 
-				<!-- label and input for county *********************************************** -->
-				<div class="formLabel">#{msgs.countylabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.county}" />
-				</div>
-
-
-				<!-- label and input for city  *********************************************** -->
-				<div class="formLabel">#{msgs.citylabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.city}" />
-				</div>
-
-				<!-- label and input for city  *********************************************** -->
-				<div class="formLabel">#{msgs.neighborhoodsLabel}</div>
-				<div class="formInput">
-					<h:inputTextarea rows="3" value="#{nominatimq.neigborhoods}" />
-				</div>
-
-				<!-- label and input for street  *********************************************** -->
-				<div class="formLabel">#{msgs.streetlabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.street}" />
-				</div>
-
-				<!-- label and input for street  *********************************************** -->
-				<div class="formLabel">#{msgs.streetNumberLabel}</div>
-				<div class="formInput">
-					<h:inputText value="#{nominatimq.streetNumber}" />
-				</div>
+							<!-- label and input for state *********************************************** -->
+							<div class="formLabel">#{msgs.statelabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.state}" />
+							</div>
 
 
 
 
-				<div class="formLabel">#{msgs.searchLimitLabel}</div>
-				<div class="formInput">
-					<p:spinner min="1" stepFactor="5" value="#{nominatimq.limit}" />
-				</div>
+							<!-- label and input for county *********************************************** -->
+							<div class="formLabel">#{msgs.countylabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.county}" />
+							</div>
 
 
-				<!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
-				<div class="submitbutton">
-					<h:commandButton value="#{msgs.searchlabel}" />
-				</div>
+							<!-- label and input for city  *********************************************** -->
+							<div class="formLabel">#{msgs.citylabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.city}" />
+							</div>
 
-			</h:form>
+							<!-- label and input for city  *********************************************** -->
+							<div class="formLabel">#{msgs.neighborhoodsLabel}</div>
+							<div class="formInput">
+								<h:inputTextarea rows="3" value="#{nominatimq.neigborhoods}" />
+							</div>
+
+							<!-- label and input for street  *********************************************** -->
+							<div class="formLabel">#{msgs.streetlabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.street}" />
+							</div>
+
+							<!-- label and input for street  *********************************************** -->
+							<div class="formLabel">#{msgs.streetNumberLabel}</div>
+							<div class="formInput">
+								<h:inputText value="#{nominatimq.streetNumber}" />
+							</div>
+
+							<div class="formLabel">#{msgs.searchLimitLabel}</div>
+							<div class="formInput">
+								<p:spinner min="1" stepFactor="5" value="#{nominatimq.limit}" />
+							</div>
+
+							<!-- we use non JSF html button for submit to eval JSF Navigation Cases *********** -->
+							<div class="submitbutton">
+								<h:commandButton value="#{msgs.searchlabel}"
+									actionListener="#{nominatimq.blankFreetextSearch}" />
+							</div>
+						</h:form>
+
+					</p:tab>
+			</p:accordionPanel>
+
+
+
 
 			<!-- this, when commented in displays the nominatim query:   #{nominatimq.queryString} -->
 
