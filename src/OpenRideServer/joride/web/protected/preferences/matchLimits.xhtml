@@ -61,8 +61,11 @@
 					</div>
 
 
-					<p:commandButton action="#{jprofile.updateMatchLimitToDB}"
-						value="#{msgs.formSubmit}" ajax="false" />
+					<p:commandButton 
+						actionListener="#{jprofile.updateMatchLimitToDB}"
+						action="preferences"
+						value="#{msgs.formSubmit}" ajax="false" 
+						/>
 
 				</h:form>
 			</p:panel>
