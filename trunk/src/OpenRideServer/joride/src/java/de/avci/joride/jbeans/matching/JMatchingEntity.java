@@ -94,8 +94,7 @@ public class JMatchingEntity implements Serializable {
     public JRiderUndertakesRideEntity getRide() {
 
         JRiderUndertakesRideEntity jride = new JRiderUndertakesRideEntity();
-        jride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());
-        
+        jride.updateFromRiderUndertakesRideEntity(matchEntity.getRiderUndertakesRideEntity());   
         return jride;
     }
 
@@ -659,6 +658,23 @@ public class JMatchingEntity implements Serializable {
     public List <JMessage> getMessages(){
     	return new JMessageService().findMessagesForMatch(this);
     }
+    
+    
+    /**  Get length of the detour from match entity
+     * 
+     */
+    public double getDetourMeters(){
+    	return this.getMatchEntity().getMatchDetourMeters();
+    }
+    
+    /**  Get length of shared route from match entity
+     * 
+     */
+    public double getSharedRouteMeters(){
+    	return this.getMatchEntity().getMatchSharedDistanceMeters();
+    }
+    
+    
     
     
        /** return false, if neither rider or driver countermanded this ride, else false 
