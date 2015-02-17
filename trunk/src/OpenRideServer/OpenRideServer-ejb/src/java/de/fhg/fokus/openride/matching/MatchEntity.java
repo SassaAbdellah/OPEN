@@ -1,5 +1,5 @@
 /*
- OpenRide -- Car Sharing 2.0
+< OpenRide -- Car Sharing 2.0
  Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
 
  Fraunhofer FOKUS
@@ -22,10 +22,9 @@
  */
 package de.fhg.fokus.openride.matching;
 
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -36,6 +35,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 @Entity
 @Table(name = "match")
@@ -49,7 +51,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "MatchEntity.findByRideIdRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId AND m.matchEntityPK.riderrouteId = :riderrouteId"),
     @NamedQuery(name = "MatchEntity.findByDriverState", query = "SELECT m FROM MatchEntity m WHERE m.driverState = :driverState"),
     @NamedQuery(name = "MatchEntity.findByRiderState", query = "SELECT m FROM MatchEntity m WHERE m.riderState = :riderState"),
-    @NamedQuery(name = "MatchEntity.findByMatchSharedDistancEmeters", query = "SELECT m FROM MatchEntity m WHERE m.matchSharedDistancEmeters = :matchSharedDistancEmeters"),
+    @NamedQuery(name = "MatchEntity.findByMatchSharedDistancEmeters", query = "SELECT m FROM MatchEntity m WHERE m.matchSharedDistanceMeters = :matchSharedDistanceMeters"),
     @NamedQuery(name = "MatchEntity.findByMatchDetourMeters", query = "SELECT m FROM MatchEntity m WHERE m.matchDetourMeters = :matchDetourMeters"),
     @NamedQuery(name = "MatchEntity.findByMatchExpectedStartTime", query = "SELECT m FROM MatchEntity m WHERE m.matchExpectedStartTime = :matchExpectedStartTime"),
     @NamedQuery(name = "MatchEntity.findByRideIdRejected", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId AND (m.driverState = FALSE OR m.riderState = FALSE)"),
@@ -58,9 +60,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "MatchEntity.findByRiderrouteIdSuccessful", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.riderrouteId = :riderrouteId AND (m.driverState = TRUE AND m.riderState = TRUE)"),
     @NamedQuery(name = "MatchEntity.findChangesSinceAccessByDriverByRideId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.rideId = :rideId AND (m.driverAccess IS NULL OR m.riderChange > m.driverAccess)"),
     @NamedQuery(name = "MatchEntity.findChangesSinceAccessByRiderByRiderrouteId", query = "SELECT m FROM MatchEntity m WHERE m.matchEntityPK.riderrouteId = :riderrouteId AND (m.riderAccess IS NULL OR m.driverChange > m.riderAccess)"),
-    @NamedQuery(name = "MatchEntity.countTotalNoMatches", query = "SELECT COUNT(m.matchSharedDistancEmeters) FROM MatchEntity m"),
-    @NamedQuery(name = "MatchEntity.countTotalNoMatchesAfterDate", query = "SELECT COUNT(m.matchSharedDistancEmeters) FROM MatchEntity m WHERE m.matchExpectedStartTime >= :date"),
-    @NamedQuery(name = "MatchEntity.countTotalNoMatchesBetweenDates", query = "SELECT COUNT(m.matchSharedDistancEmeters) FROM MatchEntity m WHERE m.matchExpectedStartTime BETWEEN :startDate AND :endDate")
+    @NamedQuery(name = "MatchEntity.countTotalNoMatches", query = "SELECT COUNT(m.matchSharedDistanceMeters) FROM MatchEntity m"),
+    @NamedQuery(name = "MatchEntity.countTotalNoMatchesAfterDate", query = "SELECT COUNT(m.matchSharedDistanceMeters) FROM MatchEntity m WHERE m.matchExpectedStartTime >= :date"),
+    @NamedQuery(name = "MatchEntity.countTotalNoMatchesBetweenDates", query = "SELECT COUNT(m.matchSharedDistanceMeters) FROM MatchEntity m WHERE m.matchExpectedStartTime BETWEEN :startDate AND :endDate")
 })
 /**
  *
@@ -86,7 +88,7 @@ public class MatchEntity implements Serializable {
     @Column(name = "rider_state")
     private Integer riderState = MatchEntity.NOT_ADAPTED;
     @Column(name = "match_shared_distance_meters")
-    private Double matchSharedDistancEmeters;
+    private Double matchSharedDistanceMeters;
     @Column(name = "match_drive_remaining_distance_meters")
     private Double matchDriveRemainingDistanceMeters;
     @Column(name = "match_price_cents")
@@ -122,10 +124,10 @@ public class MatchEntity implements Serializable {
     public MatchEntity() {
     }
 
-    public MatchEntity(int riderrouteId, int rideId, double matchSharedDistancEmeters,
+    public MatchEntity(int riderrouteId, int rideId, double matchSharedDistanceMeters,
             Double matchDetourMeters, Date matchExpectedStartTime, double matchDriveRemainingDistanceMeters, int matchPriceCents) {
         this.matchEntityPK = new MatchEntityPK(riderrouteId, rideId);
-        this.matchSharedDistancEmeters = matchSharedDistancEmeters;
+        this.matchSharedDistanceMeters = matchSharedDistanceMeters;
         this.matchDetourMeters = matchDetourMeters;
         this.matchExpectedStartTime = matchExpectedStartTime;
         this.matchDriveRemainingDistanceMeters = matchDriveRemainingDistanceMeters;
@@ -164,12 +166,12 @@ public class MatchEntity implements Serializable {
         this.riderState = riderState;
     }
 
-    public Double getMatchSharedDistancEmeters() {
-        return matchSharedDistancEmeters;
+    public Double getMatchSharedDistanceMeters() {
+        return matchSharedDistanceMeters;
     }
 
-    public void setMatchSharedDistancEmeters(Double matchSharedDistancEmeters) {
-        this.matchSharedDistancEmeters = matchSharedDistancEmeters;
+    public void setMatchSharedDistanceMeters(Double matchSharedDistanceMeters) {
+        this.matchSharedDistanceMeters = matchSharedDistanceMeters;
     }
 
     public Double getMatchDetourMeters() {

@@ -44,8 +44,8 @@ abstract class ScoringFunction {
 
         @Override
         public double getScore(MatchEntity m) {
-            double normalizedScoreDetour = 1.0d - (m.getMatchDetourMeters() / m.getMatchSharedDistancEmeters());
-            double normalizedScoreDistance = m.getMatchSharedDistancEmeters() / m.getMatchDriveRemainingDistanceMeters();
+            double normalizedScoreDetour = 1.0d - (m.getMatchDetourMeters() / m.getMatchSharedDistanceMeters());
+            double normalizedScoreDistance = m.getMatchSharedDistanceMeters() / m.getMatchDriveRemainingDistanceMeters();
             return WEIGHT_DETOUR * normalizedScoreDetour
                     + WEIGHT_DISTANCE * normalizedScoreDistance;
         }
