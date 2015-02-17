@@ -93,11 +93,12 @@ import javax.sql.DataSource;
 @Stateless
 public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
+	
+	// TODO: Is the entity manager really needed?
 	@PersistenceContext
 	private EntityManager em;
 	// CONFIG - DB:
 	//
-	// TODO: get rid of using JDBC in favour or standard JPA
 	//
 	private static final String JDBC_RESOURCE_OPENRIDE = "jdbc/openride";
 	// CONFIG - MATCH FILTER
@@ -217,6 +218,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					.getDriveRoutePoints(driveId);
 
 			RoutePoint[] decomposedRoute = toRoutePointArray(routepoints);
+			// radius in meters
 			double r = getSfrCircleRadius(drive.getRideAcceptableDetourInKm() * 1000);
 
 			// compute potential matches based on geographical position and time
@@ -245,10 +247,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				CustomerEntity rider = ride.getCustId();
 
 				// apply simple, less expensive filter criteria
-				if (MatchFilter.filterAccepts(driver, rider, drive, ride, pm,
+				if (UnexpensiveMatchFilter.filterAccepts(driver, rider, drive, ride, pm,
 						routepoints)) {
+					// *********************************
 					// check the detour :
-
+					// **********************************
 					// compute adapted route (new driver route containing riders
 					// start and endpoint as via points)
 					LinkedList<DriveRoutepointEntity> decomposedRoute_ = new LinkedList<DriveRoutepointEntity>();
@@ -368,7 +371,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 						.getDriveRoutePoints(drive.getRideId());
 
 				// apply simple, less expensive filter criteria
-				if (MatchFilter.filterAccepts(driver, rider, drive, ride, pm,
+				if (UnexpensiveMatchFilter.filterAccepts(driver, rider, drive, ride, pm,
 						routepoints)) {
 					// check the detour :
 
@@ -1022,7 +1025,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 * This class implements all simple, less expensive checks. It can be
 	 * configured by the static class variables within the config section.
 	 */
-	private static class MatchFilter {
+	private static class UnexpensiveMatchFilter {
 
 		private static boolean filterAccepts(CustomerEntity driver,
 				CustomerEntity rider, DriverUndertakesRideEntity drive,
