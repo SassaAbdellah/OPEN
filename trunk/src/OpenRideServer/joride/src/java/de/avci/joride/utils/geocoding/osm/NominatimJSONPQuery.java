@@ -168,6 +168,26 @@ public class NominatimJSONPQuery  implements Serializable {
     }
     
     
+    /** Property telling which PostalCode to search for
+     *
+     */
+    protected String postalcode = null;
+    
+      /** Trivial Getter
+     */
+    public String getPostalcode() {
+        return this.postalcode;
+    }
+
+
+    /** Trivial Setter
+     */
+    public  void setPostalcode(String arg){ 
+        this.postalcode=arg;
+    }
+    
+    
+    
     /** Property telling which Neighborhood(s) to search for.
      *  Note, that we can use either
      *  street and number...,   or  freetext search.
@@ -375,6 +395,11 @@ public class NominatimJSONPQuery  implements Serializable {
         if (this.getCity() != null && !("".equals(this.getCity()))) {
             res += "," + this.getCity();
         }
+        if (this.getPostalcode() != null && !("".equals(this.getPostalcode()))) {
+            res += "," + this.getPostalcode();
+        }
+        
+        
         
         if (this.getNeigborhoods() != null && !("".equals(this.getNeigborhoods()))) {
             res += "," + this.getNeigborhoods();
@@ -488,7 +513,6 @@ public class NominatimJSONPQuery  implements Serializable {
         res += "&" + PARAM__NAME_json_callback + "=" + PARAM_VALUE_json_callback;
 
         return res;
-
     }
 } // class
 
