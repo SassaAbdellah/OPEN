@@ -22,6 +22,7 @@
  */
 package de.fhg.fokus.openride.customerprofile;
 
+import de.avci.openrideshare.units.UnitOfLength;
 import de.avci.openrideshare.utils.OperationalPropertiesConstants;
 import de.avci.openrideshare.utils.PropertiesLoader;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -86,6 +87,14 @@ import javax.persistence.TemporalType;
 		@NamedQuery(name = "CustomerEntity.findByCustAddrStreet", query = "SELECT c FROM CustomerEntity c WHERE c.custAddrStreet = :custAddrStreet"),
 		@NamedQuery(name = "CustomerEntity.customerCountAll", query = "SELECT COUNT(c.custId) FROM CustomerEntity c") })
 public class CustomerEntity implements Serializable {
+
+	public Integer getPreferredUnitOfLength() {
+		return preferredUnitOfLength;
+	}
+
+	public void setPreferredUnitOfLength(Integer prefferredUnitOfLength) {
+		this.preferredUnitOfLength = prefferredUnitOfLength;
+	}
 
 	public static final char PREF_SMOKER_DESIRED = 'y';
 	public static final char PREF_SMOKER_NOT_DESIRED = 'n';
@@ -188,9 +197,17 @@ public class CustomerEntity implements Serializable {
 	private Integer maxLimitMatch;
 	// maximum number of limits to be displayed to this user
 	// this property can be set by the user within the range of
-	// 1...maxLimitMax
+	// 1...maxLimitMa
 	@Column(name = "matchlimitindividual")
 	private Integer individualLimitMatch;
+	//
+	// preferred unit of length, (like mile, kilometer, meter...)
+	// These are represented by the keys defined in UnitOfLength class
+	// by default, Kilometer is returned.
+	// 
+	@Column(name="preferredUnitOfLength")
+	private Integer preferredUnitOfLength=UnitOfLength.KEY_KILOMETER;
+	
 
 	public String getPreferredLanguage() {
 		return preferredLanguage;
