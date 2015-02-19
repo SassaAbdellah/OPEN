@@ -8,6 +8,7 @@ import de.avci.openrideshare.units.UnitOfLength;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 
@@ -462,7 +463,20 @@ public class JCustomerEntity extends CustomerEntity {
      */
     public List <UnitOfLength> getAvaillableUnitsOfLength(){
     	
-    	return UnitOfLength.supportedUnitsOfLength();
+    	
+    	Locale myLocale=new HTTPUtil().detectBestLocale();
+    	
+    	Properties messages=PropertiesLoader.getMessageProperties(myLocale);
+    
+    	List <UnitOfLength> supportedUnitsOfLength=UnitOfLength.supportedUnitsOfLength();
+    	
+    	for(UnitOfLength u : supportedUnitsOfLength ){
+    	
+    		String localName=""+messages.get(u.getKeyStringPlural());
+    		u.setLocalName(localName);
+    	}
+    	
+    	return supportedUnitsOfLength;
     }
     
     
