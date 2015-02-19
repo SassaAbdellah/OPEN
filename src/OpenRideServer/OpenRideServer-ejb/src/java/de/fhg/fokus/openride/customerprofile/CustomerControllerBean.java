@@ -22,13 +22,6 @@
  */
 package de.fhg.fokus.openride.customerprofile;
 
-import de.avci.openrideshare.utils.SupportedLanguagesFactory;
-import de.fhg.fokus.openride.helperclasses.ControllerBean;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
@@ -48,6 +41,14 @@ import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.transaction.UserTransaction;
+
+import de.avci.openrideshare.units.UnitOfLength;
+import de.avci.openrideshare.utils.SupportedLanguagesFactory;
+import de.fhg.fokus.openride.helperclasses.ControllerBean;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * 
@@ -107,7 +108,7 @@ public class CustomerControllerBean extends ControllerBean implements
 
 	public int addCustomer(String custNickname, String custPasswd,
 			String custFirstname, String custLastname, char custGender,
-			String custEmail, String custMobilephoneno, String preferredLanguage) {
+			String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength) {
 		startUserTransaction();
 		logger.info("addCustomer");
 		// make sure that nickname complies with rules set up for nickname
@@ -140,6 +141,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		c.setCustRegistrdate(new Date()); // the current date (timestamp)
 		c.setCustGroup("customer");
 		c.setPreferredLanguage(preferredLanguage);
+		c.setPreferredUnitOfLength(preferredUnitOfLength);
 		em.persist(c);
 		commitUserTransaction();
 
@@ -168,12 +170,15 @@ public class CustomerControllerBean extends ControllerBean implements
 	 * 
 	 */
 	
-	
+	@Override
 	public int addCustomer(String custNickname, String custPasswd,
 			String custFirstname, String custLastname, Date custDateofbirth,
 			char custGender, String custMobilephoneno, String custEmail,
 			boolean custIssmoker, boolean custPostident, String custAddrStreet,
-			String custAddrZipcode, String custAddrCity, String preferredLanguage) {
+			String custAddrZipcode, String custAddrCity, String preferredLanguage,
+			int preferredUnitOfLength
+			
+			) {
 
 	
 			
@@ -207,6 +212,7 @@ public class CustomerControllerBean extends ControllerBean implements
 			e.setCustRiderprefGender(CustomerEntity.PREF_GENDER_DEFAULT);
 			e.setCustRiderprefSmoker(CustomerEntity.PREF_SMOKER_DEFAULT);
 			e.setPreferredLanguage(preferredLanguage);
+			e.setPreferredUnitOfLength(preferredUnitOfLength);
 			em.persist(e);
 			commitUserTransaction();
 			return e.getCustId();
@@ -377,7 +383,8 @@ public class CustomerControllerBean extends ControllerBean implements
 				seed, // mock City
 				'n', // mock smokerprefs
 				null, // mock licensedate
-				null // mock preferred language
+				null, // mock preferred language
+				UnitOfLength.KILOMETER.getKey()
 		);
 
 		// invalidate nickname and password
@@ -576,7 +583,10 @@ public class CustomerControllerBean extends ControllerBean implements
 			String custAddrCity, 
 			char custIssmoker,
 			Date custLicenseDate,
-			String preferredLanguage ) {
+			String preferredLanguage,
+			int preferredUnitOfLength
+			
+			) {
 		startUserTransaction();
 		logger.info("setPersonalData");
 		CustomerEntity c = getCustomer(custId);
@@ -605,7 +615,7 @@ public class CustomerControllerBean extends ControllerBean implements
 
 		c.setCustLicensedate(custLicenseDate);
 		c.setPreferredLanguage(preferredLanguage);
-
+		c.setPreferredUnitOfLength(preferredUnitOfLength);
 		em.persist(c);
 		commitUserTransaction();
 	}
