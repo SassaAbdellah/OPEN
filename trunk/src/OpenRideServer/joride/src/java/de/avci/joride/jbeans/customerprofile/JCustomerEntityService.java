@@ -5,6 +5,7 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.utils.HTTPUtil;
+import de.avci.openrideshare.units.UnitOfLength;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -12,6 +13,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -225,7 +227,9 @@ public class JCustomerEntityService {
                 //Date custLicenseDate);
                 jCustomerEntity.getCustLicensedate(),
         		// String preferredLanguage
-                jCustomerEntity.getPreferredLanguage()
+                jCustomerEntity.getPreferredLanguage(),
+                // int preferredUnitOfLength,
+                jCustomerEntity.getPreferredUnitOfLength()
         		); // end of method call to setCustomerPersonalData
     }
 
@@ -450,7 +454,9 @@ public class JCustomerEntityService {
                     //String custMobilephoneno mobile phone may be added later
                     null,
                     // String preferredLanguage
-                    jrr.getPreferredLanguage()	
+                    jrr.getPreferredLanguage(),	
+                    // int preferredUnitOfLength (key)
+                    UnitOfLength.KILOMETER.getKey()
             	);
             
             

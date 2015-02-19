@@ -3,14 +3,19 @@ package de.avci.joride.jbeans.customerprofile;
 import de.avci.joride.session.HTTPUser;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
+import de.avci.openrideshare.units.UnitOfLength;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -107,6 +112,7 @@ public class JCustomerEntity extends CustomerEntity {
         this.setCustProfilepic(ce.getCustProfilepic());
         this.setCustRegistrdate(ce.getCustRegistrdate());
         this.setPreferredLanguage(ce.getPreferredLanguage());
+        this.setPreferredUnitOfLength(ce.getPreferredUnitOfLength());
         //
         // Rider Preferences
         //
@@ -444,8 +450,6 @@ public class JCustomerEntity extends CustomerEntity {
        new JCustomerEntityService().resetLastCustomerCheck();
     }
 
-
-    
     
     /** Set lastCustomerCheck Property to current date
      */
@@ -453,6 +457,13 @@ public class JCustomerEntity extends CustomerEntity {
     	new JCustomerEntityService().setCustomerMatchLimitIndividualSavely(this.getIndividualLimitMatch());
     }
     
+    /** List containing all availlable Units of length.
+     *  This is here to allow a choice when fixing personal preferences.
+     */
+    public List <UnitOfLength> getAvaillableUnitsOfLength(){
+    	
+    	return UnitOfLength.supportedUnitsOfLength();
+    }
     
     
 }// class

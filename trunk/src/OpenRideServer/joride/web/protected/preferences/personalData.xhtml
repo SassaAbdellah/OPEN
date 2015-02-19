@@ -219,6 +219,21 @@
 
 						</p:calendar>
 					</div>
+					
+					<div class="formLabel"> TODO: preferred unit of length </div>
+					<div class="formInput">
+						<p:selectOneMenu value="#{jprofile.preferredUnitOfLength}">
+						
+							<f:selectItems 	value="#{jprofile.getAvaillableUnitsOfLength()}" 
+										   	var="unit"
+											itemLabel="#{unit.keyString}" 
+											itemValue="#{unit.key}" />
+							
+							
+						</p:selectOneMenu>
+					
+					</div> 
+					
 
 
 					<p:commandButton
