@@ -292,9 +292,18 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					// passed through the filter, add new match instance to
 					// result list
 					MatchEntity nextMatch = new MatchEntity(
-							pm.getRidersRouteId(), pm.getRideId(),
-							sharedDistanceMeters, detourMeters,
-							pm.getTimeAtOnRouteLiftPoint(), decomposedRoute_
+							// request
+							pm.getRidersRouteId(), 
+							// offer
+							pm.getRideId(),
+							// shared Distance
+							sharedDistanceMeters,
+							// detour
+							detourMeters,
+							// pickup time
+							pm.getTimeAtOnRouteLiftPoint(), 
+							// new Route
+							decomposedRoute_
 									.get(decomposedRoute_.size() - 1)
 									.getDistanceToSourceMeters(),
 							PriceCalculator.getInstance().getPriceCents(

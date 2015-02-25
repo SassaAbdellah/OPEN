@@ -1,6 +1,6 @@
 package de.avci.openrideshare.units;
 
-import java.util.HashSet;
+import java.text.DecimalFormat;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,19 +35,56 @@ public class UnitOfLength {
 	private String keyString;
 
 
-	/** Local name of the unit of length.
+	/** Local name of the unit of length. (Singular)
 	 * 
 	 */
-	private String localName;
+	private String localNameSingular;
 	
-	public String getLocalName() {
-		return localName;
+	/** Local name of the unit of length. (Singular)
+	 * 
+	 */
+	private String localNamePlural;
+	
+	
+	/** Decimal format in which displaying this unit of length makes sense
+	 */
+	private String decimalFormatString;
+	
+	
+	/** Number Format created from decimal format String
+	 * 
+	 * @return Decimal Format created from decimal format String
+	 */
+	public DecimalFormat createNumberFormat(){
+		return new DecimalFormat(this.getDecimalFormatString());
+	}
+	
+	
+	
+	
+	public String getLocalNameSingular() {
+		return localNameSingular;
 	}
 
-	public void setLocalName(String localName) {
-		this.localName = localName;
+	public void setLocalNameSingular(String localName) {
+		this.localNameSingular = localName;
 	}
 
+	
+	
+	public String getLocalNamePlural() {
+		return localNamePlural;
+	}
+
+	public void setLocalNamePlural(String localName) {
+		this.localNamePlural = localName;
+	}
+
+	
+	
+	
+	
+	
 
 	public String getKeyString() {
 		return keyString;
@@ -69,12 +106,12 @@ public class UnitOfLength {
 	/**
 	 * 
 	 */
-	private UnitOfLength(Integer key, Double factorToMeters, String keyString ){
+	private UnitOfLength(Integer key, Double factorToMeters, String keyString, String decimalFormat){
 		
 		this.setKey(key);
 		this.setFactorToMeters(factorToMeters);
 		this.setKeyString(keyString);
-		
+		this.setDecimalFormatString(decimalFormat);
 	}
 
 	public Integer getKey() {
@@ -122,7 +159,7 @@ public class UnitOfLength {
 	
 	/** Mnemonic constant for meter. One meter is 1m :-)
 	 */
-	public static final UnitOfLength METER=new UnitOfLength(KEY_METER, 1d, KEYSTR_METER);
+	public static final UnitOfLength METER=new UnitOfLength(KEY_METER, 1d, KEYSTR_METER,"#0");
 	
 	
 	
@@ -137,7 +174,7 @@ public class UnitOfLength {
 	
 	/** Mnemonic constant for kilometer. One kilometer is 1000m
 	 */
-	public static final UnitOfLength KILOMETER=new UnitOfLength(KEY_KILOMETER ,1000d, KEYSTR_KILOMETER);
+	public static final UnitOfLength KILOMETER=new UnitOfLength(KEY_KILOMETER ,1000d, KEYSTR_KILOMETER, "#0.0");
 	
 	
 	/** Mnemonic key for MILE
@@ -151,7 +188,7 @@ public class UnitOfLength {
 	
 	/** Mnemonic constant for mile ( more precisely: statute mile). One statute mile is 1609.34 meters.
 	 */
-	public static final UnitOfLength MILE=new UnitOfLength(KEY_MILE, 1609.34d, KEYSTR_MILE);
+	public static final UnitOfLength MILE=new UnitOfLength(KEY_MILE, 1609.34d, KEYSTR_MILE,"#0.0");
 	
 	
 	
@@ -170,7 +207,7 @@ public class UnitOfLength {
 	 * @param shortName
 	 * @return
 	 */
-	public static final UnitOfLength getLengthUnitByKEYString (String key){
+	public static final UnitOfLength getLengthUnitByKey (Integer key){
 		return unitTable.get(key);
 	}
 	
@@ -207,6 +244,14 @@ public class UnitOfLength {
 	public double meters2This(long meters){
 		
 		return this.getFactorToMeters()*meters;
+	}
+
+	public String getDecimalFormatString() {
+		return decimalFormatString;
+	}
+
+	public void setDecimalFormatString(String arg) {
+		this.decimalFormatString = arg;
 	}
 
 
