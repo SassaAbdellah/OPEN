@@ -70,8 +70,9 @@
 						</div>
 
 
-						<div class="formLabel"> #{msgs.matchExpectedPickupTime}:</div>
-						<div class="formInput"> #{matching.matchExpectedStartTimeFormatted}</div>
+						<div class="formLabel">#{msgs.matchExpectedPickupTime}:</div>
+						<div class="formInput">
+							#{matching.matchExpectedStartTimeFormatted}</div>
 
 						<div class="formLabel">#{msgs.matchFrom}:</div>
 						<div class="formInput">#{matching.ride.getStartptAddress()}
@@ -80,7 +81,19 @@
 						<div class="formLabel">#{msgs.matchTo}:</div>
 						<div class="formInput">#{matching.ride.getEndptAddress()}</div>
 
+						<div class="formLabel">
+							<h:outputFormat value="#{msgs.DetourPreferredUnit}">
+								<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+							</h:outputFormat>
+						</div>
+						<div class="formInput"> #{matching.detourDriverPreferredUnit} </div>
 
+						<div class="formLabel">
+							<h:outputFormat  value="#{msgs.SharedDistancePrefferedUnit}">
+								<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+							</h:outputFormat>
+						</div>
+						<div class="formInput" > <h:outputFormat value="#{matching.sharedRouteDriverPreferredUnit}" /> </div>
 
 
 						<div class="formLabel">#{msgs.matchRiderState}:</div>

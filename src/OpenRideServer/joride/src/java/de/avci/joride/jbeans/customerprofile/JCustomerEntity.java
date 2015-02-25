@@ -458,6 +458,7 @@ public class JCustomerEntity extends CustomerEntity {
     	new JCustomerEntityService().setCustomerMatchLimitIndividualSavely(this.getIndividualLimitMatch());
     }
     
+    
     /** List containing all availlable Units of length.
      *  This is here to allow a choice when fixing personal preferences.
      */
@@ -472,13 +473,37 @@ public class JCustomerEntity extends CustomerEntity {
     	
     	for(UnitOfLength u : supportedUnitsOfLength ){
     	
-    		String localName=""+messages.get(u.getKeyStringPlural());
-    		u.setLocalName(localName);
+    		String localNamePlural=""+messages.get(u.getKeyStringPlural());
+    		u.setLocalNamePlural(localNamePlural);
+    		
+    		String localNameSingular=""+messages.get(u.getKeyString());
+    		u.setLocalNameSingular(localNameSingular);
     	}
     	
     	return supportedUnitsOfLength;
     }
     
+    /** Get preferred unit of length (singular)
+     */
+    public String getPreferredUnitOfLengthSingular(){
+
+		Locale myLocale=new HTTPUtil().detectBestLocale();
+    	Properties messages=PropertiesLoader.getMessageProperties(myLocale);
+    	UnitOfLength u= UnitOfLength.getLengthUnitByKey(this.getPreferredUnitOfLength());
+    	String localNameSingular=""+messages.get(u.getKeyString());
+    	return localNameSingular;		
+    }
+    
+    /** Get preferred unit of length (plural)
+     */
+    public String getPreferredUnitOfLengthPlural(){
+
+		Locale myLocale=new HTTPUtil().detectBestLocale();
+    	Properties messages=PropertiesLoader.getMessageProperties(myLocale);
+    	UnitOfLength u= UnitOfLength.getLengthUnitByKey(this.getPreferredUnitOfLength());
+    	String localNamePlural=""+messages.get(u.getKeyStringPlural());
+    	return localNamePlural;		
+    }
     
 }// class
 
