@@ -54,7 +54,7 @@ public interface CustomerControllerLocal {
 
     CustomerEntity getCustomerByEmail(String email);
 
-    void setPersonalData(int custId, Date custDateofbirth, String custEmail, boolean showEmailToPartners,  String custMobilePhoneNo, boolean showMobileToPartners, String custFixedPhoneNo, String custAddrStreet, String custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate, String preferredLanguage, int preferredUnitOfLength);
+    void setPersonalData(int custId, String firstName, String lastName, Character genderLabel, Date custDateofbirth, String custEmail, boolean showEmailToPartners,  String custMobilePhoneNo, boolean showMobileToPartners, String custFixedPhoneNo, String custAddrStreet, String custAddrZipcode, String custAddrCity, char custIssmoker, Date custLicenseDate, String preferredLanguage, int preferredUnitOfLength);
 
     public void setBasePersonalData(int custId, java.lang.String custFirstName, java.lang.String custLastName, char custGender, String preferredLanguage);
 
