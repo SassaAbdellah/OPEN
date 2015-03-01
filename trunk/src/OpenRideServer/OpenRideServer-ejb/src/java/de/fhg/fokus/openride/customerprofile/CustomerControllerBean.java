@@ -372,7 +372,12 @@ public class CustomerControllerBean extends ControllerBean implements
 		this.setBasePersonalData(custId, seed, seed, '-', null);
 		// invalidate dob, email , cellphone, landline phone
 		// address data, smoker data, licensedate
-		this.setPersonalData(custId, null, // mock date of birth
+		this.setPersonalData(
+				custId, 
+				seed, // mock firstName
+				seed,
+				'x',
+				null, // mock date of birth
 				seed, // mock email
 				false,
 				seed, // mock mobile phone
@@ -572,6 +577,9 @@ public class CustomerControllerBean extends ControllerBean implements
 	
 	public void setPersonalData(
 			int custId, 
+			String custFirstName,
+			String custLastName,
+			Character genderLabel,
 			Date custDateofbirth,
 			String custEmail, 
 			boolean showEmailToPartners, 
@@ -591,6 +599,9 @@ public class CustomerControllerBean extends ControllerBean implements
 		logger.info("setPersonalData");
 		CustomerEntity c = getCustomer(custId);
 
+		c.setCustFirstname(custFirstName);
+		c.setCustLastname(custLastName);
+		c.setCustGender(genderLabel);
 		c.setCustDateofbirth(custDateofbirth);
 
 		c.setCustEmail(custEmail);
