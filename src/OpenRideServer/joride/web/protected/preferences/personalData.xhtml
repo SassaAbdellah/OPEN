@@ -65,8 +65,7 @@
 						<p:outputLabel value="#{msgs.custFirstname}" />
 					</div>
 					<div class="formInput">
-						<p:inputText value="#{jprofile.custFirstname}" disabled="true" />
-						<h:inputHidden value="#{jprofile.custFirstname}" />
+						<p:inputText value="#{jprofile.custFirstname}"  />
 					</div>
 
 					<!-- lastname may not be changed by the user -->
@@ -74,8 +73,7 @@
 						<p:outputLabel value="#{msgs.custLastname}" />
 					</div>
 					<div class="formInput">
-						<p:inputText value="#{jprofile.custLastname}" disabled="true" />
-						<h:inputHidden value="#{jprofile.custLastname}" />
+						<p:inputText value="#{jprofile.custLastname}"  />
 					</div>
 
 					<!-- Gender is not to be changed after account creation  -->
@@ -85,7 +83,7 @@
 					</div>
 					<div class="formInput">
 
-						<p:selectOneMenu value="#{jprofile.custGender}" disabled="true">
+						<p:selectOneMenu value="#{jprofile.custGender}">
 							<f:selectItem itemValue="#{jprofile.genderFemale}"
 								itemLabel="#{msgs.custGenderFemale}" />
 							<f:selectItem itemValue="#{jprofile.genderMale}"

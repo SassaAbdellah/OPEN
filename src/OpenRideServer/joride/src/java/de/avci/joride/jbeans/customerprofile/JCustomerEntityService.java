@@ -204,6 +204,12 @@ public class JCustomerEntityService {
         cc.setPersonalData(
                 //  int custId
                 customerID,
+                // first name
+                jCustomerEntity.getCustFirstname(),
+                // last name
+                jCustomerEntity.getCustLastname(),
+                // gender
+                jCustomerEntity.getCustGender(),  
                 //Date custDateofbirth 
                 jCustomerEntity.getCustDateofbirth(),
                 //String custEmail 
