@@ -368,6 +368,8 @@ public class JMatchingEntity implements Serializable {
 				riderrouteIdArg);
 
 		this.setMatchEntitiy(me);
+		this.getDetourDriverPreferredUnit();
+		this.getSharedRouteDriverPreferredUnit();
 
 	}
 
@@ -675,20 +677,25 @@ public class JMatchingEntity implements Serializable {
 		return this.getMatchEntity().getMatchDetourMeters();
 	}
 
-	/**
-	 * Get detour in formatted as string in drivers preferred format
+	/** Get detour in formatted as string in drivers preferred format
 	 */
 	public String getDetourDriverPreferredUnit() {
 
-		int key = this.getDrive().getCustId().getPreferredUnitOfLength();
-		UnitOfLength unit = UnitOfLength.getLengthUnitByKey(key);
+		try {
 
-		if ((unit!=null) &&(unit.getFactorToMeters() != 0)
-		   ) {
-				double value=(this.getDetourMeters() / unit.getFactorToMeters());
+			int key = this.getDrive().getCustId().getPreferredUnitOfLength();
+			UnitOfLength unit = UnitOfLength.getLengthUnitByKey(key);
+
+			if ((unit != null) && (unit.getFactorToMeters() != 0)) {
+				double value = (this.getDetourMeters() / unit
+						.getFactorToMeters());
 				return unit.createNumberFormat().format(value);
-		} else {
-			return "-?-";
+			} else {
+				return "-?-";
+			}
+
+		} catch (Exception exc) {
+			return exc.getMessage();
 		}
 	}
 
@@ -705,15 +712,21 @@ public class JMatchingEntity implements Serializable {
 	 */
 	public String getSharedRouteDriverPreferredUnit() {
 
-		int key = this.getDrive().getCustId().getPreferredUnitOfLength();
-		UnitOfLength unit = UnitOfLength.getLengthUnitByKey(key);
+		try {
 
-		if ((unit!=null) &&(unit.getFactorToMeters() != 0)
-		   ) {
-				double value=(this.getSharedRouteMeters() / unit.getFactorToMeters());
+			int key = this.getDrive().getCustId().getPreferredUnitOfLength();
+			UnitOfLength unit = UnitOfLength.getLengthUnitByKey(key);
+
+			if ((unit != null) && (unit.getFactorToMeters() != 0)) {
+				double value = (this.getSharedRouteMeters() / unit
+						.getFactorToMeters());
 				return unit.createNumberFormat().format(value);
-		} else {
-			return "-?-";
+			} else {
+				return "-?-";
+			}
+
+		} catch (Exception exc) {
+			return exc.getMessage();
 		}
 	}
 
