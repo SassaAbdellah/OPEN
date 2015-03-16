@@ -108,7 +108,51 @@ final class PotentialMatch
         this.detourSeconds = null;
     }
 
-    /**
+    public void setRidersRouteId(int ridersRouteId) {
+		this.ridersRouteId = ridersRouteId;
+	}
+
+	public void setRideId(int rideId) {
+		this.rideId = rideId;
+	}
+
+	public void setLiftIndex(int liftIndex) {
+		this.liftIndex = liftIndex;
+	}
+
+	public void setDropIndex(int dropIndex) {
+		this.dropIndex = dropIndex;
+	}
+
+	public void setLiftPoint(Coordinate liftPoint) {
+		this.liftPoint = liftPoint;
+	}
+
+	public void setDropPoint(Coordinate dropPoint) {
+		this.dropPoint = dropPoint;
+	}
+
+	public void setOnRouteLiftPoint(Coordinate onRouteLiftPoint) {
+		this.onRouteLiftPoint = onRouteLiftPoint;
+	}
+
+	public void setOnRouteDropPoint(Coordinate onRouteDropPoint) {
+		this.onRouteDropPoint = onRouteDropPoint;
+	}
+
+	public void setTimeAtOnRouteLiftPoint(Timestamp timeAtOnRouteLiftPoint) {
+		this.timeAtOnRouteLiftPoint = timeAtOnRouteLiftPoint;
+	}
+
+	public void setTimeAtLiftPoint(Timestamp timeAtLiftPoint) {
+		this.timeAtLiftPoint = timeAtLiftPoint;
+	}
+
+	public void setSharedDistanceMeters(double sharedDistanceMeters) {
+		this.sharedDistanceMeters = sharedDistanceMeters;
+	}
+
+	/**
      * @return (riderCustId, ridersRouteId) identifies riders route.
      */
     public int getRidersRouteId() {
@@ -202,7 +246,7 @@ final class PotentialMatch
      * @param router
      * @return Double.MaxValue if no route exists to liftpoint or droppoint.
      */
-    public double getDetourSeconds(Router router){
+    public double getDetourSeconds_(Router router){
         if(this.detourMeters == null){
             computeDetour(router);
         }
@@ -216,6 +260,8 @@ final class PotentialMatch
      * store result in private class variables.
      * @param router
      */
+    
+    
     private void computeDetour(Router router){
         Route routeA = router.findRoute(onRouteLiftPoint, liftPoint, timeAtLiftPoint, true, 2000.0d );
         Route routeB = router.findRoute(onRouteDropPoint, dropPoint, timeAtLiftPoint, true, 2000.0d );
