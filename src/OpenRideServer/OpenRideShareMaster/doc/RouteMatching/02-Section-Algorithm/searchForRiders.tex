@@ -25,7 +25,8 @@ RoutePointEntity class, which has the following main properties:
 \end{description}
 
 Henceforth, we may abbreviate the term $RoutePoint$ with $RP$.
-
+\index{Routepoint}
+\index{RP}
 \section{Step 2: Create Drive Route Points}
 \label{sfrScanningTheCorridor}
 As depicted in \ref{searchForRiderShort}, in order to find a preselection of matching requests,
@@ -33,10 +34,11 @@ a corridor consisting of all the points that have distance less than the driver 
 is scanned for start and endpoints of requests.
 The task of "scanning the corridor of distance max detour" is somewhat complicated and it's 
 implementation is based on an auxiliary construction named "Drive Route Points", which we discuss next.
- 
+\index{Corridor!Search for Riders} 
 \subsection{The Circle Overlay Algorithm}
 \label{sfrDriveRoutePoints}
 \label{sfrCircleOverlayAlgorithm}
+\index{Circle Overlay Algorithm}
 The principal Idea is to approximate the corridor of distance $detour$ around the path by a  number of
 so called \emph{Drive Route Points} (henceforth abbreviated DRPs). 
 The DRPs are chosen as a subset of the set of RPs. 
@@ -58,7 +60,9 @@ false positives which are removed at subsequent stages of the search for rider a
 The advantage in speed and effort of using circle overlay instead of the exact corridor anyway outweights this disadvantage.
 
 \subsection{Drive Route Points}
-
+\index{Drive Route Point}
+\index{DRP}
+\index{Drive Route Point!Properties of}
 In ORS, DRPs are modelled by the \emph{DriveRoutePointEntity} class.
 These are the main properties of a DriveRoutePointEntity:
 
@@ -72,9 +76,8 @@ These are the main properties of a DriveRoutePointEntity:
 \end{description}
 
 \subsection{Parameters for the Circle Overlay Algorithm}
-
 The following parameters are used in the implementation of the COA:
-
+\index{Circle Overlay Algorithm!Parameters}
 \begin{description}
 \item[$d$]{The distance between each DRP}
 \item[$t_r$]{The testradius. This is a radius around the DRP which guarantees that 
@@ -82,6 +85,8 @@ The following parameters are used in the implementation of the COA:
 	     $\hat{d} \leq \frac{d}{2}$ is inside of the circle of radius $t_r$ around DRS.
 	     The testradius $t_r$ is individual for each DRP.}
 \end{description}
+\index{Testradius}
+\index{Drive Route Point!Distance between DRPs}
 Choosing a suitable distance between DRPs $d$ and assigning an optimal testradius $t_r$ 
 are delicate tasks. While $d$ should be chosen in a way that eliminates unneccessary calculations,
 given a choice of $d$, $t_r$ has to be chosen such that all points in the corridor are covered.
@@ -91,6 +96,7 @@ choosing $d$ is discussed in much depth in section \ref{choosingDistance}.
 }
 
 \section{Step 3: Scanning the Corridor}
+\index{Corridor!Scanning for Requests}
 With the DRPs in place, the next step is to scan the set of requests for request $req$ for which:
 
 \begin{enumerate}
@@ -100,14 +106,16 @@ With the DRPs in place, the next step is to scan the set of requests for request
 \end{enumerate}
 All requests conforming to the above criteria are put together into a preliminary 
 list of matches (preselection), which is then subject to further filtering.
-
+\index{Preselection List!Search for Riders}
 \section{Step 4: Filtering by simple Criteria}
+\index{Simple Criteria!Search for Riders}
 \label{sfrFilteringSimpleCriteria}
 The preselection is filtered for simple criteria (smoker/gender/...etc), matches that do not 
 match all conditions are removed from the preselection.
 Note that this step does not require expensive calculation, so it should be performed before
 calculating and checking the exact detour.
 \section{Step 5: Calculating the Detour}
+\index{Detour!Search for Riders}
 \label{sfrCalculatingDetour}
 For each request in the preselection list that passed the previous step, calculate the corrected tour, 
 which includes the detour needed to pick up and drop the potential rider.
@@ -115,9 +123,11 @@ Remove all those requests from preselection for which the detour is larger than 
       
 \section{Step 6: Applying the Sorting Function}
 \label{sfrSortingFunction}
+\index{Sorting Function!Search for Riders}
 Sort the remaining requests according to the scoring function.
 
 \section{Step 7: Applying Limits}
+\index{Match Limit!Search for Riders}
 \label{sfrApplyingLimits}
 From the sorted list of requests, return the top $ml$ best scoring elements,
 Where $ml$ is the drivers individual "matchLimit", i.e the maximum number of 
