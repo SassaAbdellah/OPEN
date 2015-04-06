@@ -1,0 +1,52 @@
+\chapter{Searching for Drivers}
+\label{searchForDrivers}
+
+In this chapter we cover finding matching offers for a given request.
+Searching for drivers is done when a requests gets newly created.
+\index{Offer!finding matching offers for given request}
+\index{Request!finding matching offers for given request}
+
+\section{Step 1: Preselecting Offers}
+Search DRPs for Offers, which conform to the following criteria:
+\begin{enumerate}
+\item{There exists a DRP for this offer,\\
+       which has direct distance smaller than DRPs testradius to request's startpt \\
+	\emph{AND} \\
+	DRP has seatsAvaillable more or equal to the request required number of seats\\
+	\emph{AND} \\
+	DRP's expected arrival is within request's startTimeEarliest and startTimeLatest.
+      }
+\item{There exists a DRP for this offer, \\ 
+       which has direct distance smaller than DRPs testradius to request's endpt\\
+	\emph{AND} \\
+	DRP has seatsAvaillable more or equal to the request required number of seats
+	}
+\end{enumerate}
+Offers matching the above tests are added to a  \emph{preselection list}.
+The follwing steps will be about subsequently removing false positives from the preselection list 
+to finally obtain a set of exact matches in the end. 
+
+\section{Step 2: Filtering by simple Criteria}
+\label{sfdFilteringSimpleCriteria}
+The preselection is filtered for simple criteria (smoker/gender/...etc).
+Matches that do not match all of these conditions are removed from the preselection.
+Note that this step does not require expensive calculation, so it should be performed before
+calculating and checking the exact detour.
+
+\section{Step 3: Calculating the Detour}
+\label{sfdCalculatingDetour}
+For each offer in the preselection list that passed the previous step, invoke the routing engine to calculate 
+the corrected tour,  which includes the detour needed to pick up and drop the potential rider.
+In this step all offers for which the detour is larger than the maximum detour defined by the driver
+are removed from the preselection list. 	
+      
+\section{Step 4: Applying the Sorting Function}
+\label{sfdSortingFunction}
+Sort the remaining offers according to the scoring function.
+
+\section{Step 5: Applying Limits}
+\label{sfdApplyingLimits}
+From the sorted list of requests, return the top $ml$ best scoring elements,
+Where $ml$ is the riders individual "matchLimit", i.e the maximum number of 
+matchings defined to be returned for the rider.
+	

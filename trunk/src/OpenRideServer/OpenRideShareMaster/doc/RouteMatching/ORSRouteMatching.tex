@@ -1,0 +1,47 @@
+
+\documentclass[12pt, a4paper, twoside, titlepage]{report}
+%
+%
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{makeidx}
+\makeindex
+%
+\title{Route Matching in OpenRideShare}
+\author{Jochen Laser}
+\date{\today} 
+\begin{document}
+% Hint: \title{what ever}, \author{who care} and \date{when ever} could stand 
+% before or after the \begin{document} command 
+% BUT the \maketitle command MUST come AFTER the \begin{document} command! 
+\maketitle
+
+
+\begin{abstract}
+This document describes the Circle Overlay Algorithm used to match offers
+and requests to each other in Open Ride Share.
+\end{abstract}
+
+\tableofcontents % create a table of contens 
+
+\input{./01-Section-Introduction/section.tex}
+\input{./02-Section-Algorithm/section.tex}
+\input{./03-Section-ChoosingTestradius/section.tex}
+\input{./04-Section-Choosing-DistanceDriveRoutePoints/section.tex}
+
+
+
+\begin{thebibliography}{9}
+\bibitem[OpenRideRoutenMatching]{Open Ride Routen Matching} \emph{Open Ride Routen Matching},\\
+(no author given, in German)\\ 
+Fraunhofer Institut f\"ur offene Kommunikationssysteme\\
+(no author given, in German)\\ 
+online at 
+http://sourceforge.net/p/openride/code/HEAD/tree/trunk/doc/Architecture/Routes/OpenRide-RoutenMatching-doc-02-03-11.pdf?format=raw
+\end{thebibliography}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document}

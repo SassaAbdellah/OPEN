@@ -1,0 +1,34 @@
+\begin{theindex}
+
+  \item Approval, 9
+
+  \indexspace
+
+  \item Corridor, 7
+
+  \indexspace
+
+  \item Detour, 8, 9
+  \item Dynamic Rideshareing, 4
+
+  \indexspace
+
+  \item Filtering Criteria (cheap), 9
+
+  \indexspace
+
+  \item Offer, 5
+    \subitem finding matching offers for given request, 8, 14
+    \subitem finding matching requests for given offer, 7, 10
+
+  \indexspace
+
+  \item Request, 6
+    \subitem finding matching offers for given request, 8, 14
+    \subitem finding matching requests for given offer, 7, 10
+  \item Rideshareing, 4
+  \item Route, 6
+  \item Route Matching, 5, 7
+  \item Routepoint, 6
+
+\end{theindex}
