@@ -7,6 +7,7 @@ Searching for drivers is done when a requests gets newly created.
 \index{Request!finding matching offers for given request}
 
 \section{Step 1: Preselecting Offers}
+
 Search DRPs for Offers, which conform to the following criteria:
 \begin{enumerate}
 \item{There exists a DRP for this offer,\\
@@ -23,11 +24,14 @@ Search DRPs for Offers, which conform to the following criteria:
 	}
 \end{enumerate}
 Offers matching the above tests are added to a  \emph{preselection list}.
+\index{Preselection List!Search for Drivers}
 The follwing steps will be about subsequently removing false positives from the preselection list 
-to finally obtain a set of exact matches in the end. 
-
+to finally obtain a set of exact matches in the end.
+\index{False Positives!Search for Drivers} 
+\index{Preselection List!Search for Drivers}
 \section{Step 2: Filtering by simple Criteria}
 \label{sfdFilteringSimpleCriteria}
+\index{Simple Criteria!Search for Drivers}
 The preselection is filtered for simple criteria (smoker/gender/...etc).
 Matches that do not match all of these conditions are removed from the preselection.
 Note that this step does not require expensive calculation, so it should be performed before
@@ -35,16 +39,19 @@ calculating and checking the exact detour.
 
 \section{Step 3: Calculating the Detour}
 \label{sfdCalculatingDetour}
+\index{Detour!Search for Drivers}
 For each offer in the preselection list that passed the previous step, invoke the routing engine to calculate 
 the corrected tour,  which includes the detour needed to pick up and drop the potential rider.
 In this step all offers for which the detour is larger than the maximum detour defined by the driver
 are removed from the preselection list. 	
       
 \section{Step 4: Applying the Sorting Function}
+\index{Scoring Function!Search for Drivers}
 \label{sfdSortingFunction}
 Sort the remaining offers according to the scoring function.
 
 \section{Step 5: Applying Limits}
+\index{Match Limits!Search for Drivers}
 \label{sfdApplyingLimits}
 From the sorted list of requests, return the top $ml$ best scoring elements,
 Where $ml$ is the riders individual "matchLimit", i.e the maximum number of 
