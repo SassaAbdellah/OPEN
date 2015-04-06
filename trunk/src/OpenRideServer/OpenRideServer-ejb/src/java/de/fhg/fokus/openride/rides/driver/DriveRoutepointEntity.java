@@ -79,17 +79,33 @@ public class DriveRoutepointEntity implements Serializable {
     @Column(name = "distance_to_source", nullable=false)
     private Double distanceToSourceMeters;
     
+    
+    @Column(name = "test_radius", nullable=false)
+    private Double testradius;
+    
+    
+    /** Dumb default bean construction
+     * 
+     */
+    public DriveRoutepointEntity(){}
+    
 
-    public DriveRoutepointEntity() {}
-
-    public DriveRoutepointEntity(int driveId, int routeIdx, Point coordinate,
-            Timestamp expectedArrival, int seatsAvailable, double distanceToSourceMeters) {
+    public DriveRoutepointEntity(
+    		int driveId, 
+    		int routeIdx, 
+    		Point coordinate,
+            Timestamp expectedArrival, 
+            int seatsAvailable, 
+            double distanceToSourceMeters,
+            double testradius) {
         this.driveId = driveId;
         this.routeIdx = routeIdx;
         this.coordinate = coordinate;
         this.expectedArrival = expectedArrival;
         this.seatsAvailable = seatsAvailable;
         this.distanceToSourceMeters = distanceToSourceMeters;
+        this.testradius=testradius;
+        
     }
 
     public Point getCoordinate() {
@@ -162,4 +178,13 @@ public class DriveRoutepointEntity implements Serializable {
         }
         return true;
     }
+
+    
+	public Double getTestradius() {
+		return testradius;
+	}
+
+	public void setTestradius(Double testradius) {
+		this.testradius = testradius;
+	}
 }

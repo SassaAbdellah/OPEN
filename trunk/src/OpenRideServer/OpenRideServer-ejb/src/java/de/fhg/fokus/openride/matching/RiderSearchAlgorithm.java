@@ -1,3 +1,9 @@
+/*  Original OpenRideImplementation of the
+ *  SearchFor Rider Circle overlay prefetch algorithm.
+ * 
+ */
+
+
 /*
     OpenRide -- Car Sharing 2.0
     Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
@@ -50,13 +56,7 @@ import java.sql.PreparedStatement;
  * 
  * @author fvi
  */
-final class RiderSearchAlgorithm {
-
-    /* spatial reference systems for postgis geometries */
-    public static final  int SRID_CARTHESIAN = 3068;  // projection to the plane, most accurate within germany
-    public static final  int SRID_POLAR = 4326;       // the wgs84 reference system (lon, lat)
-    /* default circle radius */
-    public static final double DEFAULT_D = 2000.d;
+final class RiderSearchAlgorithm implements IRiderSearchAlgorithm {
 
     // we need to create a single temp table
     private static final String TEMP_TABLE_NAME = "passpoints_tmp";
@@ -233,16 +233,11 @@ final class RiderSearchAlgorithm {
         this.pstmtSelectMatches = conn.prepareStatement(SQL_SELECT_MATCHES);
     }
 
-    /**
-     * Open Ride Route-Matching by geometric circle overlay and time.
-     * @param rideId only used for constructing the PotentialMatch class.
-     * @param decomposedRoute get this from RouterBean.
-     * @param d circle radius.
-     * @return list of potential matches, empty list if no match found.
-     * @throws IllegalArgumentException if supplied parameters are wrong.
-     * @throws SQLException on jdbc related problems.
-     */
-    public LinkedList<PotentialMatch> findRiders(int rideId, RoutePoint[] decomposedRoute, double d)
+    /* (non-Javadoc)
+	 * @see de.fhg.fokus.openride.matching.IRiderSearchAlgorithm#findRiders(int, de.fhg.fokus.openride.routing.RoutePoint[], double)
+	 */
+    @Override
+	public LinkedList<PotentialMatch> findRiders(int rideId, RoutePoint[] decomposedRoute, double d)
             throws IllegalArgumentException, SQLException {
         
         //check parameters

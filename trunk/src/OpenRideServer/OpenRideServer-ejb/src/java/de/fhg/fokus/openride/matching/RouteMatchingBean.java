@@ -118,6 +118,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 	private static final double SFR_MAX_ROUTE_POINT_DISTANCE_METERS = 6000d;
 	// bounds for driver detourMeters :
+	// Todo: these should probably made configurable!
 	private static final double SFR_MIN_DETOUR_METERS = 0d;
 	private static final double SFR_MAX_DETOUR_METERS = 25000d;
 
@@ -566,21 +567,40 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		// supports intermediate points :))
 
 		// compute decomposed route (less coordinates, but interpolated)
+		
+		// distance between drive points in Meters
+		double drivePointDistanceMeters=getSfrRoutePointDistance(drive
+				.getRideAcceptableDetourInKm() * 1000);
+		
 		RoutePoint[] decomposedRoute = routerBean
 				.getEquiDistantRoutePoints(myWaypoints, startTime,
 						Constants.ROUTE_FASTEST_PATH_DEFAULT,
 						Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-						getSfrRoutePointDistance(drive
-								.getRideAcceptableDetourInKm() * 1000));
+						drivePointDistanceMeters
+						);
 
 		// add it to buffer
 		// TODO: this won't work
 		int routeIdx = 0;
 		for (RoutePoint rp : decomposedRoute) {
-			decomposedRouteBuff.add(new DriveRoutepointEntity(
+			decomposedRouteBuff.add(
+					new DriveRoutepointEntity(
+					// drive_id		
 					drive.getRideId() == null ? -1 : drive.getRideId(),
-					routeIdx++, rp.getCoordinate().toPoint(), rp.getTimeAt(),
-					drive.getRideOfferedseatsNo(), rp.getDistance()));
+					// route_idx		
+					routeIdx++,
+					// coordinates
+					rp.getCoordinate().toPoint(), 
+					// expected_arrival
+					rp.getTimeAt(),
+					// availlable seats
+					drive.getRideOfferedseatsNo(),
+					// distance_to source
+					rp.getDistance(),
+					// testradius
+					this.calculateTestRadiusT3(drivePointDistanceMeters, 1000*drive.getRideAcceptableDetourInKm())
+					)
+				);
 		}
 
 		logger.info("computeInitialRoutes : terminating :  number of route_points       : "
@@ -697,6 +717,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		return res;
 	}
 
+	
 	/**
 	 * Computes the route, the driver should drive if he'd book the given rider
 	 * offer. Pre: The given rider offer must not be associated with the driver
@@ -863,6 +884,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		// compute the decomposed route analog to the above algorithm
 		// and add its route points to decomposedRouteBuff.
 		startTime = new Timestamp(drive.getRideStarttime().getTime());
+		// TODO: what does "distance offset mean? -- maybe distance between DRPs?"
 		double distanceOffset = 0;
 		int roudeIdx = 0;
 		double d1 = -1; // distance to rider's start point
@@ -882,6 +904,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				logger.info("s = (" + s.getLatitude() + "," + s.getLongitude()
 						+ ")" + " d1=" + d1);
 			}
+			
+			// distance between new drive route points
+			double driveRoutePointDistance=getSfrRoutePointDistance(drive
+					.getRideAcceptableDetourInKm() * 1000);
 
 			RoutePoint[] decomposedroute = routerBean
 					.getEquiDistantRoutePoints(
@@ -892,8 +918,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 											.getLongitude()) }, startTime,
 							Constants.ROUTE_FASTEST_PATH_DEFAULT,
 							Constants.ROUTER_NEAREST_NEIGHBOR_THRESHOLD,
-							getSfrRoutePointDistance(drive
-									.getRideAcceptableDetourInKm() * 1000));
+							driveRoutePointDistance
+							);
 
 			if (decomposedroute == null) {
 				logger.info("FAILURE decomposedroute is NULL (should not happen)");
@@ -901,24 +927,50 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			}
 
 			for (int j = 0; j < decomposedroute.length - 1; j++) {
-				decomposedRouteBuff.add(new DriveRoutepointEntity(rideId,
-						roudeIdx++, decomposedroute[j].getCoordinate()
-								.toPoint(), decomposedroute[j].getTimeAt(),
-						seatsAvailable[i - 1], decomposedroute[j].getDistance()
-								+ distanceOffset));
+				decomposedRouteBuff.add(
+						new DriveRoutepointEntity(
+						// rideId
+						rideId,
+						// routeIndex
+						roudeIdx++, 
+						// coordinate
+						decomposedroute[j].getCoordinate().toPoint(), 
+						//expectedArrival
+						decomposedroute[j].getTimeAt(),
+						// seatsAvaillable
+						seatsAvailable[i - 1],
+						// distance from source
+						decomposedroute[j].getDistance()+distanceOffset,
+						// testradius
+						this.calculateTestRadiusT3(driveRoutePointDistance, 1000*drive.getRideAcceptableDetourInKm())
+						
+						));
 			}
 
 			if ((decomposedroute.length > 0)
 					&& (i == requiredPoints.size() - 1)) {
-				decomposedRouteBuff
-						.add(new DriveRoutepointEntity(rideId, roudeIdx++,
-								decomposedroute[decomposedroute.length - 1]
-										.getCoordinate().toPoint(),
-								decomposedroute[decomposedroute.length - 1]
-										.getTimeAt(),
-								seatsAvailable[seatsAvailable.length - 1],
-								decomposedroute[decomposedroute.length - 1]
-										.getDistance() + distanceOffset));
+				decomposedRouteBuff.add(
+							// DRP
+						
+							new DriveRoutepointEntity(
+									// rideID
+									rideId,
+									// route index
+									roudeIdx++,
+									// coordinate
+									decomposedroute[decomposedroute.length - 1].getCoordinate().toPoint(),
+									// expected arrival
+									decomposedroute[decomposedroute.length - 1].getTimeAt(),
+									// seats_availlable
+									seatsAvailable[seatsAvailable.length - 1],
+									// distance_to_source
+									decomposedroute[decomposedroute.length - 1].getDistance() + distanceOffset,
+									// testradius
+									this.calculateTestRadiusT3(driveRoutePointDistance, 1000*drive.getRideAcceptableDetourInKm())
+								) // DriveRoutePointEntity		
+								
+						
+								);
 			}
 			if (decomposedroute.length > 0) {
 				startTime = decomposedroute[decomposedroute.length - 1]
@@ -941,6 +993,26 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			return sharedDistance;
 		}
 		return -1;
+	}
+
+	
+	/** Calculate the testradius approximation t_3 
+	 *  See document "ORSRouteMatching" for details.
+	 * 
+	 *  Formula is 
+	 *  sqrt(1/2 drivePointDistance^2+drivePointDistance*maxDetourMeters+maxDetourMeters^2)
+	 * 
+	 * 
+	 * @param distanceOffset
+	 * @return
+	 */
+	private double calculateTestRadiusT3(double drivePointDistance, int maxDetourMeters) {
+		
+		return Math.sqrt(
+				0.5*drivePointDistance*drivePointDistance+
+				drivePointDistance*maxDetourMeters+
+				maxDetourMeters*maxDetourMeters
+				);
 	}
 
 	/**
