@@ -1,3 +1,12 @@
+
+
+/*  Original OpenRideImplementation of the
+ *  SearchFor Driver Circle overlay prefetch algorithm.
+ * 
+ */
+
+
+
 /*
     OpenRide -- Car Sharing 2.0
     Copyright (C) 2010  Fraunhofer Institute for Open Communication Systems (FOKUS)
@@ -46,14 +55,8 @@ import java.sql.PreparedStatement;
  *
  * @author fvi
  */
-final class DriverSearchAlgorithm
+final class DriverSearchAlgorithm implements IDriverSearchAlgorithm
 {
-    /* spatial reference systems for postgis geometries */
-    public static final int SRID_CARTHESIAN = RiderSearchAlgorithm.SRID_CARTHESIAN;
-    public static final int SRID_POLAR = RiderSearchAlgorithm.SRID_POLAR;
-
-    public static final double DEFAULT_D = 2000.d;
-
     /* only for adding comments in pstmt */
     private static int debug_i = 1;
     /* matching query */
@@ -133,19 +136,11 @@ final class DriverSearchAlgorithm
         this.pstmtSelectMatches = conn.prepareStatement(sqlSelectMatches);
     }
 
-    /**
-     * Comppute all matches for a given ride based on geographical position and time.
-     * @param riderrouteId identifier of riders' offer.
-     * @param startPt lon/lat coordinate of riders' start point.
-     * @param endPt lon/lat coordinate of riders' end point.
-     * @param startTimeEarliest earliest possible time to  pick up the rider.
-     * @param startTimeLatest latest possible time to pick up the rider.
-     * @param d radius of the two circles around riders' start and end point in meters.
-     * @return List of matches with regard to geographical position and time constraints.
-     * @throws SQLException
-     * @throws IllegalArgumentException
-     */
-    public LinkedList<PotentialMatch> findDriver(int riderrouteId, Point startPt,
+    /* (non-Javadoc)
+	 * @see de.fhg.fokus.openride.matching.IDriverSearchAlgorithm#findDriver(int, org.postgis.Point, org.postgis.Point, java.sql.Timestamp, java.sql.Timestamp, double)
+	 */
+    @Override
+	public LinkedList<PotentialMatch> findDriver(int riderrouteId, Point startPt,
             Point endPt, Timestamp startTimeEarliest,
             Timestamp startTimeLatest, double d) throws SQLException, IllegalArgumentException {
 
