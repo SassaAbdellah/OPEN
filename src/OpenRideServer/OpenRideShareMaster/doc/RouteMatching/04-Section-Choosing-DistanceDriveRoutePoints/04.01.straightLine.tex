@@ -1,0 +1,55 @@
+\section{Choosing $d$ for a straight Path}
+
+In this section, we discuss the choice of d in case of a straigh path.
+For a straight path, we have that the deflection is zero, i.e:
+\begin{equation}
+ \label{straightDeflection}
+  h=0
+\end{equation}
+and that the direct line between two DRPs is equal to the path between these DRPs, i.e:
+
+\begin{equation}
+ \label{straightPath}
+  \tilde{d}=d
+\end{equation}
+
+Such that the formula for the general defect $D$ \label{generalDefectFormula} 
+simplifies to
+\begin{equation}
+ \label{defectStraightPath}
+	D:=\pi*{t_r}^2 -(d*2*dist)
+\end{equation}
+
+While $F$ becomes
+\begin{equation}
+  F:=(d*2*dist)
+\end{equation}
+
+
+Giving the following simplified formula for $\frac{D}{F}$:
+\begin{equation}
+label{DF_straight_line}
+	\frac{D}{F}=\frac{\pi*{t_r}^2 -(d*2*dist)}{d*2*dist} 
+\end{equation}
+
+Where the formal parameter $t_r$ might still implicitely contain $d$ !
+
+
+\subsection{Optimal Choice of d for Straight Line and Testradius $t_{r3}$}
+
+Substituting the $t_{r3}$ as defined in  \label{testradius_tr3},
+formula \ref{DF_straight_line} becomes:
+\begin{equation}
+\label{DF_straight_line_tr3}
+\frac{D}{F}=\frac{\pi(\frac{1}{2}d^2+d*dist+dist^2) -(d*2*dist)}{d*2*dist}
+\end{equation}
+
+Which becomes minimal for choosing $d$ as:
+\begin{equation}
+\label{optimal_d_straight_line_tr3}
+ d:=(1-dist)+\sqrt{1-2*dist+dist^2-\frac{d*dist^2}{\pi}} 
+\end{equation}
+
+
+
+

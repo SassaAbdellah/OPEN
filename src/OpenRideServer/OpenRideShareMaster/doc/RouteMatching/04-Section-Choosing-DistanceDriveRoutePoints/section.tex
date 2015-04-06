@@ -1,0 +1,75 @@
+\chapter{Choosing the Distance between DRPs}
+\label{choosingDistance}
+In this section we present some considerations on how to choose the 
+distance $d$ along the path between two DRs.
+
+\subsection{The Defect} 
+
+\begin{figure}
+
+\includegraphics[scale=0.5]{images/04.01.defect.eps}
+\caption{Demonstating the \emph{"Defect"}: All points within the \emph{red bar} have 		
+         a distance not greater than h from the direct line, while all the points
+	inside the gray bars have distance greater than $h$, but less than $h+dist$.
+	All points locate inside either grey or red bars can be considered a success,
+	while points located inside the circle of radius $t_r$ but outside the 
+	bars can be considered  "false positives".
+	}
+\label{generalDefectFigure}
+\end{figure}
+
+A general measure and formula for the defect can be derived from figure \ref{generalDefectFigure}:
+All positives are located inside the circle of testradius $t_r$ around $d_1$.
+Of these, the \emph{"true positives"} are contained in the rectangle $F$ with height $2*h+2*dist$
+and width $\tilde{d}$, where $\tilde{d}$ is the maximum of the direct distance between 
+$d_1$ and either its left or right neighbor DR. 
+To get a measure for the expected defect, we have to calculate the difference between 
+the measure of the circle containing \emph{all positives} and the rectangle containing the \emph{true positives}:
+
+\begin{equation}
+\label{generalDefectFormulaFormally}
+	D:=\pi*{t_r}^2-F
+\end{equation}
+
+From figure \ref{generalDefectFigure} the identity $F=(\tilde{d}*2(h+dist))$ can be read.
+When this is substituted into the definition \ref{generalDefectFormulaFormally},
+the definition takes on the form:
+
+\begin{equation}
+\label{generalDefectFormula}
+        D:=\pi*{t_r}^2-(\tilde{d}*2(h+dist))
+\end{equation}
+
+In the rest of this section, we discuss how  the ratio between true positives and false positives 
+can be minimized by a sensible choice of the parameter $d$. 
+
+Assuming that interesting points are uniformly distributed in the plane, the
+ratio between D and F is a measure for the ratio between all positives and false positives.
+This gives:
+
+\begin{equation}
+\label{defectRatioFormula}
+        \frac{D}{F}=\frac{\pi*{t_r}^2-(\tilde{d}*2(h+dist))}{(\tilde{d}*2(h+dist))}
+\end{equation}
+
+
+Hoever simple formula \ref{generalDefectFormula} may seem, keep in mind that the formal 
+parameters $t_r$ and $\tilde{d}$ may themselves depend on the choice of $d$, while the 
+deflection $h$ may vary between 0 and $d$ and depends on geography -- which  is largely out 
+of \emph{our} control too.
+
+For this reason, in what follows we discuss the optimal choice of $d$ for some 
+special cases only.
+
+\input{04-Section-Choosing-DistanceDriveRoutePoints/04.01.straightLine.tex}
+
+
+
+
+
+
+
+
+
+
+
