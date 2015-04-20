@@ -4,7 +4,9 @@ In this section we present some considerations on how to choose the
 distance $d$ along the path between two DRs.
 
 \subsection{The Defect} 
-
+\index{Defect}
+\index{False Positives}
+\index{False Negatives}
 \begin{figure}
 
 \includegraphics[scale=0.5]{images/04.01.defect.eps}
@@ -17,7 +19,9 @@ distance $d$ along the path between two DRs.
 	}
 \label{generalDefectFigure}
 \end{figure}
-
+\index{False Positives}
+\index{False Positives!Ratio between false positives and false negatives}
+\index{False Negatives!Ratio between false positives and false negatives} 
 A general measure and formula for the defect can be derived from figure \ref{generalDefectFigure}:
 All positives are located inside the circle of testradius $t_r$ around $d_1$.
 Of these, the \emph{"true positives"} are contained in the rectangle $F$ with height $2*h+2*dist$
@@ -25,6 +29,8 @@ and width $\tilde{d}$, where $\tilde{d}$ is the maximum of the direct distance b
 $d_1$ and either its left or right neighbor DR. 
 To get a measure for the expected defect, we have to calculate the difference between 
 the measure of the circle containing \emph{all positives} and the rectangle containing the \emph{true positives}:
+
+\index{Defect!General Formula}
 
 \begin{equation}
 \label{generalDefectFormulaFormally}
@@ -35,6 +41,7 @@ From figure \ref{generalDefectFigure} the identity $F=(\tilde{d}*2(h+dist))$ can
 When this is substituted into the definition \ref{generalDefectFormulaFormally},
 the definition takes on the form:
 
+\index{Defect!Special Formuula}
 \begin{equation}
 \label{generalDefectFormula}
         D:=\pi*{t_r}^2-(\tilde{d}*2(h+dist))
@@ -46,6 +53,8 @@ can be minimized by a sensible choice of the parameter $d$.
 Assuming that interesting points are uniformly distributed in the plane, the
 ratio between D and F is a measure for the ratio between all positives and false positives.
 This gives:
+
+\index{Defect!Defect Ratio Formula}
 
 \begin{equation}
 \label{defectRatioFormula}
