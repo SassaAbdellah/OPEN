@@ -259,10 +259,18 @@ final class PotentialMatch
      * calculate route between liftPoint and onRouteLiftPoint and same for dropPoints.
      * store result in private class variables.
      * @param router
+     * 
+     * 
+     * TODO: the compute detour method is more than dubios!
+     * 
+     * 
      */
     
     
     private void computeDetour(Router router){
+    	
+    	
+    	// TODO WTF does the last constant parameter mean? 
         Route routeA = router.findRoute(onRouteLiftPoint, liftPoint, timeAtLiftPoint, true, 2000.0d );
         Route routeB = router.findRoute(onRouteDropPoint, dropPoint, timeAtLiftPoint, true, 2000.0d );
 

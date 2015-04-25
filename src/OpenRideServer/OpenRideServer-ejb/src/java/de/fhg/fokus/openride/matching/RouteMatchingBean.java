@@ -225,7 +225,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// compute potential matches based on geographical position and time
 			Connection conn = ds.getConnection();
 			conn.setAutoCommit(false);
-			RiderSearchAlgorithm algorithm = new RiderSearchAlgorithm(conn);
+			IRiderSearchAlgorithm algorithm = SearchAlgorithmSwitch.getRiderSearchAlgorithm(conn);
 			LinkedList<PotentialMatch> potentialMatches = algorithm.findRiders(
 					driveId, decomposedRoute, r);
 			conn.commit();
@@ -354,7 +354,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 			// compute potential matches based on geographical position and time
 			Connection conn = ds.getConnection();
-			DriverSearchAlgorithm algorithm = new DriverSearchAlgorithm(conn);
+			IDriverSearchAlgorithm algorithm = SearchAlgorithmSwitch.getDriverSearchAlgorithm(conn);
+			
+			
 			LinkedList<PotentialMatch> potentialMatches = algorithm.findDriver(
 					rideId, ride.getStartpt(), ride.getEndpt(), new Timestamp(
 							ride.getStarttimeEarliest().getTime()),
