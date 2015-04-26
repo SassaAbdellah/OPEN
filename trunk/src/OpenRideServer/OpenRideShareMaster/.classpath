@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/slf4j-nop-1.5.8.jar"/>
 	<classpathentry kind="lib" path="/OpenRideServer-ejb/libs/trove-3.0.2.jar"/>
 	<classpathentry kind="src" path="/OpenRideServer-ejb"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/joride"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
