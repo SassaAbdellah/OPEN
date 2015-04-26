@@ -211,6 +211,23 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+
+
+		<!-- replacing  sfrPreselection property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfrPreselection=(.*)" />
+			<substitution expression="sfrPreselection=${sfrPreselection}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
+		<!-- replacing  sfdPreselection property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfdPreselection=(.*)" />
+			<substitution expression="sfdPreselection=${sfdPreselection}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
 	</target>
 	<!--  end of target "apply local properties" -->
 
