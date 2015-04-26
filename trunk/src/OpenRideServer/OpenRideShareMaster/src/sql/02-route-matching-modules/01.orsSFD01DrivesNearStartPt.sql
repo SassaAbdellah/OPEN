@@ -31,11 +31,7 @@ CREATE FUNCTION orsSFD01FilterDrivesnNearStartPt(riderrouteId integer) RETURNS T
 
 DECLARE
 
--- -------------------------------------------------------------
---  we use srid 3068, srid for "Germany / Soldner Berlin "
--- -------------------------------------------------------------
 
-    srid integer  := 3068;
    
     --	row from riderundertakes ride
     rideRow  riderundertakesride%ROWTYPE;
