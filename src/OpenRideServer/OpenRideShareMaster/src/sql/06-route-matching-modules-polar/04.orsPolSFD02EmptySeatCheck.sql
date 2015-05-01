@@ -3,10 +3,10 @@
 -- -----------------------------------------------------------------
 -- drop before recreate
 -- -----------------------------------------------------------------
-DROP FUNCTION IF EXISTS orsEmptySeatsCount(integer, integer, integer);
+DROP FUNCTION IF EXISTS orsPolEmptySeatsCount(integer, integer, integer);
 
 
-CREATE FUNCTION   orsEmptySeatsCount(
+CREATE FUNCTION   orsPolEmptySeatsCount(
 	rideId                integer,
 	onRouteLiftPoint_idx  integer, 
 	onRouteDropPoint_idx  integer) 
@@ -52,4 +52,3 @@ BEGIN
 END;
 
 $$;
-
