@@ -3,10 +3,10 @@
 -- ------------------------------
 -- DROP before recreate 
 -- ------------------------------
-DROP FUNCTION IF EXISTS orsSFR(integer);
+DROP FUNCTION IF EXISTS orsPolSFR(integer);
 
 
-CREATE FUNCTION orsSFR(rideId integer) 
+CREATE FUNCTION orsPolSFR(rideId integer) 
 
 	RETURNS TABLE(	drive_id 		 integer		       	, 
 			riderroute_id            integer                        ,
@@ -88,15 +88,15 @@ RETURN QUERY
 	and drpS.seats_available>=rur.no_passengers
 	and drpE.seats_available>=rur.no_passengers
 	-- start and endpoint of the request should be within reach
-	and st_dwithin( drpS.coordinate_c, rur.startpt_c, drpS.test_radius) 
-	and st_dwithin( drpE.coordinate_c, rur.endpt_c, drpE.test_radius)
+	and st_dwithin( ST_MakePoint(drpS.coordinate[0],drpS.coordinate[1])::geography, ST_MakePoint(rur.startpt[0],rur.startpt[1])::geography, drpS.test_radius) 
+	and st_dwithin( ST_MakePoint(drpE.coordinate[0],drpE.coordinate[1])::geography, ST_MakePoint(rur.endpt[0],rur.endpt[1])::geography, drpE.test_radius)
 	-- Start and endpoint should realize minimal distance	
 	-- select those, that also realize minimal distance to startPoint
-	and st_distance(drpS.coordinate_c, rur.startpt_c) = orsDriveMinimalDistance( drpS.drive_id , rur.startpt_c )
+	and st_distance(ST_MakePoint(drpS.coordinate[0],drpS.coordinate[1])::geography, ST_MakePoint(rur.startpt[0],rur.startpt[1])::geography) = orsPolDriveMinimalDistance( drpS.drive_id , ST_MakePoint(rur.startpt[0],rur.startpt[1])::geography )
 	-- select those, where endpoints also realize minimal distance to endpoint
-	and st_distance(drpE.coordinate_c, rur.endpt_c) = orsDriveMinimalDistance( drpE.drive_id   , rur.endpt_c   )
+	and st_distance(ST_MakePoint(drpE.coordinate[0],drpE.coordinate[1])::geography, ST_MakePoint(rur.endpt[0],rur.endpt[1])::geography) = orsPolDriveMinimalDistance( drpE.drive_id   , ST_MakePoint(rur.endpt[0],rur.endpt[1])::geography )
 	-- check availlable seats
-	and orsEmptySeatsCount(rideId , drpS.route_idx, drpE.route_idx) <= rur.no_passengers
+	and orsPolEmptySeatsCount(rideId , drpS.route_idx, drpE.route_idx) <= rur.no_passengers
 	;	
 	
  

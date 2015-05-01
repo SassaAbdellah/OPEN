@@ -1,10 +1,10 @@
 
 
 
-DROP function IF EXISTS orsSFD01FilterDrivesnNearStartPt(integer);
-
+DROP function IF EXISTS orsPolSFDFilterDrivesnNearStartPt(integer);
+DROP function IF EXISTS orsPolSFDFilter01DrivesnNearStartPt(integer);
 --
--- Name: orsSFD01drivesnearstartpt(integer); Type: FUNCTION; Schema: public; Owner: openride
+-- Name: orsSFDdrivesnearstartpt(integer); Type: FUNCTION; Schema: public; Owner: openride
 --
 
 
@@ -12,15 +12,15 @@ DROP function IF EXISTS orsSFD01FilterDrivesnNearStartPt(integer);
 
 
 
-CREATE FUNCTION orsSFD01FilterDrivesnNearStartPt(riderrouteId integer) RETURNS TABLE(drive_id integer)
+CREATE FUNCTION orsPolSFDFilter01DrivesnNearStartPt(riderrouteId integer) RETURNS TABLE(drive_id integer)
     LANGUAGE plpgsql
     AS $$
 
 -- -------------------------------------------------------------------------------------------
 -- -------------------------------------------------------------------------------------------
 --
---   For request with riderroute_id $riderrouteId,
---
+--   For request with riderroute_id $riderrouteId,   *POL*ar coordinate version.
+ --
 --   returns list of drive_ids for all those drives, 
 --   which come within radius max_detour (respectively testradius around drive_route_point)
 --
@@ -35,8 +35,8 @@ DECLARE
    
     --	row from riderundertakes ride
     rideRow  riderundertakesride%ROWTYPE;
-    -- fast local cartesian coordinates of startpoint	
-    startpt_c geometry;
+    -- local geography (polar coordinates) of startpoint	
+    startpt geography;
     -- startTimeEarliest startTimeLatest from ride	
     startTimeEarliest  timestamp;	
     startTimeLatest    timestamp;
@@ -51,7 +51,7 @@ BEGIN
     -- ------------------------------------------------------------------
     -- Determine startPoint's cartesian coordinates
     -- ------------------------------------------------------------------	
-    startpt_c = rideRow.startpt_c;
+    startpt = ST_MakePoint(rideRow.startpt[0],rideRow.startpt[1])::geography;
     -- ------------------------------------------------------------------
     -- Determine startTimeEarliest, startTimeLatest 
     -- ------------------------------------------------------------------
@@ -70,7 +70,7 @@ BEGIN
 	-- expected arrival should be within bounds	
         AND drp.expected_arrival  < startTimeLatest
         -- drive route point should be within testradius 
-        AND st_dwithin( drp.coordinate_c, startpt_c, drp.test_radius) 
+        AND st_dwithin( ST_MakePoint(drp.coordinate[0],drp.coordinate[1])::geography, startpt, drp.test_radius) 
         --- there should be enough seats availlable 
         AND drp.seats_available >= seatsRequired;
 

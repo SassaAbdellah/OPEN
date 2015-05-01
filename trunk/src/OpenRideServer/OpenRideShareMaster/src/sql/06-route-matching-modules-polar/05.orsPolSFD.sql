@@ -3,11 +3,11 @@
 -- ------------------------------
 -- DROP before recreate 
 -- ------------------------------
-DROP FUNCTION IF EXISTS orsSFD(integer);
+DROP FUNCTION IF EXISTS orsPolSFD(integer);
 
 
 
-CREATE FUNCTION orsSFD(riderrouteId integer) 
+CREATE FUNCTION orsPolSFD(riderrouteId integer) 
 	RETURNS TABLE(	drive_id 		 integer		       	, 
 			riderroute_id            integer                        ,
 			onrouteliftpointidx 	 integer	               	, 
@@ -53,9 +53,9 @@ DECLARE
     rideRow  riderundertakesride%ROWTYPE;
     -- rides startPoint point
     startPoint Point;	
-    -- fast carthesian coordinates of ride's startpoint and endpoint	
-    startpt_c        Geometry;
-    endpt_c          Geometry;
+    -- polar coordinates of ride's startpoint and endpoint	
+    startpt        Geography;
+    endpt          Geography;
     no_passengers    integer=-1;	    
     	
 
@@ -63,10 +63,10 @@ BEGIN
 
     select * into rideRow from riderundertakesride  where riderundertakesride.riderroute_id=riderrouteId;	
     -- ------------------------------------------------------------------
-    -- Determine startpts/endpts carthesian coordinates, no of passengers
+    -- Determine startpts/endpts polar coordinates, no of passengers
     -- ------------------------------------------------------------------	
-    startpt_c = rideRow.startpt_c;
-    endpt_c   = rideRow.endpt_c  ;
+    startpt = ST_MakePoint(rideRow.startpt[0],rideRow.startpt[1])::geography;
+    endpt   = ST_MakePoint(rideRow.endpt[0],rideRow.endpt[1])::geography  ;
     no_passengers = rideRow.no_passengers;
 
 	
@@ -88,13 +88,13 @@ BEGIN
 	-- JOIN criterion
 	where drpStart.drive_id=drpEnd.drive_id
 	-- only select those drive_id  that already pass first filter near startPoint, and second filter near endpoint
-	AND drpStart.drive_id in (select  orsSFD02Filter02DrivesNearEndPt(riderrouteId))
+	AND drpStart.drive_id in (select  orsPolSFDFilter02DrivesNearEndPt(riderrouteId))
 	-- select those, that also realize minimal distance to startPoint
-	AND st_distance(drpStart.coordinate_c, startpt_c) = orsDriveMinimalDistance( drpStart.drive_id , startpt_c )
+	AND st_distance(ST_MakePoint(drpStart.coordinate[0],drpStart.coordinate[1])::geography, startpt) = orsPolDriveMinimalDistance( drpStart.drive_id , startpt )
 	-- select those, that where endpoints also realize minimal distance to endpoint
-	AND st_distance(drpEnd.coordinate_c,     endpt_c) = orsDriveMinimalDistance( drpEnd.drive_id   , endpt_c   )
+	AND st_distance(ST_MakePoint(drpEnd.coordinate[0],drpEnd.coordinate[1])::geography,     endpt) = orsPolDriveMinimalDistance( drpEnd.drive_id   , endpt   )
 	-- select only those combinations that provide empty seats on the route 
-        AND orsEmptySeatsCount(drpStart.drive_id , drpStart.route_idx, drpEnd.route_idx) <= no_passengers
+        AND orsPolEmptySeatsCount(drpStart.drive_id , drpStart.route_idx, drpEnd.route_idx) <= no_passengers
 	; 
 
 	

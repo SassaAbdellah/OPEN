@@ -1,7 +1,7 @@
 -- ---------------------
 -- Conditional Drop  ---
 -- ---------------------
-DROP FUNCTION if exadjustgeomdriveroutepoint()ists adjustgeomdriveroutepoint()
+DROP FUNCTION if exists   adjustgeomdriveroutepoint() ;
 
 
 --
