@@ -13,7 +13,7 @@ import org.postgresql.geometric.PGpoint;
 import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.RoutePoint;
 
-public class CombiSearchAlgorithmORS
+public abstract class CombiSearchAlgorithmORS
 
 /**
  * Jochen's Implementation of the prefetch stages of both
@@ -22,30 +22,16 @@ public class CombiSearchAlgorithmORS
  *  * Rider Search Algorithm (SFR)
  * 
  * 
- * 
- * 
  */
 implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 		
-	
-		/** String used to create prepared statement for SearchForDriver Algorithm.
-		 *  This simply calls the orsSFD stored procedure.
-		 */
-		private static final String preparedStatementSFDString="select * from orsSFD( ? )";
+
 		
-	
 			
 		/** prepared statement to search for potential matches for given request.
 		 *  This gets initialized at construction time
 		 */
 		private final PreparedStatement preparedStatementSelectSFD;
-		
-		
-		
-		/** String used to create prepared statement for SearchForRider Algorithm.
-		 *  This simply calls the orsSFR stored procedure.
-		 */
-		private static final String preparedStatementSFRString="select * from orsSFR( ? )";
 		
 	
 			
@@ -53,13 +39,28 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 		 *  This gets initialized at construction time
 		 */
 		private final PreparedStatement preparedStatementSelectSFR;
-
 		
 		
 		/** DatabaseConnection to be initialized when creating this
 		 */
 		private final Connection con;
-	
+
+		
+		
+		/** This should usually be overwritten to call different 
+		 *  stored procedures. See known subclasses!
+		 * 
+		 * @return String describing a prepared statement to be called
+		 */
+	    protected abstract String getPreparedStatementSFDString();
+
+
+	    /** This should usually be overwritten to call different 
+		 *  stored procedures. See known subclasses!
+		 * 
+		 * @return String describing a prepared statement to be called
+		 */
+		protected abstract String getPreparedStatementSFRString();
 	
 	
 		
@@ -146,12 +147,15 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
      */
     public CombiSearchAlgorithmORS(Connection con) throws SQLException {
         this.con = con;
-        this.preparedStatementSelectSFD = this.con.prepareStatement(preparedStatementSFDString);
-        this.preparedStatementSelectSFR = this.con.prepareStatement(preparedStatementSFRString);
+        this.preparedStatementSelectSFD = this.con.prepareStatement(getPreparedStatementSFDString());
+        this.preparedStatementSelectSFR = this.con.prepareStatement(getPreparedStatementSFRString());
     }
 
     
-    /**
+
+
+
+	/**
 	 * This should return a List of preselected "PotentialMatches" with the
 	 * following properties beeing filled in:
 	 * 
