@@ -140,19 +140,25 @@ urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 #jquery.ui.theme=swm
 #
 #
-#############################################
-# switch between preselection algorithms    #
-#############################################
 #
-#
-# if sfrPreselection=ORS, then new ORS preselection algorithm will be used in search for rider algorithm
-#
-sfrPreselection=ORS
-#
-# if sfdPreselection=ORS, then new ORS preselection algorithm will be used in search for driver algorithm
-#
-sfdPreselection=ORS
-
+##############################################
+## switch between preselection algorithms    #
+##############################################
+##
+##
+## if sfrPreselection=ORS,  then new ORS preselection algorithm for carthesian coordinates will be used in search for rider algorithm
+## if sfrPreselection=ORSP, then new ORS preselection algorithm for polar coordinates will be used in search for rider algorithm
+##   
+##
+##
+sfrPreselection=ORSP
+##
+## if sfdPreselection=ORS, then new ORS preselection algorithm for carthesian coordinates  will be used in search for driver algorithm
+## if sfdPreselection=ORSP, then new ORS preselection algorithm for polar coordinates will be used in search for driver algorithm
+##
+##
+##
+sfdPreselection=ORSP
 
 
 
