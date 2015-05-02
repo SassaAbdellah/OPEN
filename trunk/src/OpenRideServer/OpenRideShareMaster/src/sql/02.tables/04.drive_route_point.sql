@@ -36,10 +36,4 @@ ALTER TABLE ONLY drive_route_point
     
     
 
---
--- Name: drive_route_point_trigger; Type: TRIGGER; Schema: public; Owner: openride
---
-
-CREATE TRIGGER drive_route_point_trigger BEFORE INSERT OR UPDATE ON drive_route_point FOR EACH ROW EXECUTE PROCEDURE adjustgeomdriveroutepoint();
-    
 
