@@ -20,7 +20,6 @@ CREATE TABLE drive_route_point (
     test_radius double precision,
     CONSTRAINT enforce_dims_coordinate_c CHECK ((st_ndims(coordinate_c) = 2)),
     CONSTRAINT enforce_geotype_coordinate_c CHECK (((geometrytype(coordinate_c) = 'POINT'::text) OR (coordinate_c IS NULL))),
-    CONSTRAINT enforce_srid_coordinate_c CHECK ((st_srid(coordinate_c) = 3068))
 );
 
 
