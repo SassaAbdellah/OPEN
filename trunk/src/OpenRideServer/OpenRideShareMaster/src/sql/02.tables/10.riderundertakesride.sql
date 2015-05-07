@@ -39,8 +39,6 @@ CREATE TABLE riderundertakesride (
     CONSTRAINT enforce_dims_startpt_c CHECK ((st_ndims(startpt_c) = 2)),
     CONSTRAINT enforce_geotype_endpt_c CHECK (((geometrytype(endpt_c) = 'POINT'::text) OR (endpt_c IS NULL))),
     CONSTRAINT enforce_geotype_startpt_c CHECK (((geometrytype(startpt_c) = 'POINT'::text) OR (startpt_c IS NULL))),
-    CONSTRAINT enforce_srid_endpt_c CHECK ((st_srid(endpt_c) = 3068)),
-    CONSTRAINT enforce_srid_startpt_c CHECK ((st_srid(startpt_c) = 3068))
 );
 
 
