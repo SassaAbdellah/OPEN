@@ -131,6 +131,43 @@ function createOSMMap(
      }
 
 
+//
+// create Google Map to display the route
+//
+function createGoogleMap(
+        divId,        
+        startpoint, 
+        endpoint, 
+        routepoints, 
+        pickupPoints, 
+        dropPoints,
+        wayPoints
+        ) { 
+
+   
+        map = new OpenLayers.Map(divId);     
+        var gmap = new OpenLayers.Layer.Google(
+            "Google Streets", // the default
+            {numZoomLevels: 20}
+        );
+       
+        map.addLayers([gmap]);
+    
+    
+        configureMap(
+        			divId,        
+        			startpoint, 
+        			endpoint, 
+        			routepoints, 
+        			pickupPoints, 
+        			dropPoints,
+        			wayPoints,
+        			map
+    	     	  );
+    
+     }
+
+
 
 //
 // configure map to display the route
