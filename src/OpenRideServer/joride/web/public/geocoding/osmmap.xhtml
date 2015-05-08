@@ -104,42 +104,44 @@
 
 
 			<!-- creation of map and control object ends above -->
-			<!-- code above has to be externalized first       -->
-
-
-
-			<!-- below, we start feeding the map with data -->
-
-			<script>                                      
-                    var map=createOSMMap();	
-
-
-                    // //////////////////////////////////////////
+			<!-- below, we start feeding the map with data     -->
+				
+ 				
+ 				
+ 				<!-- TODO google maps api v3 is alway included. This is inefficient -->
+ 				<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>  
+ 			
+ 				
+ 				
+			 	<script>
+			  	
+			   	   var map;
+			   	
+			   	   // are we in OSM Mode?
+			   	   if( #{geocodingSettings.geomapperIsOSM} )	{
+			   		   map=createOSMMap(); 
+			   		   }
+			   	   // are we in Google Mode?
+			   	   if( #{geocodingSettings.geomapperIsGoogle} )	{
+			   		   map=createGoogleMap();
+			   		   }
+			   		
+			   	   
                     // add click handler control 
-                    // //////////////////////////////////////////
                     createClickControlForMap(map);	
                     activateClick(map);
-
                     // 
-                    //	
-                    var jorideMarkersLayer;	
-
-           
+                    var jorideMarkersLayer;	       
                     // initialize stuff!
                     createMarkersLayer(#{point.lon}, #{point.lat} , 16, map);
-		
-                
-           
-
-		
-
                 </script>
+         
 
 
-
-
-
-
+		
+	
+				
+                 
 
 
 
