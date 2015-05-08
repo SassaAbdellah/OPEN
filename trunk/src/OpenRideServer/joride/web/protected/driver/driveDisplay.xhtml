@@ -342,9 +342,12 @@
                     myEndPoint =#{driverride.routePoints.endPointAsJSON};
                     myPickupPoints =#{driverride.routePoints.pickupRiderPointsAsJSON};
                     myDropPoints =#{driverride.routePoints.dropRiderPointsAsJSON};
-                    myWayPoints =#{driverride.routePoints.wayPointsAsJSON};
-
-                    createMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
+                    myWayPoints =#{driverride.routePoints.wayPointsAsJSON};                    
+               </script>     
+               
+               
+				<script>
+                    createOSMMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
                 </script>
 
 			</ui:fragment>

@@ -127,7 +127,20 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!--  applying geocoding service settings -->
+		<replaceregexp byline="true">
+			<regexp pattern="geocoding=(.*)" />
+			<substitution expression="geocoding=${geocoding}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+
+		<!--  applying webmapper service settings -->
+		<replaceregexp byline="true">
+			<regexp pattern="geomapper=(.*)" />
+			<substitution expression="geomapper=${geomapper}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
 
 		<!-- ****************************  -->
@@ -164,35 +177,37 @@
 		<!--  applying url of OpenLayers library -->
 		<replaceregexp byline="true">
 			<regexp pattern="urlOpenLayers=(.*)" />
-			<substitution expression=" urlOpenLayers=${urlOpenLayers}" />
+			<substitution expression="urlOpenLayers=${urlOpenLayers}" />
 			<fileset file="${navparamfile}" />
 		</replaceregexp>
-		
-		
+
+
+
+
 		<!-- ****************************  -->
-	 	<!-- Rewrite update parameters     -->
+		<!-- Rewrite update parameters     -->
 		<!-- ****************************  -->
 
-				<property name="updateparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/update.properties" />
-		
-		       <!-- apply update interval  -->
+		<property name="updateparamfile" value="${build.dir}/WEB-INF/classes/de/avci/joride/update.properties" />
 
-				<replaceregexp byline="true">
-					<regexp pattern="updateInterval=(.*)" />
-					<substitution expression="updateInterval=${updateInterval}" />
-					<fileset file="${updateparamfile}" />
-				</replaceregexp>
+		<!-- apply update interval  -->
 
-		        <!-- apply growl interval  -->
+		<replaceregexp byline="true">
+			<regexp pattern="updateInterval=(.*)" />
+			<substitution expression="updateInterval=${updateInterval}" />
+			<fileset file="${updateparamfile}" />
+		</replaceregexp>
 
-				<replaceregexp byline="true">
-					<regexp pattern="growlInterval=(.*)" />
-					<substitution expression="growlInterval=${growlInterval}" />
-					<fileset file="${updateparamfile}" />
-				</replaceregexp>
+		<!-- apply growl interval  -->
 
-		
-		
+		<replaceregexp byline="true">
+			<regexp pattern="growlInterval=(.*)" />
+			<substitution expression="growlInterval=${growlInterval}" />
+			<fileset file="${updateparamfile}" />
+		</replaceregexp>
+
+
+
 
 		<!-- ****************************  -->
 		<!-- Rewrite datetime settings   -->
@@ -331,10 +346,10 @@
 	<!-- TARGET dist -->
 	<target name="dist" depends="build" description="create the distributables, but do not deploy">
 	</target>
-	
+
 	<!-- target i18n -->
 	<target name="i18n" depends="dist" description="create internationalisation tools">
-		
+
 	</target>
 
 

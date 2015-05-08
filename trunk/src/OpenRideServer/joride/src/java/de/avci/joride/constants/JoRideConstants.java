@@ -138,7 +138,6 @@ public class JoRideConstants implements Serializable{
     }
     
     
-    
     /** HTTP Parameter transporting Customer's Nickname
      * 
      */
@@ -149,7 +148,6 @@ public class JoRideConstants implements Serializable{
     public String getParamNameNickname(){
         return PARAM_NAME_NICKNAME;
     }
-    
-    
+     
      
 } // class
