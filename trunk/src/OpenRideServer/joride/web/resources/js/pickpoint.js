@@ -1,6 +1,34 @@
  
 
 
+
+
+
+//
+// Create and return map with an google layer
+// for div named "mapdiv
+//
+// Google API v3 must be included for this to work
+//
+
+function createGoogleMap() {
+            map = new OpenLayers.Map("mapdiv");
+            
+            var gmap = new OpenLayers.Layer.Google(
+                "Google Streets", // the default
+                {numZoomLevels: 20}
+            );
+           
+          
+            map.addLayers([gmap]);
+            return map;	
+        }
+
+
+
+
+
+
 //
 // Create and return map with an osm layer
 // for div named "mapdiv
