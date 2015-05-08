@@ -228,6 +228,27 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+
+
+		
+		<!-- replacing geocoding property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="geocoding=(.*)" />
+			<substitution expression="geocoding=${geocoding}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+               <!-- replacing geomapper property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="geomapper=(.*)" />
+			<substitution expression="geomapper=${geomapper}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
+
+
+
 	</target>
 	<!--  end of target "apply local properties" -->
 
