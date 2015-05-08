@@ -99,9 +99,10 @@ function autocenterMap( coords , map ){
 //  
 
 
-
-
-function createMap(
+//
+// create OSM Map to display the route
+//
+function createOSMMap(
         divId,        
         startpoint, 
         endpoint, 
@@ -113,8 +114,38 @@ function createMap(
 
     map = new OpenLayers.Map(divId);
     map.addLayer(new OpenLayers.Layer.OSM());
+    //
+    // call generic configuration function
+    //
+    configureMap(
+    	     divId,        
+    	     startpoint, 
+    	     endpoint, 
+    	     routepoints, 
+    	     pickupPoints, 
+    	     dropPoints,
+    	     wayPoints,
+    	     map
+    	     );
     
-   
+}
+
+
+
+//
+// configure map to display the route
+// map may be either Google or OSM
+// 
+function configureMap(
+     divId,        
+     startpoint, 
+     endpoint, 
+     routepoints, 
+     pickupPoints, 
+     dropPoints,
+     wayPoints,
+     map
+     ) {   
      
      // console log should normally disabled because it blocks braindamaged IE
      //
@@ -204,7 +235,7 @@ function createMap(
     	jorideMarkersLayer.addMarker(markerWaypoint);
    }
 
- // add markers for wayPoints
+   // add markers for wayPoints
    for (i=0;  i < wayPoints.length; i++){
  
         llWaypoint=new OpenLayers.LonLat(wayPoints[i][0],wayPoints[i][1]).transform(
