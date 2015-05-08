@@ -100,7 +100,7 @@
 						<f:param name="#{crud.paramNameCrudId}"
 							value="#{newdriverride.rideId}" />
 					</p:commandLink>
-					
+
 					<p>
 						<h:commandLink rendered="#{HTTPUser.hideMap}"
 							action="driver.driveDisplayNewDrive"
@@ -111,7 +111,7 @@
 								value="#{newdriverride.rideId}" />
 						</h:commandLink>
 					</p>
-					
+
 				</div>
 
 				<div class="formLabel">
@@ -171,12 +171,28 @@
                     myWayPoints =#{newdriverride.routePoints.wayPointsAsJSON};
 
                     
-               </script> 
-               
-                      
-               <script>     
-                    createOSMMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
                </script>
+
+
+
+				<!-- TODO google maps api v3 is alway included. This is inefficient -->
+				<script
+					src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+
+				<script>
+				  // are we in OSM Mode?
+			   	   if( #{geocodingSettings.geomapperIsOSM} ){
+                    	createOSMMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
+			   	   }  
+			   	   // are we in Google Mode?
+			   	   if( #{geocodingSettings.geomapperIsGoogle} ){
+                    	createGoogleMap("mapdiv", myStartPoint, myEndPoint, myRoutePoints, myPickupPoints, myDropPoints, myWayPoints);
+			   	   }
+                </script>
+
+
+
+
 
 			</ui:fragment>
 			<!-- ********************************************* -->
