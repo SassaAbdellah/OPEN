@@ -12,7 +12,7 @@
 //
 
 function createGoogleMap() {
-            map = new OpenLayers.Map("mapdiv");
+            var map = new OpenLayers.Map("mapdiv");
             
             var gmap = new OpenLayers.Layer.Google(
                 "Google Streets", // the default
@@ -25,16 +25,12 @@ function createGoogleMap() {
         }
 
 
-
-
-
-
 //
 // Create and return map with an osm layer
 // for div named "mapdiv
 //
  function createOSMMap(){
-	xMap = new OpenLayers.Map("mapdiv");
+	 	var xMap = new OpenLayers.Map("mapdiv");
         xMap.addLayer(new OpenLayers.Layer.OSM());
         return xMap;
     }
