@@ -12,6 +12,12 @@ import java.io.Serializable;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
+
+/**
+ * @Deprecated as we do not have tabs any more, this is probably no more needed
+ */
+
+
 /**
  * JSF Bean providing constants for Joride Navigation.
  *
