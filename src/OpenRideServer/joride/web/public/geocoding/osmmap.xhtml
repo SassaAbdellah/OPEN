@@ -81,7 +81,7 @@
 
 			<!-- **************************************************************************** -->
 			<p>
-				<div id="mapdiv">&nbsp;</div>
+			<div id="mapdiv">&nbsp;</div>
 			</p>
 
 
@@ -105,19 +105,12 @@
 
 			<!-- creation of map and control object ends above -->
 			<!-- below, we start feeding the map with data     -->
-
-
-
-
-			<!-- Include google v3 api only if google is webmapper -->
-
-			<f:verbatim rendered="#{geocodingSettings.geomapperIsGoogle}">
-			<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
-			</f:verbatim>
-
-
-
-			<script>
+				
+ 				
+ 				
+ 				<!-- TODO: google maps api v3 is alway included. This is inefficient and dangerous 
+ 				
+			 	<script>
 			  	
 			   	   var map;
 			   	
@@ -139,13 +132,13 @@
                     // initialize stuff!
                     createMarkersLayer(#{point.lon}, #{point.lat} , 16, map);
                 </script>
+         
 
 
-
-
-
-
-
+		
+	
+				
+                 
 
 
 
