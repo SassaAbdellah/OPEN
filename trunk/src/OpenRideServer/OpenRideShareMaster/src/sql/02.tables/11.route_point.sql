@@ -2,7 +2,7 @@
 -- Conditional Drop
 --
 
-DROP TABLE if exists route_point
+DROP TABLE if exists route_point;
 
 --
 -- Name: route_point; Type: TABLE; Schema: public; Owner: openride; Tablespace: 

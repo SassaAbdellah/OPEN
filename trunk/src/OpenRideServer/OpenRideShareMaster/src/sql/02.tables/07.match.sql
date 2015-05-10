@@ -2,7 +2,7 @@
 --
 -- Conditional DROP
 --
-DROP TABLE if exists  match 
+DROP TABLE if exists  match;
 
 --
 -- Name: match; Type: TABLE; Schema: public; Owner: openride; Tablespace: 

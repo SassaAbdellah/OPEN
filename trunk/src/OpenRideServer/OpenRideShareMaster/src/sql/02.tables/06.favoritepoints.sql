@@ -2,7 +2,7 @@
 -- Conditional drop
 --
 
-DROP TABLE if exists favoritepoint
+DROP TABLE if exists favoritepoint;
 
 
 --
