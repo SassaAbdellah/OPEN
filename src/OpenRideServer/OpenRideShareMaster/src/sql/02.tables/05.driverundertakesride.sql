@@ -2,7 +2,7 @@
 --
 -- Conditional DROP
 --
-DROP TABLE if exists driverundertakesride
+DROP TABLE if exists driverundertakesride;
 
 
 

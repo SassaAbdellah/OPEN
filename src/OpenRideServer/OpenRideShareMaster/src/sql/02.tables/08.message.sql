@@ -2,7 +2,7 @@
 -- Conditional DROP
 --
 
-DROP TABLE if exists message
+DROP TABLE if exists message;
 
 --
 -- Name: message; Type: TABLE; Schema: public; Owner: openride; Tablespace: 

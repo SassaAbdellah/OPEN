@@ -1,7 +1,7 @@
 --
 -- Conditional DROP
 -- 
-DROP TABLE if exists sequence 
+DROP TABLE if exists sequence;
 
 --
 -- Name: sequence; Type: TABLE; Schema: public; Owner: openride; Tablespace: 
