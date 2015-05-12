@@ -523,14 +523,6 @@
 		</navigation-case>
 	</navigation-rule>
 
-	<!-- go to the osmmapper page -->
-	<navigation-rule>
-		<navigation-case>
-			<from-outcome>osmmap</from-outcome>
-			<to-view-id>/faces/public/geocoding/nominatim/osmmap.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
 	<!-- nominatim via javascript/jsonp -->
 	<navigation-rule>
 		<navigation-case>
@@ -538,6 +530,25 @@
 			<to-view-id>/faces/public/geocoding/nominatim/jasonpNominatim.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	
+	<!-- go to the google geocoding search -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>googleq</from-outcome>
+			<to-view-id>/faces/public/geocoding/google/jsonpGoogle.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- google geocoding via javascript/jsonp -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>jgoogle</from-outcome>
+			<to-view-id>/faces/public/geocoding/google/jasonpGoogle.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 
 	<!-- contact page -->
 	<navigation-rule>

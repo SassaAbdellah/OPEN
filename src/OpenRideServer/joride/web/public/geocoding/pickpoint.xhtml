@@ -66,6 +66,17 @@
 
                         </h:commandLink>
                     </p>
+                    
+                    
+                      <p>
+                        <h:commandLink value="#{msgs.geolocationGoogle}" action="jgoogle">
+                            <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
+                            <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
+                        </h:commandLink>
+                    </p>
+                     
+                    
+                    
 
                 </h:form>
 
