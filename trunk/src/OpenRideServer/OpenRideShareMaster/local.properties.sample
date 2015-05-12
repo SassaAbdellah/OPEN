@@ -169,8 +169,12 @@ sfdPreselection=ORSP
 #
 #
 # Geocoding service to be used. May be either "Nominatim" or "Google" 
+# Note that Google's Map API v3 requires you to show results in Google Maps when
+# using Google's geocoding services. 
+# I.e: if geocoding is set to "GOOGLE", then geomapping must be set to "GOOGLE" too
 #
-geocoding=NOMINATIM
+#geocoding=NOMINATIM
+geocoding=GOOGLE
 #
 #
 # Webmapper to be used. May be either OSM or Google.
