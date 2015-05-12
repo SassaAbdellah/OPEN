@@ -18,7 +18,7 @@ function codeAddressWithGoogle(address) {
     				   var i=0;
     				   
     				   
-						while( i<results.length){
+						while( i<results.length && i< limit ){
 							
 					        var displayName=results[i].formatted_address;
 					        var lat=results[i].geometry.location.lat();
