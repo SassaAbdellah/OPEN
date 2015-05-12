@@ -42,6 +42,10 @@ public class GoogleJSONPQuery  implements Serializable {
 	
 	
 	
+	
+	
+	
+	
     
     /** Name of the limit http parameter.
      *
