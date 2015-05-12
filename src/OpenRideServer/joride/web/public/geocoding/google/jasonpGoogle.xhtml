@@ -43,15 +43,15 @@
                 #{point.smartUpdate()}
 
 
-				<h1> TODO: GOOGLE SEARCH </h1>
+			
                 
                 
 				<!-- Search form for POI / unstructured search -->
+				
+				    <h1> #{msgs.geolocationGoogleTitle}</h1> 
+				
 					<h:form>
-						#{msgs.freetextSearchDescription}
-			
 						<!-- label and input for poi  *********************************************** -->
-						<div class="formLabel">#{msgs.freetextSearchLabel}</div>
 						<div class="formInput">
 							<h:inputTextarea rows="5" value="#{googleq.searchstring}" />
 						</div>
