@@ -59,8 +59,10 @@
                         </h:commandLink>
                     </p>
 
+
+					<!-- Show Nominatim search IFF respective property is set -->
                     <p>
-                        <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim">
+                        <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim"  rendered="#{geocodingSettings.geocodingIsNominatim}">
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                             <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
 
@@ -69,7 +71,7 @@
                     
                     
                       <p>
-                        <h:commandLink value="#{msgs.geolocationGoogle}" action="jgoogle">
+                        <h:commandLink value="#{msgs.geolocationGoogle}" action="jgoogle" rendered="#{geocodingSettings.geocodingIsGoogle}">
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                             <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
                         </h:commandLink>

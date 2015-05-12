@@ -66,25 +66,25 @@ public class GeocodingSettingsBean implements Serializable{
 	/** True if geocoding parameter is equal to PropertyValueGeocodingNominatim
 	 */
 	public boolean getGeocodingIsNominatim(){
-		return PropertyValueGeocodingNominatim.equals(this.getGeocoding());
+		return PropertyValueGeocodingNominatim.toUpperCase().equals(this.getGeocoding().toUpperCase());
 	};
 	
 	/** True if geocoding parameter is equal to PropertyValueGeocodingGoogle
 	 */
 	public boolean getGeocodingIsGoogle(){
-		return PropertyValueGeocodingGoogle.equals(this.getGeocoding());
+		return PropertyValueGeocodingGoogle.toUpperCase().equals(this.getGeocoding().toUpperCase());
 	};
 	
 	/** True if geomapping parameter is equal to PropertyValueGeomappingOSM
 	 */
 	public boolean getGeomapperIsOSM(){
-		return PropertyValueGeomapperOSM.equals(this.getGeomapper());
+		return PropertyValueGeomapperOSM.toUpperCase().equals(this.getGeomapper().toUpperCase());
 	};
 	
 	/** True if geomapping parameter is equal to PropertyValueGeomappingGoogle
 	 */
 	public boolean getGeomapperIsGoogle(){
-		return PropertyValueGeomapperGoogle.equals(this.getGeomapper());
+		return PropertyValueGeomapperGoogle.toUpperCase().equals(this.getGeomapper().toUpperCase());
 	};
 	
 }
