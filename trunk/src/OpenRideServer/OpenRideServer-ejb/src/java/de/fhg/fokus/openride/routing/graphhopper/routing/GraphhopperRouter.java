@@ -17,11 +17,7 @@ import java.util.ArrayList;
 
 public class GraphhopperRouter implements Router {
 
-	/**
-	 * Flag describing wether or not to use
-	 * 
-	 */
-	public static final boolean ENABLE_CH = false;
+	
 
 	/**
 	 * Algorithm to be used. May be made configurable once. "astarbi" and
@@ -39,10 +35,8 @@ public class GraphhopperRouter implements Router {
 	{ // initialize th gh object
 		gh = new GraphHopper();
 
-		if (!ENABLE_CH) {
-			gh.disableCHShortcuts();
-		}
-		gh.setInMemory(true, false);
+		
+		gh.setInMemory();
 		gh.forServer();
 		gh.setEncodingManager(new EncodingManager(GraphhopperConstants.CAR));
 
