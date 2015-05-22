@@ -94,7 +94,7 @@ BEGIN
 	-- select those, that where endpoints also realize minimal distance to endpoint
 	AND st_distance(drpEnd.coordinate_c,     endpt_c) = orsDriveMinimalDistance( drpEnd.drive_id   , endpt_c   )
 	-- select only those combinations that provide empty seats on the route 
-        AND orsEmptySeatsCount(drpStart.drive_id , drpStart.route_idx, drpEnd.route_idx) <= no_passengers
+    AND orsEmptySeatsCount(drpStart.drive_id , drpStart.route_idx, drpEnd.route_idx) <= no_passengers
 	; 
 
 	
