@@ -67,13 +67,13 @@ RETURN QUERY
 	
 	select 
 		
-		rideId		             	as  drive_id                  , 
-                rur.riderroute_id               as  riderroute_id             ,
-		drpS.route_idx            	as  onRouteLiftPointIDX       ,
-		drpS.coordinate           	as  onRouteLiftPoint          ,
-		drpS.expected_arrival     	as  timeAtOnRouteLiftPoint    ,
+		rideId		             		as  drive_id                  , 
+        rur.riderroute_id               as  riderroute_id             ,
+		drpS.route_idx            		as  onRouteLiftPointIDX       ,
+		drpS.coordinate           		as  onRouteLiftPoint          ,
+		drpS.expected_arrival     		as  timeAtOnRouteLiftPoint    ,
 		drpE.route_idx              	as  onRouteDropPointIDX       ,
-                drpE.coordinate             	as  onRouteDropPoint          ,
+        drpE.coordinate             	as  onRouteDropPoint          ,
 		drpE.distance_to_source - drpS.distance_to_source   as  sharedDistance
 
 	
