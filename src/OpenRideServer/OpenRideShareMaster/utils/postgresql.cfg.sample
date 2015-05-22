@@ -1,0 +1,36 @@
+#####################################################
+#
+# Settings for the pg_database to be used
+# by openrideshare applications
+#
+# these are generic psql environment variables, 
+# see "man psql" or man "pg_dump" 
+# 
+# You should also edit ~.pgpass file to enable login 
+# without giving password explicitely -- see "man psql", 
+# section "FILES" 
+# 
+# 
+#
+#
+#
+#
+#  name of the postgres database, (typically "openride")
+#
+PGDATABASE=openride
+#
+#
+#
+# host where the postgres database lives
+#
+PGHOST=localhost
+#
+#
+# port where the postmaster listens (by default: 5432)
+#
+PGPORT=5432
+#
+#
+# name of the user
+#
+PGUSER=openride
