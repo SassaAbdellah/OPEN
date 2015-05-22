@@ -92,9 +92,9 @@ RETURN QUERY
 	and st_dwithin( drpE.coordinate_c, rur.endpt_c, drpE.test_radius)
 	-- Start and endpoint should realize minimal distance	
 	-- select those, that also realize minimal distance to startPoint
-	and st_distance(drpS.coordinate_c, rur.startpt_c) = orsDriveMinimalDistance( drpS.drive_id , rur.startpt_c )
+	and drpS.route_idx = orsDriveMinimalDistanceIndex( drpS.drive_id , rur.startpt_c )
 	-- select those, where endpoints also realize minimal distance to endpoint
-	and st_distance(drpE.coordinate_c, rur.endpt_c) = orsDriveMinimalDistance( drpE.drive_id   , rur.endpt_c   )
+	and drpE.route_idx = orsDriveMinimalDistanceIndex( drpE.drive_id   , rur.endpt_c   )
 	-- check availlable seats
 	and orsEmptySeatsCount(rideId , drpS.route_idx, drpE.route_idx) <= rur.no_passengers
 	;	

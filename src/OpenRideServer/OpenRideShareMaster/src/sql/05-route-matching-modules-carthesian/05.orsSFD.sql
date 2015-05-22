@@ -74,7 +74,7 @@ BEGIN
     RETURN QUERY SELECT 
 
 		drpStart.drive_id             	as  drive_id                  , 
-                riderrouteId                    as  riderroute_id             ,
+        riderrouteId                    as  riderroute_id             ,
 		drpStart.route_idx            	as  onRouteLiftPointIDX       ,
 		drpStart.coordinate           	as  onRouteLiftPoint          ,
 		drpStart.expected_arrival     	as  timeAtOnRouteLiftPoint    ,
@@ -90,9 +90,9 @@ BEGIN
 	-- only select those drive_id  that already pass first filter near startPoint, and second filter near endpoint
 	AND drpStart.drive_id in (select  orsSFD02Filter02DrivesNearEndPt(riderrouteId))
 	-- select those, that also realize minimal distance to startPoint
-	AND st_distance(drpStart.coordinate_c, startpt_c) = orsDriveMinimalDistance( drpStart.drive_id , startpt_c )
+	AND drpStart.route_idx = orsDriveMinimalDistanceIndex( drpStart.drive_id , startpt_c )
 	-- select those, that where endpoints also realize minimal distance to endpoint
-	AND st_distance(drpEnd.coordinate_c,     endpt_c) = orsDriveMinimalDistance( drpEnd.drive_id   , endpt_c   )
+	AND drpEnd.route_idx = orsDriveMinimalDistanceIndex( drpEnd.drive_id   , endpt_c   )
 	-- select only those combinations that provide empty seats on the route 
     AND orsEmptySeatsCount(drpStart.drive_id , drpStart.route_idx, drpEnd.route_idx) <= no_passengers
 	; 
