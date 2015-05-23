@@ -67,50 +67,7 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 		
 		
 
-	/**
-	 * This should return a List of preselected "PotentialMatches" with the
-	 * following properties beeing filled in:
-	 * 
-	 * PotentialMatch.dropIndex 
-	 * PotentialMatch.dropPoint 
-	 * PotentialMatch.liftIndex 
-	 * PotentialMatch.liftPoint 
-	 * PotentialMatch.onRouteDropPoint
-	 * PotentialMatch.onRouteLiftPoint 
-	 * PotentialMatch.rideId 
-	 * PotentialMatch.ridersRouteId 
-	 * PotentialMatch.sharedDistanceMeters
-	 * PotentialMatch.timeAtLiftPoint 
-	 * PotentialMatch.timeAtOnRouteLiftPoint
-	 * 
-	 * Not filled in at this stage are:
-	 * 
-	 * PotentialMatch.detourMeters 
-	 * PotentialMatch.detourSeconds 
-	 * 
-	 * 
-	 * 
-	 */
 
-	@Override
-	public LinkedList<PotentialMatch> findDriver(
-			int riderrouteId,
-			Point startPt, 
-			Point endPt, 
-			Timestamp startTimeEarliest,
-			Timestamp startTimeLatest, 
-			double d) 
-			throws SQLException,
-			IllegalArgumentException {
-		// 
-		// TODO:  Note that this implementation happily ignores all parameters, except the rideId.
-		//        Hence, the IDriverSearchAlgorithm  can be simplifyed heavily once this runs OK
-		//
-		//
-		
-		return this.findDriver(riderrouteId);
-	}
-	
 	
 	
 	/** The real implementation of find driver, without parameter overhead
@@ -119,7 +76,10 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 	 * @return
 	 * @throws SQLException 
 	 */
-	private LinkedList<PotentialMatch> findDriver(int riderrouteId) {
+		
+	@Override
+	
+	public LinkedList<PotentialMatch> findDriver(int riderrouteId) {
 		
 		try{
 			preparedStatementSelectSFD.setInt(1, riderrouteId);
@@ -155,45 +115,6 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 
 
 
-	/**
-	 * This should return a List of preselected "PotentialMatches" with the
-	 * following properties beeing filled in:
-	 * 
-	 * PotentialMatch.dropIndex 
-	 * PotentialMatch.dropPoint 
-	 * PotentialMatch.liftIndex 
-	 * PotentialMatch.liftPoint 
-	 * PotentialMatch.onRouteDropPoint
-	 * PotentialMatch.onRouteLiftPoint 
-	 * PotentialMatch.rideId 
-	 * PotentialMatch.ridersRouteId 
-	 * PotentialMatch.sharedDistanceMeters
-	 * PotentialMatch.timeAtLiftPoint 
-	 * PotentialMatch.timeAtOnRouteLiftPoint
-	 * 
-	 * Not filled in at this stage are:
-	 * 
-	 * PotentialMatch.detourMeters 
-	 * PotentialMatch.detourSeconds 
-	 * 
-	 * 
-	 * 
-	 */
-
-	@Override
-	public LinkedList<PotentialMatch> findRiders(int rideId,
-			RoutePoint[] decomposedRoute, double d)
-			throws IllegalArgumentException, SQLException {
-		
-		// 
-		// TODO:  Note that this implementation happily ignores all parameters, except the rider_Id.
-		//        Hence, the IDriverSearchAlgorithm  can be simplifyed heavily once this runs OK
-		//
-		//
-		
-		return this.findRiders(rideId);	
-	}
-
 
 	
 	/** The real implementation of find driver, without parameter overhead
@@ -202,7 +123,10 @@ implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 	 * @return
 	 * @throws SQLException 
 	 */
-	private LinkedList<PotentialMatch> findRiders(int rideId) {
+    
+    @Override
+    
+	public LinkedList<PotentialMatch> findRiders(int rideId) {
 		
 		try{
 			preparedStatementSelectSFR.setInt(1, rideId);

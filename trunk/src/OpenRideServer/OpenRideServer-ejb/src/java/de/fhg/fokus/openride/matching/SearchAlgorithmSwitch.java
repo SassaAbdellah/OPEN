@@ -81,10 +81,11 @@ public class SearchAlgorithmSwitch {
 			if (sfrPreselectionValueORSPolar.equals(getSFRAlgorithmName())) {
 				return new CombiSearchAlgorithmORSPolar(conn);
 			}
-
-			// by default, return old implementation
-			return new DriverSearchAlgorithm(conn);
-
+			
+			// by default, return polar implementation
+			return new CombiSearchAlgorithmORSPolar(conn);
+			
+			
 		} catch (SQLException exc) {
 			throw new Error(exc);
 		}
@@ -111,8 +112,8 @@ public class SearchAlgorithmSwitch {
 				return new CombiSearchAlgorithmORSPolar(conn);
 			}
 
-			// by default, return old implementation
-			return new RiderSearchAlgorithm(conn);
+			// by default, return polar algorithm implementation
+			return new CombiSearchAlgorithmORSPolar(conn);
 
 		} catch (SQLException exc) {
 			throw new Error(exc);
