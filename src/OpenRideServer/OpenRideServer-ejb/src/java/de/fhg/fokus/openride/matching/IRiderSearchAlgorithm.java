@@ -22,8 +22,7 @@ interface IRiderSearchAlgorithm {
 	 * @throws IllegalArgumentException if supplied parameters are wrong.
 	 * @throws SQLException on jdbc related problems.
 	 */
-	public abstract LinkedList<PotentialMatch> findRiders(int rideId,
-			RoutePoint[] decomposedRoute, double d)
+	public abstract LinkedList<PotentialMatch> findRiders(int rideId)
 			throws IllegalArgumentException, SQLException;
 
 }

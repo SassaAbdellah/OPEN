@@ -212,24 +212,25 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	public LinkedList<MatchEntity> searchForRiders(int driveId) {
 		logger.info("searchForRiders(driveId = " + driveId + ")");
 		try {
-			// get the parameter for the algorithm computing potential matches
-			DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean
-					.getDriveByDriveId(driveId);
-			List<DriveRoutepointEntity> routepoints = driverUndertakesRideControllerBean
-					.getDriveRoutePoints(driveId);
-
-			RoutePoint[] decomposedRoute = toRoutePointArray(routepoints);
-			// radius in meters
-			double r = getSfrCircleRadius(drive.getRideAcceptableDetourInKm() * 1000);
-
+			
+			//
 			// compute potential matches based on geographical position and time
+			//
 			Connection conn = ds.getConnection();
 			conn.setAutoCommit(false);
 			IRiderSearchAlgorithm algorithm = SearchAlgorithmSwitch.getRiderSearchAlgorithm(conn);
-			LinkedList<PotentialMatch> potentialMatches = algorithm.findRiders(
-					driveId, decomposedRoute, r);
+			LinkedList<PotentialMatch> potentialMatches = algorithm.findRiders(driveId);
 			conn.commit();
 			conn.close();
+			
+			//
+			//
+			//
+			// get the parameter for the algorithm computing potential matches
+			DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean.getDriveByDriveId(driveId);
+			List<DriveRoutepointEntity> routepoints = driverUndertakesRideControllerBean.getDriveRoutePoints(driveId);
+			
+			
 
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
@@ -349,23 +350,17 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	public LinkedList<MatchEntity> searchForDrivers(int rideId) {
 		logger.info("searchForDrivers(rideId = " + rideId + ")");
 		try {
-			RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean
-					.getRideByRiderRouteId(rideId);
-
+			
 			// compute potential matches based on geographical position and time
 			Connection conn = ds.getConnection();
 			IDriverSearchAlgorithm algorithm = SearchAlgorithmSwitch.getDriverSearchAlgorithm(conn);
-			
-			
-			LinkedList<PotentialMatch> potentialMatches = algorithm.findDriver(
-					rideId, ride.getStartpt(), ride.getEndpt(), new Timestamp(
-							ride.getStarttimeEarliest().getTime()),
-					new Timestamp(ride.getStarttimeLatest().getTime()),
-					SFD_MAX_CIRCLE_RADIUS);
+			LinkedList<PotentialMatch> potentialMatches = algorithm.findDriver(rideId);
 			conn.close();
 
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
+			RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean.getRideByRiderRouteId(rideId);
+
 			CustomerEntity rider = ride.getCustId();
 			
 			// all accepted matches are put here
@@ -459,6 +454,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		return null;
 	}
 
+	
+	
+	
+	
 	/**
 	 * Small wrapper allowing to switch between old and new implementations of
 	 * computeInitialRoutes while the first is beeing developed
@@ -481,8 +480,6 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 * Computes a route for a driver which has no associated ride offers.
 	 * 
 	 * 
-	 * TODO: this currently ignores the existence of waypoints. TODO: make it
-	 * adhere to waypoints!
 	 * 
 	 * 
 	 * @param drive

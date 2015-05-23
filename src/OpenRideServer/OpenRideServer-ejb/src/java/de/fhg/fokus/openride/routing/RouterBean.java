@@ -42,7 +42,7 @@ public class RouterBean implements RouterBeanLocal, Router {
     private Router router;
 
     public RouterBean(){
-       
+ 
         // Use GrapHopperRouter to enable GraphHopperRouting 
         this.router=new GraphhopperRouter();
     }

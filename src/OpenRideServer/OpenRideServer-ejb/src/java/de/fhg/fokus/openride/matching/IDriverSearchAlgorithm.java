@@ -25,9 +25,7 @@ interface IDriverSearchAlgorithm {
 	 * @throws SQLException
 	 * @throws IllegalArgumentException
 	 */
-	public abstract LinkedList<PotentialMatch> findDriver(int riderrouteId,
-			Point startPt, Point endPt, Timestamp startTimeEarliest,
-			Timestamp startTimeLatest, double d) throws SQLException,
+	public abstract LinkedList<PotentialMatch> findDriver(int riderrouteId) throws SQLException,
 			IllegalArgumentException;
 
 }
