@@ -32,7 +32,10 @@ CREATE FUNCTION orsDriveMinimalDistanceIndex(driveid integer, coo_c geometry) RE
 
 DECLARE
 
-	 routeIndex integer;
+-- initialize route index with a negative value, makes sense in case
+-- that there are no drive route points
+
+	 routeIndex integer=-1;
 	
 BEGIN
 	
