@@ -22,6 +22,7 @@
  */
 package de.fhg.fokus.openride.matching;
 
+import de.avci.openrideshare.utils.RandomSublist;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
@@ -35,6 +36,7 @@ import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.RouterBeanLocal;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -46,6 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -160,26 +163,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		return routePointDistance;
 	}
 
-	/**
-	 * Derive the circle radius from the acceptable detour. This is closly
-	 * coupled with getSfrRoutePointDistance.
-	 * 
-	 * @param acceptableDetourMeters
-	 * @return
-	 */
-	private static double getSfrCircleRadius(double acceptableDetourMeters) {
-		acceptableDetourMeters = getSfrAcceptableDetourMetersBounded(acceptableDetourMeters);
-		double routePointDistance = getSfrRoutePointDistance(acceptableDetourMeters);
-		double radius = Math.sqrt(Math.pow(acceptableDetourMeters, 2)
-				+ Math.pow(routePointDistance / 2, 2));
-		return radius;
-	}
+	
 
-	// CONFIG - SEARCH FOR DRIVER
-	// circle radius :
-	private static final double SFD_MAX_CIRCLE_RADIUS = Math.sqrt(Math.pow(
-			SFR_MAX_ROUTE_POINT_DISTANCE_METERS / 2, 2)
-			+ Math.pow(SFR_MAX_DETOUR_METERS, 2));
 	// END CONFIG
 	private final Logger logger = Logger.getLogger(RouteMatchingBean.class
 			.getName());
@@ -219,9 +204,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			Connection conn = ds.getConnection();
 			conn.setAutoCommit(false);
 			IRiderSearchAlgorithm algorithm = SearchAlgorithmSwitch.getRiderSearchAlgorithm(conn);
-			LinkedList<PotentialMatch> potentialMatches = algorithm.findRiders(driveId);
+			LinkedList<PotentialMatch> potentialMatchesRes = algorithm.findRiders(driveId);
 			conn.commit();
 			conn.close();
+			
+			// to prevent the same matches showing up over and over when limits are enforced
+			// the result list gets scrambled before beeing processed further
+			LinkedList <PotentialMatch> potentialMatches=new RandomSublist<PotentialMatch>(potentialMatchesRes);
 			
 			//
 			//
@@ -235,14 +224,21 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			CustomerEntity driver = drive.getCustId();
+			// limit results by driver's individual match limit
+			int driverMatchLimit=driver.getIndividualLimitMatch();
 			//
 			//
 			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>();
 			//
-			// TODO: MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
+			// MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
 			//
-			for (Iterator<PotentialMatch> iter = potentialMatches.iterator(); iter
-					.hasNext();) {
+			for (
+					Iterator<PotentialMatch> iter = potentialMatches.iterator(); 
+					(iter.hasNext() && matches.size()< driverMatchLimit);
+			 ) {
+				
+						
+				
 				PotentialMatch pm = iter.next();
 				RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean
 						.getRideByRiderRouteId(pm.getRidersRouteId());
@@ -354,22 +350,34 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// compute potential matches based on geographical position and time
 			Connection conn = ds.getConnection();
 			IDriverSearchAlgorithm algorithm = SearchAlgorithmSwitch.getDriverSearchAlgorithm(conn);
-			LinkedList<PotentialMatch> potentialMatches = algorithm.findDriver(rideId);
+			LinkedList<PotentialMatch> potentialMatchesRes = algorithm.findDriver(rideId);
 			conn.close();
+			
+			// to prevent the same matches showing up over and over when limits are enforced
+			// the result list gets scrambled before beeing processed further
+			LinkedList <PotentialMatch> potentialMatches=new RandomSublist<PotentialMatch>(potentialMatchesRes);
+			
 
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean.getRideByRiderRouteId(rideId);
 
 			CustomerEntity rider = ride.getCustId();
+			int riderMatchLimit=rider.getIndividualLimitMatch();
 			
 			// all accepted matches are put here
 			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>(); 
 			//
-			// TODO: MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
+			//  MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
 			//
-			for (Iterator<PotentialMatch> iter = potentialMatches.iterator(); iter
-					.hasNext();) {
+			for (
+					Iterator<PotentialMatch> iter = potentialMatches.iterator(); 
+					(iter.hasNext() && matches.size()< riderMatchLimit);
+					
+				) {
+				
+				
+				
 				PotentialMatch pm = iter.next();
 				DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean
 						.getDriveByDriveId(pm.getRideId());
@@ -552,15 +560,12 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			logger.info("computeInitialRoutes : starting time after round " + i
 					+ " : " + startTime);
 		}
-		//
-		logger.info("computeInitialRoute : debug1 "
-				+ this.routePointsDebugOutput(routeBuff));
+		
 		// readjust the routeIdx property
 		for (int i = 0; i < routeBuff.size(); i++) {
 			routeBuff.get(i).setRouteIdx(i);
 		}
-		logger.info("computeInitialRoute : debug2 "
-				+ this.routePointsDebugOutput(routeBuff));
+	
 
 		// Luckily the implementation of getEquiDistantRoutepoints
 		// supports intermediate points :))
@@ -1068,23 +1073,6 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		return insertIdx;
 	}
 
-	/**
-	 * Get Array of RoutePoint by list of DriveRoutepointEntity.
-	 * 
-	 * @param routePoints
-	 * @return all route points from given list, same order.
-	 */
-	private RoutePoint[] toRoutePointArray(
-			List<DriveRoutepointEntity> routePoints) {
-		RoutePoint[] result = new RoutePoint[routePoints.size()];
-		int i = 0;
-		for (DriveRoutepointEntity drp : routePoints) {
-			result[i++] = new RoutePoint(new Coordinate(drp.getCoordinate()),
-					drp.getExpectedArrival(), drp.getDistanceToSourceMeters());
-		}
-		return result;
-	}
-
 	@Override
 	public MatchingStatistics getStatisticsForRide(int riderrouteId) {
 
@@ -1204,23 +1192,5 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				.setParameter("rideId", rideId).getResultList();
 	}
 
-	/**
-	 * TODO: ad-hoc debug output. Remove once create initial
-	 * 
-	 * @deprecated
-	 * 
-	 */
-	private static String routePointsDebugOutput(List<RoutePointEntity> rps) {
-
-		StringBuilder buf = new StringBuilder();
-		buf.append("[");
-
-		for (int i = 0; i < rps.size(); i++) {
-			buf.append("<" + (rps.get(i)).getRouteIdx() + "> ");
-		}
-
-		buf.append("]");
-
-		return buf.toString();
-	}
+	
 }
