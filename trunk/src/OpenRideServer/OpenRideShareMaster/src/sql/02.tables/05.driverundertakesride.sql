@@ -28,7 +28,8 @@ CREATE TABLE driverundertakesride (
     ride_acceptable_detour_in_percent integer,
     ride_route_point_distance_meters double precision NOT NULL,
     last_matching_state integer,
-    is_countermanded boolean
+    is_countermanded boolean,
+    match_count integer DEFAULT 0	
 );
 
 
