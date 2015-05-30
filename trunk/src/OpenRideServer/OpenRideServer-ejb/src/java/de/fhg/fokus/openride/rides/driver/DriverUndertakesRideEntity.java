@@ -145,6 +145,11 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Integer lastMatchingState;
     @Column(name = "is_countermanded")
     private Boolean countermanded;
+    /* match_count values are governed by database triggers, so don't write back to db/updateable=false */
+    @Column(name="match_count", updatable=false)
+    private Integer matchCount=0;
+    
+    
 
     public DriverUndertakesRideEntity() {
     }
@@ -374,6 +379,17 @@ public class DriverUndertakesRideEntity implements Serializable {
     public void setCountermanded(Boolean arg) {
         this.countermanded = arg;
     }
+    
+    
+    public Integer getMatchCount(){
+    	return this.matchCount;
+    }
+    
+    
+    public void setMatchCount(Integer arg){
+    	this.matchCount=arg;
+    }
+    
 
     @Override
     public String toString() {
