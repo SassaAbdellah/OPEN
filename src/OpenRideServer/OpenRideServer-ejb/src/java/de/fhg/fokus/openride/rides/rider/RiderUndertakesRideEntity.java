@@ -33,9 +33,11 @@ import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.matching.RideNegotiationConstants;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,6 +54,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.postgis.Point;
@@ -217,7 +220,12 @@ public class RiderUndertakesRideEntity implements Serializable {
     @Column(name = "last_matching_state")
     private Integer lastMatchingState;
     @Column(name = "is_countermanded")
-    private Boolean countermanded;
+    private Boolean countermanded;    
+    /* match_count values are governed by database triggers, so don't write back to db/updateable=false */
+    @Column(name="match_count", updatable=false)
+    private Integer matchCount=0;
+    
+    
     // Fetch type eager is here, because of a lesson learned. 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "riderroute_id", referencedColumnName = "riderroute_id" )
@@ -462,7 +470,16 @@ public class RiderUndertakesRideEntity implements Serializable {
     public void setMatchings(List<MatchEntity> matchings) {
         this.matchings = matchings;
     }
-
+    
+   
+    public Integer getMatchCount(){
+    	return this.matchCount;
+    }
+     
+    public void setMatchCount(Integer arg){
+    	this.matchCount=arg;
+    }
+    
     /**
      *
      * @return MatchingStatitstics Object for this drive
