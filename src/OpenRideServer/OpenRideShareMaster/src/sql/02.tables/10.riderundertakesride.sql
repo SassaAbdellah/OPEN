@@ -34,6 +34,7 @@ CREATE TABLE riderundertakesride (
     endpt_c geometry,
     comment character varying(255),
     last_matching_state integer,
+    match_count int DEFAULT 0,
     is_countermanded boolean,
     CONSTRAINT enforce_dims_endpt_c CHECK ((st_ndims(endpt_c) = 2)),
     CONSTRAINT enforce_dims_startpt_c CHECK ((st_ndims(startpt_c) = 2)),
