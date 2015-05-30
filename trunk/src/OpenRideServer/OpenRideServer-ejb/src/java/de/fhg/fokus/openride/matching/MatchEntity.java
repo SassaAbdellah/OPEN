@@ -66,7 +66,9 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 })
 /**
  *
- * @author pab
+ * @author pab, changes by jochen
+ * 
+ * 
  *
  * This class has information about the match and the state within the booking
  * process.s
@@ -74,13 +76,75 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
  */
 public class MatchEntity implements Serializable {
 
-    public static final Integer NOT_ADAPTED = 0;
+	
+	/** Mnemonic constant indicating that this match has not yet received input from either driver or rider
+	 * 
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+	 */
+    
+	public static final Integer NOT_ADAPTED = 0;
+    
+    /** Mnemonic constant indicating that this match was rejected by either driver or rider
+     *  
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+     *     
+     */
     public static final Integer REJECTED = 1;
+    
+    /** Mnemonic constant indicating that this match was accepted by both, driver and rider
+     * 
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+ 	 *
+     */
     public static final Integer ACCEPTED = 2;
+    
+    /** Mnemonic constant indicating that rider countermanded this match
+     * 
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+     * 
+     */
     public static final Integer RIDER_COUNTERMANDED = 3;
+    
+    
+    /** Mnemonic constant indicating that driver countermanded this match
+     * 
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+     *  
+     */
     public static final Integer DRIVER_COUNTERMANDED = 4;
-    public static final Integer NO_MORE_AVAILABLE = 5;
+    
+    /** Mnemonic constant indicating that this match is no more available (typically, because it is in the past)
+     *
+     *  **** WARNING! ****
+     *  
+     *  Match state constants are referenced inside sql triggers on match table also, 
+     *  so do not change these values without checking consequences in sql code!
+     *  
+     */
+    public static final Integer NO_MORE_AVAILABLE = 5
+    		
+    		
+    		
+    		;
     private static final long serialVersionUID = 1L;
+    
+    
+    
     @EmbeddedId
     protected MatchEntityPK matchEntityPK;
     @Column(name = "driver_state")
