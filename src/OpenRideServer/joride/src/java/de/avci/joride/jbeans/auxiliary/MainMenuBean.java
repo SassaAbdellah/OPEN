@@ -168,11 +168,9 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// PREFERENCES SUBMENU
 		//
 		//
-
 		// <p:submenu label="#{msgs.nav1_preferences_label}"
 		// icon="ui-icon-wrench">
-		String preferencesMSG = messageProps.getProperty(
-				"nav1_preferences_label");
+		String preferencesMSG = messageProps.getProperty("nav1_preferences_label");
 		DefaultSubMenu preferencesSubmenu = new DefaultSubMenu(preferencesMSG);
 		preferencesSubmenu.setIcon("ui-icon-wrench");
 
@@ -184,15 +182,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		passwordChangeItem.setCommand("password_change");
 		passwordChangeItem.setAjax(false);
 		preferencesSubmenu.addElement(passwordChangeItem);
-		
-		// Limits submenu
-		String limitsMSG = messageProps.getProperty("limits_label");
-		DefaultMenuItem limitsItem = new DefaultMenuItem(limitsMSG);
-		limitsItem.setCommand("preferences.matchLimits");
-		limitsItem.setAjax(false);
-		preferencesSubmenu.addElement(limitsItem);
-
-		
+				
 		// <p:menuitem outcome="preferences.personalData"
 		// value="#{msgs.nav1_pref_personalData_label}" />
 		String personalDataMSG = messageProps.getProperty(
@@ -201,6 +191,15 @@ public class MainMenuBean implements Serializable, MenuModel {
 		personalDataItem.setCommand("preferences.personalData");
 		personalDataItem.setAjax(false);
 		preferencesSubmenu.addElement(personalDataItem);
+		
+		
+		// general preferences submenu
+		String generalPreferencesMSG = messageProps.getProperty("nav1_pref_generalPreferences_label");
+		DefaultMenuItem generalPreferencesItem = new DefaultMenuItem(generalPreferencesMSG);
+		generalPreferencesItem.setCommand("preferences.generalPreferences");
+		generalPreferencesItem.setAjax(false);
+		preferencesSubmenu.addElement(generalPreferencesItem);
+		
 
 		// <p:menuitem outcome="preferences.riderPreferences"
 		// value="#{msgs.nav1_pref_riderPreferences_label}" />

@@ -218,26 +218,7 @@
 						</p:calendar>
 					</div>
 					
-					<div class="formLabel"> #{msgs.preferredUnitOfLength} </div>
-					<div class="formInput">
-						<p:selectOneMenu value="#{jprofile.preferredUnitOfLength}">
-						
-							<f:selectItems 	value="#{jprofile.getAvaillableUnitsOfLength()}" 
-										   	var="unit"
-											itemLabel="#{unit.localNameSingular}" 
-											itemValue="#{unit.key}" />
-														
-						</p:selectOneMenu>
-					
-					</div> 
-					
 
-
-					<p:commandButton
-						actionListener="#{jprofile.updatePersonalDataToDB}"
-						value="#{msgs.formSubmit}" 
-						action="preferences"
-						/>
 
 				</h:form>
 			</p:panel>
