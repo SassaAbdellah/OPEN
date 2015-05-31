@@ -56,6 +56,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class serves the complete RouteMatching functionality as Java EEBean.
  * The functionality comprises computing matches for driver and rider side, and
@@ -196,7 +198,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	@Override
 	public LinkedList<MatchEntity> searchForRiders(int driveId) {
 		logger.info("searchForRiders(driveId = " + driveId + ")");
-		try {
+		try { 
 			
 			//
 			// compute potential matches based on geographical position and time
@@ -216,7 +218,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			//
 			//
 			// get the parameter for the algorithm computing potential matches
+			//
 			DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean.getDriveByDriveId(driveId);
+			// update drive, since mach_count may change asynchronously
+			em.refresh(drive);
 			List<DriveRoutepointEntity> routepoints = driverUndertakesRideControllerBean.getDriveRoutePoints(driveId);
 			
 			
@@ -242,7 +247,34 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				PotentialMatch pm = iter.next();
 				RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean
 						.getRideByRiderRouteId(pm.getRidersRouteId());
+				// update ride, since match count may change asynchronously
+				em.refresh(ride);
 				CustomerEntity rider = ride.getCustId();
+				
+										
+				
+				// turn out this potential match if ride's match count is exceeded
+				if(rider.getIndividualLimitMatch()<ride.getMatchCount()){
+					
+					// TODO remove debug
+					String logmessage=
+							"Throwing out match for limit exceeded :    \n"+
+							"riderroute_id -> "+ride.getRiderrouteId()+"\n"+
+							"match_count   -> "+ride.getMatchCount()+"\n";
+					logger.info(logmessage);
+								
+										
+					continue;
+				}
+				
+				
+				// TODO remove debug
+				String logmessage=
+						"Keeping match  :    \n"+
+						"riderroute_id -> "+ride.getRiderrouteId()+"\n"+
+						"match_count   -> "+ride.getMatchCount()+"\n";
+				logger.info(logmessage);
+				
 
 				// apply simple, less expensive filter criteria
 				if (UnexpensiveMatchFilter.filterAccepts(driver, rider, drive, ride, pm,
@@ -309,7 +341,17 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 					nextMatch.setRiderUndertakesRideEntity(ride);
 					nextMatch.setDriverUndertakesRideEntity(drive);
-
+					
+					
+					// since this is multi threaded, another thread may have 
+					// have exhauste the limit, so check again befor adding
+					// turn out this potential match if match limit is exceedec
+					em.refresh(ride);
+					if(rider.getIndividualLimitMatch()<ride.getMatchCount()){
+						continue;
+					}
+							
+				
 					matches.add(nextMatch);
 				}
 			}
@@ -361,7 +403,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean.getRideByRiderRouteId(rideId);
-
+			// update ride, since match_count may change asynchronously
+			em.refresh(ride);
 			CustomerEntity rider = ride.getCustId();
 			int riderMatchLimit=rider.getIndividualLimitMatch();
 			
@@ -381,7 +424,16 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				PotentialMatch pm = iter.next();
 				DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean
 						.getDriveByDriveId(pm.getRideId());
+				// update drive, since mach_count may change asynchronously
+				em.refresh(drive);
+				
 				CustomerEntity driver = drive.getCustId();
+				
+				// turn out this potential match if match limit is exceedec
+				if(driver.getIndividualLimitMatch()<drive.getMatchCount()){
+					continue;
+				}
+				
 				List<DriveRoutepointEntity> routepoints = driverUndertakesRideControllerBean
 						.getDriveRoutePoints(drive.getRideId());
 
@@ -444,6 +496,15 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 									sharedDistanceMeters, detourMeters));
 					m.setDriverUndertakesRideEntity(drive);
 					m.setRiderUndertakesRideEntity(ride);
+					
+					// since this is multi threaded, another thread may have 
+					// have exhauste the limit, so check again befor adding
+					// turn out this potential match if match limit is exceedec
+					em.refresh(drive);
+					if(driver.getIndividualLimitMatch()<drive.getMatchCount()){
+						continue;
+					}
+								
 					matches.add(m);
 				}
 			}
