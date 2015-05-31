@@ -390,19 +390,8 @@
 	<!-- *** End of Search Navigation Cases ***** -->
 	<!-- ********************************************* -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
 	<!-- Navigation Cases for "Profile and Preferences subsection" -->
 	<!-- go to startpage for the preferences section -->
 
@@ -422,8 +411,8 @@
 
 	<navigation-rule> <!-- navigate to preferences.personalData -->
 		<navigation-case>
-			<from-outcome>preferences.matchLimits</from-outcome>
-			<to-view-id>faces/protected/preferences/matchLimits.xhtml </to-view-id>
+			<from-outcome>preferences.generalPreferences</from-outcome>
+			<to-view-id>faces/protected/preferences/generalPreferences.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

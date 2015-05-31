@@ -36,15 +36,27 @@
 		<ui:define name="content">
 
 
-			<p:panel header="#{msgs.limits_label}">
+
+			<!-- the profile must be filled with data before anything -->
+			<!-- useful can be done with it                           -->
+            #{jprofile.updateFromDB()}
+            
+            
+            
+				
+			<h1>    #{msgs.nav1_pref_generalPreferences_label}  </h1>
+			
+			<p>	
+					#{nav1_pref_generalPreferences_desc}
+			</p>
+					
+            
+            
 
 
-				<!-- the profile must be filled with data before anything -->
-				<!-- useful can be done with it                           -->
-                    #{jprofile.updateFromDB()}
+			<h:form>
 
-                    <h:form>
-
+				<p:panel header="#{msgs.limits_label}">
 
 					<div class="formInput">
 						<h:outputFormat value="#{msgs.limits_message}">
@@ -61,15 +73,33 @@
 					</div>
 
 
-					<p:commandButton 
-						actionListener="#{jprofile.updateMatchLimitToDB}"
-						action="preferences"
-						value="#{msgs.formSubmit}" ajax="false" 
-						/>
+					<p:commandButton actionListener="#{jprofile.updateMatchLimitToDB}"
+						action="preferences" value="#{msgs.formSubmit}" ajax="false" />
 
-				</h:form>
-			</p:panel>
 
+				</p:panel>
+
+				<p:panel header="#{msgs.preferredUnitOfLength}">
+					<div class="formInput">
+						<p:selectOneMenu value="#{jprofile.preferredUnitOfLength}">
+
+							<f:selectItems value="#{jprofile.getAvaillableUnitsOfLength()}"
+								var="unit" itemLabel="#{unit.localNameSingular}"
+								itemValue="#{unit.key}" />
+
+						</p:selectOneMenu>
+
+					</div>
+
+
+
+					<p:commandButton
+						actionListener="#{jprofile.updatePersonalDataToDB}"
+						value="#{msgs.formSubmit}" action="preferences" />
+
+				</p:panel>
+
+			</h:form>
 
 
 
