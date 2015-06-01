@@ -81,6 +81,9 @@ nav1_preferences_desc=Επεξεργαστείτε το προσωπικό σα�
 # Label and description for personalData section
 nav1_pref_personalData_label=Προσωπικά Δεδομένα
 nav1_pref_personalData_desc=Επεξεργαστείτε τα προσωπικά σας δεδομένα (π.χ. όνομα, φύλο..)
+# Label and description for generalPreferences section
+nav1_pref_generalPreferences_label=Γενικές Προτιμήσεις
+nav1_pref_generalPreferences_desc=Επεξεργαστείτε τις γενικές σας προτιμήσεις...
 # Label and description for riderPreferences section
 nav1_pref_riderPreferences_label=Προτιμήσεις του συνεπιβάτη
 nav1_pref_riderPreferences_desc=Επεξεργαστείτε τις προτιμήσεις σας κατά τη ζήτηση διαδρομών
@@ -113,9 +116,28 @@ loginAgain=Πατήστε εδώ για να συνδεθείτε ξανά.
 geocodeSearchTitle=Βρείτε μία τοποθεσία
 #
 # labels for geocode searches
-poilabel=Σημείο ενδιαφέροντος (εάν είναι γνωστό)
-citylabel=Πόλη
-streetlabel=Οδός και αριθμός (εάν είναι γνωστά)
+#
+# free text and/or poi search
+#
+freetextSearchLabel=Ελεύθερο κείμενο/Αναζήτηση Σημείων Ενδιαφέροντος
+freetextSearchDescription=Αναζήτηση για "Σημεία Ενδιαφέροντος" με το Όνομα
+#
+
+# Structured search by Country/State/County/City/Postal Code/Neighborhood(s)/Street/StreetNumber
+#
+structuredSearchLabel=Δομημένη Αναζήτηση
+structuredSearchDescription=Δομημένη Αναζήτηση με Χώρα/Πολιτεία/Επαρχία/Πόλη/Γειτονιά(ες)/Οδός/Αριθμός
+countryLabel=Χώρα
+stateLabel=Πολιτεία
+stateDescription=Πολιτεία (Μέλος Συνομοσπονδίας)
+countyLabel=Επαρχία
+cityLabel=Πόλη
+postalcodeLabel=Ταχυδρομικός Κώδικας / ΤΚ
+neighborhoodsLabel=Τετράγωνο και/ή Γειτονιά(ες)
+neighborhoodsDescription=Πολλαπλά ονόματα μπορούν να διαχωρίζονται με κόμματα
+streetLabel=Οδός 
+streetNumberLabel=Οδός Αριθμός
+searchLimitLabel=Περιορισμός αποτελεσμάτων σε:
 searchlabel=Αναζήτηση!
 #
 # Header to be displayed on top of Search result
@@ -146,7 +168,11 @@ geolocationPickFromFavorites=Επιλέξτε από τη λίστα των αγ
 # Label for picking current Position
 geolocationGeolocate=Επιλέξτε την τρέχουσα τοποθεσία σας
 # Label for using Nominatim Service
-geolocationNominatim=Χρησιμοποιήστε την προτεινόμενη υπηρεσία για να επιλέξετε μία τοποθεσία
+geolocationNominatim=Χρησιμοποιήστε την υπηρεσία Nominatim Geocoding για να επιλέξετε μία τοποθεσία
+geolocationGoogle=Χρησιμοποιήστε την υπηρεσία Google Geocoding για να επιλέξετε μία τοποθεσία
+#Title for google/nominatim search
+geolocationGoogleTitle=Αναζήτηση με Google
+geolocationNominatimTitle=Αναζήτηση με Nominatim
 # longitude
 geolocationLongitude=Γεωγραφικό Μήκος
 # latitude
@@ -687,3 +713,35 @@ msg_driverMessageSubject=Μήνυμα από τον Οδηγό
 limits_label=Όρια
 limits_matchLimit=Ρύθμιση του αριθμού των αντιστοιχίσεων που παρουσιάζονται
 limits_message=Ρυθμίστε τον αριθμό των αντιστοιχίσεων προσφοράς/ζήτησης που θα σας παρουσιάζονται.\n Μπορείτε να επιλέξετε ένα αριθμό από 1 μέχρι {0} 
+#
+#
+#
+preferredUnitOfLength=Εμφάνιση Αποστάσεων σε:
+#
+# singular/plural Names and abbreviations for supported units of length
+#
+METER=μέτρο
+METERS=μέτρα
+METER_SHORT=μ
+#
+# kilometers
+#
+KILOMETER=χιλιόμετρο
+KILOMETERS=χιλιόμετρα
+KILOMETER_SHORT=χλμ
+#
+# Former British/American statute mile : 
+# http://en.wikipedia.org/wiki/Mile#Historical_miles_in_Britain_and_Ireland
+#
+MILE=μίλι
+MILES=μίλια
+MILE_SHORT=μίλι
+#
+#
+#
+#
+# Detour and shared distance in preferred unit of Length
+#
+DetourPreferredUnit=Παράκαμψη (σε {0})
+SharedDistancePrefferedUnit=Κοινή απόσταση (σε {0})
+#
