@@ -58,7 +58,7 @@ $$;
 
 ALTER FUNCTION public.orsOnUpdateMatch() OWNER TO openride;
 
-CREATE TRIGGER match_count_update_trigger AFTER  INSERT OR UPDATE ON match FOR EACH ROW EXECUTE PROCEDURE   orsOnUpdateMatch();
+CREATE TRIGGER match_count_update_trigger AFTER  UPDATE ON match FOR EACH ROW EXECUTE PROCEDURE   orsOnUpdateMatch();
 
 
 
