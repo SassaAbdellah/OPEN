@@ -96,7 +96,7 @@ RETURN QUERY
 	-- select those, where endpoints also realize minimal distance to endpoint
 	and drpE.route_idx = orsDriveMinimalDistanceIndex( drpE.drive_id   , rur.endpt_c   )
 	-- check availlable seats
-	and orsEmptySeatsCount(rideId , drpS.route_idx, drpE.route_idx) => rur.no_passengers
+	and orsEmptySeatsCount(rideId , drpS.route_idx, drpE.route_idx) >= rur.no_passengers
 	;	
 	
  
