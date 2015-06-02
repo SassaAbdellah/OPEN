@@ -141,24 +141,48 @@ urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 #
 #
 #
-##############################################
-## switch between preselection algorithms    #
-##############################################
-##
-##
-## if sfrPreselection=ORS,  then new ORS preselection algorithm for carthesian coordinates will be used in search for rider algorithm
-## if sfrPreselection=ORSP, then new ORS preselection algorithm for polar coordinates will be used in search for rider algorithm
-##   
-##
-##
+#############################################
+# switch between preselection algorithms    #
+#############################################
+#
+#
+# if sfrPreselection=ORS,  then new ORS preselection algorithm for carthesian coordinates will be used in search for rider algorithm
+# if sfrPreselection=ORSP, then new ORS preselection algorithm for polar coordinates will be used in search for rider algorithm
+#   
 sfrPreselection=ORSP
-##
-## if sfdPreselection=ORS, then new ORS preselection algorithm for carthesian coordinates  will be used in search for driver algorithm
-## if sfdPreselection=ORSP, then new ORS preselection algorithm for polar coordinates will be used in search for driver algorithm
-##
-##
-##
+# 
+# sfdPreselection is analogous to sfr preselection, but for the search for driver algoritm
+#
 sfdPreselection=ORSP
+#
+#
+#
+# sfrPreselectionFunctionCarthesian gives name of the preselection function to be called
+# in case sdrPreselection is set to "ORS", aka "carthesian case".
+# Do not change this, unless you know what you are doing
+#
+sfrPreselectionFunctionCarthesian=orssfr
+#
+# sfrPreselectionFunctionPolar gives name of the preselection function to be called
+# in case sfrPreselection is set to "ORSP", aka "polar case".
+# Do not change this, unless you know what you are doing
+#
+sfrPreselectionFunctionPolar=orspolsfr
+#
+#
+# sfdPreselectionFunctionCarthesian gives name of the preselection function to be called
+# in case sdfPreselection is set to "ORS", aka "carthesian case".
+# Do not change this, unless you know what you are doing
+#
+sfdPreselectionFunctionCarthesian=orssfd
+#
+# sfdPreselectionFunctionPolar gives name of the preselection function to be called
+# in case sdfPreselection is set to "ORSP", aka "polar case".
+# Do not change this, unless you know what you are doing
+#
+sfdPreselectionFunctionPolar=orspolsfd
+#
+#
 #
 #
 ############################################
