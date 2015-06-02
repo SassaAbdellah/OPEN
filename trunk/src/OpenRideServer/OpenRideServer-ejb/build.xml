@@ -213,6 +213,11 @@
 
 
 
+		<!-- **************************** -->
+		<!-- **** Preselection Stuff **** -->
+		<!-- **************************** -->
+
+
 		<!-- replacing  sfrPreselection property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="sfrPreselection=(.*)" />
@@ -228,9 +233,44 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- **** Preselection Functions **** -->
+
+		<!-- replacing sfrPreselectionFunctionCarthesian property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfrPreselectionFunctionCarthesian=(.*)" />
+			<substitution expression="sfrPreselectionFunctionCarthesian=${sfrPreselectionFunctionCarthesian}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- replacing sfrPreselectionFunctionPolar property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfrPreselectionFunctionPolar=(.*)" />
+			<substitution expression="sfrPreselectionFunctionPolar=${sfrPreselectionFunctionPolar}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
 
-		
+		<!-- replacing sfdPreselectionFunctionCarthesian property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfdPreselectionFunctionCarthesian=(.*)" />
+			<substitution expression="sfdPreselectionFunctionCarthesian=${sfdPreselectionFunctionCarthesian}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- replacing sfdPreselectionFunctionPolar property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="sfdPreselectionFunctionPolar=(.*)" />
+			<substitution expression="sfdPreselectionFunctionPolar=${sfdPreselectionFunctionPolar}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
+
+
+		<!-- ****************** -->
+		<!-- ** Geocoding    ** -->
+		<!-- ****************** -->
+
 		<!-- replacing geocoding property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="geocoding=(.*)" />
@@ -238,7 +278,11 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
-               <!-- replacing geomapper property with local settings  -->
+		<!-- ****************** -->
+		<!-- ** Geomapper    ** -->
+		<!-- ****************** -->
+
+		<!-- replacing geomapper property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="geomapper=(.*)" />
 			<substitution expression="geomapper=${geomapper}" />
