@@ -43,14 +43,17 @@ CREATE TABLE customer (
     cust_session_id integer,
     is_logged_in boolean,
     cust_group character varying(255),
-    last_customer_check timestamp without time zone,
+    last_customer_check  timestamp without time zone,
     last_matching_change timestamp without time zone,
     preferred_language character varying(10),
-    show_email boolean,
-    show_mobile boolean,
-    matchlimitmax integer,
-    matchlimitindividual integer,
-    preferredunitoflength integer
+    show_email 		boolean,
+    show_mobile 	boolean,
+    matchlimitmax 		integer,
+    matchlimitindividual 	integer,
+    preferredunitoflength 	integer,
+    requestLimit 		integer,
+    offerLimit  		integer
+	
 );
 
 
