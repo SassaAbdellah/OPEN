@@ -208,8 +208,14 @@ public interface RiderUndertakesRideControllerLocal {
     * @param riderrouteId   riderrouteId of the riderUndertakesRideId for which the matching exists
     */
     public void countermandRider(Integer rideId, Integer riderrouteId) ;
-
     
+    
+    
+    /** Return the number of requests that the user has currently issued, and which are still availlable.
+     *  This is the same as get count of rides after date.
+     *
+     */
+    public int noOfOpenRequests(Integer customerId);
     
     
     

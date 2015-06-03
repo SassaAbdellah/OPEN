@@ -77,6 +77,7 @@ import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
     @NamedQuery(name = "DriverUndertakesRideEntity.findByRideAcceptableDetourInMin", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.rideAcceptableDetourInMin = :rideAcceptableDetourInMin"),
     @NamedQuery(name = "DriverUndertakesRideEntity.findByCustId", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.custId = :custId"),
     @NamedQuery(name = "DriverUndertakesRideEntity.findCustomerDrivesAfterTime", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime >= :time ORDER BY d.rideStarttime"),
+    @NamedQuery(name = "DriverUndertakesRideEntity.countDrivesAfterDateforCustId", query = "SELECT count(d.rideId) FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime >= :time"),
     @NamedQuery(name = "DriverUndertakesRideEntity.findCustomerDrivesBeforeTime", query = "SELECT d FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime <= :time ORDER BY d.rideStarttime DESC"),
     @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrives", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d"),
     @NamedQuery(name = "DriverUndertakesRideEntity.countTotalNoDrivesAfterDate", query = "SELECT COUNT(d.rideId) FROM DriverUndertakesRideEntity d WHERE d.rideStarttime >= :date"),

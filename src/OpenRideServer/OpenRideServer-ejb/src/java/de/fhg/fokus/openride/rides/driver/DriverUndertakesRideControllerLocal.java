@@ -26,9 +26,12 @@ package de.fhg.fokus.openride.rides.driver;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+
 import java.sql.Date;
 import java.util.List;
+
 import javax.ejb.Local;
+
 import org.postgis.Point;
 
 /**
@@ -282,6 +285,18 @@ public interface DriverUndertakesRideControllerLocal {
      * @return List of all Matches
      */
     public List <MatchEntity> getAllMatches();
+
+
+
+
+    /** Count number of open offers for this user
+     * 
+     * @param custId   customerId for this user
+     * @return         number of offers in the future
+     * 
+     */
+    
+	Integer noOfOpenOffers(Integer custId);
     
     
 
