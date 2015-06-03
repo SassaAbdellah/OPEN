@@ -33,6 +33,7 @@ import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerBean;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,15 +45,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
+import javax.persistence.NamedQuery;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import org.postgis.Point;
 
 /**
@@ -1457,6 +1461,20 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
         em.flush();
         commitUserTransaction();
     }
+
+	@Override
+	public int noOfOpenRequests(Integer custId) {
+		
+		// count all rides for given rider after given date
+	    // @NamedQuery(name = "RiderUndertakesRideEntity.countRidesAfterDateforCustId",           query = "SELECT count(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
+		Integer res = (Integer) em.createNamedQuery( "RiderUndertakesRideEntity.countRidesAfterDateforCustId"  ).setParameter("custId", custId).setParameter("r.starttimeLatest", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
+		
+		return res;
+	}
+
+	
+	
+
    
     
 }

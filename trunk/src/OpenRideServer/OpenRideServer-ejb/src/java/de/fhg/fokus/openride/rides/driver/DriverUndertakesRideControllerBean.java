@@ -34,6 +34,7 @@ import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
@@ -1449,4 +1450,18 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         List<MatchEntity> matches = q.getResultList();
 		return matches;
 	}
+	
+	
+	@Override
+	public Integer noOfOpenOffers(Integer custId){
+		
+		// @NamedQuery(name = "DriverUndertakesRideEntity.countDrivesAfterDateforCustId", query = "SELECT count(d.ride_id) FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime >= :time"),
+		Integer res = (Integer) em.createNamedQuery( "DriverUndertakesRideEntity.countDrivesAfterDateforCustId"  ).setParameter("custId", custId).setParameter("r.starttimeLatest", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
+	
+		return res;	
+	}
+	
+	
+	
+	
 } // class

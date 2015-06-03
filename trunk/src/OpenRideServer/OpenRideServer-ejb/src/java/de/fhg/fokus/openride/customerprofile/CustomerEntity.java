@@ -201,6 +201,17 @@ public class CustomerEntity implements Serializable {
 	@Column(name = "matchlimitindividual")
 	private Integer individualLimitMatch;
 	//
+	// Maximum number of open requests that this user may have
+	// 
+	@Column(name = "requestLimit")
+	private Integer requestLimit;
+	//
+	// Maximum number of open offers that this user may have
+	// 
+	@Column(name = "offerLimit")
+	private Integer offerLimit;
+	//
+	//
 	// preferred unit of length, (like mile, kilometer, meter...)
 	// These are represented by the keys defined in UnitOfLength class
 	// by default, Kilometer is returned.
@@ -208,6 +219,22 @@ public class CustomerEntity implements Serializable {
 	@Column(name="preferredUnitOfLength")
 	private Integer preferredUnitOfLength=UnitOfLength.KEY_KILOMETER;
 	
+
+	public Integer getRequestLimit() {
+		return requestLimit;
+	}
+
+	public void setRequestLimit(Integer requestLimit) {
+		this.requestLimit = requestLimit;
+	}
+
+	public Integer getOfferLimit() {
+		return offerLimit;
+	}
+
+	public void setOfferLimit(Integer offerLimit) {
+		this.offerLimit = offerLimit;
+	}
 
 	public String getPreferredLanguage() {
 		return preferredLanguage;
