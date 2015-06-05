@@ -204,6 +204,31 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+
+
+
+		<!-- ******************************************************* -->
+		<!-- **** User Limits                                   **** -->
+		<!-- ******************************************************* -->
+
+
+
+
+
+		<!-- replacing  maxRequestsLimit  property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="maxRequestsLimit=(.*)" />
+			<substitution expression="maxRequestsLimit=${maxRequestsLimit}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+		
+		<!-- replacing  maxOffersLimit  property with local settings  -->
+		<replaceregexp byline="true">
+			<regexp pattern="maxOffersLimit=(.*)" />
+			<substitution expression="maxOffersLimit=${maxOffersLimit}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
 		<!-- replacing  maxMatchLimit  property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="maxMatchLimit=(.*)" />
