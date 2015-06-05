@@ -66,8 +66,17 @@ mailServiceJNDI=jorideMail
 #
 #
 # System default value for maximum number of matches displayed
+# to a single user
 #
 maxMatchLimit=55
+#
+#
+#
+# Maximum Number of Requests/Offers that a single user can issue
+#
+maxRequestsLimit=30
+maxOffersLimit=50
+#
 #
 #
 #
