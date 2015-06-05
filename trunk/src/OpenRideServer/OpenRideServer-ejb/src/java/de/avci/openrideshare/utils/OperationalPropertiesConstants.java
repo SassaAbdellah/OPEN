@@ -40,5 +40,21 @@ public class OperationalPropertiesConstants {
 	 */
 	public static final String PROPERTY_NAME_maxMatchLimit="maxMatchLimit";
 
+
+	/** Property Name for maxRequestLimit, the maximum number of requests that 
+	 *  a customer can issue.
+	 * 
+	 */
+	public static final String PROPERTY_NAME_maxRequestsLimit = "maxRequestsLimit";
+	
+	
+	/** Property Name for maxRequestLimit, the maximum number of requests that 
+	 *  a customer can issue.
+	 * 
+	 */
+	public static final String PROPERTY_NAME_maxOffersLimit = "maxOffersLimit";
+	
+	
+	
 	
 }
