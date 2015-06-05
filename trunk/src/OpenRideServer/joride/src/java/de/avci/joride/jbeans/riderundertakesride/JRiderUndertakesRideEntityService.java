@@ -7,13 +7,16 @@ package de.avci.joride.jbeans.riderundertakesride;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -862,6 +865,26 @@ public class JRiderUndertakesRideEntityService {
 
         return false;
 
-
     } // callerIsDriver
+    
+    
+    /** Return number of requests that the caller currently can issue.
+     * 
+     * @return
+     */
+    public Integer getNoLeftRequests(){
+    	
+    	   CustomerEntity ce = this.getCustomerEntity();
+
+    	   RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
+       
+           // Sanity check, caller of this method must be owner of this offer
+
+    	  return rurcl.noOfLeftRequests(ce.getCustId());
+    }
+    
+    
+    
+    
+    
 } // class

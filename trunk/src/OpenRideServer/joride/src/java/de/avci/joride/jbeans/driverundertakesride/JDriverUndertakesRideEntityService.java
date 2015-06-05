@@ -765,4 +765,23 @@ public class JDriverUndertakesRideEntityService {
     }
     
     
+    
+    
+    /** Return number of offers that the caller currently can issue.
+     * 
+     * @return
+     */
+    public Integer getNoLeftOffers(){
+    	
+    	   CustomerEntity ce = this.getCustomerEntity();
+
+    	   DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
+       
+           // Sanity check, caller of this method must be owner of this offer
+
+    	  return durcl.noOfLeftOffers(ce.getCustId());
+    }
+    
+    
+    
 } // class
