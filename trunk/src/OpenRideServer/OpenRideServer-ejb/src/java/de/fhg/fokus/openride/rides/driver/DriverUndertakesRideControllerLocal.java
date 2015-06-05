@@ -297,7 +297,12 @@ public interface DriverUndertakesRideControllerLocal {
      */
     
 	Integer noOfOpenOffers(Integer custId);
-    
+	
+	
+	/** Count number of offers left to be offered  by the customer.
+	 */
+	Integer noOfLeftOffers(Integer custId);
+	
     
 
 }

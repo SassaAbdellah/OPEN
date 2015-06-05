@@ -1463,13 +1463,30 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
 	@Override
-	public int noOfOpenRequests(Integer custId) {
+	public Integer noOfOpenRequests(Integer custId) {
+		
+		
+		// numericalCustId must match a real Object
+		CustomerEntity customer=customerControllerBean.getCustomer(custId);
+		if (customer==null){return null;} // cannot find anything
+				
 		
 		// count all rides for given rider after given date
 	    // @NamedQuery(name = "RiderUndertakesRideEntity.countRidesAfterDateforCustId",           query = "SELECT count(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
-		Integer res = (Integer) em.createNamedQuery( "RiderUndertakesRideEntity.countRidesAfterDateforCustId"  ).setParameter("custId", custId).setParameter("r.starttimeLatest", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
+		Long resLong = (Long) em.createNamedQuery( "RiderUndertakesRideEntity.countRidesAfterDateforCustId"  ).setParameter("custId", customer).setParameter("startDate", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
 		
-		return res;
+		return new Integer(resLong.intValue());
+	}
+
+	@Override
+	public Integer noOfLeftRequests(Integer customerId) {
+		
+		
+		CustomerEntity customer=customerControllerBean.getCustomer(customerId);
+		
+		if(customer==null){return 0;}		
+		return customer.getRequestLimit()-noOfOpenRequests(customerId);
+
 	}
 
 	

@@ -96,7 +96,7 @@ import org.postgis.Point;
     // find all rides for given rider after given date
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesAfterDateforCustId",           query = "SELECT r FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),  
     // count all rides for given rider after given date
-    @NamedQuery(name = "RiderUndertakesRideEntity.countRidesAfterDateforCustId",           query = "SELECT count(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate) ORDER BY r.starttimeLatest"),
+    @NamedQuery(name = "RiderUndertakesRideEntity.countRidesAfterDateforCustId",           query = "SELECT count(r.riderrouteId) FROM RiderUndertakesRideEntity r WHERE r.custId = :custId  AND (r.starttimeLatest >= :startDate)"),
     // TODO: timestampbooked should be replaced with Timestamprealized once this is set!
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutRatingByDriver",         query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND (r.givenrating IS NULL OR r.receivedrating IS NULL) AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),
     @NamedQuery(name = "RiderUndertakesRideEntity.findRidesWithoutGivenRatingByDriver",    query = "SELECT r FROM DriverUndertakesRideEntity d, RiderUndertakesRideEntity r WHERE d.custId = :custId AND r.rideId = d AND r.givenrating IS NULL AND r.timestampbooked IS NOT NULL ORDER BY r.timestampbooked DESC"),

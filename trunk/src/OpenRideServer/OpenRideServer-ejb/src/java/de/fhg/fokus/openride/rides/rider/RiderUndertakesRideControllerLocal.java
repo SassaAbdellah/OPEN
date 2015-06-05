@@ -213,9 +213,14 @@ public interface RiderUndertakesRideControllerLocal {
     
     /** Return the number of requests that the user has currently issued, and which are still availlable.
      *  This is the same as get count of rides after date.
-     *
      */
-    public int noOfOpenRequests(Integer customerId);
+    public Integer noOfOpenRequests(Integer customerId);
+    
+    
+    
+    /** Return the number of requests that the user can still issue
+     */
+    public Integer noOfLeftRequests(Integer customerId);
     
     
     
