@@ -1,5 +1,7 @@
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.jbeans.driverundertakesride.JDriverUndertakesRideEntityService;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.session.HTTPUser;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
@@ -504,6 +506,22 @@ public class JCustomerEntity extends CustomerEntity {
     	String localNamePlural=""+messages.get(u.getKeyStringPlural());
     	return localNamePlural;		
     }
+    
+    
+    
+    /** Get number of offers that can still be issued
+     */
+    public Integer getNoLeftOffers(){
+    	return new JDriverUndertakesRideEntityService().getNoLeftOffers();
+    }
+    
+    
+    /** Get number of requests that can still be issued
+     */
+    public Integer getNoLeftRequests(){
+    	return new JRiderUndertakesRideEntityService().getNoLeftRequests();
+    }
+    
     
 }// class
 
