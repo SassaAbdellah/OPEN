@@ -1455,10 +1455,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 	@Override
 	public Integer noOfOpenOffers(Integer custId){
 		
+		// numericalCustId must match a real Object
+		CustomerEntity customer=customerControllerBean.getCustomer(custId);
+		if (customer==null){return null;} // cannot find anything
 		// @NamedQuery(name = "DriverUndertakesRideEntity.countDrivesAfterDateforCustId", query = "SELECT count(d.ride_id) FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime >= :time"),
-		Integer res = (Integer) em.createNamedQuery( "DriverUndertakesRideEntity.countDrivesAfterDateforCustId"  ).setParameter("custId", custId).setParameter("r.starttimeLatest", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
-	
-		return res;	
+		Long resLong = (Long) em.createNamedQuery( "DriverUndertakesRideEntity.countDrivesAfterDateforCustId"  ).setParameter("custId", customer).setParameter("time", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
+		
+		return new Integer(resLong.intValue());
+	}
+
+	@Override
+	public Integer noOfLeftOffers(Integer custId) {
+		
+		CustomerEntity customer=customerControllerBean.getCustomer(custId);
+		
+		if(customer==null){return null;}
+		
+		return customer.getOfferLimit()-this.noOfOpenOffers(custId);
+		
 	}
 	
 	
