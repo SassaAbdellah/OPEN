@@ -159,7 +159,8 @@ public class UserDataService extends AbstractRestService {
 					dto.getCustGender(),
 					dto.getCustEmail(), 
 					dto.getCustMobilephoneno(),
-					dto.getCustPreferredLanguage()
+					dto.getCustPreferredLanguage(),
+					dto.getPreferredUnitOfLength()
 				);
 		
 		if (updateResult == -1) {

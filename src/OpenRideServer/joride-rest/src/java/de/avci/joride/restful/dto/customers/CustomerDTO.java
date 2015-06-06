@@ -46,6 +46,8 @@ public class CustomerDTO {
     private String custPresencemssg;
     
     private String custPreferredLanguage;
+    
+    private int preferredUnitOfLength;
  
     /** Landline Phone -- for whatever reason
      */
@@ -389,8 +391,12 @@ public class CustomerDTO {
 		this.custPreferredLanguage = custPreferredLanguage;
 	}
 
+	public int getPreferredUnitOfLength() {
+		return preferredUnitOfLength;
+	}
 
-	
-	
+	public void setPreferredUnitOfLength(int preferredUnitOfLength) {
+		this.preferredUnitOfLength = preferredUnitOfLength;
+	}
 
 }

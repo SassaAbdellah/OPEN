@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -27,10 +26,10 @@ import de.avci.joride.restful.converters.RideOfferDTOConverter;
 import de.avci.joride.restful.converters.WaypointDTOConverter;
 import de.avci.joride.restful.dto.offers.RideOfferDTO;
 import de.avci.joride.restful.dto.offers.WaypointDTO;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * Restful Service for manipulating ride offers
@@ -131,25 +130,33 @@ public class RideOfferService extends AbstractRestService {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 
-		int updateResult = durcl.addRide(
+		int updateResult;
+		try {
+			updateResult = durcl.addRide(
 
-		dto.getCustomerId().intValue(),
-				locationConverter.point(dto.getStartLocation()),
-				locationConverter.point(dto.getEndLocation()),
-				// intermediate Points currently left out...
-				new Point[0], // Point[] intermediate route
-				null, // Have to know DriveId to add waypoints!
-				new Date(dto.getStartTime().getTime()), dto.getComment(), null, // no
-																				// acceptable
-																				// Detour
-																				// Minutes
-				dto.getAcceptableDetourKM(), null, // no Acceptable Detour In
-													// Percent(),
-				dto.getOfferedSeatsNo(),
-				// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
-				dto.getStartLocation().getAddress(),
-				// StringEscapeUtils.unescapeHtml(r.getEndptAddress())))
-				dto.getEndLocation().getAddress());
+			dto.getCustomerId().intValue(),
+					locationConverter.point(dto.getStartLocation()),
+					locationConverter.point(dto.getEndLocation()),
+					// intermediate Points currently left out...
+					new Point[0], // Point[] intermediate route
+					null, // Have to know DriveId to add waypoints!
+					new Date(dto.getStartTime().getTime()), dto.getComment(), null, // no
+																					// acceptable
+																					// Detour
+																					// Minutes
+					dto.getAcceptableDetourKM(), null, // no Acceptable Detour In
+														// Percent(),
+					dto.getOfferedSeatsNo(),
+					// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
+					dto.getStartLocation().getAddress(),
+					// StringEscapeUtils.unescapeHtml(r.getEndptAddress())))
+					dto.getEndLocation().getAddress());
+			
+		} catch (OpenRideShareException exc) {
+			
+			// TODO: better return some decent JSON Error here?
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 
 		if (updateResult == -1) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -202,23 +209,31 @@ public class RideOfferService extends AbstractRestService {
 
 		for (RideOfferDTO dto : dtos) {
 
-			int updateResult = durcl.addRide(
+			int updateResult;
+			try {
+				updateResult = durcl.addRide(
 
-					dto.getCustomerId().intValue(),
-					locationConverter.point(dto.getStartLocation()),
-					locationConverter.point(dto.getEndLocation()),
-					// intermediate Points currently left out...
-					new Point[0], // Point[] intermediate route
-					null, // Have to know DriveId to add waypoints!
-					new Date(dto.getStartTime().getTime()), dto.getComment(),
-					null, // no acceptable Detour Minutes
-					dto.getAcceptableDetourKM(), null, // no Acceptable Detour
-														// In Percent(),
-					dto.getOfferedSeatsNo(),
-					// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
-					dto.getStartLocation().getAddress(),
-					// StringEscapeUtils.unescapeHtml(r.getEndptAddress())))
-					dto.getEndLocation().getAddress());
+						dto.getCustomerId().intValue(),
+						locationConverter.point(dto.getStartLocation()),
+						locationConverter.point(dto.getEndLocation()),
+						// intermediate Points currently left out...
+						new Point[0], // Point[] intermediate route
+						null, // Have to know DriveId to add waypoints!
+						new Date(dto.getStartTime().getTime()), dto.getComment(),
+						null, // no acceptable Detour Minutes
+						dto.getAcceptableDetourKM(), null, // no Acceptable Detour
+															// In Percent(),
+						dto.getOfferedSeatsNo(),
+						// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
+						dto.getStartLocation().getAddress(),
+						// StringEscapeUtils.unescapeHtml(r.getEndptAddress())))
+						dto.getEndLocation().getAddress());
+				
+			} catch (OpenRideShareException e) {
+				
+				// TODO: better return some decent JSON Error here?
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
 
 			if (updateResult == -1) {
 				return Response.status(Response.Status.BAD_REQUEST).build();
