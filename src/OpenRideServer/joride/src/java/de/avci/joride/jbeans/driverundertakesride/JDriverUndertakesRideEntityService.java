@@ -6,6 +6,7 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
@@ -16,6 +17,7 @@ import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.RouterBeanLocal;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -537,33 +540,39 @@ public class JDriverUndertakesRideEntityService {
         DriverUndertakesRideControllerLocal durcl = this.lookupDriverUndertakesRideControllerBeanLocal();
 
 
-        return durcl.addRide(
-                // Customer ID
-                ce.getCustId(),
-                //Point ridestartPt
-                jdure.getRideStartpt(),
-                // Point rideendPt
-                jdure.getRideEndpt(),
-                //  Point[] intermediatePoints
-                jdure.getIntermediatePoints(),
-                // waypointds
-                jdure.getWaypoints(),
-                //java.sql.Date ridestartTime
-                new java.sql.Date(jdure.getRideStarttime().getTime()),
-                //String rideComment
-                jdure.getRideComment(),
-                //Integer acceptableDetourInMin
-                jdure.getRideAcceptableDetourInMin(),
-                // Integer acceptableDetourKm
-                jdure.getRideAcceptableDetourInKm(),
-                // Integer acceptableDetourPercent,
-                jdure.getRideAcceptableDetourInPercent(),
-                //int offeredSeatsNo,
-                jdure.getRideOfferedseatsNo(),
-                //String startptAddress,
-                jdure.getStartptAddress(),
-                //String endptAddress
-                jdure.getEndptAddress());
+        try {
+			return durcl.addRide(
+			        // Customer ID
+			        ce.getCustId(),
+			        //Point ridestartPt
+			        jdure.getRideStartpt(),
+			        // Point rideendPt
+			        jdure.getRideEndpt(),
+			        //  Point[] intermediatePoints
+			        jdure.getIntermediatePoints(),
+			        // waypointds
+			        jdure.getWaypoints(),
+			        //java.sql.Date ridestartTime
+			        new java.sql.Date(jdure.getRideStarttime().getTime()),
+			        //String rideComment
+			        jdure.getRideComment(),
+			        //Integer acceptableDetourInMin
+			        jdure.getRideAcceptableDetourInMin(),
+			        // Integer acceptableDetourKm
+			        jdure.getRideAcceptableDetourInKm(),
+			        // Integer acceptableDetourPercent,
+			        jdure.getRideAcceptableDetourInPercent(),
+			        //int offeredSeatsNo,
+			        jdure.getRideOfferedseatsNo(),
+			        //String startptAddress,
+			        jdure.getStartptAddress(),
+			        //String endptAddress
+			        jdure.getEndptAddress());
+		} catch (OpenRideShareException exc) {
+			// Throw an  error, since this should never happen in the frontend
+			// 
+			throw new Error(exc);
+		}
 
     }
 

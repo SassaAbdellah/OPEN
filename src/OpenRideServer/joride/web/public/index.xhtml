@@ -31,11 +31,11 @@
 
 
 		<ui:define name="content">
-				
 
-		<!--  Stuff to be displayed *only* if there are unrated rides or drives -->
 
-		<!-- fetch data for unrated rides -->
+			<!--  Stuff to be displayed *only* if there are unrated rides or drives -->
+
+			<!-- fetch data for unrated rides -->
 		#{unrated.update()}
 		<!-- fetch data for unrated rides -->
 
@@ -86,8 +86,11 @@
 			<!-- end of unrated rides for rider stuff -->
 
 
+			
 
-
+			<p>TODO: customer left over requests : #{jprofile.noLeftRequests}</p>
+			
+			<p>TODO: customer left over offers : #{jprofile.noLeftOffers}</p>
 
 
 

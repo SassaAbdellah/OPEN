@@ -4,13 +4,6 @@
  */
 package de.avci.joride.jbeans.riderundertakesride;
 
-import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +13,13 @@ import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+
+import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * Wrapper for RiderUndertakesRideEntityService in OpenRideServer-ejb.
@@ -561,27 +561,37 @@ public class JRiderUndertakesRideEntityService {
 
         RiderUndertakesRideControllerLocal rurcl = this.lookupRiderUndertakesRideControllerBeanLocal();
 
-        return rurcl.addRideRequest(
-                // int cust_id, 
-                ce.getCustId(),
-                //Date starttime_earliest, 
-                jrure.getStarttimeEarliest(),
-                //Date starttimeLatest, 
-                jrure.getStarttimeLatest(),
-                // int noPassengers, 
-                jrure.getNoPassengers(),
-                //Point startpt, 
-                jrure.getStartpt(),
-                //Point endpt, 
-                jrure.getEndpt(),
-                //double price, 
-                jrure.getPrice(),
-                //String comment, 
-                jrure.getComment(),
-                //String startptAddress, 
-                jrure.getStartptAddress(),
-                //String endptAddress
-                jrure.getEndptAddress());
+        try {
+			return rurcl.addRideRequest(
+			        // int cust_id, 
+			        ce.getCustId(),
+			        //Date starttime_earliest, 
+			        jrure.getStarttimeEarliest(),
+			        //Date starttimeLatest, 
+			        jrure.getStarttimeLatest(),
+			        // int noPassengers, 
+			        jrure.getNoPassengers(),
+			        //Point startpt, 
+			        jrure.getStartpt(),
+			        //Point endpt, 
+			        jrure.getEndpt(),
+			        //double price, 
+			        jrure.getPrice(),
+			        //String comment, 
+			        jrure.getComment(),
+			        //String startptAddress, 
+			        jrure.getStartptAddress(),
+			        //String endptAddress
+			        jrure.getEndptAddress());
+		} catch (OpenRideShareException exc) {
+			
+			//
+			// TODO: do something serious here. Probably it is enough to throw an error here,
+			//  since in the frontend, this should never happen
+			
+			throw new Error(exc);
+			
+		}
     }
 
     /**
