@@ -22,6 +22,8 @@
  */
 package de.fhg.fokus.openride.rides.rider;
 
+import de.avci.openrideshare.errorhandling.ErrorCodes;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -886,7 +888,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
             double price,
             String comment,
             String startptAddress,
-            String endptAddress) {
+            String endptAddress) throws OpenRideShareException {
         List<RiderUndertakesRideEntity> entities = em.createNamedQuery("RiderUndertakesRideEntity.findByRiderroute_id").setParameter("riderrouteId", riderrouteId).getResultList();
         // TODO: only do that if there is no Match existant yet.
         RiderUndertakesRideEntity cust = getRideByRiderRouteId(riderrouteId);
@@ -903,9 +905,21 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
     }
 
     @Override
-    public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) {
+    public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) throws OpenRideShareException {
 
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
+        
+       //check if customer exists   
+       if(customer==null){
+    	   throw new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
+       }
+        
+       // check if customer has still enough quota
+       if(this.noOfLeftRequests(cust_id)<=0){
+    	   throw new OpenRideShareException(ErrorCodes.RequestLimitExceededError_Code);
+       }
+        
+        
         //TODO: could get Problems if different users simultanously add a RideRequest;Transaction? perhaps locks to much?
         RiderUndertakesRideEntity r = null;
         logger.info("addRideRequest, customer is :" + customer + "");

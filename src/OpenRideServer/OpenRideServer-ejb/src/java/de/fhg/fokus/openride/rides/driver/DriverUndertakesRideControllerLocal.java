@@ -23,6 +23,7 @@
 
 package de.fhg.fokus.openride.rides.driver;
 
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
@@ -58,6 +59,7 @@ public interface DriverUndertakesRideControllerLocal {
      * @param endptAddress             Human Readable address of destination
      * 
      * @return  id of newly created driverundertakesridentity
+     * @throws OpenRideShareException 
      */
     
     public int addRide(
@@ -73,7 +75,7 @@ public interface DriverUndertakesRideControllerLocal {
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
-            String endptAddress);
+            String endptAddress) throws OpenRideShareException;
 
    
  
@@ -103,6 +105,7 @@ public interface DriverUndertakesRideControllerLocal {
      *  Found in fokus code. Hopefully not used. 
      *  Horrible implementation in DriverUndertakesRideControlerBean.
      *  Remove unless there is a good reason for having it
+     * @throws OpenRideShareException 
      * 
      * @deprecated hopefully not used
      */
@@ -119,7 +122,7 @@ public interface DriverUndertakesRideControllerLocal {
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
-            String endptAddress);
+            String endptAddress) throws OpenRideShareException;
 
     MatchEntity rejectRider(int rideId, int riderrouteid);
 
