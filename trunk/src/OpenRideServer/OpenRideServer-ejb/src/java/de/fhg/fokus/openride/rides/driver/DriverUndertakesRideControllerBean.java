@@ -34,13 +34,14 @@ import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import org.postgis.Point;
 
+import de.avci.openrideshare.errorhandling.ErrorCodes;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.messages.MessageControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -530,6 +531,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param startptAddress
      * @param endptAddress
      * @return either new rideId or -1 if update was not possible
+     * @throws OpenRideShareException 
      *
      * @deprecated currently, it's not clear if this is used at all.
      */
@@ -546,7 +548,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
-            String endptAddress) {
+            String endptAddress) throws OpenRideShareException {
         // check whether there already exists a state
         // entity can be changed
         // remove old ride
@@ -572,7 +574,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
-            String endptAddress) {
+            String endptAddress) throws OpenRideShareException {
         logger.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
                 + "offeredSeatsNo: " + offeredSeatsNo
                 + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourKm + " acceptableDetourPercent: " + acceptableDetourPercent
@@ -588,8 +590,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
 
         //create instance of DriverUndertakesRideEntity
-        startUserTransaction();
+    
         CustomerEntity customer = customerControllerBean.getCustomer(cust_id);
+        
+        // Check if new offer can be created
+        if(customer==null){
+        	throw new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
+        }
+        
+        if(this.noOfLeftOffers(cust_id)<=0){
+        	throw new OpenRideShareException(ErrorCodes.OfferLimitExceededError_Code);
+        }
+        
+        
+        
+        
+        // Customer checked, let's go ahead
+        startUserTransaction();
+        
         DriverUndertakesRideEntity drive = new DriverUndertakesRideEntity(
                 ridestartTime,
                 ridestartPt,

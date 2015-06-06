@@ -22,13 +22,17 @@
  */
 package de.fhg.fokus.openride.rides.rider;
 
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.ejb.Local;
+
 import org.postgis.Point;
 
 /**
@@ -110,9 +114,9 @@ public interface RiderUndertakesRideControllerLocal {
             double price,
             String comment,
             String startptAddress,
-            String endptAddress);
+            String endptAddress) throws OpenRideShareException;
 
-    public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress);
+    public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) throws OpenRideShareException;
 
     /**
      * True, if RiderUndertakesRide Entity with given riderrouteId is removable,
