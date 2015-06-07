@@ -43,33 +43,43 @@
 			<p>
 				#{jprofile.updateFromDB()}
 				<div class="formlabel">
-					<h:outputFormat value="#{msgs.limits_offerLimitMessage}">
+					<h:outputFormat rendered="#{jprofile.canAddOffer}"
+						value="#{msgs.limits_offerLimitMessage}">
 						<f:param name="limits" value="#{jprofile.offerLimit}" />
 					</h:outputFormat>
 				</div>
 
 				<div class="formlabel">
-					<h:outputFormat value="#{msgs.limits_offersLeftMessage}">
+					<h:outputFormat rendered="#{jprofile.canAddOffer}"
+						value="#{msgs.limits_offersLeftMessage}">
 						<f:param name="limits" value="#{jprofile.noLeftOffers}" />
 					</h:outputFormat>
 				</div>
 			</p>
 
+			<p>
+			<div class="formlabel">
+				<h:outputFormat rendered="#{!jprofile.canAddOffer}"
+					value="#{msgs.limits_offerLimitExceededMessage}">
+					<f:param name="limits" value="#{jprofile.offerLimit}" />
+				</h:outputFormat>
+			</div>
+			</p>
 
-			<h:form>
+			<h:form rendered="#{jprofile.canAddOffer}">
 
 				<p>
 					<div class="formLabel">#{msgs.rideStarttime}</div>
-					<div class="formInput">
+				<div class="formInput">
 
-						<p:calendar value="#{newdriverride.rideStarttime}"
-							id="starttimeCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-							showOn="button" timezone="#{HTTPUser.timeZone}" />
+					<p:calendar value="#{newdriverride.rideStarttime}"
+						id="starttimeCal" locale="#{HTTPUser.getLocale()}"
+						pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+						showOn="button" timezone="#{HTTPUser.timeZone}" />
 
 
 
-					</div>
+				</div>
 				</p>
 				<p>
 					<div class="formLabel">#{msgs.rideComment}</div>
