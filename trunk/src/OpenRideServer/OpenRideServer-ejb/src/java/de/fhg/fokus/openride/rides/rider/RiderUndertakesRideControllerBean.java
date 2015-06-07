@@ -1504,7 +1504,14 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 	}
 
 	
+
+	@Override
 	
+	public Boolean canAddRequest(Integer customerId) {
+				
+		return noOfLeftRequests(customerId)>0;
+	}
+
 
    
     

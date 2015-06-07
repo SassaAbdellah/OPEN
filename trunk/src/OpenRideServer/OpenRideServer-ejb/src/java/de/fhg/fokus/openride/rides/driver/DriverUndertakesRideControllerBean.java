@@ -1494,6 +1494,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 	}
 	
 	
+
+	
+	@Override
+	
+	public Boolean canAddOffer(Integer customerId) {
+				
+		return noOfLeftOffers(customerId)>0;
+	}
+
+	
+	
 	
 	
 } // class
