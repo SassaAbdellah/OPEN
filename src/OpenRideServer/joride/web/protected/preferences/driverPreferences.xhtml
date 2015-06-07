@@ -41,10 +41,25 @@
 			<!-- the profile must be filled with data before anything -->
 			<!-- useful can be done with it                           -->
                 #{jprofile.updateFromDB()}
+                
+                
+                         			<!-- Display Offer Limits -->
+			<p>
+				<div class="formlabel">
+					<h:outputFormat value="#{msgs.limits_offerLimitMessage}">
+						<f:param name="limits" value="#{jprofile.offerLimit}" />
+					</h:outputFormat>
+				</div>
+
+				<div class="formlabel">
+					<h:outputFormat value="#{msgs.limits_offersLeftMessage}">
+						<f:param name="limits" value="#{jprofile.noLeftOffers}" />
+					</h:outputFormat>
+				</div>
+			</p>
 
 
-                <p:panel
-				header="#{msgs.nav1_pref_driverPreferences_label}">
+			<p:panel header="#{msgs.nav1_pref_driverPreferences_label}">
 				<h:form>
 
 					<!-- int custDriverprefAge -->
@@ -53,16 +68,16 @@
 					<!-- currently removed. FIXME: check relevance for matching algoritm -->
 					<!-- char custDriverprefSmoker -->
 					<div class="formLabel">#{msgs.custDriverprefSmoker}</div>
-						<h:selectOneRadio value="#{jprofile.custDriverprefSmoker}">
-							<div class="formLabel">
-								<f:selectItem itemValue="#{jprofile.smokerChar}"
-									itemLabel="#{msgs.custSmokeInCar}" />
-							</div>
-							<div class="formLabel">
-								<f:selectItem itemValue="#{jprofile.nonsmokerChar}"
-									itemLabel="#{msgs.custNonSmokeInCar}" />
-							</div>
-						</h:selectOneRadio>
+					<h:selectOneRadio value="#{jprofile.custDriverprefSmoker}">
+						<div class="formLabel">
+							<f:selectItem itemValue="#{jprofile.smokerChar}"
+								itemLabel="#{msgs.custSmokeInCar}" />
+						</div>
+						<div class="formLabel">
+							<f:selectItem itemValue="#{jprofile.nonsmokerChar}"
+								itemLabel="#{msgs.custNonSmokeInCar}" />
+						</div>
+					</h:selectOneRadio>
 					<p:commandButton action="#{jprofile.updateDriverPreferencesToDB}"
 						value="#{msgs.formApply}" ajax="false" />
 				</h:form>
