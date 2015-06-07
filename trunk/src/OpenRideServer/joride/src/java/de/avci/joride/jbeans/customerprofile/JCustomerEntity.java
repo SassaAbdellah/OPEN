@@ -523,6 +523,19 @@ public class JCustomerEntity extends CustomerEntity {
     	return new JRiderUndertakesRideEntityService().getNoLeftRequests();
     }
     
+
+    /** True, if this customer can add a new request, else false
+     */
+    public Boolean getCanAddRequest(){
+    	return new JRiderUndertakesRideEntityService().canAddRequest();
+    }
+    
+    /** True, if this customer can add a new offer, else false
+     */
+    public Boolean getCanAddOffer(){
+    	return new JDriverUndertakesRideEntityService().canAddOffer();
+    }
+    
     
 }// class
 
