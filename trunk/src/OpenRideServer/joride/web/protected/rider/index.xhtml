@@ -39,8 +39,9 @@
 				<div class="formLabel">#{msgs.rideListNoRequestCurrently}</div>
 			</h:panelGroup>
 
-        
+
 			<!-- Display Request Limits -->
+			<p>
 			#{jprofile.updateFromDB()}
 			<div class="formlabel">
 				<h:outputFormat value="#{msgs.limits_requestLimitMessage}">
@@ -53,7 +54,7 @@
 					<f:param name="limits" value="#{jprofile.noLeftRequests}" />
 				</h:outputFormat>
 			</div>
-
+			</p>
 
 
 			<!--  local links to different kinds of rides   -->

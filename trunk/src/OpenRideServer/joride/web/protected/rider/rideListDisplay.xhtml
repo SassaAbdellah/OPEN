@@ -32,7 +32,7 @@
 			<!-- page to display lists of ride  -->
 
 			<!-- Display Request Limits -->
-			#{jprofile.updateFromDB()}
+			<p>#{jprofile.updateFromDB()}
 			<div class="formlabel">
 				<h:outputFormat value="#{msgs.limits_requestLimitMessage}">
 					<f:param name="limits" value="#{jprofile.requestLimit}" />
@@ -44,6 +44,8 @@
 					<f:param name="limits" value="#{jprofile.noLeftRequests}" />
 				</h:outputFormat>
 			</div>
+
+			</p>
 
 			<!-- filteredRideLists.displayMode property governs what will be displayed -->
 
