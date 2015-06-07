@@ -45,8 +45,8 @@
 			<!-- useful can be done with it                           -->
                 #{jprofile.updateFromDB()}
                 
-            
-            <!-- Display Request Limits -->    
+            <p>
+				<!-- Display Request Limits -->
 			<div class="formlabel">
 				<h:outputFormat value="#{msgs.limits_requestLimitMessage}">
 					<f:param name="limits" value="#{jprofile.requestLimit}" />
@@ -58,7 +58,7 @@
 					<f:param name="limits" value="#{jprofile.noLeftRequests}" />
 				</h:outputFormat>
 			</div>
-
+			</p>
 
 			<h:form>
 
