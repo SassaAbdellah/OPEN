@@ -122,7 +122,6 @@ public class JCustomerEntity extends CustomerEntity {
         this.setCustRiderprefAge(ce.getCustRiderprefAge());
         this.setCustRiderprefGender(ce.getCustRiderprefGender());
         this.setCustRiderprefSmoker(ce.getCustRiderprefIssmoker());
-
         // Driver Preferences
         this.setCustDriverprefAge(ce.getCustDriverprefAge());
         this.setCustDriverprefGender(ce.getCustDriverprefGender());
@@ -143,6 +142,8 @@ public class JCustomerEntity extends CustomerEntity {
         //limits
         this.setIndividualLimitMatch(ce.getIndividualLimitMatch());
         this.setMaxLimitMatch(ce.getMaxLimitMatch());
+        this.setRequestLimit(ce.getRequestLimit());
+        this.setOfferLimit(ce.getOfferLimit());
 
     } // update from DB
 

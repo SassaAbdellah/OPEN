@@ -31,17 +31,29 @@
             </ui:define>
 
 		<ui:define name="content">
-
-
-
-
-
-
+     
+                #{jprofile.updateFromDB()}
                 #{newride.initializeNewRide()}
                 #{newride.smartUpdate()}
 
 
                 <h1>#{msgs.rideCreateNewRequest}</h1>
+
+
+ 		   <!-- Display Request Limits -->    
+			<div class="formlabel">
+				<h:outputFormat value="#{msgs.limits_requestLimitMessage}">
+					<f:param name="limits" value="#{jprofile.requestLimit}" />
+				</h:outputFormat>
+			</div>
+
+			<div class="formlabel">
+				<h:outputFormat value="#{msgs.limits_requestsLeftMessage}">
+					<f:param name="limits" value="#{jprofile.noLeftRequests}" />
+				</h:outputFormat>
+			</div>
+
+
 
 			<p>
 				<h:form>

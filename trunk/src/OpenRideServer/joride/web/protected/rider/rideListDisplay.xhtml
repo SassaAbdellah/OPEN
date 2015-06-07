@@ -30,7 +30,23 @@
 
 		<ui:define name="content">
 			<!-- page to display lists of ride  -->
+
+			<!-- Display Request Limits -->
+			#{jprofile.updateFromDB()}
+			<div class="formlabel">
+				<h:outputFormat value="#{msgs.limits_requestLimitMessage}">
+					<f:param name="limits" value="#{jprofile.requestLimit}" />
+				</h:outputFormat>
+			</div>
+
+			<div class="formlabel">
+				<h:outputFormat value="#{msgs.limits_requestsLeftMessage}">
+					<f:param name="limits" value="#{jprofile.noLeftRequests}" />
+				</h:outputFormat>
+			</div>
+
 			<!-- filteredRideLists.displayMode property governs what will be displayed -->
+
 
                 #{filteredRideLists.updateDisplayMode()} 
 
@@ -68,7 +84,7 @@
 												</p:commandButton>
 												<p:tooltip for="rideDisplayButton"
 													value="#{msgs.rideDisplayRequest}" />
-	                                            &nbsp;	
+												&nbsp;
 												<h:commandLink action="rider.rideDisplay"
 													value="#{msgs.rideDisplayRequest}">
 													<f:param name="#{crud.paramNameCrudId}"
@@ -101,61 +117,61 @@
 												</div>
 
 											</ui:fragment>
-										<div class="formLabel">#{msgs.rideStarttimeEarliest}:</div>
-										<div class="formInput">
-											#{ride.starttimeEarliestFormatted}</div>
+											<div class="formLabel">#{msgs.rideStarttimeEarliest}:</div>
+											<div class="formInput">
+												#{ride.starttimeEarliestFormatted}</div>
 
 
-										<div class="formLabel">#{msgs.rideStarttimeLatest}:</div>
-										<div class="formInput">#{ride.starttimeLatestFormatted}</div>
+											<div class="formLabel">#{msgs.rideStarttimeLatest}:</div>
+											<div class="formInput">#{ride.starttimeLatestFormatted}</div>
 
-										<div class="formLabel">#{msgs.rideComment}:</div>
-										<div class="formInput">#{ride.comment}</div>
+											<div class="formLabel">#{msgs.rideComment}:</div>
+											<div class="formInput">#{ride.comment}</div>
 
-										<div class="formLabel">#{msgs.rideStart}:</div>
-										<div class="formInput">#{ride.startptAddress}</div>
+											<div class="formLabel">#{msgs.rideStart}:</div>
+											<div class="formInput">#{ride.startptAddress}</div>
 
-										<div class="formLabel">#{msgs.rideDestination}:</div>
-										<div class="formInput">#{ride.endptAddress}</div>
+											<div class="formLabel">#{msgs.rideDestination}:</div>
+											<div class="formInput">#{ride.endptAddress}</div>
 
-										<div class="formLabel">#{msgs.rideNoMatchingOffers}:</div>
-										<div class="formInput">#{ride.noMatches}</div>
+											<div class="formLabel">#{msgs.rideNoMatchingOffers}:</div>
+											<div class="formInput">#{ride.noMatches}</div>
 
 
-										<!-- *** show matchings list only if there are matchings *** -->
-										<ui:fragment rendered="#{ride.hasMatches}">
+											<!-- *** show matchings list only if there are matchings *** -->
+											<ui:fragment rendered="#{ride.hasMatches}">
 
-											<div class="formLabel">
-												<p:commandButton id="showMatchesButton2"
-													action="rider.rideMatchingsList" icon="ui-icon-link"
-													ajax="false">
-													<f:param name="#{crud.paramNameCrudId}"
-														value="#{ride.riderrouteId}" />
-													<f:param name="#{webflow.getParamBack()}" value="rider" />
-												</p:commandButton>
-												<p:tooltip for="showMatchesButton2"
-													value="#{msgs.rideMatchesShowOffers}" />
-												&nbsp;
-												<h:commandLink action="rider.rideMatchingsList"
-													value="#{msgs.rideMatchesShowOffers}">
-													<f:param name="#{crud.paramNameCrudId}"
-														value="#{ride.riderrouteId}" />
-													<f:param name="#{webflow.getParamBack()}" value="rider" />
-												</h:commandLink>
-											</div>
-										</ui:fragment>
+												<div class="formLabel">
+													<p:commandButton id="showMatchesButton2"
+														action="rider.rideMatchingsList" icon="ui-icon-link"
+														ajax="false">
+														<f:param name="#{crud.paramNameCrudId}"
+															value="#{ride.riderrouteId}" />
+														<f:param name="#{webflow.getParamBack()}" value="rider" />
+													</p:commandButton>
+													<p:tooltip for="showMatchesButton2"
+														value="#{msgs.rideMatchesShowOffers}" />
+													&nbsp;
+													<h:commandLink action="rider.rideMatchingsList"
+														value="#{msgs.rideMatchesShowOffers}">
+														<f:param name="#{crud.paramNameCrudId}"
+															value="#{ride.riderrouteId}" />
+														<f:param name="#{webflow.getParamBack()}" value="rider" />
+													</h:commandLink>
+												</div>
+											</ui:fragment>
+										</p>
+									</h:form>
+
+
+
+
+
+								</p:tab>
+							</p:accordionPanel>
+						</p:panel>
 					</p>
-					</h:form>
-
-
-
-
-
-					</p:tab>
-					</p:accordionPanel>
-					</p:panel>
-			</p>
-			</h:panelGroup>
+				</h:panelGroup>
 			</p>
 
 			<!-- webflow stanza -->
