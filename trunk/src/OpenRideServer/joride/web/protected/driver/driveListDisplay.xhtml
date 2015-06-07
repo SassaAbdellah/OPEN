@@ -32,11 +32,26 @@
 			<!-- filteredRideLists.displayMode property governs what will be displayed -->
 
                 #{filteredDriveLists.updateDisplayMode()} 
+                
+                			<!-- Display Offer Limits -->
+			<p>
+				#{jprofile.updateFromDB()}
+				<div class="formlabel">
+					<h:outputFormat value="#{msgs.limits_offerLimitMessage}">
+						<f:param name="limits" value="#{jprofile.offerLimit}" />
+					</h:outputFormat>
+				</div>
+
+				<div class="formlabel">
+					<h:outputFormat value="#{msgs.limits_offersLeftMessage}">
+						<f:param name="limits" value="#{jprofile.noLeftOffers}" />
+					</h:outputFormat>
+				</div>
+			</p>
 
 
-       
-                <p:panel
-				header="#{filteredDriveLists.headerForDisplayMode}">
+
+			<p:panel header="#{filteredDriveLists.headerForDisplayMode}">
 
 				<!-- primefaces dynamic accordion COOL!  -->
 				<p:accordionPanel activeIndex="-1"
@@ -64,7 +79,7 @@
 							<ui:fragment rendered="#{drive.hasMatches}">
 
 								<div class="formInput">
-								
+
 									<p:commandButton id="showMatchesButton"
 										action="driver.driveMatchingsList" icon="ui-icon-link"
 										ajax="false">
@@ -81,7 +96,7 @@
 											value="#{drive.rideId}" />
 										<f:param name="#{webflow.getParamBack()}" value="driver" />
 									</h:commandLink>
-									
+
 								</div>
 
 							</ui:fragment>
@@ -105,9 +120,8 @@
 								</h:commandLink>
 							</div>
 
-							<div class="formLabel"> #{msgs.rideStarttime}: </div>
-							<div class="formInput">
-									#{drive.startDateFormatted} </div>
+							<div class="formLabel">#{msgs.rideStarttime}:</div>
+							<div class="formInput">#{drive.startDateFormatted}</div>
 
 							<div class="formLabel">#{msgs.rideStart}:</div>
 							<div class="formInput">#{drive.startptAddress}</div>
@@ -115,12 +129,11 @@
 							<div class="formLabel">#{msgs.rideDestination}:</div>
 							<div class="formInput">#{drive.endptAddress}</div>
 
-							<div class="formLabel"> #{msgs.rideComment}: </div>
-							<div class="formInput"> #{drive.rideComment} </div>
+							<div class="formLabel">#{msgs.rideComment}:</div>
+							<div class="formInput">#{drive.rideComment}</div>
 
-							<div class="formLabel">
-									#{msgs.rideNoMatchingRequests}: </div>
-							<div  class="formInput"> #{drive.noMatches} </div>
+							<div class="formLabel">#{msgs.rideNoMatchingRequests}:</div>
+							<div class="formInput">#{drive.noMatches}</div>
 
 
 
