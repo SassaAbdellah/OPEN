@@ -225,6 +225,16 @@ public interface RiderUndertakesRideControllerLocal {
     /** Return the number of requests that the user can still issue
      */
     public Integer noOfLeftRequests(Integer customerId);
+
+    
+    /** Check, if this customer is allowed to create another Request.
+     *  Especially, this will return false, if the customer for given id does not exist.
+     * 
+     * 
+     * @param customerId  numerical id of the customer
+     * @return true, if customer is allowed to add another request, false else of if cust does not exist.
+     */
+	public Boolean canAddRequest(Integer customerId);
     
     
     

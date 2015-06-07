@@ -305,6 +305,17 @@ public interface DriverUndertakesRideControllerLocal {
 	/** Count number of offers left to be offered  by the customer.
 	 */
 	Integer noOfLeftOffers(Integer custId);
+
+
+
+    /** Check, if this customer is allowed to create another Offer.
+     *  Especially, this will return false, if the customer for given id does not exist.
+     * 
+     * 
+     * @param customerId  numerical id of the customer
+     * @return true, if customer is allowed to add another ofer, false else of if cust does not exist.
+     */
+	public Boolean canAddOffer(Integer customerId);
 	
     
 
