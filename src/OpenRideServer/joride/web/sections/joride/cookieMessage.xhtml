@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+
+	<title>IGNORED</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</h:head>
+<body>
+
+	<!--  Header Section for all of JoRide -->
+	<ui:composition>
+		<div id="header">
+
+
+
+
+
+			<!-- primefaces localization is always needed          -->
+			<h:outputScript library="js" name="primefacesLocale.js" />
+
+
+			<!-- The "beware-of-the-cookie" message -->
+
+			<!-- ********************************************** -->
+			<!-- Show Cookie Message until user got the point   -->
+			<!-- ********************************************** -->
+			<ui:fragment rendered="#{HTTPUser.showCookieMessage}">
+				<p>
+					<h:form>
+
+						<div class="cookiewarning">
+
+							<p:panel>
+
+								<p:commandButton icon="ui-icon-close"
+									actionListener="#{HTTPUser.toggleCookieMessageVisibility(evt)}"
+									ajax="false" id="closeCookieMessageLink" />
+								<p:tooltip for="closeCookieMessageLink"
+									value="#{msgs.cookie_got_it}" />
+								&nbsp; #{msgs.cookie_description}
+							</p:panel>
+
+						</div>
+
+					</h:form>
+				</p>
+			</ui:fragment>
+			<!-- ********************************************* -->
+			<!-- End of CookieMessage Fragment                 -->
+			<!-- ********************************************* -->
+
+
+
+
+
+			<!-- end of update poll section stanza -->
+
+			<!-- *** end of update alert stuff *** -->
+		</div>
+	</ui:composition>
+
+</body>
+</html>

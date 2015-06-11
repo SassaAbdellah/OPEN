@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -204,8 +204,6 @@ public class HTTPUser implements Serializable {
 	
 	public void toggleMapVisibility(ActionEvent evt){
 		this.setShowMap(!this.isShowMap());
-		
-		System.err.println("TODO: toggled showMapsProperty, current property is "+this.isShowMap());
 	}
     
     /** return inversion of isShowMap
@@ -213,6 +211,75 @@ public class HTTPUser implements Serializable {
     public boolean isHideMap(){
     	return !this.isShowMap();
     }
+    
+    
+    
+    
+    
+    /** Flag signifying wether or not CookieMessage should be shown.
+     *  I.e: Cookie warning is shown before logging in,  or until 
+     *  user disables CookieMessage.
+     *  
+     *  The value of the cookie message is per se not enough to 
+     *  decide wether cookie message should be displayed or not,
+     *  Cookie message must be enabled in general via localhost.properties,
+     *  and Cookie message will dissapear as soon as the user logs in.
+     *   
+     *  
+     *  
+     * 
+     */
+    private boolean showCookieMessageFlag=true;
+
+	public boolean isShowCookieMessageFlag() {
+		return showCookieMessageFlag;
+	}
+
+	public void setShowCookieMessageFlag(boolean showCookieMessage) {
+		this.showCookieMessageFlag = showCookieMessage;
+	}
+    
+	
+	public void toggleCookieMessageVisibility(ActionEvent evt){
+		this.setShowCookieMessageFlag(!this.isShowCookieMessageFlag());
+	}
+    
+	
+	/** Cookie Message is shown under three conditions:
+	 *  
+	 *  1) Cookie message is enabled via local properties // TODO: not yet implemented
+	 *  2) User has not clicked "Got it", i.e: cookieMessageFlag is true
+	 *  3) User has not given consent to use of cookies by logging in. 
+	 * 
+	 * @return
+	 */
+	public boolean isShowCookieMessage() {
+		
+		
+		String showCookiesStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_showCookieMessage);
+		
+		// if property is missing from local.properties, then do not show message
+		Boolean showCookiesP=false;
+		
+		try{ showCookiesP=new Boolean(showCookiesStr);
+		} catch(Exception exc){
+			
+			Logger.getLogger(this.getClass().getCanonicalName()).log(Level.WARNING, "Cannot load showCookie property : ", exc.getMessage());
+		}
+		
+		// if user is logged in, close cookie message for the rest of the session
+		if(this.isLoggedIn()){
+			this.setShowCookieMessageFlag(false);
+		}
+		
+		return showCookiesP && (!this.isLoggedIn()) && isShowCookieMessageFlag();
+		
+	}
+    
+    
+    
+    
+    
     
     /** Return the timezone for this session
      * 
