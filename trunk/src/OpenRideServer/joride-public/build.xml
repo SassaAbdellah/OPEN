@@ -102,13 +102,18 @@
 		</copy>
 
 
-		<!-- synchronize footer, but not header and navigation bar -->
+		<!-- synchronize footer and coookiemessage, but not header and navigation bar -->
 		<delete file="${sections.dir}/footer.xhtml" />
 
 		<copy todir="${sections.dir}">
 			<fileset file="${joride.web.dir}/sections/joride/footer.xhtml" />
 		</copy>
 
+		<delete file="${sections.dir}/cookieMessage.xhtml" />
+	
+		<copy todir="${sections.dir}">
+			<fileset file="${joride.web.dir}/sections/joride/cookieMessage.xhtml" />
+		</copy>
 
 
 		<!-- completely synchronize src directory with joride -->
