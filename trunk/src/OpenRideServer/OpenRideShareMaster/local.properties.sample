@@ -216,6 +216,15 @@ geocoding=GOOGLE
 #
 geomapper=OSM
 #geomapper=GOOGLE
+#
+#
+# wether or not the cookie message should be shown
+# if true, then the cookie warning will be shown on top 
+# of relevant pages in joride frontend.
+#
+#
+#
+showCookieMessage=true
 
 
 
