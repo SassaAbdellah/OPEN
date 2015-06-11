@@ -16,22 +16,14 @@
     </h:head>
 
     <h:body>   
+
+	
+	
+		<!-- Supersimple template for presenting login and logout pages without header or cookie messages -->
+
+
                 
         <p:panel> <!-- have an empty panel surround everything, so primefaces theming applies -->
-
-
-		 <div id="heading">
-            <ui:insert name="cookieMessage">
-                <ui:include src="/sections/joride/cookieMessage.xhtml"/>
-            </ui:insert>
-        </div>
-	
-        
-        <div id="heading">
-            <ui:insert name="heading">
-                <ui:include src="/sections/joride/header.xhtml"/>
-            </ui:insert>
-        </div>
 
 
         <div id="content">
@@ -39,7 +31,7 @@
         </div>
 
         <div id="footer">
-            <ui:insert name="sidebarLeft">
+            <ui:insert name="footer">
                 <ui:include src="/sections/joride/footer.xhtml"/>
             </ui:insert>
         </div>

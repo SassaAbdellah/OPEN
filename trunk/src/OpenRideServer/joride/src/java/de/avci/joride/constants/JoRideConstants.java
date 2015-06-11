@@ -148,6 +148,15 @@ public class JoRideConstants implements Serializable{
     public String getParamNameNickname(){
         return PARAM_NAME_NICKNAME;
     }
+    
+    
+    
+    /**  "showCookieMessage" is used to decide wether or not 
+     *   cookie messages should be displayed on top of joride pages.
+     * 
+     */
+    public static final String PROPERTY_NAME_showCookieMessage="showCookieMessage";
+    
      
      
 } // class

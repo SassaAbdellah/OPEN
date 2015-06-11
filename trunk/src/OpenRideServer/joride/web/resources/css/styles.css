@@ -116,6 +116,13 @@ a:hover {
 
 
 
+.cookiewarning{
+    font-size:0.5em; 
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+
 #content{
 
     padding-top:15px;
