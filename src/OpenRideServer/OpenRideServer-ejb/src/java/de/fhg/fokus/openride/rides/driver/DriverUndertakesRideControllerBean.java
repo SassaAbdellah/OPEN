@@ -525,7 +525,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param ridestartTime
      * @param rideComment
      * @param acceptableDetourInMin
-     * @param acceptableDetourKm
+     * @param acceptableDetourMeters
      * @param acceptableDetourPercent
      * @param offeredSeatsNo
      * @param startptAddress
@@ -544,7 +544,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
-            Integer acceptableDetourKm,
+            Integer acceptableDetourInMeters,
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
@@ -554,7 +554,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // remove old ride
         if (removeRide(rideId)) {
             // add ride with new informations
-            return addRide(cust_id, ridestartPt, rideendPt, intermediatePoints,null, ridestartTime, rideComment, acceptableDetourInMin, acceptableDetourKm, acceptableDetourPercent, offeredSeatsNo, startptAddress, endptAddress);
+            return addRide(cust_id, ridestartPt, rideendPt, intermediatePoints,null, ridestartTime, rideComment, acceptableDetourInMin, acceptableDetourInMeters, acceptableDetourPercent, offeredSeatsNo, startptAddress, endptAddress);
         } else {
             return -1;
         }
@@ -570,21 +570,21 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
-            Integer acceptableDetourKm,
+            Integer acceptableDetourInMeters,
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
             String endptAddress) throws OpenRideShareException {
         logger.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
                 + "offeredSeatsNo: " + offeredSeatsNo
-                + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourKm + " acceptableDetourPercent: " + acceptableDetourPercent
+                + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourInMeters + " acceptableDetourPercent: " + acceptableDetourPercent
                 + "startptAddr: " + startptAddress + " endptAddr: " + endptAddress);
         //check parameters
         if (ridestartPt == null
                 || rideendPt == null
                 || ridestartTime == null
                 || offeredSeatsNo <= 0
-                || (acceptableDetourInMin == null && acceptableDetourKm == null && acceptableDetourPercent == null)) {
+                || (acceptableDetourInMin == null && acceptableDetourInMeters == null && acceptableDetourPercent == null)) {
             logger.log(Level.INFO, "could not add drive: invalid params ::\n");
             return -1;
         }
@@ -614,9 +614,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 rideendPt,
                 offeredSeatsNo,
                 acceptableDetourInMin,
-                acceptableDetourKm,
+                acceptableDetourInMeters,
                 acceptableDetourPercent,
-                RouteMatchingBean.getSfrRoutePointDistance(acceptableDetourKm * 1000));
+                RouteMatchingBean.getSfrRoutePointDistance(acceptableDetourInMeters));
         drive.setRideComment(rideComment);
         drive.setRideOfferedseatsNo(offeredSeatsNo);
         drive.setRideAcceptableDetourInMin(acceptableDetourInMin);

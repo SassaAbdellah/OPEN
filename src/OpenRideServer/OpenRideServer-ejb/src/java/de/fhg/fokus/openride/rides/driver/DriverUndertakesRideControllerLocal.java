@@ -51,9 +51,9 @@ public interface DriverUndertakesRideControllerLocal {
      * @param WayPoints                Waypoints (driver defined)
      * @param ridestartTime            Date/Time when ride starts
      * @param rideComment              Driver's comment
-     * @param acceptableDetourInMin    currently ignored, using acceptable Detour in Km instead
-     * @param acceptableDetourKm       Acceptable Detour for picking up/dropping Riders in KM 
-     * @param acceptableDetourPercent  currently ignored, using acceptable Detour in Km instead
+     * @param acceptableDetourInMin    currently ignored, using acceptable Detour in M instead
+     * @param acceptableDetourM       Acceptable Detour for picking up/dropping Riders in Meters 
+     * @param acceptableDetourPercent  currently ignored, using acceptable Detour in M instead
      * @param offeredSeatsNo           Number of free seats to be offered
      * @param startptAddress           Human Readable address of starting point
      * @param endptAddress             Human Readable address of destination
@@ -71,7 +71,7 @@ public interface DriverUndertakesRideControllerLocal {
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
-            Integer acceptableDetourKm,
+            Integer acceptableDetourM,
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
@@ -118,7 +118,7 @@ public interface DriverUndertakesRideControllerLocal {
             Date ridestartTime,
             String rideComment,
             Integer acceptableDetourInMin,
-            Integer acceptableDetourKm,
+            Integer acceptableDetourInMeters,
             Integer acceptableDetourPercent,
             int offeredSeatsNo,
             String startptAddress,
