@@ -20,7 +20,7 @@ public class RideOfferDTO extends AbstractDTO {
 	
 	/** Acceptable Detour in kilometers
 	 */
-	private Integer acceptableDetourKM;
+	private Integer acceptableDetourM;
 	
 	
 	/** Time when to start
@@ -141,12 +141,12 @@ public class RideOfferDTO extends AbstractDTO {
 		this.customerId = customerId;
 	}
 
-	public Integer getAcceptableDetourKM() {
-		return acceptableDetourKM;
+	public Integer getAcceptableDetourM() {
+		return acceptableDetourM;
 	}
 
-	public void setAcceptableDetourKM(Integer acceptableDetourKM) {
-		this.acceptableDetourKM = acceptableDetourKM;
+	public void setAcceptableDetourM(Integer acceptableDetourM) {
+		this.acceptableDetourM = acceptableDetourM;
 	}
 	
 }
