@@ -38,7 +38,7 @@ public class RideOfferDTOConverter {
 			dto.setComment(entity.getRideComment());
 			dto.setStartTime(new Timestamp(entity.getRideStarttime().getTime()));
 			dto.setOfferedSeatsNo(entity.getRideOfferedseatsNo());
-			dto.setAcceptableDetourKM(entity.getRideAcceptableDetourInKm());
+			dto.setAcceptableDetourM(entity.getRideAcceptableDetourInM());
 			//
 			// Startpoint
 			LocationDTO startLocation = locationConverter.locationDTO(

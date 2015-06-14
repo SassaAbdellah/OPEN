@@ -144,7 +144,7 @@ public class RideOfferService extends AbstractRestService {
 																					// acceptable
 																					// Detour
 																					// Minutes
-					dto.getAcceptableDetourKM(), null, // no Acceptable Detour In
+					dto.getAcceptableDetourM(), null, // no Acceptable Detour In
 														// Percent(),
 					dto.getOfferedSeatsNo(),
 					// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
@@ -221,7 +221,7 @@ public class RideOfferService extends AbstractRestService {
 						null, // Have to know DriveId to add waypoints!
 						new Date(dto.getStartTime().getTime()), dto.getComment(),
 						null, // no acceptable Detour Minutes
-						dto.getAcceptableDetourKM(), null, // no Acceptable Detour
+						dto.getAcceptableDetourM(), null, // no Acceptable Detour
 															// In Percent(),
 						dto.getOfferedSeatsNo(),
 						// StringEscapeUtils.unescapeHtml(r.getStartptAddress())
