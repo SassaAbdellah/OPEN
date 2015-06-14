@@ -49,12 +49,17 @@
 			<div class="formInput">#{driverride.startDateFormatted}</div>
 
 			<div class="formLabel">#{msgs.rideComment}:</div>
-
 			<div class="formInput">#{driverride.rideComment}</div>
+	
+			<!-- Display Detour in prefferred unit -->
+			<div class="formLabel">
+				<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
+					<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+				</h:outputFormat>
+			</div>
+			<div class="formInput"> #{driverride.rideAcceptableDetourPreferredUnit} </div>
+				
 
-
-			<div class="formLabel">#{msgs.rideAcceptableDetourInKm}:</div>
-			<div class="formInput">#{driverride.rideAcceptableDetourInKm}</div>
 
 
 			<div class="formLabel">#{msgs.rideOfferedseatsNo}:</div>

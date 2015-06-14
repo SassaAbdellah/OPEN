@@ -185,18 +185,27 @@
 
 				</p>
 
+			
 				<p>
-					<div class="formLabel">#{msgs.rideAcceptableDetourInKm}</div>
-					<div class="formInput">
-						<h:inputText id="detourkm"
-							value="#{newdriverride.rideAcceptableDetourInKm}">
-							<f:convertNumber type="number" integerOnly="true" />
-							<f:validateLongRange minimum="0" />
-
-							<h:message for="detourkm" />
-						</h:inputText>
+								
+					<!-- Display Detour in prefferred unis -->
+					<div class="formLabel">
+						<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
+							<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+						</h:outputFormat>
 					</div>
+					
+					<div class="formInput">
+						<h:inputText id="detourPrefUnit" value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
+					</div>
+				
 				</p>
+				
+				
+				
+				
+				
+				
 				<!-- property rideAcceptableDetourInMin ommitted, we use -->
 				<!-- acceptable detour km instead                        -->
 
