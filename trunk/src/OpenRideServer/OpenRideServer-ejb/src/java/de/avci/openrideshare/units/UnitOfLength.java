@@ -235,17 +235,31 @@ public class UnitOfLength {
 	
 		
 	
-	/** Raisin d'etre for this class is that distances measured
-	 *  in meters in the backend get converted into 
-	 *  userfriendly individual units.
+	/** Convert length in meters into length measured in preferred unit
 	 *  
-	 *  @param meters: length in meters to be converted
+	 *  
+	 *  @param meters: length in meters to be converted to length in preferred unit
 	 */
 	public double meters2This(long meters){
-		
-		return this.getFactorToMeters()*meters;
+		return new Long(meters).doubleValue()/this.getFactorToMeters();
 	}
 
+	
+	/** Convert length measured in preferred unit of length into length measure in meters
+	 *  
+	 *  
+	 * @param lengthInPreferredUnit
+	 * @return
+	 */
+	public Long this2Meters(Double lengthInPreferredUnit){
+		return (new Double(this.factorToMeters*lengthInPreferredUnit)).longValue();
+	}
+
+	
+	
+	
+	
+	
 	public String getDecimalFormatString() {
 		return decimalFormatString;
 	}

@@ -117,8 +117,8 @@ public class DriverUndertakesRideEntity implements Serializable {
     private Point rideCurrpos;
     @Column(name = "ride_acceptable_detour_in_min")
     private Integer rideAcceptableDetourInMin;
-    @Column(name = "ride_acceptable_detour_in_km")
-    private Integer rideAcceptableDetourInKm;
+    @Column(name = "ride_acceptable_detour_in_m")
+    private Integer rideAcceptableDetourInM;
     @Column(name = "ride_acceptable_detour_in_percent")
     private Integer rideAcceptableDetourInPercent;
     @Column(name = "ride_offeredseats_no")
@@ -158,13 +158,13 @@ public class DriverUndertakesRideEntity implements Serializable {
     public DriverUndertakesRideEntity(Date rideStarttime,
             Point rideStartpt, Point rideEndpt,
             int rideOfferedseatsNo, Integer rideAcceptableDetourInMin,
-            Integer rideAcceptableDetourInKm, Integer rideAcceptableDetourInPercent, Double rideRoutePointDistanceMeters) {
+            Integer rideAcceptableDetourInM, Integer rideAcceptableDetourInPercent, Double rideRoutePointDistanceMeters) {
         this.rideStarttime = rideStarttime;
         this.rideStartpt = rideStartpt;
         this.rideEndpt = rideEndpt;
         this.rideOfferedseatsNo = rideOfferedseatsNo;
         this.rideAcceptableDetourInMin = rideAcceptableDetourInMin;
-        this.rideAcceptableDetourInKm = rideAcceptableDetourInKm;
+        this.rideAcceptableDetourInM = rideAcceptableDetourInM;
         this.rideAcceptableDetourInPercent = rideAcceptableDetourInPercent;
         this.rideRoutePointDistanceMeters = rideRoutePointDistanceMeters;
     }
@@ -281,13 +281,16 @@ public class DriverUndertakesRideEntity implements Serializable {
         this.custId = custId;
     }
 
-    public Integer getRideAcceptableDetourInKm() {
-        return rideAcceptableDetourInKm;
+    
+    public Integer getRideAcceptableDetourInM() {
+        return rideAcceptableDetourInM;
     }
 
-    public void setRideAcceptableDetourInKm(Integer rideAcceptableDetourInKm) {
-        this.rideAcceptableDetourInKm = rideAcceptableDetourInKm;
+    public void setRideAcceptableDetourInM(Integer arg) {
+        this.rideAcceptableDetourInM = arg;
     }
+    
+   
 
     public Integer getRideAcceptableDetourInPercent() {
         return rideAcceptableDetourInPercent;

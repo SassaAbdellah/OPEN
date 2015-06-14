@@ -4,14 +4,19 @@ import com.graphhopper.GHRequest;
 import com.graphhopper.GHResponse;
 import com.graphhopper.GraphHopper;
 import com.graphhopper.routing.util.EncodingManager;
+
+import de.avci.openrideshare.utils.OperationalPropertiesConstants;
+import de.avci.openrideshare.utils.PropertiesLoader;
 import de.fhg.fokus.openride.routing.graphhopper.routing.constants.GraphhopperConstants;
 import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.Router;
 import de.fhg.fokus.openride.routing.graphhopper.configuration.GraphHopperConfiguration;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 
@@ -159,10 +164,25 @@ public class GraphhopperRouter implements Router {
 		if (target == null)
 			throw new Error(
 					"pickUpEquiDistantWaypoints called on null target -- that shouldn't happen");
-		if (maxDistanceOfPoints <= 1000)
+		
+		// to low a threshold would kill the system
+		
+		String distThreshStr=PropertiesLoader.getOperationalProperties().getProperty(OperationalPropertiesConstants.PROPERTY_NAME_equiDistanceMinmum);
+		
+		
+		Integer distThreshold=-5;
+		try{ distThreshold=new Integer(distThreshStr);
+		} catch(NumberFormatException exc){
+			Logger.getLogger(this.getClass().getCanonicalName()).warning("Cannot determine threshold for minimal equidistance ");
+		}
+		
+		
+		
+		if (maxDistanceOfPoints < distThreshold){
 			throw new Error(
 					"pickUpEquiDistantWaypoints called with trivial maxdist-- that shouldn't happen");
-
+		}
+		
 		Route route = this.findRoute(source, target, startTime, fastestPath,
 				threshold);
 

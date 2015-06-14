@@ -55,6 +55,13 @@ public class OperationalPropertiesConstants {
 	public static final String PROPERTY_NAME_maxOffersLimit = "maxOffersLimit";
 	
 	
+	/** Property Name for ="equiDistanceMinmum, the minimum distance of 
+	 *  usable routepoints.
+	 * 
+	 */
+	
+	public static final String PROPERTY_NAME_equiDistanceMinmum="equiDistanceMinmum";
+	
 	
 	
 }

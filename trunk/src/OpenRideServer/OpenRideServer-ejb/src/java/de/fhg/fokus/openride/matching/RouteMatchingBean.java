@@ -311,11 +311,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 							+ detourMeters
 							+ "m / "
 							+ getSfrAcceptableDetourMetersBounded(drive
-									.getRideAcceptableDetourInKm() * 1000)
+									.getRideAcceptableDetourInM() )
 							+ "m");
 					if (FILTER_CHECK_DETOUR
 							&& detourMeters > getSfrAcceptableDetourMetersBounded(drive
-									.getRideAcceptableDetourInKm() * 1000)) {
+									.getRideAcceptableDetourInM())) {
 						continue;
 					}
 
@@ -471,11 +471,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 							+ detourMeters
 							+ "m / "
 							+ getSfrAcceptableDetourMetersBounded(drive
-									.getRideAcceptableDetourInKm() * 1000)
+									.getRideAcceptableDetourInM() )
 							+ "m");
 					if (FILTER_CHECK_DETOUR
 							&& detourMeters > getSfrAcceptableDetourMetersBounded(drive
-									.getRideAcceptableDetourInKm() * 1000)) {
+									.getRideAcceptableDetourInM())) {
 						continue;
 					}
 
@@ -635,7 +635,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 		
 		// distance between drive points in Meters
 		double drivePointDistanceMeters=getSfrRoutePointDistance(drive
-				.getRideAcceptableDetourInKm() * 1000);
+				.getRideAcceptableDetourInM());
 		
 		RoutePoint[] decomposedRoute = routerBean
 				.getEquiDistantRoutePoints(myWaypoints, startTime,
@@ -663,7 +663,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					// distance_to source
 					rp.getDistance(),
 					// testradius
-					this.calculateTestRadiusT3(drivePointDistanceMeters, 1000*drive.getRideAcceptableDetourInKm())
+					this.calculateTestRadiusT3(drivePointDistanceMeters, drive.getRideAcceptableDetourInM())
 					)
 				);
 		}
@@ -972,7 +972,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			
 			// distance between new drive route points
 			double driveRoutePointDistance=getSfrRoutePointDistance(drive
-					.getRideAcceptableDetourInKm() * 1000);
+					.getRideAcceptableDetourInM() );
 
 			RoutePoint[] decomposedroute = routerBean
 					.getEquiDistantRoutePoints(
@@ -1007,7 +1007,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 						// distance from source
 						decomposedroute[j].getDistance()+distanceOffset,
 						// testradius
-						this.calculateTestRadiusT3(driveRoutePointDistance, 1000*drive.getRideAcceptableDetourInKm())
+						this.calculateTestRadiusT3(driveRoutePointDistance, drive.getRideAcceptableDetourInM())
 						
 						));
 			}
@@ -1031,7 +1031,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 									// distance_to_source
 									decomposedroute[decomposedroute.length - 1].getDistance() + distanceOffset,
 									// testradius
-									this.calculateTestRadiusT3(driveRoutePointDistance, 1000*drive.getRideAcceptableDetourInKm())
+									this.calculateTestRadiusT3(driveRoutePointDistance, drive.getRideAcceptableDetourInM())
 								) // DriveRoutePointEntity		
 								
 						
