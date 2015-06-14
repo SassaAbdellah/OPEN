@@ -5,6 +5,7 @@
 package de.avci.joride.jbeans.driverundertakesride;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -23,13 +24,17 @@ import org.postgis.Point;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
+import de.avci.openrideshare.units.UnitOfLength;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
@@ -49,10 +54,10 @@ public class JDriverUndertakesRideEntity extends
 
 	transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 	/**
-	 * Default Value for Acceptable Detour in Km. May be changed by the user in
+	 * Default Value for Acceptable Detour in Meters. May be changed by the user in
 	 * Frontends.
 	 */
-	private Integer ACCEPTABLE_DETOUR_KM_DEFAULT = 10;
+	private Integer ACCEPTABLE_DETOUR_M_DEFAULT = 10000;
 	/**
 	 * Default Value for Acceptable Detour in Min. May be changed by the user in
 	 * Frontends.
@@ -220,7 +225,7 @@ public class JDriverUndertakesRideEntity extends
 
 		this.setCustId(dure.getCustId());
 		this.setEndptAddress(dure.getEndptAddress());
-		this.setRideAcceptableDetourInKm(dure.getRideAcceptableDetourInKm());
+		this.setRideAcceptableDetourInM(dure.getRideAcceptableDetourInM());
 		this.setRideAcceptableDetourInMin(dure.getRideAcceptableDetourInMin());
 		this.setRideAcceptableDetourInPercent(dure
 				.getRideAcceptableDetourInPercent());
@@ -550,8 +555,8 @@ public class JDriverUndertakesRideEntity extends
 			this.setRideStarttime(new Date(System.currentTimeMillis()));
 		}
 
-		if (this.getRideAcceptableDetourInKm() == null) {
-			this.setRideAcceptableDetourInKm(ACCEPTABLE_DETOUR_KM_DEFAULT);
+		if (this.getRideAcceptableDetourInM() == null) {
+			this.setRideAcceptableDetourInM(ACCEPTABLE_DETOUR_M_DEFAULT);
 		}
 
 		if (this.getRideAcceptableDetourInMin() == null) {
@@ -893,4 +898,54 @@ public class JDriverUndertakesRideEntity extends
 		return rideComment;
 	}
 	
+	
+	
+	/** Set acceptable detour in Driver's preferredUnit from String
+	 *  formatted in driver's preffered number format
+	 */
+	public void setRideAcceptableDetourPreferredUnit(String arg){
+		
+		JRiderUndertakesRideEntityService jrurs=new JRiderUndertakesRideEntityService();
+		CustomerEntity cust=jrurs.getCustomerEntity();
+		UnitOfLength uol=UnitOfLength.getLengthUnitByKey(cust.getPreferredUnitOfLength());
+
+		try { 
+			
+			Double  detourPrefUnit= ( uol.createNumberFormat().parse(arg)).doubleValue();
+			Long    detourMetersLong=( uol.this2Meters(detourPrefUnit));
+			Integer detourMetersInteger=detourMetersLong.intValue();
+		
+			this.setRideAcceptableDetourInM(detourMetersInteger);
+		
+		} catch (ParseException exc) {
+			log.info("Parse Exception when determining max detour from input "+arg);
+		} catch (Exception exc){
+			log.log(Level.SEVERE,"Unexpected Exception when determining max detour from input"+arg, exc);
+		}
+		
+		
+		
+		
+	}
+	
+	/** Convert rideAcceptableDetourInMeters into string 
+	 *  displaying the  
+	 * 
+	 * 
+	 */
+	public String getRideAcceptableDetourPreferredUnit(){
+		
+		JRiderUndertakesRideEntityService jrurs=new JRiderUndertakesRideEntityService();
+		CustomerEntity cust=jrurs.getCustomerEntity();
+		UnitOfLength uol=UnitOfLength.getLengthUnitByKey(	cust.getPreferredUnitOfLength());
+		Double detourPrefUnit=uol.meters2This(getRideAcceptableDetourInM());
+		return uol.createNumberFormat().format(detourPrefUnit);
+		
+	}
+	
+	
+	
+	
+	
+
 } // class

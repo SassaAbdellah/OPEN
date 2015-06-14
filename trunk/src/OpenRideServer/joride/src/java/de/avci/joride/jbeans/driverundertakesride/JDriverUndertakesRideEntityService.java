@@ -477,8 +477,8 @@ public class JDriverUndertakesRideEntityService {
 			throw new Error(errPrefix + "ride acceptable Detour in Min is null");
 		}
 		// Integer acceptableDetourKm
-		if (jdure.getRideAcceptableDetourInKm() == null) {
-			throw new Error(errPrefix + "ride acceptable Detour in KM is null");
+		if (jdure.getRideAcceptableDetourInM() == null) {
+			throw new Error(errPrefix + "ride acceptable Detour in M is null");
 		}
 
 		// Integer acceptableDetourPercent,
@@ -549,7 +549,7 @@ public class JDriverUndertakesRideEntityService {
 					// Integer acceptableDetourInMin
 					jdure.getRideAcceptableDetourInMin(),
 					// Integer acceptableDetourKm
-					jdure.getRideAcceptableDetourInKm(),
+					jdure.getRideAcceptableDetourInM(),
 					// Integer acceptableDetourPercent,
 					jdure.getRideAcceptableDetourInPercent(),
 					// int offeredSeatsNo,
