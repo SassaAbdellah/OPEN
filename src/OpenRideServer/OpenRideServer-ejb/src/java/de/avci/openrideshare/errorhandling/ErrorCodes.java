@@ -76,9 +76,6 @@ public class ErrorCodes{
 		errorStringToCode.put(RequestLimitExceededError_Str, RequestLimitExceededError_Code);
 	}
 	
-
-	
-	
 	
 	/**  Mnemonic StrCannot create Offer: Maximum Number of open Offers for this user is exceeded.
 	 *   See also corresponding Error Code RequestLimitExceededError_Code.
@@ -104,7 +101,7 @@ public class ErrorCodes{
 	 */
 	public static final String UserDoesNotExistError_Str = "UserDoesNotExist";
 	
-	
+
 	/** Error Code signifying that the Customer for which an action is performed does not exist
 	 */
 	public static final Integer UserDoesNotExistError_Code = OfferLimitExceededError_Code+1;
@@ -115,6 +112,115 @@ public class ErrorCodes{
 		errorCodeToString.put( UserDoesNotExistError_Code , UserDoesNotExistError_Str   );
 		errorStringToCode.put( UserDoesNotExistError_Str  , UserDoesNotExistError_Code  );
 	}
+	
+
+	/** "ErrorString" to be returned if customer creation failed.
+	 *   Because of terms&conditions not acceppted. 
+	 */
+	public static final String CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str="Terms of use not accepted when creating customer";
+	
+	/** "ErrorCode" to be returned if customer creation failed.
+	 *   Because of terms&conditions not acceppted. 
+	 */
+	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code= UserDoesNotExistError_Code+1;
+	
+	
+	// add errorcode/errorstring pair
+		static {
+			errorCodeToString.put(  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code, CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str);
+			errorStringToCode.put(  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str,  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code);
+		}
+	
+	
+
+	
+	/** "ErrorString" to be returned if customer creation failed.
+	 *   Because of nickname not compliant to sysntax rules
+	 */
+	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str="Nickname Syntax check failed when creating customer";
+	
+	
+	/** "ErrorCode" to be returned if customer creation failed.
+	 *   Because of nickname not compliant to sysntax rules
+	 */
+	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code=CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code+1;
+	
+	// add errorcode/errorstring pair
+			static {
+				errorCodeToString.put( CUSTCREATION_NICKNAME_SYNTAX_Error_Code , CUSTCREATION_NICKNAME_SYNTAX_Error_Str );
+				errorStringToCode.put( CUSTCREATION_NICKNAME_SYNTAX_Error_Str  , CUSTCREATION_NICKNAME_SYNTAX_Error_Code );
+			}
+	
+	
+	
+	
+	/** "String" to be returned if customer creation failed.
+	 *   Because of email not compliant to syntax rules
+	 */
+	public static final String CUSTCREATION_EMAIL_SYNTAX_Error_Str="Email Syntax check failed when creating customer";
+	
+	
+	/** "ErrorCode" to be returned if customer creation failed.
+	 *   Because of email not compliant to syntax rules
+	 */
+	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code=CUSTCREATION_NICKNAME_SYNTAX_Error_Code+1;
+	
+	
+	// add errorcode/errorstring pair
+			static {
+				errorCodeToString.put( CUSTCREATION_EMAIL_SYNTAX_Error_Code, CUSTCREATION_EMAIL_SYNTAX_Error_Str );
+				errorStringToCode.put( CUSTCREATION_EMAIL_SYNTAX_Error_Str, CUSTCREATION_EMAIL_SYNTAX_Error_Code );
+			}
+	
+	
+	
+	
+	
+	
+	
+	/** "ErrorString" to be returned if customer creation failed.
+	 *   Because of nickname already exists
+	 */
+	public static final String CUSTCREATION_NICKNAME_EXISTS_Error_Str="Nickname already exists when creating customer";
+	
+	
+	/** "ErrorCode" to be returned if customer creation failed.
+	 *   Because of nickname already exists
+	 */
+	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code=CUSTCREATION_EMAIL_SYNTAX_Error_Code+1;
+	
+	
+	// add errorcode/errorstring pair
+			static {
+				errorCodeToString.put( CUSTCREATION_NICKNAME_EXISTS_Error_Code, CUSTCREATION_NICKNAME_EXISTS_Error_Str  );
+				errorStringToCode.put( CUSTCREATION_NICKNAME_EXISTS_Error_Str, CUSTCREATION_NICKNAME_EXISTS_Error_Code );
+			}
+	
+	
+	/** "ErrorString" to be returned if customer creation failed.
+	 *   Because of email already exists.
+	 */
+	public static final String CUSTCREATION_EMAIL_EXISTS_Error_Str="Email already exists when creating customer";
+	
+	
+	/** "ErrorCode" to be returned if customer creation failed.
+	 *   Because of email already exists.
+	 */
+	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code=CUSTCREATION_NICKNAME_EXISTS_Error_Code+1;
+	
+	
+	// add errorcode/errorstring pair
+			static {
+				errorCodeToString.put( CUSTCREATION_EMAIL_EXISTS_Error_Code, CUSTCREATION_EMAIL_EXISTS_Error_Str );
+				errorStringToCode.put( CUSTCREATION_EMAIL_EXISTS_Error_Str, CUSTCREATION_EMAIL_EXISTS_Error_Code );
+			}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

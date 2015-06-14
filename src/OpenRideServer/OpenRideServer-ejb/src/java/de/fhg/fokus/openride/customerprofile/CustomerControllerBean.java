@@ -42,6 +42,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.transaction.UserTransaction;
 
+import de.avci.openrideshare.errorhandling.ErrorCodes;
 import de.avci.openrideshare.units.UnitOfLength;
 import de.avci.openrideshare.utils.SupportedLanguagesFactory;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -248,7 +249,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		// check if username is compliant to rules, return error if not
 		if(!(CustomerUtils.isValidNickname(custNickname))){
 			logger.log(Level.SEVERE, "Proposed nickname is not compliant : "+custNickname);
-			return CustomerUtils.CUSTCREATION_NICKNAME_SYNTAX;
+			return ErrorCodes.CUSTCREATION_NICKNAME_SYNTAX_Error_Code;
 		}
 		
 		
@@ -258,14 +259,14 @@ public class CustomerControllerBean extends ControllerBean implements
 
 		if (entitiesNick.size() > 0) {
 			logger.log(Level.SEVERE, "Proposed nickname already exists : "+custNickname);
-			return CustomerUtils.CUSTCREATION_NICKNAME_EXISTS;
+			return ErrorCodes.CUSTCREATION_NICKNAME_EXISTS_Error_Code;
 		} 
 		
 		
 		// check if username is compliant to rules, return error if not
 		if(!(CustomerUtils.isValidEmailAdress(custEmail))){
 			logger.log(Level.SEVERE, "Proposed email is not compliant : "+custEmail);
-			return CustomerUtils.CUSTCREATION_EMAIL_SYNTAX;
+			return ErrorCodes.CUSTCREATION_EMAIL_SYNTAX_Error_Code;
 		}
 					
 					
@@ -275,7 +276,7 @@ public class CustomerControllerBean extends ControllerBean implements
 
 		if (entitiesMail.size() > 0) {
 				logger.log(Level.SEVERE, "Proposed email already exists : "+custEmail);
-				return CustomerUtils.CUSTCREATION_EMAIL_EXISTS;
+				return ErrorCodes.CUSTCREATION_EMAIL_EXISTS_Error_Code;
 		} 
 		
 		
