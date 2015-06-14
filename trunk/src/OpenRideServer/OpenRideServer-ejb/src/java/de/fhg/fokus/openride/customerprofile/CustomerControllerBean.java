@@ -111,8 +111,12 @@ public class CustomerControllerBean extends ControllerBean implements
 			String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength) {
 		startUserTransaction();
 		logger.info("addCustomer");
+		
+		
+		// convert nickname to lower case before checking integrity
+		String custNicknameL=custNickname.toLowerCase();
 		// make sure that nickname complies with rules set up for nickname
-		if(!(CustomerUtils.isValidNickname(custNickname))){
+		if(!(CustomerUtils.isValidNickname(custNicknameL))){
 			logger.log(Level.SEVERE, "Proposed nickname turned out to be not compliant to rules : "+custNickname);	
 		}
 		
@@ -120,7 +124,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		// Make sure no Customer exists for this same nickname/email
 		// and that nickname/email comply to syntax rules
 	
-		int checkresult=this.customerCheckInternal(custNickname, custEmail);
+		int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 		
 		if(checkresult!=0){
 			return checkresult;
@@ -129,7 +133,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		
 		// OK - add them, and return their id
 		CustomerEntity c = new CustomerEntity();
-		c.setCustNickname(custNickname);
+		c.setCustNickname(custNicknameL);
 		if (custPasswd != null) {
 			c.setCustPasswd(getMD5Hash(custPasswd));
 		}
@@ -180,9 +184,10 @@ public class CustomerControllerBean extends ControllerBean implements
 			
 			) {
 
-	
-			
-			int checkresult=this.customerCheckInternal(custNickname, custEmail);
+			// convert nickname to lower case before checking integrity
+			String custNicknameL=custNickname.toLowerCase();
+			// check integrity
+			int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 			
 			if(checkresult!=0){
 				return checkresult;
@@ -200,7 +205,7 @@ public class CustomerControllerBean extends ControllerBean implements
 			
 			logger.log(Level.INFO, "So persist it!");
 	
-			CustomerEntity e = new CustomerEntity(custNickname,
+			CustomerEntity e = new CustomerEntity(custNicknameL,
 						getMD5Hash(custPasswd), custFirstname, custLastname,
 						custDateofbirth, custGender, custMobilephoneno,
 						custEmail, custIssmoker, custPostident, custAddrStreet,
