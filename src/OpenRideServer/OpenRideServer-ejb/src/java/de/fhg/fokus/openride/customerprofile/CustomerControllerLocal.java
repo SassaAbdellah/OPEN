@@ -29,6 +29,8 @@ import java.util.Locale;
 
 import javax.ejb.Local;
 
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
+
 /**
  *
  * @author pab
@@ -36,9 +38,9 @@ import javax.ejb.Local;
 @Local
 public interface CustomerControllerLocal {
 
-    int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity, String preferredLanguage, int preferredUnitOfLength);
+    public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, Date custDateofbirth, char custGender, String custMobilephoneno, String custEmail, boolean custIssmoker, boolean custPostident, String custAddrStreet, String custAddrZipcode, String custAddrCity, String preferredLanguage, int preferredUnitOfLength) throws OpenRideShareException;
 
-    public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, char custGender, String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength );
+    public int addCustomer(String custNickname, String custPasswd, String custFirstname, String custLastname, char custGender, String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength ) throws OpenRideShareException;
 
     void removeCustomer(int custId);
 

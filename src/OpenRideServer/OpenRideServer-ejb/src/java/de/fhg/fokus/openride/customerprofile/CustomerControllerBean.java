@@ -43,6 +43,7 @@ import javax.persistence.TemporalType;
 import javax.transaction.UserTransaction;
 
 import de.avci.openrideshare.errorhandling.ErrorCodes;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.units.UnitOfLength;
 import de.avci.openrideshare.utils.SupportedLanguagesFactory;
 import de.fhg.fokus.openride.helperclasses.ControllerBean;
@@ -107,9 +108,11 @@ public class CustomerControllerBean extends ControllerBean implements
 		return false;
 	}
 
+	@Override
+	
 	public int addCustomer(String custNickname, String custPasswd,
 			String custFirstname, String custLastname, char custGender,
-			String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength) {
+			String custEmail, String custMobilephoneno, String preferredLanguage, int preferredUnitOfLength) throws OpenRideShareException {
 		startUserTransaction();
 		logger.info("addCustomer");
 		
@@ -128,7 +131,7 @@ public class CustomerControllerBean extends ControllerBean implements
 		int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 		
 		if(checkresult!=0){
-			return checkresult;
+			throw new OpenRideShareException(checkresult);
 		}
 		
 		
@@ -181,9 +184,7 @@ public class CustomerControllerBean extends ControllerBean implements
 			char custGender, String custMobilephoneno, String custEmail,
 			boolean custIssmoker, boolean custPostident, String custAddrStreet,
 			String custAddrZipcode, String custAddrCity, String preferredLanguage,
-			int preferredUnitOfLength
-			
-			) {
+			int preferredUnitOfLength ) throws OpenRideShareException {
 
 			// convert nickname to lower case before checking integrity
 			String custNicknameL=custNickname.toLowerCase();
@@ -191,7 +192,7 @@ public class CustomerControllerBean extends ControllerBean implements
 			int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 			
 			if(checkresult!=0){
-				return checkresult;
+				throw new OpenRideShareException(checkresult);
 			}
 	
 			try {
