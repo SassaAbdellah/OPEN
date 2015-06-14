@@ -15,37 +15,6 @@ import java.util.regex.Pattern;
  */
 public class CustomerUtils {
 
-
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of terms&conditions not acceppted.
-	 *   
-	 */
-	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED=-1;
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of nickname not compliant to sysntax rules
-	 */
-	public static final int CUSTCREATION_NICKNAME_SYNTAX=-2;
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of email not compliant to syntax rules
-	 */
-	public static final int CUSTCREATION_EMAIL_SYNTAX=-3;
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of nickname already exists
-	 */
-	public static final int CUSTCREATION_NICKNAME_EXISTS=-4;
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of email already exists.
-	 */
-	public static final int CUSTCREATION_EMAIL_EXISTS=-5;
-	
-
-
-	
 	/** Check if argument is an email adress.
 	 *  For the time beeing, an email address is everything that 
 	 *  does contain an ''
