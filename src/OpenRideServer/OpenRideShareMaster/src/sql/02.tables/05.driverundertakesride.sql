@@ -24,7 +24,7 @@ CREATE TABLE driverundertakesride (
     ride_currpos point,
     startpt_addr character varying(255),
     endpt_addr character varying(255),
-    ride_acceptable_detour_in_km integer,
+    ride_acceptable_detour_in_m integer,
     ride_acceptable_detour_in_percent integer,
     ride_route_point_distance_meters double precision NOT NULL,
     last_matching_state integer,
