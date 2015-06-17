@@ -52,8 +52,9 @@ CREATE TABLE customer (
     matchlimitindividual 	integer,
     preferredunitoflength 	integer,
     requestLimit 		integer,
-    offerLimit  		integer
-	
+    offerLimit  		integer,
+    planningHorizonForOffers 	integer,
+    planningHorizonForRequests	integer
 );
 
 
