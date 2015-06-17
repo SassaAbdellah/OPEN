@@ -5,6 +5,7 @@
 package de.avci.joride.jbeans.customerprofile;
 
 import de.avci.joride.utils.HTTPUtil;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.units.UnitOfLength;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerBean;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
@@ -469,10 +470,11 @@ public class JCustomerEntityService {
             
             
             
-        } catch (Exception exc) {
-            return false;
-        }
+        } catch (OpenRideShareException exc) {
+           throw new Error(exc);
+        } 
 
+        
         return true;
     }
 

@@ -34,7 +34,11 @@ import javax.inject.Named;
 @RequestScoped
 public class JCustomerEntity extends CustomerEntity {
 
-    Logger logger = Logger.getLogger("" + this.getClass());
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Logger logger = Logger.getLogger("" + this.getClass());
     /**
      * Normalizer for normalizing input
      */
@@ -130,20 +134,27 @@ public class JCustomerEntity extends CustomerEntity {
         // Car Details Collection
         //
         this.setCarDetailsEntityCollection(ce.getCarDetailsEntityCollection());
-
+        //
         // Session ID
         //
         this.setCustSessionId(ce.getCustSessionId());
-        
+        //
         // data protection settings
+        //
         this.setShowEmailToPartners(ce.getShowEmailToPartners());
         this.setShowMobilePhoneToPartners(ce.getShowMobilePhoneToPartners());
-        
+        //
         //limits
+        //
         this.setIndividualLimitMatch(ce.getIndividualLimitMatch());
         this.setMaxLimitMatch(ce.getMaxLimitMatch());
         this.setRequestLimit(ce.getRequestLimit());
         this.setOfferLimit(ce.getOfferLimit());
+        //
+        // horizons
+        //
+        this.setPlanningHorizonForOffers(ce.getPlanningHorizonForOffers());
+        this.setPlanningHorizonForRequests(ce.getPlanningHorizonForRequests());
 
     } // update from DB
 
