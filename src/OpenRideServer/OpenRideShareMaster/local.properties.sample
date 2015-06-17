@@ -225,7 +225,23 @@ geomapper=OSM
 #
 #
 showCookieMessage=true
-
-
-
-
+#
+#
+#
+#################################################################### 
+#                                                                  # 
+# Planning horizons, number of days from now that                  #
+# users are allowed to issue requests or offers                    #
+# setting horizons keeps users from offering / requesting          #
+# rides in an almost indefinite future                             #
+#                                                                  #
+####################################################################
+#
+#
+# planning horizon for offers / Requests
+#
+planningHorizonForOffers=30
+planningHorizonForRequests=30
+#
+#
+#
