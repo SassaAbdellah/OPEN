@@ -33,16 +33,7 @@ public  class OpenRideShareException extends Exception {
 
 			
 	
-	/** For each such message, a message property should be kept (somewhere).
-	 *  The message Property is there to provide Access to the short and verbose
-	 *  Error messages in the MessageProperties.
-	 *  
-	 * 
-	 * @return
-	 */
-	public String getMessagePropertyName(){
-		return ErrorCodes.getErrorStr(this.getErrorCode());
-	}
+	
 	
 	/** Override Standard getMessage() method to return the short english Message
 	 *  from MessageProperties
@@ -56,29 +47,8 @@ public  class OpenRideShareException extends Exception {
 	
 	
 	
-	@Override
-	public String getMessage(){
-		
-		return ""+PropertiesLoader.getMessageProperties(Locale.ENGLISH).get(getMessagePropertyName());	
-	}
 	
-	
-	/** Trivialized to return getMessage(), since there is no default locale that makes sense
-	 */
-	@Override
-	public String getLocalizedMessage(){
-		
-		return getMessage();
-	}
-	
-	/** Return error message for specialized locage
-	 */
-	
-	public String getLocalizedMessage(Locale locale){
-			
-		return ""+PropertiesLoader.getMessageProperties(locale).get(getMessagePropertyName());	
-	}
-	
+
 	
 	/** Return a json representation of this error
 	 */
@@ -86,15 +56,10 @@ public  class OpenRideShareException extends Exception {
 		
 		String res="Error{ \n"
 				+ "errorCode     : "+this.getErrorCode()+", \n"
-				+ "errorProperty : "+this.getMessagePropertyName()+", }\n";
+				+ "errorMessage  : "+this.getMessage()+", }\n";
 		
-		return res;
-		
+		return res;	
 	}
-	
-	
-	
-	
 	
 	
 	/** Create an Exception with the specified ErrorCode.
@@ -109,18 +74,10 @@ public  class OpenRideShareException extends Exception {
 	 */
 	public OpenRideShareException(Integer errorCode){
 		
-		
-		super();
-		
-		String messageProperty=ErrorCodes.getErrorStr(errorCode);
-		
-		if(messageProperty==null){
-			throw new Error("Cannot create decent Exception, Eroor code "+errorCode+" not known");
-		}
+		super(ErrorCodes.getErrorStr(errorCode));
+		this.errorCode=errorCode;
 		
 	}
-	
-	
 	
 
 }

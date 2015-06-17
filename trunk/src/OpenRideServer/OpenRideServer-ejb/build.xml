@@ -211,17 +211,13 @@
 		<!-- **** User Limits                                   **** -->
 		<!-- ******************************************************* -->
 
-
-
-
-
 		<!-- replacing  maxRequestsLimit  property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="maxRequestsLimit=(.*)" />
 			<substitution expression="maxRequestsLimit=${maxRequestsLimit}" />
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
-		
+
 		<!-- replacing  maxOffersLimit  property with local settings  -->
 		<replaceregexp byline="true">
 			<regexp pattern="maxOffersLimit=(.*)" />
@@ -236,6 +232,25 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- ************************************ -->
+		<!-- **** Default PlanningHorizons   **** -->
+		<!-- ************************************ -->
+
+		<!-- replacing  planningHorizonForOffers  property with local settings  -->
+
+		<replaceregexp byline="true">
+			<regexp pattern="planningHorizonForOffers=(.*)" />
+			<substitution expression="planningHorizonForOffers=${planningHorizonForOffers}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- replacing  planningHorizonForRequests  property with local settings  -->
+
+		<replaceregexp byline="true">
+			<regexp pattern="planningHorizonForRequests=(.*)" />
+			<substitution expression="planningHorizonForRequests=${planningHorizonForRequests}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
 
 		<!-- **************************** -->

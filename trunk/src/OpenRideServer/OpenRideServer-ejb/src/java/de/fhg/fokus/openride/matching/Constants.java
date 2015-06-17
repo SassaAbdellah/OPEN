@@ -35,10 +35,20 @@ package de.fhg.fokus.openride.matching;
 public class Constants {
     /*
      * SPATIAL REFERENCE ID'S TO USE IN DATABASE AND FOR COORDINATES
-     **/
+     * 
+     * 
+     * 
+     * Made hardwired SRIDs private, obviously, SRID_DB and SRID_LATLON can be removed now.
+     * 
+	 * 
+	 */
 
-    public static final int SRID_DB = 3068;
-    public static final int SRID_LATLON = 4326;
+    private static final int SRID_DB = 3068;
+    private static final int SRID_LATLON = 4326;
+    
+    
+    
+    
     /*
      *  Routing algoritm, (not specific to route enging)
      * 

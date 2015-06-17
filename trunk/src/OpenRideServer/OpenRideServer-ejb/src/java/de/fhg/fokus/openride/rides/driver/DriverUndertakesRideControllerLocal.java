@@ -101,29 +101,7 @@ public interface DriverUndertakesRideControllerLocal {
 
     public DriverUndertakesRideEntity getDriveByDriveId(int driveId);
 
-    /**
-     *  Found in fokus code. Hopefully not used. 
-     *  Horrible implementation in DriverUndertakesRideControlerBean.
-     *  Remove unless there is a good reason for having it
-     * @throws OpenRideShareException 
-     * 
-     * @deprecated hopefully not used
-     */
-    int updateRide(
-            int rideId,
-            int cust_id,
-            Point ridestartPt,
-            Point rideendPt,
-            Point[] intermediatePoints,
-            Date ridestartTime,
-            String rideComment,
-            Integer acceptableDetourInMin,
-            Integer acceptableDetourInMeters,
-            Integer acceptableDetourPercent,
-            int offeredSeatsNo,
-            String startptAddress,
-            String endptAddress) throws OpenRideShareException;
-
+   
     MatchEntity rejectRider(int rideId, int riderrouteid);
 
     MatchEntity acceptRider(int rideid, int riderrouteid);

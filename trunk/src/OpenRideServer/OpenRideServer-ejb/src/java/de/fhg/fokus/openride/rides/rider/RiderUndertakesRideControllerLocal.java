@@ -105,17 +105,7 @@ public interface RiderUndertakesRideControllerLocal {
 
     boolean removeRide(int rideId);
 
-    int updateRide(int rideId,
-            Date starttime_earliest,
-            Date starttimeLatest,
-            int noPassengers,
-            Point startpt,
-            Point endpt,
-            double price,
-            String comment,
-            String startptAddress,
-            String endptAddress) throws OpenRideShareException;
-
+    
     public int addRideRequest(int cust_id, Date starttime_earliest, Date starttimeLatest, int noPassengers, Point startpt, Point endpt, double price, String comment, String startptAddress, String endptAddress) throws OpenRideShareException;
 
     /**
