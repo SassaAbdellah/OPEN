@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -80,7 +81,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     
     
    
-    
+    /**
+	 * All purpose logger
+	 */
+	Logger log = Logger.getLogger("" + this.getClass());
+
     
     
 
@@ -145,7 +150,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             commitUserTransaction();
             return true;
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, "Error removing (purging) drive", exc);
+            log.log(Level.SEVERE, "Error removing (purging) drive", exc);
             throw new Error("Unexpected Exception while removing drive " + rideId);
         }
     }
@@ -482,7 +487,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      */
     public List<RiderUndertakesRideEntity> getRidersForDrive(int driveId) {
         startUserTransaction();
-        logger.getLogger("DriverUndertakesRideControllerBean").info("----------------------DriverUndertakesRideControllerBean getRidersForDrive: " + driveId + ".-------------------------------");
+        log.info("----------------------DriverUndertakesRideControllerBean getRidersForDrive: " + driveId + ".-------------------------------");
         List<DriverUndertakesRideEntity> driverEntities = (List<DriverUndertakesRideEntity>) em.createNamedQuery("DriverUndertakesRideEntity.findByRideId").setParameter("rideId", driveId).getResultList();
         List<RiderUndertakesRideEntity> list = null;
         for (DriverUndertakesRideEntity entity : driverEntities) {
@@ -515,51 +520,8 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         }
     }
 
-    /**
-     *
-     * @param rideId
-     * @param cust_id
-     * @param ridestartPt
-     * @param rideendPt
-     * @param intermediatePoints
-     * @param ridestartTime
-     * @param rideComment
-     * @param acceptableDetourInMin
-     * @param acceptableDetourMeters
-     * @param acceptableDetourPercent
-     * @param offeredSeatsNo
-     * @param startptAddress
-     * @param endptAddress
-     * @return either new rideId or -1 if update was not possible
-     * @throws OpenRideShareException 
-     *
-     * @deprecated currently, it's not clear if this is used at all.
-     */
-    public int updateRide(
-            int rideId,
-            int cust_id,
-            Point ridestartPt,
-            Point rideendPt,
-            Point[] intermediatePoints,
-            Date ridestartTime,
-            String rideComment,
-            Integer acceptableDetourInMin,
-            Integer acceptableDetourInMeters,
-            Integer acceptableDetourPercent,
-            int offeredSeatsNo,
-            String startptAddress,
-            String endptAddress) throws OpenRideShareException {
-        // check whether there already exists a state
-        // entity can be changed
-        // remove old ride
-        if (removeRide(rideId)) {
-            // add ride with new informations
-            return addRide(cust_id, ridestartPt, rideendPt, intermediatePoints,null, ridestartTime, rideComment, acceptableDetourInMin, acceptableDetourInMeters, acceptableDetourPercent, offeredSeatsNo, startptAddress, endptAddress);
-        } else {
-            return -1;
-        }
-    }
-
+    
+    
     @Override
     public int addRide(
             int cust_id,
@@ -575,7 +537,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             int offeredSeatsNo,
             String startptAddress,
             String endptAddress) throws OpenRideShareException {
-        logger.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
+        log.log(Level.INFO, "ridestartPt: " + ridestartPt + " rideendPt: " + rideendPt + " ridestartTime: " + ridestartTime
                 + "offeredSeatsNo: " + offeredSeatsNo
                 + "acceptableDetourInMin: " + acceptableDetourInMin + " acceptableDetourKm: " + acceptableDetourInMeters + " acceptableDetourPercent: " + acceptableDetourPercent
                 + "startptAddr: " + startptAddress + " endptAddr: " + endptAddress);
@@ -585,7 +547,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 || ridestartTime == null
                 || offeredSeatsNo <= 0
                 || (acceptableDetourInMin == null && acceptableDetourInMeters == null && acceptableDetourPercent == null)) {
-            logger.log(Level.INFO, "could not add drive: invalid params ::\n");
+            log.log(Level.INFO, "could not add drive: invalid params ::\n");
             return -1;
         }
 
@@ -595,15 +557,24 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         
         // Check if new offer can be created
         if(customer==null){
-        	throw new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
+        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
+        	log.severe("Creating offer failed for Customer null, REASON : "+exc.getMessage());
+        	throw exc;
         }
-        
+      
+        // Check if quota is exceeded
         if(this.noOfLeftOffers(cust_id)<=0){
-        	throw new OpenRideShareException(ErrorCodes.OfferLimitExceededError_Code);
+        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.OfferLimitExceededError_Code);
+        	log.severe("Creating offer failed for Customer "+customer.getCustNickname()+", REASON : "+exc.getMessage());
+        	throw exc;
         }
         
-        
-        
+        // check, if customer's horizon is exceeded
+     		if (customer.getPlanningHorizonForOfferTS().getTime() < ridestartTime.getTime()) {
+     			OpenRideShareException exc= new OpenRideShareException( ErrorCodes.OFFERCREATION_HORIZONEXCEEDED_Error_Code);
+     			log.severe("Creating offer failed for Customer "+customer.getCustNickname()+", REASON : "+exc.getMessage());
+            	throw exc;
+     		}
         
         // Customer checked, let's go ahead
         startUserTransaction();
@@ -636,10 +607,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
             this.persistRoutingInformation(drive, decomposedRoute, route);
-            logger.log(Level.INFO, "added drive, committed user transaction::\n");
+            log.log(Level.INFO, "added drive, committed user transaction::\n");
             em.flush();
         } else {
-            logger.log(Level.INFO, "could not add drive: no route found ::\n");
+            log.log(Level.INFO, "could not add drive: no route found ::\n");
 
             em.flush();
             return -1;
@@ -674,14 +645,14 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             LinkedList<RoutePointEntity> route) {
 
         //  remove previously created route_points and drive_route_points for this ride
-        logger.info("persistRoutingInformation : 1");
+        log.info("persistRoutingInformation : 1");
 
 
         this.removeAllRoutepoints(drive.getRideId());
         this.removeAllDriveRoutepoints(drive.getRideId());
         em.flush();
 
-        logger.info("persistRoutingInformation : 2");
+        log.info("persistRoutingInformation : 2");
 
 
         // persist new drive_route_points
@@ -690,7 +661,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.persist(drp);
         }
 
-        logger.info("persistRoutingInformation : 3");
+        log.info("persistRoutingInformation : 3");
 
 
         // perstist new_route_points
@@ -699,7 +670,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.persist(rp);
         }
 
-        logger.info("persistRoutingInformation : 4");
+        log.info("persistRoutingInformation : 4");
 
     }
 
@@ -834,7 +805,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         startUserTransaction();
 
-        logger.info("callMatchAlgorithm for rideId : " + rideId + " driverAccess : " + setDriverAccess);
+        log.info("callMatchAlgorithm for rideId : " + rideId + " driverAccess : " + setDriverAccess);
 
         // there are still free places
         List<MatchEntity> matches = routeMatchingBean.searchForRiders(rideId);
@@ -960,7 +931,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
                 }
             }
             matches.removeAll(removedMatches);
-            logger.log(Level.INFO, "DURC.getMatches: " + (prevSize - matches.size()) + " of " + prevSize + " matches dropped (limiting unrejected machtes to 3).");
+            log.log(Level.INFO, "DURC.getMatches: " + (prevSize - matches.size()) + " of " + prevSize + " matches dropped (limiting unrejected machtes to 3).");
         }
 
         return matches;
@@ -1089,18 +1060,18 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     @Override
     public boolean invalidateRide(Integer rideId) {
 
-        logger.info("invalidateRide : rideID " + rideId);
+        log.info("invalidateRide : rideID " + rideId);
 
         DriverUndertakesRideEntity dure = this.getDriveByDriveId(rideId);
 
-        logger.info("invalidateRide : starting transaction ");
+        log.info("invalidateRide : starting transaction ");
 
         boolean deletable = this.isDeletable(rideId);
         // if this can be removed, then do so
         if (deletable) {
-            logger.info("invalidateRide : ride is deletable ");
+            log.info("invalidateRide : ride is deletable ");
             this.removeRide(rideId);
-            logger.info("invalidateRide: deleted rideId : " + rideId + " the hard way by removing it");
+            log.info("invalidateRide: deleted rideId : " + rideId + " the hard way by removing it");
             return true;
         }
 
@@ -1117,7 +1088,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         this.removeAllRoutepoints(rideId);
 
         // all related states have to be adapted
-        logger.info("invalidateRide : ride adapting matches");
+        log.info("invalidateRide : ride adapting matches");
         List<MatchEntity> states = (List<MatchEntity>) em.createNamedQuery("MatchEntity.findByRideId").setParameter("rideId", rideId).getResultList();
         for (MatchEntity matchEntity : states) {
             // normally, frontend should have enforced countermanding all
@@ -1130,7 +1101,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
             em.merge(matchEntity);
         }
         // all related states have to be adapted
-        logger.info("invalidateRide : mark ride as invalidated");
+        log.info("invalidateRide : mark ride as invalidated");
         // mark ride as invalidated
         dure.setRideComment("COUNTERMANDED - " + dure.getRideComment());
         // set Number of offered seats to 0, so that there will be no more matchings
@@ -1176,7 +1147,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     	  // cannot add waypoint, if there is no ride...
     	  DriverUndertakesRideEntity ride = this.getDriveByDriveId(rideId);
           if (ride == null) {
-              logger.info("cannot addWaypoint: drive is null");
+              log.info("cannot addWaypoint: drive is null");
               if (transaction) {
                   rollbackUserTransaction();
               }
@@ -1184,7 +1155,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
           }
     	
        
-        logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " position : " + position + " transaction : " + transaction);
+        log.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideId + " position : " + position + " transaction : " + transaction);
 
         if (transaction) {
             startUserTransaction();
@@ -1219,11 +1190,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
-            logger.log(Level.INFO, "removeWaypoint: success, found route :\n");
+            log.log(Level.INFO, "removeWaypoint: success, found route :\n");
             this.persistRoutingInformation(ride, decomposedRoute, route);
-            logger.log(Level.INFO, "removeWaypoint, committed user transaction::\n");
+            log.log(Level.INFO, "removeWaypoint, committed user transaction::\n");
         } else {
-            logger.log(Level.INFO, "could not removeWaypoint: no route found ::\n");
+            log.log(Level.INFO, "could not removeWaypoint: no route found ::\n");
         }
 
         em.flush();
@@ -1267,7 +1238,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     private void removeWaypoint(int rideID, int routeIdx, boolean transaction) {
 
 
-        logger.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
+        log.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);
 
         if (transaction) {
             startUserTransaction();
@@ -1276,14 +1247,14 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         List<WaypointEntity> waypoints = this.getWaypoints(rideID);
 
-        logger.info("removeWaypoint: waypointIndices: ");
+        log.info("removeWaypoint: waypointIndices: ");
         for (WaypointEntity w : waypoints) {
-            logger.info("" + w.getRouteIdx() + ", ");
+            log.info("" + w.getRouteIdx() + ", ");
         }
 
 
         if (waypoints.size() <= routeIdx) {
-            logger.severe("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
+            log.severe("cannot removeWaypoint: waypoints.size : " + waypoints.size() + " <=  routeIdx" + routeIdx);
             if (transaction) {
                 rollbackUserTransaction();
             }
@@ -1307,7 +1278,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         DriverUndertakesRideEntity drive = this.getDriveByDriveId(rideID);
 
         if (drive == null) {
-            logger.info("cannot removeWaypoint: drive is null");
+            log.info("cannot removeWaypoint: drive is null");
             if (transaction) {
                 rollbackUserTransaction();
             }
@@ -1325,11 +1296,11 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
         // if a route has been found, persist drive and routes
         if (distance != Double.MAX_VALUE) {
-            logger.log(Level.INFO, "removeWaypoint: success, found route :\n");
+            log.log(Level.INFO, "removeWaypoint: success, found route :\n");
             this.persistRoutingInformation(drive, decomposedRoute, route);
-            logger.log(Level.INFO, "removeWaypoint, committed user transaction::\n");
+            log.log(Level.INFO, "removeWaypoint, committed user transaction::\n");
         } else {
-            logger.log(Level.INFO, "could not removeWaypoint: no route found ::\n");
+            log.log(Level.INFO, "could not removeWaypoint: no route found ::\n");
         }
 
         em.flush();
@@ -1377,7 +1348,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param rideID
      */
     private void removeAllRoutepoints(int rideId) {
-        logger.info("removeAllRoutpoints : rideId : " + rideId);
+        log.info("removeAllRoutpoints : rideId : " + rideId);
         List<RoutePointEntity> routepoints = this.getRoutePoints(rideId);
         for (RoutePointEntity r : routepoints) {
             em.remove(r);
@@ -1395,7 +1366,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param rideID
      */
     private void removeAllDriveRoutepoints(int rideId) {
-        logger.info("removeAllDriveRoutpoints : rideId : " + rideId);
+        log.info("removeAllDriveRoutpoints : rideId : " + rideId);
 
         List<DriveRoutepointEntity> drpts = this.getDriveRoutePoints(rideId);
         for (DriveRoutepointEntity drpt : drpts) {
@@ -1411,7 +1382,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     public void setDriverMessage(int rideid, int riderrouteid, String message) {
         MatchEntity match = getMatch(rideid, riderrouteid);
         if (match == null) {
-            logger.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
+            log.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
             return;
         }
         match.setDriverMessage(message);
@@ -1430,7 +1401,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     public void setRiderMessage(int rideid, int riderrouteid, String message) {
         MatchEntity match = getMatch(rideid, riderrouteid);
         if (match == null) {
-            logger.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
+            log.warning("Attempt to set message on null match : drive " + rideid + " ride : " + riderrouteid);
             return;
         }
 

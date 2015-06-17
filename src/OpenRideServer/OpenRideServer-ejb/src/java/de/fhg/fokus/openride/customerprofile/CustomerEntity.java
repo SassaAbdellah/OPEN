@@ -32,6 +32,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -218,8 +219,67 @@ public class CustomerEntity implements Serializable {
 	// 
 	@Column(name="preferredUnitOfLength")
 	private Integer preferredUnitOfLength=UnitOfLength.KEY_KILOMETER;
+	//
+	// Planning Horizon (in days) for offers. Default value is given by property "planningHorizonForOffers"
+	//
+	@Column(name="planningHorizonForOffers")
+	private Integer planningHorizonForOffers;
+	//
+	// Planning Horizon (in days) for requests. Default value is given by property "planningHorizonForRequests"
+	//
+	@Column(name="planningHorizonForRequests")
+	private Integer planningHorizonForRequests;
+	
+	
+	/** Nontrivial Getter. 
+	 * 
+	 * @return   Value of planningHorizonForOffers, or if property is null, returns default value from property "planningHorizonForOffers"
+	 */
+	public Integer getPlanningHorizonForOffers() {
+		
+		if(this.planningHorizonForOffers!=null){
+			return planningHorizonForOffers;
+		} else {
+			
+			String pphfo = OperationalPropertiesConstants.PROPERTY_NAME_planningHorizonForOffers;
+			Integer res = Integer.valueOf(PropertiesLoader
+					.getOperationalProperties().get(pphfo) + "");
+			
+			return res;
+		}
+	}
+
+	public void setPlanningHorizonForOffers(Integer planningHorizonForOffers) {
+		this.planningHorizonForOffers = planningHorizonForOffers;
+	}
+
+	
+	
+	/** Nontrivial Getter. 
+	 * 
+	 * @return   Value of planningHorizonForRequests, or if property is null, returns default value from property "planningHorizonForRequests"
+	 */
+	public Integer getPlanningHorizonForRequests() {
+	
+		if(this.planningHorizonForRequests!=null){
+			return planningHorizonForRequests;
+		} else {
+			
+			String pphfr = OperationalPropertiesConstants.PROPERTY_NAME_planningHorizonForRequests;
+			Integer res = Integer.valueOf(PropertiesLoader
+					.getOperationalProperties().get(pphfr) + "");	
+			return res;
+		}
+	}
 	
 
+	public void setPlanningHorizonForRequests(Integer planningHorizonForRequests) {
+		this.planningHorizonForRequests = planningHorizonForRequests;
+	}
+
+	
+	
+	
 	public Integer getRequestLimit() {
 		return requestLimit;
 	}
@@ -720,5 +780,38 @@ public class CustomerEntity implements Serializable {
 		// ensure upper bound
 		this.individualLimitMatch = Math.min(arg1, this.getMaxLimitMatch());
 	}
+	
+	/**  @return  Timestamp marking the upper limit for startTime of offers to be issued.
+	 */
+	public Timestamp getPlanningHorizonForOfferTS(){
+				
+		long offset=(24l*60l*60l*1000l*((long)this.getPlanningHorizonForOffers()));
+		return new Timestamp(System.currentTimeMillis()+offset);
+	}
+	
+	/**  @return  Date marking the upper limit for startTime of offers to be issued.
+	 */
+	public Date getPlanningHorizonForOfferDate(){
+
+		return new Date(this.getPlanningHorizonForOffers());
+	}
+	
+
+	/** @return Timestamp marking the upper limit for latest startTime of requests to be issued.
+	 */
+	public Timestamp getPlanningHorizonForRequestsTS(){
+				
+		long offset=(24l*60l*60l*1000l*((long) this.getPlanningHorizonForRequests()));
+		return new Timestamp(System.currentTimeMillis()+offset);
+	}
+		
+	/** @return Date marking the upper limit for latest startTime of requests to be issued.
+	 */
+	public Date getPlanningHorizonForRequestsDate(){
+		return new Date(this.getPlanningHorizonForOfferTS().getTime());
+	}
+	
+	
+	
 
 }

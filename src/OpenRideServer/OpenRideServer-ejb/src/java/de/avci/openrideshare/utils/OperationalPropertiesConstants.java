@@ -63,5 +63,14 @@ public class OperationalPropertiesConstants {
 	public static final String PROPERTY_NAME_equiDistanceMinmum="equiDistanceMinmum";
 	
 	
+	/** Property Name for ="planningHorizonForOffers", the default horizon for Offers. 
+	 * 
+	 */
+	public static final String PROPERTY_NAME_planningHorizonForOffers="planningHorizonForOffers";
+	
+	/** Property Name for ="planningHorizonForOffers", the default horizon for Requests. 
+	 * 
+	 */
+	public static final String PROPERTY_NAME_planningHorizonForRequests="planningHorizonForRequests";
 	
 }

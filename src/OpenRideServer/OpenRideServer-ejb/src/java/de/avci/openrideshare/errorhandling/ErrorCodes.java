@@ -1,286 +1,239 @@
 package de.avci.openrideshare.errorhandling;
 
-import java.util.Hashtable;
-import java.util.Set;
+import java.util.Vector;
 
-
-
-
-
-
-
-/** Unified set of error codes and error strings to be used with OpenRideShareExceptions.
- *  
+/**
+ * Unified set of error codes and error strings to be used with
+ * OpenRideShareExceptions.
+ * 
+ * Also, it is capable of mapping errorcodes to errorstrings
  * 
  * 
  * 
  * @author jochen
  *
  */
-public class ErrorCodes{
-	
-	
-	
-	/** All Errorcodes are greater than this value
-	 */
-	public static Integer ERROR_CODE_MIN=1000;
-	
-	
-	/** Map numerical error code to propertyStrings
-	 */
-	private static Hashtable <Integer,String> errorCodeToString = new Hashtable<Integer,String> ();
-	
-	/** Map property string to numerical Error code.
-	 */
-	private static Hashtable <String,Integer> errorStringToCode = new Hashtable<String,Integer> ();
-	
-	
-	/** Mnemonic String for Unknown Error. 
-	 *  See also corresponding Error Code UnknownErrorCode:
-	 */
-	
-	public static final String UnknownError_Str="UnknownError";
-	
-	
-	/** Mnemonic numerical Code for Unknown Error. 
-	 *  See also corresponding Error String UnknownErrorStr:
-	 */
-	
-	public static final Integer UnknownError_Code=ERROR_CODE_MIN+1;
+public class ErrorCodes {
 
-	// add errorcode/errorstring pair
+	/**
+	 * ErrorStrings are maintained in an index list, Error codes are the indexes
+	 * of the respective list
+	 */
+	private static Vector<String> errorStrings = new Vector<String>();
+
+	/**
+	 * Mnemonic String for Unknown Error. See also corresponding Error Code
+	 * UnknownErrorCode:
+	 */
+	public static final String UnknownError_Str = "UnknownError";
+
 	static {
-		errorCodeToString.put(UnknownError_Code, UnknownError_Str);
-		errorStringToCode.put(UnknownError_Str, UnknownError_Code);
+		errorStrings.add(UnknownError_Str);
 	}
-	
-	
-	
-	
-	
-	/**  Mnemonic StrCannot create Request: Maximum Number of open Requests for this user is exceeded.
-	 *   See also corresponding Error Code RequestLimitExceededError_Code.
+
+	/**
+	 * Mnemonic numerical Code for Unknown Error. See also corresponding Error
+	 * String UnknownErrorStr:
+	 */
+
+	public static final Integer UnknownError_Code = errorStrings
+			.indexOf(UnknownError_Str);
+	// add errorcode/errorstring pair
+
+	/**
+	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
+	 * this user is exceeded. See also corresponding Error Code
+	 * RequestLimitExceededError_Code.
 	 */
 	public static final String RequestLimitExceededError_Str = "RequestLimitExceeded";
-	
-
-	/**  Mnemonic StrCannot create Request: Maximum Number of open Requests for this user is exceeded.
-	 *   See also corresponding Error String RequestLimitExceededError_Code.
-	 */
-	public static final Integer RequestLimitExceededError_Code = UnknownError_Code+1;
-	
-
-	// add errorcode/errorstring pair
 	static {
-		errorCodeToString.put(RequestLimitExceededError_Code, RequestLimitExceededError_Str);
-		errorStringToCode.put(RequestLimitExceededError_Str, RequestLimitExceededError_Code);
+		errorStrings.add(RequestLimitExceededError_Str);
 	}
-	
-	
-	/**  Mnemonic StrCannot create Offer: Maximum Number of open Offers for this user is exceeded.
-	 *   See also corresponding Error Code RequestLimitExceededError_Code.
+
+	/**
+	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
+	 * this user is exceeded. See also corresponding Error String
+	 * RequestLimitExceededError_Code.
+	 */
+	public static final Integer RequestLimitExceededError_Code = errorStrings
+			.indexOf(RequestLimitExceededError_Str);
+
+	/**
+	 * Mnemonic StrCannot create Offer: Maximum Number of open Offers for this
+	 * user is exceeded. See also corresponding Error Code
+	 * RequestLimitExceededError_Code.
 	 */
 	public static final String OfferLimitExceededError_Str = "OfferLimitExceeded";
-	
-
-	/**  Mnemonic StrCannot create Offer: Maximum Number of open Offers for this user is exceeded.
-	 *   See also corresponding Error String OfferLimitExceededError_Code.
-	 */
-	public static final Integer OfferLimitExceededError_Code = RequestLimitExceededError_Code+1;
-
-	
-	
-	// add errorcode/errorstring pair
 	static {
-		errorCodeToString.put(OfferLimitExceededError_Code, OfferLimitExceededError_Str);
-		errorStringToCode.put(OfferLimitExceededError_Str, OfferLimitExceededError_Code);
+		errorStrings.add(OfferLimitExceededError_Str);
 	}
-	
-	
-	/** Error Code signifying that the Customer for which an action is performed does not exist
+
+	/**
+	 * Mnemonic StrCannot create Offer: Maximum Number of open Offers for this
+	 * user is exceeded. See also corresponding Error String
+	 * OfferLimitExceededError_Code.
+	 */
+	public static final Integer OfferLimitExceededError_Code = errorStrings
+			.indexOf(OfferLimitExceededError_Str);
+
+	/**
+	 * Error Code signifying that the Customer for which an action is performed
+	 * does not exist
 	 */
 	public static final String UserDoesNotExistError_Str = "UserDoesNotExist";
-	
-
-	/** Error Code signifying that the Customer for which an action is performed does not exist
-	 */
-	public static final Integer UserDoesNotExistError_Code = OfferLimitExceededError_Code+1;
-	
-	
-	// add errorcode/errorstring pair
 	static {
-		errorCodeToString.put( UserDoesNotExistError_Code , UserDoesNotExistError_Str   );
-		errorStringToCode.put( UserDoesNotExistError_Str  , UserDoesNotExistError_Code  );
+		errorStrings.add(UserDoesNotExistError_Str);
 	}
-	
 
-	/** "ErrorString" to be returned if customer creation failed.
-	 *   Because of terms&conditions not acceppted. 
+	/**
+	 * Error Code signifying that the Customer for which an action is performed
+	 * does not exist
 	 */
-	public static final String CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str="Terms of use not accepted when creating customer";
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of terms&conditions not acceppted. 
-	 */
-	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code= UserDoesNotExistError_Code+1;
-	
-	
-	// add errorcode/errorstring pair
-		static {
-			errorCodeToString.put(  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code, CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str);
-			errorStringToCode.put(  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str,  CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code);
-		}
-	
-	
+	public static final Integer UserDoesNotExistError_Code = errorStrings
+			.indexOf(UserDoesNotExistError_Str);
 
-	
-	/** "ErrorString" to be returned if customer creation failed.
-	 *   Because of nickname not compliant to sysntax rules
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * terms&conditions not acceppted.
 	 */
-	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str="Nickname Syntax check failed when creating customer";
-	
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of nickname not compliant to sysntax rules
+	public static final String CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str = "Terms of use not accepted when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * terms&conditions not acceppted.
 	 */
-	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code=CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code+1;
-	
-	// add errorcode/errorstring pair
-			static {
-				errorCodeToString.put( CUSTCREATION_NICKNAME_SYNTAX_Error_Code , CUSTCREATION_NICKNAME_SYNTAX_Error_Str );
-				errorStringToCode.put( CUSTCREATION_NICKNAME_SYNTAX_Error_Str  , CUSTCREATION_NICKNAME_SYNTAX_Error_Code );
-			}
-	
-	
-	
-	
-	/** "String" to be returned if customer creation failed.
-	 *   Because of email not compliant to syntax rules
+	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code = UserDoesNotExistError_Code + 1;
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * nickname not compliant to sysntax rules
 	 */
-	public static final String CUSTCREATION_EMAIL_SYNTAX_Error_Str="Email Syntax check failed when creating customer";
-	
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of email not compliant to syntax rules
+	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str = "Nickname Syntax check failed when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * nickname not compliant to sysntax rules
 	 */
-	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code=CUSTCREATION_NICKNAME_SYNTAX_Error_Code+1;
-	
-	
-	// add errorcode/errorstring pair
-			static {
-				errorCodeToString.put( CUSTCREATION_EMAIL_SYNTAX_Error_Code, CUSTCREATION_EMAIL_SYNTAX_Error_Str );
-				errorStringToCode.put( CUSTCREATION_EMAIL_SYNTAX_Error_Str, CUSTCREATION_EMAIL_SYNTAX_Error_Code );
-			}
-	
-	
-	
-	
-	
-	
-	
-	/** "ErrorString" to be returned if customer creation failed.
-	 *   Because of nickname already exists
+	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code = errorStrings
+			.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+
+	/**
+	 * "String" to be returned if customer creation failed. Because of email not
+	 * compliant to syntax rules
 	 */
-	public static final String CUSTCREATION_NICKNAME_EXISTS_Error_Str="Nickname already exists when creating customer";
-	
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of nickname already exists
+	public static final String CUSTCREATION_EMAIL_SYNTAX_Error_Str = "Email Syntax check failed when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_EMAIL_SYNTAX_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of email
+	 * not compliant to syntax rules
 	 */
-	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code=CUSTCREATION_EMAIL_SYNTAX_Error_Code+1;
-	
-	
-	// add errorcode/errorstring pair
-			static {
-				errorCodeToString.put( CUSTCREATION_NICKNAME_EXISTS_Error_Code, CUSTCREATION_NICKNAME_EXISTS_Error_Str  );
-				errorStringToCode.put( CUSTCREATION_NICKNAME_EXISTS_Error_Str, CUSTCREATION_NICKNAME_EXISTS_Error_Code );
-			}
-	
-	
-	/** "ErrorString" to be returned if customer creation failed.
-	 *   Because of email already exists.
+	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code = errorStrings
+			.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * nickname already exists
 	 */
-	public static final String CUSTCREATION_EMAIL_EXISTS_Error_Str="Email already exists when creating customer";
-	
-	
-	/** "ErrorCode" to be returned if customer creation failed.
-	 *   Because of email already exists.
+	public static final String CUSTCREATION_NICKNAME_EXISTS_Error_Str = "Nickname already exists when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * nickname already exists
 	 */
-	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code=CUSTCREATION_NICKNAME_EXISTS_Error_Code+1;
-	
-	
-	// add errorcode/errorstring pair
-			static {
-				errorCodeToString.put( CUSTCREATION_EMAIL_EXISTS_Error_Code, CUSTCREATION_EMAIL_EXISTS_Error_Str );
-				errorStringToCode.put( CUSTCREATION_EMAIL_EXISTS_Error_Str, CUSTCREATION_EMAIL_EXISTS_Error_Code );
-			}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/** get ErrorStr for numerical ErrorCode, or null if there is no such thing as an errorcode.
+	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code = errorStrings
+			.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * email already exists.
+	 */
+	public static final String CUSTCREATION_EMAIL_EXISTS_Error_Str = "Email already exists when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_EMAIL_EXISTS_Error_Str);
+	}
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of email
+	 * already exists.
+	 */
+	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code = errorStrings
+			.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+
+	// ////////////////////////////////////////////////////////
+	//
+	// Request creation errors
+	//
+	// ////////////////////////////////////////////////////////
+
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final String REQUESTCREATION_HORIZONEXCEEDED_Error_Str = "Planning horizon exceeded when creating Request";
+	static {
+		errorStrings.add(REQUESTCREATION_HORIZONEXCEEDED_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final int REQUESTCREATION_HORIZONEXCEEDED_Error_Code = errorStrings
+			.indexOf(REQUESTCREATION_HORIZONEXCEEDED_Error_Str);
+
+	// ////////////////////////////////////////////////////////
+	//
+	// OFFER creation errors
+	//
+	// ////////////////////////////////////////////////////////
+
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final String OFFERCREATION_HORIZONEXCEEDED_Error_Str = "Planning horizon exceeded when creating offer";
+	static {
+		errorStrings.add(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
+	}
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final int OFFERCREATION_HORIZONEXCEEDED_Error_Code = errorStrings
+			.indexOf(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
+
+	/**
+	 * get ErrorStr for numerical ErrorCode, or null if there is no such thing
+	 * as an errorcode.
 	 *
-	 * @param errorCode 
+	 * @param errorCode
 	 * @return ErrorString for respective Code
 	 */
-	public static String getErrorStr(Integer errorCode){
+	public static String getErrorStr(Integer errorCode) {
 		
-		return errorCodeToString.get(errorCode);
-	}
-	
-	
-	/** get numerical ErrorCode for mnemonic Error String, or null if there is no such thing as an errorcode.
-	 *
-	 * @param errorCode 
-	 * @return ErrorString for respective Code
-	 */
-	public static Integer getErrorCode(String errorStr){	
-		return errorStringToCode.get(errorStr);
-	}
-	
-	
-	
-	/** Get all known Error Strings
-	 * 
-	 * @return
-	 */
-	public static Set<String> getAllErrorStrings(){
-		return errorStringToCode.keySet();
-	}
-	
-	
-	/** Get all known Numerical Error Codes
-	 * 
-	 * @return
-	 */
-	public static Set<Integer> getAllErrorCodes(){
-		return errorCodeToString.keySet();
-	}
-	
-	
-	/** Get a a String representation of the errorcode->ErrorString mapping
-	 */
-	public static String errorCodeToErrorStringMapping(){
-		
-		Set <Integer> keys=getAllErrorCodes();
-		
-		String res="\n";
-		
-		for(Integer k:keys){ res+="\n"+k+" -> "+getErrorStr(k);}
-		
-		res+="\n";
-		
-		return res;
+		return errorStrings.elementAt(errorCode);
 	}
 
-	
-	
+	/**
+	 * get numerical ErrorCode for mnemonic Error String, or null if there is no
+	 * such thing as an errorcode.
+	 *
+	 * @param errorCode
+	 * @return ErrorString for respective Code
+	 */
+	public static Integer getErrorCode(String errorStr) {
+		return errorStrings.indexOf(errorStr);
+	}
+
 }
-
-
