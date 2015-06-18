@@ -3,6 +3,7 @@ package de.avci.joride.jbeans.riderundertakesride;
 import de.fhg.fokus.openride.matching.RideNegotiationConstants;
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
@@ -16,6 +17,7 @@ import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
 import de.fhg.fokus.openride.matching.MatchingStatistics;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Collections;
@@ -26,9 +28,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+
 import org.postgis.Point;
 
 /**
@@ -1131,6 +1135,61 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		
 		return rideComment;
 	}
+	
+	
+	
+	
+	/** Enhance superclass' trivial Setter to impose upper and lower Limits
+	 *  on earliest starttime.
+	 * 
+	 */
+		
+	public void setStarttimeEarliestOnCreation(Date arg){
+		
+		CustomerEntity cust=new JCustomerEntityService().getCustomerEntitySafely();
+		
+		long argtime=arg.getTime();	
+		long upperHorizon=cust.getPlanningHorizonForOfferTS().getTime();
+		long now=System.currentTimeMillis();
+		
+		
+		long res1=Math.min(argtime, upperHorizon);
+		long res2=Math.max(argtime, now);
+		
+		super.setStarttimeEarliest(new Date(Math.max(res1, res2)));
+	}
+	
+
+	public Date getStarttimeEarliestOnCreation(){
+		return this.getStarttimeEarliest();
+	}
+	
+	
+	
+	/** Override superclass' trivial Setter to impose upper and lower Limits
+	 *  on latest starttime.
+	 * 
+	 */	
+	public void setStarttimeLatestOnCreation(Date arg){
+		
+		CustomerEntity cust=new JCustomerEntityService().getCustomerEntitySafely();
+		
+		long argtime=arg.getTime();	
+		long upperHorizon=cust.getPlanningHorizonForOfferTS().getTime();
+		long now=System.currentTimeMillis();
+		
+		
+		long res1=Math.min(argtime, upperHorizon);
+		long res2=Math.max(argtime, now);
+		
+		super.setStarttimeLatest(new Date(Math.max(res1, res2)));
+	}
+	
+	public Date getStarttimeLatestOnCreation(){
+		return this.getStarttimeLatest();
+	}
+	
+	
 
 } // class
 

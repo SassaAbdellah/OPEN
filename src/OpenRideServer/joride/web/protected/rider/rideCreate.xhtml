@@ -77,7 +77,7 @@
 						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
 					<div class="formInput">
 						<p:calendar 
-							value="#{newride.starttimeEarliest}"
+							value="#{newride.starttimeEarliestOnCreation}"
 							id="starttimeEarliestCal" 
 							locale="#{HTTPUser.getLocale()}"
 							pattern="#{datetime.tsformat}" 
@@ -91,7 +91,7 @@
 					</div>
 					<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
 					<div class="formInput">
-						<p:calendar value="#{newride.starttimeLatest}"
+						<p:calendar value="#{newride.starttimeLatestOnCreation}"
 							id="starttimeLatestCal" 
 							locale="#{HTTPUser.getLocale()}"
 							pattern="#{datetime.tsformat}" 
