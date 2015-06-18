@@ -76,17 +76,32 @@
 					<p>
 						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
 					<div class="formInput">
-						<p:calendar value="#{newride.starttimeEarliest}"
-							id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-							showOn="button" timezone="#{HTTPUser.timeZone}" />
+						<p:calendar 
+							value="#{newride.starttimeEarliest}"
+							id="starttimeEarliestCal" 
+							locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" 
+							mode="popup" 
+							navigator="true"
+							showOn="button" 
+							timezone="#{HTTPUser.timeZone}" 
+							mindate="#{jprofile.currentDatetimeFormatted}" 
+			            	maxdate="#{jprofile.planningHorizonRequestsFormatted}" 
+							/>
 					</div>
 					<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
 					<div class="formInput">
 						<p:calendar value="#{newride.starttimeLatest}"
-							id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-							showOn="button" timezone="#{HTTPUser.timeZone}" />
+							id="starttimeLatestCal" 
+							locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" 
+							mode="popup" 
+							navigator="true"
+							showOn="button" 
+							timezone="#{HTTPUser.timeZone}" 
+							mindate="#{jprofile.currentDatetimeFormatted}" 
+			            	maxdate="#{jprofile.planningHorizonRequestsFormatted}" 
+							/>
 
 					</div>
 
