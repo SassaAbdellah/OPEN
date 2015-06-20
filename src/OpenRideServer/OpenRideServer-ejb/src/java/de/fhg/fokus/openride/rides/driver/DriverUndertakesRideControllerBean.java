@@ -596,6 +596,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         drive.setEndptAddress(endptAddress);
         drive.setWaypoints(waypoints);
         //
+        
+        // check data, might throw exceptions
+        this.checkDriverUndertakesRideEntity(drive);
+        //
         // persist the drive, so that there is a (JPA-generated) drive id
         em.persist(drive);
         // compute routes
@@ -1472,6 +1476,67 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 	public Boolean canAddOffer(Integer customerId) {
 				
 		return noOfLeftOffers(customerId)>0;
+	}
+	
+	
+
+	
+	@Override
+	
+	public void checkDriverUndertakesRideEntity(
+			DriverUndertakesRideEntity dure) throws OpenRideShareException {
+	
+		
+		// Point ridestartPt
+		if (dure.getRideStartpt() == null) {
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartPointNull_Code);
+		}
+
+		// Point rideendPt
+		if (dure.getRideEndpt() == null) {
+			throw new OpenRideShareException( ErrorCodes.CreateOfferFailure_RideEndpointNull_Code );
+		}
+
+		// java.sql.Date ridestartTime
+		if (dure.getRideStarttime() == null) {
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartTimeNull_Code);
+		}
+
+		// String rideComment
+		// jdure.getRideComment(),No s, rideComment may possibly be null
+
+		// Integer acceptableDetourInMin
+		// 
+		// currently not checked as property is unused
+		//
+		// if (dure.getRideAcceptableDetourInMin() == null) {
+		//	throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideAcceptableDetourMinNull_Code);
+		//}
+		
+		// Integer acceptableDetourMeter
+		if (dure.getRideAcceptableDetourInM() == null) {
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Code);
+		}
+
+		// Integer acceptableDetourPercent,
+		//
+		// currently not checked as property is unused
+		//
+		// if (dure.getRideAcceptableDetourInPercent() == null) {
+		//	throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideAcceptableDetourPercentNull_Code);
+		// }
+
+		// TODO int offeredSeatsNo,
+
+		// String startptAddress,
+		if (dure.getStartptAddress() == null) {
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_StartPointAddressNull_Code);
+		}
+
+		// String endptAddress
+		if (dure.getEndptAddress() == null) {
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_EndpointAddressNull_Code);
+		}
 	}
 
 	

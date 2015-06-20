@@ -2,6 +2,8 @@ package de.avci.openrideshare.errorhandling;
 
 import java.util.Vector;
 
+
+
 /**
  * Unified set of error codes and error strings to be used with
  * OpenRideShareExceptions.
@@ -58,6 +60,167 @@ public class ErrorCodes {
 	public static final Integer RequestLimitExceededError_Code = errorStrings
 			.indexOf(RequestLimitExceededError_Str);
 
+	
+	
+	/** **********************
+	 *  **********************
+	 *  
+	 *  Adding Offers
+	 * 
+	 * ***********************
+	 * ***********************
+	 */
+
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * RideStartpoint is not set
+	 */
+	public static final String CreateOfferFailure_RideStartPointNull_Str="Creating Offer failed, Reason : rideStartpt is null";
+	static{errorStrings.add(CreateOfferFailure_RideStartPointNull_Str);}
+	
+	
+	/**
+	 * Mnemonic Code Cannot create Offer: Creating Offer failed, Reason : rideStartpt is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_RideStartPointNull_Code= errorStrings
+			.indexOf(
+	CreateOfferFailure_RideStartPointNull_Str);
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * RideEndopoint is not set
+	 */
+	public static final String CreateOfferFailure_RideEndpointNull_Str="Creating Offer failed, Reason : rideEndpt is null";
+	static { errorStrings.add(CreateOfferFailure_RideEndpointNull_Str);}
+	
+	/**
+	 * Mnemonic code Cannot create Offer:  "Creating Offer failed, Reason : rideEndpt is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_RideEndpointNull_Code= errorStrings
+			.indexOf(
+	CreateOfferFailure_RideEndpointNull_Str);
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * Intermediate point are null
+	 * 
+	 */
+	public static final String CreateOfferFailure_IntermediatePointsNull_Str="Creating Offer failed, Reason : intermediate points are null";
+	static {errorStrings.add(CreateOfferFailure_IntermediatePointsNull_Str);}
+	
+	
+	/**
+	 * Mnemonic error code cannot create Offer: "Creating Offer failed, Reason : intermediate points are null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_IntermediatePointsNull_Code = errorStrings.indexOf(CreateOfferFailure_IntermediatePointsNull_Str);
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * rideStarttime is null
+	 * 
+	 */
+	public static final String CreateOfferFailure_RideStartTimeNull_Str="Creating Offer failed, Reason : ride starttime is null";
+	static {errorStrings.add(CreateOfferFailure_RideStartTimeNull_Str);}
+    
+	/**
+	 * Mnemonic StrCannot create Offer: "Creating Offer failed, Reason : ride starttime is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_RideStartTimeNull_Code= errorStrings.indexOf(CreateOfferFailure_RideStartTimeNull_Str);
+			
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * Ride acceptable detour in Minutes is null.
+	 * 
+	 */
+	public static final String CreateOfferFailure_RideAcceptableDetourMinNull_Str="Creating Offer failed, Reason : ride acceptable Detour in Min is null";
+	
+	static {errorStrings.add(CreateOfferFailure_RideAcceptableDetourMinNull_Str);}
+	
+	/**
+	 * Mnemonic StrCannot create Offer: "Creating Offer failed, Reason : ride acceptable Detour in Min is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_RideAcceptableDetourMinNull_Code= errorStrings
+			.indexOf(
+	CreateOfferFailure_RideAcceptableDetourMinNull_Str);
+	
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * Ride acceptable detour in Meters is null
+	 */
+	public static final String CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Str="Creating Offer failed, Reason : ride acceptable Detour in Meter is null";
+
+	static {errorStrings.add(CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Str);}
+	
+	/**
+	 * Mnemonic StrCannot create Offer: "Creating Offer failed, Reason : ride acceptable Detour in Meter is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Code= errorStrings
+			.indexOf(
+	CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Str);
+	
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * ride acceptable detour in percent is null.
+	 * 
+	 */
+	public static final String CreateOfferFailure_RideAcceptableDetourPercentNull_Str="Creating Offer failed, Reason : ride acceptable Detour in Percent is null";
+	
+	static { errorStrings.add(CreateOfferFailure_RideAcceptableDetourPercentNull_Str);}
+			
+	/**
+	 * Mnemonic StrCannot create Offer: Creating Offer failed, Reason : ride acceptable Detour in Percent is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_RideAcceptableDetourPercentNull_Code= errorStrings.indexOf(CreateOfferFailure_RideAcceptableDetourPercentNull_Str);
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * ride startpoint address is null.
+	 */
+	public static final String CreateOfferFailure_StartPointAddressNull_Str="Creating Offer failed, Reason : startpoint Address is null";
+	
+	static {errorStrings.add(CreateOfferFailure_StartPointAddressNull_Str);}
+
+	/**
+	 * Mnemonic StrCannot create Offer: Creating Offer failed, Reason : startpoint Address is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_StartPointAddressNull_Code= errorStrings.indexOf(CreateOfferFailure_StartPointAddressNull_Str);
+	
+	
+	
+	/**
+	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
+	 * ride endpoint address is null.
+	 */
+	public static final String CreateOfferFailure_EndpointAddressNull_Str="Creating Offer failed, Reason : endpoint Address is null";
+	
+	static {errorStrings.add(CreateOfferFailure_EndpointAddressNull_Str);}
+	
+	
+	/**
+	 * Mnemonic StrCannot create Offer: "Creating Offer failed, Reason : endpoint Address is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateOfferFailure_EndpointAddressNull_Code= errorStrings.indexOf(CreateOfferFailure_EndpointAddressNull_Str);
+
 	/**
 	 * Mnemonic StrCannot create Offer: Maximum Number of open Offers for this
 	 * user is exceeded. See also corresponding Error Code
@@ -73,8 +236,7 @@ public class ErrorCodes {
 	 * user is exceeded. See also corresponding Error String
 	 * OfferLimitExceededError_Code.
 	 */
-	public static final Integer OfferLimitExceededError_Code = errorStrings
-			.indexOf(OfferLimitExceededError_Str);
+	public static final Integer OfferLimitExceededError_Code = errorStrings.indexOf(OfferLimitExceededError_Str);
 
 	/**
 	 * Error Code signifying that the Customer for which an action is performed
@@ -89,8 +251,7 @@ public class ErrorCodes {
 	 * Error Code signifying that the Customer for which an action is performed
 	 * does not exist
 	 */
-	public static final Integer UserDoesNotExistError_Code = errorStrings
-			.indexOf(UserDoesNotExistError_Str);
+	public static final Integer UserDoesNotExistError_Code = errorStrings.indexOf(UserDoesNotExistError_Str);
 
 	/**
 	 * "ErrorString" to be returned if customer creation failed. Because of
@@ -120,8 +281,7 @@ public class ErrorCodes {
 	 * "ErrorCode" to be returned if customer creation failed. Because of
 	 * nickname not compliant to sysntax rules
 	 */
-	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code = errorStrings
-			.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
 
 	/**
 	 * "String" to be returned if customer creation failed. Because of email not
@@ -136,8 +296,7 @@ public class ErrorCodes {
 	 * "ErrorCode" to be returned if customer creation failed. Because of email
 	 * not compliant to syntax rules
 	 */
-	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code = errorStrings
-			.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
 
 	/**
 	 * "ErrorString" to be returned if customer creation failed. Because of
@@ -152,8 +311,7 @@ public class ErrorCodes {
 	 * "ErrorCode" to be returned if customer creation failed. Because of
 	 * nickname already exists
 	 */
-	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code = errorStrings
-			.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
 
 	/**
 	 * "ErrorString" to be returned if customer creation failed. Because of
@@ -167,8 +325,7 @@ public class ErrorCodes {
 	 * "ErrorCode" to be returned if customer creation failed. Because of email
 	 * already exists.
 	 */
-	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code = errorStrings
-			.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
 
 	// ////////////////////////////////////////////////////////
 	//

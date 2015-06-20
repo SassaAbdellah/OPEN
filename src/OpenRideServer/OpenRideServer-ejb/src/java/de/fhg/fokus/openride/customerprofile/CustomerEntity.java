@@ -22,17 +22,10 @@
  */
 package de.fhg.fokus.openride.customerprofile;
 
-import de.avci.openrideshare.units.UnitOfLength;
-import de.avci.openrideshare.utils.OperationalPropertiesConstants;
-import de.avci.openrideshare.utils.PropertiesLoader;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -46,6 +39,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import de.avci.openrideshare.units.UnitOfLength;
+import de.avci.openrideshare.utils.OperationalPropertiesConstants;
+import de.avci.openrideshare.utils.PropertiesLoader;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  *
@@ -793,7 +792,7 @@ public class CustomerEntity implements Serializable {
 	 */
 	public Date getPlanningHorizonForOfferDate(){
 
-		return new Date(this.getPlanningHorizonForOffers());
+		return new Date(this.getPlanningHorizonForOfferTS().getTime());
 	}
 	
 
@@ -808,7 +807,7 @@ public class CustomerEntity implements Serializable {
 	/** @return Date marking the upper limit for latest startTime of requests to be issued.
 	 */
 	public Date getPlanningHorizonForRequestsDate(){
-		return new Date(this.getPlanningHorizonForOfferTS().getTime());
+		return new Date(this.getPlanningHorizonForRequestsTS().getTime());
 	}
 	
 	

@@ -294,6 +294,19 @@ public interface DriverUndertakesRideControllerLocal {
      * @return true, if customer is allowed to add another ofer, false else of if cust does not exist.
      */
 	public Boolean canAddOffer(Integer customerId);
+
+
+
+	/**
+	 * checks if DriverUndertakesRideEntity is ready to be saved to DB. Brutally
+	 * throws an OpenRideShareException if not.
+	 *
+	 *
+	 * @param dure  DriverUndertakesRideEntity to be checked
+ 	 */
+
+	void checkDriverUndertakesRideEntity(DriverUndertakesRideEntity dure)
+			throws OpenRideShareException;
 	
     
 
