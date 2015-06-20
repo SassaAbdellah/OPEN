@@ -58,41 +58,40 @@
 			</p>
 
 			<p>
-			<div class="formlabel">
-				<h:outputFormat rendered="#{!jprofile.canAddOffer}"
-					value="#{msgs.limits_offerLimitExceededMessage}">
-					<f:param name="limits" value="#{jprofile.offerLimit}" />
-				</h:outputFormat>
-			</div>
+				<div class="formlabel">
+					<h:outputFormat rendered="#{!jprofile.canAddOffer}"
+						value="#{msgs.limits_offerLimitExceededMessage}">
+						<f:param name="limits" value="#{jprofile.offerLimit}" />
+					</h:outputFormat>
+				</div>
 			</p>
 
 			<h:form rendered="#{jprofile.canAddOffer}">
 
 				<p>
 					<div class="formLabel">#{msgs.rideStarttime}</div>
-				<div class="formInput">
+					<div class="formInput">
 
-					<p:calendar value="#{newdriverride.rideStarttimeOnCreation}"
-						id="starttimeCal" 
-						locale="#{HTTPUser.getLocale()}"
-						pattern="#{datetime.tsformat}" 
-						mode="popup" navigator="true"
-						timezone="#{HTTPUser.timeZone}"
-						mindate="#{jprofile.currentDatetimeFormatted}" 
-			            maxdate="#{jprofile.planningHorizonOffersFormatted}" 
-			            showOn="button" 
-						/>
-	
+						<p:calendar value="#{newdriverride.rideStarttime}"
+							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+							timezone="#{HTTPUser.timeZone}"
+							mindate="#{jprofile.currentDatetimeFormatted}"
+							maxdate="#{jprofile.planningHorizonOffersFormatted}"
+							showOn="button" >
 
-
-				</div>
+						<!--  call converter on this component to align with current date and maxdate  -->
+						<f:converter converterId="rideDateConverter" />
+						<p:ajax update="startTimeCal" />
+						</p:calendar>	
+					</div>
 				</p>
 				<p>
 					<div class="formLabel">#{msgs.rideComment}</div>
 
-					<div class="formInput">
-						<h:inputTextarea value="#{newdriverride.rideComment}" />
-					</div>
+				<div class="formInput">
+					<h:inputTextarea value="#{newdriverride.rideComment}" />
+				</div>
 
 				</p>
 
@@ -191,27 +190,28 @@
 
 				</p>
 
-			
+
 				<p>
-								
+
 					<!-- Display Detour in prefferred unis -->
 					<div class="formLabel">
 						<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
 							<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
 						</h:outputFormat>
 					</div>
-					
+
 					<div class="formInput">
-						<h:inputText id="detourPrefUnit" value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
+						<h:inputText id="detourPrefUnit"
+							value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
 					</div>
-				
+
 				</p>
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
 				<!-- property rideAcceptableDetourInMin ommitted, we use -->
 				<!-- acceptable detour km instead                        -->
 
