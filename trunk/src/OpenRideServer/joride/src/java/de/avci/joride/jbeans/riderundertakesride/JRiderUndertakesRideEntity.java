@@ -1138,34 +1138,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	
 	
 	
-	
-	/** Enhance superclass' trivial Setter to impose upper and lower Limits
-	 *  on earliest starttime.
-	 * 
-	 */
-		
-	public void setStarttimeEarliestOnCreation(Date arg){
-		
-		CustomerEntity cust=new JCustomerEntityService().getCustomerEntitySafely();
-		
-		long argtime=arg.getTime();	
-		long upperHorizon=cust.getPlanningHorizonForOfferTS().getTime();
-		long now=System.currentTimeMillis();
-		
-		
-		long res1=Math.min(argtime, upperHorizon);
-		long res2=Math.max(argtime, now);
-		
-		super.setStarttimeEarliest(new Date(Math.max(res1, res2)));
-	}
-	
-
-	public Date getStarttimeEarliestOnCreation(){
-		return this.getStarttimeEarliest();
-	}
-	
-	
-	
 	/** Override superclass' trivial Setter to impose upper and lower Limits
 	 *  on latest starttime.
 	 * 

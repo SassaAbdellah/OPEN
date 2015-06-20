@@ -44,13 +44,15 @@
 			<p>
 				#{jprofile.updateFromDB()}
 				<div class="formlabel">
-					<h:outputFormat rendered="#{jprofile.canAddRequest}"  value="#{msgs.limits_requestLimitMessage}">
+					<h:outputFormat rendered="#{jprofile.canAddRequest}"
+						value="#{msgs.limits_requestLimitMessage}">
 						<f:param name="limits" value="#{jprofile.requestLimit}" />
 					</h:outputFormat>
 				</div>
 
 				<div class="formlabel">
-					<h:outputFormat rendered="#{jprofile.canAddRequest}"  value="#{msgs.limits_requestsLeftMessage}">
+					<h:outputFormat rendered="#{jprofile.canAddRequest}"
+						value="#{msgs.limits_requestsLeftMessage}">
 						<f:param name="limits" value="#{jprofile.noLeftRequests}" />
 					</h:outputFormat>
 				</div>
@@ -61,10 +63,11 @@
 			<p>
 
 				<!-- Show message that limit is exceeded if limit is exceeded -->
-				
+
 				<div class="formlabel">
-					<h:outputFormat rendered="#{!jprofile.canAddRequest}" value="#{msgs.limits_requestLimitExceededMessage}" >
-						<f:param name="limits" value="#{jprofile.requestLimit}" /> 
+					<h:outputFormat rendered="#{!jprofile.canAddRequest}"
+						value="#{msgs.limits_requestLimitExceededMessage}">
+						<f:param name="limits" value="#{jprofile.requestLimit}" />
 					</h:outputFormat>
 				</div>
 
@@ -75,33 +78,32 @@
 
 					<p>
 						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
+						<div class="formInput">
+							<p:calendar value="#{newride.starttimeEarliest}"
+								id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
+								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+								showOn="button" timezone="#{HTTPUser.timeZone}"
+								mindate="#{jprofile.currentDatetimeFormatted}"
+								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
+
+								<f:converter converterId="rideDateConverter" />
+								<p:ajax update="starttimeEarliestCal" />
+
+							</p:calendar>
+						</div>
+						<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
 					<div class="formInput">
-						<p:calendar 
-							value="#{newride.starttimeEarliestOnCreation}"
-							id="starttimeEarliestCal" 
-							locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" 
-							mode="popup" 
-							navigator="true"
-							showOn="button" 
-							timezone="#{HTTPUser.timeZone}" 
-							mindate="#{jprofile.currentDatetimeFormatted}" 
-			            	maxdate="#{jprofile.planningHorizonRequestsFormatted}" 
-							/>
-					</div>
-					<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
-					<div class="formInput">
-						<p:calendar value="#{newride.starttimeLatestOnCreation}"
-							id="starttimeLatestCal" 
-							locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" 
-							mode="popup" 
-							navigator="true"
-							showOn="button" 
-							timezone="#{HTTPUser.timeZone}" 
-							mindate="#{jprofile.currentDatetimeFormatted}" 
-			            	maxdate="#{jprofile.planningHorizonRequestsFormatted}" 
-							/>
+						<p:calendar value="#{newride.starttimeLatest}"
+							id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+							showOn="button" timezone="#{HTTPUser.timeZone}"
+							mindate="#{jprofile.currentDatetimeFormatted}"
+							maxdate="#{jprofile.planningHorizonRequestsFormatted}">
+
+							<f:converter converterId="rideDateConverter" />
+							<p:ajax update="starttimeLatestCal" />
+
+						</p:calendar>
 
 					</div>
 

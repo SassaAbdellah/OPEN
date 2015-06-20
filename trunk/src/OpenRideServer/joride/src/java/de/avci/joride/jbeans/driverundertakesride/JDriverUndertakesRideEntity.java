@@ -944,30 +944,4 @@ public class JDriverUndertakesRideEntity extends
 	
 	
 
-	/** Override superclass' trivial Setter to impose upper and lower Limits
-	 *  on starttime.
-	 * 
-	 */	
-	public void setRideStarttimeOnCreation(Date arg){
-		
-		CustomerEntity cust=new JCustomerEntityService().getCustomerEntitySafely();
-		
-		long argtime=arg.getTime();	
-		long upperHorizon=cust.getPlanningHorizonForOfferTS().getTime();
-		long now=System.currentTimeMillis();
-		
-		
-		long res1=Math.min(argtime, upperHorizon);
-		long res2=Math.max(argtime, now);
-		
-		super.setRideStarttime(new Date(Math.max(res1, res2)));
-	}
-	
-	public Date getRideStarttimeOnCreation(){
-		return super.getRideStarttime();
-	}
-	
-	
-
-
 } // class
