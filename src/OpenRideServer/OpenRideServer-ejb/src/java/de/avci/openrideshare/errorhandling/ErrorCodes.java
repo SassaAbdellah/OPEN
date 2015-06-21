@@ -41,24 +41,111 @@ public class ErrorCodes {
 	public static final Integer UnknownError_Code = errorStrings
 			.indexOf(UnknownError_Str);
 	// add errorcode/errorstring pair
-
+	
+	
+	
+	
 	/**
-	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
-	 * this user is exceeded. See also corresponding Error Code
-	 * RequestLimitExceededError_Code.
+	 * Error Code signifying that the Customer for which an action is performed
+	 * does not exist
 	 */
-	public static final String RequestLimitExceededError_Str = "RequestLimitExceeded";
+	public static final String UserDoesNotExistError_Str = "UserDoesNotExist";
 	static {
-		errorStrings.add(RequestLimitExceededError_Str);
+		errorStrings.add(UserDoesNotExistError_Str);
 	}
 
 	/**
-	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
-	 * this user is exceeded. See also corresponding Error String
-	 * RequestLimitExceededError_Code.
+	 * Error Code signifying that the Customer for which an action is performed
+	 * does not exist
 	 */
-	public static final Integer RequestLimitExceededError_Code = errorStrings
-			.indexOf(RequestLimitExceededError_Str);
+	public static final Integer UserDoesNotExistError_Code = errorStrings.indexOf(UserDoesNotExistError_Str);
+
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////
+	///
+	/// Errors adding Customers
+	///
+	//////////////////////////////////////////////////////////////////////
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * terms&conditions not acceppted.
+	 */
+	public static final String CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str = "Terms of use not accepted when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * terms&conditions not acceppted.
+	 */
+	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code = UserDoesNotExistError_Code + 1;
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * nickname not compliant to sysntax rules
+	 */
+	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str = "Nickname Syntax check failed when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * nickname not compliant to sysntax rules
+	 */
+	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+
+	/**
+	 * "String" to be returned if customer creation failed. Because of email not
+	 * compliant to syntax rules
+	 */
+	public static final String CUSTCREATION_EMAIL_SYNTAX_Error_Str = "Email Syntax check failed when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_EMAIL_SYNTAX_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of email
+	 * not compliant to syntax rules
+	 */
+	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * nickname already exists
+	 */
+	public static final String CUSTCREATION_NICKNAME_EXISTS_Error_Str = "Nickname already exists when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+	}
+
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of
+	 * nickname already exists
+	 */
+	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 * email already exists.
+	 */
+	public static final String CUSTCREATION_EMAIL_EXISTS_Error_Str = "Email already exists when creating customer";
+	static {
+		errorStrings.add(CUSTCREATION_EMAIL_EXISTS_Error_Str);
+	}
+	/**
+	 * "ErrorCode" to be returned if customer creation failed. Because of email
+	 * already exists.
+	 */
+	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
+
+	
+	
+	
 
 	
 	
@@ -70,6 +157,22 @@ public class ErrorCodes {
 	 * ***********************
 	 * ***********************
 	 */
+	
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final String OFFERCREATION_HORIZONEXCEEDED_Error_Str = "Planning horizon exceeded when creating offer";
+	static {
+		errorStrings.add(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
+	}
+	/**
+	 * "ErrorCode" to be returned if request creation fails because the planning
+	 * horizon is exceeded
+	 */
+	public static final int OFFERCREATION_HORIZONEXCEEDED_Error_Code = errorStrings
+			.indexOf(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
+	
 
 	/**
 	 * Mnemonic StrCannot create Offer: Error string to be thrown if offer creation fails because 
@@ -238,101 +341,140 @@ public class ErrorCodes {
 	 */
 	public static final Integer OfferLimitExceededError_Code = errorStrings.indexOf(OfferLimitExceededError_Str);
 
-	/**
-	 * Error Code signifying that the Customer for which an action is performed
-	 * does not exist
-	 */
-	public static final String UserDoesNotExistError_Str = "UserDoesNotExist";
-	static {
-		errorStrings.add(UserDoesNotExistError_Str);
-	}
+	
+	
+	
+	
+	
 
-	/**
-	 * Error Code signifying that the Customer for which an action is performed
-	 * does not exist
-	 */
-	public static final Integer UserDoesNotExistError_Code = errorStrings.indexOf(UserDoesNotExistError_Str);
-
-	/**
-	 * "ErrorString" to be returned if customer creation failed. Because of
-	 * terms&conditions not acceppted.
-	 */
-	public static final String CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str = "Terms of use not accepted when creating customer";
-	static {
-		errorStrings.add(CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Str);
-	}
-
-	/**
-	 * "ErrorCode" to be returned if customer creation failed. Because of
-	 * terms&conditions not acceppted.
-	 */
-	public static final int CUSTCREATION_TERMS_NOT_ACCEPTED_Error_Code = UserDoesNotExistError_Code + 1;
-
-	/**
-	 * "ErrorString" to be returned if customer creation failed. Because of
-	 * nickname not compliant to sysntax rules
-	 */
-	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str = "Nickname Syntax check failed when creating customer";
-	static {
-		errorStrings.add(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
-	}
-
-	/**
-	 * "ErrorCode" to be returned if customer creation failed. Because of
-	 * nickname not compliant to sysntax rules
-	 */
-	public static final int CUSTCREATION_NICKNAME_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
-
-	/**
-	 * "String" to be returned if customer creation failed. Because of email not
-	 * compliant to syntax rules
-	 */
-	public static final String CUSTCREATION_EMAIL_SYNTAX_Error_Str = "Email Syntax check failed when creating customer";
-	static {
-		errorStrings.add(CUSTCREATION_EMAIL_SYNTAX_Error_Str);
-	}
-
-	/**
-	 * "ErrorCode" to be returned if customer creation failed. Because of email
-	 * not compliant to syntax rules
-	 */
-	public static final int CUSTCREATION_EMAIL_SYNTAX_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_SYNTAX_Error_Str);
-
-	/**
-	 * "ErrorString" to be returned if customer creation failed. Because of
-	 * nickname already exists
-	 */
-	public static final String CUSTCREATION_NICKNAME_EXISTS_Error_Str = "Nickname already exists when creating customer";
-	static {
-		errorStrings.add(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
-	}
-
-	/**
-	 * "ErrorCode" to be returned if customer creation failed. Because of
-	 * nickname already exists
-	 */
-	public static final int CUSTCREATION_NICKNAME_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
-
-	/**
-	 * "ErrorString" to be returned if customer creation failed. Because of
-	 * email already exists.
-	 */
-	public static final String CUSTCREATION_EMAIL_EXISTS_Error_Str = "Email already exists when creating customer";
-	static {
-		errorStrings.add(CUSTCREATION_EMAIL_EXISTS_Error_Str);
-	}
-	/**
-	 * "ErrorCode" to be returned if customer creation failed. Because of email
-	 * already exists.
-	 */
-	public static final int CUSTCREATION_EMAIL_EXISTS_Error_Code = errorStrings.indexOf(CUSTCREATION_NICKNAME_EXISTS_Error_Str);
-
+	
 	// ////////////////////////////////////////////////////////
 	//
 	// Request creation errors
 	//
 	// ////////////////////////////////////////////////////////
 
+	/**
+	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
+	 * this user is exceeded. See also corresponding Error Code
+	 * RequestLimitExceededError_Code.
+	 */
+	public static final String RequestLimitExceededError_Str = "RequestLimitExceeded";
+	static {
+		errorStrings.add(RequestLimitExceededError_Str);
+	}
+
+	/**
+	 * Mnemonic StrCannot create Request: Maximum Number of open Requests for
+	 * this user is exceeded. See also corresponding Error String
+	 * RequestLimitExceededError_Code.
+	 */
+	public static final Integer RequestLimitExceededError_Code = errorStrings
+			.indexOf(RequestLimitExceededError_Str);
+
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * RideStartpoint is not set
+	 */
+	public static final String CreateRequestFailure_RideStartPointNull_Str="Creating Request failed, Reason : rideStartpt is null";
+	static{errorStrings.add(CreateRequestFailure_RideStartPointNull_Str);}
+	
+	
+	/**
+	 * Mnemonic Code Cannot create Request: Creating Request failed, Reason : rideStartpt is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_RideStartPointNull_Code= errorStrings
+			.indexOf(
+	CreateRequestFailure_RideStartPointNull_Str);
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * RideEndopoint is not set
+	 */
+	public static final String CreateRequestFailure_RideEndpointNull_Str="Creating Request failed, Reason : rideEndpt is null";
+	static { errorStrings.add(CreateRequestFailure_RideEndpointNull_Str);}
+	
+	/**
+	 * Mnemonic code Cannot create Request:  "Creating Request failed, Reason : rideEndpt is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_RideEndpointNull_Code= errorStrings
+			.indexOf(
+	CreateRequestFailure_RideEndpointNull_Str);
+	
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * rideStarttime is null
+	 * 
+	 */
+	public static final String CreateRequestFailure_RideStartTimeEarliestNull_Str="Creating Request failed, Reason : ride starttime earliest is null";
+	static {errorStrings.add(CreateRequestFailure_RideStartTimeEarliestNull_Str);}
+    
+	/**
+	 * Mnemonic StrCannot create Request: "Creating Request failed, Reason : ride starttime is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_RideStartTimeEarliestNull_Code= errorStrings.indexOf(CreateRequestFailure_RideStartTimeEarliestNull_Str);
+
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * rideStarttime is null
+	 * 
+	 */
+	public static final String CreateRequestFailure_RideStartTimeLatestNull_Str="Creating Request failed, Reason : ride starttime latest is null";
+	static {errorStrings.add(CreateRequestFailure_RideStartTimeLatestNull_Str);}
+    
+	/**
+	 * Mnemonic StrCannot create Request: "Creating Request failed, Reason : ride starttime is null"
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_RideStartTimeLatestNull_Code= errorStrings.indexOf(CreateRequestFailure_RideStartTimeLatestNull_Str);
+
+	
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * ride startpoint address is null.
+	 */
+	public static final String CreateRequestFailure_StartPointAddressNull_Str="Creating Request failed, Reason : startpoint Address is null";
+	
+	static {errorStrings.add(CreateRequestFailure_StartPointAddressNull_Str);}
+
+	/**
+	 * Mnemonic StrCannot create Request: Creating Request failed, Reason : startpoint Address is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_StartPointAddressNull_Code= errorStrings.indexOf(CreateRequestFailure_StartPointAddressNull_Str);
+	
+	
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * ride endpoint address is null.
+	 */
+	public static final String CreateRequestFailure_EndpointAddressNull_Str="Creating Request failed, Reason : endpoint Address is null";
+	
+	static {errorStrings.add(CreateOfferFailure_EndpointAddressNull_Str);}
+	
+	/**
+	 * Mnemonic StrCannot create Request: Creating Request failed, Reason : endpoint Address is null
+	 * See also corresponding Error String
+	 * 
+	 */
+	public static final Integer CreateRequestFailure_EndPointAddressNull_Code= errorStrings.indexOf(CreateOfferFailure_EndpointAddressNull_Str);
+	
+	
+	
+	
+	
 	/**
 	 * "ErrorCode" to be returned if request creation fails because the planning
 	 * horizon is exceeded
@@ -349,26 +491,16 @@ public class ErrorCodes {
 	public static final int REQUESTCREATION_HORIZONEXCEEDED_Error_Code = errorStrings
 			.indexOf(REQUESTCREATION_HORIZONEXCEEDED_Error_Str);
 
-	// ////////////////////////////////////////////////////////
-	//
-	// OFFER creation errors
-	//
-	// ////////////////////////////////////////////////////////
 
-	/**
-	 * "ErrorCode" to be returned if request creation fails because the planning
-	 * horizon is exceeded
-	 */
-	public static final String OFFERCREATION_HORIZONEXCEEDED_Error_Str = "Planning horizon exceeded when creating offer";
-	static {
-		errorStrings.add(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
-	}
-	/**
-	 * "ErrorCode" to be returned if request creation fails because the planning
-	 * horizon is exceeded
-	 */
-	public static final int OFFERCREATION_HORIZONEXCEEDED_Error_Code = errorStrings
-			.indexOf(OFFERCREATION_HORIZONEXCEEDED_Error_Str);
+	
+	// **********************************************************************
+	// **********************************************************************
+	// ***
+	// *** Errors when creating Requests
+	// ***
+	// **********************************************************************
+	// **********************************************************************
+	
 
 	/**
 	 * get ErrorStr for numerical ErrorCode, or null if there is no such thing

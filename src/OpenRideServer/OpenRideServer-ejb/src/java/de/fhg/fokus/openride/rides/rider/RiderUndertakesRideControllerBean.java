@@ -1052,9 +1052,6 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 		return false;
 	}
 
-
-	
-
 	@Override
 	public int addRideRequest(int cust_id, Date starttime_earliest,
 			Date starttimeLatest, int noPassengers, Point startpt, Point endpt,
@@ -1065,59 +1062,76 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 
 		// check if customer exists
 		if (customer == null) {
-			
-			OpenRideShareException exc=new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
-	
-			log.severe("Error creating Request for customer null, REASON : "+ exc.getMessage());
-			
+
+			OpenRideShareException exc = new OpenRideShareException(
+					ErrorCodes.UserDoesNotExistError_Code);
+
+			log.severe("Error creating Request for customer null, REASON : "
+					+ exc.getMessage());
+
 			throw exc;
 		}
 
 		// check if customer has still enough quota
 		if (this.noOfLeftRequests(cust_id) <= 0) {
-			
-			OpenRideShareException exc= new OpenRideShareException(ErrorCodes.RequestLimitExceededError_Code);
-			log.severe("Error creating Request for customer "+customer.getCustNickname()+", REASON : "+ exc.getMessage());
+
+			OpenRideShareException exc = new OpenRideShareException(
+					ErrorCodes.RequestLimitExceededError_Code);
+			log.severe("Error creating Request for customer "
+					+ customer.getCustNickname() + ", REASON : "
+					+ exc.getMessage());
 			throw exc;
-			
+
 		}
 
 		// check, if customer's horizon is exceeded
-		if (customer.getPlanningHorizonForRequestsTS().getTime() < starttimeLatest.getTime()){
-				
-			OpenRideShareException exc=new OpenRideShareException(ErrorCodes.REQUESTCREATION_HORIZONEXCEEDED_Error_Code);
-			log.severe("Error creating Request for customer "+customer.getCustNickname()+", REASON : "+ exc.getMessage());
+		if (customer.getPlanningHorizonForRequestsTS().getTime() < starttimeLatest
+				.getTime()) {
+
+			OpenRideShareException exc = new OpenRideShareException(
+					ErrorCodes.REQUESTCREATION_HORIZONEXCEEDED_Error_Code);
+			log.severe("Error creating Request for customer "
+					+ customer.getCustNickname() + ", REASON : "
+					+ exc.getMessage());
 			throw exc;
 		}
 
-		// TODO: could get Problems if different users simultanously add a
+		//
+		// Made it throught customer checks, dare to create Request
+		//
+
 		// RideRequest;Transaction? perhaps locks to much?
 		RiderUndertakesRideEntity r = null;
 		logger.info("addRideRequest, customer is :" + customer + "");
-		if (customer != null) {
-			startUserTransaction();
-			// FIXME: (pab) This index is only valid if a rideId with the same
-			// value exists!
-			// r = new RiderUndertakesRideEntity(index, starttimeLatest,
-			// startpt, endpt, price, noPassengers, starttime_earliest,
-			// customer);
-			r = new RiderUndertakesRideEntity(customer, starttime_earliest,
-					starttimeLatest, noPassengers, startpt, endpt, price);
-			r.setCustId(customer);
-			r.setComment(comment);
-			r.setStartptAddress(startptAddress);
-			r.setEndptAddress(endptAddress);
-			logger.info("---------------------------addRideRequest 1: "
-					+ r.getCustId().getCustId());
-			em.persist(r);
-			logger.log(Level.INFO, "riderundertakesride added ");
-			commitUserTransaction();
-			em.flush();
 
-		} else {
+		startUserTransaction();
+		// FIXME: (pab) This index is only valid if a rideId with the same
+		// value exists!
+		// r = new RiderUndertakesRideEntity(index, starttimeLatest,
+		// startpt, endpt, price, noPassengers, starttime_earliest,
+		// customer);
+		r = new RiderUndertakesRideEntity(customer, starttime_earliest,
+				starttimeLatest, noPassengers, startpt, endpt, price);
+		r.setCustId(customer);
+		r.setComment(comment);
+		r.setStartptAddress(startptAddress);
+		r.setEndptAddress(endptAddress);
 
-			logger.log(Level.WARNING, "No Customer with id: " + cust_id);
-		}
+		// check request for completeness, throw error if necessary
+		this.checkRiderUndertakesRideEntity(r);
+
+		//
+		// we made it through all the checks, so now we can start business!
+		//
+
+		// TODO: could get Problems if different users simultanously add a
+
+		logger.info("---------------------------addRideRequest 1: "
+				+ r.getCustId().getCustId());
+		em.persist(r);
+		logger.log(Level.INFO, "riderundertakesride added ");
+		commitUserTransaction();
+		em.flush();
 
 		if (r == null) {
 			return -1;
@@ -1802,6 +1816,55 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 	public Boolean canAddRequest(Integer customerId) {
 
 		return noOfLeftRequests(customerId) > 0;
+	}
+
+	/**
+	 * Check RiderUndertakesRideEntity before it is added, throw approriate
+	 * OpenRideShareException if fails.
+	 * 
+	 * @param rure
+	 * @throws OpenRideShareException
+	 */
+
+	@Override
+	public void checkRiderUndertakesRideEntity(RiderUndertakesRideEntity rure)
+			throws OpenRideShareException {
+
+		// Point ridestartPt
+		if (rure.getStartpt() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_RideStartPointNull_Code);
+		}
+
+		// Point rideendPt
+		if (rure.getEndpt() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_RideEndpointNull_Code);
+		}
+
+		// java.sql.Date startTime Earliest
+		if (rure.getStarttimeEarliest() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_RideStartTimeEarliestNull_Code);
+		}
+
+		// java.sql.Date startTime latest
+		if (rure.getStarttimeEarliest() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_RideStartTimeLatestNull_Code);
+		}
+
+		// String startptAddress,
+		if (rure.getStartptAddress() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_StartPointAddressNull_Code);
+		}
+
+		// String endptAddress
+		if (rure.getEndptAddress() == null) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_EndPointAddressNull_Code);
+		}
 	}
 
 }
