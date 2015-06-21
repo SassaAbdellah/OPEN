@@ -225,6 +225,19 @@ public interface RiderUndertakesRideControllerLocal {
      * @return true, if customer is allowed to add another request, false else of if cust does not exist.
      */
 	public Boolean canAddRequest(Integer customerId);
+
+	
+	
+	/**
+	 * Check RiderUndertakesRideEntity before it is added,
+	 * throw approriate OpenRideShareException if fails.
+	 * 
+	 * @param rure
+	 * @throws OpenRideShareException
+	 */
+	
+	public void checkRiderUndertakesRideEntity(RiderUndertakesRideEntity rure)
+			throws OpenRideShareException;
     
     
     
