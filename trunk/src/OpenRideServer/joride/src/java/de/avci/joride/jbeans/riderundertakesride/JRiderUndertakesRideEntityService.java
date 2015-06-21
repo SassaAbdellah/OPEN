@@ -780,6 +780,9 @@ public class JRiderUndertakesRideEntityService {
 	 *            id of the ride to be invalidated.
 	 *
 	 * @return true if ride was invalidated, else false.
+	 * 
+	 * TODO: method containst to much logic, this should be in the backend!
+	 * 
 	 */
 	public boolean invalidateRequestSavely(int riderrouteId) {
 
