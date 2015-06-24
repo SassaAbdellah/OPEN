@@ -561,6 +561,19 @@ public class JRiderUndertakesRideEntityService {
 		jrure.cleanseComment();
 		// null prices may cause nullpointer trouble, so clean it here
 		jrure.cleansePrice();
+		
+		// startpoint coordinates 0/0 probably means uninitialized rather then pole
+		// TODO: produce a more decent error state
+		if(jrure.getStartpt().getX()==0d && jrure.getStartpt().getY()==0d){
+			throw new Error("rides start on north pole");
+		}
+		
+		// startpoint coordinates 0/0 probably means uninitialized rather then pole
+		// TODO: produce a more decent error state
+		if(jrure.getEndpt().getX()==0d && jrure.getEndpt().getY()==0d){
+			throw new Error("rides ends on north pole");
+		}
+		
 
 		RiderUndertakesRideControllerLocal rurcl = this
 				.lookupRiderUndertakesRideControllerBeanLocal();
