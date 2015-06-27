@@ -22,10 +22,6 @@
 	<ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-		<!-- highlight "preferences" tab -->
-		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
-
-
 		<ui:define name="windowTitle">
                 #{msgs.rideCreateNewRequest}
             </ui:define>
@@ -73,184 +69,184 @@
 
 
 				<!-- Allow creation if limit is not exceeded -->
-				<h:form rendered="#{jprofile.canAddRequest}">
-					<!-- form for entering ride data -->
 
-					<p>
-						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
-						<div class="formInput">
-							<p:calendar value="#{newride.starttimeEarliest}"
-								id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
-								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-								showOn="button" timezone="#{HTTPUser.timeZone}"
-								mindate="#{jprofile.currentDatetimeFormatted}"
-								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
 
-								<f:converter converterId="rideDateConverter" />
-								<p:ajax update="starttimeEarliestCal" />
+				<p:panel>
+					<!-- include wizard in a panel, so people get the idea that it's a panel...  -->
+					<h:form rendered="#{jprofile.canAddRequest}">
+						<!-- form for entering ride data -->
+						<p:wizard widgetVar="wiz" showNavBar="true"
+							flowListener="#{newride.handleFlow}">
 
-							</p:calendar>
-						</div>
-						<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
-					<div class="formInput">
-						<p:calendar value="#{newride.starttimeLatest}"
-							id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-							showOn="button" timezone="#{HTTPUser.timeZone}"
-							mindate="#{jprofile.currentDatetimeFormatted}"
-							maxdate="#{jprofile.planningHorizonRequestsFormatted}">
 
-							<f:converter converterId="rideDateConverter" />
-							<p:ajax update="starttimeLatestCal" />
 
-						</p:calendar>
 
-					</div>
+							<p:tab id="locationTab" title="#{msgs.rideCreatePlacesTab}">
+								<!-- property ridecomment currently ommitted -->
+								<!-- as it -->
 
-					<div class="formLabel">#{msgs.rideNoPassengers}</div>
-					<div class="formInput">
-						<h:inputText value="#{newride.noPassengers}">
-							<f:convertNumber integerOnly="true" />
-						</h:inputText>
-					</div>
+								<p>
+								<div class="formLabel">#{msgs.rideStartptAddress}</div>
+								<div class="formInput">
+									<h:inputTextarea value="#{newride.startptAddress}" />
+								</div>
+								<table>
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLatitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.latitudeStart} <h:inputHidden
+												value="#{newride.latitudeStart}" />
+										</td>
+									</tr>
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLongitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.longitudeStart} <h:inputHidden
+												value="#{newride.longitudeStart}" />
+										</td>
+									</tr>
+								</table>
+								<h:commandLink value="#{msgs.geolocationSelectPlace}"
+									action="pickpoint">
 
-					<div class="formLabel">#{msgs.ridePrice}</div>
-					<div class="formInput">
-						<h:inputText value="#{newride.price}" />
-					</div>
+									<!-- point parameters -->
+									<f:param name="#{point.paramTargetURL}"
+										value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
+									<!-- set the target parameters, so we know which point to update -->
+									<f:param name="#{point.paramTarget}"
+										value="#{newride.paramValueTargetStartpoint}" />
 
-					<!-- comment -->
-					<div class="formLabel">#{msgs.rideComment}</div>
+									<!-- webflow parameters -->
 
-					<div class="formInput">
-						<h:inputTextarea value="#{newride.comment}" />
-					</div>
+									<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
+
+								</h:commandLink>
 			</p>
 
-
-
-			<p>
-				<!-- Beginning of "set data for Startpoint" section -->
-
-				<h2>#{msgs.rideStart}</h2>
-
-
-
-				<!-- property ridecomment currently ommitted -->
-				<!-- as it -->
-
-				<div class="formLabel">#{msgs.rideStartptAddress}</div>
-				<div class="formInput">
-					<h:inputTextarea value="#{newride.startptAddress}" />
-				</div>
-				<table>
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLatitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.latitudeStart} <h:inputHidden
-								value="#{newride.latitudeStart}" />
-						</td>
-					</tr>
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLongitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.longitudeStart} <h:inputHidden
-								value="#{newride.longitudeStart}" />
-						</td>
-					</tr>
-				</table>
-
-
-
-				<h:commandLink value="#{msgs.geolocationSelectPlace}"
-					action="pickpoint">
-
-					<!-- point parameters -->
-					<f:param name="#{point.paramTargetURL}"
-						value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
-					<!-- set the target parameters, so we know which point to update -->
-					<f:param name="#{point.paramTarget}"
-						value="#{newride.paramValueTargetStartpoint}" />
-
-					<!-- webflow parameters -->
-
-					<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
-					<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
-					<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
-
-				</h:commandLink>
-
-			</p>
 			<!-- End of "set data for Startpoint" section -->
 
 
+			<!-- Beginning of "set data for Endpoint" section -->
 
 			<p>
-				<!-- Beginning of "set data for Endpoint" section -->
-
-				<h2>#{msgs.rideDestination}</h2>
-				<div class="formLabel">#{msgs.rideDestinationAddress}</div>
-
-				<div class="formInput">
-					<h:inputTextarea value="#{newride.endptAddress}" />
-				</div>
-				<table>
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLatitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.latitudeEnd} <h:inputHidden
-								value="#{newride.latitudeEnd}" />
-						</td>
-					</tr>
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLongitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.longitudeEnd} <h:inputHidden
-								value="#{newride.longitudeEnd}" />
-						</td>
-					</tr>
-				</table>
+			<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+			<div class="formInput">
+				<h:inputTextarea value="#{newride.endptAddress}" />
+			</div>
+			<table>
+				<tr>
+					<td class="formLabel">#{msgs.geolocationLatitude}</td>
+					<td>:</td>
+					<td class="formInput">#{newride.latitudeEnd} <h:inputHidden
+							value="#{newride.latitudeEnd}" />
+					</td>
+				</tr>
+				<tr>
+					<td class="formLabel">#{msgs.geolocationLongitude}</td>
+					<td>:</td>
+					<td class="formInput">#{newride.longitudeEnd} <h:inputHidden
+							value="#{newride.longitudeEnd}" />
+					</td>
+				</tr>
+			</table>
 
 
-				<h:commandLink value="#{msgs.geolocationSelectPlace}"
-					action="pickpoint">
+			<h:commandLink value="#{msgs.geolocationSelectPlace}"
+				action="pickpoint">
+				<!-- point parameters -->
+				<f:param name="#{point.paramTargetURL}"
+					value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
+				<!-- set the target parameters, so we know which point to update -->
+				<f:param name="#{point.paramTarget}"
+					value="#{newride.paramValueTargetEndpoint}" />
 
+				<!-- webflow parameters -->
 
-					<!-- point parameters -->
-					<f:param name="#{point.paramTargetURL}"
-						value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
-					<!-- set the target parameters, so we know which point to update -->
-					<f:param name="#{point.paramTarget}"
-						value="#{newride.paramValueTargetEndpoint}" />
+				<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
+				<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
+				<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
 
-					<!-- webflow parameters -->
-
-					<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
-					<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
-					<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
-
-
-				</h:commandLink>
-
+			</h:commandLink>
 			</p>
+
+
 			<!-- End of "set data for Endpoint" section -->
 
-			<!--- Submit Data to create a new RideRequest -->
+			</p:tab>
 
 
-			<h:commandButton value="  #{msgs.rideCreateNewRequest}"
-				actionListener="#{newride.doCrudAction}" action="rider">
 
-				<f:param name="#{crud.paramNameCrudAction}"
-					value="#{crud.paramValueCrudCreate}" />
-				<f:param name="#{webflow.getParamFinish()}" value="rider" />
+			<p:tab id="timesTab" title="#{msgs.rideCreateTimesTab}">
 
-			</h:commandButton>
+				<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
+				<div class="formInput">
+					<p:calendar value="#{newride.starttimeEarliest}"
+						id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
+						pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+						showOn="button" timezone="#{HTTPUser.timeZone}"
+						mindate="#{jprofile.currentDatetimeFormatted}"
+						maxdate="#{jprofile.planningHorizonRequestsFormatted}">
+
+						<f:converter converterId="rideDateConverter" />
+						<p:ajax update="starttimeEarliestCal" />
+
+					</p:calendar>
+				</div>
+				<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
+				<div class="formInput">
+					<p:calendar value="#{newride.starttimeLatest}"
+						id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
+						pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+						showOn="button" timezone="#{HTTPUser.timeZone}"
+						mindate="#{jprofile.currentDatetimeFormatted}"
+						maxdate="#{jprofile.planningHorizonRequestsFormatted}">
+
+						<f:converter converterId="rideDateConverter" />
+						<p:ajax update="starttimeLatestCal" />
+					</p:calendar>
+				</div>
+
+			</p:tab>
+
+			<p:tab id="miscTab" title="#{msgs.rideCreateMiscTab}">
+
+				<div class="formLabel">#{msgs.rideNoPassengers}</div>
+				<div class="formInput">
+					<h:inputText value="#{newride.noPassengers}">
+						<f:convertNumber integerOnly="true" />
+					</h:inputText>
+				</div>
+
+				<div class="formLabel">#{msgs.ridePrice}</div>
+				<div class="formInput">
+					<h:inputText value="#{newride.price}" />
+				</div>
+
+				<!-- comment -->
+				<div class="formLabel">#{msgs.rideComment}</div>
+
+				<div class="formInput">
+					<h:inputTextarea value="#{newride.comment}" />
+				</div>
+
+				<!--- Submit Data to create a new RideRequest -->
 
 
-			<!-- End of submit section -->
+				<h:commandButton value="  #{msgs.rideCreateNewRequest}"
+					actionListener="#{newride.doCrudAction}" action="rider">
 
+					<f:param name="#{crud.paramNameCrudAction}"
+						value="#{crud.paramValueCrudCreate}" />
+					<f:param name="#{webflow.getParamFinish()}" value="rider" />
+
+				</h:commandButton>
+
+			</p:tab>
+			</p:wizard>
 			</h:form>
+			</p:panel>
 			<!-- form for entering ride data -->
 			</p>
 
