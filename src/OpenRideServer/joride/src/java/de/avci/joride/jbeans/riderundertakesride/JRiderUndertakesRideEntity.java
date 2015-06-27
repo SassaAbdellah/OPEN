@@ -34,12 +34,20 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.postgis.Point;
+import org.primefaces.event.FlowEvent;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
  * 
  * 
+ * This also governs the wizard view when creating a new request.
+ * 
+ * 
+ * 
  * @author jochen
+ * 
+ * 
+ * 
  */
 @Named
 @SessionScoped
@@ -1159,6 +1167,64 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	
 	public Date getStarttimeLatestOnCreation(){
 		return this.getStarttimeLatest();
+	}
+	
+	
+	/** Govern wizard steps when creating the request.
+	 * 
+	 */
+	public String handleFlow(FlowEvent evt){
+		
+		String currentStep = evt.getOldStep();
+		String nextStep    = evt.getNewStep();
+		
+	
+		//when going forward from location step,
+		// check if locations have been initialized
+		if( ("locationTab".equals(currentStep)) 
+				&&("timesTab".equals(nextStep) || "miscTab".equals(nextStep))){
+			
+			if(!this.isInitializedPoint(this.getStartpt())){ return currentStep;}
+			if(!this.isInitializedPoint(this.getEndpt()))  { return currentStep;}
+		}	
+		
+
+		//when going forward from location step,
+		// check if locations have been initialized
+		if( ("timesTab".equals(currentStep)) &&("miscTab".equals(nextStep))){
+			// uninitialized data
+			if(this.getStarttimeEarliest()==null){ return currentStep; }
+			if(this.getStarttimeLatest()==null)  { return currentStep; }
+			//
+			// align earliest and latest starttime
+			//
+			long now=new Date().getTime();
+			//
+			if(this.getStarttimeEarliest().getTime()< now) { 
+				this.setStarttimeEarliest(new Date(now));
+			}
+			//
+			if(this.getStarttimeLatest().getTime()< now) { 
+				this.setStarttimeLatest(new Date(now));
+			}	
+		}
+	
+		// all tests passed, return next step
+		return nextStep;
+	}
+
+	
+	/** Check if point (startpoint / endpoint is initialized)
+	 * 
+	 * @param endpt
+	 * @return
+	 */
+	private boolean isInitializedPoint(Point pt) {
+		
+		if(pt==null){return false;}
+		if(pt.getX()==0 && pt.getX()==0){return false;}
+	
+		return true;
 	}
 	
 	
