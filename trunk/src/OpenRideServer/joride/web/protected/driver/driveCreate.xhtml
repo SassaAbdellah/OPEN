@@ -21,12 +21,6 @@
 
 
 
-
-		<!-- highlight "preferences" tab -->
-		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
-
-
-
 		<ui:define name="windowTitle">
                 #{msgs.rideNewDrive}   
             </ui:define>
@@ -66,196 +60,189 @@
 				</div>
 			</p>
 
-			<h:form rendered="#{jprofile.canAddOffer}">
 
-				<p>
-					<div class="formLabel">#{msgs.rideStarttime}</div>
-					<div class="formInput">
+			<!-- wizard contained inside panel, so people get an idea what belongs together -->
 
-						<p:calendar value="#{newdriverride.rideStarttime}"
-							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-							timezone="#{HTTPUser.timeZone}"
-							mindate="#{jprofile.currentDatetimeFormatted}"
-							maxdate="#{jprofile.planningHorizonOffersFormatted}"
-							showOn="button" >
+			<p:panel>
+				<h:form rendered="#{jprofile.canAddOffer}">
 
-						<!--  call converter on this component to align with current date and maxdate  -->
-						<f:converter converterId="rideDateConverter" />
-						<p:ajax update="startTimeCal" />
-						</p:calendar>	
-					</div>
-				</p>
-				<p>
-					<div class="formLabel">#{msgs.rideComment}</div>
+					<p:wizard widgetVar="wiz" showNavBar="true"
+						flowListener="#{newdriverride.handleFlow}"
+						backLabel="#{msgs.backLabel}" nextLabel="#{msgs.nextLabel}">
 
-				<div class="formInput">
-					<h:inputTextarea value="#{newdriverride.rideComment}" />
-				</div>
+						<p:tab id="locationTab" title="#{msgs.rideCreatePlacesTab}">
+							<p>
+							<div class="formLabel">#{msgs.rideStartptAddress}</div>
+							<div class="formInput">
+								<h:inputTextarea value="#{newdriverride.startptAddress}" />
+							</div>
+							<table>
+								<tr>
+									<td class="formLabel">#{msgs.geolocationLatitude}</td>
+									<td>:</td>
+									<td class="formInput">#{newdriverride.latitudeStart} <h:inputHidden
+											value="#{newdriverride.latitudeStart}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="formLabel">#{msgs.geolocationLongitude}</td>
+									<td>:</td>
+									<td class="formInput">#{newdriverride.longitudeStart} <h:inputHidden
+											value="#{newdriverride.longitudeStart}" />
+									</td>
+								</tr>
+							</table>
 
-				</p>
+							<h:commandLink value="#{msgs.geolocationSelectPlace}"
+								action="pickpoint">
 
+								<!-- point parameters -->
+								<f:param name="#{point.paramTargetURL}"
+									value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+								<!-- set the target parameters, so we know which point to update -->
+								<f:param name="#{point.paramTarget}"
+									value="#{newdriverride.paramValueTargetStartpoint}" />
 
-				<p>
+								<!-- webflow parameters -->
 
-					<h2>#{msgs.rideStart}</h2>
+								<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+								<f:param name="#{webflow.paramFinish}"
+									value="driver.driveCreate" />
+								<f:param name="#{webflow.paramCancel}"
+									value="driver.driveCreate" />
 
-					<div class="formLabel">#{msgs.rideStartptAddress}</div>
-					<div class="formInput">
-						<h:inputTextarea value="#{newdriverride.startptAddress}" />
-					</div>
-					<table>
-						<tr>
-							<td class="formLabel">#{msgs.geolocationLatitude}</td>
-							<td>:</td>
-							<td class="formInput">#{newdriverride.latitudeStart} <h:inputHidden
-									value="#{newdriverride.latitudeStart}" />
-							</td>
-						</tr>
-						<tr>
-							<td class="formLabel">#{msgs.geolocationLongitude}</td>
-							<td>:</td>
-							<td class="formInput">#{newdriverride.longitudeStart} <h:inputHidden
-									value="#{newdriverride.longitudeStart}" />
-							</td>
-						</tr>
-					</table>
+							</h:commandLink>
+							</p>
+							<p>
+							<div class="formLabel">#{msgs.rideDestinationAddress}</div>
 
-
-
-					<h:commandLink value="#{msgs.geolocationSelectPlace}"
-						action="pickpoint">
-
-						<!-- point parameters -->
-						<f:param name="#{point.paramTargetURL}"
-							value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
-						<!-- set the target parameters, so we know which point to update -->
-						<f:param name="#{point.paramTarget}"
-							value="#{newdriverride.paramValueTargetStartpoint}" />
-
-						<!-- webflow parameters -->
-
-						<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
-						<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
-						<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
-
-					</h:commandLink>
-
-				</p>
-
-				<p>
-					<h2>#{msgs.rideDestination}</h2>
-					<div class="formLabel">#{msgs.rideDestinationAddress}</div>
-
-					<div class="formInput">
-						<h:inputTextarea value="#{newdriverride.endptAddress}" />
-					</div>
-					<table>
-						<tr>
-							<td class="formLabel">#{msgs.geolocationLatitude}</td>
-							<td>:</td>
-							<td class="formInput">#{newdriverride.latitudeEnd} <h:inputHidden
-									value="#{newdriverride.latitudeEnd}" />
-							</td>
-						</tr>
-						<tr>
-							<td class="formLabel">#{msgs.geolocationLongitude}</td>
-							<td>:</td>
-							<td class="formInput">#{newdriverride.longitudeEnd} <h:inputHidden
-									value="#{newdriverride.longitudeEnd}" />
-							</td>
-						</tr>
-					</table>
+							<div class="formInput">
+								<h:inputTextarea value="#{newdriverride.endptAddress}" />
+							</div>
+							<table>
+								<tr>
+									<td class="formLabel">#{msgs.geolocationLatitude}</td>
+									<td>:</td>
+									<td class="formInput">#{newdriverride.latitudeEnd} <h:inputHidden
+											value="#{newdriverride.latitudeEnd}" />
+									</td>
+								</tr>
+								<tr>
+									<td class="formLabel">#{msgs.geolocationLongitude}</td>
+									<td>:</td>
+									<td class="formInput">#{newdriverride.longitudeEnd} <h:inputHidden
+											value="#{newdriverride.longitudeEnd}" />
+									</td>
+								</tr>
+							</table>
 
 
-					<h:commandLink value="#{msgs.geolocationSelectPlace}"
-						action="pickpoint">
+							<h:commandLink value="#{msgs.geolocationSelectPlace}"
+								action="pickpoint">
 
 
-						<!-- point parameters -->
-						<f:param name="#{point.paramTargetURL}"
-							value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
-						<!-- set the target parameters, so we know which point to update -->
-						<f:param name="#{point.paramTarget}"
-							value="#{newdriverride.paramValueTargetEndpoint}" />
+								<!-- point parameters -->
+								<f:param name="#{point.paramTargetURL}"
+									value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+								<!-- set the target parameters, so we know which point to update -->
+								<f:param name="#{point.paramTarget}"
+									value="#{newdriverride.paramValueTargetEndpoint}" />
 
-						<!-- webflow parameters -->
+								<!-- webflow parameters -->
 
-						<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
-						<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
-						<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
-
-
-					</h:commandLink>
-
-				</p>
+								<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+								<f:param name="#{webflow.paramFinish}"
+									value="driver.driveCreate" />
+								<f:param name="#{webflow.paramCancel}"
+									value="driver.driveCreate" />
 
 
-				<p>
-
-					<!-- Display Detour in prefferred unis -->
-					<div class="formLabel">
-						<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
-							<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
-						</h:outputFormat>
-					</div>
-
-					<div class="formInput">
-						<h:inputText id="detourPrefUnit"
-							value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
-					</div>
-
-				</p>
+							</h:commandLink>
+							</p>
 
 
+							<p>
+								<!-- Display Detour in prefferred unis -->
+							<div class="formLabel">
+								<h:outputFormat
+									value="#{msgs.rideAcceptableDetourPreferredUnit}">
+									<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+								</h:outputFormat>
+							</div>
+
+							<div class="formInput">
+								<h:inputText id="detourPrefUnit"
+									value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
+							</div>
+							</p>
+						</p:tab>
+
+						<p:tab id="miscTab" title="#{msgs.rideCreateMiscTab}">
+
+							<!-- property rideAcceptableDetourInMin ommitted, we use -->
+							<!-- acceptable detour km instead                        -->
+
+							<!-- property rideAcceptableDetourInPercent is currently          -->
+							<!-- ommitted, as we do not know with percent of what we deal here -->
+
+							<p>
+							<div class="formLabel">#{msgs.rideStarttime}</div>
+							<div class="formInput">
+								<p:calendar value="#{newdriverride.rideStarttime}"
+									id="startTimeCal" locale="#{HTTPUser.getLocale()}"
+									pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+									timezone="#{HTTPUser.timeZone}"
+									mindate="#{jprofile.currentDatetimeFormatted}"
+									maxdate="#{jprofile.planningHorizonOffersFormatted}"
+									showOn="button">
+
+									<!--  call converter on this component to align with current date and maxdate  -->
+									<f:converter converterId="rideDateConverter" />
+									<p:ajax update="startTimeCal" />
+								</p:calendar>
+							</div>
+							</p>
+							<p>
+							<div class="formLabel">#{msgs.rideComment}</div>
+
+							<div class="formInput">
+								<h:inputTextarea value="#{newdriverride.rideComment}" />
+							</div>
+							</p>
+
+							<!-- property rideCurrpos is currently ommitted, as we currently -->
+							<!-- do not have support for real-time tracking                  -->
+							<p>
+							<div class="formLabel">#{msgs.rideOfferedseatsNo}</div>
+							<div class="formInput">
+								<h:inputText id="offeredseats"
+									value="#{newdriverride.rideOfferedseatsNo}">
+									<f:convertNumber type="number" integerOnly="true" />
+									<f:validateLongRange minimum="1" />
+									<h:message for="offeredseats" />
+								</h:inputText>
+							</div>
+							</p>
+							<p>
+								<!-- Add New Drive to Database, then display it -->
+
+								<p:commandButton value="#{msgs.rideCreateNewOffer}"
+									actionListener="#{newdriverride.doCrudAction}"
+									action="driver.driveDisplayNewDrive" ajax="false">
 
 
+									<f:param name="#{crud.paramNameCrudAction}"
+										value="#{crud.paramValueCrudCreate}" />
+									<f:param name="#{webflow.getParamFinish()}" value="driver" />
+
+								</p:commandButton>
+							</p>
+						</p:tab>
+					</p:wizard>
 
 
-				<!-- property rideAcceptableDetourInMin ommitted, we use -->
-				<!-- acceptable detour km instead                        -->
-
-				<!-- property rideAcceptableDetourInPercent is currently          -->
-				<!-- ommitted, as we do not know with percent of what we deal here -->
-
-
-				<!-- property rideCurrpos is currently ommitted, as we currently -->
-				<!-- do not have support for real-time tracking                  -->
-				<p>
-					<div class="formLabel">#{msgs.rideOfferedseatsNo}</div>
-					<div class="formInput">
-						<h:inputText id="offeredseats"
-							value="#{newdriverride.rideOfferedseatsNo}">
-							<f:convertNumber type="number" integerOnly="true" />
-							<f:validateLongRange minimum="1" />
-							<h:message for="offeredseats" />
-						</h:inputText>
-					</div>
-
-
-				</p>
-
-
-				<p>
-					<!-- Add New Drive to Database, then display it -->
-
-					<h:commandButton value="#{msgs.rideCreateNewOffer}"
-						actionListener="#{newdriverride.doCrudAction}"
-						action="driver.driveDisplayNewDrive">
-
-						<f:param name="#{crud.paramNameCrudAction}"
-							value="#{crud.paramValueCrudCreate}" />
-						<f:param name="#{webflow.getParamFinish()}" value="driver" />
-
-					</h:commandButton>
-
-				</p>
-
-
-
-			</h:form>
-
-
+				</h:form>
+			</p:panel>
 
 			<!-- Property "rideWeekdays" currently ommitted,        -->
 			<!-- as there currently seems to be no support for this -->

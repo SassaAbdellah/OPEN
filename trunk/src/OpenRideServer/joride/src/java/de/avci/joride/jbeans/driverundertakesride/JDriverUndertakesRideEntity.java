@@ -21,6 +21,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.postgis.Point;
+import org.primefaces.event.FlowEvent;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
@@ -54,8 +55,8 @@ public class JDriverUndertakesRideEntity extends
 
 	transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 	/**
-	 * Default Value for Acceptable Detour in Meters. May be changed by the user in
-	 * Frontends.
+	 * Default Value for Acceptable Detour in Meters. May be changed by the user
+	 * in Frontends.
 	 */
 	private Integer ACCEPTABLE_DETOUR_M_DEFAULT = 10000;
 	/**
@@ -75,14 +76,13 @@ public class JDriverUndertakesRideEntity extends
 	private Integer NUMBER_SEATS_OFFERED_DEFAULT = 1;
 	private PropertiesLoader propertiesLoader = new PropertiesLoader();
 
-	
-	/** Matches come in form of MatchEntity. To turn the 
-	 *  matches into JSF compliant, JMatchingEntinties
-	 *  we use this property (to be lazily instantiated)
+	/**
+	 * Matches come in form of MatchEntity. To turn the matches into JSF
+	 * compliant, JMatchingEntinties we use this property (to be lazily
+	 * instantiated)
 	 */
-	private List <JMatchingEntity> jMatches=null;
-	
-	
+	private List<JMatchingEntity> jMatches = null;
+
 	/**
 	 * Get a list of active drives for this driver.
 	 * 
@@ -246,7 +246,7 @@ public class JDriverUndertakesRideEntity extends
 		// matchings
 		this.setMatchings(dure.getMatchings());
 		// enforce recalculatine matches next time they are needed
-		this.jMatches=null;
+		this.jMatches = null;
 	}
 
 	/**
@@ -641,20 +641,20 @@ public class JDriverUndertakesRideEntity extends
 
 	}
 
-	
-	/** Accessor with lazy instantiation
+	/**
+	 * Accessor with lazy instantiation
 	 * 
 	 * @return
 	 */
 	public List<JMatchingEntity> getJMatches() {
-		
-		if (this.jMatches==null){
-			this.jMatches=new LinkedList <JMatchingEntity> ();
-			for(MatchEntity m: this.getMatchings()){
+
+		if (this.jMatches == null) {
+			this.jMatches = new LinkedList<JMatchingEntity>();
+			for (MatchEntity m : this.getMatchings()) {
 				this.jMatches.add(new JMatchingEntity(m));
 			}
 		}
-			
+
 		Collections.sort(this.jMatches, new JMatchingSorter4Driver());
 		return this.jMatches;
 	}
@@ -690,10 +690,10 @@ public class JDriverUndertakesRideEntity extends
 	public String getUpdatedShortcut() {
 
 		if (this.getDriveUpdated()) {
-			Locale locale=(new HTTPUtil()).detectBestLocale();
+			Locale locale = (new HTTPUtil()).detectBestLocale();
 			return " "
-					+ propertiesLoader.getMessageProperties(locale).getProperty(
-							"updatedRideShort");
+					+ propertiesLoader.getMessageProperties(locale)
+							.getProperty("updatedRideShort");
 		}
 
 		return "  ";
@@ -816,7 +816,7 @@ public class JDriverUndertakesRideEntity extends
 		for (WaypointEntity wp : this.getWaypoints()) {
 			res.add(new JWaypointEntity(wp));
 		}
-		
+
 		Collections.sort(res);
 		return res;
 	}
@@ -876,70 +876,117 @@ public class JDriverUndertakesRideEntity extends
 	public boolean getAcceptedMatchesExists() {
 		return getAcceptedMatchings().size() > 0;
 	}
-	
-	/** return superclasses' rideComment if != null,
-	 *  or something like "-- --"
-	 *  if there is no comment.
+
+	/**
+	 * return superclasses' rideComment if != null, or something like "-- --" if
+	 * there is no comment.
 	 * 
 	 */
 	@Override
-	
-	public String getRideComment(){
-		
-		String noCommentExists="-- --";
-		
-		String rideComment=super.getRideComment();
-		
-		if(rideComment==null || rideComment.trim().equals("")){
+	public String getRideComment() {
+
+		String noCommentExists = "-- --";
+
+		String rideComment = super.getRideComment();
+
+		if (rideComment == null || rideComment.trim().equals("")) {
 			return noCommentExists;
 		}
-		
+
 		return rideComment;
 	}
-	
-	
-	
-	/** Set acceptable detour in Driver's preferredUnit from String
-	 *  formatted in driver's preffered number format
-	 */
-	public void setRideAcceptableDetourPreferredUnit(String arg){
-		
-		JRiderUndertakesRideEntityService jrurs=new JRiderUndertakesRideEntityService();
-		CustomerEntity cust=jrurs.getCustomerEntity();
-		UnitOfLength uol=UnitOfLength.getLengthUnitByKey(cust.getPreferredUnitOfLength());
 
-		try { 
-			
-			Double  detourPrefUnit= ( uol.createNumberFormat().parse(arg)).doubleValue();
-			Long    detourMetersLong=( uol.this2Meters(detourPrefUnit));
-			Integer detourMetersInteger=detourMetersLong.intValue();
-		
+	/**
+	 * Set acceptable detour in Driver's preferredUnit from String formatted in
+	 * driver's preffered number format
+	 */
+	public void setRideAcceptableDetourPreferredUnit(String arg) {
+
+		JRiderUndertakesRideEntityService jrurs = new JRiderUndertakesRideEntityService();
+		CustomerEntity cust = jrurs.getCustomerEntity();
+		UnitOfLength uol = UnitOfLength.getLengthUnitByKey(cust
+				.getPreferredUnitOfLength());
+
+		try {
+
+			Double detourPrefUnit = (uol.createNumberFormat().parse(arg))
+					.doubleValue();
+			Long detourMetersLong = (uol.this2Meters(detourPrefUnit));
+			Integer detourMetersInteger = detourMetersLong.intValue();
+
 			this.setRideAcceptableDetourInM(detourMetersInteger);
-		
+
 		} catch (ParseException exc) {
-			log.info("Parse Exception when determining max detour from input "+arg);
-		} catch (Exception exc){
-			log.log(Level.SEVERE,"Unexpected Exception when determining max detour from input"+arg, exc);
+			log.info("Parse Exception when determining max detour from input "
+					+ arg);
+		} catch (Exception exc) {
+			this.setRideAcceptableDetourInM(null);
+			log.log(Level.SEVERE,
+					"Unexpected Exception when determining max detour from input"
+							+ arg, exc);
 		}
-		
-		
-		
-		
+
+	}
+
+	/**
+	 * Convert rideAcceptableDetourInMeters into string displaying the
+	 * 
+	 * 
+	 */
+	public String getRideAcceptableDetourPreferredUnit() {
+
+		JRiderUndertakesRideEntityService jrurs = new JRiderUndertakesRideEntityService();
+		CustomerEntity cust = jrurs.getCustomerEntity();
+		UnitOfLength uol = UnitOfLength.getLengthUnitByKey(cust
+				.getPreferredUnitOfLength());
+		Double detourPrefUnit = uol.meters2This(getRideAcceptableDetourInM());
+		return uol.createNumberFormat().format(detourPrefUnit);
+
+	}
+
+	/**
+	 * Handle flow in create Drive wizard.
+	 * 
+	 */
+
+	public String handleFlow(FlowEvent evt) {
+
+		String currentStep = evt.getOldStep();
+		String nextStep = evt.getNewStep();
+
+		// when going forward from location step,
+		// check if locations have been initialized
+		if (("locationTab".equals(currentStep)) && ("miscTab".equals(nextStep))) {
+
+			if (!this.isInitializedPoint(this.getRideStartpt())) {
+				return currentStep;
+			}
+			if (!this.isInitializedPoint(this.getRideEndpt())) {
+				return currentStep;
+			}
+			
+			// if something is wrong with accepable detour input format,
+			// then resulting acceptable Detour meters would have been set to null
+			if(this.getRideAcceptableDetourInM()==null){
+				return currentStep;
+			};
+		}
+
+		// all tests passed, can go to next step
+		return nextStep;
 	}
 	
-	/** Convert rideAcceptableDetourInMeters into string 
-	 *  displaying the  
+	/** Check if point (startpoint / endpoint is initialized)
 	 * 
-	 * 
+	 * @param endpt
+	 * @return
 	 */
-	public String getRideAcceptableDetourPreferredUnit(){
+	private boolean isInitializedPoint(Point pt) {
 		
-		JRiderUndertakesRideEntityService jrurs=new JRiderUndertakesRideEntityService();
-		CustomerEntity cust=jrurs.getCustomerEntity();
-		UnitOfLength uol=UnitOfLength.getLengthUnitByKey(	cust.getPreferredUnitOfLength());
-		Double detourPrefUnit=uol.meters2This(getRideAcceptableDetourInM());
-		return uol.createNumberFormat().format(detourPrefUnit);
-		
+		if(pt==null){return false;}
+		if(pt.getX()==0 && pt.getX()==0){return false;}
+	
+		return true;
 	}
 	
 	

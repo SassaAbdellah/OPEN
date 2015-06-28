@@ -1189,7 +1189,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		}	
 		
 
-		//when going forward from location step,
+		//when going forward from times step,
 		// check if locations have been initialized
 		if( ("timesTab".equals(currentStep)) &&("miscTab".equals(nextStep))){
 			// uninitialized data
