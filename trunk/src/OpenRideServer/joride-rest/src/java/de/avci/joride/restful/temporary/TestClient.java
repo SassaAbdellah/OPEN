@@ -51,7 +51,8 @@ public class TestClient {
 		*/
 		
 		
-		String offerJSON = "{\"id\":null,\"customerId\":24852,\"acceptableDetourKM\":10,\"startTime\":1498858780000,\"startLocation\":{\"lon\":11.3666579,\"lat\":53.2764929,\"name\":null,\"address\":\"Forsthof Glaisin, LindenstraÃŸe, Ludwigslust, Ludwigslust-Parchim, Mecklenburg-Vorpommern, 19288, Deutschland, EuropÃ¤ische Union\"},\"endLocation\":{\"lon\":11.4969985748317,\"lat\":53.4097714,\"name\":null,\"address\":\"UFAT Bildungswerk, WÃ¶bbelin, Ludwigslust-Land, Ludwigslust-Parchim, Mecklenburg-Vorpommern, 19288, Deutschland, EuropÃ¤ische Union\"},\"routePoints\":null,\"drivePoints\":null,\"wayPoints\":[],\"offeredSeatsNo\":1,\"comment\":\"Ein Kommentar zum Angebot\"}";
+		String offerJSON = "{\"id\":null,\"customerId\":24852,\"acceptableDetourKM\":10,\"startTime\":1498858780000,\"startLocation\":{\"lon\":11.3666579,\"lat\":53.2764929,\"name\":null,\"address\":\"Forsthof Glaisin, Lindenstrasse, Ludwigslust, Ludwigslust-Parchim, Mecklenburg-Vorpommern, 19288, Deutschland, Europaeische Union\"},\"endLocation\":{\"lon\":11.4969985748317,\"lat\":53.4097714,\"name\":null,\"address\":\"UFAT Bildungswerk, Woebbelin, Ludwigslust-Land, Ludwigslust-Parchim, Mecklenburg-Vorpommern, 19288, Deutschland, Europaeische Union\"},\"routePoints\":null,\"drivePoints\":null,\"wayPoints\":[],\"offeredSeatsNo\":1,\"comment\":\"Ein Kommentar zum Angebot\"}";
+
 		System.out
 				.println("=== posting offer ================================");
 		restClient.postJSON("offer", offerJSON);
