@@ -602,13 +602,14 @@ public class JRiderUndertakesRideEntityService {
 					jrure.getEndptAddress());
 		} catch (OpenRideShareException exc) {
 
-			//
-			// TODO: do something serious here. Probably it is enough to throw
-			// an error here,
-			// since in the frontend, this should never happen
-
-			throw new Error(exc);
-
+			// TODO: show a decent errormessage obtained from ORSException
+				
+			log.log(Level.SEVERE, "ORS Exception while adding request : "+exc.getMessage(),exc);
+			return -1;
+		} catch(Exception exc){
+			
+			log.log(Level.SEVERE, "Unexpected Exception while adding request : "+exc.getMessage(),exc);
+			return -1;
 		}
 	}
 
