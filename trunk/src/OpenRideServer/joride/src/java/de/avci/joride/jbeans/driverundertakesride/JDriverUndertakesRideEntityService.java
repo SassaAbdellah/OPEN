@@ -502,11 +502,22 @@ public class JDriverUndertakesRideEntityService {
 					jdure.getStartptAddress(),
 					// String endptAddress
 					jdure.getEndptAddress());
+				
 		} catch (OpenRideShareException exc) {
-			// Throw an error, since this should never happen in the frontend
-			//
-			throw new Error(exc);
+
+			// TODO: show a decent errormessage obtained from ORSException
+				
+			logger.log(Level.SEVERE, "ORS Exception while adding offer : "+exc.getMessage(),exc);
+			return -1;
+			
+			
+		} catch(Exception exc){
+			
+			logger.log(Level.SEVERE, "Unexpected Exception while adding offer       : "+exc.getMessage(),exc);
+			return -1;
 		}
+			
+			
 
 	}
 
