@@ -455,6 +455,11 @@ public class DriverUndertakesRideEntity implements Serializable {
 		this.matchings = matchings;
 	}
     
-    
+
+	/** An ID to be assigned to an Offer, if something went wrong
+	 *  during initialization. 
+	 *  
+	 */
+	public static final Integer UNINITIALIZED=Integer.MIN_VALUE;
     
 }

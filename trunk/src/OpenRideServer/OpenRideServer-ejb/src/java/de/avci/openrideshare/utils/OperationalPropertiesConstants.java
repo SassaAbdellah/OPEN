@@ -1,5 +1,7 @@
 package de.avci.openrideshare.utils;
 
+import org.postgis.PGbox2d;
+
 
 /** Defining mnemonic property names for operational properties
  * 
@@ -43,34 +45,39 @@ public class OperationalPropertiesConstants {
 
 	/** Property Name for maxRequestLimit, the maximum number of requests that 
 	 *  a customer can issue.
-	 * 
 	 */
 	public static final String PROPERTY_NAME_maxRequestsLimit = "maxRequestsLimit";
 	
-	
 	/** Property Name for maxRequestLimit, the maximum number of requests that 
 	 *  a customer can issue.
-	 * 
 	 */
 	public static final String PROPERTY_NAME_maxOffersLimit = "maxOffersLimit";
 	
-	
 	/** Property Name for ="equiDistanceMinmum, the minimum distance of 
 	 *  usable routepoints.
-	 * 
 	 */
-	
 	public static final String PROPERTY_NAME_equiDistanceMinmum="equiDistanceMinmum";
 	
-	
 	/** Property Name for ="planningHorizonForOffers", the default horizon for Offers. 
-	 * 
 	 */
 	public static final String PROPERTY_NAME_planningHorizonForOffers="planningHorizonForOffers";
 	
 	/** Property Name for ="planningHorizonForOffers", the default horizon for Requests. 
-	 * 
 	 */
 	public static final String PROPERTY_NAME_planningHorizonForRequests="planningHorizonForRequests";
 	
+	/** Property Name for "northernBound", latitude providing the northern bound of area */
+	public static final String PROPERTY_NAME_northernBound="northernBound";
+	
+	/** Property Name for "easternBound", longitude providing the western bound of area */
+	public static final String PROPERTY_NAME_easternBound="easternBound"; 
+	
+	/** Property Name for "southernBound", latitude providing the southern bound of area */
+	public static final String PROPERTY_NAME_southernBound="southernBound";
+	
+	/** Property Name for "westernBound", longitude providing the western bound of area */
+	public static final String PROPERTY_NAME_westernBound="westernBound";
+	
+
+
 }

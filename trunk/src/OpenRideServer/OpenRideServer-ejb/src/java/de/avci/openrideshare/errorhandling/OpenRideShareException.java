@@ -1,8 +1,5 @@
 package de.avci.openrideshare.errorhandling;
 
-import java.util.Locale;
-
-import de.avci.openrideshare.utils.PropertiesLoader;
 
 
 /** Common base class for Exceptions to be thrown when accessing ORS functionality
