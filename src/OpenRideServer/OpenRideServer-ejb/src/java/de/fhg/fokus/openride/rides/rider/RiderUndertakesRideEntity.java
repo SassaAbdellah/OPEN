@@ -645,4 +645,11 @@ public class RiderUndertakesRideEntity implements Serializable {
         return this.getRideId()!=null;
     }
     
+	/** An ID to be assigned to an request, if something went wrong
+	 *  during initialization. 
+	 *  
+	 */
+	public static final Integer UNINITIALIZED=Integer.MIN_VALUE;
+    
+	
 }

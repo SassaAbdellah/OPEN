@@ -328,9 +328,43 @@
 			<substitution expression="geomapper=${geomapper}" />
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
+		
+		
+		<!-- ******************************************** -->
+		<!-- ** Spatial Boundaries ********************** -->
+		<!-- ******************************************** -->
+		
+		<!-- ** Northern bound ** -->
+		
+		<replaceregexp byline="true">
+			<regexp pattern="northernBound=(.*)" />
+			<substitution expression="northernBound=${northernBound}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+		<!-- ** Eastern bound ** -->
+		
+		<replaceregexp byline="true">
+			<regexp pattern="easternBound=(.*)" />
+			<substitution expression="easternBound=${easternBound}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+		<!-- ** Southern bound ** -->
+		
+		<replaceregexp byline="true">
+			<regexp pattern="southernBound=(.*)" />
+			<substitution expression="southernBound=${southernBound}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+		<!-- ** Western bound ** -->
+		
+		<replaceregexp byline="true">
+			<regexp pattern="westernBound=(.*)" />
+			<substitution expression="westernBound=${westernBound}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
 
 	</target>
