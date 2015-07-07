@@ -542,19 +542,25 @@ public class JRiderUndertakesRideEntityService {
 	}
 
 	/**
-	 * Add new RideRequest to the Database, generates and returns the ID of the
+	 * Add new Offer to the Database, generates and returns the ID of the
 	 * so created ride request.
+	 * 
+	 * 
+	 * @return id of the new offer 
 	 */
+
 	public int addRideRequest(JRiderUndertakesRideEntity jrure) {
 
 		CustomerEntity ce = this.getCustomerEntity();
 
 		if (ce == null) {
-			throw new Error("Cannot persist Rides, customerEntity is null");
+			log.log(Level.SEVERE, "Client side exception whil adding request, cannot determine customer");
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 
 		if (ce.getCustId() == null) {
-			throw new Error("Cannot determine Rides, customerId is null");
+			log.log(Level.SEVERE, "Client side exception whil adding request, cannot determine customer id");
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 
 		// null comments may cause nullpointer trouble, so clean it here
@@ -565,13 +571,15 @@ public class JRiderUndertakesRideEntityService {
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
 		// TODO: produce a more decent error state
 		if(jrure.getStartpt().getX()==0d && jrure.getStartpt().getY()==0d){
-			throw new Error("rides start on north pole");
+			log.log(Level.SEVERE, "Startpoint not initialized while adding request ");
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 		
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
 		// TODO: produce a more decent error state
 		if(jrure.getEndpt().getX()==0d && jrure.getEndpt().getY()==0d){
-			throw new Error("rides ends on north pole");
+			log.log(Level.SEVERE, "Endpoint not initialized while adding request ");
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 		
 
@@ -605,11 +613,11 @@ public class JRiderUndertakesRideEntityService {
 			// TODO: show a decent errormessage obtained from ORSException
 				
 			log.log(Level.SEVERE, "ORS Exception while adding request : "+exc.getMessage(),exc);
-			return -1;
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		} catch(Exception exc){
 			
 			log.log(Level.SEVERE, "Unexpected Exception while adding request : "+exc.getMessage(),exc);
-			return -1;
+			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 	}
 

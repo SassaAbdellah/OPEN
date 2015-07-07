@@ -26,6 +26,7 @@ import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
@@ -457,15 +458,14 @@ public class JDriverUndertakesRideEntityService {
 	public int addDriveSafely(JDriverUndertakesRideEntity jdure) {
 
 		//  integrity of Offer
-		
+		      
 		try { this.lookupDriverUndertakesRideControllerBeanLocal().checkDriverUndertakesRideEntity(jdure);
 		} catch (OpenRideShareException exc) {
 			// TODO Do something more decent here!
 			throw new Error(exc);
 		}
 		
-		
-
+	
 		//
 		// if drive does really belong to the calling user
 		//
@@ -473,6 +473,23 @@ public class JDriverUndertakesRideEntityService {
 		CustomerEntity ce = this.getCustomerEntity();
 		DriverUndertakesRideControllerLocal durcl = this
 				.lookupDriverUndertakesRideControllerBeanLocal();
+		
+		
+		
+		// startpoint coordinates 0/0 probably means uninitialized rather then pole
+		// TODO: produce a more decent error state
+		if(jdure.getRideStartpt().getX()==0d && jdure.getRideStartpt().getY()==0d){
+			logger.log(Level.SEVERE, "Startpoint not initialized while adding offer");
+			return DriverUndertakesRideEntity.UNINITIALIZED;
+		}
+		
+		// startpoint coordinates 0/0 probably means uninitialized rather then pole
+		// TODO: produce a more decent error state
+		if(jdure.getRideEndpt().getX()==0d && jdure.getRideEndpt().getY()==0d){
+			logger.log(Level.SEVERE, "Endpoint not initialized while adding offer ");
+			return RiderUndertakesRideEntity.UNINITIALIZED;
+		}
+		
 
 		try {
 			return durcl.addRide(
@@ -513,7 +530,7 @@ public class JDriverUndertakesRideEntityService {
 			
 		} catch(Exception exc){
 			
-			logger.log(Level.SEVERE, "Unexpected Exception while adding offer       : "+exc.getMessage(),exc);
+			logger.log(Level.SEVERE, "Unexpected Exception while adding offer       : "+exc.getMessage(), exc);
 			return -1;
 		}
 			
