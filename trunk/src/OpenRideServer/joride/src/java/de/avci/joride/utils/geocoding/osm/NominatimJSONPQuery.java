@@ -7,8 +7,13 @@ package de.avci.joride.utils.geocoding.osm;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import de.avci.openrideshare.boundaries.BoundariesBean;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
+import de.avci.openrideshare.utils.PropertiesLoader;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 /**
  * Model for a JSONP Query to the nominatim geocoding service.
@@ -96,11 +101,17 @@ public class NominatimJSONPQuery  implements Serializable {
     
     
     /** Name of the limit http parameter.
-     *
      */
     protected static final String PARAM_NAME_limit = "limit";
     
+    /** Name of the bounded parameter which turns on/of the bounding box
+     */
+    protected static final String PARAM_NAME_bounded="bounded";
     
+    /** Name of the viewbox parameter, which gives the bounds for the box  
+     *  in which the results should be contained.
+     */
+    protected static final String PARAM_NAME_viewbox="viewbox";
     
     
     
@@ -350,7 +361,27 @@ public class NominatimJSONPQuery  implements Serializable {
      *
      */
     protected static final String PARAM_VALUE_json_callback = "callback";
-
+    
+    
+    
+    /** Northern bound to be send to nominatim
+     */
+    protected String PARAM_VALUE_north=(""+(new BoundariesBean()).getNorthernBound());
+ 
+    /** eastern bound to be send to nominatim
+     */
+    protected String PARAM_VALUE_east=(""+(new BoundariesBean()).getEasternBound());
+    
+    /** Northern bound to be send to nominatim
+     */
+    protected String PARAM_VALUE_south=(""+(new BoundariesBean()).getSouthernBound());
+    
+    /** Northern bound to be send to nominatim
+     */
+    protected String PARAM_VALUE_west=(""+(new BoundariesBean()).getWesternBound());
+    
+    
+    
     /**
      * Create the nominatim specific string to be given as a value for the 'q'
      * parameter.
@@ -511,7 +542,20 @@ public class NominatimJSONPQuery  implements Serializable {
         res += "&" + PARAM_NAME_polygon        + "=" + PARAM_VALUE_polygon;
         res += "&" + PARAM_NAME_addressdetails + "=" + PARAM_VALUE_addressdetails;
         res += "&" + PARAM__NAME_json_callback + "=" + PARAM_VALUE_json_callback;
-
+        //
+        // Bounding boxes for nominatim, see http://wiki.openstreetmap.org/wiki/Nominatim
+        //
+        res += "&" + PARAM_NAME_bounded+"=1";
+        //
+        // Viewbox bounded by left,top,rigt, bottom
+        //
+        res +="&"+PARAM_NAME_viewbox+"="+PARAM_VALUE_west+","+PARAM_VALUE_north+","+PARAM_VALUE_east+","+PARAM_VALUE_south;
+                
+        
+        
+        
+        
+        
         return res;
     }
 } // class
