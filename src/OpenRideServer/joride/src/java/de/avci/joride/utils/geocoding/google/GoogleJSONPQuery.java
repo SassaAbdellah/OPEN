@@ -7,6 +7,7 @@ package de.avci.joride.utils.geocoding.google;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import de.avci.openrideshare.boundaries.BoundariesBean;
 
 import java.io.Serializable;
 
@@ -74,6 +75,44 @@ public class GoogleJSONPQuery  implements Serializable {
     public void setLimit(int arg){
     	this.limit=Math.max(arg, 1);
     }
+    
+    
+    
+
+	/** Northern bound to be send to google maps api
+     */
+    private static String north=(""+(new BoundariesBean()).getNorthernBound());
+ 
+    /** eastern bound to be send to  google maps api
+     */
+    private static String east=(""+(new BoundariesBean()).getEasternBound());
+    
+    /** Northern bound to be send to google maps api
+     */
+    private static String south=(""+(new BoundariesBean()).getSouthernBound());
+    
+    /** Northern bound to be send to google maps api
+     */
+    private static String west=(""+(new BoundariesBean()).getWesternBound());
+
+	public  String getNorth() {
+		return north;
+	}
+
+
+	public  String getEast() {
+		return east;
+	}
+
+
+	public  String getSouth() {
+		return south;
+	}
+
+
+	public  String getWest() {
+		return west; 
+	}
     
     
      

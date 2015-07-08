@@ -115,14 +115,23 @@
 				// URL where the mapper is (for displaying results in map)
 				var mapURL = '#{nav.urlOSMMap}';
 				// Target url: this is where the "accept" link will point to
-				var targetURL = '#{point.targetURL}'
+				var targetURL = '#{point.targetURL}';
 				
 				<!-- ******************************************* -->
 				<!-- now, do the actural search with google maps -->
 				<!-- ******************************************* -->
-				var address='#{googleq.searchstring}'
-				var limit='#{googleq.limit}'
-				codeAddressWithGoogle(address);
+				var address='#{googleq.searchstring}';
+				var limit='#{googleq.limit}';
+				
+				<!-- Bounds -->
+		
+				var north="#{googleq.north}";
+				var east="#{googleq.east}";
+				var south="#{googleq.south}";
+				var west="#{googleq.west}";
+				
+			
+				codeAddressWithGoogle(address, north, east, south , west );
 					
 			</script>
 
@@ -130,14 +139,6 @@
 			<!--  important to do the jsonp call at the very end of the page  -->
 			<!--  so that DOM Element to be changed by callback function      -->
 			<!--  are already in place when callback function is called!      -->
-
-			<!--  TODO: add google's code here... -->
-
-
-
-
-
-
 
 
 			<div class="webflow">
