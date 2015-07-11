@@ -557,21 +557,21 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
         
         // Check if new offer can be created
         if(customer==null){
-        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Code);
+        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.UserDoesNotExistError_Str);
         	log.severe("Creating offer failed for Customer null, REASON : "+exc.getMessage());
         	throw exc;
         }
       
         // Check if quota is exceeded
         if(this.noOfLeftOffers(cust_id)<=0){
-        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.OfferLimitExceededError_Code);
+        	OpenRideShareException exc=new OpenRideShareException(ErrorCodes.OfferLimitExceededError_Str);
         	log.severe("Creating offer failed for Customer "+customer.getCustNickname()+", REASON : "+exc.getMessage());
         	throw exc;
         }
         
         // check, if customer's horizon is exceeded
      		if (customer.getPlanningHorizonForOfferTS().getTime() < ridestartTime.getTime()) {
-     			OpenRideShareException exc= new OpenRideShareException( ErrorCodes.OFFERCREATION_HORIZONEXCEEDED_Error_Code);
+     			OpenRideShareException exc= new OpenRideShareException( ErrorCodes.OFFERCREATION_HORIZONEXCEEDED_Error_Str);
      			log.severe("Creating offer failed for Customer "+customer.getCustNickname()+", REASON : "+exc.getMessage());
             	throw exc;
      		}
@@ -1489,17 +1489,17 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 		
 		// Point ridestartPt
 		if (dure.getRideStartpt() == null) {
-			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartPointNull_Code);
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartPointNull_Str);
 		}
 
 		// Point rideendPt
 		if (dure.getRideEndpt() == null) {
-			throw new OpenRideShareException( ErrorCodes.CreateOfferFailure_RideEndpointNull_Code );
+			throw new OpenRideShareException( ErrorCodes.CreateOfferFailure_RideEndpointNull_Str );
 		}
 
 		// java.sql.Date ridestartTime
 		if (dure.getRideStarttime() == null) {
-			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartTimeNull_Code);
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_RideStartTimeNull_Str);
 		}
 
 		// String rideComment
@@ -1515,7 +1515,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 		
 		// Integer acceptableDetourMeter
 		if (dure.getRideAcceptableDetourInM() == null) {
-			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Code);
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_Ride_RideAcceptableDetourMeterNull_Str);
 		}
 
 		// Integer acceptableDetourPercent,
@@ -1530,12 +1530,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 
 		// String startptAddress,
 		if (dure.getStartptAddress() == null) {
-			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_StartPointAddressNull_Code);
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_StartPointAddressNull_Str);
 		}
 
 		// String endptAddress
 		if (dure.getEndptAddress() == null) {
-			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_EndpointAddressNull_Code);
+			throw new OpenRideShareException(ErrorCodes.CreateOfferFailure_EndpointAddressNull_Str);
 		}
 	}
 
