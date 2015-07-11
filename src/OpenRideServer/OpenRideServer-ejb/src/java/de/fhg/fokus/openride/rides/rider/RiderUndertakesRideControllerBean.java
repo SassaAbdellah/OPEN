@@ -1064,7 +1064,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 		if (customer == null) {
 
 			OpenRideShareException exc = new OpenRideShareException(
-					ErrorCodes.UserDoesNotExistError_Code);
+					ErrorCodes.UserDoesNotExistError_Str);
 
 			log.severe("Error creating Request for customer null, REASON : "
 					+ exc.getMessage());
@@ -1076,7 +1076,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 		if (this.noOfLeftRequests(cust_id) <= 0) {
 
 			OpenRideShareException exc = new OpenRideShareException(
-					ErrorCodes.RequestLimitExceededError_Code);
+					ErrorCodes.RequestLimitExceededError_Str);
 			log.severe("Error creating Request for customer "
 					+ customer.getCustNickname() + ", REASON : "
 					+ exc.getMessage());
@@ -1089,7 +1089,7 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 				.getTime()) {
 
 			OpenRideShareException exc = new OpenRideShareException(
-					ErrorCodes.REQUESTCREATION_HORIZONEXCEEDED_Error_Code);
+					ErrorCodes.REQUESTCREATION_HORIZONEXCEEDED_Error_Str);
 			log.severe("Error creating Request for customer "
 					+ customer.getCustNickname() + ", REASON : "
 					+ exc.getMessage());
@@ -1833,37 +1833,37 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 		// Point ridestartPt
 		if (rure.getStartpt() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_RideStartPointNull_Code);
+					ErrorCodes.CreateRequestFailure_RideStartPointNull_Str);
 		}
 
 		// Point rideendPt
 		if (rure.getEndpt() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_RideEndpointNull_Code);
+					ErrorCodes.CreateRequestFailure_RideEndpointNull_Str);
 		}
 
 		// java.sql.Date startTime Earliest
 		if (rure.getStarttimeEarliest() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_RideStartTimeEarliestNull_Code);
+					ErrorCodes.CreateRequestFailure_RideStartTimeEarliestNull_Str);
 		}
 
 		// java.sql.Date startTime latest
 		if (rure.getStarttimeEarliest() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_RideStartTimeLatestNull_Code);
+					ErrorCodes.CreateRequestFailure_RideStartTimeLatestNull_Str);
 		}
 
 		// String startptAddress,
 		if (rure.getStartptAddress() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_StartPointAddressNull_Code);
+					ErrorCodes.CreateRequestFailure_StartPointAddressNull_Str);
 		}
 
 		// String endptAddress
 		if (rure.getEndptAddress() == null) {
 			throw new OpenRideShareException(
-					ErrorCodes.CreateRequestFailure_EndPointAddressNull_Code);
+					ErrorCodes.CreateRequestFailure_EndpointAddressNull_Str);
 		}
 	}
 

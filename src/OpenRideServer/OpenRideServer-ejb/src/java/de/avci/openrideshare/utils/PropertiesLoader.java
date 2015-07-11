@@ -83,20 +83,39 @@ public class PropertiesLoader {
     
     
     
-    /** Hashtable providing messages for all supported locales
+    /** Hashtable providing the messages for all supported locales
      * 
      */
     private static Hashtable <Locale,Properties> messageCache = new Hashtable <Locale,Properties> ();
   
+
+    /** Hashtable providing the errormessages for all supported locales
+     * 
+     */
+    private static Hashtable <Locale,Properties> errormessageCache = new Hashtable <Locale,Properties> ();
+  
+    
+    
     
     /**
      * Place where the messages_xx.properties files are located in the code
      */
     private static final String MESSAGES_URL = "de.avci.openrideshare.properties.messages";
 
-
+    /**
+     * Place where the operational properties files are located in the code
+     */
 	private static final String OPERATIONAL_URL = "de.avci.openrideshare.properties.operational";
-    /** getPro
+	
+	
+	/**
+     * Place where the errormessages_xx.properties files are located in the code
+     */
+	private static final String ERRORMESSAGES_URL = "de.avci.openrideshare.properties.errormessages";
+
+    
+	
+	/** getPro
      * 
      * @param locale
      * @return
@@ -106,7 +125,7 @@ public class PropertiesLoader {
     	Properties props=messageCache.get(locale);
     	
     	if(props==null){
-    		  PropertiesLoader loader=new PropertiesLoader();
+    		  PropertiesLoader loader=new PropertiesLoader(locale);
     		  ResourceBundle rb =loader.loadResourceBundleByName(MESSAGES_URL);
     	      props = loader.getPropertiesFromRessourceBundle(rb);
     	      messageCache.put(locale, props);
@@ -129,6 +148,64 @@ public class PropertiesLoader {
     	return loadMessageProperties(locale);
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    /** getPro
+     * 
+     * @param locale
+     * @return
+     */
+    private static Properties loadErrorMessageProperties(Locale locale){
+    	
+    	Properties props=errormessageCache.get(locale);
+    	
+    	if(props==null){
+    		  PropertiesLoader loader=new PropertiesLoader(locale);
+    		  ResourceBundle rb =loader.loadResourceBundleByName(ERRORMESSAGES_URL);
+    	      props = loader.getPropertiesFromRessourceBundle(rb);
+    	      errormessageCache.put(locale, props);
+    	      
+    	      if (props==null) {
+    	    	  throw new Error("Cannot load Errormessages Properties to Cache for Locale "+locale);
+    	      }
+    	}
+    	return props;
+    }
+    
+ 
+    /** Return Messagess from Cache. If no such Properties are in the cache,
+     *  load Properties to cache first, then return them.
+     * 
+     * @param locale
+     * 
+     * @return
+     * 
+     */
+    public static Properties getErrorMessageProperties(Locale locale){
+    	return loadErrorMessageProperties(locale);
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     /** Operational Properties.... jndi location and the like...
@@ -163,6 +240,17 @@ public class PropertiesLoader {
     	
     	return operationalProperties;
     }
+    
+    
+    
+    public static void main(String args[]){
+    	System.err.println(""+getMessageProperties(Locale.ENGLISH));
+    	System.err.println(""+getErrorMessageProperties(Locale.ENGLISH));
+    }
+ 
+       
+    
+    
        
     
 }

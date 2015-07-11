@@ -128,9 +128,9 @@ public class CustomerControllerBean extends ControllerBean implements
 		// Make sure no Customer exists for this same nickname/email
 		// and that nickname/email comply to syntax rules
 	
-		int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
+		String checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 		
-		if(checkresult!=0){
+		if(checkresult!=null){
 			throw new OpenRideShareException(checkresult);
 		}
 		
@@ -189,9 +189,9 @@ public class CustomerControllerBean extends ControllerBean implements
 			// convert nickname to lower case before checking integrity
 			String custNicknameL=custNickname.toLowerCase();
 			// check integrity
-			int checkresult=this.customerCheckInternal(custNicknameL, custEmail);
+			String checkresult=this.customerCheckInternal(custNicknameL, custEmail);
 			
-			if(checkresult!=0){
+			if(checkresult!=null){
 				throw new OpenRideShareException(checkresult);
 			}
 	
@@ -241,16 +241,16 @@ public class CustomerControllerBean extends ControllerBean implements
 	 * @param custEmail
 	 * 
 	 * 
-	 * @return 0 if all checks where passed, or one of the errorcodes defined in CustomerUtils
+	 * @return null if all checks where passed, or one of the errorcodes defined in CustomerUtils
 	 */
 	
-	private int customerCheckInternal(String custNickname, String custEmail  ){
+	private String customerCheckInternal(String custNickname, String custEmail  ){
 		
 		
 		// check if username is compliant to rules, return error if not
 		if(!(CustomerUtils.isValidNickname(custNickname))){
 			logger.log(Level.SEVERE, "Proposed nickname is not compliant : "+custNickname);
-			return ErrorCodes.CUSTCREATION_NICKNAME_SYNTAX_Error_Code;
+			return ErrorCodes.CUSTCREATION_NICKNAME_SYNTAX_Error_Str;
 		}
 		
 		
@@ -260,14 +260,14 @@ public class CustomerControllerBean extends ControllerBean implements
 
 		if (entitiesNick.size() > 0) {
 			logger.log(Level.SEVERE, "Proposed nickname already exists : "+custNickname);
-			return ErrorCodes.CUSTCREATION_NICKNAME_EXISTS_Error_Code;
+			return ErrorCodes.CUSTCREATION_NICKNAME_EXISTS_Error_Str;
 		} 
 		
 		
 		// check if username is compliant to rules, return error if not
 		if(!(CustomerUtils.isValidEmailAdress(custEmail))){
 			logger.log(Level.SEVERE, "Proposed email is not compliant : "+custEmail);
-			return ErrorCodes.CUSTCREATION_EMAIL_SYNTAX_Error_Code;
+			return ErrorCodes.CUSTCREATION_EMAIL_SYNTAX_Error_Str;
 		}
 					
 					
@@ -277,13 +277,13 @@ public class CustomerControllerBean extends ControllerBean implements
 
 		if (entitiesMail.size() > 0) {
 				logger.log(Level.SEVERE, "Proposed email already exists : "+custEmail);
-				return ErrorCodes.CUSTCREATION_EMAIL_EXISTS_Error_Code;
+				return ErrorCodes.CUSTCREATION_EMAIL_EXISTS_Error_Str;
 		} 
 		
 		
 		// TODO: check, iff terms and conditions are accepted-!!!
 		
-		return 0;
+		return null;
 	}
 	
 	

@@ -23,29 +23,19 @@ public  class OpenRideShareException extends Exception {
 	
 	/** Numerical Error Code to be set on instantiation.
 	 * 
-	 */
-	private Integer errorCode;
+	 *  String valued (not numerical!) Error code associated to this Exception.
+	 *  These are well known keys and will also serve in retrieving 
+	 *  localized error messages
+	 */ 
+	
+	private String errorCode;
 	
 	
-
-			
-	
-	
-	
-	/** Override Standard getMessage() method to return the short english Message
-	 *  from MessageProperties
-	 *  
-	 * @return
-	 */
-	public Integer getErrorCode(){
+	public String getErrorCode(){
 		return this.errorCode;
 	}
 	
 	
-	
-	
-	
-
 	
 	/** Return a json representation of this error
 	 */
@@ -69,9 +59,9 @@ public  class OpenRideShareException extends Exception {
 	 *
 	 *  @param errorCode
 	 */
-	public OpenRideShareException(Integer errorCode){
+	public OpenRideShareException(String errorCode){
 		
-		super(ErrorCodes.getErrorStr(errorCode));
+		super(errorCode);
 		this.errorCode=errorCode;
 		
 	}
