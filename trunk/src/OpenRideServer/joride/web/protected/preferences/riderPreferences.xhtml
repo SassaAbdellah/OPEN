@@ -80,33 +80,32 @@
 
 
 					<h:selectOneRadio value="#{jprofile.custRiderprefSmoker}">
+						<p>
 						<div class="formLabel">
 							<f:selectItem itemValue="#{jprofile.smokerChar}"
 								itemLabel="#{msgs.custSmokeAcceptSmokingDriver}" />
 						</div>
+						</p>
+						<p>
 						<div class="formLabel">
 							<f:selectItem itemValue="#{jprofile.nonsmokerChar}"
 								itemLabel="#{msgs.custSmokeNotAcceptSmokingDriver}" />
 						</div>
+						</p>
 					</h:selectOneRadio>
 
 				</div>
 
 
-				<p:commandButton action="#{jprofile.updateRiderPreferencesToDB}"
-					value="#{msgs.formApply}" ajax="false" />
+				<p:commandButton 
+					actionListener="#{jprofile.updateRiderPreferencesToDB}"
+					value="#{msgs.formApply}" 
+					ajax="false" 
+					action="preferences" 	
+					/>
 
 
 			</h:form>
-
-
-
-
-
-
-
-
-
 
 
 		</ui:define>
