@@ -796,6 +796,18 @@ public class CustomerControllerBean extends ControllerBean implements
 		CustomerEntity ce = this.getCustomer(customerId);
 		ce.updateIndividualLimitMatch(newLimit);
 	}
+
+	@Override
+	public void setCustomerPreferredUnitOfLength(Integer custId,
+			int preferredUnitOfLength) {
+		CustomerEntity ce = this.getCustomer(custId);
+		
+		startUserTransaction();
+		ce.setPreferredUnitOfLength(preferredUnitOfLength);
+		em.persist(ce);
+		commitUserTransaction();
+		
+	}	
 	
 	
 	
