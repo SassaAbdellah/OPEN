@@ -217,7 +217,14 @@
 
 						</p:calendar>
 					</div>
-					
+			
+					<p:commandButton 
+						actionListener="#{jprofile.updatePersonalDataToDB}"
+						action="preferences"
+						value="#{msgs.formApply}" 
+						ajax="false" 
+						/>
+									
 
 
 				</h:form>
