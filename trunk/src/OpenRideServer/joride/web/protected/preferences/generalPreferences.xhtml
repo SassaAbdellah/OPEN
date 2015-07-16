@@ -73,8 +73,12 @@
 					</div>
 
 
-					<p:commandButton actionListener="#{jprofile.updateMatchLimitToDB}"
-						action="preferences" value="#{msgs.formSubmit}" ajax="false" />
+					<p:commandButton 
+						actionListener="#{jprofile.updateMatchLimitToDB}"
+						action="preferences" 
+						value="#{msgs.formSubmit}" 
+						ajax="false" 
+						/>
 
 
 				</p:panel>
@@ -91,26 +95,18 @@
 
 					</div>
 
-
-
 					<p:commandButton
-						actionListener="#{jprofile.updatePersonalDataToDB}"
+						actionListener="#{jprofile.updatePreferredUnitOfLengthToDB}"
 						value="#{msgs.formSubmit}" 
 						action="preferences" 
+						ajax="false"
 						/>
 
 				</p:panel>
 
 			</h:form>
 
-
-
-
-
-
 		</ui:define>
-
-
 
 
 	</ui:composition>

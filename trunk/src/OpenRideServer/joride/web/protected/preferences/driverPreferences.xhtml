@@ -78,8 +78,11 @@
 								itemLabel="#{msgs.custNonSmokeInCar}" />
 						</div>
 					</h:selectOneRadio>
-					<p:commandButton action="#{jprofile.updateDriverPreferencesToDB}"
-						value="#{msgs.formApply}" ajax="false" />
+
+					<p:commandButton
+						actionListener="#{jprofile.updateDriverPreferencesToDB}"
+						action="preferences" value="#{msgs.formApply}" ajax="false" />
+
 				</h:form>
 			</p:panel>
 
@@ -149,12 +152,20 @@
 							</table>
 						</p:tab>
 					</p:accordionPanel>
+
 				</h:form>
 
 				<p>
 					<h:form>
 						<h:commandLink value="#{msgs.cardetAddCar}"
 							action="preferences.carDetailsCreate" />
+					</h:form>
+				</p>
+
+				<p>
+					<h:form>
+						<p:commandButton action="preferences" value="#{msgs.finish}"
+							ajax="false" />
 					</h:form>
 				</p>
 
