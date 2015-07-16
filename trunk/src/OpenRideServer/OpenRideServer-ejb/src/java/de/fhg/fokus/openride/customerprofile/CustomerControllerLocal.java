@@ -123,6 +123,17 @@ public interface CustomerControllerLocal {
      * @param customerId
      * @param newLimit
      */
-	void setIndividualMatchLimit(int customerId, int newLimit);
+	public void setIndividualMatchLimit(int customerId, int newLimit);
+
+	
+    /** Set customer's preferred unit of length 
+     * 
+     * 
+	 * @param custId
+	 * @param preferredUnitOfLength
+	 * 
+	 */
+	public void setCustomerPreferredUnitOfLength(Integer custId,
+			int preferredUnitOfLength);
     
 }

@@ -780,6 +780,25 @@ public class CustomerEntity implements Serializable {
 		this.individualLimitMatch = Math.min(arg1, this.getMaxLimitMatch());
 	}
 	
+	
+	
+	/**
+	 * Update the preferredUnitOfLength
+	 * 
+	 * @param newLimit
+	 */
+	public void updatePreferredUnitOfLength (int preferredUnitOfLength) {
+
+		System.err.println(this.getClass()+" TODO: implement this methos");
+				
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**  @return  Timestamp marking the upper limit for startTime of offers to be issued.
 	 */
 	public Timestamp getPlanningHorizonForOfferTS(){
