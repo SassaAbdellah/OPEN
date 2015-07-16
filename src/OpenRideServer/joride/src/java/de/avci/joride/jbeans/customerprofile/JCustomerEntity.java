@@ -482,6 +482,20 @@ public class JCustomerEntity extends CustomerEntity {
 				.getIndividualLimitMatch());
 	}
 
+	
+	
+	
+	/**
+	 * Set lastCustomerCheck Property to current date
+	 */
+	public void updatePreferredUnitOfLengthToDB() {
+		new JCustomerEntityService().setPreferredUnitOfLengthSavely(this.getPreferredUnitOfLength());
+	}
+
+	
+	
+	
+	
 	/**
 	 * List containing all availlable Units of length. This is here to allow a
 	 * choice when fixing personal preferences.

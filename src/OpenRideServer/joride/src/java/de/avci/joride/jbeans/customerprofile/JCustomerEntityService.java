@@ -646,4 +646,31 @@ public class JCustomerEntityService {
     } // getCustomerEntity
     
     
+    
+    /**
+     * Set the preferred unit of length by integer Representation
+     *
+     */
+    public void setPreferredUnitOfLengthSavely(int preferredUnitOfLength){
+        // SecurityMeasure: ensure that the userName is equal to
+        // the AuthPrincipal of the Request
+
+        String userName = (new HTTPUtil()).getUserPrincipalName();
+        CustomerEntity customerEntity = customerControllerBean.getCustomerByNickname(userName);
+        
+        if(customerEntity!=null){
+        
+        	CustomerControllerLocal ccl=this.lookupCustomerControllerBeanLocal();
+        	ccl.setCustomerPreferredUnitOfLength(customerEntity.getCustId(), preferredUnitOfLength);
+        	
+        }
+        
+        else throw new Error("Cannot find CustomerEntity with username "+userName);
+        
+
+    } // getCustomerEntity
+
+
+
+    
 } // class
