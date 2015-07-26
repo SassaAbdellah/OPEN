@@ -9,13 +9,17 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PostGISPointUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.customerprofile.FavoritePointEntity;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
+import org.omg.CosNaming.IstringHelper;
 import org.postgis.Point;
 
 /**
@@ -24,7 +28,7 @@ import org.postgis.Point;
  * @author jochen
  */
 @Named("jfavpoint")
-@RequestScoped
+@SessionScoped
 public class JFavoritePointEntity extends FavoritePointEntity {
 
     transient Logger log = Logger.getLogger(this.getClass().getCanonicalName());
@@ -124,8 +128,10 @@ public class JFavoritePointEntity extends FavoritePointEntity {
         if (p.getAddress() != null) {
             this.setFavptAddress(p.getAddress());
         }
+        
+        // update displayname, unless user has already entered something 
 
-        if (p.getDisplaystring() != null) {
+        if (p.getDisplaystring() != null && (isNullOrEmpty(this.getFavptDisplayname()))) {
             this.setFavptDisplayname(p.getDisplaystring());
         }
 
@@ -186,6 +192,20 @@ public class JFavoritePointEntity extends FavoritePointEntity {
         this.setFavptPoint(fp.getFavptPoint());
 
     }
+    
+    /** ordinary method to test wether given String is null or empty
+	 * 
+	 * @param arg   string to be tested
+	 * @return true, if argument is null or consists of whitespaces only
+	 */
+	private boolean isNullOrEmpty(String arg){
+		
+		if(arg==null){return true;}	
+		if("".equals(arg.trim())){ return true;}
+		return false;
+	}
+	
+
 
     /**
      * Dump default constructor

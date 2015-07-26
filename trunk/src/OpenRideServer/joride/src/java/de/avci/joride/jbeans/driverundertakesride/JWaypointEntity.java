@@ -8,7 +8,9 @@ import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.WebflowPoint;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
+
 import java.io.Serializable;
+
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
@@ -69,12 +71,7 @@ public class JWaypointEntity extends WaypointEntity implements Serializable, Com
     public void smartUpdate() {
 
         try {
-
-
-            this.setDescription("smartUpdat has been called on this");
-            
-            
-
+        	
             HTTPUtil hru = new HTTPUtil();
             String positionS = hru.getParameterSingleValue(getParamNamePosition());
 
@@ -106,8 +103,13 @@ public class JWaypointEntity extends WaypointEntity implements Serializable, Com
 
             this.setLongitude(webflowPoint.getLon());
             this.setLatitude(webflowPoint.getLat());
-            this.setDescription(webflowPoint.getDisplaystring());
-
+            
+            // if user has not set a description for this waypoint yet,
+            // description use default displaystring of chosen waypoint
+            
+            if(isNullOrEmpty(this.getDescription())){
+            	this.setDescription(webflowPoint.getDisplaystring());
+            }
             // set position parameter and rideIDs 
 
         } catch (Exception exc) {
@@ -189,7 +191,6 @@ public class JWaypointEntity extends WaypointEntity implements Serializable, Com
      */
     public JWaypointEntity() {
         super();
-        this.setDescription("uninitialized");
     }
 
     /**
@@ -311,5 +312,15 @@ public class JWaypointEntity extends WaypointEntity implements Serializable, Com
 	}
 
 	
+	/** ordinary method to test wether given String is null or empty
+	 * 
+	 * @param arg   string to be tested
+	 * @return true, if argument is null or consists of whitespaces only
+	 */
+	private boolean isNullOrEmpty(String arg){
+		if(arg==null){return true;}
+		if("".equals(arg.trim())){ return true;}
+		return false;
+	}
     
 }
