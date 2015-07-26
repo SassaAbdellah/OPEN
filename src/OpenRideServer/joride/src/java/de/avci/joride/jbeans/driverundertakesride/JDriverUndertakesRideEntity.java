@@ -380,7 +380,7 @@ public class JDriverUndertakesRideEntity extends
 
 	/**
 	 * Value for point.target parameters. If "Endpoint" ist set, then
-	 * smartUpdate will set the startpoint
+	 * smartUpdate will set the endpoint
 	 */
 	private static final String paramValueTargetEndpoint = "ENDPOINT";
 
@@ -503,7 +503,12 @@ public class JDriverUndertakesRideEntity extends
 
 		if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
 
-			if (webflowPoint.getParamAddress() != null) {
+			if (
+					(webflowPoint.getParamAddress() != null)
+					&& // do not overwrite user defined address
+					(isNullOrEmpty(this.getStartptAddress()))
+					
+					) {
 				this.setStartptAddress(webflowPoint.getAddress());
 			}
 
@@ -525,7 +530,12 @@ public class JDriverUndertakesRideEntity extends
 
 		if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
 
-			if (webflowPoint.getParamAddress() != null) {
+			if (
+				(webflowPoint.getParamAddress() != null) 			
+				&&
+				(isNullOrEmpty(this.getEndptAddress()))
+				)
+			{
 				this.setEndptAddress(webflowPoint.getAddress());
 			}
 
@@ -989,6 +999,22 @@ public class JDriverUndertakesRideEntity extends
 		return true;
 	}
 	
+	
+	
+	
+	/** ordinary method to test wether given String is null or empty
+	 * 
+	 * @param arg   string to be tested
+	 * @return true, if argument is null or consists of whitespaces only
+	 */
+	private boolean isNullOrEmpty(String arg){
+		
+		if(arg==null){return true;}
+		
+		if("".equals(arg.trim())){ return true;}
+		
+		return false;
+	}
 	
 
 } // class

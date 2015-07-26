@@ -416,7 +416,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
 
-			if (webflowPoint.getParamAddress() != null) {
+			if (
+					(webflowPoint.getParamAddress() != null) 
+					&&
+					(isNullOrEmpty(this.getStartptAddress()))
+			  ) {
 				this.setStartptAddress(webflowPoint.getAddress());
 			}
 
@@ -438,7 +442,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
 
-			if (webflowPoint.getParamAddress() != null) {
+			if (
+				(webflowPoint.getParamAddress() != null)
+				&&
+				(isNullOrEmpty(this.getEndptAddress()))
+			) {
 				this.setEndptAddress(webflowPoint.getAddress());
 			}
 
@@ -1227,6 +1235,18 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		return true;
 	}
 	
+	
+	/** ordinary method to test wether given String is null or empty
+	 * 
+	 * @param arg   string to be tested
+	 * @return true, if argument is null or consists of whitespaces only
+	 */
+	private boolean isNullOrEmpty(String arg){
+		
+		if(arg==null){return true;}	
+		if("".equals(arg.trim())){ return true;}
+		return false;
+	}
 	
 
 } // class
