@@ -12,11 +12,11 @@
 		<!-- lists of supported locales -->
 		<locale-config>
 			<default-locale>en</default-locale>
-			<!-- German:Jochen --> 
+			<!-- German:Jochen -->
 			<supported-locale>de</supported-locale>
-			<!-- English:Jochen --> 
+			<!-- English:Jochen -->
 			<supported-locale>en</supported-locale>
-			<!-- Greek:Jochen --> 
+			<!-- Greek:Jochen -->
 			<supported-locale>el</supported-locale>
 		</locale-config>
 
@@ -27,6 +27,13 @@
 			<base-name>de.avci.joride.messages</base-name>
 			<var>msgs</var>
 		</resource-bundle>
+
+		<!-- Error properties included from OpenRideServer-ejb -->
+		<resource-bundle>
+			<base-name>de.avci.openrideshare.properties.errormessages</base-name>
+			<var>errormessages</var>
+		</resource-bundle>
+
 
 		<!-- Navigation Properties ******************************* -->
 		<resource-bundle>
@@ -199,7 +206,7 @@
 			<to-view-id>/faces/protected/rider/rideMatchSetRiderMessageSuccess.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- display all messages for a ride Matching -->
 
 	<navigation-rule>
@@ -315,8 +322,8 @@
 			<to-view-id>/faces/protected/driver/driveMatchSetDriverMessageSuccess.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	
+
+
 	<!-- display all messages for a drive Matching -->
 
 	<navigation-rule>
@@ -325,9 +332,9 @@
 			<to-view-id>/faces/protected/driver/driveMatchMessagesDisplay.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	
-	
+
+
+
 
 	<!-- countermand confirmation acting as a driver -->
 
@@ -390,8 +397,8 @@
 	<!-- *** End of Search Navigation Cases ***** -->
 	<!-- ********************************************* -->
 
-	
-	
+
+
 	<!-- Navigation Cases for "Profile and Preferences subsection" -->
 	<!-- go to startpage for the preferences section -->
 
@@ -519,9 +526,9 @@
 			<to-view-id>/faces/public/geocoding/nominatim/jasonpNominatim.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	
-	
+
+
+
 	<!-- go to the google geocoding search -->
 	<navigation-rule>
 		<navigation-case>
@@ -537,7 +544,7 @@
 			<to-view-id>/faces/public/geocoding/google/jasonpGoogle.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 
 	<!-- contact page -->
 	<navigation-rule>

@@ -151,6 +151,15 @@ form{
     margin-bottom: 10px;
 }
 
+.formError{
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #ff0000;
+}
+
+
 .formInput{
 	margin-top:10px;
 	margin-left:10px;

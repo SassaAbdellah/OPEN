@@ -74,8 +74,17 @@
 							<p>
 							<div class="formLabel">#{msgs.rideStartptAddress}</div>
 							<div class="formInput">
-								<h:inputTextarea value="#{newdriverride.startptAddress}" />
+								<h:inputTextarea 
+									id="startPoint"
+									value="#{newdriverride.startptAddress}" 
+									required="true"
+									requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}"
+								/>
 							</div>
+							<div class="formError"> <!-- display error if applies -->
+								<h:message for="startPoint" />
+							</div>
+							
 							<table>
 								<tr>
 									<td class="formLabel">#{msgs.geolocationLatitude}</td>
@@ -93,8 +102,11 @@
 								</tr>
 							</table>
 
-							<h:commandLink value="#{msgs.geolocationSelectPlace}"
-								action="pickpoint">
+							<h:commandLink 
+								value="#{msgs.geolocationSelectPlace}"
+								action="pickpoint"
+								immediate="true"
+								>
 
 								<!-- point parameters -->
 								<f:param name="#{point.paramTargetURL}"
@@ -117,8 +129,17 @@
 							<div class="formLabel">#{msgs.rideDestinationAddress}</div>
 
 							<div class="formInput">
-								<h:inputTextarea value="#{newdriverride.endptAddress}" />
+								<h:inputTextarea 
+									id="endPoint"
+									value="#{newdriverride.endptAddress}" 
+									required="true"
+									requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
+									/>
 							</div>
+							<div class="formError"> <!-- display error if applies -->
+								<h:message for="endPoint" />
+							</div>
+							
 							<table>
 								<tr>
 									<td class="formLabel">#{msgs.geolocationLatitude}</td>
@@ -137,10 +158,12 @@
 							</table>
 
 
-							<h:commandLink value="#{msgs.geolocationSelectPlace}"
-								action="pickpoint">
-
-
+							<h:commandLink 
+								value="#{msgs.geolocationSelectPlace}"
+								action="pickpoint"
+								immediate="true"
+								>
+								
 								<!-- point parameters -->
 								<f:param name="#{point.paramTargetURL}"
 									value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
@@ -171,9 +194,17 @@
 							</div>
 
 							<div class="formInput">
-								<h:inputText id="detourPrefUnit"
-									value="#{newdriverride.rideAcceptableDetourPreferredUnit}" />
+								<h:inputText 
+									id="detourPrefUnit"
+									value="#{newdriverride.rideAcceptableDetourPreferredUnit}" 	
+								>
+							
+								</h:inputText>
 							</div>
+							<div class="formError">
+								<h:message for="detourPrefUnit"/>
+							</div>
+							
 							</p>
 						</p:tab>
 
@@ -219,8 +250,10 @@
 									value="#{newdriverride.rideOfferedseatsNo}">
 									<f:convertNumber type="number" integerOnly="true" />
 									<f:validateLongRange minimum="1" />
-									<h:message for="offeredseats" />
 								</h:inputText>
+								<div class="formError">
+									<h:message for="offeredseats" />
+								</div>
 							</div>
 							</p>
 							<p>
