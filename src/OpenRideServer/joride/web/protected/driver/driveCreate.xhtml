@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHFTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -89,15 +89,37 @@
 								<tr>
 									<td class="formLabel">#{msgs.geolocationLatitude}</td>
 									<td>:</td>
-									<td class="formInput">#{newdriverride.latitudeStart} <h:inputHidden
-											value="#{newdriverride.latitudeStart}" />
+									<td class="formInput">#{newdriverride.latitudeStart} 
+										<h:inputHidden
+											id="latitudeStart"
+											value="#{newdriverride.latitudeStart}"
+											validator="de.avci.joride.utils.validators.JorideLatitudeValidator" 
+											/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3"> <!-- field to display bound checking errors -->
+										<div class="formError">	
+											<h:message for="latitudeStart"/>
+										</div>
 									</td>
 								</tr>
 								<tr>
 									<td class="formLabel">#{msgs.geolocationLongitude}</td>
 									<td>:</td>
-									<td class="formInput">#{newdriverride.longitudeStart} <h:inputHidden
-											value="#{newdriverride.longitudeStart}" />
+									<td class="formInput">#{newdriverride.longitudeStart}
+										<h:inputHidden
+											id="longitudeStart"
+											value="#{newdriverride.longitudeStart}" 
+											validator="de.avci.joride.utils.validators.JorideLongitudeValidator"
+											/>									
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3"> <!-- field to display bound checking errors -->
+										<div class="formError">	
+											<h:message for="longitudeStart"/>
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -144,15 +166,38 @@
 								<tr>
 									<td class="formLabel">#{msgs.geolocationLatitude}</td>
 									<td>:</td>
-									<td class="formInput">#{newdriverride.latitudeEnd} <h:inputHidden
-											value="#{newdriverride.latitudeEnd}" />
+									<td class="formInput">#{newdriverride.latitudeEnd} 
+										<h:inputHidden
+											id="latitudeEnd"
+											value="#{newdriverride.latitudeEnd}" 
+											validator="de.avci.joride.utils.validators.JorideLatitudeValidator"
+											/>
 									</td>
 								</tr>
 								<tr>
+									<td colspan="3"> <!-- field to display bound checking errors -->
+										<div class="formError">	
+											<h:message for="latitudeEnd"/>
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
 									<td class="formLabel">#{msgs.geolocationLongitude}</td>
 									<td>:</td>
-									<td class="formInput">#{newdriverride.longitudeEnd} <h:inputHidden
-											value="#{newdriverride.longitudeEnd}" />
+									<td class="formInput">#{newdriverride.longitudeEnd}
+									 <h:inputHidden
+									 		id="longitudeEnd"
+											value="#{newdriverride.longitudeEnd}" 
+											validator="de.avci.joride.utils.validators.JorideLongitudeValidator"
+											/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3"> <!-- field to display bound checking errors -->
+										<div class="formError">	
+											<h:message for="longitudeEnd"/>
+										</div>
 									</td>
 								</tr>
 							</table>
