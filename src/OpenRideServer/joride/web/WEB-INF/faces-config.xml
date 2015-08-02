@@ -125,6 +125,16 @@
 			<to-view-id>/faces/protected/rider/rideDisplay.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- Navigation Case -->
+	<!-- go to page where new Requests are displayed -->
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>rider.rideDisplayNewRide</from-outcome>
+			<to-view-id>/faces/protected/rider/rideDisplayNewRide.xhtml </to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 
 	<!-- Navigation Case -->
@@ -264,7 +274,7 @@
 
 
 	<!-- Navigation Case -->
-	<!-- go to page where Drive Entities are displayed -->
+	<!-- go to page where new Drive Entities are displayed -->
 
 	<navigation-rule>
 		<navigation-case>

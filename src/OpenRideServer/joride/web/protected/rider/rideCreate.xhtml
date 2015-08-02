@@ -279,9 +279,12 @@
 				<!--- Submit Data to create a new RideRequest -->
 
 
-				<p:commandButton value="  #{msgs.rideCreateNewRequest}"
-					actionListener="#{newride.doCrudAction}" action="rider"
-					ajax="false">
+				<p:commandButton 
+					value="#{msgs.rideCreateNewRequest}"
+					actionListener="#{newride.doCrudAction}" 
+					action="rider.rideDisplayNewRide"
+					ajax="false"
+					>
 
 					<f:param name="#{crud.paramNameCrudAction}"
 						value="#{crud.paramValueCrudCreate}" />
