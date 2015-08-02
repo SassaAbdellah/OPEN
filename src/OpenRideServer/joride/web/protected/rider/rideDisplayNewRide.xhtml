@@ -34,18 +34,33 @@
 		<ui:define name="content">
 
 
-
-
-
-
                 #{newride.update()}
                 
                 
-                <ui:fragment rendered="#{newride.isNotCallerIsRider()}">
-				<!-- Errormessage  -->
-                	Sorry, You are not the rider, request data will not be shown!
-                </ui:fragment>
+                <ui:fragment rendered="#{newride.hasErrorCode}">
+				<!-- bad case -->
 
+				<p>
+					<div  align="center" class="formError">#{newride.localizedErrorCode}</div>
+				</p>
+
+				<h:form>
+					<table width="100%">
+						<tr>
+							<td width="50%" align="center"><p:commandButton
+									value="#{msgs.formOK}" ajax="false" action="home" /></td>
+
+							<td width="50%" align="center"><p:commandButton
+									value="#{msgs.formAgain}" ajax="false"
+									action="rider.rideCreate" /></td>
+						</tr>
+					</table>
+				</h:form>
+
+			</ui:fragment>
+			<!-- bad case -->
+                
+            <ui:fragment rendered="#{newride.hasNoErrorCode}"> <!--  good case! -->
 
 			<p:panel header="#{msgs.rideRequest} #{newride.riderrouteId}">
 
@@ -384,9 +399,7 @@
 				</div>
 
 			</h:form>
-
-
-
+		</ui:fragment> <!--  "good case" ends here -->
 
 		</ui:define>
 	</ui:composition>

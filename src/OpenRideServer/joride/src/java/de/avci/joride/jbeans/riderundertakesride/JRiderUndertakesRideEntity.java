@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -1176,6 +1177,55 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	public Date getStarttimeLatestOnCreation(){
 		return this.getStarttimeLatest();
 	}
+	
+	
+	/** If on creation of a new Request some error was encountered, then 
+	 *  then the ErrorCode should be set.
+	 *  This is especially needed to inform the user wether or not
+	 *  a request has been successfully created at the end to a workflow.
+	 *   
+	 */
+	private String errorCode=null;
+	
+	public String getErrorCode(){
+		return this.errorCode;
+	}	
+
+	public void setErrorCode(String arg){
+		this.errorCode=arg;
+	}
+	
+	/** 
+	 * @return true, if this offer has an error code, else false
+	 */
+	public boolean getHasErrorCode(){	
+		return this.getErrorCode()!=null;
+	}
+	
+	/** 
+	 * @return true, if this offer has no error code, else false
+	 */
+	public boolean getHasNoErrorCode(){	
+		return this.getErrorCode()==null;
+	}
+	
+	/** Retrieve a localized Version of the error code
+	 */
+	public String getLocalizedErrorCode(){
+		
+		if(errorCode==null){return null;}
+		
+		Locale locale=new HTTPUtil().detectBestLocale();
+		Properties errorProperties=de.avci.openrideshare.utils.PropertiesLoader.getErrorMessageProperties(locale);		
+		return errorProperties.getProperty(errorCode);
+	}
+	
+
+	
+	
+	
+	
+	
 	
 	
 	/** Govern wizard steps when creating the request.

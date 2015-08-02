@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.openrideshare.errorhandling.ErrorCodes;
 import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
@@ -554,11 +555,15 @@ public class JRiderUndertakesRideEntityService {
 		CustomerEntity ce = this.getCustomerEntity();
 
 		if (ce == null) {
-			log.log(Level.SEVERE, "Client side exception whil adding request, cannot determine customer");
+			
+			jrure.setErrorCode(ErrorCodes.UserDoesNotExistError_Str);
+			log.log(Level.SEVERE, "Client side exception while adding request, cannot determine customer");
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
 
 		if (ce.getCustId() == null) {
+			
+			jrure.setErrorCode(ErrorCodes.UserDoesNotExistError_Str);
 			log.log(Level.SEVERE, "Client side exception whil adding request, cannot determine customer id");
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
@@ -571,6 +576,8 @@ public class JRiderUndertakesRideEntityService {
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
 		// TODO: produce a more decent error state
 		if(jrure.getStartpt().getX()==0d && jrure.getStartpt().getY()==0d){
+			
+			jrure.setErrorCode(ErrorCodes.CreateRequestFailure_RideStartPointNull_Str);	
 			log.log(Level.SEVERE, "Startpoint not initialized while adding request ");
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
@@ -578,6 +585,7 @@ public class JRiderUndertakesRideEntityService {
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
 		// TODO: produce a more decent error state
 		if(jrure.getEndpt().getX()==0d && jrure.getEndpt().getY()==0d){
+			jrure.setErrorCode(ErrorCodes.CreateRequestFailure_RideEndpointNull_Str);	
 			log.log(Level.SEVERE, "Endpoint not initialized while adding request ");
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
@@ -587,6 +595,7 @@ public class JRiderUndertakesRideEntityService {
 				.lookupRiderUndertakesRideControllerBeanLocal();
 
 		try {
+			
 			return rurcl.addRideRequest(
 			// int cust_id,
 					ce.getCustId(),
@@ -610,12 +619,12 @@ public class JRiderUndertakesRideEntityService {
 					jrure.getEndptAddress());
 		} catch (OpenRideShareException exc) {
 
-			// TODO: show a decent errormessage obtained from ORSException
-				
+			jrure.setErrorCode(exc.getErrorCode());	
 			log.log(Level.SEVERE, "ORS Exception while adding request : "+exc.getMessage(),exc);
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		} catch(Exception exc){
-			
+		
+			jrure.setErrorCode(ErrorCodes.UnknownError_Str);
 			log.log(Level.SEVERE, "Unexpected Exception while adding request : "+exc.getMessage(),exc);
 			return RiderUndertakesRideEntity.UNINITIALIZED;
 		}
