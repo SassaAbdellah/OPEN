@@ -979,6 +979,13 @@ public class JDriverUndertakesRideEntity extends
 		return this.getErrorCode()!=null;
 	}
 	
+	/** 
+	 * @return true, if this offer has no error code, else false
+	 */
+	public boolean getHasNoErrorCode(){	
+		return this.getErrorCode()==null;
+	}
+	
 	
 	
 	
