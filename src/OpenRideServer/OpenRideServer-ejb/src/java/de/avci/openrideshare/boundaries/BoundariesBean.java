@@ -89,38 +89,60 @@ public class BoundariesBean implements BoundariesLocal {
 	}
 	
 	
-	/** Auxiliary function. True, if point's lon is between western and eastern bounds.
+	/** Auxiliary function. True, if argument  is between western and eastern bounds.
 	 * 
-	 * @param point
+	 * @param longitude
 	 * @return
 	 */
-	private boolean isWithinLongitudeBounds(Point point){
+	public boolean isWithinLongitudeBounds(Double longitude){
 		
 		// if eastern bound is smaller then western bound, we cross the date border
 		boolean crossesDateBorder=(this.getEasternBound()<this.getWesternBound());
 		
-		Double plon=point.getX();
-		
 		if(!crossesDateBorder){
-			return plon>=this.getWesternBound() && plon<= this.getEasternBound();
+			return longitude>=this.getWesternBound() && longitude<= this.getEasternBound();
 		} else {
-			return plon<=this.getWesternBound() && plon>= this.getEasternBound();
+			return longitude<=this.getWesternBound() && longitude>= this.getEasternBound();
 		}
 	}
 	
-	/** Auxiliary function. True, if point's lat is between western and eastern bounds.
+	
+	
+	/** Checks iff point's x-coordinate is within latitude bounds.
 	 * 
 	 * @param point
 	 * @return
 	 */
-	private boolean isWithinLatitudeBounds(Point point){	
-		Double plat=point.getY();
-		return plat<=this.getNorthernBound() && plat <= this.getSouthernBound();
+	public boolean isWithinLongitudeBounds(Point point){
+				
+		return isWithinLongitudeBounds(point.getX());
+	}
+	
+	
+	
+	/** Auxiliary function. True, if argument interpreted as a latitude value is between western and eastern bounds.
+	 * 
+	 * @param latitude
+	 * @return
+	 */
+	public boolean isWithinLatitudeBounds(double latitude){	
+		
+		return latitude<=this.getNorthernBound() && latitude >= this.getSouthernBound();
+	}
+	
+	
+	/** Auxiliary function. True, if point's X-component is between western and eastern bounds.
+	 * 
+	 * @param point
+	 * @return
+	 */
+	public boolean isWithinLatitudeBounds(Point point){	
+		
+		return isWithinLatitudeBounds(point.getY());
 	}
 	
 	@Override
 	public boolean isWithinBounds(Point point) {
-		
 		return this.isWithinLongitudeBounds(point) && this.isWithinLatitudeBounds(point);
 	}
 	

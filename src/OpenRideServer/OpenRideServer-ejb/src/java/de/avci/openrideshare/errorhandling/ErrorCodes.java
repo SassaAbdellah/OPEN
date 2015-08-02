@@ -244,14 +244,34 @@ public class ErrorCodes {
 	
 	
 	
-	
-	
 	/**
 	 * "ErrorCode" to be returned if request creation fails because the planning
 	 * horizon is exceeded
 	 */
 	public static final String REQUESTCREATION_HORIZONEXCEEDED_Error_Str = "PlanningHorizonExceededWhenCreatingRequest";
 	
-	
 
+	
+	/**
+	 * "ErrorCode" to be returned if spatial bounds are exceeded in a generic context
+	 */
+	public static final String SPATIAL_BOUNDS_EXCEEDED="SpatialBoundsExceededForPoint";
+	
+	/**
+	 * "ErrorCode" to be returned if spatial bounds are exceeded for a startpoint of an offer or request
+	 */
+	public static final String SPATIAL_BOUNDS_EXCEEDED_FOR_STARTPOINT="SpatialBoundsExceededForStartPoint";
+	
+	
+	/**
+	 * "ErrorCode" to be returned if spatial bounds are exceeded for an endpoint of an offer or request
+	 */
+	public static final String SPATIAL_BOUNDS_EXCEEDED_FOR_ENDPOINT="SpatialBoundsExceededForStartPoint";
+	
+	
+	
+	
+	
+	
+	
 }
