@@ -20,12 +20,6 @@
 	<ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-
-		<!-- highlight "preferences" tab -->
-		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexDriver}" />
-
-
-
 		<ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
@@ -38,9 +32,26 @@
 			<!-- i.e: the newdriverride bean                -->
 			<!-- this is meant to be the end of workflow    -->
 			<!-- for creating a new drive                   -->
-
-
-
+			
+		
+			<ui:fragment rendered="#{newdriverride.hasErrorCode}">
+			
+				<div class="formError">
+					#{newdriverride.localizedErrorCode}
+				</div>
+				
+				<h:form>
+				<p:commandButton value="#{msgs.formOK}" ajax="false" action="home"  />
+				</h:form>
+			
+			</ui:fragment>
+			
+			
+			<!-- If Offer has been successfully created, show stuff and -->
+			<!-- allow for addition of waypoints  -->
+			
+			<ui:fragment rendered="!#{newdriverride.hasErrorCode}" > <!-- "good case fragment" -->
+			
 			<h1>#{msgs.rideNewOffer} #{newdriverride.rideId}</h1>
 
 
@@ -219,6 +230,9 @@
 						action="#{webflow.getFinish()}" />
 				</div>
 			</h:form>
+			
+			</ui:fragment> <!-- "good case fragment" -->
+			
 		</ui:define>
 	</ui:composition>
 </body>

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
 import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
@@ -31,6 +33,7 @@ import de.fhg.fokus.openride.routing.Coordinate;
 import de.fhg.fokus.openride.routing.Route;
 import de.fhg.fokus.openride.routing.RoutePoint;
 import de.fhg.fokus.openride.routing.RouterBeanLocal;
+import de.avci.openrideshare.errorhandling.ErrorCodes;
 
 /**
  * Service
@@ -461,8 +464,9 @@ public class JDriverUndertakesRideEntityService {
 		      
 		try { this.lookupDriverUndertakesRideControllerBeanLocal().checkDriverUndertakesRideEntity(jdure);
 		} catch (OpenRideShareException exc) {
-			// TODO Do something more decent here!
-			throw new Error(exc);
+			// set error status on argument and return
+			jdure.setErrorCode(exc.getErrorCode());
+			return JDriverUndertakesRideEntity.UNINITIALIZED;
 		}
 		
 	
@@ -477,8 +481,9 @@ public class JDriverUndertakesRideEntityService {
 		
 		
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
-		// TODO: produce a more decent error state
 		if(jdure.getRideStartpt().getX()==0d && jdure.getRideStartpt().getY()==0d){
+			
+			jdure.setErrorCode(ErrorCodes.CreateOfferFailure_RideStartPointNull_Str);
 			logger.log(Level.SEVERE, "Startpoint not initialized while adding offer");
 			return DriverUndertakesRideEntity.UNINITIALIZED;
 		}
@@ -486,12 +491,15 @@ public class JDriverUndertakesRideEntityService {
 		// startpoint coordinates 0/0 probably means uninitialized rather then pole
 		// TODO: produce a more decent error state
 		if(jdure.getRideEndpt().getX()==0d && jdure.getRideEndpt().getY()==0d){
-			logger.log(Level.SEVERE, "Endpoint not initialized while adding offer ");
-			return RiderUndertakesRideEntity.UNINITIALIZED;
+			
+			jdure.setErrorCode(ErrorCodes.CreateOfferFailure_RideEndpointNull_Str);
+			logger.log(Level.SEVERE, "Endpoint not initialized while adding offer");
+			return DriverUndertakesRideEntity.UNINITIALIZED;
 		}
 		
 
 		try {
+			
 			return durcl.addRide(
 			// Customer ID
 					ce.getCustId(),
@@ -522,21 +530,20 @@ public class JDriverUndertakesRideEntityService {
 				
 		} catch (OpenRideShareException exc) {
 
-			// TODO: show a decent errormessage obtained from ORSException
-				
+			jdure.setErrorCode(exc.getErrorCode());
 			logger.log(Level.SEVERE, "ORS Exception while adding offer : "+exc.getMessage(),exc);
-			return -1;
-			
+			return JDriverUndertakesRideEntity.UNINITIALIZED;	
 			
 		} catch(Exception exc){
 			
+			jdure.setErrorCode(ErrorCodes.UnknownError_Str);
 			logger.log(Level.SEVERE, "Unexpected Exception while adding offer       : "+exc.getMessage(), exc);
-			return -1;
+			return JRiderUndertakesRideEntity.UNINITIALIZED;
 		}
 			
-			
-
 	}
+	
+	
 
 	/**
 	 * True, if drive has been updated since last driver access, else false.
