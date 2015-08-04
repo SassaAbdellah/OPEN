@@ -1795,7 +1795,9 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 				.setParameter("startDate",
 						new java.sql.Date(System.currentTimeMillis()))
 				.getSingleResult();
-
+		
+		// avoid Nullpointer Exceptions
+		if(resLong==null){return 0;}
 		return new Integer(resLong.intValue());
 	}
 

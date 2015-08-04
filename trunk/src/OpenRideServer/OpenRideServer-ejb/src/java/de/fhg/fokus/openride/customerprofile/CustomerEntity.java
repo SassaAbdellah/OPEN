@@ -280,6 +280,12 @@ public class CustomerEntity implements Serializable {
 	
 	
 	public Integer getRequestLimit() {
+		
+		if(requestLimit==null || requestLimit <=0 ){	
+			String requestLimitStr=PropertiesLoader.getOperationalProperties().getProperty(OperationalPropertiesConstants.PROPERTY_NAME_maxRequestsLimit);
+			requestLimit=new Integer(requestLimitStr);
+		}
+		
 		return requestLimit;
 	}
 
@@ -287,9 +293,20 @@ public class CustomerEntity implements Serializable {
 		this.requestLimit = requestLimit;
 	}
 
+	/** Nontrivial getter. If offer limit is null, it will be set from properties
+	 * 
+	 * @return offer limit value from database or from properties 
+	 */
 	public Integer getOfferLimit() {
+		
+		if(offerLimit==null || offerLimit <=0 ){	
+			String offerLimitStr=PropertiesLoader.getOperationalProperties().getProperty(OperationalPropertiesConstants.PROPERTY_NAME_maxOffersLimit);
+			offerLimit=new Integer(offerLimitStr);
+		}
+		
 		return offerLimit;
 	}
+		
 
 	public void setOfferLimit(Integer offerLimit) {
 		this.offerLimit = offerLimit;
