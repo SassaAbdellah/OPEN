@@ -1451,9 +1451,12 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 		// numericalCustId must match a real Object
 		CustomerEntity customer=customerControllerBean.getCustomer(custId);
 		if (customer==null){return null;} // cannot find anything
+		
 		// @NamedQuery(name = "DriverUndertakesRideEntity.countDrivesAfterDateforCustId", query = "SELECT count(d.ride_id) FROM DriverUndertakesRideEntity d WHERE d.custId = :custId AND d.rideStarttime >= :time"),
 		Long resLong = (Long) em.createNamedQuery( "DriverUndertakesRideEntity.countDrivesAfterDateforCustId"  ).setParameter("custId", customer).setParameter("time", new java.sql.Date(System.currentTimeMillis())).getSingleResult();
-		
+		// avoid Nullpointer Exceptions
+		if(resLong==null){ return 0;}
+		//
 		return new Integer(resLong.intValue());
 	}
 
@@ -1465,7 +1468,6 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
 		if(customer==null){return null;}
 		
 		return customer.getOfferLimit()-this.noOfOpenOffers(custId);
-		
 	}
 	
 	
