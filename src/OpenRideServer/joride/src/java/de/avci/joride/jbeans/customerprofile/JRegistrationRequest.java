@@ -99,11 +99,21 @@ public class JRegistrationRequest implements Serializable {
     protected String nickName;
 
     public String getNickName() {
-        return this.nickName;
+    	
+    	if(this.nickName!=null){
+    		return this.nickName.toLowerCase();
+    	} else {
+    		return null;
+    	}
     }
 
     public void setNickName(String arg) {
-        this.nickName = arg;
+    	
+    	if(arg!=null){
+    		this.nickName = arg.toLowerCase();
+    	}else{
+    		this.nickName=null;
+    	}
     }
 
     /**
