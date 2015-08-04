@@ -109,7 +109,7 @@
                     <h:commandButton  value="#{msgs.registrationSubmit}" action="#{registrationRequest.createRegistration()}">
 
                         <f:param name="#{webflow.paramFinish}"  value="home" /> 
-                        <p:growl id="growl"  severity="error" />
+                        <p:growl id="growl"  severity="error" sticky="true" />
 
                     </h:commandButton>
 
