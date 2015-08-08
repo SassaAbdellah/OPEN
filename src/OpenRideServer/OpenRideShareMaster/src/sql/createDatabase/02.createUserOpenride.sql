@@ -1,0 +1,1 @@
+CREATE USER openride with password 'openride'; 
