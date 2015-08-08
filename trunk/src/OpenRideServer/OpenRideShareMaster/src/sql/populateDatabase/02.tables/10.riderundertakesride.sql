@@ -39,7 +39,7 @@ CREATE TABLE riderundertakesride (
     CONSTRAINT enforce_dims_endpt_c CHECK ((st_ndims(endpt_c) = 2)),
     CONSTRAINT enforce_dims_startpt_c CHECK ((st_ndims(startpt_c) = 2)),
     CONSTRAINT enforce_geotype_endpt_c CHECK (((geometrytype(endpt_c) = 'POINT'::text) OR (endpt_c IS NULL))),
-    CONSTRAINT enforce_geotype_startpt_c CHECK (((geometrytype(startpt_c) = 'POINT'::text) OR (startpt_c IS NULL))),
+    CONSTRAINT enforce_geotype_startpt_c CHECK (((geometrytype(startpt_c) = 'POINT'::text) OR (startpt_c IS NULL)))
 );
 
 
@@ -55,10 +55,5 @@ ALTER TABLE ONLY riderundertakesride
 
 
 
---
--- Name: riderundertakesride_trigger; Type: TRIGGER; Schema: public; Owner: openride
---
-
-CREATE TRIGGER riderundertakesride_trigger BEFORE INSERT OR UPDATE ON riderundertakesride FOR EACH ROW EXECUTE PROCEDURE adjustgeomriderundertakesride();
 
 
