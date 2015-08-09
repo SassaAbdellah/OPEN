@@ -150,6 +150,32 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- *********************************** -->
+		<!-- enable/disable frontend capabilitis -->
+		<!-- *********************************** -->
+
+		<!-- turn on/off functionality for acting as a driver -->
+		<replaceregexp byline="joride_capability_driver">
+			<regexp pattern="joride_capability_driver=(.*)" />
+			<substitution expression="joride_capability_driver=${joride_capability_driver}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- turn on/off functionality for acting as a rider/passenger -->
+		<replaceregexp byline="joride_capability_passenger">
+			<regexp pattern="joride_capability_passenger=(.*)" />
+			<substitution expression="joride_capability_passenger=${joride_capability_passenger}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- turn on/off functionality for rating others -->
+		<replaceregexp byline="joride_capability_rating">
+			<regexp pattern="joride_capability_rating=(.*)" />
+			<substitution expression="joride_capability_rating=${joride_capability_rating}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
 
 		<!-- ****************************  -->
 		<!-- Rewrite navigation settings   -->
