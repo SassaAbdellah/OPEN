@@ -620,5 +620,80 @@ public class JCustomerEntity extends CustomerEntity {
 				this.getPlanningHorizonForRequestsDate());
 	}
 
+	
+	
+	
+	
+	/** True, if customer may act as a Driver, else false.
+	 *  Currently, this is fed from system properties, but in future
+	 *  this may become an individual property.
+	 *   
+	 */
+	
+	private Boolean driverCapabilityFlag=null;
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getDriverCapability(){
+		
+		if(this.driverCapabilityFlag==null){
+			String dS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_driver);
+			driverCapabilityFlag=new Boolean(dS);
+		}
+		
+		return driverCapabilityFlag;
+	}
+	
+	
+	
+	/** True, if customer may act as a Passenger, else false.
+	 *  Currently, this is fed from system properties, but in future
+	 *  this may become an individual property.
+	 *   
+	 */
+	
+	private Boolean passengerCapabilityFlag=null;
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getPassengerCapability(){
+		
+		if(this.passengerCapabilityFlag==null){
+			String pS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_passenger);
+			passengerCapabilityFlag=new Boolean(pS);
+		}
+		
+		return passengerCapabilityFlag;
+	}
+	
+	
+	/** True, if rating is allowed on the system else false.
+	 * 
+	 */
+	
+	private Boolean ratingCapabilityFlag=null;
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getRatingCapability(){
+		
+		if(this.ratingCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_rating);
+			ratingCapabilityFlag=new Boolean(rS);
+		}
+		
+		return ratingCapabilityFlag;
+	}
+	
+	
+	
+	
+	
 }// class
 

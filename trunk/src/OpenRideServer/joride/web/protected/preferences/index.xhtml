@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	>
 
 
 <h:head>
@@ -85,7 +87,8 @@
 			</p>
 
 
-
+			<!-- rider preferences are shown if customer has passenger capabilities -->
+			<f:facet rendered="#{jprofile.passengerCapability}" name="riderLink">
 			<p>
 				<h:form>
 					<h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>
@@ -93,14 +96,16 @@
                         #{msgs.nav1_pref_riderPreferences_desc} 
                     </h:form>
 			</p>
+			</f:facet> <!-- rider preferences -->
 
+			<f:facet rendered="#{jprofile.driverCapability}" name="driverLink">
 			<p>
 				<h:form>
 					<h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>
 					<br />
 				</h:form>
 			</p>
-
+			</f:facet>
 
 
 			<p>
