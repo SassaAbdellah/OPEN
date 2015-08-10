@@ -5,8 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core"
-	>
+	xmlns:f="http://java.sun.com/jsf/core">
 
 
 <h:head>
@@ -31,9 +30,9 @@
 
 		<ui:define name="content">
 
-   		      
 
-		
+
+
 
 			<p>
 				<h:form>
@@ -48,7 +47,7 @@
 				<h:form prependId="false">
 
 					<p:growl id="messages" />
-					
+
 
 					<p:commandLink id="showDialogButton"
 						value="#{msgs.custRemoveAccountLabel}"
@@ -88,24 +87,27 @@
 
 
 			<!-- rider preferences are shown if customer has passenger capabilities -->
-			<f:facet rendered="#{jprofile.passengerCapability}" name="riderLink">
-			<p>
-				<h:form>
-					<h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>
-					<br />
+			<ui:fragment rendered="#{jprofile.passengerCapability}"
+				name="riderLink">
+				<p>
+					<h:form>
+						<h:commandLink action="preferences.riderPreferences">    #{msgs.nav1_pref_riderPreferences_label}     </h:commandLink>
+						<br />
                         #{msgs.nav1_pref_riderPreferences_desc} 
                     </h:form>
-			</p>
-			</f:facet> <!-- rider preferences -->
+				</p>
+			</ui:fragment>
+			<!-- rider preferences -->
 
-			<f:facet rendered="#{jprofile.driverCapability}" name="driverLink">
-			<p>
-				<h:form>
-					<h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>
-					<br />
-				</h:form>
-			</p>
-			</f:facet>
+			<ui:fragment rendered="#{jprofile.driverCapability}"
+				name="driverLink">
+				<p>
+					<h:form>
+						<h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>
+						<br />
+					</h:form>
+				</p>
+			</ui:fragment>
 
 
 			<p>
@@ -115,7 +117,7 @@
 					#{nav1_pref_generalPreferences_desc}
 				</h:form>
 			</p>
-					
+
 
 
 			<p>
