@@ -88,36 +88,41 @@
 			<h:form>
 
 				<table>
-				
-				
-				<!-- Link to "rider" section will only be shown if customer has riderCapability -->
-				<f:facet rendered="#{jprofile.passengerCapability}" name="riderLink">
-				
-					<tr>
-						<td colspan="1" class="formLabel"><p:commandButton id="rider"
-								icon="ui-icon-suitcase" action="rider" ajax="false" /> <p:tooltip
-								for="rider" value="#{msgs.nav1_rider_desc}" /></td>
 
-						<td colspan="2" class="formInput"><h:commandLink
-								action="rider">    #{msgs.nav1_rider_label}      </h:commandLink>
-							<br /> #{msgs.nav1_rider_desc}</td>
-					</tr>
-			  </f:facet> <!-- riderLink -->
-			  
-			  
-			  
-			  <!-- Link to "driver" section will only be shown if customer has driverCapability -->
-			  <f:facet rendered="#{jprofile.driverCapability}" name="driverLink">
-					<tr>
-						<td colspan="1" class="formLabel"><p:commandButton
-								id="driver" icon="ui-icon-person" action="driver" ajax="false" />
-							<p:tooltip for="driver" value="#{msgs.nav1_driver_desc}" /></td>
 
-						<td colspan="2" class="formInput"><h:commandLink
-								action="driver">   #{msgs.nav1_driver_label}     </h:commandLink>
-							<br /> #{msgs.nav1_driver_desc}</td>
-					</tr>
-				</f:facet> <!-- driverLink -->	
+					<!-- Link to "rider" section will only be shown if customer has riderCapability -->
+					<ui:fragment rendered="#{jprofile.passengerCapability}"
+						name="riderLink">
+
+						<tr>
+							<td colspan="1" class="formLabel"><p:commandButton
+									id="rider" icon="ui-icon-suitcase" action="rider" ajax="false" />
+								<p:tooltip for="rider" value="#{msgs.nav1_rider_desc}" /></td>
+
+							<td colspan="2" class="formInput"><h:commandLink
+									action="rider">    #{msgs.nav1_rider_label}      </h:commandLink>
+								<br /> #{msgs.nav1_rider_desc}</td>
+						</tr>
+					</ui:fragment>
+					<!-- riderLink -->
+
+
+
+					<!-- Link to "driver" section will only be shown if customer has driverCapability -->
+					<ui:fragment rendered="#{jprofile.driverCapability}"
+						name="driverLink">
+						<tr>
+							<td colspan="1" class="formLabel"><p:commandButton
+									id="driver" icon="ui-icon-person" action="driver" ajax="false" />
+								<p:tooltip for="driver" value="#{msgs.nav1_driver_desc}" /></td>
+
+							<td colspan="2" class="formInput"><h:commandLink
+									action="driver">   #{msgs.nav1_driver_label}     </h:commandLink>
+								<br /> #{msgs.nav1_driver_desc}</td>
+						</tr>
+					</ui:fragment>
+					<!-- driverLink -->
+
 					<tr>
 
 						<td colspan="1" class="formLabel"><p:commandButton
@@ -131,7 +136,7 @@
 				</table>
 
 			</h:form>
-						
+
 
 		</ui:define>
 
