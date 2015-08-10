@@ -73,44 +73,8 @@ public class MainMenuBean implements Serializable, MenuModel {
 		if (customer.getDriverCapability()) {
 			this.createDriverSubmenu(messageProps);
 		}
-		//
-		//
-		// SEARCH SUBMENU
-		//
-		// <p:submenu label="#{msgs.searchSubMenu}" icon="ui-icon-search">
-		//
-		String searchMSG = messageProps.getProperty("searchSubMenu");
-		DefaultSubMenu searchSubmenu = new DefaultSubMenu(searchMSG);
-		searchSubmenu.setIcon("ui-icon-search");
 
-		// <p:menuitem outcome="search.requests"
-		// value="#{msgs.rideSearchRequests}" />
-		String searchRequestMSG = messageProps
-				.getProperty("rideSearchRequests");
-		DefaultMenuItem rideSearchItemX = new DefaultMenuItem(searchRequestMSG);
-		rideSearchItemX.setCommand("search.requests");
-		rideSearchItemX.setAjax(false);
-		searchSubmenu.addElement(rideSearchItemX);
-
-		// <p:menuitem outcome="search.drives" value="#{msgs.rideSearchDrives}"
-		// />
-		String searchDriveMSG = messageProps.getProperty("rideSearchDrives");
-		DefaultMenuItem driveSearchItemX = new DefaultMenuItem(searchDriveMSG);
-		driveSearchItemX.setCommand("search.drives");
-		searchSubmenu.addElement(driveSearchItemX);
-
-		// <p:menuitem outcome="searchPublicProfileByNickName"
-		// value="#{msgs.publicProfileSearchProfile}" />
-		String searchProfileMSG = messageProps
-				.getProperty("publicProfileSearchProfile");
-		DefaultMenuItem searchProfileItem = new DefaultMenuItem(
-				searchProfileMSG);
-		searchProfileItem.setCommand("searchPublicProfileByNickName");
-		searchSubmenu.addElement(searchProfileItem);
-
-		model.addElement(searchSubmenu);
-		//
-		//
+		this.createSearchSubmenue(messageProps, customer);
 
 		//
 		// PREFERENCES SUBMENU
@@ -194,6 +158,65 @@ public class MainMenuBean implements Serializable, MenuModel {
 				.getProperty("urlLogout"));
 		logoutMenuItem.setIcon("ui-icon-power");
 		model.addElement(logoutMenuItem);
+
+	}
+
+	/**
+	 * Create submenu for searching for users and ratings
+	 * 
+	 */
+	private void createSearchSubmenue(Properties messageProps,
+			JCustomerEntity customer) {
+
+		//
+		//
+		// SEARCH SUBMENU
+		//
+		// <p:submenu label="#{msgs.searchSubMenu}" icon="ui-icon-search">
+		//
+		String searchMSG = messageProps.getProperty("searchSubMenu");
+		DefaultSubMenu searchSubmenu = new DefaultSubMenu(searchMSG);
+		searchSubmenu.setIcon("ui-icon-search");
+
+		// search requests only if customer has rider properties
+		if (customer.getPassengerCapability()) {
+
+			// <p:menuitem outcome="search.requests"
+			// value="#{msgs.rideSearchRequests}" />
+			String searchRequestMSG = messageProps
+					.getProperty("rideSearchRequests");
+			DefaultMenuItem rideSearchItemX = new DefaultMenuItem(
+					searchRequestMSG);
+			rideSearchItemX.setCommand("search.requests");
+			rideSearchItemX.setAjax(false);
+			searchSubmenu.addElement(rideSearchItemX);
+		}
+
+		// search offers only if customer has driver properties
+		if (customer.getDriverCapability()) {
+
+			// <p:menuitem outcome="search.drives"
+			// value="#{msgs.rideSearchDrives}"
+			// />
+			String searchDriveMSG = messageProps
+					.getProperty("rideSearchDrives");
+			DefaultMenuItem driveSearchItemX = new DefaultMenuItem(
+					searchDriveMSG);
+			driveSearchItemX.setCommand("search.drives");
+			searchSubmenu.addElement(driveSearchItemX);
+		}
+
+		// <p:menuitem outcome="searchPublicProfileByNickName"
+		// value="#{msgs.publicProfileSearchProfile}" />
+		String searchProfileMSG = messageProps
+				.getProperty("publicProfileSearchProfile");
+		DefaultMenuItem searchProfileItem = new DefaultMenuItem(
+				searchProfileMSG);
+		searchProfileItem.setCommand("searchPublicProfileByNickName");
+		searchSubmenu.addElement(searchProfileItem);
+
+		model.addElement(searchSubmenu);
+		//
 
 	}
 
@@ -324,9 +347,9 @@ public class MainMenuBean implements Serializable, MenuModel {
 			riderprefDataItem.setAjax(false);
 			preferencesSubmenu.addElement(riderprefDataItem);
 		} // riderPreferences submenu
-		
+
 		if (customer.getDriverCapability()) {
-			
+
 			// <p:menuitem outcome="preferences.driverPreferences"
 			// value="#{msgs.nav1_pref_driverPreferences_label}" />
 			String driverprefDataMSG = messageProps
@@ -338,7 +361,6 @@ public class MainMenuBean implements Serializable, MenuModel {
 			driverprefDataItem.setAjax(false);
 			preferencesSubmenu.addElement(driverprefDataItem);
 		}
-		
 
 		// <p:menuitem outcome="preferences.favoritePlaces"
 		// value="#{msgs.nav1_pref_favoritePlaces_label}" />
