@@ -107,7 +107,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// TODO: add spacer
 		// <!-- p:spacer/ -->
 		// <!-- <p:menuitem outcome="preferences"
-		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" />
+		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-" />
 		String messagesMsg = messageProps.getProperty("msg_messages");
 		DefaultSubMenu messagesMenu = new DefaultSubMenu(messagesMsg);
 		messagesMenu.setIcon("ui-icon-mail-closed");
@@ -126,22 +126,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// add messages menu to model
 		model.addElement(messagesMenu);
 
-		//
-		// REMOVE ACCOUNT MenuItem
-		//
-
-		// TODO: add spacer
-		// <!-- p:spacer/ -->
-		// <!-- <p:menuitem outcome="preferences"
-		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-trash" />
-		String removeAccMsg = messageProps
-				.getProperty("custRemoveAccountLabel");
-
-		DefaultMenuItem removeAccountMenuItem = new DefaultMenuItem(
-				removeAccMsg);
-		removeAccountMenuItem.setCommand("preferences");
-		removeAccountMenuItem.setIcon("ui-icon-trash");
-		model.addElement(removeAccountMenuItem);
+		
 
 		//
 		// LOGOUT MenuItem
@@ -373,6 +358,24 @@ public class MainMenuBean implements Serializable, MenuModel {
 		preffavplacesDataItem.setCommand("preferences.favoritePlaces");
 		preffavplacesDataItem.setAjax(false);
 		preferencesSubmenu.addElement(preffavplacesDataItem);
+		
+		//
+		// REMOVE ACCOUNT MenuItem
+		//
+
+		// TODO: add spacer
+		// <!-- p:spacer/ -->
+		// <!-- <p:menuitem outcome="preferences"
+		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-" />
+		String removeAccMsg = messageProps
+				.getProperty("custRemoveAccountLabel");
+
+		DefaultMenuItem removeAccountMenuItem = new DefaultMenuItem(removeAccMsg);
+		removeAccountMenuItem.setCommand("removeAccount");
+		removeAccountMenuItem.setAjax(false);
+		preferencesSubmenu.addElement(removeAccountMenuItem);
+		
+		//
 
 		model.addElement(preferencesSubmenu);
 

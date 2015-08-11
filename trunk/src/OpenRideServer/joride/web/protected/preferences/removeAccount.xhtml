@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+
+
+
+<body>
+
+
+	<ui:composition template="/templates/navbar1Layout.xhtml">
+
+		<!-- highlight "preferences" tab -->
+		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexPreferences}" />
+
+		<ui:define name="windowTitle">
+                #{msgs.title}
+            </ui:define>
+
+
+		<ui:define name="content">
+			<p>
+
+				<h:form>
+					<p:growl id="messages" />
+					<p:commandButton type="button"
+						value="#{msgs.custRemoveAccountLabel}" onclick="PF('cd').show()" />
+
+					<p:confirmDialog message="#{msgs.custRemoveAccountQuestion}"
+						header="#{msgs.custRemoveAccountLabel}" severity="alert"
+						widgetVar="cd">
+
+
+						<p:commandButton id="confirm"
+							value="#{msgs.custRemoveAccountApprove}" update="messages"
+							oncomplete="PF('cd').hide()" onclick="PF('cd').hide()"
+							actionListener="#{jprofile.invalidate(evt)}" />
+
+
+						<p:commandButton id="decline"
+							value="#{msgs.custRemoveAccountDissaprove}"
+							onclick="PF('cd').hide()" type="button" />
+
+					</p:confirmDialog>
+
+				</h:form>
+			</p>
+		</ui:define>
+
+
+
+
+	</ui:composition>
+
+
+
+
+
+</body>
+</html>
