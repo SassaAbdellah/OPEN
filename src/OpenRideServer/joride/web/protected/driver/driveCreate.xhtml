@@ -66,11 +66,9 @@
 			<p:panel>
 				<h:form rendered="#{jprofile.canAddOffer}">
 
-					<p:wizard widgetVar="wiz" showNavBar="true"
-						flowListener="#{newdriverride.handleFlow}"
-						backLabel="#{msgs.backLabel}" nextLabel="#{msgs.nextLabel}">
+					
 
-						<p:tab id="locationTab" title="#{msgs.rideCreatePlacesTab}">
+					
 							<p>
 							<div class="formLabel">#{msgs.rideStartptAddress}</div>
 							<div class="formInput">
@@ -251,9 +249,7 @@
 							</div>
 							
 							</p>
-						</p:tab>
-
-						<p:tab id="miscTab" title="#{msgs.rideCreateMiscTab}">
+					
 
 							<!-- property rideAcceptableDetourInMin ommitted, we use -->
 							<!-- acceptable detour km instead                        -->
@@ -315,8 +311,7 @@
 
 								</p:commandButton>
 							</p>
-						</p:tab>
-					</p:wizard>
+					
 
 
 				</h:form>
