@@ -95,11 +95,12 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// icon="ui-icon-lightbulb" />
 		String updateMsg = messageProps.getProperty("updates");
 
-		DefaultMenuItem updateMenuItem = new DefaultMenuItem(updateMsg);
-		updateMenuItem.setCommand("updates");
-		updateMenuItem.setIcon("ui-icon-lightbulb");
-		model.addElement(updateMenuItem);
-
+		if (customer.getMenuItemUpdateCapability()) {
+			DefaultMenuItem updateMenuItem = new DefaultMenuItem(updateMsg);
+			updateMenuItem.setCommand("updates");
+			updateMenuItem.setIcon("ui-icon-lightbulb");
+			model.addElement(updateMenuItem);
+		}
 		//
 		// Messages submenu
 		//
@@ -125,8 +126,6 @@ public class MainMenuBean implements Serializable, MenuModel {
 		messagesMenu.addElement(allMsgMenuItem);
 		// add messages menu to model
 		model.addElement(messagesMenu);
-
-		
 
 		//
 		// LOGOUT MenuItem
@@ -358,7 +357,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		preffavplacesDataItem.setCommand("preferences.favoritePlaces");
 		preffavplacesDataItem.setAjax(false);
 		preferencesSubmenu.addElement(preffavplacesDataItem);
-		
+
 		//
 		// REMOVE ACCOUNT MenuItem
 		//
@@ -370,11 +369,12 @@ public class MainMenuBean implements Serializable, MenuModel {
 		String removeAccMsg = messageProps
 				.getProperty("custRemoveAccountLabel");
 
-		DefaultMenuItem removeAccountMenuItem = new DefaultMenuItem(removeAccMsg);
+		DefaultMenuItem removeAccountMenuItem = new DefaultMenuItem(
+				removeAccMsg);
 		removeAccountMenuItem.setCommand("removeAccount");
 		removeAccountMenuItem.setAjax(false);
 		preferencesSubmenu.addElement(removeAccountMenuItem);
-		
+
 		//
 
 		model.addElement(preferencesSubmenu);
