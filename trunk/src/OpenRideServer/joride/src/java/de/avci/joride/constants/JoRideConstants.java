@@ -174,4 +174,15 @@ public class JoRideConstants implements Serializable {
 
 	public static final String PROPTERY_NAME_joride_capability_rating = "joride_capability_rating";
 
+	
+	/** Property which decides wether or not to show an menu item 
+	 * for addressing update pages programmatically
+	 * if true, then there will be a menu item for updates 
+	 * 
+	 */
+	public static final String PROPTERY_NAME_joride_capability_updateMenuItem ="joride_capability_updateMenuItem";
+	
+	
+	
+	
 } // class

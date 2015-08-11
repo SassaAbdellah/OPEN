@@ -175,6 +175,14 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- turn on/off functionality for updates in menue items -->
+		<replaceregexp byline="joride_capability_updateMenuItem">
+			<regexp pattern="joride_capability_updateMenuItem=(.*)" />
+			<substitution expression="joride_capability_updateMenuItem=${joride_capability_updateMenuItem}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
 
 
 		<!-- ****************************  -->

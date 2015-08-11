@@ -694,6 +694,27 @@ public class JCustomerEntity extends CustomerEntity {
 	
 	
 	
+	/** True, if menu item update is allowed on the system else false.
+	 * 
+	 */
+	
+	private Boolean menuItemUpdateCapabilityFlag=null;
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getMenuItemUpdateCapability(){
+		
+		if(this.menuItemUpdateCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_updateMenuItem);
+			menuItemUpdateCapabilityFlag=new Boolean(rS);
+		}
+		
+		return menuItemUpdateCapabilityFlag;
+	}
+	
+	
 	
 }// class
 
