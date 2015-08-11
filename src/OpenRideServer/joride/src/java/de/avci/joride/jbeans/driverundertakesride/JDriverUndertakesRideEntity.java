@@ -1002,37 +1002,7 @@ public class JDriverUndertakesRideEntity extends
 	}
 	
 
-	/**
-	 * Handle flow in create Drive wizard.
-	 * 
-	 */
-
-	public String handleFlow(FlowEvent evt) {
-
-		String currentStep = evt.getOldStep();
-		String nextStep = evt.getNewStep();
-
-		// when going forward from location step,
-		// check if locations have been initialized
-		if (("locationTab".equals(currentStep)) && ("miscTab".equals(nextStep))) {
-
-			if (!this.isInitializedPoint(this.getRideStartpt())) {
-				return currentStep;
-			}
-			if (!this.isInitializedPoint(this.getRideEndpt())) {
-				return currentStep;
-			}
-			
-			// if something is wrong with accepable detour input format,
-			// then resulting acceptable Detour meters would have been set to null
-			if(this.getRideAcceptableDetourInM()==null){
-				return currentStep;
-			};
-		}
-
-		// all tests passed, can go to next step
-		return nextStep;
-	}
+	
 	
 	/** Check if point (startpoint / endpoint is initialized)
 	 * 

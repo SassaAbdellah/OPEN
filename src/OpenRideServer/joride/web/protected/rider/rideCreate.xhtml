@@ -70,16 +70,11 @@
 					<!-- include wizard in a panel, so people get the idea that it's a panel...  -->
 					<h:form rendered="#{jprofile.canAddRequest}">
 						<!-- form for entering ride data -->
-						<p:wizard widgetVar="wiz" showNavBar="true"
-							flowListener="#{newride.handleFlow}"
-							backLabel="#{msgs.backLabel}" nextLabel="#{msgs.nextLabel}">
+					
 
 
 
-
-							<p:tab id="locationTab" title="#{msgs.rideCreatePlacesTab}">
-								<!-- property ridecomment currently ommitted -->
-								<!-- as it -->
+						
 
 								<p>
 									<div class="formLabel">#{msgs.rideStartptAddress}</div>
@@ -219,11 +214,7 @@
 
 			<!-- End of "set data for Endpoint" section -->
 
-			</p:tab>
-
-
-
-			<p:tab id="timesTab" title="#{msgs.rideCreateTimesTab}">
+		
 
 				<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
 				<div class="formInput">
@@ -253,9 +244,7 @@
 					</p:calendar>
 				</div>
 
-			</p:tab>
-
-			<p:tab id="miscTab" title="#{msgs.rideCreateMiscTab}">
+		
 
 				<div class="formLabel">#{msgs.rideNoPassengers}</div>
 				<div class="formInput">
@@ -292,8 +281,7 @@
 
 				</p:commandButton>
 
-			</p:tab>
-			</p:wizard>
+		
 			</h:form>
 			</p:panel>
 
