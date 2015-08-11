@@ -39,42 +39,18 @@
 					<h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink>
 				</h:form>
 			</p>
-
-
-			<!-- ******* Delete Account  ******** -->
+			
+			
+			<!-- ******* Remove Account  ******** -->
 			<p>
-
-				<h:form prependId="false">
-
-					<p:growl id="messages" />
-
-
-					<p:commandLink id="showDialogButton"
+				<h:form>
+					<h:commandLink 
 						value="#{msgs.custRemoveAccountLabel}"
-						onclick="confirmation.show()" />
-
-
-					<p:confirmDialog id="confirmDialog"
-						message="#{msgs.custRemoveAccountQuestion}"
-						header="#{msgs.custRemoveAccountLabel}" severity="alert"
-						widgetVar="confirmation">
-
-						<p:commandButton id="confirm"
-							value="#{msgs.custRemoveAccountApprove}" update="messages"
-							oncomplete="confirmation.hide()"
-							actionListener="#{jprofile.invalidate(evt)}" />
-
-
-						<p:commandButton id="decline"
-							value="#{msgs.custRemoveAccountDissaprove}"
-							onclick="confirmation.hide()" type="button" />
-
-					</p:confirmDialog>
-
+						action="removeAccount"
+					/>
 				</h:form>
-
 			</p>
-
+			
 
 
 			<p>
