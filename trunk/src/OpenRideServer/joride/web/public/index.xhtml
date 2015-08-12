@@ -33,9 +33,15 @@
 		<ui:define name="content">
 
 
-			<!--  Stuff to be displayed *only* if there are unrated rides or drives -->
 
-			<!-- fetch data for unrated rides -->
+     	<!-- *********************************************************** -->
+		<!--  RatingStuff to be displayed *only*                         -->
+		<!--  if rating is enablen and there are unrated rides or drives -->
+		<!-- *********************************************************** -->
+		<ui:fragment rendered="#{jprofile.ratingCapability}">
+		
+		
+		<!-- fetch data for unrated rides -->
 		#{unrated.update()}
 		<!-- fetch data for unrated rides -->
 
@@ -84,6 +90,8 @@
 				</p>
 			</ui:fragment>
 			<!-- end of unrated rides for rider stuff -->
+			</ui:fragment>
+			<!-- end of ratings section -->
 
 			<h:form>
 

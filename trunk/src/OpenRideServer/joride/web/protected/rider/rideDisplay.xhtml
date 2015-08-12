@@ -187,7 +187,14 @@
 					</p:tab>
 
 
-					<p:tab title=" #{msgs.rideRatings}">
+
+
+					<!-- *********************************************************** -->
+					<!--  RatingStuff to be displayed *only*                         -->
+					<!--  if rating is enablen and there are unrated rides or drives -->
+					<!-- *********************************************************** -->
+					<p:tab title=" #{msgs.rideRatings}"
+						rendered="#{jprofile.ratingCapability}">
 
 						<table>
 							<tr>
@@ -313,7 +320,7 @@
 
 						</table>
 
-					</p:tab>
+					</p:tab> <!-- rating tabs -->
 
 
 					<p:tab title="#{msgs.rideRemoveThisRequest}">

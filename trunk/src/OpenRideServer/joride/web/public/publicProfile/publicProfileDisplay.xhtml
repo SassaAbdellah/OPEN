@@ -62,73 +62,97 @@
 					<div class="formLabel">#{msgs.custPreferredLanguage}:</div>
 					<div class="formInput">#{publicProfile.getPreferredLanguageDisplayString()}</div>
 					<!-- show email only if user wants us to -->
-					<h:form name="email" rendered="#{publicProfile.showEmail}" >
-						<div class="formLabel">#{msgs.custEmail} </div>
-						<div class="Input"><a href="mailto:#{publicProfile.email}"> #{publicProfile.email} </a></div>
+					<h:form name="email" rendered="#{publicProfile.showEmail}">
+						<div class="formLabel">#{msgs.custEmail}</div>
+						<div class="Input">
+							<a href="mailto:#{publicProfile.email}">
+								#{publicProfile.email} </a>
+						</div>
 					</h:form>
-					
+
 					<!-- show mobile phone only if user wants us to -->
 					<h:form name="mobile" rendered="#{publicProfile.showMobilePhoneno}">
-						<div class="formLabel">#{msgs.custMobilephoneno} </div>
-						<div class="formInput"><a href="tel:#{publicProfile.mobilePhoneno}"> #{publicProfile.mobilePhoneno} </a></div>
+						<div class="formLabel">#{msgs.custMobilephoneno}</div>
+						<div class="formInput">
+							<a href="tel:#{publicProfile.mobilePhoneno}">
+								#{publicProfile.mobilePhoneno} </a>
+						</div>
 					</h:form>
-					
-					
+
+
 				</p>
 
-				<h2>
-					#{msgs.driver} <br />
-					<p:rating value="#{publicProfile.driverStarRating}"
-						rendered="#{publicProfile.driverRated}" readonly="true" />
-				</h2>
-				<p>
 
+				<!-- *********************************************************** -->
+				<!-- *********************************************************** -->
+				<!--  RatingStuff to be displayed *only*                         -->
+				<!--  if rating is enablen and there are unrated rides or drives -->
+				<!-- *********************************************************** -->
+				<!-- *********************************************************** -->
 
-					<div class="formLabel">#{msgs.ratingsDriverRatingsAvg}:</div>
-					<div class="formInput">
-						#{publicProfile.driverRatingsRatioFormatted}</div>
-					<div class="formLabel">#{msgs.ratingsNumberOfDriverRatings}:</div>
-					<div class="formInput">#{publicProfile.driverRatingsCount}</div>
-
-					<div class="formLabel"><h:form>
-							<p:commandLink action="driverRatingsDisplay" ajax="false">
-
-								<h:outputFormat value="#{msgs.ratingsViewDriverRatings}">
-									<f:param value="#{publicProfile.custNickname}" />
-								</h:outputFormat>
-
-							</p:commandLink>
-						</h:form></div>
-				</p>
-				<p>
+				<ui:fragment rendered="#{jprofile.ratingCapability}">
 
 					<h2>
-						#{msgs.rider} <br />
-						<p:rating value="#{publicProfile.riderStarRating}"
-							rendered="#{publicProfile.riderRated}" readonly="true" />
+						#{msgs.driver} <br />
+						<p:rating value="#{publicProfile.driverStarRating}"
+							rendered="#{publicProfile.driverRated}" readonly="true" />
 					</h2>
+					<p>
 
 
-					<div class="formLabel">#{msgs.ratingsRiderRatingsAvg}:</div>
-				
-					<div class="formInput">
-						#{publicProfile.riderRatingsRatioFormatted}</div>
+						<div class="formLabel">#{msgs.ratingsDriverRatingsAvg}:</div>
+						<div class="formInput">
+							#{publicProfile.driverRatingsRatioFormatted}</div>
+						<div class="formLabel">#{msgs.ratingsNumberOfDriverRatings}:</div>
+						<div class="formInput">#{publicProfile.driverRatingsCount}</div>
 
-					<div class="formLabel">#{msgs.ratingsNumberOfRiderRatings}:</div>
-					<div class="formInput">#{publicProfile.riderRatingsCount}</div>
+						<div class="formLabel">
+							<h:form>
+								<p:commandLink action="driverRatingsDisplay" ajax="false">
 
-					<div class="formLabel"><h:form>
-							<p:commandLink action="riderRatingsDisplay" ajax="false">
+									<h:outputFormat value="#{msgs.ratingsViewDriverRatings}">
+										<f:param value="#{publicProfile.custNickname}" />
+									</h:outputFormat>
 
-								<h:outputFormat value="#{msgs.ratingsViewRiderRatings}">
-									<f:param value="#{publicProfile.custNickname}" />
-								</h:outputFormat>
+								</p:commandLink>
+							</h:form>
+						</div>
+					</p>
+					<p>
 
-							</p:commandLink>
-						</h:form></div>
+						<h2>
+							#{msgs.rider} <br />
+							<p:rating value="#{publicProfile.riderStarRating}"
+								rendered="#{publicProfile.riderRated}" readonly="true" />
+						</h2>
 
 
-				</p>
+						<div class="formLabel">#{msgs.ratingsRiderRatingsAvg}:</div>
+
+						<div class="formInput">
+							#{publicProfile.riderRatingsRatioFormatted}</div>
+
+						<div class="formLabel">#{msgs.ratingsNumberOfRiderRatings}:</div>
+						<div class="formInput">#{publicProfile.riderRatingsCount}</div>
+
+						<div class="formLabel">
+							<h:form>
+								<p:commandLink action="riderRatingsDisplay" ajax="false">
+
+									<h:outputFormat value="#{msgs.ratingsViewRiderRatings}">
+										<f:param value="#{publicProfile.custNickname}" />
+									</h:outputFormat>
+
+								</p:commandLink>
+							</h:form>
+						</div>
+
+					</p>
+
+				</ui:fragment>
+				<!-- end of rating fragment -->
+
+
 
 			</p:panel>
 
