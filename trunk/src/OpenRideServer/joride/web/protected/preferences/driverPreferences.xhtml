@@ -68,7 +68,7 @@
 					<!-- currently removed. FIXME: check relevance for matching algoritm -->
 					<!-- char custDriverprefSmoker -->
 					<div class="formLabel">#{msgs.custDriverprefSmoker}</div>
-					<h:selectOneRadio value="#{jprofile.custDriverprefSmoker}">
+					<p:selectOneRadio layout="pageDirection" value="#{jprofile.custDriverprefSmoker}">
 						<div class="formLabel">
 							<f:selectItem itemValue="#{jprofile.smokerChar}"
 								itemLabel="#{msgs.custSmokeInCar}" />
@@ -77,7 +77,7 @@
 							<f:selectItem itemValue="#{jprofile.nonsmokerChar}"
 								itemLabel="#{msgs.custNonSmokeInCar}" />
 						</div>
-					</h:selectOneRadio>
+					</p:selectOneRadio>
 
 					<p:commandButton
 						actionListener="#{jprofile.updateDriverPreferencesToDB}"
