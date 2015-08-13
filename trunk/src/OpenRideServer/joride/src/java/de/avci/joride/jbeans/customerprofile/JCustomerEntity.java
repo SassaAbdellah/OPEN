@@ -730,6 +730,55 @@ public class JCustomerEntity extends CustomerEntity {
 		return menuItemUpdateCapabilityFlag;
 	}
 	
+	/** True, if displaying updates on page headers is allowed on the system else false.
+	 * 
+	 */
+	
+	private Boolean messageDisplayCapabilityFlag=null;
+	
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getMessageDisplayCapability(){
+		
+		if(this.messageDisplayCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_messageDisplay);
+			messageDisplayCapabilityFlag=new Boolean(rS);
+		}
+		
+		return messageDisplayCapabilityFlag;
+	}
+	
+	
+	
+	/** True, if adding waypoints to routes is allowed on the system, else false.
+	 * 
+	 */
+	
+	private Boolean waypointCapabilityFlag=null;
+	
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getWaypointCapability(){
+		
+		if(this.waypointCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_waypoints);
+			waypointCapabilityFlag=new Boolean(rS);
+		}
+		
+		return waypointCapabilityFlag;
+	}
+	
+	
+	
+	
+	
+	
 	
 	/** Return list of possible search types depending on customer and system's
 	 * capabilities.

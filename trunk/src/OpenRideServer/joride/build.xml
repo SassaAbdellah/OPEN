@@ -182,6 +182,28 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+		<!-- turn on/off functionality for polling for updates and displaying -->
+		<!-- updates and messages in page headers                             -->
+		<replaceregexp byline="joride_capability_messageDisplay">
+			<regexp pattern="joride_capability_messageDisplay=(.*)" />
+			<substitution expression="joride_capability_messageDisplay=${joride_capability_messageDisplay}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		<!-- let drivers add waypoints, i.e change routes calculated by routing engine on/off -->
+
+		<replaceregexp byline="joride_capability_waypoints">
+			<regexp pattern="joride_capability_waypoints=(.*)" />
+			<substitution expression="joride_capability_waypoints=${joride_capability_waypoints}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+
+
+
+
+
+
 
 
 
