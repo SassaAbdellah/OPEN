@@ -20,7 +20,7 @@
 
 
 
-			
+
 
 			<!-- primefaces localization is always needed          -->
 			<h:outputScript library="js" name="primefacesLocale.js" />
@@ -29,7 +29,7 @@
 			<!-- ***  stuff inside update alert section is for polling *** -->
 			<!-- **   and displaying  update messages in header        *** -->
 
-			<h:form>
+			<h:form rendered="#{joride.messageDisplayCapability}">
 				<!-- update poll stanza -->
 
 				<!-- ajax updateable Panel displaying messages and update links -->

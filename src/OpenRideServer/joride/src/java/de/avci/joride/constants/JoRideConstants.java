@@ -182,7 +182,21 @@ public class JoRideConstants implements Serializable {
 	 */
 	public static final String PROPTERY_NAME_joride_capability_updateMenuItem ="joride_capability_updateMenuItem";
 	
+
 	
+	/** Property which decides wether or not drivers can add waypoints to 
+	 *  change the route suggested by the routing engine
+	 */
+	public static final String PROPTERY_NAME_joride_capability_waypoints="joride_capability_waypoints";
+	
+	/** Property which decides wether or not messages and update should be displayed in page headers 
+	 * set this to false, if joride should be used as a frontend for maintaining
+ 	* master data only
+ 	*/
+	public static final String PROPTERY_NAME_joride_capability_messageDisplay="joride_capability_messageDisplay";
+	
+	
+
 	
 	
 } // class
