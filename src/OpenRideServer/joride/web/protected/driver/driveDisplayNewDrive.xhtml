@@ -80,7 +80,9 @@
 
 
 				<div class="formLabel">
-					<h:form>
+				
+				<!-- edit routing / add waypoints functility only if respective capability is set! -->
+					<h:form rendered="#{jprofile.waypointCapability}">
 						<p:commandButton id="editRouting" icon="ui-icon-plus"
 							action="driver.editRouting">
 							<f:param name="#{crud.paramNameCrudId}"
