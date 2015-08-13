@@ -27,11 +27,6 @@ jee.lib.basedir=build.headless.support/jee/libs.glassfish.3.0.2/
 build.joride=on
 #
 #
-# uncomment this to build "noride" frontend (nikos frontend for openride)
-build.noride=on
-#
-#
-#
 #
 # uncomment this to build "joride-public" frontend 
 # joride-public provides the "public" part for both joride 
@@ -306,3 +301,6 @@ joride_capability_passenger=true
 #
 joride_capability_rating=false
 #
+# if true, then there will be a menu item for updates 
+#
+joride_capability_updateMenuItem=true
