@@ -37,13 +37,6 @@
 		<ui:define name="content">
 
 
-
-
-
-
-
-
-
 			<!-- this will only work, it timeinterval's data are transferred via http params -->
 
 
@@ -51,7 +44,7 @@
 
 
 
-			<p:dataTable value="#{ride.rideReport}" var="myride" paginator="true"
+			<p:dataTable value="#{rideSearchParamsBean.rideReport}" var="myride" paginator="true"
 				rows="1">
 
 				<p:column>
@@ -171,23 +164,9 @@
 				</h:form>
 			</p>
 
-
-
-
-
-
-
-
-
 		</ui:define>
 
-
-
-
 	</ui:composition>
-
-
-
 
 
 </body>

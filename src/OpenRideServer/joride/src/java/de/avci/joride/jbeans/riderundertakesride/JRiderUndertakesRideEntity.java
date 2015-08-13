@@ -5,6 +5,7 @@ import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.jbeans.customerprofile.SearchType;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
@@ -417,11 +418,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
 
-			if (
-					(webflowPoint.getParamAddress() != null) 
-					&&
-					(isNullOrEmpty(this.getStartptAddress()))
-			  ) {
+			if ((webflowPoint.getParamAddress() != null)
+					&& (isNullOrEmpty(this.getStartptAddress()))) {
 				this.setStartptAddress(webflowPoint.getAddress());
 			}
 
@@ -443,11 +441,8 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
 
-			if (
-				(webflowPoint.getParamAddress() != null)
-				&&
-				(isNullOrEmpty(this.getEndptAddress()))
-			) {
+			if ((webflowPoint.getParamAddress() != null)
+					&& (isNullOrEmpty(this.getEndptAddress()))) {
 				this.setEndptAddress(webflowPoint.getAddress());
 			}
 
@@ -531,7 +526,6 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		return this.jMatches;
 	}
 
-
 	/**
 	 * Returns true, if this ride has been updated
 	 * 
@@ -547,11 +541,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	 */
 	public String getUpdatedShortcut() {
 
-		
 		if (this.getRideUpdated()) {
-			Locale locale=new HTTPUtil().detectBestLocale();
+			Locale locale = new HTTPUtil().detectBestLocale();
 			return " "
-					+ PropertiesLoader.getMessageProperties(locale).getProperty("updatedRideShort");
+					+ PropertiesLoader.getMessageProperties(locale)
+							.getProperty("updatedRideShort");
 		}
 
 		return "  ";
@@ -707,15 +701,15 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		return (jrureService.callerIsRider(id));
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return ! isNotCallerIsRider()
 	 */
 	public boolean isNotCallerIsRider() {
-		return ! isCallerIsRider();
+		return !isCallerIsRider();
 	}
+
 	/**
 	 * Determines the caller from http-request, and if caller is identical to
 	 * rider, then allow for rider cancel
@@ -793,202 +787,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		new JRiderUndertakesRideEntityService().setReceivedRatingSavely(this);
 	}
 
-	/**
-	 * Mnemonic Value for
-	 * 
-	 * @see RideSearchParamsBean searchType Property that will make
-	 *      getRideReport return a list of all rides in given Timespan
-	 * 
-	 */
-	protected static final String RIDEREPORT_ALL_RIDES_FOR_RIDER = "All_RIDES_FOR_RIDER";
-
-	/**
-	 * Make RIDEREPORT_ALL_RIDES_FOR_RIDER mnemonic available to outside in JSF
-	 * Bean Fashion.
-	 * 
-	 * @return RIDEREPORT_ALL_RIDES_FOR_RIDER
-	 */
-	public String getParamValueRidereportAllRidesForRider() {
-		return RIDEREPORT_ALL_RIDES_FOR_RIDER;
-	}
-
-	/**
-	 * Mnemonic Value for
-	 * 
-	 * @see RideSearchParamsBean searchType Property that will make
-	 *      getRideReport return a list of all **realized** rides in given
-	 *      Timespan
-	 * 
-	 */
-	protected static final String RIDEREPORT_REALIZED_RIDES_FOR_RIDER = "REALIZED_RIDES_FOR_RIDER";
-
-	/**
-	 * Make RIDEREPORT_REALIZED_RIDES_FOR_RIDER mnemonic available to outside in
-	 * JSF Bean Fashion.
-	 * 
-	 * @return RIDEREPORT_REALIZED_RIDES_FOR_RIDER
-	 */
-	public String getParamValueRidereportRealizedRidesForRider() {
-		return RIDEREPORT_REALIZED_RIDES_FOR_RIDER;
-	}
-
-	/**
-	 * Mnemonic Value for
-	 * 
-	 * @see RideSearchParamsBean searchType Property that will make
-	 *      getRideReport return a list of all **unrated** rides in given
-	 *      Timespan
-	 * 
-	 */
-	protected static final String RIDEREPORT_UNRATED_RIDES_FOR_RIDER = "UNRATED_RIDES_FOR_RIDER";
-
 	
-	/**
-	 * Mnemonic Value for
-	 * 
-	 * @see RideSearchParamsBean searchType Property that will make
-	 *      getRideReport return a list of all **unrated** rides for driver in given
-	 *      Timespan
-	 * 
-	 */
-	protected static final String RIDEREPORT_UNRATED_RIDES_FOR_DRIVER = "UNRATED_RIDES_FOR_DRIVER";
-
-	
-	
-	/**
-	 * Make RIDEREPORT_UNRATED_RIDES_FOR_RIDER mnemonic available to outside in
-	 * JSF Bean Fashion.
-	 * 
-	 * @return RIDEREPORT_UNRATED_RIDES_FOR_RIDER
-	 */
-	public String getParamValueRidereportUnratedRidesForRider() {
-		return RIDEREPORT_UNRATED_RIDES_FOR_RIDER;
-	}
-	
-	/**
-	 * Make RIDEREPORT_UNRATED_RIDES_FOR_DRIVER mnemonic available to outside in
-	 * JSF Bean Fashion.
-	 * 
-	 * @return RIDEREPORT_UNRATED_RIDES_FOR_DRIVER
-	 */
-	public String getParamValueRidereportUnratedRidesForDriver() {
-		return RIDEREPORT_UNRATED_RIDES_FOR_DRIVER;
-	} 
-	
-	
-
-	/**
-	 * Mnemonic Value for
-	 * 
-	 * @see RideSearchParamsBean searchType Property that will make
-	 *      getRideReport return a list of all rides in given Timespan where
-	 *      caller acted as driver
-	 * 
-	 */
-	protected static final String RIDEREPORT_ALL_RIDES_FOR_DRIVER = "All_RIDES_FOR_DRIVER";
-
-	/**
-	 * Make RIDEREPORT_ALL_RIDES_FOR_DRIVER mnemonic available to outside in JSF
-	 * Bean Fashion.
-	 * 
-	 * @return RIDEREPORT_ALL_RIDES_FOR_RIDER
-	 */
-	public String getParamValueRidereportAllRidesForDriver() {
-		return RIDEREPORT_ALL_RIDES_FOR_DRIVER;
-	}
-
-	/**
-	 * Determines the current Instance of RideSearchParamBean, and returns a
-	 * list of JRiderUndertakesRideEntity Objects.
-	 * 
-	 * 
-	 * The list of rides actually returned will be based on the value of the
-	 * RideSearchParamBean's searchType property.
-	 * 
-	 * I.e, if this property equals:
-	 * 
-	 * <ul>
-	 * 
-	 * <li>{
-	 * 
-	 * @see RIDEREPORT_ALL_RIDES_FOR_RIDER returns a list of all rides for this
-	 *      rider in given timespan </li>
-	 * 
-	 *      <li>{
-	 * @see RIDEREPORT_REALIZED_RIDES_FOR_RIDER returns a list of all *realized*
-	 *      rides for this rider in given timespan </li>
-	 * 
-	 *      <li>{
-	 * @see RIDEREPORT_UNRATED_RIDES_FOR_RIDER returns a list of all unrated
-	 *      rides for this rider in given timespan </li>
-	 * 
-	 * 
-	 *      <li>{
-	 * @see RIDEREPORT_ALL_RIDES_FOR_DRIVER returns a list of all rides for this
-	 *      given timespan, where caller acted as a driver. </li>
-	 * 
-	 *      </ul>
-	 * 
-	 * 
-	 * 
-	 * @return List of Entities. See listing above.
-	 * 
-	 */
-	public List<JRiderUndertakesRideEntity> getRideReport() {
-
-		RideSearchParamsBean rspb0 = new RideSearchParamsBean();
-		String beanName = rspb0.getBeanNameRidesearchparam();
-		RideSearchParamsBean rspb = new RideSearchParamsBean()
-				.retrieveCurrentTimeInterval(beanName);
-
-		if (rspb == null) {
-			log.log(Level.FINE, this.getClass()
-					+ "RideSearchParamsBean is null, returning empty list");
-			return new LinkedList<JRiderUndertakesRideEntity>();
-		}
-
-		String reportType = rspb.getSearchType();
-
-		// see if we want to see **all** rides
-		if (this.getParamValueRidereportAllRidesForRider().equals(reportType)) {
-			return (new JRiderUndertakesRideEntityService())
-					.getRidesForRiderInInterval();
-		}
-
-		// see if we want to see **realized** rides only
-		if (this.getParamValueRidereportRealizedRidesForRider().equals(
-				reportType)) {
-			return (new JRiderUndertakesRideEntityService())
-					.getRealizedRidesForRiderInInterval();
-		}
-
-		// see if we want to see **unrated** rides for rider only
-		if (this.getParamValueRidereportUnratedRidesForRider().equals(
-				reportType)) {
-			return (new JRiderUndertakesRideEntityService())
-					.getUnratedRidesForRiderInInterval();
-		}
-
-		// see if we want to see **unrated** rides for driver only
-				if (this.getParamValueRidereportUnratedRidesForDriver().equals(
-						reportType)) {
-					return (new JRiderUndertakesRideEntityService())
-							.getUnratedRidesForDriverInInterval();
-				}
-		
-		
-		// see if we want to see **drivers** rides only
-		if (this.getParamValueRidereportAllRidesForDriver().equals(reportType)) {
-			return (new JRiderUndertakesRideEntityService())
-					.getRidesForDriverInInterval();
-		}
-
-		// if the parameter is not supported, then throw a new Error
-		throw new Error("Parameter " + reportType
-				+ " is  not supported in getRideReport()");
-
-	}
-
 	/**
 	 * Length to which the lengty addresses should be shortened when displayed
 	 * in title tags
@@ -1132,125 +931,131 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		return !this.isCountermandingRequired();
 	}
-	
+
 	@Override
-	
 	/** return superclasses' Comment if != null,
 	 *  or something like "-- --"
 	 *  if there is no comment.
 	 * 
 	 */
-	public String getComment(){
-		
-		String noCommentExists="-- --";
-		
-		String rideComment=super.getComment();
-		
-		if(rideComment==null || rideComment.trim().equals("")){
+	public String getComment() {
+
+		String noCommentExists = "-- --";
+
+		String rideComment = super.getComment();
+
+		if (rideComment == null || rideComment.trim().equals("")) {
 			return noCommentExists;
 		}
-		
+
 		return rideComment;
 	}
-	
-	
-	
-	/** Override superclass' trivial Setter to impose upper and lower Limits
-	 *  on latest starttime.
+
+	/**
+	 * Override superclass' trivial Setter to impose upper and lower Limits on
+	 * latest starttime.
 	 * 
-	 */	
-	public void setStarttimeLatestOnCreation(Date arg){
-		
-		CustomerEntity cust=new JCustomerEntityService().getCustomerEntitySafely();
-		
-		long argtime=arg.getTime();	
-		long upperHorizon=cust.getPlanningHorizonForOfferTS().getTime();
-		long now=System.currentTimeMillis();
-		
-		
-		long res1=Math.min(argtime, upperHorizon);
-		long res2=Math.max(argtime, now);
-		
+	 */
+	public void setStarttimeLatestOnCreation(Date arg) {
+
+		CustomerEntity cust = new JCustomerEntityService()
+				.getCustomerEntitySafely();
+
+		long argtime = arg.getTime();
+		long upperHorizon = cust.getPlanningHorizonForOfferTS().getTime();
+		long now = System.currentTimeMillis();
+
+		long res1 = Math.min(argtime, upperHorizon);
+		long res2 = Math.max(argtime, now);
+
 		super.setStarttimeLatest(new Date(Math.max(res1, res2)));
 	}
-	
-	public Date getStarttimeLatestOnCreation(){
+
+	public Date getStarttimeLatestOnCreation() {
 		return this.getStarttimeLatest();
 	}
-	
-	
-	/** If on creation of a new Request some error was encountered, then 
-	 *  then the ErrorCode should be set.
-	 *  This is especially needed to inform the user wether or not
-	 *  a request has been successfully created at the end to a workflow.
-	 *   
-	 */
-	private String errorCode=null;
-	
-	public String getErrorCode(){
-		return this.errorCode;
-	}	
 
-	public void setErrorCode(String arg){
-		this.errorCode=arg;
+	/**
+	 * If on creation of a new Request some error was encountered, then then the
+	 * ErrorCode should be set. This is especially needed to inform the user
+	 * wether or not a request has been successfully created at the end to a
+	 * workflow.
+	 * 
+	 */
+	private String errorCode = null;
+
+	public String getErrorCode() {
+		return this.errorCode;
 	}
-	
-	/** 
+
+	public void setErrorCode(String arg) {
+		this.errorCode = arg;
+	}
+
+	/**
 	 * @return true, if this offer has an error code, else false
 	 */
-	public boolean getHasErrorCode(){	
-		return this.getErrorCode()!=null;
+	public boolean getHasErrorCode() {
+		return this.getErrorCode() != null;
 	}
-	
-	/** 
+
+	/**
 	 * @return true, if this offer has no error code, else false
 	 */
-	public boolean getHasNoErrorCode(){	
-		return this.getErrorCode()==null;
+	public boolean getHasNoErrorCode() {
+		return this.getErrorCode() == null;
 	}
-	
-	/** Retrieve a localized Version of the error code
+
+	/**
+	 * Retrieve a localized Version of the error code
 	 */
-	public String getLocalizedErrorCode(){
-		
-		if(errorCode==null){return null;}
-		
-		Locale locale=new HTTPUtil().detectBestLocale();
-		Properties errorProperties=de.avci.openrideshare.utils.PropertiesLoader.getErrorMessageProperties(locale);		
+	public String getLocalizedErrorCode() {
+
+		if (errorCode == null) {
+			return null;
+		}
+
+		Locale locale = new HTTPUtil().detectBestLocale();
+		Properties errorProperties = de.avci.openrideshare.utils.PropertiesLoader
+				.getErrorMessageProperties(locale);
 		return errorProperties.getProperty(errorCode);
 	}
-	
 
-	
-	
-	
-	
-	/** Check if point (startpoint / endpoint is initialized)
+	/**
+	 * Check if point (startpoint / endpoint is initialized)
 	 * 
 	 * @param endpt
 	 * @return
 	 */
 	private boolean isInitializedPoint(Point pt) {
-		
-		if(pt==null){return false;}
-		if(pt.getX()==0 && pt.getX()==0){return false;}
-	
+
+		if (pt == null) {
+			return false;
+		}
+		if (pt.getX() == 0 && pt.getX() == 0) {
+			return false;
+		}
+
 		return true;
 	}
-	
-	
-	/** ordinary method to test wether given String is null or empty
+
+	/**
+	 * ordinary method to test wether given String is null or empty
 	 * 
-	 * @param arg   string to be tested
+	 * @param arg
+	 *            string to be tested
 	 * @return true, if argument is null or consists of whitespaces only
 	 */
-	private boolean isNullOrEmpty(String arg){
-		
-		if(arg==null){return true;}	
-		if("".equals(arg.trim())){ return true;}
+	private boolean isNullOrEmpty(String arg) {
+
+		if (arg == null) {
+			return true;
+		}
+		if ("".equals(arg.trim())) {
+			return true;
+		}
 		return false;
 	}
-	
 
 } // class
 

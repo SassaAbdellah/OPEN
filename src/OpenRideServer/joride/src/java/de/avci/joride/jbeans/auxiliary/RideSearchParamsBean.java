@@ -4,23 +4,26 @@
  */
 package de.avci.joride.jbeans.auxiliary;
 
-import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
-import de.avci.joride.utils.BeanRetriever;
-import de.avci.joride.utils.HTTPUtil;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+
+import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.customerprofile.SearchType;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntity;
+import de.avci.joride.jbeans.riderundertakesride.JRiderUndertakesRideEntityService;
+import de.avci.joride.utils.BeanRetriever;
+import de.avci.joride.utils.HTTPUtil;
 
 /**
  * Defines a time interval in terms of length in days and enddate.
@@ -301,16 +304,104 @@ public class RideSearchParamsBean implements Serializable {
    public void configureUnratedRidesForDriver(ActionEvent evt){
 	   this.setStartDate(new Date(0));
 	   this.setEndDate(new Date(System.currentTimeMillis()));
-	   this.setSearchType(new JRiderUndertakesRideEntity().getParamValueRidereportUnratedRidesForDriver());
+	   this.setSearchType(SearchType.RIDEREPORT_UNRATED_RIDES_FOR_DRIVER);
    }
    
    public void configureUnratedRidesForRider(ActionEvent evt){
 	   this.setStartDate(new Date(0));
 	   this.setEndDate(new Date(System.currentTimeMillis()));
-	   this.setSearchType(new JRiderUndertakesRideEntity().getParamValueRidereportUnratedRidesForRider());
+	   this.setSearchType(SearchType.RIDEREPORT_UNRATED_RIDES_FOR_RIDER);
    }
    
     
+   /**
+	 * Determines the current Instance of RideSearchParamBean, and returns a
+	 * list of JRiderUndertakesRideEntity Objects.
+	 * 
+	 * 
+	 * The list of rides actually returned will be based on the value of the
+	 * RideSearchParamBean's searchType property.
+	 * 
+	 * I.e, if this property equals:
+	 * 
+	 * <ul>
+	 * 
+	 * <li>{
+	 * 
+	 * @see RIDEREPORT_ALL_RIDES_FOR_RIDER returns a list of all rides for this
+	 *      rider in given timespan </li>
+	 * 
+	 *      <li>{
+	 * @see RIDEREPORT_REALIZED_RIDES_FOR_RIDER returns a list of all *realized*
+	 *      rides for this rider in given timespan </li>
+	 * 
+	 *      <li>{
+	 * @see RIDEREPORT_UNRATED_RIDES_FOR_RIDER returns a list of all unrated
+	 *      rides for this rider in given timespan </li>
+	 * 
+	 * 
+	 *      <li>{
+	 * @see RIDEREPORT_ALL_RIDES_FOR_DRIVER returns a list of all rides for this
+	 *      given timespan, where caller acted as a driver. </li>
+	 * 
+	 *      </ul>
+	 * 
+	 * 
+	 * 
+	 * @return List of Entities. See listing above.
+	 * 
+	 */
+	public List<JRiderUndertakesRideEntity> getRideReport() {
+
+		RideSearchParamsBean rspb0 = new RideSearchParamsBean();
+		String beanName = rspb0.getBeanNameRidesearchparam();
+		RideSearchParamsBean rspb = new RideSearchParamsBean()
+				.retrieveCurrentTimeInterval(beanName);
+
+		if (rspb == null) {
+			log.log(Level.FINE, this.getClass()
+					+ "RideSearchParamsBean is null, returning empty list");
+			return new LinkedList<JRiderUndertakesRideEntity>();
+		}
+
+		String reportType = rspb.getSearchType();
+
+		// see if we want to see **all** rides
+		if (SearchType.RIDEREPORT_ALL_RIDES_FOR_RIDER.equals(reportType)) {
+			return (new JRiderUndertakesRideEntityService())
+					.getRidesForRiderInInterval();
+		}
+
+		// see if we want to see **realized** rides only
+		if (SearchType.RIDEREPORT_REALIZED_RIDES_FOR_RIDER.equals(reportType)) {
+			return (new JRiderUndertakesRideEntityService())
+					.getRealizedRidesForRiderInInterval();
+		}
+
+		// see if we want to see **unrated** rides for rider only
+		if (SearchType.RIDEREPORT_UNRATED_RIDES_FOR_RIDER.equals(reportType)) {
+			return (new JRiderUndertakesRideEntityService())
+					.getUnratedRidesForRiderInInterval();
+		}
+
+		// see if we want to see **unrated** rides for driver only
+		if (SearchType.RIDEREPORT_UNRATED_RIDES_FOR_RIDER.equals(reportType)) {
+			return (new JRiderUndertakesRideEntityService())
+					.getUnratedRidesForDriverInInterval();
+		}
+
+		// see if we want to see **drivers** rides only
+		if ( SearchType.RIDEREPORT_ALL_RIDES_FOR_DRIVER.equals(reportType)) {
+			return (new JRiderUndertakesRideEntityService())
+					.getRidesForDriverInInterval();
+		}
+
+		// if the parameter is not supported, then throw a new Error
+		throw new Error("Parameter " + reportType
+				+ " is  not supported in getRideReport()");
+
+	}
+
    
 } // class
 
