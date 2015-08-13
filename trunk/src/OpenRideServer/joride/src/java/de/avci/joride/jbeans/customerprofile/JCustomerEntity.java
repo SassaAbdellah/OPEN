@@ -521,6 +521,22 @@ public class JCustomerEntity extends CustomerEntity {
 		return supportedUnitsOfLength;
 	}
 
+	
+	
+	/** List of possible searches for this user. 
+	 *  The possibleSearchTypes depend on the capabilities 
+	 *  (capabilityRider, capabilityDriver, capabilityRating)
+	 * 
+	 * @return List of possible searches for this user. 
+	 */
+	public List  <SearchType> getAdmissibleSearchTypes(){
+		
+		return SearchType.getAvaillableSearchtypes(this);
+	}
+	
+	
+
+	
 	/**
 	 * Get preferred unit of length (singular)
 	 */
@@ -715,6 +731,12 @@ public class JCustomerEntity extends CustomerEntity {
 	}
 	
 	
+	/** Return list of possible search types depending on customer and system's
+	 * capabilities.
+	 */
+	public List<SearchType> getAvaillableSearchtypes() {
+		return SearchType.getAvaillableSearchtypes(this);
+	}
 	
 }// class
 

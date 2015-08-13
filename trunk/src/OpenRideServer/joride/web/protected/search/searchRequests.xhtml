@@ -2,158 +2,139 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
-    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </h:head>
-
-
-
-    <body>
-
-        <ui:composition template="/templates/navbar1Layout.xhtml">
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
 
 
 
-            <!-- highlight "preferences" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
+<body>
+
+	<ui:composition template="/templates/navbar1Layout.xhtml">
 
 
-            <ui:define name="windowTitle">
+
+		<!-- highlight "preferences" tab -->
+		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexRider}" />
+
+
+		<ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
-            <ui:define name="content">
+		<ui:define name="content">
 
 
-                <!--  end of subnavigation section -->
+			<!--  end of subnavigation section -->
 
 
-                <!--  form to fire up request -->
+			<!--  form to fire up request -->
 
-                <h:form>
-                    <p:panel>
-                        <p:panelGrid columns="1"> <!-- outer of 2 nested grids -->
+			<h:form>
+				<p:panel>
+					<p:panelGrid columns="1">
+						<!-- outer of 2 nested grids -->
 
-                            <f:facet name="header">
+						<f:facet name="header">
                                 #{msgs.rideSearchRequests}
                             </f:facet>
 
-                            <!--TODO: enable/disable items governed by riderCapabilities, driverCapabilities and ratingCapabilities -->
-	
-                            <p:row>
-                                <p:selectOneMenu value="#{ridesearchparams.searchType}" >
-                                    <f:selectItem itemLabel="#{msgs.RIDEREPORT_ALL_RIDES_FOR_RIDER}"       	  itemValue="#{ride.paramValueRidereportAllRidesForRider}"        />
-                                    <f:selectItem itemLabel="#{msgs.RIDEREPORT_REALIZED_RIDES_FOR_RIDER}"     itemValue="#{ride.paramValueRidereportRealizedRidesForRider}"   />
-                                    <f:selectItem itemLabel="#{msgs.RIDEREPORT_UNRATED_RIDES_FOR_RIDER}"      itemValue="#{ride.paramValueRidereportUnratedRidesForRider}"    />
-                                    <f:selectItem itemLabel="#{msgs.RIDEREPORT_UNRATED_RIDES_FOR_DRIVER}"     itemValue="#{ride.paramValueRidereportUnratedRidesForDriver}"   />
-                                    <f:selectItem itemLabel="#{msgs.RIDEREPORT_ALL_RIDES_FOR_DRIVER}"         itemValue="#{ride.paramValueRidereportAllRidesForDriver}"  	  />
-                                  
-                                </p:selectOneMenu>
-                            </p:row>    
+						<!--TODO: enable/disable items governed by riderCapabilities, driverCapabilities and ratingCapabilities -->
 
-                            <p:row>
+						<p:row>
+							<p:selectOneMenu value="#{ridesearchparams.searchType}">
 
-                                <p:panelGrid columns="2">
+								<f:selectItems 
+									value="#{jprofile.getAvaillableSearchtypes()}"
+									var="st" 
+									itemLabel="#{st.displayString}" 
+									itemValue="#{st.searchKey}" 
+									/>
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.timeintervalStart}" />
-                                        </p:column>
-                                    </p:row>
+							</p:selectOneMenu>
+						</p:row>
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:calendar 
-                                                value="#{ridesearchparams.startDate}"  
-                                                id="startDateCal"   
-                                                locale="#{HTTPUser.getLocale()}"  
-                                                pattern="#{ridesearchparams.dateformat}" 
-                                                mode="popup"
-                                                navigator="true"
-                                                showOn="focus"
-                                                size="10"
-                                                >  
-                                            </p:calendar>
-                                        </p:column>
-                                    </p:row>
+						<p:row>
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.timeintervalEnd}" /> 
-                                        </p:column>
-                                    </p:row>
+							<p:panelGrid columns="2">
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:calendar 
-                                                value="#{ridesearchparams.endDate}"  
-                                                id="endDateCal"   
-                                                locale="#{HTTPUser.getLocale()}"  
-                                                pattern="#{ridesearchparams.dateformat}" 
-                                                mode="popup"
-                                                navigator="true"
-                                                showOn="focus"
-                                                size="10"
-                                                >  
-                                            </p:calendar>
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid> <!-- End of inner 2-column panel grid -->
-                            </p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="#{msgs.timeintervalStart}" />
+									</p:column>
+								</p:row>
 
-                            <f:facet name="footer">
+								<p:row>
+									<p:column>
+										<p:calendar value="#{ridesearchparams.startDate}"
+											id="startDateCal" locale="#{HTTPUser.getLocale()}"
+											pattern="#{ridesearchparams.dateformat}" mode="popup"
+											navigator="true" showOn="focus" size="10">
+										</p:calendar>
+									</p:column>
+								</p:row>
 
-                                <h:commandButton  
-                                    value="#{msgs.formSearch}"
-                                    action="search.requestsDisplay"
-                                    >
-                                    
-                              
+								<p:row>
+									<p:column>
+										<p:outputLabel value="#{msgs.timeintervalEnd}" />
+									</p:column>
+								</p:row>
 
-                                    <f:param 
-                                        name="#{ridesearchparams.paramStartDate}" 
-                                        value="#{ridesearchparams.startDateFormatted}"
-                                        />
+								<p:row>
+									<p:column>
+										<p:calendar value="#{ridesearchparams.endDate}"
+											id="endDateCal" locale="#{HTTPUser.getLocale()}"
+											pattern="#{ridesearchparams.dateformat}" mode="popup"
+											navigator="true" showOn="focus" size="10">
+										</p:calendar>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<!-- End of inner 2-column panel grid -->
+						</p:row>
 
-                                    <f:param 
-                                        name="#{ridesearchparams.paramEndDate}" 
-                                        value="#{ridesearchparams.endDateFormatted}"
-                                        />
+						<f:facet name="footer">
 
-                                    <f:param 
-                                        name="#{ridesearchparams.paramNameSearchType}" 
-                                        value="#{ridesearchparams.searchType}"
-                                        />
+							<h:commandButton value="#{msgs.formSearch}"
+								action="search.requestsDisplay">
 
 
-                                    <f:param 
-                                        name="#{webflow.paramBack}" 
-                                        value="search.requests"
-                                        />
 
-                                </h:commandButton>
-                            </f:facet>
+								<f:param name="#{ridesearchparams.paramStartDate}"
+									value="#{ridesearchparams.startDateFormatted}" />
 
-                        </p:panelGrid>
+								<f:param name="#{ridesearchparams.paramEndDate}"
+									value="#{ridesearchparams.endDateFormatted}" />
 
-                    </p:panel>
+								<f:param name="#{ridesearchparams.paramNameSearchType}"
+									value="#{ridesearchparams.searchType}" />
 
-                </h:form>
 
-            </ui:define>
+								<f:param name="#{webflow.paramBack}" value="search.requests" />
 
-        </ui:composition>
+							</h:commandButton>
+						</f:facet>
+
+					</p:panelGrid>
+
+				</p:panel>
+
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
 
 
 
 
 
-    </body>
+</body>
 </html>
