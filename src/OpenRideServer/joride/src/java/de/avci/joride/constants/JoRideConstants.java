@@ -152,50 +152,73 @@ public class JoRideConstants implements Serializable {
 	 */
 	public static final String PROPERTY_NAME_showCookieMessage = "showCookieMessage";
 
-	
 	/***************************************************************************************/
 	/**** Frontend capability stuff comes here ! *******************************************/
 	/***************************************************************************************/
-	
-	/** Property name for driver functionality, i.e turning on/off offering rides
+
+	/**
+	 * Property name for driver functionality, i.e turning on/off offering rides
 	 * (true/false)
 	 */
 	public static final String PROPTERY_NAME_joride_capability_driver = "joride_capability_driver";
 
-	/** Property name for passenger functionality, i.e turning on/off requesting
-	 *  hitches (true/false)
+	/**
+	 * Property name for passenger functionality, i.e turning on/off requesting
+	 * hitches (true/false)
 	 */
 
 	public static final String PROPTERY_NAME_joride_capability_passenger = "joride_capability_passenger";
 
-	/** Property name for rating functionality, i.e turning on/off rating others
+	/**
+	 * Property name for rating functionality, i.e turning on/off rating others
 	 * (true/false)
 	 */
 
 	public static final String PROPTERY_NAME_joride_capability_rating = "joride_capability_rating";
 
-	
-	/** Property which decides wether or not to show an menu item 
-	 * for addressing update pages programmatically
-	 * if true, then there will be a menu item for updates 
+	/**
+	 * Property which decides wether or not to show an menu item for addressing
+	 * update pages programmatically if true, then there will be a menu item for
+	 * updates
 	 * 
 	 */
-	public static final String PROPTERY_NAME_joride_capability_updateMenuItem ="joride_capability_updateMenuItem";
-	
+	public static final String PROPTERY_NAME_joride_capability_updateMenuItem = "joride_capability_updateMenuItem";
+
+	/**
+	 * Property which decides wether or not drivers can add waypoints to change
+	 * the route suggested by the routing engine
+	 */
+	public static final String PROPTERY_NAME_joride_capability_waypoints = "joride_capability_waypoints";
+
+	/**
+	 * Property which decides wether or not messages and update should be
+	 * displayed in page headers set this to false, if joride should be used as
+	 * a frontend for maintaining master data only
+	 */
+	public static final String PROPTERY_NAME_joride_capability_messageDisplay = "joride_capability_messageDisplay";
+
+	/** Property which decides wether or not to use "favoritePlaces" to pick
+	 *  start or endpoints from.
+	 */
+	public static final String PROPTERY_NAME_joride_capability_favoritePlaces = "joride_capability_favoritePlaces";
 
 	
-	/** Property which decides wether or not drivers can add waypoints to 
-	 *  change the route suggested by the routing engine
+	/** Property which decides wether or not to use html5 geolocation to dtermine the
+	 *  current position when picking start or endpoints.
 	 */
-	public static final String PROPTERY_NAME_joride_capability_waypoints="joride_capability_waypoints";
+	public static final String PROPTERY_NAME_joride_capability_currentPosition = "joride_capability_currentPosition";
+
 	
-	/** Property which decides wether or not messages and update should be displayed in page headers 
-	 * set this to false, if joride should be used as a frontend for maintaining
- 	* master data only
- 	*/
-	public static final String PROPTERY_NAME_joride_capability_messageDisplay="joride_capability_messageDisplay";
+	/** Property which decides wether or not to use geomapper services 
+	 * like OSM or Google to dtermine the current position when picking start or endpoints.
+	 */
+	public static final String PROPTERY_NAME_joride_capability_geocodingServices = "joride_capability_geocodingServices";
+
 	
-	
+	/** Property which decides wether or not to show numerical coordinates in the frontend
+	 *  when picking starpoints, waypoints or endpoints.
+	 */
+	public static final String PROPTERY_NAME_joride_capability_showCoordinates = "joride_capability_showCoordinates";
 
 	
 	

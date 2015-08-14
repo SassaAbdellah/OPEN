@@ -349,15 +349,17 @@ public class MainMenuBean implements Serializable, MenuModel {
 		// <p:menuitem outcome="preferences.favoritePlaces"
 		// value="#{msgs.nav1_pref_favoritePlaces_label}" />
 
-		String favoritePlacesMSG = messageProps
-				.getProperty("nav1_pref_favoritePlaces_label");
+		// favorite places are editable if the respective capability is set
+		if (customer.getFavoritePlacesCapability()) {
+			String favoritePlacesMSG = messageProps
+					.getProperty("nav1_pref_favoritePlaces_label");
 
-		DefaultMenuItem preffavplacesDataItem = new DefaultMenuItem(
-				favoritePlacesMSG);
-		preffavplacesDataItem.setCommand("preferences.favoritePlaces");
-		preffavplacesDataItem.setAjax(false);
-		preferencesSubmenu.addElement(preffavplacesDataItem);
-
+			DefaultMenuItem preffavplacesDataItem = new DefaultMenuItem(
+					favoritePlacesMSG);
+			preffavplacesDataItem.setCommand("preferences.favoritePlaces");
+			preffavplacesDataItem.setAjax(false);
+			preferencesSubmenu.addElement(preffavplacesDataItem);
+		}
 		//
 		// REMOVE ACCOUNT MenuItem
 		//
