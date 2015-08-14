@@ -200,10 +200,33 @@
 
 
 
+		<!-- wheter or not to have favorite places to chose from -->
+		<replaceregexp byline="joride_capability_favoritePlaces">
+			<regexp pattern="joride_capability_favoritePlaces=(.*)" />
+			<substitution expression="joride_capability_favoritePlaces=${joride_capability_favoritePlaces}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+		<!-- wheter or not to have current position when choosing places  -->
+		<replaceregexp byline="joride_capability_currentPosition">
+			<regexp pattern="joride_capability_currentPosition=(.*)" />
+			<substitution expression="joride_capability_currentPosition=${joride_capability_currentPosition}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
+		<!-- wheter or not to have geocoding (Google,Nominatim) when choosing places  -->
+		<replaceregexp byline="joride_capability_geocodingServices">
+			<regexp pattern="joride_capability_geocodingServices=(.*)" />
+			<substitution expression="joride_capability_geocodingServices=${joride_capability_geocodingServices}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
-
+		<!-- wheter or not to show Coordinates when picking start/end/waypoints  -->
+		<replaceregexp byline="joride_capability_showCoordinates">
+			<regexp pattern="joride_capability_showCoordinates=(.*)" />
+			<substitution expression="joride_capability_showCoordinates=${joride_capability_showCoordinates}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
 
 
 

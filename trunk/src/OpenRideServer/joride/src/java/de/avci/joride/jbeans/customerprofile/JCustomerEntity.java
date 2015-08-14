@@ -776,16 +776,100 @@ public class JCustomerEntity extends CustomerEntity {
 	
 	
 	
+	/** Property which decides wether or not to use "favoritePlaces" to pick
+	 *  start or endpoints from.
+	 */
+	private Boolean favoritePlacesCapabilityFlag=null;
 	
 	
 	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getFavoritePlacesCapability(){
+		
+		if(this.favoritePlacesCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_favoritePlaces);
+			favoritePlacesCapabilityFlag=new Boolean(rS);
+		}
+		return favoritePlacesCapabilityFlag;
+	}
+		
 	
+	/** Property which decides wether or not to use html5 geolocation to dtermine the
+	 *  current position when picking start or endpoints.
+	 */
+	private Boolean currentPositionCapabilityFlag=null;
+	
+
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getCurrentPositionCapability(){
+		
+		if(this.currentPositionCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_currentPosition);
+			currentPositionCapabilityFlag=new Boolean(rS);
+		}
+		
+		return currentPositionCapabilityFlag;
+	}
+	
+	
+	/** Property which decides wether or not to use geomapper services 
+	 * like OSM or Google to dtermine the current position when picking start or endpoints.
+	 */
+	private Boolean geocodingServicesCapabilityFlag=null;
+	
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getGeocodingServicesCapability(){
+		
+		if(this.geocodingServicesCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_geocodingServices);
+			geocodingServicesCapabilityFlag=new Boolean(rS);
+		}
+		
+		return geocodingServicesCapabilityFlag;
+	}
+
+
+	/** Property which decides wether or not to show
+	 *  numerical coordinates in frontend when picking 
+	 *  startpoints, endpoints or waypoints. 
+	 */
+	private Boolean showCoordinatesFlag=null;
+	
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getShowCoordinatesCapability(){
+		
+		if(this.showCoordinatesFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_showCoordinates);
+			showCoordinatesFlag=new Boolean(rS);
+		}
+		
+		return showCoordinatesFlag;
+	}
+
+	
+
+
 	/** Return list of possible search types depending on customer and system's
 	 * capabilities.
 	 */
 	public List<SearchType> getAvaillableSearchtypes() {
 		return SearchType.getAvaillableSearchtypes(this);
 	}
+	
 	
 }// class
 
