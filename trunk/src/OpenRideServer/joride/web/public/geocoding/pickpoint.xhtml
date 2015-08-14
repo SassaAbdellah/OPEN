@@ -40,14 +40,17 @@
 
                 <h:form>
 
-
+					<!-- show this option only if the favoritePlaces Capability is presenet  -->
+					<ui:fragment rendered="#{jprofile.favoritePlacesCapability}">
+		
                     <p>
                         <h:commandLink value="#{msgs.geolocationPickFromFavorites}" action="pickfavorite" >
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                         </h:commandLink>
                     </p>
+                    </ui:fragment>
 
-
+					<ui:fragment rendered="#{jprofile.currentPositionCapability}">
                     <p>
                         <h:commandLink value="#{msgs.geolocationGeolocate}" action="geolocate">
 
@@ -55,12 +58,12 @@
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint"          />
                             <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
 
-
                         </h:commandLink>
                     </p>
-
+					</ui:fragment>
 
 					<!-- Show Nominatim search IFF respective property is set -->
+					<ui:fragment rendered="#{jprofile.geocodingServicesCapability}">
                     <p>
                         <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim"  rendered="#{geocodingSettings.geocodingIsNominatim}">
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
@@ -76,8 +79,7 @@
                             <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
                         </h:commandLink>
                     </p>
-                     
-                    
+                    </ui:fragment>
                     
 
                 </h:form>
