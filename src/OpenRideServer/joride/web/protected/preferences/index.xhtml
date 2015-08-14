@@ -39,18 +39,16 @@
 					<h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink>
 				</h:form>
 			</p>
-			
-			
+
+
 			<!-- ******* Remove Account  ******** -->
 			<p>
 				<h:form>
-					<h:commandLink 
-						value="#{msgs.custRemoveAccountLabel}"
-						action="removeAccount"
-					/>
+					<h:commandLink value="#{msgs.custRemoveAccountLabel}"
+						action="removeAccount" />
 				</h:form>
 			</p>
-			
+
 
 
 			<p>
@@ -95,15 +93,16 @@
 			</p>
 
 
-
-			<p>
-				<h:form>
-					<h:commandLink action="preferences.favoritePlaces">    #{msgs.nav1_pref_favoritePlaces_label}     </h:commandLink>
-					<br />                    
+			<!-- show this option only if the favoritePlaces Capability is presenet  -->
+			<ui:fragment rendered="#{jprofile.favoritePlacesCapability}">
+				<p>
+					<h:form>
+						<h:commandLink action="preferences.favoritePlaces">    #{msgs.nav1_pref_favoritePlaces_label}     </h:commandLink>
+						<br />                    
                         #{msgs.nav1_pref_favoritePlaces_desc}  
                     </h:form>
-			</p>
-
+				</p>
+			</ui:fragment>
 
 		</ui:define>
 
