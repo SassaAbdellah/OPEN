@@ -316,3 +316,38 @@ joride_capability_waypoints
 # master data only
 #
 joride_capability_messageDisplay=false
+#
+#
+###############################################
+# Capabilities related to picking places      #
+###############################################
+#
+# wether or not to use favorites when picking a point.
+# If set to false, it will also turn off setting favorite places 
+# in preferences 
+#
+joride_capability_favoritePlaces=true
+#
+# wether or not to use current position when picking a point
+#
+joride_capability_currentPosition=true
+#
+# wether or not to use geocoding Services (Nominatim, Google) when picking a point
+#
+joride_capability_geocodingServices=true
+#
+#
+#
+# if showCoordinates is true, then numerical lon/lat coordinates will be shown 
+# when picking startpoints, endpoints or waypoints. 
+# If this is false, then no coordinates will be shown
+# Default is true, but unless you are a developer, you'll probably want to 
+# set this to false
+#
+joride_capability_showCoordinates=true;
+
+
+
+
+
+
