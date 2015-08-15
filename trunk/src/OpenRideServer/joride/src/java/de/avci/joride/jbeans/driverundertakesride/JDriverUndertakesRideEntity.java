@@ -22,11 +22,9 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.postgis.Point;
-import org.primefaces.event.FlowEvent;
 
 import de.avci.joride.constants.JoRideConstants;
 import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
 import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
@@ -504,12 +502,7 @@ public class JDriverUndertakesRideEntity extends
 
 		if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
 
-			if (
-					(webflowPoint.getParamAddress() != null)
-					&& // do not overwrite user defined address
-					(isNullOrEmpty(this.getStartptAddress()))
-					
-					) {
+			if (webflowPoint.getParamAddress() != null ) {
 				this.setStartptAddress(webflowPoint.getAddress());
 			}
 
@@ -531,12 +524,7 @@ public class JDriverUndertakesRideEntity extends
 
 		if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
 
-			if (
-				(webflowPoint.getParamAddress() != null) 			
-				&&
-				(isNullOrEmpty(this.getEndptAddress()))
-				)
-			{
+			if ( webflowPoint.getParamAddress() != null) {
 				this.setEndptAddress(webflowPoint.getAddress());
 			}
 
@@ -1004,35 +992,6 @@ public class JDriverUndertakesRideEntity extends
 
 	
 	
-	/** Check if point (startpoint / endpoint is initialized)
-	 * 
-	 * @param endpt
-	 * @return
-	 */
-	private boolean isInitializedPoint(Point pt) {
-		
-		if(pt==null){return false;}
-		if(pt.getX()==0 && pt.getX()==0){return false;}
-	
-		return true;
-	}
-	
-	
-	
-	
-	/** ordinary method to test wether given String is null or empty
-	 * 
-	 * @param arg   string to be tested
-	 * @return true, if argument is null or consists of whitespaces only
-	 */
-	private boolean isNullOrEmpty(String arg){
-		
-		if(arg==null){return true;}
-		
-		if("".equals(arg.trim())){ return true;}
-		
-		return false;
-	}
 	
 
 } // class

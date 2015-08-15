@@ -1,24 +1,5 @@
 package de.avci.joride.jbeans.riderundertakesride;
 
-import de.fhg.fokus.openride.matching.RideNegotiationConstants;
-import de.avci.joride.constants.JoRideConstants;
-import de.avci.joride.jbeans.auxiliary.RideSearchParamsBean;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
-import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
-import de.avci.joride.jbeans.customerprofile.SearchType;
-import de.avci.joride.jbeans.matching.JMatchingEntity;
-import de.avci.joride.jbeans.matching.JMatchingEntityService;
-import de.avci.joride.jbeans.matching.JMatchingSorter4Driver;
-import de.avci.joride.jbeans.matching.JMatchingSorter4Rider;
-import de.avci.joride.utils.CRUDConstants;
-import de.avci.joride.utils.HTTPUtil;
-import de.avci.joride.utils.PropertiesLoader;
-import de.avci.joride.utils.WebflowPoint;
-import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.matching.MatchEntity;
-import de.fhg.fokus.openride.matching.MatchingStatistics;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Collections;
@@ -36,7 +17,21 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.postgis.Point;
-import org.primefaces.event.FlowEvent;
+
+import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.jbeans.matching.JMatchingEntity;
+import de.avci.joride.jbeans.matching.JMatchingEntityService;
+import de.avci.joride.jbeans.matching.JMatchingSorter4Rider;
+import de.avci.joride.utils.CRUDConstants;
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.PropertiesLoader;
+import de.avci.joride.utils.WebflowPoint;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.matching.MatchEntity;
+import de.fhg.fokus.openride.matching.MatchingStatistics;
+import de.fhg.fokus.openride.matching.RideNegotiationConstants;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 /**
  * Wrapper to make RideUndertakesRideEntity availlable as a JSFBean
@@ -418,8 +413,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetStartpoint.equals(webflowPoint.getTarget())) {
 
-			if ((webflowPoint.getParamAddress() != null)
-					&& (isNullOrEmpty(this.getStartptAddress()))) {
+			if (webflowPoint.getParamAddress() != null) {
 				this.setStartptAddress(webflowPoint.getAddress());
 			}
 
@@ -441,8 +435,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 
 		if (paramValueTargetEndpoint.equals(webflowPoint.getTarget())) {
 
-			if ((webflowPoint.getParamAddress() != null)
-					&& (isNullOrEmpty(this.getEndptAddress()))) {
+			if (webflowPoint.getParamAddress() != null) {
 				this.setEndptAddress(webflowPoint.getAddress());
 			}
 
@@ -1039,23 +1032,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		return true;
 	}
 
-	/**
-	 * ordinary method to test wether given String is null or empty
-	 * 
-	 * @param arg
-	 *            string to be tested
-	 * @return true, if argument is null or consists of whitespaces only
-	 */
-	private boolean isNullOrEmpty(String arg) {
-
-		if (arg == null) {
-			return true;
-		}
-		if ("".equals(arg.trim())) {
-			return true;
-		}
-		return false;
-	}
+	
 
 } // class
 
