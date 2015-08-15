@@ -344,7 +344,7 @@ joride_capability_geocodingServices=true
 # Default is true, but unless you are a developer, you'll probably want to 
 # set this to false
 #
-joride_capability_showCoordinates=true;
+joride_capability_showCoordinates=true
 
 
 
