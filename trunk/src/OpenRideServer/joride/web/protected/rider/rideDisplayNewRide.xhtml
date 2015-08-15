@@ -136,21 +136,27 @@
 							<div class="formLabel">#{msgs.rideStartptAddress}:</div>
 							<div class="formInput">#{newride.startptAddress}</div>
 
-							<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-							<div class="formInput">#{newride.longitudeStart}</div>
+							<!-- show numerical coordinates only if capability is turned on -->
+							<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+								<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+								<div class="formInput">#{newride.longitudeStart}</div>
 
-							<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-							<div class="formInput">#{newride.latitudeStart}</div>
+								<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+								<div class="formInput">#{newride.latitudeStart}</div>
+							</ui:fragment>
 
 							<h2>#{msgs.rideDestination}</h2>
 							<div class="formLabel">#{msgs.rideDestinationAddress}:</div>
 							<div class="formInput">#{newride.endptAddress}</div>
 
-							<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-							<div class="formInput">#{newride.longitudeEnd}</div>
+							<!-- show numerical coordinates only if capability is turned on -->
+							<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+								<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+								<div class="formInput">#{newride.longitudeEnd}</div>
 
-							<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-							<div class="formInput">#{newride.latitudeEnd}</div>
+								<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+								<div class="formInput">#{newride.latitudeEnd}</div>
+							</ui:fragment>
 
 						</p:tab>
 
