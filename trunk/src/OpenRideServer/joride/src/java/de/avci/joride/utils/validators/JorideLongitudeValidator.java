@@ -38,7 +38,7 @@ public class JorideLongitudeValidator extends JorideValidator{
 		
 			Double longitude=(Double) longitudeO;
 			
-			if(! new BoundariesBean().isWithinLongitudeBounds(longitude)){
+			if( longitudeO==null || ( ! new BoundariesBean().isWithinLongitudeBounds(longitude))){
 			
 				FacesMessage message=new FacesMessage(this.getErrormessageByErrorCode(getErrorCode()));
 				throw new ValidatorException(message);

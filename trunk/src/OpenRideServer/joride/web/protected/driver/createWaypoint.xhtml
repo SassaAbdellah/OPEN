@@ -106,15 +106,23 @@
 					</ui:fragment>
 					<tr>
 						<!--  -->
-						<td class="formInput">#{webflow.smartUpdate()} <h:commandButton
-								value="#{msgs.cancel}" action="driver.driveDisplay">
+						<td class="formInput">#{webflow.smartUpdate()} 
+						
+							<h:commandButton
+								value="#{msgs.cancel}" 
+								action="driver.editRouting" 
+								immediate="true"
+								>
+								
 								<f:param name="#{crud.paramNameCrudId}"
-									value="#{waypoint.rideId}" />
+									value="#{waypoint.rideId.rideId}" />
+							
 							</h:commandButton>
 						</td>
 						<td>&nbsp;</td>
 						<td>
-							<!-- Add New Drive to Database, then display it --> <h:commandButton
+							<!-- Add New Drive to Database, then display it --> 
+							<h:commandButton
 								value="#{msgs.waypointCreateWaypoint}"
 								actionListener="#{waypoint.addToDrive()}"
 								action="driver.editRouting">

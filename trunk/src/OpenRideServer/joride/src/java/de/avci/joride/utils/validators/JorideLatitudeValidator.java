@@ -30,6 +30,7 @@ public class JorideLatitudeValidator extends JorideValidator{
 	 */
 	protected String getErrorCode(){return ErrorCodes.SPATIAL_BOUNDS_EXCEEDED;}
 	
+
 	
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object latitudeO)
@@ -37,7 +38,7 @@ public class JorideLatitudeValidator extends JorideValidator{
 		
 			Double latitude=(Double) latitudeO;
 			
-			if(! new BoundariesBean().isWithinLatitudeBounds(latitude)){
+			if(latitudeO==null || (! new BoundariesBean().isWithinLatitudeBounds(latitude))){
 			
 				FacesMessage message=new FacesMessage(this.getErrormessageByErrorCode(getErrorCode()));
 				throw new ValidatorException(message);
