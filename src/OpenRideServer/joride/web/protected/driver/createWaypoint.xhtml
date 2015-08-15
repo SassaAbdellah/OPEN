@@ -34,41 +34,59 @@
 
                     <h1>#{msgs.waypointAddWaypoint}</h1>
 
+
+				<div class="formLabel">#{msgs.waypointDescription}</div>
+
+				<div class="formInput">
+					<h:inputText value="#{waypoint.description}" />
+				</div>
+
+				<div class="formInput">
+
+					<h:commandLink value="#{msgs.geolocationSelectPlace}"
+						action="pickpoint" immediate="true">
+
+						<!-- point parameters -->
+						<f:param name="#{point.paramTargetURL}"
+							value="#{HTTPUser.URLBase}/faces/protected/driver/createWaypoint.xhtml" />
+						<!-- set the target parameters, so we know which point to update -->
+						<f:param name="#{point.paramTarget}"
+							value="#{newdriverride.paramValueTargetEndpoint}" />
+
+						<!-- webflow parameters -->
+
+						<f:param name="#{webflow.paramBack}" value="driver.createWaypoint" />
+						<f:param name="#{webflow.paramFinish}"
+							value="driver.createWaypoint" />
+						<f:param name="#{webflow.paramCancel}"
+							value="driver.createWaypoint" />
+
+					</h:commandLink>
+
+				</div>
+
+
+				<!-- have hidden fields for longitude and latitude so -->
+				<!-- some validation against bounds can be done       -->
+
+				<h:inputHidden id="longitude" value="#{waypoint.longitude}"
+					validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+				<div class="formError">
+					<h:message for="longitude" />
+				</div>
+
+				<h:inputHidden id="latitude" value="#{waypoint.longitude}"
+					validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+
+				<div class="formError">
+					<h:message for="latitude" />
+				</div>
+
+
+
+
 				<table>
-
-
-					<tr>
-						<td class="formLabel">#{msgs.waypointDescription}</td>
-						<td class="formLabel">:</td>
-						<td class="formInput"><h:inputText
-								value="#{waypoint.description}" /></td>
-					</tr>
-
-					<tr>
-						<td class="formInput" colspan="3"><h:commandLink
-								value="#{msgs.geolocationSelectPlace}" action="pickpoint">
-
-
-								<!-- point parameters -->
-								<f:param name="#{point.paramTargetURL}"
-									value="#{HTTPUser.URLBase}/faces/protected/driver/createWaypoint.xhtml" />
-								<!-- set the target parameters, so we know which point to update -->
-								<f:param name="#{point.paramTarget}"
-									value="#{newdriverride.paramValueTargetEndpoint}" />
-
-								<!-- webflow parameters -->
-
-								<f:param name="#{webflow.paramBack}"
-									value="driver.createWaypoint" />
-								<f:param name="#{webflow.paramFinish}"
-									value="driver.createWaypoint" />
-								<f:param name="#{webflow.paramCancel}"
-									value="driver.createWaypoint" />
-
-
-							</h:commandLink></td>
-					</tr>
-
 					<!-- show numerical coordinates only if capability is turned on -->
 					<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
 
@@ -84,8 +102,8 @@
 							<td class="formLabel">:</td>
 							<td class="formInput">#{waypoint.latitude}</td>
 						</tr>
-					</ui:fragment>
 
+					</ui:fragment>
 					<tr>
 						<!--  -->
 						<td class="formInput">#{webflow.smartUpdate()} <h:commandButton
@@ -103,11 +121,13 @@
 
 								<f:param name="#{crud.paramNameCrudId}"
 									value="#{waypoint.rideId.rideId}" />
+
 							</h:commandButton>
 
 						</td>
 					</tr>
 				</table>
+
 
 			</h:form>
 
