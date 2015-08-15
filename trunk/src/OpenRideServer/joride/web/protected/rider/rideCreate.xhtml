@@ -102,196 +102,202 @@
 
 								</h:commandLink>
 							</div>
-						<table>
-							<!-- show numerical coordinates only if capability is turned on -->
-							<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLatitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newride.latitudeStart} <h:inputHidden
-											id="latitudeStart" value="#{newride.latitudeStart}"
-											validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
-									</td>
-								</tr>
-							</ui:fragment>
-							<tr>
-								<td colspan="3">
-									<!-- field to display bound checking errors -->
-									<div class="formError">
-										<h:message for="latitudeStart" />
-									</div>
-								</td>
-							</tr>
-							<!-- show numerical coordinates only if capability is turned on -->
-							<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLongitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newride.longitudeStart} <h:inputHidden
-											id="longitudeStart" value="#{newride.longitudeStart}"
-											validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
-									</td>
-								</tr>
-							</ui:fragment>
-							<tr>
-								<td colspan="3">
-									<!-- field to display bound checking errors -->
-									<div class="formError">
-										<h:message for="longitudeStart" />
-									</div>
-								</td>
-							</tr>
-						</table>
-			</p>
 
-			<!-- End of "set data for Startpoint" section -->
-
-
-			<!-- Beginning of "set data for Endpoint" section -->
-
-			<p>
-				<div class="formLabel">#{msgs.rideDestinationAddress}</div>
-				<div class="formInput">
-					<h:inputTextarea id="endPoint" value="#{newride.endptAddress}"
-						required="true"
-						requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingRequest}" />
-				</div>
-				<div class="formError">
-					<!-- display error if applies -->
-					<h:message for="endPoint" />
-				</div>
-				<div class="formInput">
-					<h:commandLink value="#{msgs.geolocationSelectPlace}"
-						action="pickpoint" immediate="true">
-						<!-- point parameters -->
-						<f:param name="#{point.paramTargetURL}"
-							value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
-						<!-- set the target parameters, so we know which point to update -->
-						<f:param name="#{point.paramTarget}"
-							value="#{newride.paramValueTargetEndpoint}" />
-
-						<!-- webflow parameters -->
-
-						<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
-						<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
-						<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
-
-					</h:commandLink>
-				</div>
-			<table>
-
-				<!-- show numerical coordinates only if capability is turned on -->
-				<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLatitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.latitudeEnd} <h:inputHidden
-								id="latitudeEnd" value="#{newride.latitudeEnd}"
-								validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
-						</td>
-					</tr>
-				</ui:fragment>
-				<tr>
-					<td colspan="3">
-						<!-- field to display bound checking errors -->
-						<div class="formError">
-							<h:message for="latitudeEnd" />
-						</div>
-					</td>
-				</tr>
-
-				<!-- show numerical coordinates only if capability is turned on -->
-				<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
-					<tr>
-						<td class="formLabel">#{msgs.geolocationLongitude}</td>
-						<td>:</td>
-						<td class="formInput">#{newride.longitudeEnd} <h:inputHidden
-								id="longitudeEnd" value="#{newride.longitudeEnd}"
+							<h:inputHidden id="longitudeStart"
+								value="#{newride.longitudeStart}"
 								validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
-						</td>
-					</tr>
-				</ui:fragment>
-				<tr>
-					<td colspan="3">
-						<!-- field to display bound checking errors -->
-						<div class="formError">
-							<h:message for="longitudeEnd" />
+
+
+							<h:inputHidden id="latitudeStart"
+								value="#{newride.latitudeStart}"
+								validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+							<table>
+								<!-- show numerical coordinates only if capability is turned on -->
+								<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLatitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.latitudeStart}</td>
+									</tr>
+								</ui:fragment>
+								<tr>
+									<td colspan="3">
+										<!-- field to display bound checking errors -->
+										<div class="formError">
+											<h:message for="latitudeStart" />
+										</div>
+									</td>
+								</tr>
+								<!-- show numerical coordinates only if capability is turned on -->
+								<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLongitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.longitudeStart}</td>
+									</tr>
+								</ui:fragment>
+								<tr>
+									<td colspan="3">
+										<!-- field to display bound checking errors -->
+										<div class="formError">
+											<h:message for="longitudeStart" />
+										</div>
+									</td>
+								</tr>
+							</table>
+						</p>
+
+						<!-- End of "set data for Startpoint" section -->
+
+
+						<!-- Beginning of "set data for Endpoint" section -->
+
+						<p>
+							<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+							<div class="formInput">
+								<h:inputTextarea id="endPoint" value="#{newride.endptAddress}"
+									required="true"
+									requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingRequest}" />
+							</div>
+							<div class="formError">
+								<!-- display error if applies -->
+								<h:message for="endPoint" />
+							</div>
+							<div class="formInput">
+								<h:commandLink value="#{msgs.geolocationSelectPlace}"
+									action="pickpoint" immediate="true">
+									<!-- point parameters -->
+									<f:param name="#{point.paramTargetURL}"
+										value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
+									<!-- set the target parameters, so we know which point to update -->
+									<f:param name="#{point.paramTarget}"
+										value="#{newride.paramValueTargetEndpoint}" />
+
+									<!-- webflow parameters -->
+
+									<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
+
+								</h:commandLink>
+							</div>
+
+							<h:inputHidden id="latitudeEnd" value="#{newride.latitudeEnd}"
+								validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+							<h:inputHidden id="longitudeEnd" value="#{newride.longitudeEnd}"
+								validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+
+							<table>
+
+								<!-- show numerical coordinates only if capability is turned on -->
+								<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLatitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.latitudeEnd}</td>
+									</tr>
+								</ui:fragment>
+								<tr>
+									<td colspan="3">
+										<!-- field to display bound checking errors -->
+										<div class="formError">
+											<h:message for="latitudeEnd" />
+										</div>
+									</td>
+								</tr>
+
+
+								<!-- show numerical coordinates only if capability is turned on -->
+								<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+									<tr>
+										<td class="formLabel">#{msgs.geolocationLongitude}</td>
+										<td>:</td>
+										<td class="formInput">#{newride.longitudeEnd}</td>
+									</tr>
+								</ui:fragment>
+								<tr>
+									<td colspan="3">
+										<!-- field to display bound checking errors -->
+										<div class="formError">
+											<h:message for="longitudeEnd" />
+										</div>
+									</td>
+								</tr>
+							</table>
+						</p>
+
+
+						<!-- End of "set data for Endpoint" section -->
+
+
+
+						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
+						<div class="formInput">
+							<p:calendar value="#{newride.starttimeEarliest}"
+								id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
+								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+								showOn="button" timezone="#{HTTPUser.timeZone}"
+								mindate="#{jprofile.currentDatetimeFormatted}"
+								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
+
+								<f:converter converterId="rideDateConverter" />
+								<p:ajax update="starttimeEarliestCal" />
+
+							</p:calendar>
 						</div>
-					</td>
-				</tr>
-			</table>
-			</p>
+						<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
+						<div class="formInput">
+							<p:calendar value="#{newride.starttimeLatest}"
+								id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
+								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+								showOn="button" timezone="#{HTTPUser.timeZone}"
+								mindate="#{jprofile.currentDatetimeFormatted}"
+								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
 
-
-			<!-- End of "set data for Endpoint" section -->
-
-
-
-			<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
-			<div class="formInput">
-				<p:calendar value="#{newride.starttimeEarliest}"
-					id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
-					pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-					showOn="button" timezone="#{HTTPUser.timeZone}"
-					mindate="#{jprofile.currentDatetimeFormatted}"
-					maxdate="#{jprofile.planningHorizonRequestsFormatted}">
-
-					<f:converter converterId="rideDateConverter" />
-					<p:ajax update="starttimeEarliestCal" />
-
-				</p:calendar>
-			</div>
-			<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
-			<div class="formInput">
-				<p:calendar value="#{newride.starttimeLatest}"
-					id="starttimeLatestCal" locale="#{HTTPUser.getLocale()}"
-					pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-					showOn="button" timezone="#{HTTPUser.timeZone}"
-					mindate="#{jprofile.currentDatetimeFormatted}"
-					maxdate="#{jprofile.planningHorizonRequestsFormatted}">
-
-					<f:converter converterId="rideDateConverter" />
-					<p:ajax update="starttimeLatestCal" />
-				</p:calendar>
-			</div>
+								<f:converter converterId="rideDateConverter" />
+								<p:ajax update="starttimeLatestCal" />
+							</p:calendar>
+						</div>
 
 
 
-			<div class="formLabel">#{msgs.rideNoPassengers}</div>
-			<div class="formInput">
-				<h:inputText value="#{newride.noPassengers}">
-					<f:convertNumber integerOnly="true" />
-				</h:inputText>
-			</div>
+						<div class="formLabel">#{msgs.rideNoPassengers}</div>
+						<div class="formInput">
+							<h:inputText value="#{newride.noPassengers}">
+								<f:convertNumber integerOnly="true" />
+							</h:inputText>
+						</div>
 
-			<div class="formLabel">#{msgs.ridePrice}</div>
-			<div class="formInput">
-				<h:inputText value="#{newride.price}" />
-			</div>
+						<div class="formLabel">#{msgs.ridePrice}</div>
+						<div class="formInput">
+							<h:inputText value="#{newride.price}" />
+						</div>
 
-			<!-- comment -->
-			<div class="formLabel">#{msgs.rideComment}</div>
+						<!-- comment -->
+						<div class="formLabel">#{msgs.rideComment}</div>
 
-			<div class="formInput">
-				<h:inputTextarea value="#{newride.comment}" />
-			</div>
+						<div class="formInput">
+							<h:inputTextarea value="#{newride.comment}" />
+						</div>
 
-			<!--- Submit Data to create a new RideRequest -->
-
-
-			<p:commandButton value="#{msgs.rideCreateNewRequest}"
-				actionListener="#{newride.doCrudAction}"
-				action="rider.rideDisplayNewRide" ajax="false">
-
-				<f:param name="#{crud.paramNameCrudAction}"
-					value="#{crud.paramValueCrudCreate}" />
-				<f:param name="#{webflow.getParamFinish()}" value="rider" />
-
-			</p:commandButton>
+						<!--- Submit Data to create a new RideRequest -->
 
 
-			</h:form>
-			</p:panel>
+						<p:commandButton value="#{msgs.rideCreateNewRequest}"
+							actionListener="#{newride.doCrudAction}"
+							action="rider.rideDisplayNewRide" ajax="false">
+
+							<f:param name="#{crud.paramNameCrudAction}"
+								value="#{crud.paramValueCrudCreate}" />
+							<f:param name="#{webflow.getParamFinish()}" value="rider" />
+
+						</p:commandButton>
+
+
+					</h:form>
+				</p:panel>
 
 			</p>
 
