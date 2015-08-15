@@ -120,22 +120,28 @@
 						<div class="formLabel">#{msgs.rideStartptAddress}:</div>
 						<div class="formInput">#{ride.startptAddress}</div>
 
-						<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-						<div class="formInput">#{ride.longitudeStart}</div>
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+							<div class="formInput">#{ride.longitudeStart}</div>
 
-						<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-						<div class="formInput">#{ride.latitudeStart}</div>
+							<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+							<div class="formInput">#{ride.latitudeStart}</div>
+						</ui:fragment>
 
 						<h2>#{msgs.rideDestination}</h2>
 						<div class="formLabel">#{msgs.rideDestinationAddress}:</div>
 						<div class="formInput">#{ride.endptAddress}</div>
 
-						<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-						<div class="formInput">#{ride.longitudeEnd}</div>
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+							<div class="formInput">#{ride.longitudeEnd}</div>
 
-						<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-						<div class="formInput">#{ride.latitudeEnd}</div>
-
+							<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+							<div class="formInput">#{ride.latitudeEnd}</div>
+						</ui:fragment>
+						
 					</p:tab>
 
 					<!-- Accordion to display matching off-->
@@ -320,7 +326,8 @@
 
 						</table>
 
-					</p:tab> <!-- rating tabs -->
+					</p:tab>
+					<!-- rating tabs -->
 
 
 					<p:tab title="#{msgs.rideRemoveThisRequest}">

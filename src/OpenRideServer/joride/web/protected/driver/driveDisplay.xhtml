@@ -167,14 +167,17 @@
 
 			<div class="formInput">#{driverride.startptAddress}</div>
 
-			<div class="formLabel">#{msgs.geolocationLatitude}:</div>
-			<div class="formInput">#{driverride.latitudeStart}</div>
+			<!-- show numerical coordinates only if capability is turned on -->
+			<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+
+				<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+				<div class="formInput">#{driverride.latitudeStart}</div>
 
 
-			<div class="formLabel">#{msgs.geolocationLongitude}:</div>
-			<div class="formInput">#{driverride.longitudeStart}</div>
+				<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+				<div class="formInput">#{driverride.longitudeStart}</div>
 
-
+			</ui:fragment>
 
 
 			<!-- ********************************* -->
@@ -253,16 +256,17 @@
 			<div class="formInput">#{driverride.endptAddress}</div>
 
 
+			<!-- show numerical coordinates only if capability is turned on -->	
+			<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+				<div class="formLabel">#{msgs.geolocationLatitude}:</div>
 
-			<div class="formLabel">#{msgs.geolocationLatitude}:</div>
+				<div class="formInput">#{driverride.latitudeEnd}</div>
 
-			<div class="formInput">#{driverride.latitudeEnd}</div>
+				<div class="formLabel">#{msgs.geolocationLongitude}:</div>
 
-			<div class="formLabel">#{msgs.geolocationLongitude}:</div>
+				<div class="formInput">#{driverride.longitudeEnd}</div>
 
-			<div class="formInput">#{driverride.longitudeEnd}</div>
-
-
+			</ui:fragment>
 
 			<!-- *************************************************** -->
 			<!--  Mechanism to show/hide map                         -->

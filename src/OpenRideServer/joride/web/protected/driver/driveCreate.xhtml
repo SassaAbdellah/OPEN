@@ -34,30 +34,29 @@
                 #{newdriverride.smartUpdate()}
                 
                 			<!-- Display Offer Limits -->
-			<p>
-				#{jprofile.updateFromDB()}
-				<div class="formlabel">
-					<h:outputFormat rendered="#{jprofile.canAddOffer}"
-						value="#{msgs.limits_offerLimitMessage}">
-						<f:param name="limits" value="#{jprofile.offerLimit}" />
-					</h:outputFormat>
-				</div>
+			<p>#{jprofile.updateFromDB()}
+			<div class="formlabel">
+				<h:outputFormat rendered="#{jprofile.canAddOffer}"
+					value="#{msgs.limits_offerLimitMessage}">
+					<f:param name="limits" value="#{jprofile.offerLimit}" />
+				</h:outputFormat>
+			</div>
 
-				<div class="formlabel">
-					<h:outputFormat rendered="#{jprofile.canAddOffer}"
-						value="#{msgs.limits_offersLeftMessage}">
-						<f:param name="limits" value="#{jprofile.noLeftOffers}" />
-					</h:outputFormat>
-				</div>
+			<div class="formlabel">
+				<h:outputFormat rendered="#{jprofile.canAddOffer}"
+					value="#{msgs.limits_offersLeftMessage}">
+					<f:param name="limits" value="#{jprofile.noLeftOffers}" />
+				</h:outputFormat>
+			</div>
 			</p>
 
 			<p>
-				<div class="formlabel">
-					<h:outputFormat rendered="#{!jprofile.canAddOffer}"
-						value="#{msgs.limits_offerLimitExceededMessage}">
-						<f:param name="limits" value="#{jprofile.offerLimit}" />
-					</h:outputFormat>
-				</div>
+			<div class="formlabel">
+				<h:outputFormat rendered="#{!jprofile.canAddOffer}"
+					value="#{msgs.limits_offerLimitExceededMessage}">
+					<f:param name="limits" value="#{jprofile.offerLimit}" />
+				</h:outputFormat>
+			</div>
 			</p>
 
 
@@ -66,252 +65,245 @@
 			<p:panel>
 				<h:form rendered="#{jprofile.canAddOffer}">
 
-					
 
-					
-							<p>
-							<div class="formLabel">#{msgs.rideStartptAddress}</div>
-							<div class="formInput">
-								<h:inputTextarea 
-									id="startPoint"
-									value="#{newdriverride.startptAddress}" 
-									required="true"
-									requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}"
-								/>
-							</div>
-							<div class="formError"> <!-- display error if applies -->
-								<h:message for="startPoint" />
-							</div>
-							
-							<table>
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLatitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newdriverride.latitudeStart} 
-										<h:inputHidden
-											id="latitudeStart"
-											value="#{newdriverride.latitudeStart}"
-											validator="de.avci.joride.utils.validators.JorideLatitudeValidator" 
-											/>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3"> <!-- field to display bound checking errors -->
-										<div class="formError">	
-											<h:message for="latitudeStart"/>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLongitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newdriverride.longitudeStart}
-										<h:inputHidden
-											id="longitudeStart"
-											value="#{newdriverride.longitudeStart}" 
-											validator="de.avci.joride.utils.validators.JorideLongitudeValidator"
-											/>									
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3"> <!-- field to display bound checking errors -->
-										<div class="formError">	
-											<h:message for="longitudeStart"/>
-										</div>
-									</td>
-								</tr>
-							</table>
+					<p>
+					<div class="formLabel">#{msgs.rideStartptAddress}</div>
+					<div class="formInput">
+						<h:inputTextarea id="startPoint"
+							value="#{newdriverride.startptAddress}" required="true"
+							requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}" />
+					</div>
+					<div class="formError">
+						<!-- display error if applies -->
+						<h:message for="startPoint" />
+					</div>
+					<div class="formInput">
+						<h:commandLink value="#{msgs.geolocationSelectPlace}"
+							action="pickpoint" immediate="true">
 
-							<h:commandLink 
-								value="#{msgs.geolocationSelectPlace}"
-								action="pickpoint"
-								immediate="true"
-								>
+							<!-- point parameters -->
+							<f:param name="#{point.paramTargetURL}"
+								value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+							<!-- set the target parameters, so we know which point to update -->
+							<f:param name="#{point.paramTarget}"
+								value="#{newdriverride.paramValueTargetStartpoint}" />
 
-								<!-- point parameters -->
-								<f:param name="#{point.paramTargetURL}"
-									value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
-								<!-- set the target parameters, so we know which point to update -->
-								<f:param name="#{point.paramTarget}"
-									value="#{newdriverride.paramValueTargetStartpoint}" />
+							<!-- webflow parameters -->
 
-								<!-- webflow parameters -->
+							<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
 
-								<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
-								<f:param name="#{webflow.paramFinish}"
-									value="driver.driveCreate" />
-								<f:param name="#{webflow.paramCancel}"
-									value="driver.driveCreate" />
+						</h:commandLink>
+					</div>
 
-							</h:commandLink>
-							</p>
-							<p>
-							<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+					<!-- hidden inputs for start and endpoints will always be there, regardless of coordinate visibility -->
+					<h:inputHidden id="latitudeStart"
+						value="#{newdriverride.latitudeStart}"
+						validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
 
-							<div class="formInput">
-								<h:inputTextarea 
-									id="endPoint"
-									value="#{newdriverride.endptAddress}" 
-									required="true"
-									requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
-									/>
-							</div>
-							<div class="formError"> <!-- display error if applies -->
-								<h:message for="endPoint" />
-							</div>
-							
-							<table>
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLatitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newdriverride.latitudeEnd} 
-										<h:inputHidden
-											id="latitudeEnd"
-											value="#{newdriverride.latitudeEnd}" 
-											validator="de.avci.joride.utils.validators.JorideLatitudeValidator"
-											/>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3"> <!-- field to display bound checking errors -->
-										<div class="formError">	
-											<h:message for="latitudeEnd"/>
-										</div>
-									</td>
-								</tr>
-								
-								<tr>
-									<td class="formLabel">#{msgs.geolocationLongitude}</td>
-									<td>:</td>
-									<td class="formInput">#{newdriverride.longitudeEnd}
-									 <h:inputHidden
-									 		id="longitudeEnd"
-											value="#{newdriverride.longitudeEnd}" 
-											validator="de.avci.joride.utils.validators.JorideLongitudeValidator"
-											/>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3"> <!-- field to display bound checking errors -->
-										<div class="formError">	
-											<h:message for="longitudeEnd"/>
-										</div>
-									</td>
-								</tr>
-							</table>
+					<h:inputHidden id="longitudeStart"
+						value="#{newdriverride.longitudeStart}"
+						validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
 
 
-							<h:commandLink 
-								value="#{msgs.geolocationSelectPlace}"
-								action="pickpoint"
-								immediate="true"
-								>
-								
-								<!-- point parameters -->
-								<f:param name="#{point.paramTargetURL}"
-									value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
-								<!-- set the target parameters, so we know which point to update -->
-								<f:param name="#{point.paramTarget}"
-									value="#{newdriverride.paramValueTargetEndpoint}" />
-
-								<!-- webflow parameters -->
-
-								<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
-								<f:param name="#{webflow.paramFinish}"
-									value="driver.driveCreate" />
-								<f:param name="#{webflow.paramCancel}"
-									value="driver.driveCreate" />
-
-
-							</h:commandLink>
-							</p>
-
-
-							<p>
-								<!-- Display Detour in prefferred unis -->
-							<div class="formLabel">
-								<h:outputFormat
-									value="#{msgs.rideAcceptableDetourPreferredUnit}">
-									<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
-								</h:outputFormat>
-							</div>
-
-							<div class="formInput">
-								<h:inputText 
-									id="detourPrefUnit"
-									value="#{newdriverride.rideAcceptableDetourPreferredUnit}" 	
-								>
-							
-								</h:inputText>
-							</div>
-							<div class="formError">
-								<h:message for="detourPrefUnit"/>
-							</div>
-							
-							</p>
-					
-
-							<!-- property rideAcceptableDetourInMin ommitted, we use -->
-							<!-- acceptable detour km instead                        -->
-
-							<!-- property rideAcceptableDetourInPercent is currently          -->
-							<!-- ommitted, as we do not know with percent of what we deal here -->
-
-							<p>
-							<div class="formLabel">#{msgs.rideStarttime}</div>
-							<div class="formInput">
-								<p:calendar value="#{newdriverride.rideStarttime}"
-									id="startTimeCal" locale="#{HTTPUser.getLocale()}"
-									pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-									timezone="#{HTTPUser.timeZone}"
-									mindate="#{jprofile.currentDatetimeFormatted}"
-									maxdate="#{jprofile.planningHorizonOffersFormatted}"
-									showOn="button">
-
-									<!--  call converter on this component to align with current date and maxdate  -->
-									<f:converter converterId="rideDateConverter" />
-									<p:ajax update="startTimeCal" />
-								</p:calendar>
-							</div>
-							</p>
-							<p>
-							<div class="formLabel">#{msgs.rideComment}</div>
-
-							<div class="formInput">
-								<h:inputTextarea value="#{newdriverride.rideComment}" />
-							</div>
-							</p>
-
-							<!-- property rideCurrpos is currently ommitted, as we currently -->
-							<!-- do not have support for real-time tracking                  -->
-							<p>
-							<div class="formLabel">#{msgs.rideOfferedseatsNo}</div>
-							<div class="formInput">
-								<h:inputText id="offeredseats"
-									value="#{newdriverride.rideOfferedseatsNo}">
-									<f:convertNumber type="number" integerOnly="true" />
-									<f:validateLongRange minimum="1" />
-								</h:inputText>
+					<table>
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<tr>
+								<td class="formLabel">#{msgs.geolocationLatitude}</td>
+								<td>:</td>
+								<td class="formInput">#{newdriverride.latitudeStart}</td>
+							</tr>
+						</ui:fragment>
+						<tr>
+							<td colspan="3">
+								<!-- field to display bound checking errors -->
 								<div class="formError">
-									<h:message for="offeredseats" />
+									<h:message for="latitudeStart" />
 								</div>
-							</div>
-							</p>
-							<p>
-								<!-- Add New Drive to Database, then display it -->
+							</td>
+						</tr>
 
-								<p:commandButton value="#{msgs.rideCreateNewOffer}"
-									actionListener="#{newdriverride.doCrudAction}"
-									action="driver.driveDisplayNewDrive" ajax="false">
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<tr>
+								<td class="formLabel">#{msgs.geolocationLongitude}</td>
+								<td>:</td>
+								<td class="formInput">#{newdriverride.longitudeStart}</td>
+							</tr>
+						</ui:fragment>
+						<tr>
+							<td colspan="3">
+								<!-- field to display bound checking errors -->
+								<div class="formError">
+									<h:message for="longitudeStart" />
+								</div>
+							</td>
+						</tr>
+					</table>
+
+					</p>
+					<p>
+					<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+
+					<div class="formInput">
+						<h:inputTextarea id="endPoint"
+							value="#{newdriverride.endptAddress}" required="true"
+							requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}" />
+					</div>
+					<div class="formError">
+						<!-- display error if applies -->
+						<h:message for="endPoint" />
+					</div>
+					<div class="formInput">
+						<!-- Link to set place  -->
+
+						<h:commandLink value="#{msgs.geolocationSelectPlace}"
+							action="pickpoint" immediate="true">
+
+							<!-- point parameters -->
+							<f:param name="#{point.paramTargetURL}"
+								value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+							<!-- set the target parameters, so we know which point to update -->
+							<f:param name="#{point.paramTarget}"
+								value="#{newdriverride.paramValueTargetEndpoint}" />
+
+							<!-- webflow parameters -->
+
+							<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
+						</h:commandLink>
+					</div>
+
+					<h:inputHidden id="longitudeEnd"
+						value="#{newdriverride.longitudeEnd}"
+						validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+					<h:inputHidden id="latitudeEnd"
+						value="#{newdriverride.latitudeEnd}"
+						validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+					<table>
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<tr>
+								<td class="formLabel">#{msgs.geolocationLatitude}</td>
+								<td>:</td>
+								<td class="formInput">#{newdriverride.latitudeEnd}</td>
+							</tr>
+						</ui:fragment>
+						<tr>
+							<td colspan="3">
+								<!-- field to display bound checking errors -->
+								<div class="formError">
+									<h:message for="latitudeEnd" />
+								</div>
+							</td>
+						</tr>
+						<!-- show numerical coordinates only if capability is turned on -->
+						<ui:fragment rendered="#{jprofile.showCoordinatesCapability}">
+							<tr>
+								<td class="formLabel">#{msgs.geolocationLongitude}</td>
+								<td>:</td>
+								<td class="formInput">#{newdriverride.longitudeEnd}</td>
+							</tr>
+						</ui:fragment>
+						<tr>
+							<td colspan="3">
+								<!-- field to display bound checking errors -->
+								<div class="formError">
+									<h:message for="longitudeEnd" />
+								</div>
+							</td>
+						</tr>
+					</table>
+
+					</p>
 
 
-									<f:param name="#{crud.paramNameCrudAction}"
-										value="#{crud.paramValueCrudCreate}" />
-									<f:param name="#{webflow.getParamFinish()}" value="driver" />
+					<p>
+						<!-- Display Detour in prefferred unis -->
+					<div class="formLabel">
+						<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
+							<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+						</h:outputFormat>
+					</div>
 
-								</p:commandButton>
-							</p>
-					
+					<div class="formInput">
+						<h:inputText id="detourPrefUnit"
+							value="#{newdriverride.rideAcceptableDetourPreferredUnit}">
+
+						</h:inputText>
+					</div>
+					<div class="formError">
+						<h:message for="detourPrefUnit" />
+					</div>
+
+					</p>
+
+
+					<!-- property rideAcceptableDetourInMin ommitted, we use -->
+					<!-- acceptable detour km instead                        -->
+
+					<!-- property rideAcceptableDetourInPercent is currently          -->
+					<!-- ommitted, as we do not know with percent of what we deal here -->
+
+					<p>
+					<div class="formLabel">#{msgs.rideStarttime}</div>
+					<div class="formInput">
+						<p:calendar value="#{newdriverride.rideStarttime}"
+							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+							timezone="#{HTTPUser.timeZone}"
+							mindate="#{jprofile.currentDatetimeFormatted}"
+							maxdate="#{jprofile.planningHorizonOffersFormatted}"
+							showOn="button">
+
+							<!--  call converter on this component to align with current date and maxdate  -->
+							<f:converter converterId="rideDateConverter" />
+							<p:ajax update="startTimeCal" />
+						</p:calendar>
+					</div>
+					</p>
+					<p>
+					<div class="formLabel">#{msgs.rideComment}</div>
+
+					<div class="formInput">
+						<h:inputTextarea value="#{newdriverride.rideComment}" />
+					</div>
+					</p>
+
+					<!-- property rideCurrpos is currently ommitted, as we currently -->
+					<!-- do not have support for real-time tracking                  -->
+					<p>
+					<div class="formLabel">#{msgs.rideOfferedseatsNo}</div>
+					<div class="formInput">
+						<h:inputText id="offeredseats"
+							value="#{newdriverride.rideOfferedseatsNo}">
+							<f:convertNumber type="number" integerOnly="true" />
+							<f:validateLongRange minimum="1" />
+						</h:inputText>
+						<div class="formError">
+							<h:message for="offeredseats" />
+						</div>
+					</div>
+					</p>
+					<p>
+						<!-- Add New Drive to Database, then display it -->
+
+						<p:commandButton value="#{msgs.rideCreateNewOffer}"
+							actionListener="#{newdriverride.doCrudAction}"
+							action="driver.driveDisplayNewDrive" ajax="false">
+
+
+							<f:param name="#{crud.paramNameCrudAction}"
+								value="#{crud.paramValueCrudCreate}" />
+							<f:param name="#{webflow.getParamFinish()}" value="driver" />
+
+						</p:commandButton>
+					</p>
+
 
 
 				</h:form>
