@@ -31,26 +31,6 @@
 		<ui:define name="content">
 
 
-
-
-
-			<p>
-				<h:form>
-					<h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink>
-				</h:form>
-			</p>
-
-
-			<!-- ******* Remove Account  ******** -->
-			<p>
-				<h:form>
-					<h:commandLink value="#{msgs.custRemoveAccountLabel}"
-						action="removeAccount" />
-				</h:form>
-			</p>
-
-
-
 			<p>
 				<h:form>
 					<h:commandLink action="preferences.personalData">  #{msgs.nav1_pref_personalData_label}  </h:commandLink>
@@ -79,6 +59,7 @@
 					<h:form>
 						<h:commandLink action="preferences.driverPreferences">    #{msgs.nav1_pref_driverPreferences_label}     </h:commandLink>
 						<br />
+						#{msgs.nav1_pref_driverPreferences_desc}
 					</h:form>
 				</p>
 			</ui:fragment>
@@ -103,6 +84,22 @@
                     </h:form>
 				</p>
 			</ui:fragment>
+			
+			
+			<p>
+				<h:form>
+					<h:commandLink action="password_change">  #{msgs.changePassword}  </h:commandLink>
+				</h:form>
+			</p>
+
+		
+			<!-- ******* Remove Account  ******** -->
+			<p>
+				<h:form>
+					<h:commandLink value="#{msgs.custRemoveAccountLabel}"
+						action="removeAccount" />
+				</h:form>
+			</p>
 
 		</ui:define>
 
