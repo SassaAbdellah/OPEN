@@ -306,6 +306,11 @@ joride_capability_rating=false
 joride_capability_updateMenuItem=true
 #
 #
+# if true, then there will be a menu item for searches
+#
+joride_capability_searchMenuItem=true
+#
+#
 # wether or not drivers can add waypoints to 
 # change the route suggested by the routing engine
 #
