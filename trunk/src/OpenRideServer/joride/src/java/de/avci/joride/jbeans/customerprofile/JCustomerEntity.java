@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -729,6 +728,34 @@ public class JCustomerEntity extends CustomerEntity {
 		
 		return menuItemUpdateCapabilityFlag;
 	}
+	
+	
+	
+	
+	/** True, if menu item update is allowed on the system else false.
+	 * 
+	 */
+	
+	private Boolean menuItemSearchCapabilityFlag=null;
+	
+	/** Accessor with lazy instantiation
+	 * 
+	 * @return
+	 */
+	public Boolean getMenuItemSearchCapability(){
+		
+		if(this.menuItemSearchCapabilityFlag==null){
+			String rS=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPTERY_NAME_joride_capability_searchMenuItem);
+			menuItemSearchCapabilityFlag=new Boolean(rS);
+		}
+		
+		return menuItemSearchCapabilityFlag;
+	}
+	
+	
+	
+	
+	
 	
 	/** True, if displaying updates on page headers is allowed on the system else false.
 	 * 

@@ -184,6 +184,14 @@ public class JoRideConstants implements Serializable {
 	 */
 	public static final String PROPTERY_NAME_joride_capability_updateMenuItem = "joride_capability_updateMenuItem";
 
+	
+	/**  Property which decides wether or not to show an menu item for searching
+	 * 
+	 */
+	public static final String PROPTERY_NAME_joride_capability_searchMenuItem = "joride_capability_searchMenuItem";
+
+	
+	
 	/**
 	 * Property which decides wether or not drivers can add waypoints to change
 	 * the route suggested by the routing engine

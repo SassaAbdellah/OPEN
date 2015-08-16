@@ -182,6 +182,14 @@
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+
+		<!-- turn on/off visibility of search menue item -->
+		<replaceregexp byline="joride_capability_searchMenuItem">
+			<regexp pattern="joride_capability_searchMenuItem=(.*)" />
+			<substitution expression="joride_capability_searchMenuItem=${joride_capability_searchMenuItem}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
 		<!-- turn on/off functionality for polling for updates and displaying -->
 		<!-- updates and messages in page headers                             -->
 		<replaceregexp byline="joride_capability_messageDisplay">

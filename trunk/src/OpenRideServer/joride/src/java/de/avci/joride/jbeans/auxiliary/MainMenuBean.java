@@ -74,8 +74,12 @@ public class MainMenuBean implements Serializable, MenuModel {
 			this.createDriverSubmenu(messageProps);
 		}
 
-		this.createSearchSubmenue(messageProps, customer);
-
+		//
+		// SEARCH SUBMENU 
+		// 
+		if(customer.getMenuItemSearchCapability()){
+			this.createSearchSubmenue(messageProps, customer);
+		}
 		//
 		// PREFERENCES SUBMENU
 		//
