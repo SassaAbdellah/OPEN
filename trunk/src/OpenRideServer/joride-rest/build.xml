@@ -1,7 +1,7 @@
-<project name="joride-rest" default="build">
+<project name="ors-rest-ugly" default="build">
 
 	<!--****  ******************************************  ****-->
-	<!--****   Buildfile for joride-rest webapp          ****-->
+	<!--****   Buildfile for ors-rest-ugly webapp         ****-->
 	<!--**** ******************************************** ****-->
 
 
