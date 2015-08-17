@@ -35,14 +35,14 @@ build.joride=on
 build.joride-public=on
 #
 #
-# Note that joride-rest is still under development, and adding
-# joride-rest to an installation may form  a security risk.
-# So, for the time beeing, do not add joride-rest to a productive installation
+# Note that ors-rest-ugly containing functionality that is still under development,
+# and adding ors-rest-ugly to an installation may form  a security risk.
+# So, for the time beeing, do not add ors-rest-ugly to a productive installation
 #
 #
-# uncomment this to build "joride-rest" frontend
+# uncomment this to build "ors-rest-ugly" frontend
 #
-#build.joride-rest=on
+#build.ors-rest-ugly=on
 #
 #
 #
