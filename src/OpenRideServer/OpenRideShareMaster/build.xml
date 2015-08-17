@@ -46,17 +46,17 @@
 
 
 
-	<!-- ************************************************************************************** -->
-	<!-- **** joride-rest target is only to be build if build.joride-rest param is set     **** -->
-	<!-- ************************************************************************************** -->
-	<target name="joride-rest" description="build the joride-rest subproject" if="build.joride-rest">
+	<!-- ****************************************************************************************** -->
+	<!-- **** ors-rest-ugly target is only to be build if build.ors-rest-ugly param is set     **** -->
+	<!-- ****************************************************************************************** -->
+	<target name="ors-rest-ugly" description="build the ors-rest-ugly subproject" if="build.ors-rest-ugly">
 
-		<echo> *** building joride-rest subproject  *** </echo>
+		<echo> *** building ors-rest-ugly subproject  *** </echo>
 
-		<ant dir="../joride-rest" antfile="build.xml" />
-		<copy file="../joride-rest/dist/joride-rest.war" todir="${build.dir}" />
+		<ant dir="../ors-rest-ugly" antfile="build.xml" />
+		<copy file="../ors-rest-ugly/dist/ors-rest-ugly.war" todir="${build.dir}" />
 	</target>
-	<!-- joride-rest  -->
+	<!-- ors-rest-ugly  -->
 
 
 
@@ -85,8 +85,8 @@
 		<antcall target="joride-public" inheritAll="true" inheritRefs="true" />
 
 
-		<!--build joride-rest subproject            ************************************************* -->
-		<antcall target="joride-rest" inheritAll="true" inheritRefs="true" />
+		<!--build ors-rest-ugly subproject            ************************************************* -->
+		<antcall target="ors-rest-ugly" inheritAll="true" inheritRefs="true" />
 
 
 
