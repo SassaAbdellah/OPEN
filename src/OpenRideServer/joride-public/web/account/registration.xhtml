@@ -2,11 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
 
@@ -14,118 +13,130 @@
 
 
 
-    <h:head> </h:head>
+<h:head>
+</h:head>
 
 
-    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </h:head>
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
 
 
 
-    <h:body>
-        <ui:composition template="/templates/navbar1Layout.xhtml">
+<h:body>
+	<ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- highlight "accounts" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexAccounts}" />
+		<!-- highlight "accounts" tab -->
+		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexAccounts}" />
 
-            <ui:define name="windowTitle">
+		<ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
 
-            <ui:define name="content">
+		<ui:define name="content">
 
-                <h1> #{msgs.registrationRegisterNewAccount}</h1>
+			<h1>#{msgs.registrationRegisterNewAccount}</h1>
 
-                <h:form>
+			<h:form>
 
-                    <!-- given name --> 
-                    <div class="formLabel">
-                        #{msgs.custFirstname}
-                    </div>
+				<!-- given name -->
+				<div class="formLabel">#{msgs.custFirstname}</div>
 
-                    <div class="formInput">
-                        <h:inputText value="#{registrationRequest.givenName}" />
-                    </div>  
-
-
-                    <!-- given name --> 
-                    <div class="formLabel">
-                        #{msgs.custLastname}
-                    </div>
-
-                    <div class="formInput">
-                        <h:inputText value="#{registrationRequest.surName}" />
-                    </div>  
+				<div class="formInput">
+					<h:inputText id="givenName"
+						value="#{registrationRequest.givenName}"
+						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationGivenNameValidator" />
+				</div>
+				<div class="formError">
+					<h:message for="givenName" />
+				</div>
 
 
-                    <!-- given name --> 
-                    <div class="formLabel">
-                        #{msgs.custEmail}
-                    </div>
+				<!-- given name -->
+				<div class="formLabel">#{msgs.custLastname}</div>
 
-                    <div class="formInput">
-                        <h:inputText value="#{registrationRequest.emailAddress}" />
-                    </div>  
+				<div class="formInput">
+					<h:inputText id="surName" value="#{registrationRequest.surName}"
+						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationSurNameValidator" />
+				</div>
 
+				<div class="formError">
+					<h:message for="surName" />
+				</div>
 
-                    <!-- given name --> 
-                    <div class="formLabel">
-                        #{msgs.custNickname}
-                    </div>
+				<!-- given name -->
+				<div class="formLabel">#{msgs.custEmail}</div>
 
-                    <div class="formInput">
-                        <h:inputText value="#{registrationRequest.nickName}" />
-                    </div>  
-                    
-                    
-                    <!-- Preferred Language -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custPreferredLanguage}" />
-					</div>
-					<div class="formInput">
+				<div class="formInput">
+					<h:inputText id="emailAddress"
+						value="#{registrationRequest.emailAddress}"
+						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationEmailValidator" />
+				</div>
+				<div class="formError">
+					<h:message for="emailAddress" />
+				</div>
 
-						<p:selectOneMenu id="preferredLangunage" value="#{registrationRequest.preferredLanguage}">
-							<f:selectItems value="#{HTTPUser.getSupportedLanguages()}" />
-						</p:selectOneMenu>
+				<!-- given name -->
+				<div class="formLabel">#{msgs.custNickname}</div>
 
-					</div>
-					
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.registrationAcceptTerms}" />
-					</div>
-					
-					<div class="formInput">
-						<p:selectBooleanCheckbox  value="#{registrationRequest.acceptTerms}" />
-					</div>
-				
-					
-					
-					
+				<div class="formInput">
+					<h:inputText id="nickname" value="#{registrationRequest.nickName}"
+						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationNickNameValidator" />
+				</div>
+
+				<div class="formError">
+					<h:message for="nickname" />
+				</div>
 
 
+				<!-- Preferred Language -->
+				<div class="formLabel">
+					<p:outputLabel value="#{msgs.custPreferredLanguage}" />
+				</div>
+				<div class="formInput">
 
-                    <h:commandButton  value="#{msgs.registrationSubmit}" action="#{registrationRequest.createRegistration()}">
+					<p:selectOneMenu id="preferredLangunage"
+						value="#{registrationRequest.preferredLanguage}">
+						<f:selectItems value="#{HTTPUser.getSupportedLanguages()}" />
+					</p:selectOneMenu>
 
-                        <f:param name="#{webflow.paramFinish}"  value="home" /> 
-                        <p:growl id="growl"  severity="error" sticky="true" />
+				</div>
 
-                    </h:commandButton>
+				<div class="formLabel">
+					<p:outputLabel value="#{msgs.registrationAcceptTerms}" />
+				</div>
+
+				<div class="formInput">
+					<p:selectBooleanCheckbox id="acceptTerms"
+						value="#{registrationRequest.acceptTerms}"
+						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationAcceptTermsValidator" />
+				</div>
+
+				<!-- field to display bound checking errors -->
+				<div class="formError">
+					<h:message for="acceptTerms" />
+				</div>
+
+				<h:commandButton value="#{msgs.registrationSubmit}"
+					action="#{registrationRequest.createRegistration()}">
+					<f:param name="#{webflow.paramFinish}" value="home" />
+				</h:commandButton>
 
 
 
-                </h:form>
+			</h:form>
 
-            </ui:define>
-
-
+		</ui:define>
 
 
-        </ui:composition>
 
 
-    </h:body>
+	</ui:composition>
+
+
+</h:body>
 
 
 
