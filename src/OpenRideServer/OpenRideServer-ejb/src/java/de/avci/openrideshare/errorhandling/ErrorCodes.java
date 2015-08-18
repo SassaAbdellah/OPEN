@@ -53,6 +53,23 @@ public class ErrorCodes {
 	public static final String CUSTCREATION_NICKNAME_SYNTAX_Error_Str = "NicknameSyntaxCheckFailed";
 
 
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 *  givenName not compliant to sysntax rules
+	 */
+	public static final String CUSTCREATION_GIVENNAME_SYNTAX_Error_Str = "GivenNameCheckFailed";
+
+	/**
+	 * "ErrorString" to be returned if customer creation failed. Because of
+	 *  givenName not compliant to syntax rules
+	 */
+	public static final String CUSTCREATION_SURNAME_SYNTAX_Error_Str = "SurNameCheckFailed";
+
+	
+	
+	
+	
+	
 	
 	/**
 	 * "String" to be returned if customer creation failed. Because of email not
@@ -249,8 +266,6 @@ public class ErrorCodes {
 	 * horizon is exceeded
 	 */
 	public static final String REQUESTCREATION_HORIZONEXCEEDED_Error_Str = "PlanningHorizonExceededWhenCreatingRequest";
-	
-
 	
 	/**
 	 * "ErrorCode" to be returned if spatial bounds are exceeded in a generic context
