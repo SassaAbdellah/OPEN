@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.avci.joride.jbeans.customerprofile;
+package de.avci.joride.jbeans.customerprofile.registration;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -14,6 +14,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import de.avci.joride.backing.messages.RegistrationMessage;
+import de.avci.joride.jbeans.customerprofile.CustomerDataNormalizer;
+import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.Messagekeys;
 import de.avci.joride.utils.PropertiesLoader;

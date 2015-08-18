@@ -4,15 +4,15 @@
  */
 package de.avci.joride.backing.messages;
 
-import de.avci.joride.jbeans.customerprofile.JPasswordResetRequest;
-import de.avci.joride.jbeans.customerprofile.JRegistrationRequest;
-import de.avci.joride.utils.HTTPUtil;
-import de.avci.joride.utils.PropertiesLoader;
 import java.io.Serializable;
 import java.util.Locale;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+
+import de.avci.joride.jbeans.customerprofile.JPasswordResetRequest;
+import de.avci.joride.utils.HTTPUtil;
+import de.avci.joride.utils.PropertiesLoader;
 
 /** Message to be sent when an account's password is reset
  * 

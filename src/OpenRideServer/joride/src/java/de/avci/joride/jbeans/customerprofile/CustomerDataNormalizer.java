@@ -25,7 +25,7 @@ public class CustomerDataNormalizer  implements Serializable {
      * @param emailAddress
      * @return  normalized Email Address
      */
-    protected String normalizeEmailAddress(String emailAddress){
+    public String normalizeEmailAddress(String emailAddress){
     
        if(emailAddress==null) {throw new Error("Email Address is null");}
        
@@ -44,7 +44,7 @@ public class CustomerDataNormalizer  implements Serializable {
      * @param emailAddress
      * @return  normalized Email Address
      */
-    protected String normalizeNickname(String nickname){
+    public String normalizeNickname(String nickname){
     
        if(nickname==null) {throw new Error("nickname is null");}
         

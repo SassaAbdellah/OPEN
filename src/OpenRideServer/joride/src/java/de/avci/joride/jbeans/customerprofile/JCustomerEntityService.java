@@ -4,6 +4,7 @@
  */
 package de.avci.joride.jbeans.customerprofile;
 
+import de.avci.joride.jbeans.customerprofile.registration.JRegistrationRequest;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.units.UnitOfLength;

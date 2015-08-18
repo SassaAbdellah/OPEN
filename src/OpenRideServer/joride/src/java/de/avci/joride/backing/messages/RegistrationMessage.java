@@ -4,8 +4,9 @@
  */
 package de.avci.joride.backing.messages;
 
-import de.avci.joride.jbeans.customerprofile.JRegistrationRequest;
+import de.avci.joride.jbeans.customerprofile.registration.JRegistrationRequest;
 import de.avci.joride.utils.PropertiesLoader;
+
 import java.io.Serializable;
 import java.util.Locale;
 
