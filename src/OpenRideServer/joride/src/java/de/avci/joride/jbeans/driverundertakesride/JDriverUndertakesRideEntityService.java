@@ -630,10 +630,11 @@ public class JDriverUndertakesRideEntityService {
 	/**
 	 * Add a waypoint to Drive *safely*. Safely means that it gets ed
 	 * wether the caller is owner
+	 * @throws OpenRideShareException 
 	 *
 	 *
 	 */
-	public void addWaypointToDriveSafely(JWaypointEntity waypoint) {
+	public void addWaypointToDriveSafely(JWaypointEntity waypoint) throws OpenRideShareException {
 
 		CustomerEntity ce = this.getCustomerEntity();
 
@@ -660,8 +661,9 @@ public class JDriverUndertakesRideEntityService {
 	 *
 	 * @param rideId
 	 * @param routeIdx
+	 * @throws OpenRideShareException 
 	 */
-	public void removeWaypointFromDriveSafely(int rideId, int routeIdx) {
+	public void removeWaypointFromDriveSafely(int rideId, int routeIdx) throws OpenRideShareException {
 
 		CustomerEntity ce = this.getCustomerEntity();
 
