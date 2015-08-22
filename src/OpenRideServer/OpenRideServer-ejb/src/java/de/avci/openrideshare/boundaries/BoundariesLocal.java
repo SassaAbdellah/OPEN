@@ -32,8 +32,13 @@ public interface BoundariesLocal {
 	public Double getWesternBound();
 	
 	
-	/** Check, wether point is in area described by bounds.
+	/** Check, wether point is in area described by bounds given by latitud/longitude encoded in Point .
 	 */
 	public boolean isWithinBounds(Point point);
+	
+	
+	/** Check, wether point is in area described by bounds given by numeric latitude and longitude.
+	 */
+	boolean isWithinBounds(double latitude, double longitude);
 
 }

@@ -230,16 +230,18 @@ public interface DriverUndertakesRideControllerLocal {
      * @param rideId    Id of DriverUndertakesRideEntity to which the waypoint should be added
      * @param position  position where to add to list
      * @return 
+     * @throws OpenRideShareException 
      */
-    public void addWaypoint(int rideId, WaypointEntity waypoint, int position);
+    public void addWaypoint(int rideId, WaypointEntity waypoint, int position) throws OpenRideShareException;
     
     
      /** Remove waypoint given by routeIdx from Ride given by rideId
      * 
      * @param rideID
      * @param routeIdx 
+     * @throws OpenRideShareException 
      */
-    public void removeWaypoint(int rideID, int routeIdx);
+    public void removeWaypoint(int rideID, int routeIdx) throws OpenRideShareException;
     
     /** Set the driver message inside a MatchEntity
      * 

@@ -23,10 +23,13 @@
 
 package de.fhg.fokus.openride.matching;
 
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
+
 import java.util.LinkedList;
+
 import javax.ejb.Local;
 
 /**
@@ -57,8 +60,9 @@ public interface RouteMatchingBeanLocal {
      * @param decomposedRouteBuff route points suitable for the matching algorithm.
      * @param routeBuff route points suitable for distplaying the route (all map coordinates included).
      * @return length of the route in meters.
+     * @throws OpenRideShareException  if any of the points involved exceed bounds
      */
-    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff);
+    public double computeInitialRoutes(DriverUndertakesRideEntity drive, LinkedList<DriveRoutepointEntity> decomposedRouteBuff, LinkedList<RoutePointEntity> routeBuff) throws OpenRideShareException;
 
     /**
      * Computes the route, the driver should drive if he'd book

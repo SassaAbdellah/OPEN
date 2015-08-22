@@ -146,4 +146,13 @@ public class BoundariesBean implements BoundariesLocal {
 		return this.isWithinLongitudeBounds(point) && this.isWithinLatitudeBounds(point);
 	}
 	
+	@Override
+	public boolean isWithinBounds(double latitude, double longitude){
+		
+		return this.isWithinLatitudeBounds(latitude) && this.isWithinLongitudeBounds(longitude);
+	}
+	
+	
+	
+	
 }
