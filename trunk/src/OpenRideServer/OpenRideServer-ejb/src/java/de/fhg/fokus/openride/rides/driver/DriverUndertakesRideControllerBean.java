@@ -41,6 +41,7 @@ import javax.transaction.UserTransaction;
 
 import org.postgis.Point;
 
+import de.avci.openrideshare.boundaries.BoundariesBean;
 import de.avci.openrideshare.errorhandling.ErrorCodes;
 import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.messages.MessageControllerLocal;
@@ -1131,7 +1132,7 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
     }
 
     @Override
-    public void addWaypoint(int rideId, WaypointEntity waypoint, int position) {
+    public void addWaypoint(int rideId, WaypointEntity waypoint, int position) throws OpenRideShareException {
         this.addWaypoint(rideId, waypoint, position, true);
     }
 
@@ -1144,9 +1145,18 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param waypoint
      * @param position
      * @param transaction turn on transaction explicitely
+     * @throws OpenRideShareException 
      */
-    protected void addWaypoint(int rideId, WaypointEntity wpt, int position, boolean transaction) {
+    protected void addWaypoint(int rideId, WaypointEntity wpt, int position, boolean transaction) throws OpenRideShareException {
 
+    	
+    	  // cannot add waypoint if waypoint is out of bounds
+    	
+    	  if(! new BoundariesBean().isWithinBounds(wpt.getLatitude(), wpt.getLongitude())){
+    		  
+    		throw new OpenRideShareException(ErrorCodes.SPATIAL_BOUNDS_EXCEEDED);  
+    	  }	
+    	
     		
     	  // cannot add waypoint, if there is no ride...
     	  DriverUndertakesRideEntity ride = this.getDriveByDriveId(rideId);
@@ -1225,9 +1235,10 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      *
      * @param rideID
      * @param routeIdx
+     * @throws OpenRideShareException 
      */
     @Override
-    public void removeWaypoint(int rideID, int routeIdx) {
+    public void removeWaypoint(int rideID, int routeIdx) throws OpenRideShareException {
         this.removeWaypoint(rideID, routeIdx, true);
     }
 
@@ -1238,8 +1249,9 @@ public class DriverUndertakesRideControllerBean extends ControllerBean implement
      * @param rideID
      * @param routeIdx
      * @param transaction if true, method is called with enclosing transaction
+     * @throws OpenRideShareException 
      */
-    private void removeWaypoint(int rideID, int routeIdx, boolean transaction) {
+    private void removeWaypoint(int rideID, int routeIdx, boolean transaction) throws OpenRideShareException {
 
 
         log.info("DriverUndertakesRideControllerBean removeWaypoint: rideId: " + rideID + " routeIdx : " + routeIdx + " transaction : " + transaction);

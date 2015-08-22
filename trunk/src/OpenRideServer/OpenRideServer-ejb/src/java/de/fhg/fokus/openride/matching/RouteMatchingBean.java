@@ -22,6 +22,9 @@
  */
 package de.fhg.fokus.openride.matching;
 
+import de.avci.openrideshare.boundaries.BoundariesBean;
+import de.avci.openrideshare.errorhandling.ErrorCodes;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.utils.RandomSublist;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
@@ -535,11 +538,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 * @param decomposedRouteBuff
 	 * @param routeBuff
 	 * @return
-	 */
+	 * @throws OpenRideShareException  if any of the points involved exceed bounds
+	 */ 
 	@Override
 	public double computeInitialRoutes(DriverUndertakesRideEntity drive,
 			LinkedList<DriveRoutepointEntity> decomposedRouteBuff,
-			LinkedList<RoutePointEntity> routeBuff) {
+			LinkedList<RoutePointEntity> routeBuff) throws OpenRideShareException {
+		
 
 		return this.computeInitialRoutesWithWaypoints(drive,
 				decomposedRouteBuff, routeBuff);
@@ -560,11 +565,16 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 *            coordinates included).
 	 * @return length of the route in meters.
 	 * 
+	 * @throws OpenRideShareException if any of the points in input exceed bounds
+	 * 
 	 */
 	private double computeInitialRoutesWithWaypoints(
 			DriverUndertakesRideEntity drive,
 			LinkedList<DriveRoutepointEntity> decomposedRouteBuff,
-			LinkedList<RoutePointEntity> routeBuff) {
+			LinkedList<RoutePointEntity> routeBuff) 
+			
+			throws OpenRideShareException 
+	{
 
 		// This would require just one route computation but
 		// due to poor design two calls to the routing algorithm are required.
@@ -574,8 +584,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 		// determine the coordinates along which we'll calculate
 		// the initial route
+		
 
-		Coordinate[] myWaypoints = this.waypoints4InitialRoute(drive);
+		Coordinate[] myWaypoints = this.waypoints4InitialRoute(drive);		
 		logger.info("computeInitialRoutes : passed myWaypoint extraction");
 		logger.info("computeInitialRoutes : myWaypoints.size "
 				+ myWaypoints.length);
@@ -721,13 +732,41 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 
 	/**
 	 * Creates a list of coordinates defining the bounds of the partial routes.
+	 * This will also throw an exception, if any of the waypoints involved
+	 * are out of bounds for the system
 	 * 
 	 * @return
+	 * @throws OpenRideShareException 
 	 */
-	private Coordinate[] waypoints4InitialRoute(DriverUndertakesRideEntity drive) {
+	private Coordinate[] waypoints4InitialRoute(DriverUndertakesRideEntity drive) throws OpenRideShareException {
 
 		// add waypoints
 		List<WaypointEntity> waypoints = drive.getWaypoints();
+		
+		
+		// do the checking
+		BoundariesBean boundaries=new BoundariesBean();
+		
+		// check startPoint
+		if(! boundaries.isWithinBounds(drive.getRideStartpt())){
+			throw new OpenRideShareException(ErrorCodes.SPATIAL_BOUNDS_EXCEEDED_FOR_STARTPOINT);
+		}
+		// check endPoint
+		if(! boundaries.isWithinBounds(drive.getRideEndpt())){
+			throw new OpenRideShareException(ErrorCodes.SPATIAL_BOUNDS_EXCEEDED_FOR_ENDPOINT);
+		}
+		// check waypoints
+		if(waypoints!=null){	
+			for(WaypointEntity wp: waypoints){
+				if(! (boundaries.isWithinBounds(wp.getLatitude(), wp.getLongitude()))){
+					throw new OpenRideShareException(ErrorCodes.SPATIAL_BOUNDS_EXCEEDED);	
+				}
+			}
+		}
+		// bounds checking done
+		
+		
+		
 
 		if (waypoints != null) {
 			// but, waypoints should be sorted by routeIndex!
