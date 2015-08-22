@@ -33,6 +33,7 @@ import de.avci.joride.utils.CRUDConstants;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowPoint;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.avci.openrideshare.units.UnitOfLength;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
 import de.fhg.fokus.openride.matching.MatchEntity;
@@ -825,8 +826,9 @@ public class JDriverUndertakesRideEntity extends
 	 * 
 	 * @param rideIdx
 	 *            routeIndex or the waypoint to be removed
+	 * @throws OpenRideShareException 
 	 */
-	public void removeWaypoint(int routeIdx) {
+	public void removeWaypoint(int routeIdx) throws OpenRideShareException {
 		// TODO: decent logging
 		System.err
 				.println("JDriverUndertakesRideEntity : removeWaypoint  rideId "

@@ -6,6 +6,7 @@ package de.avci.joride.jbeans.driverundertakesride;
 
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.WebflowPoint;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
 import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
 import de.fhg.fokus.openride.rides.driver.WaypointEntity;
 
@@ -255,8 +256,9 @@ public class JWaypointEntity extends WaypointEntity implements Serializable,
 
 	/**
 	 * Call driverUndertakesRideService to add this waypoint to it's drive
+	 * @throws OpenRideShareException 
 	 */
-	public void addToDrive() {
+	public void addToDrive() throws OpenRideShareException {
 
 		new JDriverUndertakesRideEntityService().addWaypointToDriveSafely(this);
 	}
@@ -286,9 +288,10 @@ public class JWaypointEntity extends WaypointEntity implements Serializable,
 	/**
 	 * Remove this waypoint from the driverUndertakesRideEntity it is attached
 	 * to
+	 * @throws OpenRideShareException 
 	 * 
 	 */
-	public void removeFromDrive() {
+	public void removeFromDrive() throws OpenRideShareException {
 		new JDriverUndertakesRideEntityService().removeWaypointFromDriveSafely(
 				this.getRideId().getRideId(), this.getRouteIdx());
 	}
