@@ -329,6 +329,29 @@
 
 
 
+	<!-- Apply customized rideCreate.xhtml and/or driveCreate.xhtml -->
+	<target name="applyCustomization" if="applyCustomization" description="apply special customization">
+
+		
+		<echo> 
+			******************************************************
+			************** Applying customization ****************
+			******************************************************
+		</echo>
+		
+		<!-- overwrite driveCreate.xhtml -->
+		<copy file="${appdir}/web/customization/thessaloniki/driveCreate.xhtml" tofile="${build.dir}/protected/driver/driveCreate.xhtml" overwrite="true" verbose="true" />
+		<!-- overwrite rideCreate.xhtml -->
+		<copy file="${appdir}/web/customization/thessaloniki/rideCreate.xhtml" tofile="${build.dir}/protected/rider/rideCreate.xhtml" overwrite="true" verbose="true" />
+
+		<!-- copy javascript -->
+		<copy file="${appdir}/web/customization/thessaloniki/resources/js/callbackGoogleThessaloniki.js" tofile="${build.dir}/resources/js/callbackGoogleThessaloniki.js" overwrite="true" verbose="true" />
+		<copy file="${appdir}/web/customization/thessaloniki/resources/js/jquery-1.4.1.js"               tofile="${build.dir}/resources/js/jquery-1.4.1.js" overwrite="true" verbose="true" />
+
+	</target>
+
+
+
 	<!-- TARGET overwriteCSS -->
 	<!-- overwriteCSS property should have been set in "war" target                  -->
 	<!-- overwriteCSS is there to signify that a user defined stylesheet is in place -->
@@ -363,7 +386,7 @@
 
 
 	<!-- TARGET compile -->
-	<target name="compile" depends="copy,apply-local-properties" description="Compile source files.">
+	<target name="compile" depends="copy,apply-local-properties,applyCustomization" description="Compile source files.">
 		<javac srcdir="${appdir}/src/java" destdir="${web-inf.dir}/classes" debug="true" includeantruntime="false" deprecation="true">
 			<compilerarg value="-Xlint:unchecked" />
 			<include name="**/*.java" />
