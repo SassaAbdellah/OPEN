@@ -15,7 +15,7 @@
 // See reference document here
 // https://developers.google.com/maps/documentation/javascript/reference
 //
-// Note that bounds in GoogleGeocoding API are interpreted as links
+// Note that bounds in GoogleGeocoding API are interpreted as *hints*
 // (unlike Nominatim, which treats them as exclusive)
 // 
 // Hence, while passing the bounds to the query as a hint, we still
