@@ -346,8 +346,7 @@
 
 		<!-- copy javascript -->
 		<copy file="${appdir}/web/customization/thessaloniki/resources/js/callbackGoogleThessaloniki.js" tofile="${build.dir}/resources/js/callbackGoogleThessaloniki.js" overwrite="true" verbose="true" />
-		<copy file="${appdir}/web/customization/thessaloniki/resources/js/jquery-1.4.1.js"               tofile="${build.dir}/resources/js/jquery-1.4.1.js" overwrite="true" verbose="true" />
-
+	
 	</target>
 
 
