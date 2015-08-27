@@ -2,109 +2,110 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
-    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </h:head>
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
 
 
 
-    <body>
+<body>
 
 
-        <ui:composition template="/templates/navbar1Layout.xhtml">
+	<ui:composition template="/templates/navbar1Layout.xhtml">
 
-            <!-- highlight "preferences" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexPreferences}" />
+		<!-- highlight "preferences" tab -->
+		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexPreferences}" />
 
 
-            <ui:define name="windowTitle">
+		<ui:define name="windowTitle">
                 #{msgs.title}
             </ui:define>
 
 
-            <ui:define name="content">
+		<ui:define name="content">
 
-                <h1> #{msgs.favpointCreate} </h1>
+			<h1>#{msgs.favpointCreate}</h1>
 
 
-                <h:form>
+			<h:form>
 
-                    <!-- see, if we got some data from a webflow  -->
-                    <!-- these will then take precedence          -->
+				<!-- see, if we got some data from a webflow  -->
+				<!-- these will then take precedence          -->
                     #{jfavpoint.smartUpdatePoints()}
 
 
                     <!-- private String favptDisplayname; -->
 
-                    <div class="formLabel"> #{msgs.favptDisplayname} </div>
-                    <div class="formInput">
-                        <h:inputText value="#{jfavpoint.favptDisplayname}"   />
-                    </div>
+				<div class="formLabel">#{msgs.favptDisplayname}</div>
+				<div class="formInput">
+					<h:inputText value="#{jfavpoint.favptDisplayname}" />
+				</div>
+
+				<!-- Link to pick point  -->
+
+				<div class="formInput">
+					<h:commandLink value="#{msgs.geolocationSelectPlace}"
+						action="pickpoint">
+						<!-- point parameters -->
+						<f:param name="#{point.paramTargetURL}"
+							value="#{HTTPUser.URLBase}/faces/protected/preferences/favoritePlacesCreate.xhtml" />
+
+						<!-- webflow parameters -->
+						<f:param name="#{webflow.paramBack}"
+							value="preferences.favoritePlacesCreate" />
+						<f:param name="#{webflow.paramFinish}"
+							value="preferences.favoritePlacesCreate" />
+						<f:param name="#{webflow.paramCancel}"
+							value="preferences.favoritePlacesCreate" />
+					</h:commandLink>
+				</div>
+
+				<p>
+				<div class="formLabel">#{msgs.favptAddress}</div>
+				<div class="formLabel">#{msgs.favptAddressExplanation}</div>
+				<div class="formInput">
+					<h:inputText value="#{jfavpoint.favptAddress}" />
+				</div>
+
+				<div class="formLabel">#{msgs.favptPoint}</div>
+				<div class="formInput">
+					<h:inputText value="#{jfavpoint.favptPoint}" />
+				</div>
 
 
-                    <div class="formLabel"> #{msgs.favptAddress} </div>
-                    <div class="formLabel"> #{msgs.favptAddressExplanation} </div>
-                    <div class="formInput">
-                        <h:inputText value="#{jfavpoint.favptAddress}"   />
-                    </div>
+				<div class="formInput">
+					<h:commandButton actionListener="#{jfavpoint.doCrudAction}"
+						action="preferences.favoritePlaces" value="#{msgs.formCreate}">
+						<f:param name="#{crud.paramNameCrudAction}"
+							value="#{crud.paramValueCrudCreate}" />
+					</h:commandButton>
+				</div>
+				</p>
 
-                    <div class="formLabel"> #{msgs.favptPoint} </div>
-                    <div class="formInput">
-                        <h:inputText value="#{jfavpoint.favptPoint}" />
-                    </div>
-
-                    <div class="formInput">
-                        <h:commandLink value="#{msgs.geolocationSelectPlace}" action="pickpoint">
-
-
-                            <!-- point parameters -->
-
-                            <f:param name="#{point.paramTargetURL}" value="#{HTTPUser.URLBase}/faces/protected/preferences/favoritePlacesCreate.xhtml"/>
-
-
-                            <!-- webflow parameters -->
-
-                            <f:param name="#{webflow.paramBack}"    value="preferences.favoritePlacesCreate" /> 
-                            <f:param name="#{webflow.paramFinish}"  value="preferences.favoritePlacesCreate" /> 
-                            <f:param name="#{webflow.paramCancel}"  value="preferences.favoritePlacesCreate" /> 
-
-
-                        </h:commandLink>
-                    </div>
-
-
-                    <div class="formInput">
-
-                        <h:commandButton  actionListener="#{jfavpoint.doCrudAction}"  action="preferences.favoritePlaces"  value="#{msgs.formCreate}" >
-                            <f:param  name="#{crud.paramNameCrudAction}" value="#{crud.paramValueCrudCreate}"/>
-                        </h:commandButton>
-                    </div>
-
-
-                </h:form>
-
-
-
-
-
-
-            </ui:define>
-
-
-
-
-        </ui:composition>
+			</h:form>
 
 
 
 
 
-    </body>
+
+		</ui:define>
+
+
+
+
+	</ui:composition>
+
+
+
+
+
+</body>
 </html>
