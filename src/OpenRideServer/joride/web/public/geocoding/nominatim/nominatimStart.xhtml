@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+
+
+
+<body>
+
+	<ui:composition template="/templates/simpleLayout.xhtml">
+
+
+
+
+		<ui:define name="windowTitle">
+                #{msgs.geocodeSearchTitle}
+            </ui:define>
+
+		<ui:define name="content">
+
+
+
+
+			<!-- include standard jquery  -->
+			<h:outputScript library="js" name="jquery-1.4.1.js" />
+
+
+			<!-- include jochens script to digest the jsonp returned -->
+			<h:outputScript library="js" name="nominatim-callback.js" />
+
+
+
+			<!-- update webflow and point data -->
+
+                #{webflow.smartUpdate()}
+                #{point.smartUpdate()}
+                
+            <h1>#{msgs.geolocationNominatimTitle}</h1>
+
+			<h:form id="f1">
+				<div class="formLabel">
+					<h:commandLink value="#{msgs.freetextSearchLabel}"
+						action="nominatimFreetext" />
+				</div>
+				<div class="formInput">#{msgs.freetextSearchDescription}"</div>
+				<div class="formLabel">
+					<h:commandLink value="#{msgs.structuredSearchLabel}"
+						action="nominatimStructured" />
+				</div>
+				<div class="formInput">#{msgs.structuredSearchDescription}</div>
+			</h:form>
+
+
+			<div class="webflow">
+
+				<h:form>
+					<table>
+						<tr>
+							<td><p:commandButton id="backlink"
+									icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}"
+									ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
+							</td>
+							<td><h:commandLink value="#{msgs.back}"
+									action="#{webflow.getBack()}" /></td>
+							<td>&nbsp; &nbsp; <h:commandLink value="#{msgs.cancel}"
+									action="#{webflow.getCancel()}" />
+							</td>
+						</tr>
+					</table>
+				</h:form>
+
+			</div>
+
+
+
+
+		</ui:define>
+
+	</ui:composition>
+
+
+
+</body>
+</html>

@@ -534,19 +534,27 @@
 		</navigation-case>
 	</navigation-rule>
 
-	<!-- go to the nominatim search -->
+	<!-- go to the nominatim search startPage -->
 	<navigation-rule>
 		<navigation-case>
-			<from-outcome>nominatimq</from-outcome>
-			<to-view-id>/faces/public/geocoding/nominatim/jsonpNominatim.xhtml</to-view-id>
+			<from-outcome>nominatim</from-outcome>
+			<to-view-id>/faces/public/geocoding/nominatim/nominatimStart.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
-	<!-- nominatim via javascript/jsonp -->
+	<!-- Freetext Nominatim Search -->
 	<navigation-rule>
 		<navigation-case>
-			<from-outcome>jnominatim</from-outcome>
-			<to-view-id>/faces/public/geocoding/nominatim/jasonpNominatim.xhtml</to-view-id>
+			<from-outcome>nominatimFreetext</from-outcome>
+			<to-view-id>/faces/public/geocoding/nominatim/jsonpNominatimFreetext.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Structured Nominatim Search -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>nominatimStructured</from-outcome>
+			<to-view-id>/faces/public/geocoding/nominatim/jsonpNominatimStructured.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
