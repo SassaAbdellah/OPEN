@@ -65,7 +65,7 @@
 					<!-- Show Nominatim search IFF respective property is set -->
 					<ui:fragment rendered="#{jprofile.geocodingServicesCapability}">
                     <p>
-                        <h:commandLink value="#{msgs.geolocationNominatim}" action="jnominatim"  rendered="#{geocodingSettings.geocodingIsNominatim}">
+                        <h:commandLink value="#{msgs.geolocationNominatim}" action="nominatim"  rendered="#{geocodingSettings.geocodingIsNominatim}">
                             <f:param name="#{webflow.getParamBack()}" value="pickpoint" />
                             <f:param name="#{point.paramTargetURL}"   value="#{point.targetURL}" />
 

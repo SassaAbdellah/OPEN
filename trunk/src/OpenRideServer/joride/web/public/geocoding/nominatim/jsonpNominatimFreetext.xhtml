@@ -11,14 +11,11 @@
 
 
 
-
+<!-- Search Nominatim via Freetext Search -->
 
 <body>
 
 	<ui:composition template="/templates/simpleLayout.xhtml">
-
-
-
 
 		<ui:define name="windowTitle">
                 #{msgs.geocodeSearchTitle}
@@ -43,14 +40,13 @@
                 #{webflow.smartUpdate()}
                 #{point.smartUpdate()}
                 
-                <h1> #{msgs.geolocationNominatimTitle}</h1> 
+                <h1>#{msgs.freetextSearchLabel}</h1> 
             	
-				<p:accordionPanel activeIndex="#{nominatimq.activeIndex}" >
 				<!-- Search form for POI / unstructured search -->
-				<p:tab title="#{msgs.freetextSearchLabel}" titletip="#{msgs.freetextSearchDescription}">
+				<div class="formInput">#{msgs.freetextSearchDescription}</div>
+				
 					<h:form>
-						#{msgs.freetextSearchDescription}
-			
+					
 						<!-- label and input for poi  *********************************************** -->
 						<div class="formLabel">#{msgs.freetextSearchLabel}</div>
 						<div class="formInput">
@@ -69,86 +65,7 @@
 						</div>
 
 					</h:form>
-				</p:tab>
-
-
-
-				<p:tab title="#{msgs.structuredSearchLabel}"   titletip="#{msgs.structuredSerchDescription}" >
-						<h:form>
-							#{msgs.structuredSearchDescription}
-							<!-- Search using unstructured search -->
-
-							<!-- label and input for country *********************************************** -->
-							<div class="formLabel">#{msgs.countryLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.country}" />
-							</div>
-
-							<!-- label and input for state *********************************************** -->
-							<div class="formLabel">#{msgs.stateLabel}</div>
-							#{msgs.stateDescription}
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.state}" />
-							</div>
-
-							<!-- label and input for county *********************************************** -->
-							<div class="formLabel">#{msgs.countyLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.county}" />
-							</div>
-
-
-							<!-- label and input for city  *********************************************** -->
-							<div class="formLabel">#{msgs.cityLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.city}" />
-							</div>
-							
-							
-							<div class="formLabel">#{msgs.postalcodeLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.postalcode}" />
-							</div>
-							
-							
-
-							<!-- label and input for neighborhoods  *********************************************** -->
-							<div class="formLabel">#{msgs.neighborhoodsLabel}</div>
-							#{msgs.neighborhoodsDescription}
-							<div class="formInput">
-								<h:inputTextarea rows="3" value="#{nominatimq.neigborhoods}" />
-							</div>
-
-							<!-- label and input for street  *********************************************** -->
-							<div class="formLabel">#{msgs.streetLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.street}" />
-							</div>
-
-							<!-- label and input for street  *********************************************** -->
-							<div class="formLabel">#{msgs.streetNumberLabel}</div>
-							<div class="formInput">
-								<h:inputText value="#{nominatimq.streetNumber}" />
-							</div>
-
-							<div class="formLabel">#{msgs.searchLimitLabel}</div>
-							<div class="formInput">
-								<p:spinner min="1" stepFactor="5" value="#{nominatimq.limit}" />
-							</div>
-
-							<!-- we use non JSF html button for submit to eval JSF Navigation Cases *********** -->
-							<div class="submitbutton">
-								<h:commandButton value="#{msgs.searchlabel}"
-									actionListener="#{nominatimq.switchStructuredMode}" />
-							</div>
-						</h:form>
-						
-					</p:tab>
-			</p:accordionPanel>
-
-
-
-
+				
 			<!-- - this, when commented in displays the nominatim query:   #{nominatimq.queryString} -->
 
  			
