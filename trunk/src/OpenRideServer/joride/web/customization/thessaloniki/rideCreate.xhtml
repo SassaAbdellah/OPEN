@@ -52,6 +52,9 @@
 				var ne = new google.maps.LatLng(north,east);
 				// bounds created from corner
 				var bounds = new google.maps.LatLngBounds(sw, ne);
+				
+				// localized errormessage if no results are returned
+				var noResults="#{msgs.gelocationNoResult}";
 			</script>
 
 
@@ -117,7 +120,7 @@
 								</p:commandButton>
 							</div>
 
-							<div class="formError">
+							<div id="divErrorStart" class="formError">
 								<!-- display error if applies -->
 								<h:message for="addressStart" />
 							</div>
@@ -156,7 +159,7 @@
 								</p:commandButton>
 							</div>
 
-							<div class="formError">
+							<div  id="divErrorEnd" class="formError">
 								<!-- display error if applies -->
 								<h:message for="addressEnd" />
 							</div>
