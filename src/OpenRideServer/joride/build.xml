@@ -332,21 +332,41 @@
 	<!-- Apply customized rideCreate.xhtml and/or driveCreate.xhtml -->
 	<target name="applyCustomization" if="applyCustomization" description="apply special customization">
 
-		
+
 		<echo> 
 			******************************************************
 			************** Applying customization ****************
 			******************************************************
 		</echo>
-		
-		<!-- overwrite driveCreate.xhtml -->
-		<copy file="${appdir}/web/customization/thessaloniki/driveCreate.xhtml" tofile="${build.dir}/protected/driver/driveCreate.xhtml" overwrite="true" verbose="true" />
-		<!-- overwrite rideCreate.xhtml -->
-		<copy file="${appdir}/web/customization/thessaloniki/rideCreate.xhtml" tofile="${build.dir}/protected/rider/rideCreate.xhtml" overwrite="true" verbose="true" />
 
-		<!-- copy javascript -->
-		<copy file="${appdir}/web/customization/thessaloniki/resources/js/callbackGoogleThessaloniki.js" tofile="${build.dir}/resources/js/callbackGoogleThessaloniki.js" overwrite="true" verbose="true" />
-	
+
+		<!-- TODO:  currently custumization.package is fixed to "thessaloniki"        -->
+		<!-- when finished, the name of the customization package should be detected  -->
+
+		
+
+		<!-- xhtmls, message.property files and javascript for customization package lives  below "customization.dir" -->
+		<property name="customization.dir" value="${appdir}/web/customization/${customization.package}" />
+
+
+		<!-- overwrite driveCreate.xhtml and rideCreate.xhtml -->
+		<copy file="${customization.dir}/driveCreate.xhtml" tofile="${build.dir}/protected/driver/driveCreate.xhtml" overwrite="true" verbose="true" />
+		<!-- overwrite rideCreate.xhtml -->
+		<copy file="${customization.dir}/rideCreate.xhtml" tofile="${build.dir}/protected/rider/rideCreate.xhtml" overwrite="true" verbose="true" />
+
+		<!-- install custom properties -->
+		<copy    todir="${web-inf.dir}/classes/de/avci/joride" failonerror="false" > 
+			<fileset dir="${customization.dir}/resources/properties/" >
+					<include name="*.properties" />
+			</fileset>
+		</copy>
+		
+		<!-- copy javascript files -->
+		<copy    todir="${build.dir}/resources/js/" failonerror="false" > 
+			<fileset dir="${customization.dir}/resources/js/" >
+				<include name="*.js" />
+			</fileset>
+		</copy>
 	</target>
 
 
