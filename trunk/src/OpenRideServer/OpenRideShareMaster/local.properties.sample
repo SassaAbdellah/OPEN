@@ -350,7 +350,23 @@ joride_capability_geocodingServices=true
 # set this to false
 #
 joride_capability_showCoordinates=true
-
+#
+#
+#***************************************************************
+#* Customization, currently "Thessaloniki Hack only"           *
+#* apply this to have simplified adding offers and requests    *
+#***************************************************************
+#
+#
+applyCustomization=on
+#
+# if customization is turned on, you must supply a  valid 
+# customization package.
+# joride comes with a sample package named "thessaloniki",
+# providing simplified search for places based on google maps.
+#
+#
+customization.package=thessaloniki
 
 
 
