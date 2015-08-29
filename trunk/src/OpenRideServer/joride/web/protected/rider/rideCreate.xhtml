@@ -230,8 +230,10 @@
 
 
 						<!-- End of "set data for Endpoint" section -->
-
-
+		
+						<!-- Calendars for starttimeEarliest/startimeLatest -->
+						<!-- These are coupled via javsascript onXXXTimeCange function -->
+						<h:outputScript library="js" name="rideCreateFunctions.js"/>
 
 						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
 						<div class="formInput">
@@ -240,8 +242,10 @@
 								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
 								showOn="button" timezone="#{HTTPUser.timeZone}"
 								mindate="#{jprofile.currentDatetimeFormatted}"
-								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
-
+								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
+								widgetVar="starttimeEarliestCal"
+								onchange="onStartimeEarliestChange()"
+								>
 								<f:converter converterId="rideDateConverter" />
 								<p:ajax update="starttimeEarliestCal" />
 
@@ -254,8 +258,10 @@
 								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
 								showOn="button" timezone="#{HTTPUser.timeZone}"
 								mindate="#{jprofile.currentDatetimeFormatted}"
-								maxdate="#{jprofile.planningHorizonRequestsFormatted}">
-
+								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
+								widgetVar="starttimeLatestCal"
+								onchange="onStarttimeLatestChange()"
+								>
 								<f:converter converterId="rideDateConverter" />
 								<p:ajax update="starttimeLatestCal" />
 							</p:calendar>
