@@ -214,7 +214,6 @@
 											id="timespanDays" widgetVar="timespanDays"
 											onchange="adjustDays()" size="3">
 											<f:convertNumber integerOnly="true" />
-											<f:validateLongRange minimum="0" />
 										</p:inputText></td>
 									<td class="formLabel">&nbsp;#{msgs.tu_days_short}&nbsp;</td>
 
@@ -222,7 +221,6 @@
 											id="timespanHours" widgetVar="timespanHours"
 											onchange="adjustHours()" size="2">
 											<f:convertNumber integerOnly="true" />
-											<f:validateLongRange minimum="0" maximum="23" />
 										</p:inputText></td>
 									<td class="formLabel">&nbsp;#{msgs.tu_hours_short}&nbsp;</td>
 
@@ -230,7 +228,6 @@
 											id="timespanMinutes" widgetVar="timespanMinutes"
 											onchange="adjustMinutes()" size="2">
 											<f:convertNumber integerOnly="true" />
-											<f:validateLongRange minimum="0" maximum="59" />
 										</p:inputText></td>
 									<td class="formLabel">&nbsp;#{msgs.tu_minutes_short}&nbsp;</td>
 								</tr>
