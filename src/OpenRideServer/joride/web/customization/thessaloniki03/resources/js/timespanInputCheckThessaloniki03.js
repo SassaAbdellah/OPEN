@@ -24,12 +24,9 @@ function adjustMinutes(){
 	minutesInput=document.getElementById('f1:timespanMinutes');
 	minutesIn=minutesInput.value;
 	
-	if(isInt(minutesIn)){
-		if(minutesIn <  0) { minutesInput.value="00";}
-		if(minutesIn > 59) { minutesInput.value=59;}
-	}	else {
-		minutesInput.value="00";
-	}	
+	if(! isInt(minutesIn)) { minutesInput.value=0;}	
+	if(minutesIn <  0)     { minutesInput.value=0;}
+	
 }
 	
 /** Ensure that hours input is in 0...23
@@ -39,12 +36,10 @@ function adjustHours(){
 
 	hoursInput=document.getElementById('f1:timespanHours');
 	hoursIn=hoursInput.value;
-	if(isInt(hoursIn)){
-		if(hoursIn <  0) { hoursInput.value="00";}
-		if(hoursIn > 23) { hoursInput.value=23;}
-	} else {
-		hoursInput.value="00";
-	}
+	
+	if(! isInt(hoursIn)) { hoursInput.value=0;}	
+	if(hoursIn <  0)     { hoursInput.value=0;}
+	
 }
 	
 /** Ensure that days input is > 0
@@ -54,10 +49,8 @@ function adjustDays(){
 	
 	daysInput=document.getElementById('f1:timespanDays');
 	daysIn=daysInput.value;
-	if(isInt(daysIn)){
-		if(daysIn <  0) { daysInput.value="000";}
-	}else{
-		daysInput.value="000";
-	}
+
+	if(! isInt(daysIn)) { daysInput.value=0;}	
+	if(daysIn <  0)     { daysInput.value=0;}
 }
 	
