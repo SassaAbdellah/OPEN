@@ -19,6 +19,7 @@ import javax.inject.Named;
 import org.postgis.Point;
 
 import de.avci.joride.constants.JoRideConstants;
+import de.avci.joride.jbeans.auxiliary.TimespanBean;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
 import de.avci.joride.jbeans.matching.JMatchingEntity;
 import de.avci.joride.jbeans.matching.JMatchingEntityService;
@@ -172,7 +173,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		// enforce recalculatine matches next time they are needed
 		this.jMatches = null;
 
-	} // public void updateFromRiderUndertakesRideEntit
+	} // public void updateFromRiderUndertakesRideEntity
 
 	/**
 	 * Lists *all* rides this customer has ever requested
@@ -265,6 +266,7 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		}
 
 		// two hours from now seems to be a good default
+		// TODO: make default configurable!
 		if (this.getStarttimeLatest() == null) {
 			this.setStarttimeLatest(new Date(System.currentTimeMillis()
 					+ (1000 * 60 * 60 * 2)));
@@ -850,7 +852,30 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	public String getStarttimeEarliestFormatted() {
 		return this.getDateTimeFormat().format(this.getStarttimeEarliest());
 	}
+	
+	
+	
+	/** Override getStarttime latest to return 
+	 *  content of starttimeLatest field if useTimespan flag is not set,
+	 *  or sum of starttimeearliest + timespan if useTimespan flag is set.
+	 *
+	 */
+	
+	@Override
+	
+	public Date getStarttimeLatest(){
+		
+		//   return sum of starttimeearliest + timespan if useTimespan flag is set.
+		if(this.getUseTimespanFlag()){
+			long ts=this.getStarttimeEarliest().getTime()+this.getTimespan().getTime();
+			return new Date(ts);
+		}
+		// content of starttimeLatestfield else.
+		
+		return super.getStarttimeLatest();
+	}
 
+	
 	/**
 	 * @return nicely formatted version of startTime latest
 	 */
@@ -1019,6 +1044,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	 * 
 	 * @param endpt
 	 * @return
+	 * 
+	 * 
+	 * 
+	 * TODO: maybe not used any more, check if it can be removed
+	 * 
 	 */
 	private boolean isInitializedPoint(Point pt) {
 
@@ -1032,6 +1062,33 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 		return true;
 	}
 
+	
+	
+	
+	/** Alternatively to enddate, a starttime and a timespan between start and enddate may be specified.
+	 */
+	private TimespanBean timespan=new TimespanBean();
+	
+	public TimespanBean getTimespan(){return this.timespan;}
+	
+	
+	/** Flag to signify wether to use timespan to calculate startTimeLatest
+	 *  or not not.
+	 *  By default, this is set to false -- do not use timespan flag
+	 */
+	private boolean useTimespanFlag=false;
+	
+	private boolean getUseTimespanFlag(){return this.useTimespanFlag;}
+	
+	/** Turn on use of timespan to calculate startTimeLatest
+	 *  To be used inside JSF pages.
+	 */
+	public void useTimespanFlagOn(){this.useTimespanFlag=true;}
+	
+	/** Turn on use of timespan to calculate startTime latest.
+	 *  To be used inside JSF pages.
+	 */
+	public void useTimespanFlagOff(){this.useTimespanFlag=false;}
 	
 
 } // class
