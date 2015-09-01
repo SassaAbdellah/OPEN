@@ -28,7 +28,6 @@
 
 		<ui:define name="content">
 
-
 			<!-- include google api  -->
 			<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 
@@ -198,42 +197,23 @@
 
 						<!-- *********************************************************** -->
 						<!--   timespan between starttime earliest and starttime latest  -->
+						<!--          with only one field to specify an hour             -->
 						<!-- *********************************************************** -->
 						<h:outputScript library="js"
-							name="timespanInputCheckThessaloniki02.js" />
+							name="timespanInputCheckThessaloniki03.js" />
 							
 						<!-- turn on use of timespan  -->
 						#{newride.useTimespanFlagOn()}	
 
 						<div class="formLabel">#{msgs.rideWaitFor}</div>
 						<div class="formInput">
-							<table>
-								<tr>
-									<td><p:inputText value="#{newride.timespan.days}"
-											id="timespanDays" widgetVar="timespanDays"
-											onchange="normalizeTimespan()" size="3">
-											<f:convertNumber integerOnly="true" />
-											<f:validateLongRange minimum="0" />
-										</p:inputText></td>
-									<td class="formLabel">&nbsp;#{msgs.tu_days_short}&nbsp;</td>
-
-									<td><p:inputText value="#{newride.timespan.hours}"
+							<p:inputText value="#{newride.timespan.hours}"
 											id="timespanHours" widgetVar="timespanHours"
-											onchange="normalizeTimespan()" size="2">
+											onchange="adjustHours()" size="2">
 											<f:convertNumber integerOnly="true" />
 											<f:validateLongRange minimum="0" maximum="23" />
-										</p:inputText></td>
-									<td class="formLabel">&nbsp;#{msgs.tu_hours_short}&nbsp;</td>
-
-									<td><p:inputText value="#{newride.timespan.minutes}"
-											id="timespanMinutes" widgetVar="timespanMinutes"
-											onchange="normalizeTimespan()" size="2">
-											<f:convertNumber integerOnly="true" />
-											<f:validateLongRange minimum="0" maximum="59" />
-										</p:inputText></td>
-									<td class="formLabel">&nbsp;#{msgs.tu_minutes_short}&nbsp;</td>
-								</tr>
-							</table>
+										</p:inputText>
+									<span class="formLabel">&nbsp;#{msgs.tu_hours}&nbsp;</span>
 						</div>
 
 						<div class="formLabel">#{msgs.rideNoPassengers}</div>
