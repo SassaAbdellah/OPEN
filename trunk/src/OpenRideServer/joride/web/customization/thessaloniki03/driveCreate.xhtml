@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHFTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+
+
+<body>
+
+
+	<ui:composition template="/templates/navbar1Layout.xhtml">
+
+
+
+		<ui:define name="windowTitle">
+                #{msgs.rideNewDrive}   
+            </ui:define>
+
+
+		<ui:define name="content">
+
+			<!-- include google api  -->
+			<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+
+			<!--  ************************************************ -->
+			<!--  Script below defines bounds for searching        -->
+			<!--  these will be passed to google search engine     -->
+			<!--  and results will be checked against these bounds -->
+			<!--  as google interprets them as hint only           -->
+			<!--  ************************************************ -->
+
+			<script type="text/javascript">
+			
+				var north=#{boundaries.northernBound};
+				var east=#{boundaries.easternBound};
+				var south=#{boundaries.southernBound};
+				var west=#{boundaries.westernBound};
+			
+				// Southwest bound
+				var sw = new google.maps.LatLng(south,west);
+				// northeast bound
+				var ne = new google.maps.LatLng(north,east);
+				// bounds created from corner
+				var bounds = new google.maps.LatLngBounds(sw, ne);
+				// localized errormessage if no results are returned
+				var noResults="#{msgs.gelocationNoResult}";
+				
+				
+			</script>
+
+
+			<!-- ad hoc callback digester -->
+			<h:outputScript library="js" name="callbackGoogleThessaloniki.js" />
+
+			<h1>#{msgs.rideNewDrive}</h1>
+
+                #{newdriverride.initializeNewDrive()}
+                #{newdriverride.smartUpdate()}
+                
+                			<!-- Display Offer Limits -->
+			<p>#{jprofile.updateFromDB()}
+			<div class="formlabel">
+				<h:outputFormat rendered="#{jprofile.canAddOffer}"
+					value="#{msgs.limits_offerLimitMessage}">
+					<f:param name="limits" value="#{jprofile.offerLimit}" />
+				</h:outputFormat>
+			</div>
+
+			<div class="formlabel">
+				<h:outputFormat rendered="#{jprofile.canAddOffer}"
+					value="#{msgs.limits_offersLeftMessage}">
+					<f:param name="limits" value="#{jprofile.noLeftOffers}" />
+				</h:outputFormat>
+			</div>
+			</p>
+
+			<p>
+			<div class="formlabel">
+				<h:outputFormat rendered="#{!jprofile.canAddOffer}"
+					value="#{msgs.limits_offerLimitExceededMessage}">
+					<f:param name="limits" value="#{jprofile.offerLimit}" />
+				</h:outputFormat>
+			</div>
+			</p>
+
+
+
+			<p:panel>
+				<h:form id="f1" rendered="#{jprofile.canAddOffer}">
+
+
+					<div class="formLabel">#{msgs.rideStartptAddress}</div>
+
+					<p>
+					<div class="formInput">
+						<h:inputTextarea id="addressStart"
+							value="#{newdriverride.startptAddress}" required="true"
+							requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}"
+							onchange="codeAddressWithGoogleStartPt()" />
+					</div>
+					<div class="formInput">
+						<p:commandButton id="searchStart" icon="ui-icon-search"
+							onclick="codeAddressWithGoogleStartPt()">
+							<p:tooltip for="addressStart" value="#{msgs.searchlabel}" />
+						</p:commandButton>
+					</div>
+
+					<div id="divErrorStart" class="formError">
+						<!-- display error if applies -->
+						<h:message for="addressStart" />
+					</div>
+
+					<!-- hidden inputs for start and endpoints will always be there, regardless of coordinate visibility -->
+					<h:inputHidden id="latitudeStart"
+						value="#{newdriverride.latitudeStart}"
+						validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+					<h:inputHidden id="longitudeStart"
+						value="#{newdriverride.longitudeStart}"
+						validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+
+					<div class="formError">
+						<h:message for="latitudeStart" />
+					</div>
+					<div class="formError">
+						<h:message for="longitudeStart" />
+					</div>
+					</p>
+
+
+
+					<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+					<p>
+					<div class="formInput">
+						<h:inputTextarea id="addressEnd"
+							value="#{newdriverride.endptAddress}" required="true"
+							requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
+							onchange="codeAddressWithGoogleEndPt()" />
+					</div>
+					<div class="formInput">
+						<p:commandButton id="searchEnd" icon="ui-icon-search"
+							onclick="codeAddressWithGoogleEndPt()">
+							<p:tooltip for="addressEnd" value="#{msgs.searchlabel}" />
+						</p:commandButton>
+					</div>
+
+					<div id="divErrorEnd" class="formError">
+						<!-- display error if applies -->
+						<h:message for="addressEnd" />
+					</div>
+
+
+					<h:inputHidden id="longitudeEnd"
+						value="#{newdriverride.longitudeEnd}"
+						validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+					<h:inputHidden id="latitudeEnd"
+						value="#{newdriverride.latitudeEnd}"
+						validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+
+					<div class="formError">
+						<h:message for="latitudeEnd" />
+					</div>
+
+					<div class="formError">
+						<h:message for="longitudeEnd" />
+					</div>
+
+					</p>
+					<p>
+						<!-- Display Detour in prefferred unis -->
+					<div class="formLabel">
+						<h:outputFormat value="#{msgs.rideAcceptableDetourPreferredUnit}">
+							<f:param value="#{jprofile.preferredUnitOfLengthPlural}" />
+						</h:outputFormat>
+					</div>
+					</p>
+					<p>
+					<div class="formInput">
+						<h:inputText id="detourPrefUnit"
+							value="#{newdriverride.rideAcceptableDetourPreferredUnit}">
+
+						</h:inputText>
+					</div>
+					<div class="formError">
+						<h:message for="detourPrefUnit" />
+					</div>
+
+					</p>
+					<p>
+					<div class="formLabel">#{msgs.rideStarttime}</div>
+					<div class="formInput">
+						<p:calendar value="#{newdriverride.rideStarttime}"
+							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+							timezone="#{HTTPUser.timeZone}"
+							mindate="#{jprofile.currentDatetimeFormatted}"
+							maxdate="#{jprofile.planningHorizonOffersFormatted}" showOn="">
+
+							<!--  call converter on this component to align with current date and maxdate  -->
+							<f:converter converterId="rideDateConverter" />
+							<p:ajax update="startTimeCal" />
+						</p:calendar>
+					</div>
+					</p>
+					<p>
+					<div class="formLabel">#{msgs.rideComment}</div>
+
+					<div class="formInput">
+						<h:inputTextarea value="#{newdriverride.rideComment}" />
+					</div>
+					</p>
+					<p>
+					<div class="formLabel">#{msgs.rideOfferedseatsNo}</div>
+					<div class="formInput">
+						<h:inputText id="offeredseats"
+							value="#{newdriverride.rideOfferedseatsNo}">
+							<f:convertNumber type="number" integerOnly="true" />
+							<f:validateLongRange minimum="1" />
+						</h:inputText>
+						<div class="formError">
+							<h:message for="offeredseats" />
+						</div>
+					</div>
+
+					</p>
+
+					<!-- Add New Drive to Database, then display it -->
+
+					<p:commandButton value="#{msgs.rideCreateNewOffer}"
+						actionListener="#{newdriverride.doCrudAction}"
+						action="driver.driveDisplayNewDrive" ajax="false">
+
+
+						<f:param name="#{crud.paramNameCrudAction}"
+							value="#{crud.paramValueCrudCreate}" />
+						<f:param name="#{webflow.getParamFinish()}" value="driver" />
+					</p:commandButton>
+
+
+
+				</h:form>
+			</p:panel>
+
+			<!-- Property "rideWeekdays" currently ommitted,        -->
+			<!-- as there currently seems to be no support for this -->
+
+
+			<!-- Property riderUndertakesRideEntityCollection currently ommitted -->
+			<!-- as we could not bring some sense into it *yet*  -->
+
+
+                #{webflow.smartUpdate()} 
+
+
+                <h:form>
+
+				<h:commandLink value="#{msgs.cancel}"
+					action="#{webflow.getCancel()}" />
+
+
+			</h:form>
+
+
+
+
+
+		</ui:define>
+
+
+
+
+	</ui:composition>
+
+
+
+
+
+</body>
+</html>

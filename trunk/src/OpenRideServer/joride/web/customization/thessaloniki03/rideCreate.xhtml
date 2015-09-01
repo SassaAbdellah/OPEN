@@ -212,7 +212,7 @@
 								<tr>
 									<td><p:inputText value="#{newride.timespan.days}"
 											id="timespanDays" widgetVar="timespanDays"
-											onchange="normalizeTimespan()" size="3">
+											onchange="adjustDays()" size="3">
 											<f:convertNumber integerOnly="true" />
 											<f:validateLongRange minimum="0" />
 										</p:inputText></td>
@@ -220,7 +220,7 @@
 
 									<td><p:inputText value="#{newride.timespan.hours}"
 											id="timespanHours" widgetVar="timespanHours"
-											onchange="normalizeTimespan()" size="2">
+											onchange="adjustHours()" size="2">
 											<f:convertNumber integerOnly="true" />
 											<f:validateLongRange minimum="0" maximum="23" />
 										</p:inputText></td>
@@ -228,7 +228,7 @@
 
 									<td><p:inputText value="#{newride.timespan.minutes}"
 											id="timespanMinutes" widgetVar="timespanMinutes"
-											onchange="normalizeTimespan()" size="2">
+											onchange="adjustMinutes()" size="2">
 											<f:convertNumber integerOnly="true" />
 											<f:validateLongRange minimum="0" maximum="59" />
 										</p:inputText></td>
