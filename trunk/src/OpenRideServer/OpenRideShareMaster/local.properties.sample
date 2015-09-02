@@ -83,6 +83,9 @@ maxRequestsLimit=30
 maxOffersLimit=50
 #
 #
+# default number of minutes between startTimeEarliest and startTimeLatest
+#
+default_wait_minutes=60
 #
 #
 # default timezone 
@@ -366,7 +369,7 @@ applyCustomization=on
 # providing simplified search for places based on google maps.
 #
 #
-customization.package=thessaloniki01
+customization.package=thessaloniki04	
 
 
 
