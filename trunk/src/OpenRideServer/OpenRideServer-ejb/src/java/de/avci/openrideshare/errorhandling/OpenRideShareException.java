@@ -37,16 +37,6 @@ public  class OpenRideShareException extends Exception {
 	
 	
 	
-	/** Return a json representation of this error
-	 */
-	public String getJSONRepresentation(){
-		
-		String res="Error{ \n"
-				+ "errorCode     : "+this.getErrorCode()+", \n"
-				+ "errorMessage  : "+this.getMessage()+", }\n";
-		
-		return res;	
-	}
 	
 	
 	/** Create an Exception with the specified ErrorCode.
