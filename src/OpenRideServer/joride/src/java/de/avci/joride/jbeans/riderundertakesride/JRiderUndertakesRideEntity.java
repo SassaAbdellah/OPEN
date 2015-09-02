@@ -259,19 +259,31 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	public void initializeNewRide() {
 
 		this.setRiderrouteId(null);
+		long now=System.currentTimeMillis();
 
 		// naturally, we cannot start earlier then now
 		if (this.getStarttimeEarliest() == null) {
-			this.setStarttimeEarliest(new Date(System.currentTimeMillis()));
+			this.setStarttimeEarliest(new Date(now));
 		}
-
-		// two hours from now seems to be a good default
-		// TODO: make default configurable!
+		//
+		// initialize timespan and startDateLatest 
+		//
+		CustomerEntity caller=new JCustomerEntityService().getCustomerEntitySafely();
+		long waitMillis=caller.getDefaultWaitMillis();
+		//
+		// initialize timespan
+		//
+		if(this.getTimespan()==null){
+			this.timespan=new TimespanBean();
+			this.getTimespan().setTime(waitMillis);
+		}
+		//
+		// initialize startTimeLatest
+		//
 		if (this.getStarttimeLatest() == null) {
-			this.setStarttimeLatest(new Date(System.currentTimeMillis()
-					+ (1000 * 60 * 60 * 2)));
+			this.setStarttimeLatest(new Date(now+waitMillis));
 		}
-
+		
 		this.setNoPassengers(1);
 	}
 
@@ -1067,9 +1079,11 @@ public class JRiderUndertakesRideEntity extends RiderUndertakesRideEntity
 	
 	/** Alternatively to enddate, a starttime and a timespan between start and enddate may be specified.
 	 */
-	private TimespanBean timespan=new TimespanBean();
+	private TimespanBean timespan;
 	
-	public TimespanBean getTimespan(){return this.timespan;}
+	public TimespanBean getTimespan(){
+		return this.timespan;	
+	}
 	
 	
 	/** Flag to signify wether to use timespan to calculate startTimeLatest
