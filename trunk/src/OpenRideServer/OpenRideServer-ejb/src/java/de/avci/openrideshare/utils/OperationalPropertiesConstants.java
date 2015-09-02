@@ -78,6 +78,6 @@ public class OperationalPropertiesConstants {
 	/** Property Name for "westernBound", longitude providing the western bound of area */
 	public static final String PROPERTY_NAME_westernBound="westernBound";
 	
-
-
+	/** Property giving the default for the number of minutes for which a passenger is willing to wait for a ride. */
+	public static final String PROPTERY_NAME_defaultWaitMinutes = "default_wait_minutes";
 }
