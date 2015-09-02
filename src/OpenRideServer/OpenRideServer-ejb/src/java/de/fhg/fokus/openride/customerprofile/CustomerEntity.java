@@ -847,6 +847,21 @@ public class CustomerEntity implements Serializable {
 	}
 	
 	
+	/** Return the default time between startTimeEarliest and startTimeLatest
+	 *  for creating requests.
+	 *  
+	 *  
+	 */
+	// TODO: make this a user configurable property
+	public long getDefaultWaitMillis(){
+		
+		String key=OperationalPropertiesConstants.PROPTERY_NAME_defaultWaitMinutes;
+		String minStr=PropertiesLoader.getOperationalProperties().getProperty(key);		
+		Long minutes=new Long(minStr).longValue();
+		
+		return (60*1000)*minutes;
+	
+	}
 	
 
 }
