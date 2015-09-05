@@ -1855,6 +1855,15 @@ public class RiderUndertakesRideControllerBean extends ControllerBean implements
 			throw new OpenRideShareException(
 					ErrorCodes.CreateRequestFailure_RideStartTimeLatestNull_Str);
 		}
+		
+		
+		// check that StarttimeEarliest is before starttimeLatest
+		if (rure.getStarttimeLatest().before(rure.getStarttimeEarliest())) {
+			throw new OpenRideShareException(
+					ErrorCodes.CreateRequestFailure_RideStartTimeLatestBeforeEarliest);
+		}
+		
+		
 
 		// String startptAddress,
 		if (rure.getStartptAddress() == null) {
