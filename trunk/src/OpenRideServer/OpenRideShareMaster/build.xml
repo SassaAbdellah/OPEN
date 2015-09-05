@@ -43,6 +43,20 @@
 	</target>
 	<!-- joride-public  -->
 
+	
+	<!-- ************************************************************************************** -->
+	<!-- **** joride-mobile target is only to be build if build.joride-mobile param is set **** -->
+	<!-- ************************************************************************************** -->
+	<target name="joride-mobile" description="build the joride-mobile subproject" if="build.joride-mobile">
+
+		<echo> *** building joride-mobile subproject  *** </echo>
+
+		<ant dir="../joride-mobile" antfile="build.xml" />
+		<copy file="../joride-mobile/dist/joride-mobile.war" todir="${build.dir}" />
+	</target>
+	<!-- joride-mobile  -->
+
+
 
 
 
@@ -75,15 +89,14 @@
 		<copy file="../OpenRideServer-ejb/dist/OpenRideServer-ejb.jar" todir="${build.dir}" />
 
 
-
-
-
 		<!--build joride subproject                  ************************************************* -->
 		<antcall target="joride" inheritAll="true" inheritRefs="true" />
 
 		<!--build joride-public subproject           ************************************************* -->
 		<antcall target="joride-public" inheritAll="true" inheritRefs="true" />
 
+		<!--build ors-rest-ugly subproject            ************************************************* -->
+		<antcall target="joride-mobile" inheritAll="true" inheritRefs="true" />
 
 		<!--build ors-rest-ugly subproject            ************************************************* -->
 		<antcall target="ors-rest-ugly" inheritAll="true" inheritRefs="true" />
@@ -134,6 +147,9 @@
 		<ant dir="../OpenRideServer-ejb" antfile="build.xml" target="clean" />
 		<ant dir="../joride" antfile="build.xml" target="clean" />
 		<ant dir="../joride-public" antfile="build.xml" target="clean" />
+		<ant dir="../joride-mobile" antfile="build.xml" target="clean" />
+		<ant dir="../ors-rest-ugly" antfile="build.xml" target="clean" />
+
 
 	</target>
 	<!-- end of target clean -->

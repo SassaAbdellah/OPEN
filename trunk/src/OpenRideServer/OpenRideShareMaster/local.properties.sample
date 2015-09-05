@@ -35,6 +35,14 @@ build.joride=on
 build.joride-public=on
 #
 #
+#
+# uncomment this to build "joride-mobile" frontend 
+# joride-mobile provides the same functionality as 
+# joride, but is still considered to be experimental
+#
+build.joride-mobile=on
+#
+#
 # Note that ors-rest-ugly containing functionality that is still under development,
 # and adding ors-rest-ugly to an installation may form  a security risk.
 # So, for the time beeing, do not add ors-rest-ugly to a productive installation
@@ -84,8 +92,10 @@ maxOffersLimit=50
 #
 #
 # default number of minutes between startTimeEarliest and startTimeLatest
-#
-default_wait_minutes=60
+
+
+
+
 #
 #
 # default timezone 
