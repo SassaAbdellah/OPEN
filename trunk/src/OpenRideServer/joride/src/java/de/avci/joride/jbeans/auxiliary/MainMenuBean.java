@@ -46,6 +46,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 
 		model = new DefaultMenuModel();
+		
 		Locale locale = new HTTPUtil().detectBestLocale();
 
 		PropertiesLoader proploader = new PropertiesLoader();
@@ -216,6 +217,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		String driverMSG = messageProps.getProperty("nav1_driver_label");
 		DefaultSubMenu driverSubmenu = new DefaultSubMenu(driverMSG);
 		driverSubmenu.setIcon("ui-icon-person");
+		driverSubmenu.setExpanded(false);
 		// rider:: home
 		// <p:menuitem outcome="driver" value="#{msgs.nav1_driver_active}" />
 		String driverMsg = messageProps.getProperty("nav1_driver_active");
@@ -255,7 +257,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 		String riderMSG = messageProps.getProperty("nav1_rider_label");
 		DefaultSubMenu riderSubmenu = new DefaultSubMenu(riderMSG);
 		riderSubmenu.setIcon("ui-icon-suitcase");
-
+		riderSubmenu.setExpanded(false);
 		// rider:: home
 		String riderMsg = messageProps.getProperty("nav1_rider_active");
 		DefaultMenuItem riderHomeItem = new DefaultMenuItem(riderMsg);
@@ -293,6 +295,7 @@ public class MainMenuBean implements Serializable, MenuModel {
 				.getProperty("nav1_preferences_label");
 		DefaultSubMenu preferencesSubmenu = new DefaultSubMenu(preferencesMSG);
 		preferencesSubmenu.setIcon("ui-icon-wrench");
+		preferencesSubmenu.setExpanded(false);
 
 		// <p:menuitem outcome="password_change" value="#{msgs.changePassword}"
 		String changePasswordMSG = messageProps.getProperty("changePassword");
