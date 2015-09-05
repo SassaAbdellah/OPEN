@@ -245,6 +245,16 @@ public class ErrorCodes {
 	 */
 	public static final String CreateRequestFailure_RideStartTimeLatestNull_Str="RideStarttimeLatestIsNullWhenCreatingRequest";
 	
+	
+	/**
+	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
+	 * rideStarttimeEarliest is greater than rideStarttimeLatest
+	 * 
+	 */
+	public static final String CreateRequestFailure_RideStartTimeLatestBeforeEarliest="RideStarttimeLatestBeforeEarliestWhenCreatingRequest";
+	
+	
+	
 	/**
 	 * Mnemonic StrCannot create Request: Error string to be thrown if Request creation fails because 
 	 * ride startpoint address is null.
