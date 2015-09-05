@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+
+	<!-- This file might add mobile specific stuff to the faces configuration -->
+	<!-- In non mobile versions of joride, it is perfectly OK for this file 
+		to be empty -->
+
+
+	<application>
+		<navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
+		<default-render-kit-id>PRIMEFACES_MOBILE</default-render-kit-id>
+	</application>
+
+
+
+</faces-config>
