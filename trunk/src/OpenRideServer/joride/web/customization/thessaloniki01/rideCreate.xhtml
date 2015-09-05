@@ -201,6 +201,8 @@
 								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
 								widgetVar="starttimeEarliestCal"
 								onchange="onStartimeEarliestChange()"
+								onblur="onStartimeEarliestChange()"
+								onclick="onStartimeEarliestChange()"
 								>
 
 								<f:converter converterId="rideDateConverter" />
@@ -208,11 +210,6 @@
 
 							</p:calendar>
 						</div>
-						
-						
-						
-						
-						
 						
 						
 						<div class="formLabel">#{msgs.rideStarttimeLatest}</div>
@@ -224,7 +221,9 @@
 								mindate="#{jprofile.currentDatetimeFormatted}"
 								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
 								widgetVar="starttimeLatestCal"
-								onchange="onStarttimeLatestChange()"				
+								onchange="onStarttimeLatestChange()"
+								onclick="onStarttimeLatestChange()"
+								onblur="onStarttimeLatestChange()"
 								>
 
 								<f:converter converterId="rideDateConverter" />
