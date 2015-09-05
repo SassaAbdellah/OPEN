@@ -27,12 +27,12 @@ function onStarttimeLatestChange(){
 function adjustLatestToEarliest(){
 
 	//get hold of the two calendars
-	calEarliest=PF('starttimeEarliestCal');
-	calLatest=PF('starttimeLatestCal');
+	var calEarliest=PF('starttimeEarliestCal');
+	var calLatest=PF('starttimeLatestCal');
 
 	// if calendar for latest starttime is before earliestStarttime, then fix this
-	earliestDate=new Date(calEarliest.getDate());
-	latestDate=new Date(calLatest.getDate());
+	var earliestDate=new Date(calEarliest.getDate());
+	var latestDate=new Date(calLatest.getDate());
 	// adjust 
 	if(earliestDate.getTime()>latestDate.getTime()){
 	calLatest.setDate(earliestDate);
