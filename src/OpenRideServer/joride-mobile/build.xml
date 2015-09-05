@@ -1,7 +1,7 @@
-<project name="joride-public" default="build">
+<project name="joride-mobile" default="build">
 
 	<!-- ****  ******************************************************   **** -->
-	<!-- ****   Buildfile for joride-mobilg webapp                      **** -->
+	<!-- ****   Buildfile for joride-mobile webapp                      **** -->
 	<!-- ****   this is in fact nearly identical to the joride webapp.  **** -->
 	<!-- ****   Except for the following differences:                   **** -->
 	<!-- ****   1) mobile navigator and renderer added to faces-config  **** -->
@@ -225,18 +225,7 @@
 		<!-- apart from the "usual suspects", the synchronized directories will have to be cleaned also -->
 
 		<!-- completely synchronize web/resources directory with joride -->
-		<delete dir="${resources.dir}" />
-
-		<!-- completely synchronize web/templates directory with joride -->
-		<delete dir="${templates.dir}" />
-
-		<!-- synchronize footer sections with joride -->
-
-		<delete file="${sections.dir}/footer.xhtml" />
-
-		<!-- completely synchronize web/public  directory with joride -->
-		<delete dir="${web.public.dir}" />
-
+		<delete dir="${web.dir}" />
 
 		<!-- completely synchronize lib directory with joride -->
 		<delete dir="${lib.dir}" />
