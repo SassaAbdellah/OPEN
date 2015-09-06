@@ -66,7 +66,7 @@
 								id="allRides" icon="ui-icon-triangle-1-e" ajax="false">
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayAll}" />
-							</p:commandButton> <p:tooltip for="allRides" value="#{msgs.rideListAllRequests}" />
+							</p:commandButton> <p:tooltip for="allRides" value="#{msgs.rideListAllRequests}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
@@ -87,7 +87,7 @@
 								ajax="false">
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayUpdated}" />
-							</p:commandButton> <p:tooltip for="updated" value="#{msgs.rideListUpdatedRequests}" />
+							</p:commandButton> <p:tooltip for="updated" value="#{msgs.rideListUpdatedRequests}" rendered="#{HTTPUser.desktop}" />
 						</td>
 
 						<td class="formLabel"><h:commandLink
@@ -110,7 +110,7 @@
 								ajax="false">
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayNew}" />
-							</p:commandButton> <p:tooltip for="newRides" value="#{msgs.rideListNewRequests}" />
+							</p:commandButton> <p:tooltip for="newRides" value="#{msgs.rideListNewRequests}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
@@ -132,7 +132,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayRiderRequested}" />
 							</p:commandButton> <p:tooltip for="riderRequested"
-								value="#{msgs.rideListRiderAcceptedRequests}" /></td>
+								value="#{msgs.rideListRiderAcceptedRequests}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListRiderAcceptedRequests} 
@@ -153,7 +153,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayDriverAccepted}" />
 							</p:commandButton> <p:tooltip for="driverAccepted"
-								value="#{msgs.rideListDriverAcceptedOffers}" /></td>
+								value="#{msgs.rideListDriverAcceptedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay"> 
                                     #{msgs.rideListDriverAcceptedOffers} 
@@ -174,7 +174,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayBothAccepted}" />
 							</p:commandButton> <p:tooltip for="bothAccepted"
-								value="#{msgs.rideListBothAcceptedOffers}" /></td>
+								value="#{msgs.rideListBothAcceptedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListBothAcceptedOffers} 
@@ -195,7 +195,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayRiderCountermanded}" />
 							</p:commandButton> <p:tooltip for="riderCountermanded"
-								value="#{msgs.rideListRiderCountermandedRequests}" /></td>
+								value="#{msgs.rideListRiderCountermandedRequests}"  rendered="#{HTTPUser.desktop}"/></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListRiderCountermandedRequests} 
@@ -217,7 +217,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayDriverCountermanded}" />
 							</p:commandButton> <p:tooltip for="driverCountermanded"
-								value="#{msgs.rideListDriverCountermandedOffers}" /></td>
+								value="#{msgs.rideListDriverCountermandedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListDriverCountermandedOffers} 
@@ -237,7 +237,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayBothCountermanded}" />
 							</p:commandButton> <p:tooltip for="bothCountermanded"
-								value="#{msgs.rideListBothCountermandedOffers}" /></td>
+								value="#{msgs.rideListBothCountermandedOffers}"  rendered="#{HTTPUser.desktop}"/></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListBothCountermandedOffers} 
@@ -258,7 +258,7 @@
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayUnavaillable}" />
 							</p:commandButton> <p:tooltip for="unavaillable"
-								value=" #{msgs.rideListUnavaillableRides}" /></td>
+								value=" #{msgs.rideListUnavaillableRides}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">
                                     #{msgs.rideListUnavaillableRides} 
@@ -278,7 +278,7 @@
 								ajax="false">
 								<f:param name="#{filteredRideLists.paramNameDisplayMode}"
 									value="#{filteredRideLists.valueDisplayUnclear}" />
-							</p:commandButton> <p:tooltip for="unclear" value="#{msgs.rideListUnclearRides}" />
+							</p:commandButton> <p:tooltip for="unclear" value="#{msgs.rideListUnclearRides}"  rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="rider.rideListDisplay">

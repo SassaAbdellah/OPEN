@@ -176,7 +176,7 @@
 										<f:param name="#{webflow.getParamBack()}" value="rider" />
 									</p:commandButton>
 									<p:tooltip for="matchingList"
-										value="#{msgs.rideMatchesShowOffers}" />
+										value="#{msgs.rideMatchesShowOffers}" rendered="#{HTTPUser.desktop}" />
 
 									<!-- *** show matchings list only if there are matchings *** -->
 
@@ -257,7 +257,7 @@
 													value="#{newride.riderrouteId}" />
 												<f:param name="#{webflow.getParamBack()}"
 													value="rider.rideDisplay" />
-											</p:commandButton> <p:tooltip for="riderRate" value="#{msgs.rideRateThisRide}" />
+											</p:commandButton> <p:tooltip for="riderRate" value="#{msgs.rideRateThisRide}"  rendered="#{HTTPUser.desktop}" />
 										</td>
 
 										<td colspan="2" class="formLabel">
@@ -320,7 +320,7 @@
 													value="#{newride.riderrouteId}" />
 												<f:param name="#{webflow.getParamBack()}"
 													value="rider.rideDisplay" />
-											</p:commandButton> <p:tooltip for="rate" value="#{msgs.rideRateThisRide}" />
+											</p:commandButton> <p:tooltip for="rate" value="#{msgs.rideRateThisRide}"   rendered="#{HTTPUser.desktop}" />
 										</td>
 
 
@@ -390,7 +390,7 @@
 													value="#{cancellingride.rideId}" />
 
 											</p:commandButton> <p:tooltip for="cancelRide"
-												value="#{msgs.rideRemoveThisRequest}" /></td>
+												value="#{msgs.rideRemoveThisRequest}" rendered="#{HTTPUser.desktop}" /></td>
 										<td colspan="2" class="formLabel"><h:commandLink
 												action="rider"
 												actionListener="#{cancellingride.invalidate(evt)}">
@@ -411,7 +411,7 @@
 					<div>
 						<p:commandButton id="backlink" icon="ui-icon-triangle-1-w"
 							action="home" ajax="false" />
-						<p:tooltip for="backlink" value="#{msgs.finish}" />
+						<p:tooltip for="backlink" value="#{msgs.finish}" rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink value="#{msgs.finish}" action="home" />
 					</div>
