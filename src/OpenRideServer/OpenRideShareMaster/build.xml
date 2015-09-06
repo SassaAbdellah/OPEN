@@ -96,9 +96,6 @@
 		<antcall target="joride-public" inheritAll="true" inheritRefs="true" />
 
 		<!--build ors-rest-ugly subproject            ************************************************* -->
-		<antcall target="joride-mobile" inheritAll="true" inheritRefs="true" />
-
-		<!--build ors-rest-ugly subproject            ************************************************* -->
 		<antcall target="ors-rest-ugly" inheritAll="true" inheritRefs="true" />
 
 
@@ -147,7 +144,6 @@
 		<ant dir="../OpenRideServer-ejb" antfile="build.xml" target="clean" />
 		<ant dir="../joride" antfile="build.xml" target="clean" />
 		<ant dir="../joride-public" antfile="build.xml" target="clean" />
-		<ant dir="../joride-mobile" antfile="build.xml" target="clean" />
 		<ant dir="../ors-rest-ugly" antfile="build.xml" target="clean" />
 
 
