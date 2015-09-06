@@ -2,6 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
@@ -20,9 +21,13 @@
 <h:body>
 
 	<p:panel>
+	
+	 	
+	 	<!--  TODO:   How to include a render kit conditionall -->
+		<!--  f:view   renderKitId="PRIMEFACES_MOBILE"  / -->
+
+		
 		<!-- have an empty panel surround everything, so primefaces theming applies -->
-
-
 
 		<div id="cookieMessage">
 			<ui:insert name="cookieMessage">
@@ -34,7 +39,7 @@
 		<div id="navbar1">
 
 			<ui:insert name="slidemenu">
-				<ui:include src="/sections/joride/toolbar.xhtml" />
+				<ui:include src="/sections/joride/toolbar.xhtml"   />
 			</ui:insert>
 
 		</div>
