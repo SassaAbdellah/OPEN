@@ -93,7 +93,7 @@
 									value="driver.driveDisplay" />
 							</p:commandButton>
 							<p:tooltip value="#{msgs.waypointAddWaypointAtPosition}"
-								for="addWaypoint" />
+								for="addWaypoint" rendered="#{HTTPUser.desktop}" />
 						</h:form>
 					</td>
 					<td colspan="2">&nbsp;</td>
@@ -121,7 +121,7 @@
 										value="driver.driveDisplay" />
 								</p:commandButton>
 								<p:tooltip value="#{msgs.waypointRemoveWaypoint}"
-									for="deleteWaypoint" />
+									for="deleteWaypoint"  rendered="#{HTTPUser.desktop}" />
 							</h:form>
 						</td>
 						<td class="formLabel" colspan="2">#{wp.description}</td>
@@ -143,7 +143,7 @@
 										value="driver.driveDisplay" />
 								</p:commandButton>
 								<p:tooltip value="#{msgs.waypointAddWaypointAtPosition}"
-									for="addWaypoint" />
+									for="addWaypoint"  rendered="#{HTTPUser.desktop}" />
 							</h:form>
 						</td>
 						<td colspan="2">&nbsp;</td>

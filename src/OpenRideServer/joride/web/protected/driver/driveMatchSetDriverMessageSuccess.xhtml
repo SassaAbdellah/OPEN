@@ -48,7 +48,7 @@
 						<div><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}"
 								ajax="false">
-							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></div>
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}"  rendered="#{HTTPUser.desktop}" /></div>
 						<div><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}" /></div>
 			

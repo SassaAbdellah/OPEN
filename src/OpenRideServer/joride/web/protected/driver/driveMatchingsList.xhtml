@@ -120,7 +120,7 @@
 									<f:param name="#{webflow.getParamBack()}" value="driver" />
 								</p:commandButton>
 								<p:tooltip for="matchDisplay"
-									value="#{msgs.matchMatchingRideAcceptOrReject}" />
+									value="#{msgs.matchMatchingRideAcceptOrReject}" rendered="#{HTTPUser.desktop}" />
 								&nbsp;
 								<h:commandLink action="driver.matchDisplay"
 									value="#{msgs.matchMatchingRideAcceptOrReject}">
@@ -152,7 +152,7 @@
 									<f:param name="#{webflow.getParamBack()}" value="driver" />
 								</p:commandButton>
 								<p:tooltip for="matchDetails"
-									value="#{msgs.matchMatchingRideShowDetails}" />
+									value="#{msgs.matchMatchingRideShowDetails}" rendered="#{HTTPUser.desktop}" />
 								<!--  Match, show details -->
 								&nbsp;
 								<h:commandLink action="driver.matchDisplay"
@@ -184,7 +184,7 @@
 								ajax="false">
 								<f:param name="#{crud.paramNameCrudId}"
 									value="#{rscdriverride.rideId}" />
-							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}">
 								<f:param name="#{crud.paramNameCrudId}"
