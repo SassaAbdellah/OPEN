@@ -66,7 +66,8 @@
 								id="allRides" icon="ui-icon-triangle-1-e" ajax="false">
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayAll}" />
-							</p:commandButton> <p:tooltip for="allRides" value="#{msgs.driveListAllOffers}" />
+							</p:commandButton> 
+							<p:tooltip for="allRides" value="#{msgs.driveListAllOffers}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
@@ -87,7 +88,7 @@
 								ajax="false">
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayUpdated}" />
-							</p:commandButton> <p:tooltip for="updated" value="#{msgs.driveListUpdatedOffers}" />
+							</p:commandButton> <p:tooltip for="updated" value="#{msgs.driveListUpdatedOffers}"  rendered="#{HTTPUser.desktop}" />
 						</td>
 
 						<td class="formLabel"><h:commandLink
@@ -110,7 +111,7 @@
 								ajax="false">
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayNew}" />
-							</p:commandButton> <p:tooltip for="newRides" value="#{msgs.driveListNewOffers}" />
+							</p:commandButton> <p:tooltip for="newRides" value="#{msgs.driveListNewOffers}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
@@ -132,7 +133,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayRiderRequested}" />
 							</p:commandButton> <p:tooltip for="riderRequested"
-								value="#{msgs.driveListRiderAcceptedOffers}" /></td>
+								value="#{msgs.driveListRiderAcceptedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListRiderAcceptedOffers} 
@@ -153,7 +154,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayDriverAccepted}" />
 							</p:commandButton> <p:tooltip for="driverAccepted"
-								value="#{msgs.driveListDriverAcceptedOffers}" /></td>
+								value="#{msgs.driveListDriverAcceptedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay"> 
                                     #{msgs.driveListDriverAcceptedOffers} 
@@ -174,7 +175,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayBothAccepted}" />
 							</p:commandButton> <p:tooltip for="bothAccepted"
-								value="#{msgs.driveListBothAcceptedOffers}" /></td>
+								value="#{msgs.driveListBothAcceptedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListBothAcceptedOffers} 
@@ -196,7 +197,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayRiderCountermanded}" />
 							</p:commandButton> <p:tooltip for="riderCountermanded"
-								value="#{msgs.driveListRiderCountermandedOffers}" /></td>
+								value="#{msgs.driveListRiderCountermandedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListRiderCountermandedOffers} 
@@ -218,7 +219,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayDriverCountermanded}" />
 							</p:commandButton> <p:tooltip for="driverCountermanded"
-								value="#{msgs.driveListDriverCountermandedOffers}" /></td>
+								value="#{msgs.driveListDriverCountermandedOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListDriverCountermandedOffers} 
@@ -239,7 +240,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayBothCountermanded}" />
 							</p:commandButton> <p:tooltip for="bothCountermanded"
-								value="#{msgs.driveListBothCountermandedOffers}" /></td>
+								value="#{msgs.driveListBothCountermandedOffers}"  rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListBothCountermandedOffers} 
@@ -260,7 +261,7 @@
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayUnavaillable}" />
 							</p:commandButton> <p:tooltip for="unavaillable"
-								value=" #{msgs.driveListUnavaillableOffers}" /></td>
+								value=" #{msgs.driveListUnavaillableOffers}" rendered="#{HTTPUser.desktop}" /></td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">
                                     #{msgs.driveListUnavaillableOffers} 
@@ -280,7 +281,7 @@
 								ajax="false">
 								<f:param name="#{filteredDriveLists.paramNameDisplayMode}"
 									value="#{filteredDriveLists.valueDisplayUnclear}" />
-							</p:commandButton> <p:tooltip for="unclear" value="#{msgs.driveListUnclearOffers}" />
+							</p:commandButton> <p:tooltip for="unclear" value="#{msgs.driveListUnclearOffers}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td class="formLabel"><h:commandLink
 								action="driver.driveListDisplay">

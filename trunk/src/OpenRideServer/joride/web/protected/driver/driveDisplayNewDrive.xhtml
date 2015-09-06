@@ -90,7 +90,7 @@
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 						</p:commandButton>
 
-						<p:tooltip value="#{msgs.waypointAddWaypoints}" for="editRouting" />
+						<p:tooltip value="#{msgs.waypointAddWaypoints}" for="editRouting"  rendered="#{HTTPUser.desktop}" />
 					&nbsp;
 					<h:commandLink action="driver.editRouting"
 							value="#{msgs.waypointAddWaypoints}">
@@ -242,7 +242,7 @@
 					<div>
 						<p:commandButton id="backlink" icon="ui-icon-triangle-1-w"
 							action="#{webflow.getFinish()}" ajax="false" />
-						<p:tooltip for="backlink" value="#{msgs.finish}" />
+						<p:tooltip for="backlink" value="#{msgs.finish}"  rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink value="#{msgs.finish}"
 							action="#{webflow.getFinish()}" />

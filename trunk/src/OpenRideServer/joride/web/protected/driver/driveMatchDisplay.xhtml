@@ -130,7 +130,7 @@
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 						</p:commandButton>
 						<p:tooltip for="acceptButton"
-							value="#{msgs.matchAcceptRequestedRide}" />
+							value="#{msgs.matchAcceptRequestedRide}"  rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink actionListener="#{match.acceptRider(evt)}"
 							action="driver.matchDisplay"
@@ -162,7 +162,7 @@
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 						</p:commandButton>
 						<p:tooltip for="rejectButton"
-							value="#{msgs.matchRejectRequestedRide}" />
+							value="#{msgs.matchRejectRequestedRide}"  rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink actionListener="#{match.rejectRider(evt)}"
 							action="driver.matchDisplay"
@@ -193,7 +193,7 @@
 						</p:commandButton>
 
 						<p:tooltip for="messagesButton"
-							value="#{msgs.msg_showMessagesForOffer}" />
+							value="#{msgs.msg_showMessagesForOffer}" rendered="#{HTTPUser.desktop}" />
 
 						&nbsp;
 
@@ -220,7 +220,7 @@
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 						</p:commandButton>
 						<p:tooltip for="messageButton"
-							value="#{msgs.matchSetDriverMessage}" />
+							value="#{msgs.matchSetDriverMessage}"  rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink action="driver.matchSetMessage">
                                             #{msgs.matchSetDriverMessage}
@@ -251,7 +251,7 @@
 							<f:param name="#{webflow.getParamBack()}" value="driver" />
 
 						</p:commandButton>
-						<p:tooltip for="cancelRide" value="#{msgs.driveCountermand}" />
+						<p:tooltip for="cancelRide" value="#{msgs.driveCountermand}" rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink action="driver.driveCountermand">
                                         #{msgs.driveCountermand}
@@ -283,7 +283,7 @@
 								<f:param name="#{match.paramRiderrouteId}"
 									value="#{match.ride.riderrouteId}" />
 
-							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}">
 

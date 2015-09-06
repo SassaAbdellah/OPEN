@@ -79,7 +79,7 @@
 							value="driver.driveDisplay" />
 					</p:commandButton>
 					<p:tooltip value="#{msgs.rideMatchesShowRequests}"
-						for="showMatches" />
+						for="showMatches" rendered="#{HTTPUser.desktop}" />
 					<h:commandLink action="driver.driveMatchingsList"
 						value="#{msgs.rideMatchesShowRequests}">
 						<f:param name="#{crud.paramNameCrudId}"
@@ -103,7 +103,7 @@
 							value="driver.driveDisplay" />
 					</p:commandButton>
 					<p:tooltip value="#{msgs.matchAcceptedRequestsForOffer}"
-						for="showAcceptedMatches" />
+						for="showAcceptedMatches" rendered="#{HTTPUser.desktop}" />
 					<h:commandLink action="driver.driveAcceptedMatchingsList"
 						value="#{msgs.matchAcceptedRequestsForOffer}">
 						<f:param name="#{crud.paramNameCrudId}"
@@ -139,7 +139,7 @@
 						<f:param name="#{webflow.getParamBack()}"
 							value="driver.driveDisplay" />
 					</p:commandButton>
-					<p:tooltip value="#{msgs.rideRemoveThisOffer}" for="cancelRide" />
+					<p:tooltip value="#{msgs.rideRemoveThisOffer}" for="cancelRide"  rendered="#{HTTPUser.desktop}" />
 
 					<h:commandLink action="#{canceldriverride.invalidate()}"
 						value="#{msgs.rideRemoveThisOffer}">
@@ -224,7 +224,7 @@
 								<f:param name="#{webflow.getParamBack()}" value="driver" />
 							</p:commandButton>
 
-							<p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" />
+							<p:tooltip value="#{msgs.waypointEditRoute}" for="editRouting" rendered="#{HTTPUser.desktop}" />
 						&nbsp;
 						<h:commandLink action="driver.editRouting"
 								value="#{msgs.waypointEditRoute}">
@@ -386,7 +386,7 @@
 					<tr>
 						<td><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}"
-								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
+								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}" /></td>

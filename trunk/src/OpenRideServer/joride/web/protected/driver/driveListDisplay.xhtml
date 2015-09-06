@@ -88,7 +88,7 @@
 										<f:param name="#{webflow.getParamBack()}" value="driver" />
 									</p:commandButton>
 									<p:tooltip for="showMatchesButton"
-										value="#{msgs.rideMatchesShowRequests}" />
+										value="#{msgs.rideMatchesShowRequests}" rendered="#{HTTPUser.desktop}" />
 									&nbsp;
 									<h:commandLink action="driver.driveMatchingsList"
 										value="#{msgs.rideMatchesShowRequests}">
@@ -111,7 +111,7 @@
 									<f:param name="#{webflow.getParamBack()}" value="driver" />
 								</p:commandButton>
 								<p:tooltip for="driveDisplayButton"
-									value="#{msgs.rideDisplayOffer}" />
+									value="#{msgs.rideDisplayOffer}" rendered="#{HTTPUser.desktop}" />
 								&nbsp;
 								<h:commandLink action="driver.driveDisplay"
 									value="#{msgs.rideDisplayOffer}">
@@ -149,7 +149,7 @@
 					<tr>
 						<td><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="driver" ajax="false" /> <p:tooltip
-								for="backlink" value="#{msgs.back}" /></td>
+								for="backlink" value="#{msgs.back}"  rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}" action="driver" /></td>
 					</tr>
 				</table>
