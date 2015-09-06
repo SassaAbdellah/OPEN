@@ -25,9 +25,20 @@
 
 	<ui:composition>
 
-		<p:accordionPanel activeIndex="-1" >
-		<p:tab title="#{msgs.nav1_navigation}"  >
-			<h:form id="toolbarForm">
+
+		<h:form id="toolbarForm">
+
+
+			<p:commandButton 
+				id="dynaButton" 
+				value="#{msgs.nav1_navigation}"
+				type="button" 
+				icon="ui-icon-bars" 
+				/>
+		
+
+			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right" showEffect="overlay">
+			
 
 				<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
 				<p:menu toggleable="true" model="#{mainMenu}" my="left top"
@@ -35,10 +46,11 @@
 					backLabel="#{msgs.backLabel}">
 				</p:menu>
 
-			</h:form>
-			</p:tab>
-		</p:accordionPanel>
-		
+			</p:overlayPanel>
+
+		</h:form>
+
+
 		<!--  end of menu -->
 
 
