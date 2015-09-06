@@ -9,6 +9,10 @@
 
 	<application>
 
+
+		<!-- Navigation handler can be set to mobile without harm for non-mobile applications  -->
+		<navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
+
 		<!-- lists of supported locales -->
 		<locale-config>
 			<default-locale>en</default-locale>
@@ -125,7 +129,7 @@
 			<to-view-id>/faces/protected/rider/rideDisplay.xhtml </to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- Navigation Case -->
 	<!-- go to page where new Requests are displayed -->
 
@@ -496,19 +500,19 @@
 			<to-view-id>/faces/protected/preferences/carDetailsEdit.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule> <!-- navigate to preferences.carDetailsCreate (below driver preferences) -->
 		<navigation-case>
 			<from-outcome>removeAccount</from-outcome>
 			<to-view-id>/faces/protected/preferences/removeAccount.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	<!-- start page for picking a point -->
 	<navigation-rule>
@@ -549,7 +553,7 @@
 			<to-view-id>/faces/public/geocoding/nominatim/jsonpNominatimFreetext.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- Structured Nominatim Search -->
 	<navigation-rule>
 		<navigation-case>
