@@ -160,7 +160,7 @@
 									<f:param name="#{webflow.getParamBack()}" value="rider" />
 								</p:commandButton>
 								<p:tooltip for="matchingList"
-									value="#{msgs.rideMatchesShowOffers}" />
+									value="#{msgs.rideMatchesShowOffers}" rendered="#{HTTPUser.desktop}" />
 
 								<!-- *** show matchings list only if there are matchings *** -->
 
@@ -241,7 +241,7 @@
 												value="#{ride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}"
 												value="rider.rideDisplay" />
-										</p:commandButton> <p:tooltip for="riderRate" value="#{msgs.rideRateThisRide}" />
+										</p:commandButton> <p:tooltip for="riderRate" value="#{msgs.rideRateThisRide}" rendered="#{HTTPUser.desktop}" />
 									</td>
 
 									<td colspan="2" class="formLabel">
@@ -304,7 +304,7 @@
 												value="#{ride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}"
 												value="rider.rideDisplay" />
-										</p:commandButton> <p:tooltip for="rate" value="#{msgs.rideRateThisRide}" />
+										</p:commandButton> <p:tooltip for="rate" value="#{msgs.rideRateThisRide}" rendered="#{HTTPUser.desktop}" />
 									</td>
 
 
@@ -371,7 +371,7 @@
 												value="#{cancellingride.rideId}" />
 
 										</p:commandButton> <p:tooltip for="cancelRide"
-											value="#{msgs.rideRemoveThisRequest}" /></td>
+											value="#{msgs.rideRemoveThisRequest}"  rendered="#{HTTPUser.desktop}" /></td>
 									<td colspan="2" class="formLabel"><h:commandLink
 											action="rider"
 											actionListener="#{cancellingride.invalidate(evt)}">
@@ -392,7 +392,7 @@
 					<tr>
 						<td><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="#{webflow.getBack()}"
-								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" />
+								ajax="false" /> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" />
 						</td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}" /></td>

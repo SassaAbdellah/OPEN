@@ -85,7 +85,7 @@
 													<f:param name="#{webflow.getParamBack()}" value="rider" />
 												</p:commandButton>
 												<p:tooltip for="rideDisplayButton"
-													value="#{msgs.rideDisplayRequest}" />
+													value="#{msgs.rideDisplayRequest}"  rendered="#{HTTPUser.desktop}" />
 												&nbsp;
 												<h:commandLink action="rider.rideDisplay"
 													value="#{msgs.rideDisplayRequest}">
@@ -108,7 +108,7 @@
 														<f:param name="#{webflow.getParamBack()}" value="rider" />
 													</p:commandButton>
 													<p:tooltip for="showMatchesButton1"
-														value="#{msgs.rideMatchesShowOffers}" />
+														value="#{msgs.rideMatchesShowOffers}" rendered="#{HTTPUser.desktop}" />
 													&nbsp;
 													<h:commandLink action="rider.rideMatchingsList"
 														value="#{msgs.rideMatchesShowOffers}">
@@ -152,7 +152,7 @@
 														<f:param name="#{webflow.getParamBack()}" value="rider" />
 													</p:commandButton>
 													<p:tooltip for="showMatchesButton2"
-														value="#{msgs.rideMatchesShowOffers}" />
+														value="#{msgs.rideMatchesShowOffers}" rendered="#{HTTPUser.desktop}" />
 													&nbsp;
 													<h:commandLink action="rider.rideMatchingsList"
 														value="#{msgs.rideMatchesShowOffers}">
@@ -182,7 +182,7 @@
 					<tr>
 						<td><p:commandButton id="backlink"
 								icon="ui-icon-triangle-1-w" action="rider" ajax="false" /> <p:tooltip
-								for="backlink" value="#{msgs.back}" /></td>
+								for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}" action="rider" /></td>
 					</tr>
 				</table>

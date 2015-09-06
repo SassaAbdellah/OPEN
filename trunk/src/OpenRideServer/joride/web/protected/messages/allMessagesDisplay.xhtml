@@ -142,7 +142,7 @@
 							<td><p:commandButton id="backlink"
 									icon="ui-icon-triangle-1-w" action="messages.search"
 									ajax="false" />
-									 <p:tooltip for="backlink" value="#{msgs.back}" />
+									 <p:tooltip for="backlink" value="#{msgs.back}"  rendered="#{HTTPUser.desktop}" />
 							</td>
 							<td><h:commandLink value="#{msgs.back}"
 									action="messages.search" /></td>

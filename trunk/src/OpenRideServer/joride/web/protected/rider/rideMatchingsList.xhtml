@@ -109,7 +109,7 @@
 												value="#{rscride.riderrouteId}" />
 											<f:param name="#{webflow.getParamBack()}" value="rider" />
 										</p:commandButton> <p:tooltip for="matchDisplay"
-											value="#{msgs.matchMatchingDriveShowDetails}" /></td>
+											value="#{msgs.matchMatchingDriveShowDetails}" rendered="#{HTTPUser.desktop}" /></td>
 
 
 									<td colspan="2" class="formLabel"><h:commandLink
@@ -177,7 +177,7 @@
 								ajax="false">
 								<f:param name="#{crud.paramNameCrudId}"
 									value="#{match.matchEntity.matchEntityPK.riderrouteId}" />
-							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="#{webflow.getBack()}">
 								<f:param name="#{crud.paramNameCrudId}"

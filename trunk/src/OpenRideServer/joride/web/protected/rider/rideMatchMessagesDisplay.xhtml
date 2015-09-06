@@ -108,7 +108,7 @@
 								<f:param name="#{match.paramRiderrouteId}"
 									value="#{match.ride.riderrouteId}" />
 
-							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" /></td>
+							</p:commandButton> <p:tooltip for="backlink" value="#{msgs.back}" rendered="#{HTTPUser.desktop}" /></td>
 						<td><h:commandLink value="#{msgs.back}"
 								action="rider.matchDisplay">
 								<f:param name="#{match.paramRideID}"

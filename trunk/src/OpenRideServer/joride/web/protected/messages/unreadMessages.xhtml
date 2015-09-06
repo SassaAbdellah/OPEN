@@ -50,7 +50,7 @@
 								<div class="formInput">
 									<p:selectBooleanCheckbox id="mark_read_select"
 										value="#{myMessage.read}" onchange="submit()" />
-									<p:tooltip for="mark_read_select" value="#{msgs.msg_markRead}" />
+									<p:tooltip for="mark_read_select" value="#{msgs.msg_markRead}" rendered="#{HTTPUser.desktop}" />
 								</div>
 							</h:form>
 						</div>
