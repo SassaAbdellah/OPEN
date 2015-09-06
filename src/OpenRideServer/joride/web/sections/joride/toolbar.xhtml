@@ -63,16 +63,15 @@
 				/>
 		
 
-			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right" showEffect="overlay">
+			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right" showEffect="overlay" >
 			
-
-				<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
-				<p:menu 
 				
+				<!--  menu comes with a primefaces 4.0 fashioned programmatic menu -->
+				<p:menu 			
 					toggleable="true"
 				 	model="#{mainMenu}"
 				 	my="left top"
-					at="left bottom" 
+					at="left top" 
 					locale="#{HTTPUser.getLocale()}"
 					backLabel="#{msgs.backLabel}">
 				</p:menu>
