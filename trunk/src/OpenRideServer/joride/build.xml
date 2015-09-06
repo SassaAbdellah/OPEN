@@ -424,16 +424,9 @@
 	<target name="mobile" description="override faces-config and menu definition for use with primefaces-mobile" if="${mobile}">
 
 
-		<!-- Currently, replaces "faces-config-mobile" with faces-config -->
+		<!-- Currently, replaces "faces-config.xml" with faces-config-mobile.xml -->
 		<!-- TODO: do something more sophisticated to avoud redundancy   -->
 		<copy file="${web-inf.dir}/faces-config-mobile.xml" tofile="${web-inf.dir}/faces-config.xml" overwrite="true" failonerror="true" />
-
-
-		<!-- Currently, replaces "toolbar.xhtml" with "toolbar-mobile.xhtml" -->
-		<!-- TODO: do something more sophisticated to avoud redundancy   -->
-		<copy file="${build.dir}/sections/joride/toolbar-mobile.xhtml" tofile="${build.dir}/sections/joride/toolbar.xhtml" overwrite="true" failonerror="true" />
-
-
 
 	</target>
 
