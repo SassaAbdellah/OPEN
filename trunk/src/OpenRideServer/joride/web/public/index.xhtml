@@ -34,62 +34,64 @@
 
 
 
-     	<!-- *********************************************************** -->
-		<!--  RatingStuff to be displayed *only*                         -->
-		<!--  if rating is enablen and there are unrated rides or drives -->
-		<!-- *********************************************************** -->
-		<ui:fragment rendered="#{jprofile.ratingCapability}">
-		
-		
-		<!-- fetch data for unrated rides -->
+			<!-- *********************************************************** -->
+			<!--  RatingStuff to be displayed *only*                         -->
+			<!--  if rating is enablen and there are unrated rides or drives -->
+			<!-- *********************************************************** -->
+			<ui:fragment rendered="#{jprofile.ratingCapability}">
+
+
+				<!-- fetch data for unrated rides -->
 		#{unrated.update()}
 		<!-- fetch data for unrated rides -->
 
-			<!--  unrated rides for driver stuff  -->
-			<ui:fragment rendered="#{unrated.hasUnratedRidesForDriver()}">
-				<p>
-					<h:form>
-						<!--  show button to list unrated rides for driver -->
-						<!--   -->
-						<p:commandButton action="search.requestsDisplay"
-							id="unratedRidesForDriverAlert"
-							actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
-							icon="ui-icon-search" ajax="false">
-							<f:param name="#{webflow.paramBack}" value="home" />
-						</p:commandButton>
-						<p:tooltip for="unratedRidesForDriverAlert"
-							value="#{msgs.ratingsShowUnrated}" />
+				<!--  unrated rides for driver stuff  -->
+				<ui:fragment rendered="#{unrated.hasUnratedRidesForDriver()}">
+					<p>
+						<h:form>
+							<!--  show button to list unrated rides for driver -->
+							<!--   -->
+							<p:commandButton action="search.requestsDisplay"
+								id="unratedRidesForDriverAlert"
+								actionListener="#{ridesearchparams.configureUnratedRidesForDriver(evt)}"
+								icon="ui-icon-search" ajax="false">
+								<f:param name="#{webflow.paramBack}" value="home" />
+							</p:commandButton>
+							<p:tooltip for="unratedRidesForDriverAlert"
+								value="#{msgs.ratingsShowUnrated}"
+								rendered="#{HTTPUser.desktop}" />
 					&nbsp;
 					<h:outputFormat
-							value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
-							<f:param value="#{unrated.getUnratedRidesForDriver()}" />
-						</h:outputFormat>
-					</h:form>
-				</p>
-			</ui:fragment>
-			<!-- end of unrated rides for driver stuff -->
+								value="#{msgs.ratingsNumberOfUnratedRidesForDriver}">
+								<f:param value="#{unrated.getUnratedRidesForDriver()}" />
+							</h:outputFormat>
+						</h:form>
+					</p>
+				</ui:fragment>
+				<!-- end of unrated rides for driver stuff -->
 
-			<!-- unrated rides for rider stuff  -->
-			<ui:fragment rendered="#{unrated.hasUnratedRidesForRider()}">
-				<p>
-					<h:form>
-						<!--  show button to list unrated rides for driver -->
-						<p:commandButton action="search.requestsDisplay"
-							id="unratedRidesForRiderAlert"
-							actionListener="#{ridesearchparams.configureUnratedRidesForRider(evt)}"
-							icon="ui-icon-search" ajax="false">
-							<f:param name="#{webflow.paramBack}" value="home" />
-						</p:commandButton>
-						<p:tooltip for="unratedRidesForRiderAlert"
-							value="#{msgs.ratingsShowUnrated}" />
+				<!-- unrated rides for rider stuff  -->
+				<ui:fragment rendered="#{unrated.hasUnratedRidesForRider()}">
+					<p>
+						<h:form>
+							<!--  show button to list unrated rides for driver -->
+							<p:commandButton action="search.requestsDisplay"
+								id="unratedRidesForRiderAlert"
+								actionListener="#{ridesearchparams.configureUnratedRidesForRider(evt)}"
+								icon="ui-icon-search" ajax="false">
+								<f:param name="#{webflow.paramBack}" value="home" />
+							</p:commandButton>
+							<p:tooltip for="unratedRidesForRiderAlert"
+								value="#{msgs.ratingsShowUnrated}"
+								rendered="#{HTTPUser.desktop}" />
 					&nbsp;
 					<h:outputFormat value="#{msgs.ratingsNumberOfUnratedRidesForRider}">
-							<f:param value="#{unrated.getUnratedRidesForRider()}" />
-						</h:outputFormat>
-					</h:form>
-				</p>
-			</ui:fragment>
-			<!-- end of unrated rides for rider stuff -->
+								<f:param value="#{unrated.getUnratedRidesForRider()}" />
+							</h:outputFormat>
+						</h:form>
+					</p>
+				</ui:fragment>
+				<!-- end of unrated rides for rider stuff -->
 			</ui:fragment>
 			<!-- end of ratings section -->
 
@@ -105,7 +107,8 @@
 						<tr>
 							<td colspan="1" class="formLabel"><p:commandButton
 									id="rider" icon="ui-icon-suitcase" action="rider" ajax="false" />
-								<p:tooltip for="rider" value="#{msgs.nav1_rider_desc}" /></td>
+								<p:tooltip for="rider" value="#{msgs.nav1_rider_desc}"
+									rendered="#{HTTPUser.desktop}" /></td>
 
 							<td colspan="2" class="formInput"><h:commandLink
 									action="rider">    #{msgs.nav1_rider_label}      </h:commandLink>
@@ -122,7 +125,8 @@
 						<tr>
 							<td colspan="1" class="formLabel"><p:commandButton
 									id="driver" icon="ui-icon-person" action="driver" ajax="false" />
-								<p:tooltip for="driver" value="#{msgs.nav1_driver_desc}" /></td>
+								<p:tooltip for="driver" value="#{msgs.nav1_driver_desc}"
+									rendered="#{HTTPUser.desktop}" /></td>
 
 							<td colspan="2" class="formInput"><h:commandLink
 									action="driver">   #{msgs.nav1_driver_label}     </h:commandLink>
@@ -136,7 +140,8 @@
 						<td colspan="1" class="formLabel"><p:commandButton
 								id="preferences" icon="ui-icon-wrench" action="preferences"
 								ajax="false" /> <p:tooltip for="preferences"
-								value="#{msgs.nav1_preferences_desc}" /></td>
+								value="#{msgs.nav1_preferences_desc}"
+								rendered="#{HTTPUser.desktop}" /></td>
 						<td colspan="2" class="formInput"><h:commandLink
 								action="preferences">  #{msgs.nav1_preferences_label} </h:commandLink>
 							<br /> #{msgs.nav1_preferences_desc}</td>

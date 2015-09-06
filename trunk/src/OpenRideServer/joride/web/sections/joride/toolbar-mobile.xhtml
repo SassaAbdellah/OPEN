@@ -41,8 +41,13 @@
 			
 
 				<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
-				<p:menu toggleable="true" model="#{mainMenu}" my="left top"
-					at="left bottom" locale="#{HTTPUser.getLocale()}"
+				<p:menu 
+				
+					toggleable="true"
+				 	model="#{mainMenu}"
+				 	my="left top"
+					at="left bottom" 
+					locale="#{HTTPUser.getLocale()}"
 					backLabel="#{msgs.backLabel}">
 				</p:menu>
 
