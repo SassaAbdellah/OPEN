@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<head>
+<title>IGNORED</title>
+</head>
+<body>
+
+
+	<h:head>
+		<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+
+
+
+
+	<!--  systemwide slide menu  -->
+
+	<ui:composition>
+
+		<p:accordionPanel activeIndex="-1" >
+		<p:tab title="#{msgs.nav1_navigation}"  >
+			<h:form id="toolbarForm">
+
+				<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
+				<p:menu toggleable="true" model="#{mainMenu}" my="left top"
+					at="left bottom" locale="#{HTTPUser.getLocale()}"
+					backLabel="#{msgs.backLabel}">
+				</p:menu>
+
+			</h:form>
+			</p:tab>
+		</p:accordionPanel>
+		
+		<!--  end of menu -->
+
+
+
+
+	</ui:composition>
+
+
+
+
+
+
+</body>
+</html>

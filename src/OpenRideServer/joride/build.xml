@@ -61,8 +61,6 @@
 
 
 
-
-
 	<!-- TARGET apply-local-properties -->
 	<target name="apply-local-properties" depends="copy" description="rewrite properties files with local properties">
 
@@ -343,7 +341,7 @@
 		<!-- TODO:  currently custumization.package is fixed to "thessaloniki"        -->
 		<!-- when finished, the name of the customization package should be detected  -->
 
-		
+
 
 		<!-- xhtmls, message.property files and javascript for customization package lives  below "customization.dir" -->
 		<property name="customization.dir" value="${appdir}/web/customization/${customization.package}" />
@@ -355,15 +353,15 @@
 		<copy file="${customization.dir}/rideCreate.xhtml" tofile="${build.dir}/protected/rider/rideCreate.xhtml" overwrite="true" verbose="true" />
 
 		<!-- install custom properties -->
-		<copy    todir="${web-inf.dir}/classes/de/avci/joride" failonerror="false" > 
-			<fileset dir="${customization.dir}/resources/properties/" >
-					<include name="*.properties" />
+		<copy todir="${web-inf.dir}/classes/de/avci/joride" failonerror="false">
+			<fileset dir="${customization.dir}/resources/properties/">
+				<include name="*.properties" />
 			</fileset>
 		</copy>
-		
+
 		<!-- copy javascript files -->
-		<copy    todir="${build.dir}/resources/js/" failonerror="false" > 
-			<fileset dir="${customization.dir}/resources/js/" >
+		<copy todir="${build.dir}/resources/js/" failonerror="false">
+			<fileset dir="${customization.dir}/resources/js/">
 				<include name="*.js" />
 			</fileset>
 		</copy>
@@ -402,8 +400,6 @@
 
 	</target>
 
-
-
 	<!-- TARGET compile -->
 	<target name="compile" depends="copy,apply-local-properties,applyCustomization" description="Compile source files.">
 		<javac srcdir="${appdir}/src/java" destdir="${web-inf.dir}/classes" debug="true" includeantruntime="false" deprecation="true">
@@ -412,6 +408,36 @@
 			<classpath refid="classpath" />
 		</javac>
 	</target>
+
+
+
+	<!-- apply mobile settings if mobile parameter is set -->
+	<target name="mobile" 
+			description="override faces-config and menu definition for use with primefaces-mobile"
+			if="mobile"
+		>
+	
+		<!-- Currently, replaces "faces-config-mobile" with faces-config -->
+		<!-- TODO: do something more sophisticated to avoud redundancy   -->
+		<copy file="${web-inf.dir}/faces-config-mobile.xml" tofile="${web-inf.dir}/faces-config.xml" overwrite="true" failonerror="true" />
+	
+		
+		<!-- Currently, replaces "toolbar.xhtml" with "toolbar-mobile.xhtml" -->
+		<!-- TODO: do something more sophisticated to avoud redundancy   -->
+		<copy 
+				file="${build.dir}/sections/joride/toolbar-mobile.xhtml" 
+				tofile="${build.dir}/sections/joride/toolbar.xhtml" 
+				overwrite="true" 
+				failonerror="true" 
+			/>
+			
+		
+		
+	</target>
+
+
+
+
 
 	<!-- TARGET jsf-libs -->
 	<target name="jsf-libs" if="use-jsf-libs" unless="glassfish">
@@ -445,7 +471,7 @@
 	<target name="tomcat-libs" depends="jsf-libs, el-libs, bean-validation-libs, cdi-libs" />
 
 	<!-- TARGET war -->
-	<target name="war" depends="clean, compile, tomcat-libs" description="Build WAR file.">
+	<target name="war" depends="clean,compile,mobile,tomcat-libs" description="Build WAR file.">
 
 
 		<!--Overwrite default css if localStyle has been defined elsewhere -->
