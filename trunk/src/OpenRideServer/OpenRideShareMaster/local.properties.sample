@@ -24,23 +24,24 @@ jee.lib.basedir=build.headless.support/jee/libs.glassfish.3.0.2/
 ####################################################
 #
 # uncomment this to build "joride" frontend 
-build.joride=on
+build.joride=true
 #
 #
 #
 # uncomment this to build "joride-public" frontend 
-# joride-public provides the "public" part for both joride 
-# and noride frontend 
+# joride-public provides the "public" part for
+# joride frontend 
 #
-build.joride-public=on
+build.joride-public=true
 #
 #
 #
-# uncomment this to build "joride-mobile" frontend 
-# joride-mobile provides the same functionality as 
-# joride, but is still considered to be experimental
+# If set to true, build a version of joride relying on primefaces-mobile.
+# Currently, this is still very very experimental!
+# 
+i#mobile=false
 #
-build.joride-mobile=on
+#
 #
 #
 # Note that ors-rest-ugly containing functionality that is still under development,
@@ -50,7 +51,7 @@ build.joride-mobile=on
 #
 # uncomment this to build "ors-rest-ugly" frontend
 #
-#build.ors-rest-ugly=on
+#build.ors-rest-ugly==true
 #
 #
 #
@@ -371,7 +372,7 @@ joride_capability_showCoordinates=true
 #***************************************************************
 #
 #
-applyCustomization=on
+applyCustomization=true
 #
 # if customization is turned on, you must supply a  valid 
 # customization package.
