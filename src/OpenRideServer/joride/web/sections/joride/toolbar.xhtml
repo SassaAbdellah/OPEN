@@ -20,11 +20,12 @@
 
 
 
-	<!--  systemwide slide menu  -->
+	<!--  systemwide navigation  menu, either  for desktop or mobile application   -->
 
 	<ui:composition>
 
-		<h:form>
+		<!-- inside a *desktop* application, include toolbar and slidemenue -->
+		<h:form id="desktopMenu"  rendered="#{HTTPUser.desktop}" >
 			<!-- slidemenu with popup button -->
 
 			<p:toolbar>
@@ -34,9 +35,6 @@
 				</p:toolbarGroup>
 			
 			</p:toolbar>
-
-
-
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
 			<p:slideMenu 
@@ -50,16 +48,42 @@
 				>
 			</p:slideMenu>
 		</h:form>
+		<!--  end of desktop/slide menu -->
+		
+		
+		
+		<!-- in case of mobile app, we have a plain overlay menu and no toolbar -->
+		<h:form id="mobileMenu" rendered="#{HTTPUser.mobile}">
 
-		<!--  end of slide menu -->
+			<p:commandButton 
+				id="dynaButton" 
+				value="#{msgs.nav1_navigation}"
+				type="button" 
+				icon="ui-icon-bars" 
+				/>
+		
 
+			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right" showEffect="overlay">
+			
 
+				<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
+				<p:menu 
+				
+					toggleable="true"
+				 	model="#{mainMenu}"
+				 	my="left top"
+					at="left bottom" 
+					locale="#{HTTPUser.getLocale()}"
+					backLabel="#{msgs.backLabel}">
+				</p:menu>
 
+			</p:overlayPanel>
+
+		</h:form>
+
+		<!--  end of mobile menu -->
 
 	</ui:composition>
-
-
-
 
 
 
