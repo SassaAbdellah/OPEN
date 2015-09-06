@@ -339,7 +339,36 @@ public class HTTPUser implements Serializable {
 		return httpServletRequest.getLocale();
 	}
 
+	
+	
+	/** Flag to determine whether this application is mobile (true)
+	 *  or desktop (false)
+	 * 
+	 */
+	private Boolean mobileFlag;
     
+	
+	/** Accessor with lazy installation. Reads mobile property.
+	 * 
+	 * @return true if application is mobile, else false.
+	 */
+	public Boolean getMobile(){
+		
+		if(mobileFlag==null){
+			String mobileStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_MOBILE);
+			mobileFlag=new Boolean(mobileStr).booleanValue();
+		}
+		
+		return mobileFlag;
+	}
+	
+	/**
+	 * 
+	 * @return true, if application is desktop (non-mobile), else false.
+	 */
+	public Boolean getDesktop(){
+		return !getMobile();
+	}
     
     
 } // class
