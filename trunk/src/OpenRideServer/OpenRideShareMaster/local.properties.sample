@@ -39,7 +39,7 @@ build.joride-public=true
 # If set to true, build a version of joride relying on primefaces-mobile.
 # Currently, this is still very very experimental!
 # 
-i#mobile=false
+mobile=false
 #
 #
 #
