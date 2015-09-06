@@ -144,6 +144,12 @@ public class JoRideConstants implements Serializable {
 	public String getParamNameNickname() {
 		return PARAM_NAME_NICKNAME;
 	}
+	
+	
+	/** Property signifying wether this application is mobile (true) or desktop (false) application
+	 */
+	public static final String PROPERTY_NAME_MOBILE="mobile";
+	
 
 	/**
 	 * "showCookieMessage" is used to decide wether or not cookie messages
