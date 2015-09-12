@@ -35,54 +35,48 @@
 
 		<ui:define name="content">
 
-
-
-
-
-
 			<p:panel header="#{msgs.nav1_pref_personalData_label}">
-
-
 
 				<!-- the profile must be filled with data before anything -->
 				<!-- useful can be done with it                           -->
                     #{jprofile.updateFromDB()}
 
-                    <h:form>
+                    <h:form id="personalDataForm">
+
+					<p>
+						<!-- nickname may not be changed -->
+					<div class="formLabel">#{msgs.custNickname}</div>
 
 
-					<!-- nickname may not be changed -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custNickname}" />
-					</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custNickname}" disabled="true" />
 						<h:inputHidden value="#{jprofile.custNickname}" />
 					</div>
+					</p>
 
-					<!-- firstname may not be changed by user -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custFirstname}" />
-					</div>
+
+
+					<p>
+						<!-- firstname may not be changed by user -->
+					<div class="formLabel">#{msgs.custFirstname}</div>
 					<div class="formInput">
-						<p:inputText value="#{jprofile.custFirstname}"  />
+						<p:inputText value="#{jprofile.custFirstname}" />
 					</div>
+					</p>
 
-					<!-- lastname may not be changed by the user -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custLastname}" />
-					</div>
+					<p>
+						<!-- lastname may not be changed by the user -->
+					<div class="formLabel">#{msgs.custLastname}</div>
+
 					<div class="formInput">
-						<p:inputText value="#{jprofile.custLastname}"  />
+						<p:inputText value="#{jprofile.custLastname}" />
 					</div>
+					</p>
 
-					<!-- Gender is not to be changed after account creation  -->
-
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custGender}" />
-					</div>
+					<p>
+						<!-- Gender is not to be changed after account creation  -->
+					<div class="formLabel">#{msgs.custGender}</div>
 					<div class="formInput">
-
 						<p:selectOneMenu value="#{jprofile.custGender}">
 							<f:selectItem itemValue="#{jprofile.genderFemale}"
 								itemLabel="#{msgs.custGenderFemale}" />
@@ -91,109 +85,102 @@
 							<f:selectItem itemValue="#{jprofile.genderOther}"
 								itemLabel="#{msgs.custGenderOther}" />
 						</p:selectOneMenu>
-
 					</div>
+					</p>
 
-
-
-
-
-					<!-- Date of Birth -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custDateofbirth}" />
-					</div>
+					<p>
+						<!-- Date of Birth -->
+					<div class="formLabel">#{msgs.custDateofbirth}</div>
 					<div class="formInput">
-
-						<p:calendar 
-							locale="#{HTTPUser.getLocale()}" 
-							value="#{jprofile.custDateofbirth}"
-							id="custDateOfBirthCal" 
-							pattern="#{datetime.dateformat}" 
-							mode="popup" 
-							navigator="true"
+						<p:calendar locale="#{HTTPUser.getLocale()}"
+							value="#{jprofile.custDateofbirth}" id="custDateOfBirthCal"
+							pattern="#{datetime.dateformat}" mode="popup" navigator="true"
 							showOn="button">
 
 						</p:calendar>
-
 					</div>
+					</p>
 
-					<!-- Preferred Language -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custPreferredLanguage}" />
-					</div>
+					<p>
+						<!-- Preferred Language -->
+					<div class="formLabel">#{msgs.custPreferredLanguage}</div>
 					<div class="formInput">
 
 						<p:selectOneMenu id="preferredLangunage"
 							value="#{jprofile.preferredLanguage}">
 							<f:selectItems value="#{HTTPUser.getSupportedLanguages()}" />
 						</p:selectOneMenu>
-
 					</div>
+					</p>
 
-
-
-
-					<!-- String custEmail -->
+					<p>
+						<!-- String custEmail -->
 					<div class="formLabel">#{msgs.custEmail}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custEmail}" />
 					</div>
+					</p>
 
-
-					<!-- show/Hide email -->
+					<p>
+						<!-- show/Hide email -->
 					<div class="formLabel">#{msgs.custShowEmail}</div>
 					<div class="formInput">
-						<p:selectBooleanCheckbox id="selectPublishEmail" value="#{jprofile.showEmailToPartners}" />
+						<p:selectBooleanCheckbox id="selectPublishEmail"
+							value="#{jprofile.showEmailToPartners}" />
 					</div>
+					</p>
 
-
-					<!--  String custMobilePhoneNo -->
+					<p>
+						<!--  String custMobilePhoneNo -->
 					<div class="formLabel">#{msgs.custMobilephoneno}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custMobilephoneno}" />
 					</div>
+					</p>
 
-					<!-- show/Hide email -->
+					<p>
+						<!-- show/Hide email -->
 					<div class="formLabel">#{msgs.custShowMobilephoneno}</div>
 					<div class="formInput">
-						<p:selectBooleanCheckbox id="selectPublishMobilePhone" value="#{jprofile.showMobilePhoneToPartners}"  />
+						<p:selectBooleanCheckbox id="selectPublishMobilePhone"
+							value="#{jprofile.showMobilePhoneToPartners}" />
 					</div>
+					</p>
 
-
-
-					<!--   String custFixedPhoneNo -->
+					<p>
+						<!--   String custFixedPhoneNo -->
 					<div class="formLabel">#{msgs.custFixedphoneno}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custFixedphoneno}" />
 					</div>
+					</p>
 
-					<!--  String custAddrStreet -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custAddrStreet}" />
-					</div>
+					<p>
+						<!--  String custAddrStreet -->
+					<div class="formLabel">#{msgs.custAddrStreet}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custAddrStreet}" />
 					</div>
+					</p>
 
-					<!-- int custAddrZipcode -->
+					<p>
+						<!-- int custAddrZipcode -->
 					<div class="formLabel">#{msgs.custAddrZipcode}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custAddrZipcode}" />
 					</div>
+					</p>
 
-					<!-- String custAddrCity -->
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custAddrCity}" />
-					</div>
+					<p>
+						<!-- String custAddrCity -->
+					<div class="formLabel">#{msgs.custAddrCity}</div>
 					<div class="formInput">
 						<p:inputText value="#{jprofile.custAddrCity}" />
 					</div>
+					</p>
 
-
-
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custIssmoker}" />
-					</div>
+					<p>
+					<div class="formLabel">#{msgs.custIssmoker}</div>
 					<div class="formInput">
 						<p:selectOneMenu value="#{jprofile.custSmoker}">
 							<f:selectItem itemValue="#{jprofile.smokerChar}"
@@ -202,32 +189,30 @@
 								itemLabel="#{msgs.custNonSmoker}" />
 						</p:selectOneMenu>
 					</div>
+					</p>
 
-					<div class="formLabel">
-						<p:outputLabel value="#{msgs.custLicensedate}" />
-					</div>
+					<p>
+					<div class="formLabel">#{msgs.custLicensedate}</div>
 					<div class="formInput">
 						<p:calendar value="#{jprofile.custLicensedate}"
-							id="licensedateCal" 
-						    locale="#{HTTPUser.getLocale()}" 
-							pattern="#{datetime.dateformat}"
-							mode="popup" 
-							navigator="true" 
+							id="licensedateCal" locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.dateformat}" mode="popup" navigator="true"
 							showOn="button">
 
 						</p:calendar>
 					</div>
-			
-					<p:commandButton 
-						actionListener="#{jprofile.updatePersonalDataToDB}"
-						action="preferences"
-						value="#{msgs.formApply}" 
-						ajax="false" 
-						/>
-									
-					&nbsp;
-                    <p:commandButton  value="#{msgs.formCancel}" action="preferences"  ajax="false" />
-                    					
+					</p>
+
+					<p>
+						<p:commandButton
+							actionListener="#{jprofile.updatePersonalDataToDB}"
+							action="preferences" value="#{msgs.formApply}" ajax="false" />
+
+						&nbsp;
+						<p:commandButton value="#{msgs.formCancel}" action="preferences"
+							ajax="false" />
+					</p>
+
 
 
 				</h:form>
