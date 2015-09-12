@@ -36,10 +36,39 @@ build.joride-public=true
 #
 #
 #
-# If set to true, build a version of joride relying on primefaces-mobile.
-# Currently, this is still very very experimental!
+#
+###################################
+#                                 #
+# Mobile/Desktop settings         #
+#                                 #
+###################################
+#
+# If "defaultMobile" is true, the mobile version will be presented to user by default.
+# if false, the desktop version will be the default.
+#
+defaultMobile=false
+#
+# if "enabableMobile" is true, mobile version will be enabled. 
+# Note that "defaultMobile"  property will always override this. 
+# I.e: if defaultMobile is set to true, 
+# then mobile version will be enabled regardless of "enableMobile" property
 # 
-mobile=false
+enableMobile=true
+#
+# if "enableDesktop" is true, then desktop version will be enabled.
+# Note that "defaultMobile"  property will always override this. 
+# I.e: if defaultMobile is set to true, 
+# then mobile version will be enabled regardless of "enableMobile" property
+#
+enableDesktop=true
+#
+#
+#
+####################################################################
+#
+# RESTful Interfaces
+#
+####################################################################
 #
 #
 #
