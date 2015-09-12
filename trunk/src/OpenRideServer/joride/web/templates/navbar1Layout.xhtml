@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
- 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
@@ -20,50 +20,50 @@
 
 <h:body>
 
-	<p:panel>
 	
-	 	
-	 	<!--  TODO:   How to include a render kit conditionall -->
-		<!--  f:view   renderKitId="PRIMEFACES_MOBILE"  / -->
+	
 
-		
-		<!-- have an empty panel surround everything, so primefaces theming applies -->
+	<p:panel id="navbar1" > <!-- have an overall panel so that theming applies -->
+	
+	
+			<!-- this renders either mobile, or desktop version              -->
+			<!-- depending on the render kit the HTTPUser bean returns       -->
+			<f:view id="desktopOrMobile" renderKitId="#{HTTPUser.renderKit}">
+			
+			
+			<div id="cookieMessage">
+				<ui:insert name="cookieMessage">
+					<ui:include src="/sections/joride/cookieMessage.xhtml" />
+				</ui:insert>
+			</div>
 
-		<div id="cookieMessage">
-			<ui:insert name="cookieMessage">
-				<ui:include src="/sections/joride/cookieMessage.xhtml" />
-			</ui:insert>
-		</div>
+			<div id="navbar1">
+				<ui:insert name="slidemenu">
+					<ui:include src="/sections/joride/toolbar.xhtml" />
+				</ui:insert>
+
+			</div>
+
+			<div id="heading">
+				<ui:insert name="heading">
+					<ui:include src="/sections/joride/header.xhtml" />
+				</ui:insert>
+			</div>
 
 
-		<div id="navbar1">
+			<div id="content">
+				<ui:insert name="content" />
+			</div>
 
-			<ui:insert name="slidemenu">
-				<ui:include src="/sections/joride/toolbar.xhtml"   />
-			</ui:insert>
+			<div id="footer">
+				<ui:insert name="sidebarLeft">
+					<ui:include src="/sections/joride/footer.xhtml" />
+				</ui:insert>
+			</div>
 
-		</div>
-
-		<div id="heading">
-			<ui:insert name="heading">
-				<ui:include src="/sections/joride/header.xhtml" />
-			</ui:insert>
-		</div>
-
-
-		<div id="content">
-			<ui:insert name="content" />
-		</div>
-
-		<div id="footer">
-			<ui:insert name="sidebarLeft">
-				<ui:include src="/sections/joride/footer.xhtml" />
-			</ui:insert>
-		</div>
-
+		</f:view>
 	</p:panel>
+	
 
-
-	<ui:debug />
 </h:body>
 </html>
