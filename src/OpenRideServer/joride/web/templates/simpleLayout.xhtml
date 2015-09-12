@@ -2,51 +2,58 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      >
-
-    
-    
-    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><ui:insert name="windowTitle"/></title>
-        <h:outputStylesheet library="css" name="styles.css"/>
-    </h:head>
-
-    <h:body>   
-                
-        <p:panel> <!-- have an empty panel surround everything, so primefaces theming applies -->
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
-		 <div id="heading">
-            <ui:insert name="cookieMessage">
-                <ui:include src="/sections/joride/cookieMessage.xhtml"/>
-            </ui:insert>
-        </div>
-	
-        
-        <div id="heading">
-            <ui:insert name="heading">
-                <ui:include src="/sections/joride/header.xhtml"/>
-            </ui:insert>
-        </div>
+
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><ui:insert name="windowTitle" /></title>
+	<h:outputStylesheet library="css" name="styles.css" />
+</h:head>
+
+<h:body>
+
+	<p:panel>
+		<!-- have an empty panel surround everything, so primefaces theming applies -->
+
+		<!-- this renders either mobile, or desktop version              -->
+		<!-- depending on the render kit the HTTPUser bean returns       -->
+		<f:view id="desktopOrMobile" renderKitId="#{HTTPUser.renderKit}">
+
+			<div id="heading">
+				<ui:insert name="cookieMessage">
+					<ui:include src="/sections/joride/cookieMessage.xhtml" />
+				</ui:insert>
+			</div>
 
 
-        <div id="content">
-            <ui:insert name="content"/>
-        </div>
+			<div id="heading">
+				<ui:insert name="heading">
+					<ui:include src="/sections/joride/header.xhtml" />
+				</ui:insert>
+			</div>
 
-        <div id="footer">
-            <ui:insert name="sidebarLeft">
-                <ui:include src="/sections/joride/footer.xhtml"/>
-            </ui:insert>
-        </div>
 
-        </p:panel>  <!-- end of overall panel -->
-        
-        
-        <ui:debug/>
-    </h:body>
+			<div id="content">
+				<ui:insert name="content" />
+			</div>
+
+			<div id="footer">
+				<ui:insert name="sidebarLeft">
+					<ui:include src="/sections/joride/footer.xhtml" />
+				</ui:insert>
+			</div>
+
+		</f:view>
+	</p:panel>
+	<!-- end of overall panel -->
+
+
+	<ui:debug />
+</h:body>
 </html>

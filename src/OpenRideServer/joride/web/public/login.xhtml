@@ -3,52 +3,77 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 
-    <h:head> <!-- enforce UTF 8. also, header is needed for primefaces to work  -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </h:head>
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
 
 
-    <body>
+<body>
 
-        <ui:composition template="/templates/loginLogoutLayout.xhtml">
+	<ui:composition template="/templates/loginLogoutLayout.xhtml">
 
-            <ui:define name="windowTitle">
+		<ui:define name="windowTitle">
                 #{msgs.loginTitle}
             </ui:define>
 
 
-            <!-- highlight "home" tab -->
-            <ui:param name="jrtabindex" value="#{jrtab.jorideTabindexHome}" />
+		<!-- highlight "home" tab -->
+		<ui:param name="jrtabindex" value="#{jrtab.jorideTabindexHome}" />
 
 
-            <ui:define name="content">
+		<ui:define name="content">
 
-				<!-- login is done via SmartLoginServlet -->
-                <form method="post" action="#{HTTPUser.smartLoginURL}" >  <!-- we use non JSF form to evade JSF Navigation Cases  -->
+			<!-- login is done via SmartLoginServlet -->
+			<form id="loginForm" method="post" action="#{HTTPUser.smartLoginURL}">
+				<!-- we use non JSF form to evade JSF Navigation Cases  -->
 
-                    <!-- label and input for username  *********************************************** -->
-                    <div class="formLabel"> #{msgs.loginUsernameOrEmailaddress}                                  </div>
-                    <div class="formInput"> <input   name="j_username"/>                            </div>
+				<!-- label and input for username  *********************************************** -->
+				<div class="formLabel">#{msgs.loginUsernameOrEmailaddress}</div>
+				<div class="formInput">
+					<input name="j_username" />
+				</div>
 
-                    <!-- label and input for password  *********************************************** -->
-                    <div class="formLabel"> #{msgs.loginPassword}                                  </div>
-                    <div class="formInput">  <input  type="password" name="j_password" />           </div>
+				<!-- label and input for password  *********************************************** -->
+				<div class="formLabel">#{msgs.loginPassword}</div>
+				<div class="formInput">
+					<input type="password" name="j_password" />
+				</div>
 
-                    <!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
-                    <div class="submitbutton"> <input type="submit" value="#{msgs.loginSubmit}"  /> </div>
+				<!-- we use non JSF html button for submit to eva JSF Navigation Cases *********** -->
+				<div class="submitbutton">
+					<input type="submit" value="#{msgs.loginSubmit}" />
+				</div>
+			</form>
 
-                </form>
-            </ui:define>
+			<!-- switch between desktop and mobile version -->
 
-        </ui:composition>
+			<p>
+				<h:form id="switchMobileForm">
+					<p:commandLink id="useDesktop" rendered="#{HTTPUser.mobile}"
+						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
+                    #{msgs.dm_useDesktopVersion}
+                    </p:commandLink>
+
+					<p:commandLink id="useMobile" rendered="#{HTTPUser.desktop}"
+						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
+                  	#{msgs.dm_useMobileVersion}
+                    </p:commandLink>
+
+				</h:form>
+			</p>
+
+		</ui:define>
+
+
+	</ui:composition>
 
 
 
-    </body>
+</body>
 </html>

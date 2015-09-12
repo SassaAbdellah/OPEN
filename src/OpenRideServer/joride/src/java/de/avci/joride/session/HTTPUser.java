@@ -14,6 +14,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.render.RenderKitFactory;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -362,12 +363,41 @@ public class HTTPUser implements Serializable {
 		return mobileFlag;
 	}
 	
+	
+	public void setMobile(boolean arg){
+		this.mobileFlag=arg;
+	}
+	
+	
 	/**
 	 * 
 	 * @return true, if application is desktop (non-mobile), else false.
 	 */
 	public Boolean getDesktop(){
 		return !getMobile();
+	}
+	
+	
+	
+	/** switch between desktop and mobile version
+	 */
+	public void toggleMobile(){
+		this.setMobile(! this.getMobile());
+	}
+	
+	/**  Returns the render kit with which this users wants to be rendered 
+	 *   (either mobile or desktop)
+	 * 
+	 * @return "PRIMEFACES_MOBILE" if "mobile" property is set, "HTML_BASIC" by Default.
+	 */
+	public String getRenderKit(){
+	
+		if(this.getMobile()){
+			return "PRIMEFACES_MOBILE";	
+			
+		} else {
+			return RenderKitFactory.HTML_BASIC_RENDER_KIT;
+		}
 	}
     
     
