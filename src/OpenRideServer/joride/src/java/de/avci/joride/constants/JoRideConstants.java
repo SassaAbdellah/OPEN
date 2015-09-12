@@ -148,7 +148,19 @@ public class JoRideConstants implements Serializable {
 	
 	/** Property signifying wether this application is mobile (true) or desktop (false) application
 	 */
-	public static final String PROPERTY_NAME_MOBILE="mobile";
+	public static final String PROPERTY_NAME_defaultMobile="mobileDefault";
+	
+	
+	/** Property signifying wether this application is  allows switching to mobile (true) version.
+	 */
+	public static final String PROPERTY_NAME_enableMobile="enableMobile";
+	
+	/** Property signifying wether this application is  allows switching to desktop (true) version.
+	 */
+	public static final String PROPERTY_NAME_enableDesktop="enableDesktop";
+	
+	
+	
 	
 
 	/**

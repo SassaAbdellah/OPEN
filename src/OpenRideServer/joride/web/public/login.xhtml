@@ -55,12 +55,12 @@
 
 			<p>
 				<h:form id="switchMobileForm">
-					<p:commandLink id="useDesktop" rendered="#{HTTPUser.mobile}"
+					<p:commandLink id="useDesktop" rendered="#{HTTPUser.enableDesktop  and HTTPUser.mobile }"
 						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
                     #{msgs.dm_useDesktopVersion}
                     </p:commandLink>
 
-					<p:commandLink id="useMobile" rendered="#{HTTPUser.desktop}"
+					<p:commandLink id="useMobile" rendered="#{HTTPUser.enableMobile    and  HTTPUser.desktop}"
 						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
                   	#{msgs.dm_useMobileVersion}
                     </p:commandLink>

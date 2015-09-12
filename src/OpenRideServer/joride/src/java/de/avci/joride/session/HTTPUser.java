@@ -342,24 +342,30 @@ public class HTTPUser implements Serializable {
 
 	
 	
+	
+	
+	
+	
+	
+	
 	/** Flag to determine whether this application is mobile (true)
 	 *  or desktop (false)
 	 * 
 	 */
 	private Boolean mobileFlag;
-    
 	
-	/** Accessor with lazy installation. Reads mobile property.
+	
+  
+	/** Accessor with lazy installation. Reads defaultMobile property.
 	 * 
 	 * @return true if application is mobile, else false.
 	 */
 	public Boolean getMobile(){
 		
 		if(mobileFlag==null){
-			String mobileStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_MOBILE);
+			String mobileStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_defaultMobile);
 			mobileFlag=new Boolean(mobileStr).booleanValue();
 		}
-		
 		return mobileFlag;
 	}
 	
@@ -376,7 +382,6 @@ public class HTTPUser implements Serializable {
 	public Boolean getDesktop(){
 		return !getMobile();
 	}
-	
 	
 	
 	/** switch between desktop and mobile version
@@ -399,6 +404,45 @@ public class HTTPUser implements Serializable {
 			return RenderKitFactory.HTML_BASIC_RENDER_KIT;
 		}
 	}
-    
+	
+	
+	/** Flag to determine wether we may change from Desktop to mobile mode
+	 * 
+	 */
+	private Boolean enableMobileFlag;
+	
+	
+	/** Determine if configuration allows to switch from desktop to mobile mode
+	 */
+	public boolean getEnableMobile(){
+		
+		if(enableMobileFlag==null){
+			String enableMobileStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_enableMobile);
+			enableMobileFlag=new Boolean(enableMobileStr).booleanValue();
+		}
+		return enableMobileFlag;	
+	}
+	
+	/** Flag to determine wether we may change from mobile to desktop mode
+	 * 
+	 */
+	private Boolean enableDesktopFlag;
+	
+	
+	/** Determine if configuration allows to switch from desktop to mobile mode
+	 */
+	public boolean getEnableDesktop(){
+		
+		if(enableDesktopFlag==null){
+			String enableDesktopStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_enableDesktop);
+			enableDesktopFlag=new Boolean(enableDesktopStr).booleanValue();
+		}
+		return enableDesktopFlag;	
+	}
+	
+	
+	
+	
+ 
     
 } // class
