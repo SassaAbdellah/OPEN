@@ -98,15 +98,40 @@
 		</replaceregexp>
 
 
-		<!-- replacing mailServiceJNDI property with local settings  -->
+		<!-- replacing "defaultMobile" property with local settings  -->
 
 		<replaceregexp byline="true">
-			<regexp pattern="mobile=(.*)" />
-			<substitution expression="mobile=${mobile}" />
+			<regexp pattern="defaultMobile=(.*)" />
+			<substitution expression="defaultMobile=${defaultMobile}" />
 			<fileset file="${opsparamfile}" />
 		</replaceregexp>
 
+	
+		
+		<!-- replacing "enableMobile" property with local settings  -->
 
+		<replaceregexp byline="true">
+			<regexp pattern="enableMobile=(.*)" />
+			<substitution expression="enableMobile=${enableMobile}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+		
+		<!-- replacing "enableMobile" property with local settings  -->
+
+		<replaceregexp byline="true">
+			<regexp pattern="enableDesktop=(.*)" />
+			<substitution expression="enableDesktop=${enableDesktop}" />
+			<fileset file="${opsparamfile}" />
+		</replaceregexp>
+
+			
+		
+		
+		
+		
+		
+		
 		<!-- replacing   webmasterEmailRecipient property with local settings  -->
 
 		<replaceregexp byline="true">
