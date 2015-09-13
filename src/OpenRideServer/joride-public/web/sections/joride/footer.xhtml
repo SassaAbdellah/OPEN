@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<!-- enforce UTF 8. also, header is needed for primefaces to work  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+
+<!-- A footer for joride -->
+
+<body>
+	<ui:composition>
+	
+	
+			<!-- switch between desktop and mobile version -->
+
+			<p>
+				<h:form id="switchMobileForm">
+					<p:commandLink id="useDesktop" rendered="#{HTTPUser.enableDesktop  and HTTPUser.mobile }"
+						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
+                    #{msgs.dm_useDesktopVersion}
+                    </p:commandLink>
+
+					<p:commandLink id="useMobile" rendered="#{HTTPUser.enableMobile    and  HTTPUser.desktop}"
+						actionListener="#{HTTPUser.toggleMobile()}" ajax="false">
+                  	#{msgs.dm_useMobileVersion}
+                    </p:commandLink>
+
+				</h:form>
+			</p>
+	
+	
+
+		<h:form id="publicLinkForm" >
+			<h:outputLink value="#{nav.termsURL}">   #{msgs.terms}  </h:outputLink>
+                |
+                <h:outputLink value="#{nav.imprintURL}"> #{msgs.imprint} </h:outputLink>
+                |
+                <h:commandLink action="contact" value="#{msgs.contact}" />
+		</h:form>
+
+
+		<ui:fragment rendered="#{HTTPUser.mobile}">
+			<!-- empty div makes the page big enough to display mobile menu in overlay frame -->
+			<div style="width: 5px; height: 2000px;"></div>
+		</ui:fragment>
+
+	</ui:composition>
+</body>
+
+
+
+</html>

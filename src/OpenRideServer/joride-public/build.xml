@@ -118,16 +118,12 @@
 		</copy>
 
 
-		<!-- synchronize coookiemessage and footer but not header and navigation 
+		<!-- synchronize coookiemessage, but not header, navigation and footer. 
 			bar -->
 		<property name="sections.dir" value="${build.dir}/sections/joride/" />
 
 		<copy todir="${sections.dir}">
 			<fileset file="${joride.web.dir}/sections/joride/cookieMessage.xhtml" />
-		</copy>
-
-		<copy todir="${sections.dir}">
-			<fileset file="${joride.web.dir}/sections/joride/footer.xhtml" />
 		</copy>
 
 		<!-- lib directory for joride-public -->
