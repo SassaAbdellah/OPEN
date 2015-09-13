@@ -11,14 +11,18 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.component.separator.Separator;
+import org.primefaces.component.separator.SeparatorRenderer;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSeparator;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuModel;
 
 import de.avci.joride.jbeans.customerprofile.JCustomerEntity;
 import de.avci.joride.jbeans.customerprofile.JCustomerEntityService;
+import de.avci.joride.session.HTTPUser;
 import de.avci.joride.utils.HTTPUtil;
 import de.avci.joride.utils.PropertiesLoader;
 import de.avci.joride.utils.WebflowBean;
@@ -44,18 +48,18 @@ public class MainMenuBean implements Serializable, MenuModel {
 		JCustomerEntity customer = new JCustomerEntity();
 		customer.updateFromCustomerEntity(ce);
 		//
+		HTTPUser httpUser = new HTTPUser();
 
 		model = new DefaultMenuModel();
-		
+
 		Locale locale = new HTTPUtil().detectBestLocale();
 
 		PropertiesLoader proploader = new PropertiesLoader();
 
 		Properties messageProps = PropertiesLoader.getMessageProperties(locale);
-
+		//
 		// Menu HOME
-		// <p:menuitem action="home" value="#{msgs.nav1_home_label}"
-		// icon="ui-icon-home" />
+		//
 		String homeMsg = messageProps.getProperty("nav1_home_label");
 		DefaultMenuItem homeItem = new DefaultMenuItem(homeMsg);
 		homeItem.setIcon("ui-icon-home");
@@ -76,9 +80,9 @@ public class MainMenuBean implements Serializable, MenuModel {
 		}
 
 		//
-		// SEARCH SUBMENU 
-		// 
-		if(customer.getMenuItemSearchCapability()){
+		// SEARCH SUBMENU
+		//
+		if (customer.getMenuItemSearchCapability()) {
 			this.createSearchSubmenue(messageProps, customer);
 		}
 		//
@@ -91,15 +95,20 @@ public class MainMenuBean implements Serializable, MenuModel {
 		createPreferencesSubmenu(messageProps, customer);
 
 		//
-		// UPDATE MenuItem
+		// Messages submenu
 		//
+		createMessagesSubmenue(messageProps, customer);
 
-		// TODO: add spacer
-		// <!-- p:spacer/ -->
-		// <p:menuitem outcome="updates" value="#{msgs.updates}"
-		// icon="ui-icon-lightbulb" />
+		//
+		// UPDATE MenuItem with seperator
+		//
+		DefaultSeparator updateSeparator = new DefaultSeparator();
+		updateSeparator.setId("separatorUpdate");
+		model.addElement(updateSeparator);
+		//
+		//
 		String updateMsg = messageProps.getProperty("updates");
-
+		//
 		if (customer.getMenuItemUpdateCapability()) {
 			DefaultMenuItem updateMenuItem = new DefaultMenuItem(updateMsg);
 			updateMenuItem.setCommand("updates");
@@ -107,47 +116,18 @@ public class MainMenuBean implements Serializable, MenuModel {
 			model.addElement(updateMenuItem);
 		}
 		//
-		// Messages submenu
+		// LOGOUT MenuItem with separator
 		//
-
-		// TODO: add spacer
-		// <!-- p:spacer/ -->
-		// <!-- <p:menuitem outcome="preferences"
-		// value="#{msgs.custRemoveAccountLabel}" icon="ui-icon-" />
-		String messagesMsg = messageProps.getProperty("msg_messages");
-		DefaultSubMenu messagesMenu = new DefaultSubMenu(messagesMsg);
-		messagesMenu.setIcon("ui-icon-mail-closed");
-
-		// menu item for unread messages
-		String unreadMsg = messageProps.getProperty("msg_unread");
-		DefaultMenuItem unreadMenuItem = new DefaultMenuItem(unreadMsg);
-		unreadMenuItem.setCommand("messages.unread");
-		messagesMenu.addElement(unreadMenuItem);
-
-		// menu item for "all" messages
-		String allMsg = messageProps.getProperty("msg_all");
-		DefaultMenuItem allMsgMenuItem = new DefaultMenuItem(allMsg);
-		allMsgMenuItem.setCommand("messages.search");
-		messagesMenu.addElement(allMsgMenuItem);
-		// add messages menu to model
-		model.addElement(messagesMenu);
-
+		DefaultSeparator logoutSeparator = new DefaultSeparator();
+		logoutSeparator.setId("separatorLogout");
+		model.addElement(logoutSeparator);
 		//
-		// LOGOUT MenuItem
-		//
-
-		// TODO: add spacer
-		// <!-- p:spacer/ -->
-		// <p:menuitem url="#{HTTPUser.getLogoutURL()}"
-		// value="#{msgs.nav1_logout}" icon="ui-icon-power" />
 		String logoutMsg = messageProps.getProperty("nav1_logout");
-
 		DefaultMenuItem logoutMenuItem = new DefaultMenuItem(logoutMsg);
 		logoutMenuItem.setUrl(PropertiesLoader.getNavigationProperties()
 				.getProperty("urlLogout"));
 		logoutMenuItem.setIcon("ui-icon-power");
 		model.addElement(logoutMenuItem);
-
 	}
 
 	/**
@@ -387,6 +367,33 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 
 		model.addElement(preferencesSubmenu);
+
+	}
+
+	/**
+	 * Create submenu for messages
+	 * 
+	 */
+	private void createMessagesSubmenue(Properties messageProps,
+			JCustomerEntity customer) {
+
+		String messagesMsg = messageProps.getProperty("msg_messages");
+		DefaultSubMenu messagesMenu = new DefaultSubMenu(messagesMsg);
+		messagesMenu.setIcon("ui-icon-mail-closed");
+
+		// menu item for unread messages
+		String unreadMsg = messageProps.getProperty("msg_unread");
+		DefaultMenuItem unreadMenuItem = new DefaultMenuItem(unreadMsg);
+		unreadMenuItem.setCommand("messages.unread");
+		messagesMenu.addElement(unreadMenuItem);
+
+		// menu item for "all" messages
+		String allMsg = messageProps.getProperty("msg_all");
+		DefaultMenuItem allMsgMenuItem = new DefaultMenuItem(allMsg);
+		allMsgMenuItem.setCommand("messages.search");
+		messagesMenu.addElement(allMsgMenuItem);
+		// add messages menu to model
+		model.addElement(messagesMenu);
 
 	}
 
