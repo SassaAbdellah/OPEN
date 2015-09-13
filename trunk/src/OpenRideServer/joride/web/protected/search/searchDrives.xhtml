@@ -32,101 +32,63 @@
 		<ui:define name="content">
 
 			<h:form>
-				<p:panel>
-					<p:panelGrid columns="1">
-						<!-- outer of 2 nested grids -->
-
-						<f:facet name="header">
-                                #{msgs.rideSearchDrives}
-                            </f:facet>
 
 
-						<p:row>
-							<p:selectOneMenu value="#{ridesearchparams.searchType}">
+				<h2>#{msgs.rideSearchDrives}</h2>
 
-								<f:selectItems value="#{jprofile.getAvaillableSearchtypes()}"
-									var="st" itemLabel="#{st.displayString}"
-									itemValue="#{st.searchKey}" />
+				<div class="formInput">
+					<p:selectOneMenu value="#{ridesearchparams.searchType}">
 
-
-							</p:selectOneMenu>
-						</p:row>
-
-						<p:row>
-
-							<p:panelGrid columns="2">
-
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalStart}" />
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:calendar value="#{ridesearchparams.startDate}"
-											id="startDateCal" locale="#{HTTPUser.getLocale()}"
-											pattern="#{ridesearchparams.dateformat}" mode="popup"
-											navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalEnd}" />
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:calendar value="#{ridesearchparams.endDate}"
-											id="endDateCal" locale="#{HTTPUser.getLocale()}"
-											pattern="#{ridesearchparams.dateformat}" mode="popup"
-											navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
-							</p:panelGrid>
-							<!-- End of inner 2-column panel grid -->
-						</p:row>
-
-						<f:facet name="footer">
-
-							<h:commandButton value="#{msgs.formSearch}"
-								action="search.drivesDisplay">
+						<f:selectItems value="#{jprofile.getAvaillableSearchtypes()}"
+							var="st" itemLabel="#{st.displayString}"
+							itemValue="#{st.searchKey}" />
+					</p:selectOneMenu>
+				</div>
 
 
 
+				<div class="formLabel">#{msgs.timeintervalStart}"</div>
 
-								<f:param name="#{ridesearchparams.paramStartDate}"
-									value="#{ridesearchparams.startDateFormatted}" />
+				<div class="formInput">
+					<p:calendar value="#{ridesearchparams.startDate}" id="startDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{ridesearchparams.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
-								<f:param name="#{ridesearchparams.paramEndDate}"
-									value="#{ridesearchparams.endDateFormatted}" />
+				<div class="formLabel">#{msgs.timeintervalEnd}</div>
 
-								<f:param name="#{ridesearchparams.paramNameSearchType}"
-									value="#{ridesearchparams.searchType}" />
+				<div class="formInput">
+					<p:calendar value="#{ridesearchparams.endDate}" id="endDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{ridesearchparams.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
 
-								<f:param name="#{webflow.paramBack}" value="search.drives" />
 
-							</h:commandButton>
-						</f:facet>
+				<div class="formInput">
+					<p:commandButton icon="ui-icon-search" value="#{msgs.formSearch}"
+						action="search.drivesDisplay" ajax="false">
 
-					</p:panelGrid>
+						<f:param name="#{ridesearchparams.paramStartDate}"
+							value="#{ridesearchparams.startDateFormatted}" />
 
-				</p:panel>
+						<f:param name="#{ridesearchparams.paramEndDate}"
+							value="#{ridesearchparams.endDateFormatted}" />
+
+						<f:param name="#{ridesearchparams.paramNameSearchType}"
+							value="#{ridesearchparams.searchType}" />
+
+
+						<f:param name="#{webflow.paramBack}" value="search.drives" />
+
+					</p:commandButton>
+				</div>
 
 			</h:form>
-
-
-
-
-
-
-
-
 
 		</ui:define>
 

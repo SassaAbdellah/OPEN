@@ -38,94 +38,57 @@
 			<!--  form to fire up request -->
 
 			<h:form>
-				<p:panel>
-					<p:panelGrid columns="1">
-						<!-- outer of 2 nested grids -->
 
-						<f:facet name="header">
-                                #{msgs.rideSearchRequests}
-                            </f:facet>
+				<h2>#{msgs.rideSearchRequests}</h2>
 
-						<!--TODO: enable/disable items governed by riderCapabilities, driverCapabilities and ratingCapabilities -->
+				<div class="formInput">
+					<p:selectOneMenu value="#{ridesearchparams.searchType}">
 
-						<p:row>
-							<p:selectOneMenu value="#{ridesearchparams.searchType}">
+						<f:selectItems value="#{jprofile.getAvaillableSearchtypes()}"
+							var="st" itemLabel="#{st.displayString}"
+							itemValue="#{st.searchKey}" />
 
-								<f:selectItems 
-									value="#{jprofile.getAvaillableSearchtypes()}"
-									var="st" 
-									itemLabel="#{st.displayString}" 
-									itemValue="#{st.searchKey}" 
-									/>
+					</p:selectOneMenu>
+				</div>
 
-							</p:selectOneMenu>
-						</p:row>
+				<div class="formLabel">#{msgs.timeintervalStart}</div>
 
-						<p:row>
-
-							<p:panelGrid columns="2">
-
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalStart}" />
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:calendar value="#{ridesearchparams.startDate}"
-											id="startDateCal" locale="#{HTTPUser.getLocale()}"
-											pattern="#{ridesearchparams.dateformat}" mode="popup"
-											navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalEnd}" />
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column>
-										<p:calendar value="#{ridesearchparams.endDate}"
-											id="endDateCal" locale="#{HTTPUser.getLocale()}"
-											pattern="#{ridesearchparams.dateformat}" mode="popup"
-											navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
-							</p:panelGrid>
-							<!-- End of inner 2-column panel grid -->
-						</p:row>
-
-						<f:facet name="footer">
-
-							<h:commandButton value="#{msgs.formSearch}"
-								action="search.requestsDisplay">
+				<div class="formInput">
+					<p:calendar value="#{ridesearchparams.startDate}" id="startDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{ridesearchparams.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
 
+				<div class="formLabel">#{msgs.timeintervalEnd}</div>
 
-								<f:param name="#{ridesearchparams.paramStartDate}"
-									value="#{ridesearchparams.startDateFormatted}" />
+				<div class="formInput">
+					<p:calendar value="#{ridesearchparams.endDate}" id="endDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{ridesearchparams.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
-								<f:param name="#{ridesearchparams.paramEndDate}"
-									value="#{ridesearchparams.endDateFormatted}" />
+				<div class="formInput">
+					<p:commandButton value="#{msgs.formSearch}"
+						action="search.requestsDisplay" icon="ui-icon.search" ajax="false">
 
-								<f:param name="#{ridesearchparams.paramNameSearchType}"
-									value="#{ridesearchparams.searchType}" />
+						<f:param name="#{ridesearchparams.paramStartDate}"
+							value="#{ridesearchparams.startDateFormatted}" />
 
+						<f:param name="#{ridesearchparams.paramEndDate}"
+							value="#{ridesearchparams.endDateFormatted}" />
 
-								<f:param name="#{webflow.paramBack}" value="search.requests" />
+						<f:param name="#{ridesearchparams.paramNameSearchType}"
+							value="#{ridesearchparams.searchType}" />
 
-							</h:commandButton>
-						</f:facet>
+						<f:param name="#{webflow.paramBack}" value="search.requests" />
 
-					</p:panelGrid>
-
-				</p:panel>
-
+					</p:commandButton>
+				</div>
 			</h:form>
 
 		</ui:define>
