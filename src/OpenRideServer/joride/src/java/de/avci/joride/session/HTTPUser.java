@@ -363,6 +363,16 @@ public class HTTPUser implements Serializable {
 	public Boolean getMobile(){
 		
 		if(mobileFlag==null){
+			
+			// see if we user has set the flag in another application?
+			Object contextFlag=getFacesContext().getExternalContext().getApplicationMap().get(PARAM_NAME_MOBILE_FLAG);
+			
+			if(contextFlag instanceof Boolean){
+				mobileFlag=(Boolean) contextFlag;
+				return mobileFlag;
+			}
+			
+			// if all else fails, deternube vakze from properties
 			String mobileStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_defaultMobile);
 			mobileFlag=new Boolean(mobileStr).booleanValue();
 		}
@@ -371,7 +381,9 @@ public class HTTPUser implements Serializable {
 	
 	
 	public void setMobile(boolean arg){
+		
 		this.mobileFlag=arg;
+		getFacesContext().getExternalContext().getApplicationMap().put(PARAM_NAME_MOBILE_FLAG, arg);
 	}
 	
 	
@@ -423,8 +435,13 @@ public class HTTPUser implements Serializable {
 		return enableMobileFlag;	
 	}
 	
+	
+	/** Context param under which the mobile flag can be stored in request context
+	 */
+	private static final String PARAM_NAME_MOBILE_FLAG="joride_mobile_mode";
+	
+	
 	/** Flag to determine wether we may change from mobile to desktop mode
-	 * 
 	 */
 	private Boolean enableDesktopFlag;
 	
@@ -433,7 +450,7 @@ public class HTTPUser implements Serializable {
 	 */
 	public boolean getEnableDesktop(){
 		
-		if(enableDesktopFlag==null){
+		if(enableDesktopFlag==null){		
 			String enableDesktopStr=PropertiesLoader.getOperationalProperties().getProperty(JoRideConstants.PROPERTY_NAME_enableDesktop);
 			enableDesktopFlag=new Boolean(enableDesktopStr).booleanValue();
 		}
