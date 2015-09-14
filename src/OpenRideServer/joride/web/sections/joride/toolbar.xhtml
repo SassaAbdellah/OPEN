@@ -25,7 +25,7 @@
 	<ui:composition>
 
 		<!-- inside a *desktop* application, include toolbar and slidemenue -->
-		<h:form id="desktopMenu"  rendered="#{HTTPUser.desktop}" >
+		<h:form id="desktopMenu" rendered="#{HTTPUser.desktop}">
 			<!-- slidemenu with popup button -->
 
 			<p:toolbar>
@@ -33,46 +33,44 @@
 					<p:commandButton id="dynaButton" value="#{msgs.nav1_navigation}"
 						type="button" icon="ui-icon-bars" />
 				</p:toolbarGroup>
-			
+
 			</p:toolbar>
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
-			<p:slideMenu 
-				model="#{mainMenu}" 
-				overlay="true" 
-				trigger="dynaButton"
-				my="left top" 
-				at="left bottom"
-				locale="#{HTTPUser.getLocale()}" 
-				backLabel="#{msgs.backLabel}"
-				>
+			<p:slideMenu model="#{mainMenu}" overlay="true" trigger="dynaButton"
+				my="left top" at="left bottom" locale="#{HTTPUser.getLocale()}"
+				backLabel="#{msgs.backLabel}">
 			</p:slideMenu>
 		</h:form>
 		<!--  end of desktop/slide menu -->
-		
-		
-		
-		<!-- in case of mobile app, we have a plain overlay menu and no toolbar -->
+
+
+
+		<!-- in case of mobile app, we have a plain overlay menu  -->
 		<h:form id="mobileMenu" rendered="#{HTTPUser.mobile}">
 
-			<p:commandButton 
-				id="dynaButton" 
-				value="#{msgs.nav1_navigation}"
-				type="button" 
-				icon="ui-icon-bars" 
-				/>
-		
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="dynaButton" 
+						type="button" icon="ui-icon-bars" />
+				</f:facet>
 
-			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right" showEffect="overlay" >
-			
-				
+				<f:facet name="right">
+					<p:button id="logoutButton" href="#{HTTPUser.logoutURL}"
+						icon="ui-icon-power" />
+				</f:facet>
+
+
+			</p:toolbar>
+
+
+			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right"
+				showEffect="overlay">
+
+
 				<!--  menu comes with a primefaces 4.0 fashioned programmatic menu -->
-				<p:menu 			
-					toggleable="true"
-				 	model="#{mainMenu}"
-				 	my="left top"
-					at="left top" 
-					locale="#{HTTPUser.getLocale()}"
+				<p:menu toggleable="true" model="#{mainMenu}" my="left top"
+					at="left top" locale="#{HTTPUser.getLocale()}"
 					backLabel="#{msgs.backLabel}">
 				</p:menu>
 
