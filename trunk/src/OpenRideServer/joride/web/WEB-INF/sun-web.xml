@@ -17,6 +17,9 @@
 
   <!-- this hopefully allows caching for secured ressources -->
   <property name="securePagesWithPragma" value="false"       />
+  
+   <!-- allow changing context with joride-public application -->	
+  <property name="crossContextAllowed" value="true"/>
 
 
 </sun-web-app>
