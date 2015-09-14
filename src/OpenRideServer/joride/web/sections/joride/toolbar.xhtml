@@ -29,11 +29,20 @@
 			<!-- slidemenu with popup button -->
 
 			<p:toolbar>
+				<f:facet name="left">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="dynaButton" value="#{msgs.nav1_navigation}"
 						type="button" icon="ui-icon-bars" />
 				</p:toolbarGroup>
-
+				</f:facet>
+				<f:facet name="right">
+				<p:button 
+					id="logoutButton" 
+					href="#{HTTPUser.logoutURL}"
+					icon="ui-icon-power">
+				<p:tooltip for="logoutButton" value="#{msgs.nav1_logout}" />
+				</p:button>
+				</f:facet>
 			</p:toolbar>
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
@@ -51,13 +60,19 @@
 
 			<p:toolbar>
 				<f:facet name="left">
-					<p:commandButton id="dynaButton" 
-						type="button" icon="ui-icon-bars" />
+					<p:commandButton 
+						id="dynaButton" 
+						type="button" 
+						icon="ui-icon-bars" 
+						/>
 				</f:facet>
 
 				<f:facet name="right">
-					<p:button id="logoutButton" href="#{HTTPUser.logoutURL}"
-						icon="ui-icon-power" />
+					<p:button 
+						id="logoutButton" 
+						href="#{HTTPUser.logoutURL}"
+						icon="ui-icon-power" 
+						/>
 				</f:facet>
 
 

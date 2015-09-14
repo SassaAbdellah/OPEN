@@ -118,16 +118,21 @@ public class MainMenuBean implements Serializable, MenuModel {
 		//
 		// LOGOUT MenuItem with separator
 		//
-		DefaultSeparator logoutSeparator = new DefaultSeparator();
-		logoutSeparator.setId("separatorLogout");
-		model.addElement(logoutSeparator);
+		// logout is disabled for a desktop since there
+		// is a prominent logout button on the toolbar now
 		//
-		String logoutMsg = messageProps.getProperty("nav1_logout");
-		DefaultMenuItem logoutMenuItem = new DefaultMenuItem(logoutMsg);
-		logoutMenuItem.setUrl(PropertiesLoader.getNavigationProperties()
-				.getProperty("urlLogout"));
-		logoutMenuItem.setIcon("ui-icon-power");
-		model.addElement(logoutMenuItem);
+		if (httpUser.getMobile()) {
+			DefaultSeparator logoutSeparator = new DefaultSeparator();
+			logoutSeparator.setId("separatorLogout");
+			model.addElement(logoutSeparator);
+			//
+			String logoutMsg = messageProps.getProperty("nav1_logout");
+			DefaultMenuItem logoutMenuItem = new DefaultMenuItem(logoutMsg);
+			logoutMenuItem.setUrl(PropertiesLoader.getNavigationProperties()
+					.getProperty("urlLogout"));
+			logoutMenuItem.setIcon("ui-icon-power");
+			model.addElement(logoutMenuItem);
+		}
 	}
 
 	/**
