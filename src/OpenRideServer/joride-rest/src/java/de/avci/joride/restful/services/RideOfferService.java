@@ -115,10 +115,11 @@ public class RideOfferService extends AbstractRestService {
 	 * @param json
 	 *            JSON encoding a single RideOfferDTO Object.
 	 * @return
+	 * @throws OpenRideShareException 
 	 */
 
 	@POST
-	public Response addOffer(String json) {
+	public Response addOffer(String json) throws OpenRideShareException {
 
 		DriverUndertakesRideControllerLocal durcl = lookupDriverUndertakesRideControllerBean();
 		RideOfferDTO dto;
@@ -190,12 +191,13 @@ public class RideOfferService extends AbstractRestService {
 	 * 
 	 * @param request
 	 * @return
+	 * @throws OpenRideShareException 
 	 * 
 	 */
 
 	@POST
 	@Path("bulkadd")
-	public Response addOffers(String json) {
+	public Response addOffers(String json) throws OpenRideShareException {
 
 		DriverUndertakesRideControllerLocal durcl = lookupDriverUndertakesRideControllerBean();
 		RideOfferDTO[] dtos;
@@ -230,7 +232,7 @@ public class RideOfferService extends AbstractRestService {
 						dto.getEndLocation().getAddress());
 				
 			} catch (OpenRideShareException e) {
-				
+			
 				// TODO: better return some decent JSON Error here?
 				return Response.status(Response.Status.BAD_REQUEST).build();
 			}
@@ -252,7 +254,12 @@ public class RideOfferService extends AbstractRestService {
 			}
 
 		}
+		
+		
+		
 		return Response.status(Response.Status.ACCEPTED).build();
+		
+		
 	}
 
 }

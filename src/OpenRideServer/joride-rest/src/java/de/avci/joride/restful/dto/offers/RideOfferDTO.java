@@ -3,7 +3,7 @@ package de.avci.joride.restful.dto.offers;
 import java.sql.Timestamp;
 import java.util.List;
 
-import de.avci.joride.restful.dto.basic.AbstractDTO;
+import de.avci.joride.restful.dto.basic.AbstractEntityDTO;
 import de.avci.joride.restful.dto.basic.LocationDTO;
 
 
@@ -12,7 +12,7 @@ import de.avci.joride.restful.dto.basic.LocationDTO;
  * @author jochen
  *
  */
-public class RideOfferDTO extends AbstractDTO {
+public class RideOfferDTO extends AbstractEntityDTO {
 	
 	/** Id of driver (or ) whoever offers this ride
 	 */

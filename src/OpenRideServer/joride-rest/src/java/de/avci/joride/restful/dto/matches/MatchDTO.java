@@ -3,7 +3,7 @@ package de.avci.joride.restful.dto.matches;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import de.avci.joride.restful.dto.basic.AbstractDTO;
+import de.avci.joride.restful.dto.basic.AbstractEntityDTO;
 import de.fhg.fokus.openride.matching.MatchEntity;
 
 /**
