@@ -1,12 +1,7 @@
 package de.avci.joride.restful.dto.customers;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Date;
-
-import de.fhg.fokus.openride.customerprofile.CarDetailsEntity;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
 
 
 /** DTO to describe a CustomerEntity

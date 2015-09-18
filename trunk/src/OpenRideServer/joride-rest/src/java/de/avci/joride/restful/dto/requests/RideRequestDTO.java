@@ -2,7 +2,7 @@ package de.avci.joride.restful.dto.requests;
 
 import java.sql.Timestamp;
 
-import de.avci.joride.restful.dto.basic.AbstractDTO;
+import de.avci.joride.restful.dto.basic.AbstractEntityDTO;
 import de.avci.joride.restful.dto.basic.LocationDTO;
 
 
@@ -10,7 +10,7 @@ import de.avci.joride.restful.dto.basic.LocationDTO;
 
 
 
-public class RideRequestDTO extends AbstractDTO {
+public class RideRequestDTO extends AbstractEntityDTO {
 	
 	
 	

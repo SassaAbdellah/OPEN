@@ -1,0 +1,9 @@
+org.eclipse.m2e.logback.configuration: The org.eclipse.m2e.logback.configuration bundle was activated before the state location was initialized.  Will retry after the state location is initialized.
+org.eclipse.m2e.logback.configuration: Logback config file: /home/jochen/eclipse/workspace/.metadata/.plugins/org.eclipse.m2e.logback.configuration/logback.1.5.0.20140606-0033.xml
+org.eclipse.m2e.logback.configuration: Initializing logback
+No password was found. Value of "password" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52".
+No password was found. Value of "ssh_passprase" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52".
+No password was found. Value of "ssl_passphrase" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52".
+No password was found. Value of "password" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52:<http:\2f\2fopenride.xeneris.net:80> Subversion Repository".
+No password was found. Value of "ssh_passprase" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52:<http:\2f\2fopenride.xeneris.net:80> Subversion Repository".
+No password was found. Value of "ssl_passphrase" is being stored as a non-encrypted value in the node  "/SVN/http:\2f\2fopenride.xeneris.net\2fsvn\2f:b005c7ec99c1001318a3ad429237da52:<http:\2f\2fopenride.xeneris.net:80> Subversion Repository".

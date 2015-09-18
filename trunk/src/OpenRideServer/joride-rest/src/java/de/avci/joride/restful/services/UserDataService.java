@@ -19,14 +19,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.avci.joride.restful.converters.CustomerDTOConverter;
-import de.avci.joride.restful.converters.MatchDTOConverter;
 import de.avci.joride.restful.dto.customers.CustomerDTO;
-import de.avci.joride.restful.dto.matches.MatchDTO;
-import de.avci.joride.restful.dto.offers.RideOfferDTO;
-import de.avci.joride.restful.services.AbstractRestService;
 import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
 import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.matching.MatchEntity;
 
 /**
  * Restful service to query/add/delete CustomerEntity
@@ -74,8 +69,9 @@ public class UserDataService extends AbstractRestService {
 		}
 	}
 
-	/**
-	 * Get user with given id
+
+	/**  Get user with given id
+	 * 
 	 * 
 	 */
 	@GET

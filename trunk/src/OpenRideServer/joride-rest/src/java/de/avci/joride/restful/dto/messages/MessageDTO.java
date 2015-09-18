@@ -2,7 +2,7 @@ package de.avci.joride.restful.dto.messages;
 
 import java.sql.Timestamp;
 
-import de.avci.joride.restful.dto.basic.AbstractDTO;
+import de.avci.joride.restful.dto.basic.AbstractEntityDTO;
 
 
 /** 
@@ -10,7 +10,7 @@ import de.avci.joride.restful.dto.basic.AbstractDTO;
  * @author jochen
  *
  */
-public class MessageDTO extends AbstractDTO {
+public class MessageDTO extends AbstractEntityDTO {
 	
 	/** unique id
 	 */
