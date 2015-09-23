@@ -72,27 +72,27 @@
         <param-value>true</param-value>  	
     </context-param>
 
-
-    <!-- TODO: change this when it comes to productive USE ! -->
-    
+ 
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
     
     
-    
-  
     <!-- ***  default theme "aristo" will be overwritten by the value of the jquery.ui.theme     *** -->
     <!-- ***  in local.properties                                                                *** -->
     <context-param>   
         <param-name>primefaces.THEME</param-name>
         <param-value>aristo</param-value> 
     </context-param>
-   
-   
-   
 
+   	  
+   <!--  **** mobile version of joride comes with a custom theme "ors-mobile-default"  **** -->	 
+
+    <context-param>
+        <param-name>primefaces.mobile.THEME</param-name>
+        <param-value>ors-mobile-default</param-value>
+    </context-param>
      
     <!--  most of the jsfs and webservices are protected  -->
     <security-constraint>
