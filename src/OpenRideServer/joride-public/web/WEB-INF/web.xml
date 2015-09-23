@@ -9,6 +9,14 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>aristo</param-value> 
     </context-param>
+
+    <!--  **** mobile version of joride comes with a custom theme "ors-mobile-default"  **** -->  
+    <context-param>
+        <param-name>primefaces.mobile.THEME</param-name>
+        <param-value>ors-mobile-default</param-value>
+    </context-param>
+
+
      
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
