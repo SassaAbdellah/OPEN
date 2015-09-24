@@ -352,10 +352,14 @@
 
 
 
-		<!-- set theme to something different from default theme "aristo"-->
+		<!-- set desktop theme to something different from default theme "aristo"-->
+		<antcall target="overwriteDesktopTheme" inheritAll="true" inheritRefs="true" />
 
-		<antcall target="overwriteTheme" inheritAll="true" inheritRefs="true" />
-
+		<!-- set mobile theme to something different from default theme "mobile"-->
+		<antcall target="overwriteMobileTheme" inheritAll="true" inheritRefs="true" />
+ 	
+		
+		
 	</target>
 	<!--  end of target "apply local properties" -->
 
@@ -414,16 +418,15 @@
 
 
 
-	<!-- TARGET overwriteTheme -->
+	<!-- TARGET overwriteDesktopTheme -->
 	<!-- overwrite Theme will overwrite the settings for theme in web.xml    -->
 	<!-- this task will be executed only if jquery.ui.theme parameter        -->
 	<!-- in local.properties is set by the user                              -->
-	<target name="overwriteTheme" if="jquery.ui.theme" description="overwrite primefaces theme on user request">
-
-		<echo message="Found individual theme setting, overwriting default theme to ${jquery.ui.theme}" />
-
+	<target name="overwriteDesktopTheme" if="jquery.ui.theme" description="overwrite primefaces theme on user request">
+		
+		<echo message="Found individual theme setting, overwriting default desktop theme to ${jquery.ui.theme}" />
+		
 		<property name="webxmlFile" value="${build.dir}/WEB-INF/web.xml" />
-
 
 		<!--  applying url of OpenLayers library -->
 		<replaceregexp byline="true">
@@ -433,6 +436,31 @@
 		</replaceregexp>
 
 	</target>
+	
+		<!-- TARGET overwriteMobileTheme -->
+		<!-- overwrite Mobile Theme will overwrite the settings for mobile theme in web.xml    -->
+		<!-- this task will be executed only if jquery.ui.theme parameter                      -->
+		<!-- in local.properties is set by the user                                            -->
+	
+		<target name="overwriteMobileTheme" if="jquery.ui.mobile.theme" description="overwrite primefaces  mpbile theme on user request">
+			
+		
+			<echo message="Found individual mobile theme setting, overwriting default desktop theme to ${jquery.ui.theme}" />
+			
+			<property name="webxmlFile" value="${build.dir}/WEB-INF/web.xml" />
+
+			<!--  applying url of OpenLayers library -->
+			<replaceregexp byline="true">
+				<regexp pattern="ors-mobile-default" />
+				<substitution expression="${jquery.ui.mobile.theme}" />
+				<fileset file="${webxmlFile}" />
+			</replaceregexp>
+			
+		</target>
+		
+		
+	
+	
 
 	<!-- TARGET compile -->
 	<target name="compile" depends="copy,apply-local-properties,applyCustomization" description="Compile source files.">
