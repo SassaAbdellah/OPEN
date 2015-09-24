@@ -190,13 +190,18 @@ urlOpenLayers=http://www.openlayers.org/api/OpenLayers.js
 #urlOpenLayers=/joride/faces/javax.faces.resource/OpenLayers.js?ln=js
 #
 #
-# You may set this to either one of the themes supported by default,
+# You may set query.ui.theme to either one of the desktop themes supported by default,
 # or to custom theme. Read README.THEMES.TXT for more information.
 # if this is not set, theme will be set to primefaces default (aristo)
 #  
 #jquery.ui.theme=swm
 #
+# 
+# You may set query.ui.mobile theme to either one of the mobile themes supported by default,
+# or to custom theme. Read README.THEMES.TXT for more information.
+# if this is not set, mobile theme will be set to primefaces default (or)
 #
+#jquery.ui.mobile.theme=snowwhite
 #
 #############################################
 # switch between preselection algorithms    #
