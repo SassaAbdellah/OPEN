@@ -10,10 +10,10 @@
         <param-value>aristo</param-value> 
     </context-param>
 
-    <!--  **** mobile version of joride comes with a custom theme "ors-mobile-default"  **** -->  
+    <!--  **** mobile version of joride comes with a custom theme "snowwhite" that may get overrideen during build  **** -->  
     <context-param>
         <param-name>primefaces.mobile.THEME</param-name>
-        <param-value>ors-mobile-default</param-value>
+        <param-value>snowwhite</param-value>
     </context-param>
 
 

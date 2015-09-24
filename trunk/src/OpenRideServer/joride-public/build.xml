@@ -54,7 +54,7 @@
 	<!-- all the jfaces templates and sections will be imported from joride -->
 	<property name="templates.dir" value="${build.dir}/templates/" />
 
-	
+
 
 	<!-- ***************************************************************** -->
 	<!-- **** create build.dir and populate it with locale jsf pages **** -->
@@ -130,7 +130,7 @@
 		<property name="lib.dir" value="${web.inf.dir}/lib" />
 		<!-- webdir of joride project -->
 		<property name="joride.lib.dir" value="${joride.dir}/lib" />
-		
+
 
 		<!-- completely synchronize lib directory with joride -->
 		<delete dir="${lib.dir}" />
@@ -146,7 +146,7 @@
 
 		<!-- web/public/ dir be imported from joride -->
 		<property name="web.public.dir" value="${build.dir}/public/" />
-		
+
 		<!-- completely synchronize web/public/ directory with joride -->
 		<delete dir="${web.public.dir}" />
 		<copy todir="${web.public.dir}">
@@ -193,6 +193,33 @@
 
 	</target>
 
+	<!-- TARGET overwriteMobileTheme -->
+	<!-- overwrite Mobile Theme will overwrite the settings for mobile theme 
+		in web.xml -->
+	<!-- this task will be executed only if jquery.ui.theme parameter -->
+	<!-- in local.properties is set by the user -->
+
+	<target name="overwriteMobileTheme" if="jquery.ui.mobile.theme"
+		description="overwrite primefaces  mpbile theme on user request">
+
+
+		<echo
+			message="Found individual mobile theme setting, overwriting default desktop theme to ${jquery.ui.theme}" />
+
+		<property name="webxmlFile" value="${build.dir}/WEB-INF/web.xml" />
+
+		<!-- applying url of OpenLayers library -->
+		<replaceregexp byline="true">
+			<regexp pattern="ors-mobile-default" />
+			<substitution expression="${jquery.ui.mobile.theme}" />
+			<fileset file="${webxmlFile}" />
+		</replaceregexp>
+
+	</target>
+
+
+
+
 
 
 	<target name="jsf-libs" if="use-jsf-libs" unless="glassfish">
@@ -238,6 +265,17 @@
 		<!--Overwrite default jquery-ui theme if user preferes non default theme -->
 		<antcall target="overwriteTheme" inheritAll="true"
 			inheritRefs="true" />
+
+
+		<!--Overwrite default jquery-ui mobile theme if user preferes non default 
+			theme -->
+		<antcall target="overwriteMobileTheme" inheritAll="true"
+			inheritRefs="true" />
+
+
+
+
+
 		<!-- ***************************************************************************************************** -->
 		<!-- include all the jars in OpenRideShareMaster/local.resources/themes 
 			directory, so that custom themes will be supported -->
