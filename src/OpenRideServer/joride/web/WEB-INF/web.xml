@@ -85,7 +85,6 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>aristo</param-value> 
     </context-param>
-
    	  
    <!--  **** mobile version of joride comes with a custom theme "ors-mobile-default"  **** -->	 
 
