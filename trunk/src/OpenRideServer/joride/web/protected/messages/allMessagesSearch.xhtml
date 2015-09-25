@@ -27,69 +27,44 @@
 
 		<ui:define name="content">
 
-			<h1>   #{msgs.msg_all} </h1>
-			
-	
-			<h:form>
-				<p:panel>
-					<p:panelGrid columns="1">
-						<!-- outer of 2 nested grids -->
+			<h1>#{msgs.msg_all}</h1>
 
-						<f:facet name="header">   
-                               #{msgs.msg_searchFromTo}
-                            </f:facet>
 
-						<p:row>
+			<h:form id="searchform">
 
-							<p:panelGrid columns="2">
 
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalStart}" />
-									</p:column>
-								</p:row>
 
-								<p:row>
-									<p:column>
-										<p:calendar value="#{messageSearch.startDate}"
-											id="startDateCal"  locale="#{HTTPUser.getLocale()}"  
-											pattern="#{messageSearch.dateformat}" mode="popup"
-											navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
+				<h2>#{msgs.msg_searchFromTo}</h2>
 
-								<p:row>
-									<p:column>
-										<p:outputLabel value="#{msgs.timeintervalEnd}" />
-									</p:column>
-								</p:row>
 
-								<p:row>
-									<p:column>
-										<p:calendar value="#{messageSearch.endDate}" id="endDateCal"
-											 locale="#{HTTPUser.getLocale()}"  pattern="#{messageSearch.dateformat}"
-											mode="popup" navigator="true" showOn="focus" size="10">
-										</p:calendar>
-									</p:column>
-								</p:row>
-							</p:panelGrid>
-							<!-- End of inner 2-column panel grid -->
-						</p:row>
+				<div class="formLabel">#{msgs.timeintervalStart}</div>
+				<div class="formInput">
 
-						<f:facet name="footer">
+					<p:calendar value="#{messageSearch.startDate}" id="startDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{messageSearch.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
-							<h:commandButton value="#{msgs.formSearch}"
-								action="messages.display">
-		
-								<f:param name="#{webflow.paramBack}" value="messages.search" />
+				<div class="formLabel">#{msgs.timeintervalEnd}</div>
+				<div class="formInput">
+					<p:calendar value="#{messageSearch.endDate}" id="endDateCal"
+						locale="#{HTTPUser.getLocale()}"
+						pattern="#{messageSearch.dateformat}" mode="popup"
+						navigator="true" showOn="focus" size="10">
+					</p:calendar>
+				</div>
 
-							</h:commandButton>
-						</f:facet>
+				<div class="formInput">
+					<p:commandButton value="#{msgs.formSearch}" ajax="false"
+						action="messages.display">
+						<f:param name="#{webflow.paramBack}" value="messages.search" />
+					</p:commandButton>
+				</div>
 
-					</p:panelGrid>
 
-				</p:panel>
+
 
 			</h:form>
 
