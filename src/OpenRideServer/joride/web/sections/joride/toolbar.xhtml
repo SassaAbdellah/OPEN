@@ -24,24 +24,27 @@
 
 	<ui:composition>
 
+		<!-- ************************************************************** -->
+		<!-- ************************************************************** -->
 		<!-- inside a *desktop* application, include toolbar and slidemenue -->
+		<!-- ************************************************************** -->
+		<!-- ************************************************************** -->
+
 		<h:form id="desktopMenu" rendered="#{HTTPUser.desktop}">
 			<!-- slidemenu with popup button -->
 
 			<p:toolbar>
 				<f:facet name="left">
-				<p:toolbarGroup align="left">
-					<p:commandButton id="dynaButton" value="#{msgs.nav1_navigation}"
-						type="button" icon="ui-icon-bars" />
-				</p:toolbarGroup>
+					<p:toolbarGroup align="left">
+						<p:commandButton id="dynaButton" value="#{msgs.nav1_navigation}"
+							type="button" icon="ui-icon-bars" />
+					</p:toolbarGroup>
 				</f:facet>
 				<f:facet name="right">
-				<p:button 
-					id="logoutButton" 
-					href="#{HTTPUser.logoutURL}"
-					icon="ui-icon-power">
-				<p:tooltip for="logoutButton" value="#{msgs.nav1_logout}" />
-				</p:button>
+					<p:button id="logoutButton" href="#{HTTPUser.logoutURL}"
+						icon="ui-icon-power">
+						<p:tooltip for="logoutButton" value="#{msgs.nav1_logout}" />
+					</p:button>
 				</f:facet>
 			</p:toolbar>
 
@@ -54,28 +57,29 @@
 		<!--  end of desktop/slide menu -->
 
 
-
+		<!-- **************************************************** -->
+		<!-- **************************************************** -->
 		<!-- in case of mobile app, we have a plain overlay menu  -->
+		<!-- **************************************************** -->
+		<!-- **************************************************** -->
+
+
 		<h:form id="mobileMenu" rendered="#{HTTPUser.mobile}">
 
 			<p:toolbar>
 				<f:facet name="left">
-					<p:commandButton 
-						id="dynaButton" 
-						type="button" 
-						icon="ui-icon-bars" 
-						/>
+					<span class="mobile-toolbar-button"> <p:commandButton
+							id="dynaButton" type="button" icon="ui-icon-bars" />
+					</span>
 				</f:facet>
 
 				<f:facet name="right">
-					<p:button 
-						id="logoutButton" 
-						href="#{HTTPUser.logoutURL}"
-						icon="ui-icon-power" 
-						/>
+
+					<span class="mobile-toolbar-button"> <p:button
+							id="logoutButton" href="#{HTTPUser.logoutURL}"
+							icon="ui-icon-power" />
+					</span>
 				</f:facet>
-
-
 			</p:toolbar>
 
 
