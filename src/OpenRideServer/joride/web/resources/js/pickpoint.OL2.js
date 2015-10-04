@@ -10,6 +10,8 @@
 //
 // Google API v3 must be included for this to work
 //
+// Note that this is deprecated, as OL2 is about to be abandoned
+//  
 
 function createGoogleMap() {
             var map = new OpenLayers.Map("mapdiv");

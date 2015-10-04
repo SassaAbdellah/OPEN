@@ -1,7 +1,10 @@
 
 
 // HTML 5 geolocation functions
-
+// based on OpenLayers2
+// Note that this is deprecated as OL2 is about to be abandoned
+//
+//
 
 function getLocation() {
     
