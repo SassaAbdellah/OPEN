@@ -1,2 +1,2 @@
 
-OpenLayers.js is Version 2.13.1
+OpenLayers.js is currently Version 2.13.1

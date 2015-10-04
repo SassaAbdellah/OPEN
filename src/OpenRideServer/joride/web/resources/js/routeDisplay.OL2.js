@@ -1,4 +1,9 @@
 
+//
+// OpenLayers v2 functions for displaying and editing routes.
+// As OpenLayers2 is deprecated, this is about to be replaced
+// with OL3 or leaflet based functions.
+//
      
 
 
