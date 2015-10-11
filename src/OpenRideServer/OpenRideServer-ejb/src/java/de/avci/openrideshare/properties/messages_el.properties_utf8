@@ -45,3 +45,25 @@ message_onCountermandMessage4Rider=Το αίτημά σας ακυρώθηκε.
 #
 message_RiderMessageSubject=Ένα μήνυμα από τον συνεπιβάτη σας
 message_DriverMessageSubject=Ένα μήνυμα από τον οδηγό σας
+#
+#
+# singular/plural Names and abbreviations for supported units of length
+#
+METER=μέτρο
+METERS=μέτρα
+METER_SHORT=μ
+#
+# kilometers
+#
+KILOMETER=χιλιόμετρο
+KILOMETERS=χιλιόμετρα
+KILOMETER_SHORT=χλμ
+#
+# Former British/American statute mile : 
+# http://en.wikipedia.org/wiki/Mile#Historical_miles_in_Britain_and_Ireland
+#
+MILE=μίλι
+MILES=μίλια
+MILE_SHORT=μίλια
+#
+#
