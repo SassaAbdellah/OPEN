@@ -122,6 +122,8 @@ maxOffersLimit=50
 #
 #
 # default number of minutes between startTimeEarliest and startTimeLatest
+default_wait_minutes=120
+
 
 
 
