@@ -47,7 +47,7 @@
 				<div class="formInput">
 					<h:inputText id="givenName"
 						value="#{registrationRequest.givenName}"
-						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationGivenNameValidator" />
+						validatorId="de.avci.joride.jbeans.customerprofile.registration.RegistrationGivenNameValidator" />
 				</div>
 				<div class="formError">
 					<h:message for="givenName" />
@@ -59,7 +59,7 @@
 
 				<div class="formInput">
 					<h:inputText id="surName" value="#{registrationRequest.surName}"
-						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationSurNameValidator" />
+						validatorId="de.avci.joride.jbeans.customerprofile.registration.RegistrationSurNameValidator" />
 				</div>
 
 				<div class="formError">
@@ -72,7 +72,7 @@
 				<div class="formInput">
 					<h:inputText id="emailAddress"
 						value="#{registrationRequest.emailAddress}"
-						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationEmailValidator" />
+						validatorId="de.avci.joride.jbeans.customerprofile.registration.RegistrationEmailValidator" />
 				</div>
 				<div class="formError">
 					<h:message for="emailAddress" />
@@ -83,7 +83,7 @@
 
 				<div class="formInput">
 					<h:inputText id="nickname" value="#{registrationRequest.nickName}"
-						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationNickNameValidator" />
+						validatorId="de.avci.joride.jbeans.customerprofile.registration.RegistrationNickNameValidator" />
 				</div>
 
 				<div class="formError">
@@ -111,7 +111,7 @@
 				<div class="formInput">
 					<p:selectBooleanCheckbox id="acceptTerms"
 						value="#{registrationRequest.acceptTerms}"
-						validator="de.avci.joride.jbeans.customerprofile.registration.RegistrationAcceptTermsValidator" />
+						validatorId="de.avci.joride.jbeans.customerprofile.registration.RegistrationAcceptTermsValidator" />
 				</div>
 
 				<!-- field to display bound checking errors -->
