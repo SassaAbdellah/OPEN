@@ -22,24 +22,6 @@
  */
 package de.fhg.fokus.openride.matching;
 
-import de.avci.openrideshare.boundaries.BoundariesBean;
-import de.avci.openrideshare.errorhandling.ErrorCodes;
-import de.avci.openrideshare.errorhandling.OpenRideShareException;
-import de.avci.openrideshare.utils.RandomSublist;
-import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
-import de.fhg.fokus.openride.customerprofile.CustomerEntity;
-import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
-import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
-import de.fhg.fokus.openride.rides.driver.WaypointEntity;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
-import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
-import de.fhg.fokus.openride.routing.Coordinate;
-import de.fhg.fokus.openride.routing.Route;
-import de.fhg.fokus.openride.routing.RoutePoint;
-import de.fhg.fokus.openride.routing.RouterBeanLocal;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -59,7 +41,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
-import org.apache.commons.logging.LogFactory;
+import de.avci.openrideshare.boundaries.BoundariesBean;
+import de.avci.openrideshare.errorhandling.ErrorCodes;
+import de.avci.openrideshare.errorhandling.OpenRideShareException;
+import de.avci.openrideshare.utils.RandomSublist;
+import de.fhg.fokus.openride.customerprofile.CustomerControllerLocal;
+import de.fhg.fokus.openride.customerprofile.CustomerEntity;
+import de.fhg.fokus.openride.rides.driver.DriveRoutepointEntity;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.driver.DriverUndertakesRideEntity;
+import de.fhg.fokus.openride.rides.driver.RoutePointEntity;
+import de.fhg.fokus.openride.rides.driver.WaypointEntity;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideControllerLocal;
+import de.fhg.fokus.openride.rides.rider.RiderUndertakesRideEntity;
+import de.fhg.fokus.openride.routing.Coordinate;
+import de.fhg.fokus.openride.routing.Route;
+import de.fhg.fokus.openride.routing.RoutePoint;
+import de.fhg.fokus.openride.routing.RouterBeanLocal;
 
 /**
  * This class serves the complete RouteMatching functionality as Java EEBean.
@@ -200,7 +198,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 */
 	@Override
 	public LinkedList<MatchEntity> searchForRiders(int driveId) {
-		logger.info("searchForRiders(driveId = " + driveId + ")");
+		
+		MatchingLogger.log("searchForRiders(...), driveId "+driveId);
+		
+		
 		try { 
 			
 			//
@@ -212,12 +213,20 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			LinkedList<PotentialMatch> potentialMatchesRes = algorithm.findRiders(driveId);
 			conn.commit();
 			conn.close();
-			
+			//
+			// log for debugging only
+			//
+			MatchingLogger.log("(sfr 1) searchForRiders returning "+potentialMatchesRes.size()+" raw matches");
+			//
 			// to prevent the same matches showing up over and over when limits are enforced
 			// the result list gets scrambled before beeing processed further
 			LinkedList <PotentialMatch> potentialMatches=new RandomSublist<PotentialMatch>(potentialMatchesRes);
-			
 			//
+			//
+			//
+			// log for debugging only
+			//
+			MatchingLogger.log("(sfr 2) searchForRiders returning "+potentialMatches.size()+" randomized raw matches");
 			//
 			//
 			// get the parameter for the algorithm computing potential matches
@@ -226,9 +235,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			// update drive, since mach_count may change asynchronously
 			em.refresh(drive);
 			List<DriveRoutepointEntity> routepoints = driverUndertakesRideControllerBean.getDriveRoutePoints(driveId);
-			
-			
-
+			//
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			CustomerEntity driver = drive.getCustId();
@@ -244,41 +251,46 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					Iterator<PotentialMatch> iter = potentialMatches.iterator(); 
 					(iter.hasNext() && matches.size()< driverMatchLimit);
 			 ) {
-				
-						
-				
 				PotentialMatch pm = iter.next();
+				
+				//
+				// log for debugging only
+				//
+				MatchingLogger.log("(sfr 3) searchForRiders returning checking potential match for riderrouteId "+pm.getRidersRouteId());
 				RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean
 						.getRideByRiderRouteId(pm.getRidersRouteId());
 				// update ride, since match count may change asynchronously
 				em.refresh(ride);
 				CustomerEntity rider = ride.getCustId();
 				
-										
-				
 				// turn out this potential match if ride's match count is exceeded
 				if(rider.getIndividualLimitMatch()<ride.getMatchCount()){
 					
-					// TODO remove debug
-					String logmessage=
-							"Throwing out match for limit exceeded :    \n"+
-							"riderroute_id -> "+ride.getRiderrouteId()+"\n"+
-							"match_count   -> "+ride.getMatchCount()+"\n";
-					logger.info(logmessage);
-								
-										
+					
+					//
+					// log for debugging only
+					//
+					MatchingLogger.log( 
+							"(sfr 4) Throwing out match for limit exceeded : "+
+									"riderroute_id -> "+ride.getRiderrouteId()+" "+
+									"match_count   -> "+ride.getMatchCount()+" "
+							);
+											
 					continue;
 				}
 				
 				
-				// TODO remove debug
-				String logmessage=
-						"Keeping match  :    \n"+
-						"riderroute_id -> "+ride.getRiderrouteId()+"\n"+
-						"match_count   -> "+ride.getMatchCount()+"\n";
-				logger.info(logmessage);
-				
-
+						
+				//
+				// log for debugging only
+				//
+				MatchingLogger.log(
+						"(sfr 5) Keeping match : "+
+						"riderroute_id -> "+ride.getRiderrouteId()+" "+
+						"match_count   -> "+ride.getMatchCount()
+						);
+				//						
+				//
 				// apply simple, less expensive filter criteria
 				if (UnexpensiveMatchFilter.filterAccepts(driver, rider, drive, ride, pm,
 						routepoints)) {
@@ -292,12 +304,16 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					double sharedDistanceMeters = computeAdaptedRoute(
 							pm.getRideId(), pm.getRidersRouteId(),
 							decomposedRoute_, route_);
-					logger.info("sharedDistance = " + sharedDistanceMeters
-							+ "m");
+					//
+					// log for debug only
+					//
+					MatchingLogger.log("(sfr 6) sharedDistance = " + sharedDistanceMeters+ "m");
 
 					// if no route can be computed we have to skip this match
 					if (sharedDistanceMeters == -1) {
-						logger.info("no route found or no seats lelft!");
+						
+						
+						MatchingLogger.log("(sfr 7) no route found or no seats left! for match to "+pm.getRidersRouteId());
 						continue;
 					}
 
@@ -310,15 +326,20 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 									.getDistanceToSourceMeters();
 
 					// check the detour
-					logger.info("detour : "
+					MatchingLogger.log(
+							"(sfr 8) detour : "
 							+ detourMeters
 							+ "m / "
 							+ getSfrAcceptableDetourMetersBounded(drive
 									.getRideAcceptableDetourInM() )
 							+ "m");
+					
 					if (FILTER_CHECK_DETOUR
 							&& detourMeters > getSfrAcceptableDetourMetersBounded(drive
 									.getRideAcceptableDetourInM())) {
+						
+						// check the detour
+						MatchingLogger.log("(sfr 9) throwing out match for riderrouteId"+pm.getRideId()+"max detour exceeded ");
 						continue;
 					}
 
@@ -351,14 +372,21 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					// turn out this potential match if match limit is exceedec
 					em.refresh(ride);
 					if(rider.getIndividualLimitMatch()<ride.getMatchCount()){
+						
+						// check the detour
+						MatchingLogger.log("(sfr 10) throwing out match for riderrouteId"+pm.getRideId()+" limit count exceeded ");
 						continue;
 					}
 							
-				
+					// check the detour
+					MatchingLogger.log("(sfr 11) adding match for riderrouteId"+pm.getRideId()+" ");
 					matches.add(nextMatch);
 				}
 			}
-			logger.info("searchForRidematches : " + matches.size() + " / "
+			
+			// check the detour
+			MatchingLogger.log(
+					"(sfr 12) searchForRidematches : " + matches.size() + " / "
 					+ potentialMatches.size() + " (passed through filter)");
 
 			// sort matches by score
@@ -389,7 +417,9 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 	 */
 	@Override
 	public LinkedList<MatchEntity> searchForDrivers(int rideId) {
-		logger.info("searchForDrivers(rideId = " + rideId + ")");
+		
+		MatchingLogger.log("searchForDrivers(...), rideId "+rideId);
+				
 		try {
 			
 			// compute potential matches based on geographical position and time
@@ -397,12 +427,19 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			IDriverSearchAlgorithm algorithm = SearchAlgorithmSwitch.getDriverSearchAlgorithm(conn);
 			LinkedList<PotentialMatch> potentialMatchesRes = algorithm.findDriver(rideId);
 			conn.close();
-			
+			//
+			// Log number of matches, step 1
+			//
+			MatchingLogger.log("(sfd 1) potentialDriversForRideId  : "+rideId+" : "+potentialMatchesRes.size());
+			//
 			// to prevent the same matches showing up over and over when limits are enforced
 			// the result list gets scrambled before beeing processed further
 			LinkedList <PotentialMatch> potentialMatches=new RandomSublist<PotentialMatch>(potentialMatchesRes);
-			
-
+			//
+			// Log number of matches, step 2
+			//
+			MatchingLogger.log("(sfd 2) potentialDriversForRideId  : "+rideId+" : "+potentialMatches.size());
+			//
 			// iterate over potential matches, and apply filtercriteria.
 			// Matches passing all criteria are added to the 'matches' list.
 			RiderUndertakesRideEntity ride = riderUndertakesRideControllerBean.getRideByRiderRouteId(rideId);
@@ -410,9 +447,15 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 			em.refresh(ride);
 			CustomerEntity rider = ride.getCustId();
 			int riderMatchLimit=rider.getIndividualLimitMatch();
-			
+			//
 			// all accepted matches are put here
 			LinkedList<MatchEntity> matches = new LinkedList<MatchEntity>(); 
+			//
+			//
+			//
+			// Log number of matches after applying filter criteria
+			//
+			MatchingLogger.log("(sfd 3) potentialDriversForRideId  : "+rideId+" : "+matches.size());
 			//
 			//  MatchingLimits: stop iteration as soon as size of matches list exceeds individual limit
 			//
@@ -421,9 +464,7 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					(iter.hasNext() && matches.size()< riderMatchLimit);
 					
 				) {
-				
-				
-				
+							
 				PotentialMatch pm = iter.next();
 				DriverUndertakesRideEntity drive = driverUndertakesRideControllerBean
 						.getDriveByDriveId(pm.getRideId());
@@ -432,8 +473,13 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 				
 				CustomerEntity driver = drive.getCustId();
 				
-				// turn out this potential match if match limit is exceedec
+				
+				// turn out this potential match if match limit is exceeded
 				if(driver.getIndividualLimitMatch()<drive.getMatchCount()){
+					//
+					// Turn out match and log 
+					//
+					MatchingLogger.log("(sfd 4) turning out potential match  for rideId : "+pm.getRideId()+" match limit exceeded ");
 					continue;
 				}
 				
@@ -452,12 +498,11 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					double sharedDistanceMeters = computeAdaptedRoute(
 							pm.getRideId(), pm.getRidersRouteId(),
 							decomposedRoute_, route_);
-					logger.info("sharedDistance = " + sharedDistanceMeters
-							+ "m");
+					MatchingLogger.log("(sfd 5) sharedDistance = " + sharedDistanceMeters+ "m");
 
 					// if no route can be computed we have to skip this match
 					if (sharedDistanceMeters == -1) {
-						logger.info("no route found or no seats lelft!");
+						MatchingLogger.log("(sfd 6) no route found or no seats lelft!");
 						continue;
 					}
 
@@ -470,7 +515,8 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 									.getDistanceToSourceMeters();
 
 					// check the detour
-					logger.info("detour : "
+					MatchingLogger.log(
+							"(sfd 7) detour : "
 							+ detourMeters
 							+ "m / "
 							+ getSfrAcceptableDetourMetersBounded(drive
@@ -479,6 +525,10 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					if (FILTER_CHECK_DETOUR
 							&& detourMeters > getSfrAcceptableDetourMetersBounded(drive
 									.getRideAcceptableDetourInM())) {
+						
+						MatchingLogger.log( 
+								"(sfd 8) turning out matchh for  "+pm.getRideId()+" max detour exceeded "
+								);
 						continue;
 					}
 
@@ -505,13 +555,19 @@ public class RouteMatchingBean implements RouteMatchingBeanLocal {
 					// turn out this potential match if match limit is exceedec
 					em.refresh(drive);
 					if(driver.getIndividualLimitMatch()<drive.getMatchCount()){
+						MatchingLogger.log(
+								"(sfd 9) turning out match for  "+pm.getRideId()+" match count exceeded because of race conditions ");
 						continue;
 					}
 								
+					MatchingLogger.log("(9) adding match for  "+pm.getRideId());
 					matches.add(m);
 				}
 			}
-			logger.info("matches : " + matches.size() + " / "
+			
+			
+			MatchingLogger.log(
+					"(sfd 10) matches : " + matches.size() + " / "
 					+ potentialMatches.size() + " (passed through filter)");
 
 			// sort matches by score
