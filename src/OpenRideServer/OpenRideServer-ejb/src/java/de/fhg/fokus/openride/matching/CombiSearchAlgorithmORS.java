@@ -4,14 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
-import org.postgis.Point;
 import org.postgresql.geometric.PGpoint;
 
 import de.fhg.fokus.openride.routing.Coordinate;
-import de.fhg.fokus.openride.routing.RoutePoint;
 
 public abstract class CombiSearchAlgorithmORS
 
@@ -25,16 +23,13 @@ public abstract class CombiSearchAlgorithmORS
  */
 implements IDriverSearchAlgorithm, IRiderSearchAlgorithm {
 		
-
-		
 			
 		/** prepared statement to search for potential matches for given request.
 		 *  This gets initialized at construction time
 		 */
 		private final PreparedStatement preparedStatementSelectSFD;
 		
-	
-			
+				
 		/** prepared statement to search for potential matches.
 		 *  This gets initialized at construction time
 		 */

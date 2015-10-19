@@ -1,10 +1,7 @@
 package de.fhg.fokus.openride.matching;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.LinkedList;
-
-import org.postgis.Point;
 
 interface IDriverSearchAlgorithm {
 

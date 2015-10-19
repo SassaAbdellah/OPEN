@@ -78,6 +78,8 @@ public class CombiSearchAlgorithmORSPolar extends CombiSearchAlgorithmORS {
 	
 	@Override
 	protected String getPreparedStatementSFDString() {
+		
+		MatchingLogger.log("returning SFD Statement for polar Coordinates : "+preparedStatementSFDString);
 		return preparedStatementSFDString;
 	}	
 	
@@ -89,6 +91,8 @@ public class CombiSearchAlgorithmORSPolar extends CombiSearchAlgorithmORS {
 	
 	@Override
 	protected String getPreparedStatementSFRString() {
+		
+		MatchingLogger.log("returning SFR Statement for polar Coordinates : "+preparedStatementSFDString);
 		return preparedStatementSFRString;
 	} 
 		

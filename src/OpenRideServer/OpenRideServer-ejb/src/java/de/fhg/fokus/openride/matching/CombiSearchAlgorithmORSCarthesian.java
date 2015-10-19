@@ -80,6 +80,8 @@ public class CombiSearchAlgorithmORSCarthesian extends CombiSearchAlgorithmORS {
 	
 	@Override
 	protected String getPreparedStatementSFDString() {
+		
+		MatchingLogger.log("returning SFD Statement for carthesian Coordinates : "+preparedStatementSFDString);
 		return preparedStatementSFDString;
 	}	
 	
@@ -93,14 +95,13 @@ public class CombiSearchAlgorithmORSCarthesian extends CombiSearchAlgorithmORS {
 	@Override
 	protected String getPreparedStatementSFRString() {
 		
+		MatchingLogger.log("returning SFR Statement for carthesian Coordinates : "+preparedStatementSFDString);
 		return preparedStatementSFRString;
 	} 
 	
 	
 	
-	public CombiSearchAlgorithmORSCarthesian(Connection con) throws SQLException  {
-		
-		
+	public CombiSearchAlgorithmORSCarthesian(Connection con) throws SQLException  {		
 		super(con);
 	}
 
