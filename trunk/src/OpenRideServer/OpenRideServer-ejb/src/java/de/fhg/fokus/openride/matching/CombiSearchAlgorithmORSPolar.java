@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import de.avci.openrideshare.utils.PropertiesLoader;
+import de.fhg.fokus.openride.matching.logging.MatchingLogger;
 
 
 
@@ -78,8 +79,9 @@ public class CombiSearchAlgorithmORSPolar extends CombiSearchAlgorithmORS {
 	
 	@Override
 	protected String getPreparedStatementSFDString() {
-		
-		MatchingLogger.log("returning SFD Statement for polar Coordinates : "+preparedStatementSFDString);
+		if(MatchingLogger.canLogInfo()){
+			MatchingLogger.info("returning SFD Statement for polar Coordinates : "+preparedStatementSFDString);
+		}
 		return preparedStatementSFDString;
 	}	
 	
@@ -92,7 +94,9 @@ public class CombiSearchAlgorithmORSPolar extends CombiSearchAlgorithmORS {
 	@Override
 	protected String getPreparedStatementSFRString() {
 		
-		MatchingLogger.log("returning SFR Statement for polar Coordinates : "+preparedStatementSFDString);
+		if(MatchingLogger.canLogInfo()){
+		MatchingLogger.info("returning SFR Statement for polar Coordinates : "+preparedStatementSFDString);
+		}
 		return preparedStatementSFRString;
 	} 
 		
