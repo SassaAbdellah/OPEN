@@ -15,6 +15,8 @@
 
 
 
+
+
 <body>
 
 
@@ -119,135 +121,174 @@
 								</p:commandButton>
 							</div>
 
-							<div id="divErrorStart" class="formError">
-								<!-- display error if applies -->
-								<h:message for="addressStart" />
-							</div>
-
-							<!-- hidden inputs for start and endpoints will always be there, regardless of coordinate visibility -->
-							<h:inputHidden id="latitudeStart"
-								value="#{newride.latitudeStart}"
-								validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
-
-							<h:inputHidden id="longitudeStart"
-								value="#{newride.longitudeStart}"
-								validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
-
-							<div class="formError">
-								<h:message for="latitudeStart" />
-							</div>
-							<div class="formError">
-								<h:message for="longitudeStart" />
-							</div>
-						</p>
-
-
-
-						<div class="formLabel">#{msgs.rideDestinationAddress}</div>
-						<p>
+							<!-- command link for advanced search -->
 							<div class="formInput">
-								<h:inputTextarea id="addressEnd" value="#{newride.endptAddress}"
-									required="true"
-									requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
-									onchange="codeAddressWithGoogleEndPt()" />
+								<h:commandLink value="#{msgs.geolocationAdvancedSearch}"
+									action="pickpoint" immediate="true">
+
+									<!-- point parameters -->
+									<f:param name="#{point.paramTargetURL}"
+										value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
+									<!-- set the target parameters, so we know which point to update -->
+									<f:param name="#{point.paramTarget}"
+										value="#{newride.paramValueTargetStartpoint}" />
+
+									<!-- webflow parameters -->
+
+									<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
+									<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
+
+								</h:commandLink>
 							</div>
-							<div class="formInput">
-								<p:commandButton id="searchEnd" icon="ui-icon-search"
-									onclick="codeAddressWithGoogleEndPt()">
-									<p:tooltip for="searchEnd" value="#{msgs.searchlabel}" />
-								</p:commandButton>
-							</div>
-
-							<div id="divErrorEnd" class="formError">
-								<!-- display error if applies -->
-								<h:message for="addressEnd" />
-							</div>
-
-
-							<h:inputHidden id="longitudeEnd" value="#{newride.longitudeEnd}"
-								validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
-							<h:inputHidden id="latitudeEnd" value="#{newride.latitudeEnd}"
-								validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
-
-							<div class="formError">
-								<h:message for="latitudeEnd" />
-							</div>
-
-							<div class="formError">
-								<h:message for="longitudeEnd" />
-							</div>
-
-						</p>
-
-						<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
-						<div class="formInput">
-							<p:calendar value="#{newride.starttimeEarliest}"
-								id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
-								pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-								showOn="button" timezone="#{HTTPUser.timeZone}"
-								mindate="#{jprofile.currentDatetimeFormatted}"
-								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
-								widgetVar="starttimeEarliestCal">
-
-								<f:converter converterId="rideDateConverter" />
-								<p:ajax update="starttimeEarliestCal" />
-
-							</p:calendar>
+						<div id="divErrorStart" class="formError">
+							<!-- display error if applies -->
+							<h:message for="addressStart" />
 						</div>
 
-						<!-- *********************************************************** -->
-						<!--   timespan between starttime earliest and starttime latest  -->
-						<!--          with only one field to specify an hour             -->
-						<!-- *********************************************************** -->
-						<h:outputScript library="js"
-							name="timespanInputCheckThessaloniki03.js" />
-							
-						<!-- turn on use of timespan  -->
+						<!-- hidden inputs for start and endpoints will always be there, regardless of coordinate visibility -->
+						<h:inputHidden id="latitudeStart" value="#{newride.latitudeStart}"
+							validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+						<h:inputHidden id="longitudeStart"
+							value="#{newride.longitudeStart}"
+							validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+
+						<div class="formError">
+							<h:message for="latitudeStart" />
+						</div>
+						<div class="formError">
+							<h:message for="longitudeStart" />
+						</div>
+			</p>
+
+
+
+			<div class="formLabel">#{msgs.rideDestinationAddress}</div>
+			<p>
+				<div class="formInput">
+					<h:inputTextarea id="addressEnd" value="#{newride.endptAddress}"
+						required="true"
+						requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
+						onchange="codeAddressWithGoogleEndPt()" />
+				</div>
+
+
+				<div class="formInput">
+					<p:commandButton id="searchEnd" icon="ui-icon-search"
+						onclick="codeAddressWithGoogleEndPt()">
+						<p:tooltip for="searchEnd" value="#{msgs.searchlabel}" />
+					</p:commandButton>
+				</div>
+
+				<!-- command link for advanced search -->
+				<div class="formInput">
+					<h:commandLink value="#{msgs.geolocationAdvancedSearch}"
+						action="pickpoint" immediate="true">
+						<!-- point parameters -->
+						<f:param name="#{point.paramTargetURL}"
+							value="#{HTTPUser.URLBase}/faces/protected/rider/rideCreate.xhtml" />
+						<!-- set the target parameters, so we know which point to update -->
+						<f:param name="#{point.paramTarget}"
+							value="#{newride.paramValueTargetEndpoint}" />
+
+						<!-- webflow parameters -->
+
+						<f:param name="#{webflow.paramBack}" value="rider.rideCreate" />
+						<f:param name="#{webflow.paramFinish}" value="rider.rideCreate" />
+						<f:param name="#{webflow.paramCancel}" value="rider.rideCreate" />
+
+					</h:commandLink>
+				</div>
+			<div id="divErrorEnd" class="formError">
+				<!-- display error if applies -->
+				<h:message for="addressEnd" />
+			</div>
+
+
+			<h:inputHidden id="longitudeEnd" value="#{newride.longitudeEnd}"
+				validator="de.avci.joride.utils.validators.JorideLongitudeValidator" />
+			<h:inputHidden id="latitudeEnd" value="#{newride.latitudeEnd}"
+				validator="de.avci.joride.utils.validators.JorideLatitudeValidator" />
+
+			<div class="formError">
+				<h:message for="latitudeEnd" />
+			</div>
+
+			<div class="formError">
+				<h:message for="longitudeEnd" />
+			</div>
+
+			</p>
+
+			<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
+			<div class="formInput">
+				<p:calendar value="#{newride.starttimeEarliest}"
+					id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
+					pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+					showOn="button" timezone="#{HTTPUser.timeZone}"
+					mindate="#{jprofile.currentDatetimeFormatted}"
+					maxdate="#{jprofile.planningHorizonRequestsFormatted}"
+					widgetVar="starttimeEarliestCal">
+
+					<f:converter converterId="rideDateConverter" />
+					<p:ajax update="starttimeEarliestCal" />
+
+				</p:calendar>
+			</div>
+
+			<!-- *********************************************************** -->
+			<!--   timespan between starttime earliest and starttime latest  -->
+			<!--          with only one field to specify an hour             -->
+			<!-- *********************************************************** -->
+			<h:outputScript library="js"
+				name="timespanInputCheckThessaloniki03.js" />
+
+			<!-- turn on use of timespan  -->
 						#{newride.useTimespanFlagOn()}	
 
 						<div class="formLabel">#{msgs.rideWaitFor}</div>
-						<div class="formInput">
-							<p:inputText value="#{newride.timespan.hours}"
-											id="timespanHours" widgetVar="timespanHours"
-											onchange="adjustHours()" size="2">
-											<f:convertNumber integerOnly="true" />
-										</p:inputText>
-									<span class="formLabel">&nbsp;#{msgs.tu_hours}&nbsp;</span>
-						</div>
+			<div class="formInput">
+				<p:inputText value="#{newride.timespan.hours}" id="timespanHours"
+					widgetVar="timespanHours" onchange="adjustHours()" size="2">
+					<f:convertNumber integerOnly="true" />
+				</p:inputText>
+				<span class="formLabel">&nbsp;#{msgs.tu_hours}&nbsp;</span>
+			</div>
 
-						<div class="formLabel">#{msgs.rideNoPassengers}</div>
-						<div class="formInput">
-							<h:inputText value="#{newride.noPassengers}">
-								<f:convertNumber integerOnly="true" />
-							</h:inputText>
-						</div>
+			<div class="formLabel">#{msgs.rideNoPassengers}</div>
+			<div class="formInput">
+				<h:inputText value="#{newride.noPassengers}">
+					<f:convertNumber integerOnly="true" />
+				</h:inputText>
+			</div>
 
-						<div class="formLabel">#{msgs.ridePrice}</div>
-						<div class="formInput">
-							<h:inputText value="#{newride.price}" />
-						</div>
+			<div class="formLabel">#{msgs.ridePrice}</div>
+			<div class="formInput">
+				<h:inputText value="#{newride.price}" />
+			</div>
 
-						<!-- comment -->
-						<div class="formLabel">#{msgs.rideComment}</div>
+			<!-- comment -->
+			<div class="formLabel">#{msgs.rideComment}</div>
 
-						<div class="formInput">
-							<h:inputTextarea value="#{newride.comment}" />
-						</div>
+			<div class="formInput">
+				<h:inputTextarea value="#{newride.comment}" />
+			</div>
 
-						<!--- Submit Data to create a new RideRequest -->
+			<!--- Submit Data to create a new RideRequest -->
 
 
-						<p:commandButton value="#{msgs.rideCreateNewRequest}"
-							actionListener="#{newride.doCrudAction}"
-							action="rider.rideDisplayNewRide" ajax="false">
+			<p:commandButton value="#{msgs.rideCreateNewRequest}"
+				actionListener="#{newride.doCrudAction}"
+				action="rider.rideDisplayNewRide" ajax="false">
 
-							<f:param name="#{crud.paramNameCrudAction}"
-								value="#{crud.paramValueCrudCreate}" />
-							<f:param name="#{webflow.getParamFinish()}" value="rider" />
+				<f:param name="#{crud.paramNameCrudAction}"
+					value="#{crud.paramValueCrudCreate}" />
+				<f:param name="#{webflow.getParamFinish()}" value="rider" />
 
-						</p:commandButton>
-					</h:form>
-				</p:panel>
+			</p:commandButton>
+			</h:form>
+			</p:panel>
 
 			</p>
 

@@ -107,12 +107,41 @@
 							requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}"
 							onchange="codeAddressWithGoogleStartPt()" />
 					</div>
+					
+					<!-- Command Button to trigger Google search -->
 					<div class="formInput">
 						<p:commandButton id="searchStart" icon="ui-icon-search"
 							onclick="codeAddressWithGoogleStartPt()">
 							<p:tooltip for="addressStart" value="#{msgs.searchlabel}" />
 						</p:commandButton>
 					</div>
+					
+							
+					<!-- Link for "advanced search" -->	
+					<div class="formInput">
+						<!-- Link to set place  "advanced place search" -->
+					
+					
+						<h:commandLink value="#{msgs.geolocationAdvancedSearch}"
+							action="pickpoint" immediate="true">
+
+							<!-- point parameters -->
+							<f:param name="#{point.paramTargetURL}"
+								value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+							<!-- set the target parameters, so we know which point to update -->
+							<f:param name="#{point.paramTarget}"
+								value="#{newdriverride.paramValueTargetStartpoint}" />
+
+							<!-- webflow parameters -->
+
+							<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
+
+						</h:commandLink>
+					</div>
+					
+					
 
 					<div id="divErrorStart" class="formError">
 						<!-- display error if applies -->
@@ -146,13 +175,39 @@
 							requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
 							onchange="codeAddressWithGoogleEndPt()" />
 					</div>
+					
+					<!-- Command Button to trigger google search -->
+					
 					<div class="formInput">
 						<p:commandButton id="searchEnd" icon="ui-icon-search"
 							onclick="codeAddressWithGoogleEndPt()">
 							<p:tooltip for="addressEnd" value="#{msgs.searchlabel}" />
 						</p:commandButton>
 					</div>
+				
+					<!-- Link for "advanced search" -->	
+					<div class="formInput">
+						<!-- Link to set place  "advanced place search" -->
 
+						<h:commandLink value="#{msgs.geolocationAdvancedSearch}"
+							action="pickpoint" immediate="true">
+
+							<!-- point parameters -->
+							<f:param name="#{point.paramTargetURL}"
+								value="#{HTTPUser.URLBase}/faces/protected/driver/driveCreate.xhtml" />
+							<!-- set the target parameters, so we know which point to update -->
+							<f:param name="#{point.paramTarget}"
+								value="#{newdriverride.paramValueTargetEndpoint}" />
+
+							<!-- webflow parameters -->
+
+							<f:param name="#{webflow.paramBack}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramFinish}" value="driver.driveCreate" />
+							<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
+						</h:commandLink>
+					</div>
+					
+					
 					<div id="divErrorEnd" class="formError">
 						<!-- display error if applies -->
 						<h:message for="addressEnd" />
