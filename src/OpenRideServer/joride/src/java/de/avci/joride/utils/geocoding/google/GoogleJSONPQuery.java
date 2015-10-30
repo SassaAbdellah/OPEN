@@ -27,6 +27,12 @@ public class GoogleJSONPQuery  implements Serializable {
 
       
     
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/** Query (freetext string) that is sent to google.
 	 */
 	private String searchstring="";
@@ -58,7 +64,7 @@ public class GoogleJSONPQuery  implements Serializable {
      *  Determines how many of the results are to be shown.
      * 
      */
-    public static final Integer LIMIT_DEFAULT=1;
+    public static final Integer LIMIT_DEFAULT=10;
     
     protected int limit=LIMIT_DEFAULT;
     
