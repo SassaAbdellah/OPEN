@@ -41,18 +41,27 @@
 					</p:toolbarGroup>
 				</f:facet>
 				<f:facet name="right">
-					<p:button id="logoutButton" href="#{HTTPUser.logoutURL}"
-						icon="ui-icon-power">
-						<p:tooltip for="logoutButton" value="#{msgs.nav1_logout}" />
+					<p:button 
+						id="logoutButton" 
+						href="#{HTTPUser.logoutURL}"
+						value="#{msgs.nav1_logout}"
+						icon="ui-icon-power"
+						>
 					</p:button>
 				</f:facet>
 			</p:toolbar>
 
 			<!-- slide menu comes with a primefaces 4.0 fashioned programmatic menu -->
-			<p:slideMenu model="#{mainMenu}" overlay="true" trigger="dynaButton"
-				my="left top" at="left bottom" locale="#{HTTPUser.getLocale()}"
-				backLabel="#{msgs.backLabel}">
-			</p:slideMenu>
+			<p:tieredMenu
+				model="#{mainMenu}" 
+				overlay="true" 
+				trigger="dynaButton"
+				my="left top" at="left bottom" 
+				locale="#{HTTPUser.getLocale()}"
+				backLabel="#{msgs.backLabel}"
+				toggleable="true"
+				>
+			</p:tieredMenu>
 		</h:form>
 		<!--  end of desktop/slide menu -->
 
