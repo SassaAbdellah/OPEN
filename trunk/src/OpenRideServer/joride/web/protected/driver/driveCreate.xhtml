@@ -252,13 +252,17 @@
 					<p>
 					<div class="formLabel">#{msgs.rideStarttime}</div>
 					<div class="formInput">
-						<p:calendar value="#{newdriverride.rideStarttime}"
-							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+						<p:calendar 
+							value="#{newdriverride.rideStarttime}"
+							id="startTimeCal" 
+							locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" 
+							mode="popup" 
+							navigator="true"
 							timezone="#{HTTPUser.timeZone}"
 							mindate="#{jprofile.currentDatetimeFormatted}"
 							maxdate="#{jprofile.planningHorizonOffersFormatted}"
-							showOn="button">
+							>
 
 							<!--  call converter on this component to align with current date and maxdate  -->
 							<f:converter converterId="rideDateConverter" />
