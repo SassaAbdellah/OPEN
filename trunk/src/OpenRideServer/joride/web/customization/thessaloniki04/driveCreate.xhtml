@@ -107,21 +107,20 @@
 							requiredMessage="#{errormessages.StartpointAddressIsNullWhenCreatingOffer}"
 							onchange="codeAddressWithGoogleStartPt()" />
 					</div>
-					
+
 					<!-- Command Button to trigger Google search -->
 					<div class="formInput">
 						<p:commandButton id="searchStart" icon="ui-icon-search"
-							onclick="codeAddressWithGoogleStartPt()">
-							<p:tooltip for="addressStart" value="#{msgs.searchlabel}" />
-						</p:commandButton>
+							onclick="codeAddressWithGoogleStartPt()"
+							value="#{msgs.searchlabel}" />
 					</div>
-					
-							
-					<!-- Link for "advanced search" -->	
+
+
+					<!-- Link for "advanced search" -->
 					<div class="formInput">
 						<!-- Link to set place  "advanced place search" -->
-					
-					
+
+
 						<h:commandLink value="#{msgs.geolocationAdvancedSearch}"
 							action="pickpoint" immediate="true">
 
@@ -140,8 +139,8 @@
 
 						</h:commandLink>
 					</div>
-					
-					
+
+
 
 					<div id="divErrorStart" class="formError">
 						<!-- display error if applies -->
@@ -175,17 +174,16 @@
 							requiredMessage="#{errormessages.EndpointAddressIsNullWhenCreatingOffer}"
 							onchange="codeAddressWithGoogleEndPt()" />
 					</div>
-					
+
 					<!-- Command Button to trigger google search -->
-					
+
 					<div class="formInput">
 						<p:commandButton id="searchEnd" icon="ui-icon-search"
-							onclick="codeAddressWithGoogleEndPt()">
-							<p:tooltip for="addressEnd" value="#{msgs.searchlabel}" />
-						</p:commandButton>
+							onclick="codeAddressWithGoogleEndPt()"
+							value="#{msgs.searchlabel}" />
 					</div>
-				
-					<!-- Link for "advanced search" -->	
+
+					<!-- Link for "advanced search" -->
 					<div class="formInput">
 						<!-- Link to set place  "advanced place search" -->
 
@@ -206,8 +204,8 @@
 							<f:param name="#{webflow.paramCancel}" value="driver.driveCreate" />
 						</h:commandLink>
 					</div>
-					
-					
+
+
 					<div id="divErrorEnd" class="formError">
 						<!-- display error if applies -->
 						<h:message for="addressEnd" />
@@ -259,7 +257,7 @@
 							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
 							timezone="#{HTTPUser.timeZone}"
 							mindate="#{jprofile.currentDatetimeFormatted}"
-							maxdate="#{jprofile.planningHorizonOffersFormatted}" showOn="">
+							maxdate="#{jprofile.planningHorizonOffersFormatted}">
 
 							<!--  call converter on this component to align with current date and maxdate  -->
 							<f:converter converterId="rideDateConverter" />

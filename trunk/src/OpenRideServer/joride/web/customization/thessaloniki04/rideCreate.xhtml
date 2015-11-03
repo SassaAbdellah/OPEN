@@ -116,9 +116,9 @@
 							</div>
 							<div class="formInput">
 								<p:commandButton id="searchStart" icon="ui-icon-search"
-									onclick="codeAddressWithGoogleStartPt()">
-									<p:tooltip for="searchStart" value="#{msgs.searchlabel}" />
-								</p:commandButton>
+									onclick="codeAddressWithGoogleStartPt()"
+									 value="#{msgs.searchlabel}" 
+									 />
 							</div>
 
 							<!-- command link for advanced search -->
@@ -176,9 +176,9 @@
 
 				<div class="formInput">
 					<p:commandButton id="searchEnd" icon="ui-icon-search"
-						onclick="codeAddressWithGoogleEndPt()">
-						<p:tooltip for="searchEnd" value="#{msgs.searchlabel}" />
-					</p:commandButton>
+						onclick="codeAddressWithGoogleEndPt()"
+						value="#{msgs.searchlabel}" 
+					/>
 				</div>
 
 				<!-- command link for advanced search -->
@@ -226,7 +226,7 @@
 				<p:calendar value="#{newride.starttimeEarliest}"
 					id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
 					pattern="#{datetime.tsformat}" mode="popup" navigator="true"
-					showOn="button" timezone="#{HTTPUser.timeZone}"
+				    timezone="#{HTTPUser.timeZone}"
 					mindate="#{jprofile.currentDatetimeFormatted}"
 					maxdate="#{jprofile.planningHorizonRequestsFormatted}"
 					widgetVar="starttimeEarliestCal">
