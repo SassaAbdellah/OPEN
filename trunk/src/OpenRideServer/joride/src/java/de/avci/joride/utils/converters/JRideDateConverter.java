@@ -1,4 +1,4 @@
-package de.avci.joride.jbeans.driverundertakesride;
+package de.avci.joride.utils.converters;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,7 +30,7 @@ import org.primefaces.component.calendar.Calendar;
  *
  */
 
-@FacesConverter("rideDateConverter")
+@FacesConverter("rideDateCalendarConverter")
 public class JRideDateConverter implements Converter {
 	
 	/** Create a java.util.Date object from string representation using the calendars pattern.

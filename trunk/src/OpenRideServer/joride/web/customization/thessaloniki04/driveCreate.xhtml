@@ -260,7 +260,7 @@
 							maxdate="#{jprofile.planningHorizonOffersFormatted}">
 
 							<!--  call converter on this component to align with current date and maxdate  -->
-							<f:converter converterId="rideDateConverter" />
+							<f:converter converterId="rideDateCalendarConverter" />
 							<p:ajax update="startTimeCal" />
 						</p:calendar>
 					</div>
