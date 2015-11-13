@@ -13,8 +13,8 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.component.calendar.Calendar;
 
 /**
- * Generic converter converting the input of a primefaces with maxdate attribute
- * in the way that we use in ORS.
+ * Generic converter converting the input of a primefaces calendar 
+ * with maxdate attribute in the way that we use in ORS.
  * 
  * This can generically be used with the startDate widget for offers,
  * as well as with the 
@@ -31,7 +31,7 @@ import org.primefaces.component.calendar.Calendar;
  */
 
 @FacesConverter("rideDateCalendarConverter")
-public class JRideDateConverter implements Converter {
+public class JRideCalendarDateConverter implements Converter {
 	
 	/** Create a java.util.Date object from string representation using the calendars pattern.
 	 * 

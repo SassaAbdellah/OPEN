@@ -252,17 +252,49 @@
 					<p>
 					<div class="formLabel">#{msgs.rideStarttime}</div>
 					<div class="formInput">
-						<p:calendar value="#{newdriverride.rideStarttime}"
-							id="startTimeCal" locale="#{HTTPUser.getLocale()}"
-							pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+						<!--  In desktop case popup on button -->
+						<p:calendar 
+							value="#{newdriverride.rideStarttime}"
+							id="startTimeCal" 
+							locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" 
+							mode="popup" 
+							navigator="true"
 							timezone="#{HTTPUser.timeZone}"
 							mindate="#{jprofile.currentDatetimeFormatted}"
-							maxdate="#{jprofile.planningHorizonOffersFormatted}">
+							maxdate="#{jprofile.planningHorizonOffersFormatted}"
+							rendered="#{HTTPUser.desktop}"
+							showOn="button"
+							>
 
 							<!--  call converter on this component to align with current date and maxdate  -->
 							<f:converter converterId="rideDateCalendarConverter" />
 							<p:ajax update="startTimeCal" />
 						</p:calendar>
+						
+							<!--  In mobile case no popup, textfield only -->
+						<p:calendar 
+							value="#{newdriverride.rideStarttime}"
+							id="startTimeCalMobile" 
+							locale="#{HTTPUser.getLocale()}"
+							pattern="#{datetime.tsformat}" 
+							mode="popup" 
+							navigator="true"
+							timezone="#{HTTPUser.timeZone}"
+							mindate="#{jprofile.currentDatetimeFormatted}"
+							maxdate="#{jprofile.planningHorizonOffersFormatted}"
+							rendered="#{HTTPUser.mobile}"
+							showOn="no_button"
+							>
+
+							<!--  call converter on this component to align with current date and maxdate  -->
+							<f:converter converterId="rideDateCalendarConverter" />
+							<p:ajax update="startTimeCal" />
+						</p:calendar>
+						
+						
+						
+						
 					</div>
 					</p>
 					<p>

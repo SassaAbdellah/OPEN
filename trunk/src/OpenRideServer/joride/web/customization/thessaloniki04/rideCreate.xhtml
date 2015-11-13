@@ -223,18 +223,50 @@
 
 			<div class="formLabel">#{msgs.rideStarttimeEarliest}</div>
 			<div class="formInput">
-				<p:calendar value="#{newride.starttimeEarliest}"
-					id="starttimeEarliestCal" locale="#{HTTPUser.getLocale()}"
-					pattern="#{datetime.tsformat}" mode="popup" navigator="true"
+				<!-- desktop version of calendar has a popup button -->
+				<p:calendar 
+					value="#{newride.starttimeEarliest}"
+					id="starttimeEarliestCal" 
+					locale="#{HTTPUser.getLocale()}"
+					pattern="#{datetime.tsformat}" 
+					mode="popup" 
+					navigator="true"
 				    timezone="#{HTTPUser.timeZone}"
 					mindate="#{jprofile.currentDatetimeFormatted}"
 					maxdate="#{jprofile.planningHorizonRequestsFormatted}"
-					widgetVar="starttimeEarliestCal">
+					widgetVar="starttimeEarliestCal"
+					showOn="button"
+					rendered="#{HTTPUser.desktop}"
+					>
 
 					<f:converter converterId="rideDateCalendarConverter" />
 					<p:ajax update="starttimeEarliestCal" />
-
+					
 				</p:calendar>
+				
+				<!-- mobile version of calendar has no popup, but frugal textfield only -->
+				<p:calendar 
+					value="#{newride.starttimeEarliest}"
+					id="starttimeEarliestCalMobile" 
+					locale="#{HTTPUser.getLocale()}"
+					pattern="#{datetime.tsformat}" 
+					mode="popup" 
+					navigator="true"
+				    timezone="#{HTTPUser.timeZone}"
+					mindate="#{jprofile.currentDatetimeFormatted}"
+					maxdate="#{jprofile.planningHorizonRequestsFormatted}"
+					widgetVar="starttimeEarliestCal"
+					showOn="no_button"
+					rendered="#{HTTPUser.mobile}"
+					>
+
+					<f:converter converterId="rideDateCalendarConverter" />
+					<p:ajax update="starttimeEarliestCal" />
+					
+				</p:calendar>
+				
+				
+				
 			</div>
 
 			<!-- *********************************************************** -->
