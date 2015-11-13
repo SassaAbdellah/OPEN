@@ -1,4 +1,4 @@
-/*******************************************************************************
+/* ******************************************************************************
  * javascript functions used on ride create page
  * *****************************************************************************
  * 
@@ -27,16 +27,40 @@ function onStarttimeLatestChange(){
  */
 function adjustLatestToEarliest(){
 
-	//get hold of the two calendars
+	//get hold of the two calendars, desktop case
 	calEarliest=PF('starttimeEarliestCal');
 	calLatest=PF('starttimeLatestCal');
+	
+	//get hold of the two calendars, mobile case
+	calEarliestMobile=PF('starttimeEarliestCalMobile');
+	calLatestMobile=PF('starttimeLatestCalMobile');
+	
 
 	// if calendar for latest starttime is before earliestStarttime, then fix this
-	earliestDate=new Date(calEarliest.getDate());
-	latestDate=new Date(calLatest.getDate());
-	// adjust 
-	if(earliestDate.getTime()>latestDate.getTime()){
+	
+	// desktop case
+	var earliestDate;
+	var latestDate;
+	
+	if(calEarliest){ earliestDate=new Date(calEarliest.getDate());}
+	if(calLatest)  { latestDate=new Date(calLatest.getDate());    }
+	
+	// mobile case
+	var earliestDateMobile;
+	var latestDateMobile;
+	
+	if(calEarliestMobile){earliestDateMobile=new Date(calEarliestMobile.getDate());}
+	if(calLatestMobile)  {latestDateMobile=new Date(calLatestMobile.getDate());}
+	
+	
+	// adjust (desktop case)
+	
+	if((undefined != earliestDate) && (earliestDate.getTime()>latestDate.getTime())){
 	calLatest.setDate(earliestDate);
+	}
+	// adjust (mobile case)
+	if((undefined != earliestDateMobile) && (earliestDateMobile.getTime()>latestDateMobile.getTime())){
+	calLatestMobile.setDate(earliestDateMobile);
 	}
 }
 	
