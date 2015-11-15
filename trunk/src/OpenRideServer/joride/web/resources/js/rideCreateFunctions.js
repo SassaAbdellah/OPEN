@@ -28,12 +28,12 @@ function onStarttimeLatestChange(){
 function adjustLatestToEarliest(){
 
 	//get hold of the two calendars, desktop case
-	calEarliest=PF('starttimeEarliestCal');
-	calLatest=PF('starttimeLatestCal');
+	var calEarliest=PF('starttimeEarliestCal');
+	var calLatest=PF('starttimeLatestCal');
 	
 	//get hold of the two calendars, mobile case
-	calEarliestMobile=PF('starttimeEarliestCalMobile');
-	calLatestMobile=PF('starttimeLatestCalMobile');
+	var calEarliestMobile=PF('starttimeEarliestCalMobile');
+	var calLatestMobile=PF('starttimeLatestCalMobile');
 	
 
 	// if calendar for latest starttime is before earliestStarttime, then fix this
