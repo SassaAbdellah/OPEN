@@ -257,7 +257,7 @@
 
 							</p:calendar>
 							
-							<!-- Mobile version of calendar, no popups, frugal textfield only  -->
+							<!-- Mobile version of calendar, no popups, frugal textfield only, no ajax, no "onChange" calls  -->
 							<p:calendar value="#{newride.starttimeEarliest}"
 								id="starttimeEarliestCalMobile" 
 								locale="#{HTTPUser.getLocale()}"
@@ -267,7 +267,6 @@
 								mindate="#{jprofile.currentDatetimeFormatted}"
 								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
 								widgetVar="starttimeEarliestCal"
-								onchange="onStartimeEarliestChange()"
 								rendered="#{HTTPUser.mobile}"
 								showOn="no_button"
 								>
@@ -295,9 +294,9 @@
 								showOn="button"
 								>
 								<f:converter converterId="rideDateCalendarConverter" />
-								<p:ajax update="starttimeLatestCal" />
+								<!--  p:ajax update="starttimeLatestCal" / -->
 							</p:calendar>
-							<!-- Mobile version of calendar, no popups, frugal textfield only  -->
+							<!-- Mobile version of calendar, no popups, frugal textfield only, no ajax, no onChange() calls  -->
 							
 							<p:calendar value="#{newride.starttimeLatest}"
 								id="starttimeLatestCalMobile" 
@@ -309,12 +308,11 @@
 								mindate="#{jprofile.currentDatetimeFormatted}"
 								maxdate="#{jprofile.planningHorizonRequestsFormatted}"
 								widgetVar="starttimeLatestCal"
-								onchange="onStarttimeLatestChange()"
 								rendered="#{HTTPUser.mobile}"
 								showOn="no_button"
 								>
 								<f:converter converterId="rideDateCalendarConverter" />
-								<p:ajax update="starttimeLatestCalMobile"  />
+								<!-- p:ajax update="starttimeLatestCalMobile"  / -->
 							</p:calendar>
 							
 							
