@@ -77,8 +77,14 @@
 
 			<p:toolbar>
 				<f:facet name="left">
-					<span class="mobile-toolbar-button"> <p:commandButton
-							id="dynaButton" type="button" icon="ui-icon-bars" />
+					<span   class="mobile-toolbar-button"> 
+					
+						<p:commandButton
+							id="dynaButton" 
+							type="button" 
+							icon="ui-icon-bars" 
+							value="#{msgs.nav1_navigation}"
+							/>
 					</span>
 				</f:facet>
 
@@ -92,7 +98,7 @@
 			</p:toolbar>
 
 
-			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="right"
+			<p:overlayPanel for="dynaButton" widgetVar="pnl-basic" at="left"
 				showEffect="overlay">
 
 
